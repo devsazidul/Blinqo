@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
@@ -40,5 +39,3 @@ class StorageService {
   // Getter for token
   static String? get token => _preferences?.getString(_tokenKey);
 }
-
-
