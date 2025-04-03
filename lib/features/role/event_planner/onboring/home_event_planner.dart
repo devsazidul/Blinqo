@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../core/utils/constants/image_path.dart';
-import '../../profile_setup/profile_setup.dart';
+import '../../../../core/utils/constants/image_path.dart';
+import '../profile_setup/profile_setup.dart';
 
 class HomeEventPlanner extends StatelessWidget {
   const HomeEventPlanner({super.key});
@@ -23,13 +23,13 @@ class HomeEventPlanner extends StatelessWidget {
           ),
 
           Positioned(
-            bottom: 120.w,
+            bottom: 135.w,
             left: 20.w,
             right: 20.w,
             child: Text(
-              "Easily plan and manage\n your perfect even!t",
+              "Easily plan and manage\n your perfect even!",
               style: getTextStyle(
-                fontSize: 24.sp,
+                fontSize: 22.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.primary,
               ),
@@ -38,7 +38,7 @@ class HomeEventPlanner extends StatelessWidget {
           ),
 
           Positioned(
-            bottom: 40.w,
+            bottom: 48.w,
             left: 20.w,
             right: 20.w,
             child: GestureDetector(
@@ -46,7 +46,7 @@ class HomeEventPlanner extends StatelessWidget {
                 Get.to(ProfileSetup());
               },
               child: Container(
-                height: 48.h,
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                 decoration: BoxDecoration(
                   color: AppColors.buttonColor,
                   borderRadius: BorderRadius.circular(12.r),
