@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'core/bindings/controller_binder.dart';
+import 'core/utils/theme/custom_themes/text_theme.dart';
 import 'core/utils/theme/theme.dart';
 
 class Blinqo extends StatelessWidget {
@@ -20,7 +21,11 @@ class Blinqo extends StatelessWidget {
           initialRoute: AppRoute.getsplashoScreen(),
           getPages: AppRoute.routes,
           initialBinding: ControllerBinder(),
-          themeMode: ThemeMode.system,
+
+          // Use Obx to observe the themeMode and rebuild the app when the theme changes
+          themeMode: Get.find<ThemeController>().themeMode.value,
+
+          // You can specify both themes here
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
         );

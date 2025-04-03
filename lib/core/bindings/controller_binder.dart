@@ -1,5 +1,3 @@
-
-
 import 'package:get/get.dart';
 
 class ControllerBinder extends Bindings {
@@ -9,6 +7,5 @@ class ControllerBinder extends Bindings {
     //       () => LogInController(),
     //   fenix: true,
     // );
-
   }
 }
