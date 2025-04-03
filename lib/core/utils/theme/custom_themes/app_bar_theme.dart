@@ -18,7 +18,8 @@ class App_BarTheme {
     ),
     actionsIconTheme: IconThemeData(color: Colors.black),
     centerTitle: true,
-    systemOverlayStyle: SystemUiOverlayStyle.dark, // Control status bar color and icons
+    systemOverlayStyle:
+        SystemUiOverlayStyle.dark, // Control status bar color and icons
   );
 
   static final AppBarTheme darkAppBarTheme = AppBarTheme(
@@ -34,6 +35,7 @@ class App_BarTheme {
     ),
     actionsIconTheme: const IconThemeData(color: Colors.white),
     centerTitle: true,
-    systemOverlayStyle: SystemUiOverlayStyle.light, // Control status bar color and icons
+    systemOverlayStyle:
+        SystemUiOverlayStyle.light, // Control status bar color and icons
   );
 }

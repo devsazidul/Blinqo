@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../core/utils/theme/custom_themes/text_theme.dart';
+import '../../../../core/utils/theme/custom_themes/text_theme.dart';
 
 class ProfileSetup extends StatelessWidget {
   const ProfileSetup({super.key});
@@ -65,7 +65,7 @@ class ProfileSetup extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       // Implement your image picker or edit functionality here
-                      print('Edit button tapped!');
+                      debugPrint('Edit button tapped!');
                     },
                     child: Image.asset(
                       "assets/icons/edit.png",
@@ -104,7 +104,7 @@ class ProfileSetup extends StatelessWidget {
               child: PopupMenuButton<String>(
                 onSelected: (String value) {
                   // Handle the selection of gender
-                  print('Selected Gender: $value');
+                  debugPrint('Selected Gender: $value');
                 },
                 itemBuilder: (BuildContext context) {
                   return ['Male', 'Female'].map((String gender) {
@@ -125,7 +125,7 @@ class ProfileSetup extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Implement your save functionality here
-                print('Save button tapped!');
+                debugPrint('Save button tapped!');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:

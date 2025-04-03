@@ -1,4 +1,4 @@
-import 'package:blinqo/features/splasho_screen/screen/home_event_planner.dart';
+import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:get/get.dart';
 

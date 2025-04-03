@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/image_path.dart';
+import '../profile_setup/profile_setup.dart';
 
 class HomeEventPlanner extends StatelessWidget {
   const HomeEventPlanner({super.key});
