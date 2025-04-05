@@ -50,6 +50,9 @@ dependencies:
   json_annotation: ^4.9.0
   build_runner: ^2.4.13
   json_serializable: ^6.9.0
+  # image picker
+  image_picker: ^1.1.2
+  permission_handler: ^11.4.0
 
 dev_dependencies:
   flutter_test:

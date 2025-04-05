@@ -19,7 +19,6 @@ class Blinqo extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           initialRoute: AppRoute.getsplashoScreen(),
-          // initialRoute: AppRoute.getroleScreen(),
           getPages: AppRoute.routes,
           initialBinding: ControllerBinder(),
 
