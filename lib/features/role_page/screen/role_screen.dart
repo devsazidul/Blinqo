@@ -14,7 +14,6 @@ class RoleScreen extends StatelessWidget {
     final RoleController roleController = Get.put(RoleController());
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -43,7 +42,6 @@ class RoleScreen extends StatelessWidget {
               SizedBox(height: 20),
               Column(
                 children: [
-                  
                   RoleCustomContainer(
                     imagePath: IconPath.frame0,
                     title: "Event Planner 🎉",
