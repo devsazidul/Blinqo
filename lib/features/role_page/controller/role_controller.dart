@@ -1,5 +1,5 @@
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
-import 'package:blinqo/features/role/service_provider/onbording/screen/onboring_screen.dart';
+import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
 import 'package:get/get.dart';
 
 class RoleController extends GetxController {
@@ -14,10 +14,10 @@ class RoleController extends GetxController {
         Get.to(() => HomeEventPlanner());
         break;
       case 1:
-        Get.to(() => OnboringScreen());
+        Get.to(() => OnbordingScreen());
         break;
       case 2:
-        Get.to(() => OnboringScreen());
+        Get.to(() => OnbordingScreen());
         break;
       default:
         Get.snackbar(

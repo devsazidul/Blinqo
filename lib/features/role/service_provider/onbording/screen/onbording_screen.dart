@@ -1,31 +1,31 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
+import 'package:blinqo/features/role/service_provider/profile_page/screeen/profile_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OnboringScreen extends StatelessWidget {
+class OnbordingScreen extends StatelessWidget {
   final PageController pageController = PageController();
   final PageControllerController controller = Get.put(
     PageControllerController(),
   );
-  OnboringScreen({super.key});
+  OnbordingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFD9D9D9),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color(0x00000000), Color(0xFF031A30)],
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFD9D9D9),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0x00000000), Color(0xFF031A30)],
           ),
+        ),
+        child: SafeArea(
           child: Stack(
             children: [
               PageView(
@@ -44,10 +44,10 @@ class OnboringScreen extends StatelessWidget {
                 },
                 children: [Page1(), Page2(), Page3()],
               ),
-
+              SizedBox(height: 40),
               Positioned(
-                bottom: 120,
-                left: MediaQuery.of(context).size.width * 0.35,
+                bottom: 100,
+                left: MediaQuery.of(context).size.width * 0.40,
                 child: Obx(() {
                   return Row(
                     children: List.generate(
@@ -55,8 +55,8 @@ class OnboringScreen extends StatelessWidget {
                       (index) => AnimatedContainer(
                         duration: Duration(milliseconds: 300),
                         margin: EdgeInsets.symmetric(horizontal: 5),
-                        height: 10,
-                        width: controller.currentPage.value == index ? 22 : 8,
+                        height: 8,
+                        width: controller.currentPage.value == index ? 25 : 8,
                         decoration: BoxDecoration(
                           color:
                               controller.currentPage.value == index
@@ -70,7 +70,7 @@ class OnboringScreen extends StatelessWidget {
                 }),
               ),
               Positioned(
-                bottom: 48,
+                bottom: 32,
                 left: 20,
                 right: 20,
                 child: GestureDetector(
@@ -81,7 +81,7 @@ class OnboringScreen extends StatelessWidget {
                         curve: Curves.easeInOut,
                       );
                     } else {
-                      return null;
+                      Get.to(ProfileScreen());
                     }
                   },
                   child: Container(
@@ -129,29 +129,35 @@ class Page1 extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(ImagePath.serviceprovider01, width: 236, height: 485),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Get noticed by local event organizers.',
-                style: getTextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Showcase your services and reach clients looking for your expertise.',
-                textAlign: TextAlign.center,
-                style: getTextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+          Text(
+            'Get noticed by local\n event organizers.',
+            style: getTextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 16),
+
+          Text(
+            'Showcase your services and reach clients',
+            style: getTextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 10),
+          Text(
+            'looking for your expertise.',
+            style: getTextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -164,30 +170,43 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(ImagePath.serviceprovider02, width: 236, height: 485),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Secure bookings with easy payments.',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          Image.asset(ImagePath.serviceprovider02, width: 236, height: 485),
+          Text(
+            'Secure bookings with easy payments.',
+            style: getTextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
-            SizedBox(height: 10),
-            Text(
-              'Receive direct booking requests and manage payments seamlessly.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 16),
+
+          Text(
+            'Receive direct booking requests and manage ',
+            style: getTextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
             ),
-          ],
-        ),
-      ],
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 10),
+          Text(
+            'payments seamlessly.',
+            style: getTextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -197,30 +216,43 @@ class Page3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(ImagePath.serviceprovider03, width: 236, height: 485),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Secure bookings with easy payments.',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          Image.asset(ImagePath.serviceprovider03, width: 236, height: 485),
+          Text(
+            'Build your reputation with verified reviews.',
+            style: getTextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
-            SizedBox(height: 10),
-            Text(
-              'Receive direct booking requests and manage payments seamlessly.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 16),
+
+          Text(
+            'Deliver exceptional service and grow your ',
+            style: getTextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
             ),
-          ],
-        ),
-      ],
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 10),
+          Text(
+            'credibility with real client feedback',
+            style: getTextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
