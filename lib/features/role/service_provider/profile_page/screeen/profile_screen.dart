@@ -78,6 +78,15 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 );
               }),
+              SizedBox(height: 20),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: "Name",
+                  hintText: "Enter your name",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),

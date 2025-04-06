@@ -10,6 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 class ProfileController extends GetxController {
   var profileImage = Rx<File?>(null);
 
+  // Function to request permissions and pick an image
   Future<void> pickImage() async {
     await requestPermissions();
 
