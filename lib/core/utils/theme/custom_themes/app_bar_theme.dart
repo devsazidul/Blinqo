@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// ignore: camel_case_types
 class App_BarTheme {
   App_BarTheme._();
 

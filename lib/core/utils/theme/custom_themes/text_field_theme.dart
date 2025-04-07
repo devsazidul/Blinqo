@@ -21,6 +21,7 @@ class AppTextFormFieldTheme {
       color: Colors.red,
     ),
     floatingLabelStyle: TextStyle(
+      // ignore: deprecated_member_use
       color: Colors.black.withOpacity(0.8),
     ),
     border: const OutlineInputBorder(
