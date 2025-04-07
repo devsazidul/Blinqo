@@ -193,63 +193,192 @@ class ProfileScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCircleAvater(
-                      imagePath: IconPath.corporateEvents,
-                      text: "Corporate",
-                    ),
-                    SizedBox(height: 8),
-                    CustomCircleAvater(
-                      imagePath: IconPath.wedding,
-                      text: "Weddings",
-                    ),
-                    SizedBox(height: 8),
-                    CustomCircleAvater(
-                      imagePath: IconPath.musidFastivals,
-                      text: "Music Festivals",
-                    ),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.corporateEvents,
+                        text: "Corporate",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Corporate",
+                        ),
+                      );
+                    }),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.wedding,
+                        text: "Weddings",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Weddings",
+                        ),
+                      );
+                    }),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.musidFastivals,
+                        text: "Music Festivals",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Music Festivals",
+                        ),
+                      );
+                    }),
                   ],
                 ),
                 SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCircleAvater(
-                      imagePath: IconPath.corporateEvents,
-                      text: "Corporate",
-                    ),
-                    SizedBox(height: 8),
-                    CustomCircleAvater(
-                      imagePath: IconPath.wedding,
-                      text: "Weddings",
-                    ),
-                    SizedBox(height: 8),
-                    CustomCircleAvater(
-                      imagePath: IconPath.musidFastivals,
-                      text: "Music Festivals",
-                    ),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.exhibition,
+                        text: "Exhibitions",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Exhibitions",
+                        ),
+                      );
+                    }),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.concert,
+                        text: "Concerts",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Concerts",
+                        ),
+                      );
+                    }),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.charityEvent,
+                        text: "Charity Events",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Charity Events",
+                        ),
+                      );
+                    }),
                   ],
                 ),
                 SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCircleAvater(
-                      imagePath: IconPath.corporateEvents,
-                      text: "Corporate",
-                    ),
-                    SizedBox(height: 8),
-                    CustomCircleAvater(
-                      imagePath: IconPath.wedding,
-                      text: "Weddings",
-                    ),
-                    SizedBox(height: 8),
-                    CustomCircleAvater(
-                      imagePath: IconPath.musidFastivals,
-                      text: "Music Festivals",
-                    ),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.privateParties,
+                        text: "Private Parties",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Private Parties",
+                        ),
+                      );
+                    }),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.productLaunches,
+                        text: "Product Launches",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Product Launches",
+                        ),
+                      );
+                    }),
+                    Obx(() {
+                      return CustomCircleAvater(
+                        imagePath: IconPath.tradeShow,
+                        text: "Trade Shows",
+                        isSelected: profileController.selectedEvents.contains(
+                          "Trade Shows",
+                        ),
+                      );
+                    }),
                   ],
                 ),
                 SizedBox(height: 20),
+                // Container(
+                //   width: double.infinity,
+                //   height: 61,
+                //   decoration: BoxDecoration(
+                //     color: Colors.white,
+                //     borderRadius: BorderRadius.circular(8),
+                //     border: Border.all(color: AppColors.borderColor, width: 1),
+                //   ),
+                //   child: Padding(
+                //     padding: EdgeInsets.only(left: 8, bottom: 9.5),
+                //     child: Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         Text(
+                //           'Description',
+                //           style: getTextStyle(fontSize: 12, color: Colors.grey),
+                //         ),
+                //         SizedBox(height: 10),
+                //         TextField(
+                //           decoration: InputDecoration(
+                //             hintText: "Enter your description",
+                //             border: InputBorder.none,
+                //             hintStyle: getTextStyle(
+                //               fontSize: 14,
+                //               color: Colors.grey,
+                //             ),
+                //           ),
+
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Description",
+                    labelStyle: getTextStyle(
+                      fontSize: 16,
+                      color: AppColors.borderColor,
+                    ),
+                    hintText: "I am a ............",
+                    hintStyle: getTextStyle(
+                      fontSize: 14,
+                      color: AppColors.textColor,
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Location",
+                    labelStyle: getTextStyle(
+                      fontSize: 16,
+                      color: AppColors.borderColor,
+                    ),
+                    hintText: "New York City",
+                    hintStyle: getTextStyle(
+                      fontSize: 14,
+                      color: AppColors.textColor,
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "y",
+                    labelStyle: getTextStyle(
+                      fontSize: 16,
+                      color: AppColors.borderColor,
+                    ),
+                    hintText: "New York City",
+                    hintStyle: getTextStyle(
+                      fontSize: 14,
+                      color: AppColors.textColor,
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

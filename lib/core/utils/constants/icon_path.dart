@@ -28,4 +28,5 @@ class IconPath {
   static const String chatdeactive = 'assets/icons/chatdeactive.png';
   static const String profileactive = 'assets/icons/profileactive.png';
   static const String profiledeactive = 'assets/icons/profiledeactive.png';
+  static const String selected = 'assets/icons/selected.png';
 }
