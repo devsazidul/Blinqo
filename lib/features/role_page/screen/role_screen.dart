@@ -43,7 +43,6 @@ class RoleScreen extends StatelessWidget {
               SizedBox(height: 20),
               Column(
                 children: [
-                  
                   RoleCustomContainer(
                     imagePath: IconPath.frame0,
                     title: "Event Planner 🎉",
