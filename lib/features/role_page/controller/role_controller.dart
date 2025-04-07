@@ -1,5 +1,6 @@
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
+import 'package:blinqo/features/role/venue_owner/onboarding_screen/screen/venue_onboarding_screen.dart';
 import 'package:get/get.dart';
 
 class RoleController extends GetxController {
@@ -14,7 +15,7 @@ class RoleController extends GetxController {
         Get.to(() => HomeEventPlanner());
         break;
       case 1:
-        Get.to(() => OnbordingScreen());
+        Get.to(() => VenueOnboardingScreen());
         break;
       case 2:
         Get.to(() => OnbordingScreen());
