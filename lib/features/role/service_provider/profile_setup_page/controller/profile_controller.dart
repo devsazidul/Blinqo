@@ -10,6 +10,20 @@ import 'package:permission_handler/permission_handler.dart';
 class ProfileController extends GetxController {
   var selectedRoles = "Photographer".obs;
   var roles = ["Photographer", "Videographer", "DJ Brand", "Catering"];
+  var selectedEvents = <String>[].obs;
+  
+
+  var eventsRoles = [
+    "Corporate",
+    "Weddings",
+    "Music Festivals",
+    "Exhibitions",
+    "Concerts",
+    "Charity Events",
+    "Private Parties",
+    "Product Launches",
+    "Trade Shows"
+  ];
 
   var profileImage = Rx<File?>(null);
 
@@ -44,7 +58,7 @@ class ProfileController extends GetxController {
     }
   }
 
-  // Show the bottom sheet to pick an image source (camera or gallery)
+ 
   Future<ImageSource?> showPickrOption() async {
     return await Get.bottomSheet(
       Container(
@@ -87,5 +101,12 @@ class ProfileController extends GetxController {
   // selected roles
   void updateRoles(String newRole) {
     selectedRoles.value = newRole;
+  }
+  void toggleEventSelection(String event) {
+    if (selectedEvents.contains(event)) {
+      selectedEvents.remove(event);
+    } else {
+      selectedEvents.add(event);  
+    }
   }
 }
