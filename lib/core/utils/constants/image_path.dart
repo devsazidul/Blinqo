@@ -7,4 +7,6 @@ class ImagePath {
   static const String venueonboarding01 = 'assets/images/venue_onboarding1.png';
   static const String venueonboarding02 = 'assets/images/venue_onboarding2.png';
   static const String venueonboarding03 = 'assets/images/venue_onboarding3.png';
-}
+static const String  profile= 'assets/images/profile.png';
+
+  }

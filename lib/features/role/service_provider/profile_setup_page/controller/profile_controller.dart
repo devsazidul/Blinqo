@@ -8,6 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ProfileController extends GetxController {
+  var selectedRoles = "Photographer".obs;
+  var roles = ["Photographer", "Videographer", "DJ Brand", "Catering"];
+
   var profileImage = Rx<File?>(null);
 
   // Function to request permissions and pick an image
@@ -79,5 +82,10 @@ class ProfileController extends GetxController {
         ),
       ),
     );
+  }
+
+  // selected roles
+  void updateRoles(String newRole) {
+    selectedRoles.value = newRole;
   }
 }

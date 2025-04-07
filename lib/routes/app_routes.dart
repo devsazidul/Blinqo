@@ -1,6 +1,7 @@
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
-import 'package:blinqo/features/role/service_provider/profile_page/screeen/profile_screen.dart';
+import 'package:blinqo/features/role/service_provider/service_home_page/screen/home_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_f_otp_send_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
@@ -17,6 +18,8 @@ class AppRoute {
   static String roleScreen = "/roleScreen";
   static String profileScreen = "/profileScreen";
   static String onbordingScreen = "/onbordingScreen";
+  static String bottomNavBar = "/bottomNavBar";
+  static String homePage = "/homePage";
   static String vloginscreen = "/vloginscreen";
   static String vsignupscreen = "/vsignupscreen";
   static String vforgetpassword = "/Vforgetpassword";
@@ -29,6 +32,8 @@ class AppRoute {
   static String getroleScreen() => roleScreen;
   static String getprofileScreen() => profileScreen;
   static String getonbordingScreen() => onbordingScreen;
+  static String getbottomNavBar() => bottomNavBar;
+  static String gethomePage() => homePage;
   static String getvloginscreen() => vloginscreen;
   static String getvsignupscreen() => vsignupscreen;
   static String getvforgetpassword() => vforgetpassword;
@@ -40,14 +45,15 @@ class AppRoute {
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
     GetPage(name: homeEventPlanner, page: () => const HomeEventPlanner()),
     GetPage(name: roleScreen, page: () => const RoleScreen()),
-    GetPage(name: profileScreen, page: () => ProfileScreen()),
+    // GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: onbordingScreen, page: () => OnbordingScreen()),
+    GetPage(name: bottomNavBar, page: () => BottomNavBar()),
+    GetPage(name: homePage, page: () => HomePage()),
     GetPage(name: vloginscreen, page: () => VLoginScreen()),
     GetPage(name: vsignupscreen, page: () => VSignupScreen()),
     GetPage(name: vforgetpassword, page: () => VForgetPassword()),
     GetPage(name: vchangepassword, page: () => VChangePassword()),
     GetPage(name: votpsendscreen, page: () => VOptSendScreen()),
     GetPage(name: vfotpsendscreen, page: () => VFOtpSendScreen()),
-
   ];
 }
