@@ -31,6 +31,7 @@ class ProfileController extends GetxController {
   Future<void> pickImage() async {
     await requestPermissions();
 
+    // ignore: no_leading_underscores_for_local_identifiers
     final ImagePicker _picker = ImagePicker();
 
     final ImageSource? source = await showPickrOption();
