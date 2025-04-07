@@ -15,7 +15,7 @@ class RoleController extends GetxController {
         Get.to(() => HomeEventPlanner());
         break;
       case 1:
-        Get.to(() => VenueOnboardingScreen());
+        Get.to(() => VOnboardingScreen());
         break;
       case 2:
         Get.to(() => OnbordingScreen());

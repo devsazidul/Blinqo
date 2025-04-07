@@ -6,12 +6,12 @@ import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class VenueOnboardingScreen extends StatelessWidget {
+class VOnboardingScreen extends StatelessWidget {
   final PageController pageController = PageController();
   final PageControllerController controller = Get.put(
     PageControllerController(),
   );
-  VenueOnboardingScreen({super.key});
+  VOnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
