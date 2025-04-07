@@ -9,7 +9,8 @@ class VFOtpSendScreen extends StatelessWidget {
   VFOtpSendScreen({super.key});
 
   // Use Get.find() to get the existing instance of the controller
-  final VForgetPasswordController forgetPasswordController = Get.find<VForgetPasswordController>();
+  final VForgetPasswordController forgetPasswordController =
+      Get.find<VForgetPasswordController>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +36,16 @@ class VFOtpSendScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 32),
                 // Pass the pinController directly to the widget
-                CustomPinField(controller: forgetPasswordController.pinController),
+                CustomPinField(
+                  controller: forgetPasswordController.pinController,
+                ),
                 SizedBox(height: 20),
                 Text.rich(
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Verification code has been sent to the phone number Your ',
+                        text:
+                            'Verification code has been sent to the phone number Your ',
                         style: getTextStyle(
                           color: Color(0xFF333333),
                           fontSize: 16,
@@ -78,21 +82,25 @@ class VFOtpSendScreen extends StatelessWidget {
                 Obx(
                   () => CustomButton(
                     title: 'Continue',
-                    textcolor: forgetPasswordController.isFormValid2.value
-                        ? Colors.white
-                        : Color(0xFF7EE07E),
-                    onPress: forgetPasswordController.isFormValid2.value
-                        ? () {
-                            // Pass the OTP from the pinController to verifyOtp
-                            // forgetPasswordController.vefyOtp();
-                          }
-                        : null,
-                    backgroundColor: forgetPasswordController.isFormValid2.value
-                        ? Color(0xFF00BA0B)
-                        : Color(0xFFE6F8E7),
-                    borderColor: forgetPasswordController.isFormValid2.value
-                        ? Color(0xFF00BA0B)
-                        : Color(0xFFE6F8E7),
+                    textcolor:
+                        forgetPasswordController.isFormValid2.value
+                            ? Colors.white
+                            : Color(0xFF7EE07E),
+                    onPress:
+                        forgetPasswordController.isFormValid2.value
+                            ? () {
+                              // Pass the OTP from the pinController to verifyOtp
+                              // forgetPasswordController.vefyOtp();
+                            }
+                            : null,
+                    backgroundColor:
+                        forgetPasswordController.isFormValid2.value
+                            ? Color(0xFF00BA0B)
+                            : Color(0xFFE6F8E7),
+                    borderColor:
+                        forgetPasswordController.isFormValid2.value
+                            ? Color(0xFF00BA0B)
+                            : Color(0xFFE6F8E7),
                   ),
                 ),
               ],
@@ -103,4 +111,3 @@ class VFOtpSendScreen extends StatelessWidget {
     );
   }
 }
-
