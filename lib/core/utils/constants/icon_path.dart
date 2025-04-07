@@ -8,4 +8,24 @@ class IconPath {
   static const String splashframe = 'assets/icons/splashframe.png';
   static const String profile01 = 'assets/icons/profile01.png';
   static const String profileedit = 'assets/icons/profileedit.png';
+  static const String arrowdown = 'assets/icons/arrowdown.png';
+  static const String corporateEvents = 'assets/icons/corporateEvents.png';
+  static const String wedding = 'assets/icons/wedding.png';
+  static const String musidFastivals = 'assets/icons/musidFastivals.png';
+  static const String exhibition = 'assets/icons/exhibition.png';
+  static const String concert = 'assets/icons/concert.png';
+  static const String charityEvent = 'assets/icons/charityEvent.png';
+  static const String privateParties = 'assets/icons/privateParties.png';
+  static const String productLaunches = 'assets/icons/productLaunches.png';
+  static const String tradeShow = 'assets/icons/tradeShow.png';
+  static const String homeactive = 'assets/icons/homeactive.png';
+  static const String homedeactive = 'assets/icons/homedeactive.png';
+  static const String earningsactive = 'assets/icons/earningsactive.png';
+  static const String earningsdeactive = 'assets/icons/earningsdeactive.png';
+  static const String bookingactive = 'assets/icons/bookingactive.png';
+  static const String bookingdeactive = 'assets/icons/bookingdeactive.png';
+  static const String chatactive = 'assets/icons/chatactive.png';
+  static const String chatdeactive = 'assets/icons/chatdeactive.png';
+  static const String profileactive = 'assets/icons/profileactive.png';
+  static const String profiledeactive = 'assets/icons/profiledeactive.png';
 }
