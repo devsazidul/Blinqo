@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class VForgetPassword extends StatelessWidget {
   VForgetPassword({super.key});
   final ValueNotifier<int> focusedButtonIndex = ValueNotifier<int>(0);
-  
+
   final VForgetPasswordController forgetPasswordController = Get.put(
     VForgetPasswordController(),
   );
@@ -56,7 +56,7 @@ class VForgetPassword extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 18), 
+            SizedBox(height: 18),
             Container(
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
               height: 44,
@@ -162,7 +162,8 @@ class VForgetPassword extends StatelessWidget {
                             ),
                             SizedBox(height: 8),
                             AuthCustomTextField(
-                              controller: forgetPasswordController.emailController,
+                              controller:
+                                  forgetPasswordController.emailController,
                               text: "Enter your Email",
                             ),
                           ],
@@ -188,7 +189,8 @@ class VForgetPassword extends StatelessWidget {
                             ),
                             SizedBox(height: 8),
                             AuthCustomTextField(
-                              controller: forgetPasswordController.phoneController,
+                              controller:
+                                  forgetPasswordController.phoneController,
                               text: "Enter your phone number",
                             ),
                           ],
@@ -222,9 +224,9 @@ class VForgetPassword extends StatelessWidget {
                     //   forgetPasswordController.sendOtp(emailController.text);
                     // }
                     Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => VOptSendScreen()),
-            );
+                      context,
+                      MaterialPageRoute(builder: (context) => VOptSendScreen()),
+                    );
                   },
                   child: Text("Send", style: TextStyle(color: Colors.white)),
                 ),
