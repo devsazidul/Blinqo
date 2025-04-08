@@ -20,7 +20,7 @@ class BottomNavBar extends StatelessWidget {
       EarningPage(),
       EarningPage(),
       ChatPage(),
-      ProfilePage(),
+      SpProfilePage(),
     ];
 
     return Scaffold(
