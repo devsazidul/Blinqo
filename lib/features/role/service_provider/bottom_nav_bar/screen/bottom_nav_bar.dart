@@ -2,7 +2,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/chat_page.dart';
 import 'package:blinqo/features/role/service_provider/servide_earning_page/screen/earning_page.dart';
-import 'package:blinqo/features/role/service_provider/servide_profile_page/screen/profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
