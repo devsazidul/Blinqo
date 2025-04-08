@@ -1,13 +1,13 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_setup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VenueProfileScreen extends StatelessWidget {
   VenueProfileScreen({super.key});
-  final ProfileController profileController = Get.put(ProfileController());
+  final ProfileSetupController profileController = Get.put(ProfileSetupController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
