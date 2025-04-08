@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,7 @@ class OnbordingScreen extends StatelessWidget {
                         curve: Curves.easeInOut,
                       );
                     } else {
-                      Get.to(BottomNavBar());
+                      Get.to(SpLoginScreen());
                     }
                   },
                   child: Container(
@@ -124,11 +125,19 @@ class Page1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double imagehight = (screenHeight < 700) ? 300 : 485;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
-          Image.asset(ImagePath.serviceprovider01, width: 236, height: 485),
+          // width: 236, height: 485
+          Image.asset(
+            ImagePath.serviceprovider01,
+            width: 236,
+            height: imagehight,
+          ),
           Text(
             'Get noticed by local\n event organizers.',
             style: getTextStyle(
@@ -170,11 +179,17 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double imagehight = (screenHeight < 700) ? 300 : 485;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
-          Image.asset(ImagePath.serviceprovider02, width: 236, height: 485),
+          Image.asset(
+            ImagePath.serviceprovider02,
+            width: 236,
+            height: imagehight,
+          ),
           Text(
             'Secure bookings with easy payments.',
             style: getTextStyle(
@@ -216,11 +231,17 @@ class Page3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double imagehight = (screenHeight < 700) ? 300 : 485;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
-          Image.asset(ImagePath.serviceprovider03, width: 236, height: 485),
+          Image.asset(
+            ImagePath.serviceprovider03,
+            width: 236,
+            height: imagehight,
+          ),
           Text(
             'Build your reputation with verified reviews.',
             style: getTextStyle(

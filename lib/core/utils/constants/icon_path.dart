@@ -31,6 +31,9 @@ class IconPath {
   static const String profileactive = 'assets/icons/profileactive.png';
   static const String profiledeactive = 'assets/icons/profiledeactive.png';
   static const String selected = 'assets/icons/selected.png';
+  static const String backup = 'assets/icons/backup.png';
+  static const String mylocation = 'assets/icons/mylocation.png';
+  static const String verifiedlogo = 'assets/icons/verifiedlogo.png';
   static const String moreVert = 'assets/icons/more_vert.png';
   static const String dartMood = 'assets/icons/dark_mood.png';
   static const String language = 'assets/icons/language.png';

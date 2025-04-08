@@ -1,7 +1,6 @@
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_screen.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,7 +11,7 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Get.to(ProfileScreen());
+            Get.to(ProfileSetupScreen());
           },
           child: Text("Profile Setup page"),
         ),
