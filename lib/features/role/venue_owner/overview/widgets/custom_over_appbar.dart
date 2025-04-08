@@ -5,7 +5,8 @@ class ProfileRow extends StatelessWidget {
   final String name;
   final String role;
 
-  ProfileRow({
+  const ProfileRow({
+    super.key,
     required this.imagePath,
     required this.name,
     required this.role,
@@ -74,10 +75,7 @@ class ProfileRow extends StatelessWidget {
           ),
         ),
         SizedBox(width: 10),
-        InkWell(
-          onTap: () {},
-          child: Icon(Icons.notifications, size: 30),
-        ),
+        InkWell(onTap: () {}, child: Icon(Icons.notifications, size: 30)),
       ],
     );
   }

@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EHomeScreen extends StatelessWidget {
   const EHomeScreen({super.key});
@@ -330,7 +329,7 @@ class EHomeScreen extends StatelessWidget {
 
   Widget _buildVenueList(context) {
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height*0.39,
+      height: MediaQuery.sizeOf(context).height * 0.39,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: 5,
@@ -346,7 +345,6 @@ class EHomeScreen extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double cardWidth = screenWidth * 0.7;
     return Container(
-
       width: cardWidth,
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(

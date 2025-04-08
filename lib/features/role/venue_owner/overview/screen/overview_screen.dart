@@ -89,7 +89,7 @@ class OverviewScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 32),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     height: 232, // 214/1000 = 0.214
                     width: 232, // 184/1000 = 0.184
                     child: Image.asset(ImagePath.overviewbox),
@@ -139,7 +139,7 @@ class OverviewScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     height: 140,
                     width: 188,
                     child: Image.asset(ImagePath.reviewpic),
