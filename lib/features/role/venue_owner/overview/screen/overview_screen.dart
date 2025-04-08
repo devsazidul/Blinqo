@@ -1,61 +1,23 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
 import 'package:flutter/material.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    
+    
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(padding: const EdgeInsets.all(20.0), child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  ClipOval(
-                    child: Image.asset(ImagePath.profile,width: 40,height: 40,fit: BoxFit.cover,),
-                  ),
-                  SizedBox(width:8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Dianne Russell",style: getTextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color:Color(0xff333333)
 
-                      ),),
-                      SizedBox(height: 10,),
-                      Text('Venue Owner',style: getTextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color:Color(0xffA1A1A1),
-                      ),)
-
-                    ],
-                  ),
-                  Spacer(),
-                  Container(
-                 height: 42,
-                    width: 82,
-                    decoration: BoxDecoration(
-                      color:Color(0xffD4AF37),
-                    borderRadius:BorderRadius.circular(6),
-                    ),
-                   child: Center(
-                     child: Text("Go Pro",style: getTextStyle(
-                       fontSize: 20,
-                       fontWeight: FontWeight.w700,
-                       color:Colors.white,
-                     ),),
-                   ),
-                  ),
-                  SizedBox(width: 10,),
-                  Icon(Icons.notifications,size: 30,)
-                ],
-              ),
+             ProfileRow(imagePath: ImagePath.profile, name: 'Dianne Russell', role: 'Venue Owner'),
               SizedBox(height: 32,),
               Container(
                 width: MediaQuery.of(context).size.width * 0.85, // 85% of screen width
@@ -63,7 +25,6 @@ class OverviewScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [Color(0xff003366).withOpacity(0.3),
                     Color(0xff0066CC).withOpacity(0.3),
-
                   ],
                   begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -81,14 +42,121 @@ class OverviewScreen extends StatelessWidget {
                         color:Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Container(
+                      child:Center(
+                        child: ClipOval(
+                          child:Container(
+                            height: 24,
+                            width: 24,
+                            color: Colors.indigo,
+                            child: Icon(Icons.add,color: Colors.white,),
+                          ),
+                          
+                        ),
+                      )
 
-                      ),
+                    ),
+                    SizedBox(height: 16,),
+                    Text('Please Add Payment Details',style: getTextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white
+                    ),)
 
-                    )
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Text('Upcoming Bookings',style: getTextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color:Color(0xff333333),
+              ),
+
+              ),
+              SizedBox(height: 32,),
+              Center(
+                child:    Container(
+                    height: 232,// 214/1000 = 0.214
+                    width: 232, // 184/1000 = 0.184
+                    child: Image.asset(ImagePath.overview_box)
+                ),
+              ),
+              Center(
+                child: Text('It looks like no events have been\n       scheduled yet.',style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff333333)
+                ),),
+              ) ,
+              SizedBox(
+                height: 67,
+              ) ,
+              InkWell(
+                onTap: (){},
+                child: Container(
+                    height: 48,
+                    width: double.infinity,
+                   decoration: BoxDecoration(
+                     color:Color(0xff003366),
+                        borderRadius:BorderRadius.circular(12),
+                   ),
+                  child: Center(
+                    child: Text('Add Venue  +',style: getTextStyle(
+                      fontWeight:FontWeight.w500,
+
+                      fontSize:   16,
+                      color: Colors.white
+                    ),),
+                  ),
+
+                ),
+              ) ,
+              SizedBox(height: 40,),
+              Text('Recent Views',style: getTextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff333333),
+              ),) ,
+              SizedBox(
+                 height: 20,
+              ) ,
+              Center(
+                child: Container(
+                  height: 140,
+                  width: 188,
+                  child: Image.asset(ImagePath.review_pic),
+                ),
+              ) ,
+              SizedBox(height: 20,)  ,
+               // Center(
+               //   child: Text('No Reviews Have been Submitted \n    Yet',style: getTextStyle(
+               //      fontSize: 14,
+               //     fontWeight: FontWeight.w500,
+               //     color: Color(0xff333333) ,
+               //   ),),
+               // )
+              
+              Center(
+                child: SizedBox(
+                  width: 150,
+
+                  child: Text("No reviews have been submitted\n yet.",
+                     textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: getTextStyle(
+                         fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                           color: Color(0xff333333) ,
+                    ),
+                  ),
+                ),
               )
+
+
+
+
             ],
           )),
         ),
