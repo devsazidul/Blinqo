@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_setup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
@@ -18,7 +18,9 @@ class CustomCircleAvater extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileController = Get.find<ProfileController>();
+    double screenHeight = MediaQuery.of(context).size.height;
+    double circleavatarradius = (screenHeight < 700) ? 50 : 58;
+    final profileController = Get.find<ProfileSetupController>();
 
     return GestureDetector(
       onTap: () {
@@ -30,7 +32,7 @@ class CustomCircleAvater extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               CircleAvatar(
-                radius: 60,
+                radius: circleavatarradius,
                 backgroundColor: AppColors.primary,
                 child: Image.asset(
                   imagePath,
@@ -41,9 +43,10 @@ class CustomCircleAvater extends StatelessWidget {
               ),
               if (isSelected)
                 Positioned(
-                  top: 5,
-                  right: 0,
+                  top: 0,
+                  right: -5,
                   child: CircleAvatar(
+                    radius: 24,
                     backgroundColor: Colors.transparent,
                     child: Image.asset(
                       IconPath.selected,
