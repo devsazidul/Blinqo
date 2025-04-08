@@ -4,7 +4,6 @@ import 'package:blinqo/features/role/venue_owner/overview/screen/addcard_screen.
 import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
@@ -57,10 +56,12 @@ class OverviewScreen extends StatelessWidget {
                               height: 24,
                               width: 24,
                               color: Colors.indigo,
-                              child: InkWell(onTap:(){
-
-                            Get.off(()=>AddcardScreen());
-                              },child: Icon(Icons.add, color: Colors.white)),
+                              child: InkWell(
+                                onTap: () {
+                                  Get.off(() => AddcardScreen());
+                                },
+                                child: Icon(Icons.add, color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
@@ -91,7 +92,7 @@ class OverviewScreen extends StatelessWidget {
                   child: Container(
                     height: 232, // 214/1000 = 0.214
                     width: 232, // 184/1000 = 0.184
-                    child: Image.asset(ImagePath.overview_box),
+                    child: Image.asset(ImagePath.overviewbox),
                   ),
                 ),
                 Center(
@@ -141,7 +142,7 @@ class OverviewScreen extends StatelessWidget {
                   child: Container(
                     height: 140,
                     width: 188,
-                    child: Image.asset(ImagePath.review_pic),
+                    child: Image.asset(ImagePath.reviewpic),
                   ),
                 ),
                 SizedBox(height: 20),

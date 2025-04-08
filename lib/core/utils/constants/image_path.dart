@@ -10,7 +10,7 @@ class ImagePath {
   static const String profile = 'assets/images/profile.png';
   static const String eventCard = 'assets/images/eventCard.png';
   static const String venuesHall = 'assets/images/venuesHall.png';
-  static const String  profile= 'assets/images/profile.png';
-  static const String overview_box='assets/images/overview_box.png';
-  static const String review_pic = 'assets/images/review_pic.png';
+  static const String profile1 = 'assets/images/profile.png';
+  static const String overviewbox = 'assets/images/overview_box.png';
+  static const String reviewpic = 'assets/images/review_pic.png';
 }
