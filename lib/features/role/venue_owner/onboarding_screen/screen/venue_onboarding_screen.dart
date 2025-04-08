@@ -1,7 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -265,7 +264,7 @@ class Page3 extends StatelessWidget {
         Stack(
           children: [
             Image.asset(
-              ImagePath.venueonboarding03, 
+              ImagePath.venueonboarding03,
               width: double.infinity,
               height: 610,
             ),
