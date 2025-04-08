@@ -13,12 +13,14 @@ import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart'
+    show VanueOwnerBottomNavBar;
+
 // ignore: must_be_immutable
 class VLoginScreen extends StatelessWidget {
   VLoginScreen({super.key});
   VenueLoginController loginController = Get.put(VenueLoginController());
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +42,6 @@ class VLoginScreen extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           child: Form(
-            
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -70,9 +71,7 @@ class VLoginScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 AuthCustomTextField(
-                  onChanged: (value) {
-                  
-                  },
+                  onChanged: (value) {},
                   controller: loginController.emailController,
                   text: 'Enter your email',
                   validator: (value) {
@@ -123,12 +122,7 @@ class VLoginScreen extends StatelessWidget {
                             ? Colors.white
                             : Color(0xFF003366),
                     onPress: () {
-                      // if (_formKey.currentState!.validate() &&
-                      //     loginController.isFromValid.value) {
-                      //   loginController.login();
-                      // } else {
-                      //   //
-                      // }
+                      Get.to(VanueOwnerBottomNavBar());
                     },
                     backgroundColor:
                         loginController.isFromValid.value
@@ -145,7 +139,12 @@ class VLoginScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>VForgetPassword()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VForgetPassword(),
+                        ),
+                      );
                     },
                     child: Text(
                       'Forgot Password?',
