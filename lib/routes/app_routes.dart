@@ -18,6 +18,8 @@ import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:get/get.dart';
 
+import '../features/role/venue_owner/overview/screen/addcard_screen.dart';
+
 class AppRoute {
   static String splashoScreen = "/splashoScreen";
   static String homeEventPlanner = "/homeEventPlanner";
@@ -55,6 +57,9 @@ class AppRoute {
   static String getvotpsendscreen() => votpsendscreen;
   static String getvfotpsendscreen() => vfotpsendscreen;
 
+  static String getaddCard ='/getAddCard';
+
+
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
     GetPage(name: homeEventPlanner, page: () => const HomeEventPlanner()),
@@ -73,5 +78,7 @@ class AppRoute {
     GetPage(name: vchangepassword, page: () => VChangePassword()),
     GetPage(name: votpsendscreen, page: () => VOptSendScreen()),
     GetPage(name: vfotpsendscreen, page: () => VFOtpSendScreen()),
+    GetPage(name: getaddCard, page: ()=>AddcardScreen()),
+
   ];
 }
