@@ -7,6 +7,7 @@ import 'package:blinqo/features/role/service_provider/service_chat_page/screen/c
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/home_page.dart';
 import 'package:blinqo/features/role/service_provider/servide_earning_page/screen/earning_page.dart';
 import 'package:blinqo/features/role/service_provider/servide_profile_page/screen/profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_f_otp_send_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
@@ -16,6 +17,7 @@ import 'package:blinqo/features/role/venue_owner/authentication/screen/v_signup_
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:get/get.dart';
+import '../features/role/venue_owner/overview/screen/addcard_screen.dart';
 
 class AppRoute {
   static String splashoScreen = "/splashoScreen";
@@ -36,6 +38,8 @@ class AppRoute {
   static String votpsendscreen = "/votpsendscreen";
   static String vfotpsendscreen = "/vfotpsendscreen";
   static String getVerifiedScreen = "/getVerifiedScreen";
+  static String spProfilePage = "/spProfilePage";
+  static String getaddCard = '/getAddCard';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -55,6 +59,7 @@ class AppRoute {
   static String getvotpsendscreen() => votpsendscreen;
   static String getvfotpsendscreen() => vfotpsendscreen;
   static String getgetVerifiedScreen() => getVerifiedScreen;
+  static String getspProfilePage() => spProfilePage;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -67,7 +72,7 @@ class AppRoute {
     GetPage(name: earningPage, page: () => EarningPage()),
     GetPage(name: bookingPage, page: () => BookingPage()),
     GetPage(name: chatPage, page: () => ChatPage()),
-    GetPage(name: profilePage, page: () => ProfilePage()),
+    GetPage(name: spProfilePage, page: () => SpProfilePage()),
     GetPage(name: vloginscreen, page: () => VLoginScreen()),
     GetPage(name: vsignupscreen, page: () => VSignupScreen()),
     GetPage(name: vforgetpassword, page: () => VForgetPassword()),
@@ -75,5 +80,6 @@ class AppRoute {
     GetPage(name: votpsendscreen, page: () => VOptSendScreen()),
     GetPage(name: vfotpsendscreen, page: () => VFOtpSendScreen()),
     GetPage(name: getVerifiedScreen, page: () => GetVerifiedScreen()),
+    GetPage(name: getaddCard, page: () => AddcardScreen()),
   ];
 }
