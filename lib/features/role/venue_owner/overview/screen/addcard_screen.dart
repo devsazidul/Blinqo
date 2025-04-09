@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class AddcardScreen extends StatelessWidget {
   AddcardScreen({super.key});
@@ -78,7 +79,10 @@ class AddcardScreen extends StatelessWidget {
               ),
               SizedBox(height: 40),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  controller.confirmPayment();
+                  Get.back();
+                },
                 child: Container(
                   height: 48,
                   width: double.infinity,

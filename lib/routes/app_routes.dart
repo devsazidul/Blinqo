@@ -10,6 +10,9 @@ import 'package:blinqo/features/role/service_provider/service_booking_page/scree
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/chat_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/earning_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/servide_earning_page/screen/earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_f_otp_send_screen.dart';
@@ -47,6 +50,8 @@ class AppRoute {
   static String spVerificationThanks = '/spVerificationThanks';
   static String spCongratulationsPage = '/spCongratulationsPage';
   static String spPaymentOption = '/spPaymentOption';
+  static String spEditProfilePage = '/spEditProfilePage';
+  static String spShareWorkPage = '/spShareWorkPage';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -71,6 +76,8 @@ class AppRoute {
   static String getspVerificationThanks() => spVerificationThanks;
   static String getspCongratulationsPage() => spCongratulationsPage;
   static String getspPaymentOption() => spPaymentOption;
+  static String getspEditProfilePage() => spEditProfilePage;
+  static String getspShareWorkPage() => spShareWorkPage;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -99,5 +106,7 @@ class AppRoute {
     GetPage(name: spVerificationThanks, page: () => SpVerificationThanks()),
     GetPage(name: spCongratulationsPage, page: () => SpCongratulationsPage()),
     GetPage(name: spPaymentOption, page: () => SpPaymentOption()),
+    GetPage(name: spEditProfilePage, page: () => SpEditProfilePage()),
+    GetPage(name: spShareWorkPage, page: () => SpShareWorkPage()),
   ];
 }
