@@ -5,6 +5,8 @@ import 'package:blinqo/features/role/service_provider/payment_page/screen/get_ve
 import 'package:blinqo/features/role/service_provider/service_booking_page/screen/booking_page.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/chat_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/home_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:blinqo/features/role/service_provider/servide_earning_page/screen/earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
@@ -39,6 +41,8 @@ class AppRoute {
   static String getVerifiedScreen = "/getVerifiedScreen";
   static String spProfilePage = "/spProfilePage";
   static String getaddCard = '/getAddCard';
+  static String spEditProfilePage = '/spEditProfilePage';
+  static String spShareWorkPage = '/spShareWorkPage';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -59,6 +63,8 @@ class AppRoute {
   static String getvfotpsendscreen() => vfotpsendscreen;
   static String getgetVerifiedScreen() => getVerifiedScreen;
   static String getspProfilePage() => spProfilePage;
+  static String getspEditProfilePage() => spEditProfilePage;
+  static String getspShareWorkPage() => spShareWorkPage;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -80,5 +86,7 @@ class AppRoute {
     GetPage(name: vfotpsendscreen, page: () => VFOtpSendScreen()),
     GetPage(name: getVerifiedScreen, page: () => GetVerifiedScreen()),
     GetPage(name: getaddCard, page: () => AddcardScreen()),
+    GetPage(name: spEditProfilePage, page: () => SpEditProfilePage()),
+    GetPage(name: spShareWorkPage, page: () => SpShareWorkPage()),
   ];
 }

@@ -1,7 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SpProfilePage extends StatelessWidget {
   const SpProfilePage({super.key});
@@ -9,7 +12,9 @@ class SpProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
         forceMaterialTransparency: true,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -28,18 +33,26 @@ class SpProfilePage extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Image.asset(IconPath.moreVert)),
+          IconButton(
+            onPressed: () {
+              Get.to(SpShareWorkPage(), arguments: 4);
+            },
+            icon: Image.asset(IconPath.moreVert),
+          ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 40),
-            _buildProfileSection(context),
-            SizedBox(height: 34),
-            _buildSettingsSection(context),
-            SizedBox(height: 80),
-          ],
+      body: ColoredBox(
+        color: AppColors.backgroundColor,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 40),
+              _buildProfileSection(context),
+              SizedBox(height: 34),
+              _buildSettingsSection(context),
+              SizedBox(height: 80),
+            ],
+          ),
         ),
       ),
     );
@@ -112,6 +125,9 @@ class SpProfilePage extends StatelessWidget {
         _buildSettingsTile(
           iconPath: IconPath.editProfile,
           title: "Edit Profile",
+          onTap: () {
+            Get.to(SpEditProfilePage(), arguments: 4);
+          },
         ),
         _buildSettingsTile(
           title: "Dark mood",
@@ -161,6 +177,7 @@ class SpProfilePage extends StatelessWidget {
   Widget _buildSettingsTile({
     required String iconPath,
     required String title,
+    void Function()? onTap,
     bool isSwitch = false,
   }) {
     return Column(
@@ -192,7 +209,7 @@ class SpProfilePage extends StatelessWidget {
             ],
           ),
           // trailing: Switch(value: false, onChanged: (value) {}),
-          onTap: () {},
+          onTap: onTap,
         ),
         const Divider(height: 1, color: Color(0xFFEBEBEB)),
       ],
