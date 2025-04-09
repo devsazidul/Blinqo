@@ -63,7 +63,6 @@ class SpEditProfilePage extends StatelessWidget {
                   Form(
                     child: Column(
                       spacing: 8,
-
                       children: [
                         // first name text
 

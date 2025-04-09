@@ -8,23 +8,19 @@ class RevenueCard extends StatelessWidget {
   final int bookingsCount;
 
   const RevenueCard({
-    Key? key,
+    super.key,
     required this.revenue,
     required this.percentage,
     required this.pendingBooking,
     required this.bookingsCount,
-  }) : super(key: key);
+  });
 
   TextStyle getTextStyle({
     required double fontSize,
     required FontWeight fontWeight,
     required Color color,
   }) {
-    return TextStyle(
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      color: color,
-    );
+    return TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: color);
   }
 
   @override
@@ -35,10 +31,7 @@ class RevenueCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
-          colors: [
-            Color(0xff0066CC),
-            Color(0xff003366),
-          ],
+          colors: [Color(0xff0066CC), Color(0xff003366)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -70,13 +63,9 @@ class RevenueCard extends StatelessWidget {
                     padding: const EdgeInsets.all(7.0),
                     child: Row(
                       children: [
-                        Image.asset(
-                          ImagePath.move,
-                          height: 20,
-                          width: 22,
-                        ),
+                        Image.asset(ImagePath.move, height: 20, width: 22),
                         Text(
-                          '$percentage',
+                          percentage,
                           style: getTextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -86,7 +75,7 @@ class RevenueCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
             SizedBox(height: 3),
@@ -142,7 +131,7 @@ class RevenueCard extends StatelessWidget {
                       color: Color(0xffD4A537),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ],
