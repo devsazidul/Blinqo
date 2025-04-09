@@ -4,17 +4,47 @@ import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/addcard_screen.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
+import 'package:blinqo/features/role/venue_owner/overview/widgets/payment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../widgets/revenue_card.dart';
-
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> reviews = [
+      {
+        "title": "Corporate Event",
+        "subtitle": "Conference Hall",
+         "date":"15 March,2025",
+          "time":"3.00 PM",
+        "image": ImagePath.event,
+          "status":"Confirmed"
+
+      },
+      {
+        "title": "Team Building Retreat",
+        "subtitle": "Lakeside Lodge",
+        "date":"22 April,2025",
+        "time":"10.00 AM",
+        "image": ImagePath.event,
+        "status":"Pending"
+
+
+
+
+      },
+      {
+        "title": "Product Launch",
+        "subtitle": "Main Auditorium",
+        "date":"30 May,2025",
+        "time":"1:00 PM",
+        "image": ImagePath.event,
+        "status":"Confirmed"
+      }
+    ];
+
     final OverviewController controller = Get.put(OverviewController());
     return Scaffold(
       backgroundColor: Colors.white,
@@ -31,7 +61,6 @@ class OverviewScreen extends StatelessWidget {
                   role: 'Venue Owner',
                 ),
                 SizedBox(height: 32),
-
                 Obx(
                   () =>
                       controller.isPayment.value
@@ -41,63 +70,7 @@ class OverviewScreen extends StatelessWidget {
                             pendingBooking: '\&20,500',
                             bookingsCount: 5,
                           )
-                          : Container(
-                            width:
-                                MediaQuery.of(context).size.width *
-                                0.85, // 85% of screen width
-                            height: MediaQuery.of(context).size.height * 0.25,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color(0xff003366).withOpacity(0.3),
-                                  Color(0xff0066CC).withOpacity(0.3),
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 44,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: ClipOval(
-                                      child: Container(
-                                        height: 24,
-                                        width: 24,
-                                        color: Colors.indigo,
-                                        child: InkWell(
-                                          onTap: () {
-                                            Get.to(() => AddcardScreen());
-                                          },
-                                          child: Icon(
-                                            Icons.add,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                Text(
-                                  'Please Add Payment Details',
-                                  style: getTextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          : PaymentCard(),
                 ),
                 SizedBox(height: 40),
                 Text(
@@ -109,9 +82,10 @@ class OverviewScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 32),
-                Center(
-                  child: Container(
-                    alignment: Alignment.center,
+                SizedBox(
+                  height: 300,
+                  child: reviews.isEmpty
+                      ? Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -120,9 +94,7 @@ class OverviewScreen extends StatelessWidget {
                           width: 232,
                           child: Image.asset(ImagePath.overview_box),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ), // Image ar text er majhe ekta gap dite
+                        SizedBox(height: 10),
                         Text(
                           'It looks like no events have been\n       scheduled yet.',
                           style: TextStyle(
@@ -130,10 +102,128 @@ class OverviewScreen extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             color: Color(0xff333333),
                           ),
-                          textAlign: TextAlign.center, // Center align text
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
+                  )
+                      : ListView.builder(
+                    itemCount: reviews.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Container(
+                          height: 107,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                           color:Color(0xffEBEBEB),
+                            borderRadius: BorderRadius.circular(12),
+
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xff000000).withOpacity(.2),
+                                blurRadius: 7,
+                                spreadRadius: 2,
+
+                                offset: Offset(0, 3),
+                              )
+                            ]
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child:Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 45,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Image.asset(reviews[index]["image"]!,fit: BoxFit.cover,),
+
+                                    ),
+                                    SizedBox(width: 15,),
+                                    Column(
+                                      children: [
+                                        Text(reviews[index]["title"]!,style: getTextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xff333333),
+                                        ),),
+                                        SizedBox(height: 4,),
+                                        Text(reviews[index]["subtitle"]!,style: getTextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff999999),
+                                          textAlign: TextAlign.start,
+                                        ),),
+
+
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Container(
+                                      height: 20,
+                                      width: 20,
+                                      child: Image.asset(ImagePath.pending,fit: BoxFit.cover,),
+                                    ),
+
+
+
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Icon(Icons.calendar_month,size: 15,color: Color(0xff8A8A8A),),
+                                    SizedBox(width: 5,),
+                                    Text(reviews[index]["date"]!,style: getTextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                    ),),
+                                    SizedBox(
+                                      width:16 ,
+                                    ),
+                                    Text(reviews[index]["time"]!,style: getTextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                    ),),
+                                   Spacer(),
+                                    Container(
+                                      height: 22,
+                                      width: 68,
+
+                                      decoration:BoxDecoration(
+                                        color: Color(0xff37D459).withOpacity(.20),
+                                        borderRadius: BorderRadius.circular(4),
+
+                                      ),
+                                      child: Center(
+                                        child: Text(reviews[index]["status"]!,style: getTextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff37D441),
+                                        ),),
+                                      ),
+                                    )
+
+
+                                  ],
+                                )
+
+                              ],
+                            )
+                          ),
+                        
+                        ),
+                      );
+                    },
                   ),
                 ),
 
@@ -152,7 +242,6 @@ class OverviewScreen extends StatelessWidget {
                         'Add Venue  +',
                         style: getTextStyle(
                           fontWeight: FontWeight.w500,
-
                           fontSize: 16,
                           color: Colors.white,
                         ),
@@ -178,11 +267,9 @@ class OverviewScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-
                 Center(
                   child: SizedBox(
                     width: 220,
-
                     child: Text(
                       "No reviews have been submitted yet.",
                       textAlign: TextAlign.center,
@@ -203,3 +290,5 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 }
+
+

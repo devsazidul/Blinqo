@@ -12,5 +12,8 @@ class ImagePath {
   static const String review_pic = 'assets/images/review_pic.png';
   static const String payment_container = 'assets/images/payment_container.png';
   static const String move ='assets/images/move.png';
+  static const String event= 'assets/images/event.png';
+ static const String pending ='assets/images/pending_pic.png';
+
 
   }
