@@ -42,4 +42,8 @@ class IconPath {
   static const String switchRole = 'assets/icons/switch_role.png';
   static const String paymentHistory = 'assets/icons/payment_history.png';
   static const String logOut = 'assets/icons/log_out.png';
+  static const String close = 'assets/icons/close.png';
+  static const String niduploadlogo = 'assets/icons/niduploadlogo.png';
+  static const String paymentempty = 'assets/icons/paymentempty.png';
+  static const String paymentaddcircle = 'assets/icons/paymentaddcircle.png';
 }

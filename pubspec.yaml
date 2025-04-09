@@ -59,6 +59,11 @@ dependencies:
   geocoding: ^3.0.0
   # dotted border
   dotted_border: ^2.1.0
+  # image compression
+  flutter_image_compress: ^2.4.0
+  # Stripe
+  flutter_stripe: ^11.4.0
+  
 
 dev_dependencies:
   flutter_test:

@@ -436,7 +436,7 @@ class ProfileSetupScreen extends StatelessWidget {
                       dashPattern: [5, 3],
                       child: Container(
                         width: double.infinity,
-                        height: 105,
+                        height: 106,
                         decoration: BoxDecoration(
                           color: Color(0xFFE6EAF8),
                           borderRadius: BorderRadius.circular(4),
@@ -503,7 +503,7 @@ class ProfileSetupScreen extends StatelessWidget {
                     );
                   }),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 UpgradeToProcard(onTap: () {}),
                 SizedBox(height: 40),
                 CustomContinueButton(

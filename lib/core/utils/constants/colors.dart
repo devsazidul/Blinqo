@@ -16,5 +16,5 @@ class AppColors {
   static const Color iconColor = Color(0xFF003366);
   static const Color iconBackground = Color(0xFF1E1E1E);
   static const Color smallText = Color(0xFFC0C0C0);
+  static const Color appBarIcolor = Color(0xFFD9D9D9);
 }
- 
