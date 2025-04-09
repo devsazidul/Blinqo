@@ -2,10 +2,13 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class AddcardScreen extends StatelessWidget {
   AddcardScreen({super.key});
+
   final OverviewController controller = Get.put(OverviewController());
+
   @override
   Widget build(BuildContext context) {
     TextEditingController CardHolderName = TextEditingController();
@@ -76,7 +79,10 @@ class AddcardScreen extends StatelessWidget {
               ),
               SizedBox(height: 40),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  controller.confirmPayment();
+                  Get.back();
+                },
                 child: Container(
                   height: 48,
                   width: double.infinity,
@@ -89,41 +95,18 @@ class AddcardScreen extends StatelessWidget {
                       'Continue',
                       style: getTextStyle(
                         fontWeight: FontWeight.w500,
-                 )),
-               ],
-             ),
-             SizedBox(
-               height: 40,
-             ),
-             InkWell(
-               onTap: () {
-                 controller.confirmPayment();
-                 Get.back();
-               },
-               child: Container(
-                 height: 48,
-                 width: double.infinity,
-                 decoration: BoxDecoration(
-                   color: Color(0xff003366),
-                   borderRadius: BorderRadius.circular(12),
-                 ),
-                 child: Center(
-                   child: Text(
-                     'Continue',
-                     style: getTextStyle(
-                       fontWeight: FontWeight.w500,
 
-                       fontSize: 16,
-                       color: Colors.white,
-                     ),
-                   ),
-                 ),
-               ),
-             ),
-           ],
-         ),
-       ),
-     )
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

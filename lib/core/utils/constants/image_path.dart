@@ -7,17 +7,17 @@ class ImagePath {
   static const String venueonboarding01 = 'assets/images/venue_onboarding1.png';
   static const String venueonboarding02 = 'assets/images/venue_onboarding2.png';
   static const String venueonboarding03 = 'assets/images/venue_onboarding3.png';
-  static const String  profile= 'assets/images/profile.png';
-  static const String overview_box='assets/images/overview_box.png';
-  static const String review_pic = 'assets/images/review_pic.png';
-  static const String payment_container = 'assets/images/payment_container.png';
-  static const String move ='assets/images/move.png';
-  static const String event= 'assets/images/event.png';
-  static const String pending ='assets/images/pending_pic.png';
   static const String profile = 'assets/images/profile.png';
+  static const String overviewbox = 'assets/images/overview_box.png';
+  static const String reviewpic = 'assets/images/review_pic.png';
+  static const String paymentcontainer = 'assets/images/payment_container.png';
+  static const String move = 'assets/images/move.png';
+  static const String event = 'assets/images/event.png';
+  static const String pending = 'assets/images/pending_pic.png';
+  static const String profile2 = 'assets/images/profile.png';
   static const String eventCard = 'assets/images/eventCard.png';
   static const String venuesHall = 'assets/images/venuesHall.png';
   static const String profile1 = 'assets/images/profile.png';
-  static const String overviewbox = 'assets/images/overview_box.png';
-  static const String reviewpic = 'assets/images/review_pic.png';
+  static const String overviewbox1 = 'assets/images/overview_box.png';
+  static const String reviewpic1 = 'assets/images/review_pic.png';
 }

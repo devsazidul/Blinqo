@@ -7,16 +7,12 @@ import '../../../../../core/common/styles/global_text_style.dart';
 import '../screen/addcard_screen.dart';
 
 class PaymentCard extends StatelessWidget {
-  const PaymentCard({
-    super.key,
-  });
+  const PaymentCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width:
-      MediaQuery.of(context).size.width *
-          0.85, // 85% of screen width
+      width: MediaQuery.of(context).size.width * 0.85, // 85% of screen width
       height: MediaQuery.of(context).size.height * 0.25,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -49,10 +45,7 @@ class PaymentCard extends StatelessWidget {
                     onTap: () {
                       Get.to(() => AddcardScreen());
                     },
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.add, color: Colors.white),
                   ),
                 ),
               ),
