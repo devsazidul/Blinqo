@@ -1,15 +1,21 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/addcard_screen.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../widgets/revenue_card.dart';
+
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final OverviewController controller = Get.put(OverviewController());
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -25,57 +31,73 @@ class OverviewScreen extends StatelessWidget {
                   role: 'Venue Owner',
                 ),
                 SizedBox(height: 32),
-                Container(
-                  width:
-                      MediaQuery.of(context).size.width *
-                      0.85, // 85% of screen width
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xff003366).withOpacity(0.3),
-                        Color(0xff0066CC).withOpacity(0.3),
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: ClipOval(
-                            child: Container(
-                              height: 24,
-                              width: 24,
-                              color: Colors.indigo,
-                              child: InkWell(onTap:(){
 
-                            Get.off(()=>AddcardScreen());
-                              },child: Icon(Icons.add, color: Colors.white)),
+                Obx(
+                  () =>
+                      controller.isPayment.value
+                          ? RevenueCard(
+                            revenue: '\$92,500',
+                            percentage: '12.5%',
+                            pendingBooking: '\&20,500',
+                            bookingsCount: 5,
+                          )
+                          : Container(
+                            width:
+                                MediaQuery.of(context).size.width *
+                                0.85, // 85% of screen width
+                            height: MediaQuery.of(context).size.height * 0.25,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xff003366).withOpacity(0.3),
+                                  Color(0xff0066CC).withOpacity(0.3),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 44,
+                                  height: 44,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: ClipOval(
+                                      child: Container(
+                                        height: 24,
+                                        width: 24,
+                                        color: Colors.indigo,
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.to(() => AddcardScreen());
+                                          },
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                Text(
+                                  'Please Add Payment Details',
+                                  style: getTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Text(
-                        'Please Add Payment Details',
-                        style: getTextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
                 SizedBox(height: 40),
                 Text(
@@ -89,21 +111,32 @@ class OverviewScreen extends StatelessWidget {
                 SizedBox(height: 32),
                 Center(
                   child: Container(
-                    height: 232, // 214/1000 = 0.214
-                    width: 232, // 184/1000 = 0.184
-                    child: Image.asset(ImagePath.overview_box),
-                  ),
-                ),
-                Center(
-                  child: Text(
-                    'It looks like no events have been\n       scheduled yet.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          height: 232,
+                          width: 232,
+                          child: Image.asset(ImagePath.overview_box),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ), // Image ar text er majhe ekta gap dite
+                        Text(
+                          'It looks like no events have been\n       scheduled yet.',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff333333),
+                          ),
+                          textAlign: TextAlign.center, // Center align text
+                        ),
+                      ],
                     ),
                   ),
                 ),
+
                 SizedBox(height: 67),
                 InkWell(
                   onTap: () {},

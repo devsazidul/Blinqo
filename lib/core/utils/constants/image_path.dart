@@ -10,5 +10,7 @@ class ImagePath {
   static const String  profile= 'assets/images/profile.png';
   static const String overview_box='assets/images/overview_box.png';
   static const String review_pic = 'assets/images/review_pic.png';
+  static const String payment_container = 'assets/images/payment_container.png';
+  static const String move ='assets/images/move.png';
 
   }
