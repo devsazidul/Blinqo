@@ -12,7 +12,6 @@ import 'package:blinqo/features/role/service_provider/service_home_page/screen/h
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
-import 'package:blinqo/features/role/service_provider/servide_earning_page/screen/earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_f_otp_send_screen.dart';
