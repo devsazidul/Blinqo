@@ -13,4 +13,6 @@ class ImagePath {
   static const String profile1 = 'assets/images/profile.png';
   static const String overviewbox = 'assets/images/overview_box.png';
   static const String reviewpic = 'assets/images/review_pic.png';
+  static const String congratulationslogo =
+      'assets/images/congratulationslogo.png';
 }

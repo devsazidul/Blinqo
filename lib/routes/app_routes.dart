@@ -2,10 +2,14 @@ import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.d
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_congratulations_page.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/screen/booking_page.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/chat_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/home_page.dart';
-import 'package:blinqo/features/role/service_provider/servide_earning_page/screen/earning_page.dart';
+import 'package:blinqo/features/role/service_provider/service_earning_page/screen/earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_f_otp_send_screen.dart';
@@ -39,6 +43,10 @@ class AppRoute {
   static String getVerifiedScreen = "/getVerifiedScreen";
   static String spProfilePage = "/spProfilePage";
   static String getaddCard = '/getAddCard';
+  static String spVerificationSubmission = '/spVerificationSubmission';
+  static String spVerificationThanks = '/spVerificationThanks';
+  static String spCongratulationsPage = '/spCongratulationsPage';
+  static String spPaymentOption = '/spPaymentOption';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -59,6 +67,10 @@ class AppRoute {
   static String getvfotpsendscreen() => vfotpsendscreen;
   static String getgetVerifiedScreen() => getVerifiedScreen;
   static String getspProfilePage() => spProfilePage;
+  static String getspVerificationSubmission() => spVerificationSubmission;
+  static String getspVerificationThanks() => spVerificationThanks;
+  static String getspCongratulationsPage() => spCongratulationsPage;
+  static String getspPaymentOption() => spPaymentOption;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -80,5 +92,12 @@ class AppRoute {
     GetPage(name: vfotpsendscreen, page: () => VFOtpSendScreen()),
     GetPage(name: getVerifiedScreen, page: () => GetVerifiedScreen()),
     GetPage(name: getaddCard, page: () => AddcardScreen()),
+    GetPage(
+      name: spVerificationSubmission,
+      page: () => SpVerificationSubmission(),
+    ),
+    GetPage(name: spVerificationThanks, page: () => SpVerificationThanks()),
+    GetPage(name: spCongratulationsPage, page: () => SpCongratulationsPage()),
+    GetPage(name: spPaymentOption, page: () => SpPaymentOption()),
   ];
 }

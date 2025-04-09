@@ -2,7 +2,10 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GetVerifiedScreen extends StatelessWidget {
   const GetVerifiedScreen({super.key});
@@ -10,6 +13,7 @@ class GetVerifiedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -29,12 +33,16 @@ class GetVerifiedScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 32),
-                CustomContinueButton(onTap: () {}, title: "Get Verified"),
+                CustomContinueButton(
+                  onTap: () {
+                    Get.to(SpVerificationSubmission());
+                  },
+                  title: "Get Verified",
+                ),
                 SizedBox(height: 16),
                 GestureDetector(
                   onTap: () {
-                    // Handle the "Skip" button tap
-                    Navigator.pop(context);
+                    Get.to(SpVerificationThanks());
                   },
                   child: Container(
                     width: double.infinity,
