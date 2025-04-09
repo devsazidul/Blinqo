@@ -5,9 +5,7 @@ import 'package:get/get.dart';
 
 class AddcardScreen extends StatelessWidget {
   AddcardScreen({super.key});
-
   final OverviewController controller = Get.put(OverviewController());
-
   @override
   Widget build(BuildContext context) {
     TextEditingController CardHolderName = TextEditingController();
@@ -91,18 +89,41 @@ class AddcardScreen extends StatelessWidget {
                       'Continue',
                       style: getTextStyle(
                         fontWeight: FontWeight.w500,
+                 )),
+               ],
+             ),
+             SizedBox(
+               height: 40,
+             ),
+             InkWell(
+               onTap: () {
+                 controller.confirmPayment();
+                 Get.back();
+               },
+               child: Container(
+                 height: 48,
+                 width: double.infinity,
+                 decoration: BoxDecoration(
+                   color: Color(0xff003366),
+                   borderRadius: BorderRadius.circular(12),
+                 ),
+                 child: Center(
+                   child: Text(
+                     'Continue',
+                     style: getTextStyle(
+                       fontWeight: FontWeight.w500,
 
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+                       fontSize: 16,
+                       color: Colors.white,
+                     ),
+                   ),
+                 ),
+               ),
+             ),
+           ],
+         ),
+       ),
+     )
     );
   }
 }
