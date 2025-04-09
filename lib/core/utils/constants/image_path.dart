@@ -13,7 +13,11 @@ class ImagePath {
   static const String payment_container = 'assets/images/payment_container.png';
   static const String move ='assets/images/move.png';
   static const String event= 'assets/images/event.png';
- static const String pending ='assets/images/pending_pic.png';
-
-
-  }
+  static const String pending ='assets/images/pending_pic.png';
+  static const String profile = 'assets/images/profile.png';
+  static const String eventCard = 'assets/images/eventCard.png';
+  static const String venuesHall = 'assets/images/venuesHall.png';
+  static const String profile1 = 'assets/images/profile.png';
+  static const String overviewbox = 'assets/images/overview_box.png';
+  static const String reviewpic = 'assets/images/review_pic.png';
+}

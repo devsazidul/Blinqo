@@ -54,6 +54,11 @@ dependencies:
   # image picker
   image_picker: ^1.1.2
   permission_handler: ^11.4.0
+  # google map
+  google_maps_flutter: ^2.12.1
+  geocoding: ^3.0.0
+  # dotted border
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:

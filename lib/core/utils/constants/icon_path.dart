@@ -2,6 +2,7 @@ class IconPath {
   IconPath._();
   static const String logo = 'assets/icons/userprofile.png';
   static const String edit = 'assets/icons/edit.png';
+  static const String editProfile = 'assets/icons/edit_profile.png';
   static const String frame0 = 'assets/icons/frame0.png';
   static const String frame1 = 'assets/icons/frame1.png';
   static const String frame2 = 'assets/icons/frame2.png';
@@ -9,6 +10,7 @@ class IconPath {
   static const String profile01 = 'assets/icons/profile01.png';
   static const String profileedit = 'assets/icons/profileedit.png';
   static const String arrowdown = 'assets/icons/arrowdown.png';
+  static const String arrowLeftAlt = 'assets/icons/arrow_left_alt.png';
   static const String corporateEvents = 'assets/icons/corporateEvents.png';
   static const String wedding = 'assets/icons/wedding.png';
   static const String musidFastivals = 'assets/icons/musidFastivals.png';
@@ -30,4 +32,14 @@ class IconPath {
   static const String profiledeactive = 'assets/icons/profiledeactive.png';
   static const String selected = 'assets/icons/selected.png';
   static const String moving ='assets/icons/moving.png';
+  static const String backup = 'assets/icons/backup.png';
+  static const String mylocation = 'assets/icons/mylocation.png';
+  static const String verifiedlogo = 'assets/icons/verifiedlogo.png';
+  static const String moreVert = 'assets/icons/more_vert.png';
+  static const String dartMood = 'assets/icons/dark_mood.png';
+  static const String language = 'assets/icons/language.png';
+  static const String notification = 'assets/icons/notification.png';
+  static const String switchRole = 'assets/icons/switch_role.png';
+  static const String paymentHistory = 'assets/icons/payment_history.png';
+  static const String logOut = 'assets/icons/log_out.png';
 }
