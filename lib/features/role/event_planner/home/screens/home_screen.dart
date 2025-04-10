@@ -1,9 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/event_planner/home/widgets/eventCard.dart';
-import 'package:blinqo/features/role/event_planner/home/widgets/upcomming_events.dart';
-import 'package:blinqo/features/role/event_planner/home/widgets/vanue_card.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/upcomming_events.dart';
 import 'package:flutter/material.dart';
 
 class EHomeScreen extends StatelessWidget {
@@ -25,8 +24,6 @@ class EHomeScreen extends StatelessWidget {
                 SizedBox(height: 32),
                 _buildSearchBar(searchTEController),
                 SizedBox(height: 20),
-                EventCard(),
-                SizedBox(height: 40),
                 _buildTitle('Featured Venues'),
                 SizedBox(height: 8),
                 _buildVenueList(context),
@@ -202,7 +199,7 @@ class EHomeScreen extends StatelessWidget {
         children: List.generate(5, (index) {
           return Padding(
             padding: EdgeInsets.only(right: 16),
-            child: VenueCard(),
+            child: FeatureVenues(),
           );
         }),
       ),

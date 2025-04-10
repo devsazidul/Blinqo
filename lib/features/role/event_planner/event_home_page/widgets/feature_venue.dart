@@ -4,8 +4,9 @@ import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:flutter/material.dart';
 
-class VenueCard extends StatelessWidget {
-  const VenueCard({super.key});
+class FeatureVenues extends StatelessWidget {
+  final bool hasButton;
+   const FeatureVenues({super.key, this.hasButton=true});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class VenueCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 8),
-          _venueBottomRow(buttonFontSize),
+          hasButton ? _venueBottomRow(buttonFontSize) :SizedBox(),
         ],
       ),
     );
