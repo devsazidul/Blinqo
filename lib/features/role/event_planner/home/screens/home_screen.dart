@@ -25,8 +25,6 @@ class EHomeScreen extends StatelessWidget {
                 SizedBox(height: 32),
                 _buildSearchBar(searchTEController),
                 SizedBox(height: 20),
-                EventCard(),
-                SizedBox(height: 40),
                 _buildTitle('Featured Venues'),
                 SizedBox(height: 8),
                 _buildVenueList(context),
