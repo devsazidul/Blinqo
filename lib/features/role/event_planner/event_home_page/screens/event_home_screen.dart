@@ -27,7 +27,6 @@ class EventHomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 HomeHeaderSection(),
                 SizedBox(height: 32),
                 SearchBerSection(searchTEController: searchTEController),
@@ -35,9 +34,12 @@ class EventHomeScreen extends StatelessWidget {
                 EventCard(),
                 SizedBox(height: 40),
 
-                _buildTitle('Featured Venues',onTap: (){
-                  Get.to(FeaturedVenuesScreen());
-                }),
+                _buildTitle(
+                  'Featured Venues',
+                  onTap: () {
+                    Get.to(FeaturedVenuesScreen());
+                  },
+                ),
                 SizedBox(height: 8),
                 _featureVenuesList(context),
                 SizedBox(height: 40),
@@ -45,22 +47,25 @@ class EventHomeScreen extends StatelessWidget {
                 // Upcoming Events
                 Text(
                   'Upcoming Events',
-                  style: getTextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  style: getTextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Column(
                   children: [
                     for (int i = 0; i < 3; i++)
                       if (i < 3)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: UpcommingEvents(),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: UpcommingEvents(),
+                        ),
                   ],
                 ),
 
                 SizedBox(height: 40),
-                _buildTitle('Venues Near You',),
+                _buildTitle('Venues Near You'),
                 _buildVenueNearYouList(context),
 
                 SizedBox(height: 40),
@@ -104,7 +109,6 @@ class EventHomeScreen extends StatelessWidget {
       ],
     );
   }
-
 
   // Feature Venues
   Widget _featureVenuesList(BuildContext context) {
@@ -185,7 +189,6 @@ class EventHomeScreen extends StatelessWidget {
   }*/
 
     // Event Services List (Horizontal Scroll)
-
   }
 
   // Event Services
@@ -212,5 +215,3 @@ class EventHomeScreen extends StatelessWidget {
     );
   }
 }
-
-

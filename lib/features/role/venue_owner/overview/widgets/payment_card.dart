@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../../core/common/styles/global_text_style.dart';
 import '../screen/addcard_screen.dart';
 
@@ -12,8 +10,8 @@ class PaymentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.85, // 85% of screen width
-      height: MediaQuery.of(context).size.height * 0.25,
+      width: MediaQuery.of(context).size.width*(385/MediaQuery.of(context).size.width), // 85% of screen width
+      height: MediaQuery.of(context).size.height * (191 / MediaQuery.of(context).size.height),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
