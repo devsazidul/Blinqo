@@ -50,6 +50,7 @@ class UpcommingEvents extends StatelessWidget {
                             color: Colors.grey,
                           ),
                         ),
+                        SizedBox(width: 4),
                         Icon(
                           Icons.verified,
                           color: Colors.blueAccent,

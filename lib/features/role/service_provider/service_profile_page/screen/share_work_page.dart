@@ -23,7 +23,7 @@ class SpShareWorkPage extends StatelessWidget {
         leading: GestureDetector(
           onTap: Get.back,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 20.0),
             child: CircleAvatar(
               backgroundColor: const Color(0xFFD9D9D9),
               child: Image.asset(IconPath.arrowLeftAlt),
@@ -49,6 +49,10 @@ class SpShareWorkPage extends StatelessWidget {
               children: [
                 SizedBox(height: 4),
                 DropdownButtonFormField<String>(
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                    color: AppColors.buttonColor2,
+                  ),
                   items:
                       _shareWorkController.eventList.map((e) {
                         return DropdownMenuItem<String>(
@@ -103,7 +107,7 @@ class SpShareWorkPage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  maxLines: 4,
+                  maxLines: 3,
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     alignLabelWithHint: true,
@@ -123,7 +127,7 @@ class SpShareWorkPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 32),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -210,7 +214,7 @@ class SpShareWorkPage extends StatelessWidget {
                   ),
                   // }),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
 
                 CustomContinueButton(onTap: () {}, title: "Upload"),
                 SizedBox(height: 16),

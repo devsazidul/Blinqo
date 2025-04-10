@@ -49,4 +49,10 @@ class IconPath {
   static const String mastercard = 'assets/icons/mastercard.png';
   static const String cardvisa = 'assets/icons/cardvisa.png';
   static const String sphprofile = 'assets/icons/sphprofile.png';
+  static const String editPencil = 'assets/icons/edit_pencil.png';
+  static const String viewAs = 'assets/icons/visibility.png';
+  static const String settings = 'assets/icons/settings.png';
+  static const String goPro = 'assets/icons/workspace_premium.png';
+  static const String checkoutactive = 'assets/icons/checkoutactive.png';
+  static const String checkoutdeactive = 'assets/icons/checkoutdeactive.png';
 }

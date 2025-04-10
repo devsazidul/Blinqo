@@ -24,4 +24,9 @@ class ImagePath {
       'assets/images/congratulationslogo.png';
   static const String overviewbox1 = 'assets/images/overview_box.png';
   static const String reviewpic1 = 'assets/images/review_pic.png';
+  static const String event2 = 'assets/images/event2.png';
+  static const String event3 = 'assets/images/event3.png';
+  static const String reviewer1 = 'assets/images/reviewer1.png';
+  static const String reviewer2= 'assets/images/ reviewer2.png';
+  static const String reviewer3 = 'assets/images/reviewer3.png';
 }
