@@ -31,7 +31,7 @@ class IconPath {
   static const String profileactive = 'assets/icons/profileactive.png';
   static const String profiledeactive = 'assets/icons/profiledeactive.png';
   static const String selected = 'assets/icons/selected.png';
-  static const String moving ='assets/icons/moving.png';
+  static const String moving = 'assets/icons/moving.png';
   static const String backup = 'assets/icons/backup.png';
   static const String mylocation = 'assets/icons/mylocation.png';
   static const String verifiedlogo = 'assets/icons/verifiedlogo.png';
@@ -46,4 +46,7 @@ class IconPath {
   static const String niduploadlogo = 'assets/icons/niduploadlogo.png';
   static const String paymentempty = 'assets/icons/paymentempty.png';
   static const String paymentaddcircle = 'assets/icons/paymentaddcircle.png';
+  static const String mastercard = 'assets/icons/mastercard.png';
+  static const String cardvisa = 'assets/icons/cardvisa.png';
+  static const String sphprofile = 'assets/icons/sphprofile.png';
 }

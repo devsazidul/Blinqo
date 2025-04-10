@@ -10,6 +10,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ProfileSetupController extends GetxController {
+  TextEditingController spnameController = TextEditingController();
+  TextEditingController spdescriptionController = TextEditingController();
+  TextEditingController splocationController = TextEditingController();
+  TextEditingController spyearController = TextEditingController();
   late GoogleMapController mapController;
   final LatLng center = const LatLng(37.7749, -122.4194);
   Set<Marker> markers = {};

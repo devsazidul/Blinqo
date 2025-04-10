@@ -4,12 +4,13 @@ import 'package:blinqo/features/role/service_provider/onbording/screen/onbording
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_congratulations_page.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option_card.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
-import 'package:blinqo/features/role/service_provider/service_booking_page/screen/booking_page.dart';
-import 'package:blinqo/features/role/service_provider/service_chat_page/screen/chat_page.dart';
-import 'package:blinqo/features/role/service_provider/service_home_page/screen/home_page.dart';
-import 'package:blinqo/features/role/service_provider/service_earning_page/screen/earning_page.dart';
+import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_booking_page.dart';
+import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_chat_page.dart';
+import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
+import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
@@ -31,10 +32,10 @@ class AppRoute {
   static String profileScreen = "/profileScreen";
   static String onbordingScreen = "/onbordingScreen";
   static String bottomNavBar = "/bottomNavBar";
-  static String homePage = "/homePage";
-  static String earningPage = "/earningPage";
-  static String bookingPage = "/bookingPage";
-  static String chatPage = "/chatPage";
+  static String spHomePage = "/spHomePage";
+  static String spEarningPage = "/spEarningPage";
+  static String spBookingPage = "/spBookingPage";
+  static String spChatPage = "/spChatPage";
   static String profilePage = "/profilePage";
   static String vloginscreen = "/vloginscreen";
   static String vsignupscreen = "/vsignupscreen";
@@ -51,6 +52,7 @@ class AppRoute {
   static String spPaymentOption = '/spPaymentOption';
   static String spEditProfilePage = '/spEditProfilePage';
   static String spShareWorkPage = '/spShareWorkPage';
+  static String spPaymentOptionCard = '/spPaymentOptionCard';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -58,10 +60,10 @@ class AppRoute {
   static String getprofileScreen() => profileScreen;
   static String getonbordingScreen() => onbordingScreen;
   static String getbottomNavBar() => bottomNavBar;
-  static String gethomePage() => homePage;
-  static String getearningPage() => earningPage;
-  static String getbookingPage() => bookingPage;
-  static String getchatPage() => chatPage;
+  static String getspHomePage() => spHomePage;
+  static String getspEarningPage() => spEarningPage;
+  static String getspBookingPage() => spBookingPage;
+  static String getspChatPage() => spChatPage;
   static String getprofilePage() => profilePage;
   static String getvloginscreen() => vloginscreen;
   static String getvsignupscreen() => vsignupscreen;
@@ -77,6 +79,7 @@ class AppRoute {
   static String getspPaymentOption() => spPaymentOption;
   static String getspEditProfilePage() => spEditProfilePage;
   static String getspShareWorkPage() => spShareWorkPage;
+  static String getspPaymentOptionCard() => spPaymentOptionCard;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -85,10 +88,10 @@ class AppRoute {
     // GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: onbordingScreen, page: () => OnbordingScreen()),
     GetPage(name: bottomNavBar, page: () => BottomNavBar()),
-    GetPage(name: homePage, page: () => HomePage()),
-    GetPage(name: earningPage, page: () => EarningPage()),
-    GetPage(name: bookingPage, page: () => BookingPage()),
-    GetPage(name: chatPage, page: () => ChatPage()),
+    GetPage(name: spHomePage, page: () => SpHomePage()),
+    GetPage(name: spEarningPage, page: () => SpEarningPage()),
+    GetPage(name: spBookingPage, page: () => SpBookingPage()),
+    GetPage(name: spChatPage, page: () => SpChatPage()),
     GetPage(name: spProfilePage, page: () => SpProfilePage()),
     GetPage(name: vloginscreen, page: () => VLoginScreen()),
     GetPage(name: vsignupscreen, page: () => VSignupScreen()),
@@ -107,5 +110,6 @@ class AppRoute {
     GetPage(name: spPaymentOption, page: () => SpPaymentOption()),
     GetPage(name: spEditProfilePage, page: () => SpEditProfilePage()),
     GetPage(name: spShareWorkPage, page: () => SpShareWorkPage()),
+    GetPage(name: spPaymentOptionCard, page: () => SpPaymentOptionCard()),
   ];
 }

@@ -8,6 +8,7 @@ import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_controller.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
 import 'package:blinqo/routes/app_routes.dart';
 
@@ -114,7 +115,7 @@ class SpLoginScreen extends StatelessWidget {
                 SizedBox(height: 32),
                 CustomContinueButton(
                   onTap: () {
-                    Get.to(BottomNavBar());
+                    Get.to(ProfileSetupScreen());
                   },
                   title: "Log In",
                 ),

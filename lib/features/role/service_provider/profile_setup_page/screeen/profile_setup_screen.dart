@@ -88,6 +88,7 @@ class ProfileSetupScreen extends StatelessWidget {
                 }),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: profileController.spnameController,
                   decoration: InputDecoration(
                     labelText: "Name",
                     labelStyle: getTextStyle(
@@ -293,6 +294,7 @@ class ProfileSetupScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: profileController.spdescriptionController,
                   maxLines: 5,
                   decoration: InputDecoration(
                     labelText: "Description",
@@ -313,6 +315,7 @@ class ProfileSetupScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: profileController.splocationController,
                   onFieldSubmitted: (value) {
                     profileController.searchLocation(value);
                   },
@@ -395,6 +398,7 @@ class ProfileSetupScreen extends StatelessWidget {
 
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: profileController.spyearController,
                   decoration: InputDecoration(
                     labelText: "Years of Experiences",
                     labelStyle: getTextStyle(
