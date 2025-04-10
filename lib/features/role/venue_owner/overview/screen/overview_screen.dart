@@ -1,15 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
-import 'package:blinqo/features/role/venue_owner/overview/screen/addcard_screen.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/payment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../widgets/NewWidget.dart';
 import '../widgets/revenue_card.dart';
-
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
   @override
@@ -28,7 +25,7 @@ class OverviewScreen extends StatelessWidget {
         "subtitle": "Lakeside Lodge",
         "date": "22 April,2025",
         "time": "10.00 AM",
-        "image": ImagePath.event,
+        "image": ImagePath.event2,
         "status": "Pending",
       },
       {
@@ -36,11 +33,24 @@ class OverviewScreen extends StatelessWidget {
         "subtitle": "Main Auditorium",
         "date": "30 May,2025",
         "time": "1:00 PM",
-        "image": ImagePath.event,
+        "image": ImagePath.event3,
         "status": "Confirmed",
       },
     ];
-
+    List <Map<String,String>>  seereview =[
+      {
+       "title":"Floyd Miles",
+        "time":"Today",
+        "image":ImagePath.reviewer1,
+          "desc":"Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient."
+      },
+      {
+        "title":"Renee Ellis",
+        "time":"2 days ago",
+        "image": ImagePath.reviewer3,
+        "desc":"Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
+        },
+    ];
     final OverviewController controller = Get.put(OverviewController());
     return Scaffold(
       backgroundColor: Colors.white,
@@ -56,14 +66,14 @@ class OverviewScreen extends StatelessWidget {
                   name: 'Dianne Russell',
                   role: 'Venue Owner',
                 ),
-                SizedBox(height: 32),
+                SizedBox(height: 30),
                 Obx(
                   () =>
                       controller.isPayment.value
                           ? RevenueCard(
                             revenue: '\$92,500',
                             percentage: '12.5%',
-                            pendingBooking: '\&20,500',
+                            pendingBooking: '&20,500',
                             bookingsCount: 5,
                           )
                           : PaymentCard(),
@@ -77,176 +87,27 @@ class OverviewScreen extends StatelessWidget {
                     color: Color(0xff333333),
                   ),
                 ),
-                SizedBox(height: 32),
-                SizedBox(
-                  height: 300,
-                  child:
-                      reviews.isEmpty
-                          ? Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  height: 232,
-                                  width: 232,
-                                  child: Image.asset(ImagePath.overviewbox),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'It looks like no events have been\n       scheduled yet.',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff333333),
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          )
-                          : ListView.builder(
-                            itemCount: reviews.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.all(20),
-                                child: Container(
-                                  height: 107,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffEBEBEB),
-                                    borderRadius: BorderRadius.circular(12),
-
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(
-                                          0xff000000,
-                                        ).withOpacity(.2),
-                                        blurRadius: 7,
-                                        spreadRadius: 2,
-
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              height: 45,
-                                              width: 50,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Image.asset(
-                                                reviews[index]["image"]!,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            SizedBox(width: 15),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  reviews[index]["title"]!,
-                                                  style: getTextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff333333),
-                                                  ),
-                                                ),
-                                                SizedBox(height: 4),
-                                                Text(
-                                                  reviews[index]["subtitle"]!,
-                                                  style: getTextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff999999),
-                                                    textAlign: TextAlign.start,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            Container(
-                                              height: 20,
-                                              width: 20,
-                                              child: Image.asset(
-                                                ImagePath.pending,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.calendar_month,
-                                              size: 15,
-                                              color: Color(0xff8A8A8A),
-                                            ),
-                                            SizedBox(width: 5),
-                                            Text(
-                                              reviews[index]["date"]!,
-                                              style: getTextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            SizedBox(width: 16),
-                                            Text(
-                                              reviews[index]["time"]!,
-                                              style: getTextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            Spacer(),
-                                            Container(
-                                              height: 22,
-                                              width: 68,
-
-                                              decoration: BoxDecoration(
-                                                color: Color(
-                                                  0xff37D459,
-                                                ).withOpacity(.20),
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  reviews[index]["status"]!,
-                                                  style: getTextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff37D441),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                ),
-
-                SizedBox(height: 67),
+                if(reviews.isNotEmpty)
+             Padding(
+               padding: const EdgeInsets.all(8.0),
+               child: Row(
+                 children: [
+                   Spacer(),
+                   InkWell(
+                     onTap:(){},
+                     child: Text('Explore All',style: getTextStyle(
+                       fontWeight: FontWeight.w500,
+                       fontSize: 14,
+                       color: Color(0xff444444),
+                     ),),
+                   ),
+                   Icon(Icons.arrow_right_alt)
+                 ],
+               ),
+             ),
+                SizedBox(height: 7),
+                NewWidget(reviews: reviews),
+                SizedBox(height: 30),
                 InkWell(
                   onTap: () {},
                   child: Container(
@@ -277,30 +138,120 @@ class OverviewScreen extends StatelessWidget {
                     color: Color(0xff333333),
                   ),
                 ),
-                SizedBox(height: 20),
-                Center(
-                  child: SizedBox(
-                    height: 140,
-                    width: 188,
-                    child: Image.asset(ImagePath.reviewpic),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Center(
-                  child: SizedBox(
-                    width: 220,
-                    child: Text(
-                      "No reviews have been submitted yet.",
-                      textAlign: TextAlign.center,
-
-                      style: getTextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff333333),
-                      ),
+                if(seereview.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Spacer(),
+                        InkWell(
+                          onTap:(){},
+                          child: Text('Explore All',style: getTextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: Color(0xff444444),
+                          ),),
+                        ),
+                        Icon(Icons.arrow_right_alt)
+                      ],
                     ),
                   ),
-                ),
+                SizedBox(height: 2),
+                
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * (380 / MediaQuery.of(context).size.height),
+                  width: double.infinity,
+                  child: seereview.isEmpty?Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: 140,
+                          width: 188,
+                          child: Image.asset(ImagePath.reviewpic),
+                        ),
+                        SizedBox(height: 20),
+                        SizedBox(
+                          width: 220,
+                          child: Text(
+                            "No reviews have been submitted yet.",
+                            textAlign: TextAlign.center,
+                            style: getTextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff333333),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ):
+                  ListView.builder(itemCount: seereview.length,itemBuilder: (context,index){
+                    return Padding(padding: EdgeInsets.all(20),
+                      child: SizedBox(
+
+
+                        child:Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                ClipOval(
+                                  child:Image.asset(
+                                    seereview[index]["image"]!,
+                                    fit: BoxFit.cover,
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                ),
+                                SizedBox(width:8),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(seereview[index]["title"]!,style: getTextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff333333),
+                                    ),),
+                                     Row(
+                                   mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
+                                      Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
+                                      Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
+                                      Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
+                                      Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
+                                    ],
+                                  )
+                                    
+                                  ],
+                                ),
+                                Spacer(),
+                                Text(seereview[index]["time"]!,style: getTextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xffC0C0C0),
+                                ),)
+                              ],
+                            ),
+                            SizedBox(height: 15,),
+
+                            Text(seereview[index]["desc"]!,style:getTextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff5C5C5C)
+                            ),)
+                            
+                          ],
+
+
+                        ),
+                      ),
+                    );
+                  }),
+                )
+
               ],
             ),
           ),
@@ -309,3 +260,5 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 }
+
+
