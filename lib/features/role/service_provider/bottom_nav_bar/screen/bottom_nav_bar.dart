@@ -1,8 +1,8 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
-import 'package:blinqo/features/role/service_provider/service_chat_page/screen/chat_page.dart';
-import 'package:blinqo/features/role/service_provider/service_earning_page/screen/earning_page.dart';
+import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_booking_page.dart';
+import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_chat_page.dart';
+import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
+import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,10 +17,10 @@ class BottomNavBar extends StatelessWidget {
     final BottomNavController controller = Get.put(BottomNavController());
 
     final List<Widget> pages = [
-      ProfileSetupScreen(),
-      SpLoginScreen(),
-      EarningPage(),
-      ChatPage(),
+      SpHomePage(),
+      SpEarningPage(),
+      SpBookingPage(),
+      SpChatPage(),
       SpProfilePage(),
     ];
     double screenWidth = MediaQuery.of(context).size.width;

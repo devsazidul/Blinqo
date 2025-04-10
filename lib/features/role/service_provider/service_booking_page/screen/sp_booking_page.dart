@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BookingPage extends StatelessWidget {
-  const BookingPage({super.key});
+class SpBookingPage extends StatelessWidget {
+  const SpBookingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

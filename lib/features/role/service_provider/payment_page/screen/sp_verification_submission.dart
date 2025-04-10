@@ -44,6 +44,7 @@ class SpVerificationSubmission extends StatelessWidget {
               children: [
                 SizedBox(height: 32),
                 TextFormField(
+                  controller: verificationSubmissionController.spnameController,
                   decoration: InputDecoration(
                     labelText: "Name",
                     labelStyle: getTextStyle(
@@ -247,6 +248,8 @@ class SpVerificationSubmission extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
+                  controller:
+                      verificationSubmissionController.spProfileLinkController,
                   decoration: InputDecoration(
                     labelText: "Portfolio link",
                     labelStyle: getTextStyle(
@@ -274,6 +277,8 @@ class SpVerificationSubmission extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
+                  controller:
+                      verificationSubmissionController.spShortBioController,
                   maxLines: 3,
                   decoration: InputDecoration(
                     labelText: "Bio",

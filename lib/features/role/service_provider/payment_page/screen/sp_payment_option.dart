@@ -1,10 +1,16 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/controller/sp_payment_option_controller.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SpPaymentOption extends StatelessWidget {
-  const SpPaymentOption({super.key});
+  SpPaymentOption({super.key});
+  final SpPaymentOptionController spPaymentOptionController = Get.put(
+    SpPaymentOptionController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -35,36 +41,42 @@ class SpPaymentOption extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 60),
-            Image.asset(
-              IconPath.paymentempty,
-              width: double.infinity,
-              height: 195,
+            Column(
+              children: [
+                Image.asset(
+                  IconPath.paymentempty,
+                  width: double.infinity,
+                  height: 195,
+                ),
+                SizedBox(height: 20),
+                Text(
+                  "No Payment Method Found!",
+                  style: getTextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textColor,
+                    lineHeight: 2,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  "You can add or edit payment during checkout",
+                  style: getTextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.textColor,
+                    lineHeight: 1.5,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-            Text(
-              "No Payment Method Found!",
-              style: getTextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textColor,
-                lineHeight: 2,
-              ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              "You can add or edit payment during checkout",
-              style: getTextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: AppColors.textColor,
-                lineHeight: 1.5,
-              ),
-              textAlign: TextAlign.center,
-            ),
+
             SizedBox(height: 40),
             GestureDetector(
-              onTap: () {
-                debugPrint('Add a new payment method tapped');
+              onTap: () async {
+                Get.to(SpPaymentOptionCard());
+                spPaymentOptionController.makePayment();
               },
               child: Container(
                 padding: EdgeInsets.all(10),
