@@ -46,6 +46,10 @@ class IconPath {
   static const String niduploadlogo = 'assets/icons/niduploadlogo.png';
   static const String paymentempty = 'assets/icons/paymentempty.png';
   static const String paymentaddcircle = 'assets/icons/paymentaddcircle.png';
+  static const String editPencil = 'assets/icons/edit_pencil.png';
+  static const String viewAs = 'assets/icons/visibility.png';
+  static const String settings = 'assets/icons/settings.png';
+  static const String goPro = 'assets/icons/workspace_premium.png';
   static const String checkoutactive = 'assets/icons/checkoutactive.png';
   static const String checkoutdeactive = 'assets/icons/checkoutdeactive.png';
 }
