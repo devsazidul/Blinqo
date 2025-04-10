@@ -1,3 +1,4 @@
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
@@ -51,6 +52,7 @@ class AppRoute {
   static String spPaymentOption = '/spPaymentOption';
   static String spEditProfilePage = '/spEditProfilePage';
   static String spShareWorkPage = '/spShareWorkPage';
+  static String eventHomeScreen = '/eventHomeScreen';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -77,6 +79,7 @@ class AppRoute {
   static String getspPaymentOption() => spPaymentOption;
   static String getspEditProfilePage() => spEditProfilePage;
   static String getspShareWorkPage() => spShareWorkPage;
+  static String geteventHomeScreen() => eventHomeScreen;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -107,5 +110,6 @@ class AppRoute {
     GetPage(name: spPaymentOption, page: () => SpPaymentOption()),
     GetPage(name: spEditProfilePage, page: () => SpEditProfilePage()),
     GetPage(name: spShareWorkPage, page: () => SpShareWorkPage()),
+    GetPage(name: eventHomeScreen, page: () => EventHomeScreen()),
   ];
 }
