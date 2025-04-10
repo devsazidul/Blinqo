@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 class SpEditProfilePage extends StatelessWidget {
   SpEditProfilePage({super.key});
 
-  ServiceUserEditProfileController controller = Get.put(
+  final ServiceUserEditProfileController controller = Get.put(
     ServiceUserEditProfileController(),
   );
 
@@ -19,12 +19,13 @@ class SpEditProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        
         forceMaterialTransparency: true,
         leading: GestureDetector(
           onTap: Get.back,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: CircleAvatar(    
               backgroundColor: const Color(0xFFD9D9D9),
               child: Image.asset(IconPath.arrowLeftAlt),
             ),
