@@ -5,6 +5,7 @@ import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_ap
 import 'package:blinqo/features/role/venue_owner/overview/widgets/payment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../core/utils/constants/colors.dart';
 import '../widgets/NewWidget.dart';
 import '../widgets/revenue_card.dart';
 class OverviewScreen extends StatelessWidget {
@@ -53,7 +54,7 @@ class OverviewScreen extends StatelessWidget {
     ];
     final OverviewController controller = Get.put(OverviewController());
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(

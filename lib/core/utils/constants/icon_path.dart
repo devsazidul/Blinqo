@@ -55,4 +55,14 @@ class IconPath {
   static const String goPro = 'assets/icons/workspace_premium.png';
   static const String checkoutactive = 'assets/icons/checkoutactive.png';
   static const String checkoutdeactive = 'assets/icons/checkoutdeactive.png';
+  static const String overviewactive = 'assets/icons/overviewactive.png';
+  static const String overviewdeactive = 'assets/icons/overviewdeactive.png';
+  static const String venueactive= 'assets/icons/venueactive.png';
+  static const String vernuownerdeactive= 'assets/icons/vernuownerdeactive.png';
+  static const String rotatevenue = 'assets/icons/rotatevenue.png';
+  static const String verify = 'assets/icons/verify.png';
+
+  
+  
+
 }

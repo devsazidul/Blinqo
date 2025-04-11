@@ -29,4 +29,8 @@ class ImagePath {
   static const String reviewer1 = 'assets/images/reviewer1.png';
   static const String reviewer2= 'assets/images/ reviewer2.png';
   static const String reviewer3 = 'assets/images/reviewer3.png';
+  static const String myvenue1 = 'assets/images/myvenue1.png';
+  static const String myvenue2 = 'assets/images/myvenue2.png';
+  static const String emptyvenue = 'assets/images/emptyvenue.png';
+
 }
