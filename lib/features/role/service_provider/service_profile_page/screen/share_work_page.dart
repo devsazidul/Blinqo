@@ -76,7 +76,7 @@ class SpShareWorkPage extends StatelessWidget {
                   value: _shareWorkController.selectedEvent.value,
                   onChanged: (String? newValue) {
                     // Handle dropdown value change
-                    print(newValue);
+                    debugPrint(newValue);
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {

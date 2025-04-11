@@ -1,8 +1,10 @@
-import 'package:blinqo/core/common/styles/global_text_style.dart'
-    show getTextStyle;
+// ignore_for_file: file_names
+
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:flutter/material.dart';
+import 'package:blinqo/core/common/styles/global_text_style.dart'
+    show getTextStyle;
 
 class EventCard extends StatelessWidget {
   const EventCard({super.key});

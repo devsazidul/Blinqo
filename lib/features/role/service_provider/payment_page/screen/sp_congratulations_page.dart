@@ -3,10 +3,8 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
-import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class SpCongratulationsPage extends StatelessWidget {
   const SpCongratulationsPage({super.key});

@@ -4,7 +4,6 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class FeaturedVenuesScreen extends StatelessWidget {
   const FeaturedVenuesScreen({super.key});

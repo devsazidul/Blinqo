@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';

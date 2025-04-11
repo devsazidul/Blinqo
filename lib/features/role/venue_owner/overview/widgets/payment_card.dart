@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../core/common/styles/global_text_style.dart';
@@ -15,8 +14,8 @@ class PaymentCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xff003366).withOpacity(0.3),
-            Color(0xff0066CC).withOpacity(0.3),
+            Color(0xff003366).withValues(alpha: .3),
+            Color(0xff0066CC).withValues(alpha: .3),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

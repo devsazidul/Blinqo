@@ -219,6 +219,7 @@ class EHomeScreen extends StatelessWidget {
     // );
   }
 
+  // ignore: unused_element
   Widget _buildUpCommingEventsList(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -256,7 +257,8 @@ class EHomeScreen extends StatelessWidget {
         itemCount: 5,
         separatorBuilder: (context, index) => SizedBox(width: 16),
         itemBuilder: (context, index) {
-          return Container(
+          
+          return SizedBox(
             child: Column(
               children: [
                 ClipRRect(
