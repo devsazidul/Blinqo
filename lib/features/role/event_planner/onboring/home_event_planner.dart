@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/image_path.dart';
-import '../event_home_page/screens/event_home_screen.dart';
 
 
 class HomeEventPlanner extends StatelessWidget {

@@ -69,11 +69,11 @@ class SpPaymentOptionController extends GetxController {
       if (response.statusCode == 200) {
         return jsonDecode(response.body.toString());
       } else {
-        print('Failed to create payment intent: ${response.body}');
+        debugPrint('Failed to create payment intent: ${response.body}');
         throw Exception('Failed to create payment intent');
       }
     } catch (err) {
-      print('Error charging user: ${err.toString()}');
+      debugPrint('Error charging user: ${err.toString()}');
       rethrow;
     }
   }

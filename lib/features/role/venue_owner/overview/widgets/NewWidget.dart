@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
@@ -55,7 +57,7 @@ class NewWidget extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xff000000).withOpacity(.1),
+                    color: Color(0xff000000).withValues(alpha:  .1),
                     blurRadius: 6,
                     offset: Offset(0, 3),
                   ),
@@ -148,8 +150,8 @@ class NewWidget extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.17, // Slightly reduced
                           decoration: BoxDecoration(
                             color: reviews[index]["status"] == "Confirmed"
-                                ? Color(0xff37D459).withOpacity(.20)
-                                : Color(0xffD4AF37).withOpacity(.20),
+                                ? Color(0xff37D459).withValues(alpha: .20)
+                                : Color(0xffD4AF37).withValues(alpha: .20),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Center(
