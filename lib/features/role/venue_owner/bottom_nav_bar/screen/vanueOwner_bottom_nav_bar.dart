@@ -1,6 +1,6 @@
-// ignore_for_file: file_names
-
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
+// ignore_for_file: file_names
 import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +18,7 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
 
     final List<Widget> pages = [
       OverviewScreen(),
-      Text('Screen 2'),
+      Venue(),
       Text('Screen 3'),
       Text('Screen 4'),
       Text('Screen 5'),
@@ -47,13 +47,13 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(
-                activeImage: IconPath.homeactive,
-                passiveImage: IconPath.homedeactive,
+                activeImage: IconPath.overviewactive,
+                passiveImage: IconPath.overviewdeactive,
                 index: 0,
               ),
               _buildNavItem(
-                activeImage: IconPath.earningsactive,
-                passiveImage: IconPath.earningsdeactive,
+                activeImage: IconPath.venueactive,
+                passiveImage: IconPath.vernuownerdeactive,
                 index: 1,
               ),
               _buildNavItem(
