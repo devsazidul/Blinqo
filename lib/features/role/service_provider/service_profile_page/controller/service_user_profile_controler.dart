@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ServiceUserProfileControler extends GetxController {
@@ -7,6 +8,7 @@ class ServiceUserProfileControler extends GetxController {
 
   void toggleDarkMode() {
     isDarkMode.value = !isDarkMode.value;
+    Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
   }
 
   void toggleNotifications() {

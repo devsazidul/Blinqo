@@ -11,6 +11,9 @@ class Blinqo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Bind the ThemeController here
+    Get.put(ThemeController());
+
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -21,13 +24,8 @@ class Blinqo extends StatelessWidget {
           initialRoute: AppRoute.getsplashoScreen(),
           getPages: AppRoute.routes,
           initialBinding: ControllerBinder(),
-
-          // Use Obx to observe the themeMode and rebuild the app when the theme changes
-          themeMode: Get.find<ThemeController>().themeMode.value,
-
-          // You can specify both themes here
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
+          theme: AppTheme.lightTheme, // Light theme applied here
+          darkTheme: AppTheme.darkTheme, // Dark theme applied here
         );
       },
     );

@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/core/utils/theme/custom_themes/text_theme.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
 import 'package:flutter/material.dart';
@@ -12,32 +13,42 @@ class SpProfilePage extends StatelessWidget {
   final ServiceUserProfileControler spUserProfileControler = Get.put(
     ServiceUserProfileControler(),
   );
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: _buildAppBar(context),
-      body: ColoredBox(
-        color: AppColors.backgroundColor,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 40),
-              _buildProfileSection(context),
-              SizedBox(height: 34),
-              _buildSettingsSection(context),
-              SizedBox(height: 80),
-            ],
+    return Obx(() {
+      // Observe the isDarkMode value and update the UI when it changes
+      bool isDarkMode = spUserProfileControler.isDarkMode.value;
+
+      return Scaffold(
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        appBar: _buildAppBar(context, isDarkMode), // Pass isDarkMode to AppBar
+        body: ColoredBox(
+          color:
+              isDarkMode
+                  ? Colors.black
+                  : AppColors
+                      .backgroundColor, // Change background color based on theme
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 40),
+                _buildProfileSection(context, isDarkMode),
+                SizedBox(height: 34),
+                _buildSettingsSection(context, isDarkMode),
+                SizedBox(height: 80),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  AppBar _buildAppBar(BuildContext context) {
+  AppBar _buildAppBar(BuildContext context, bool isDarkMode) {
     return AppBar(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: isDarkMode ? Colors.black : AppColors.backgroundColor,
       forceMaterialTransparency: true,
       leading: Padding(
         padding: const EdgeInsets.only(left: 20.0),
@@ -51,40 +62,66 @@ class SpProfilePage extends StatelessWidget {
         style: getTextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color: AppColors.textColor,
+          color: isDarkMode ? Colors.white : AppColors.textColor,
         ),
       ),
       centerTitle: true,
       actions: [
         IconButton(
           onPressed: () {
-            _showPopupMenu(context);
+            _showPopupMenu(context, isDarkMode);
           },
 
-          icon: Image.asset(IconPath.moreVert),
+          icon: Image.asset(
+            IconPath.moreVert,
+            color: isDarkMode ? Colors.white : AppColors.textColor,
+          ),
         ),
       ],
     );
   }
 
   // Function to show the popup menu
-  void _showPopupMenu(BuildContext context) {
+  void _showPopupMenu(BuildContext context, bool isDarkMode) {
     // Show the popup menu
     showMenu(
       color: Colors.white,
       context: context,
       position: RelativeRect.fromLTRB(100, 50, 0, 0),
       items: [
-        _buildPopupMenuItem("Edit Profile", "Edit Profile", context, iconPath: IconPath.editPencil),
-        _buildPopupMenuItem("View As", "view_as", context, iconPath: IconPath.viewAs),
-        _buildPopupMenuItem("Settings", "settings", context, iconPath: IconPath.settings),
-        _buildPopupMenuItem("Go Pro", "go_pro", context, iconPath: IconPath.goPro),
-      ]
-      
+        _buildPopupMenuItem(
+          isDarkMode,
+          "Edit Profile",
+          "Edit Profile",
+          context,
+          iconPath: IconPath.editPencil,
+        ),
+        _buildPopupMenuItem(
+          isDarkMode,
+          "View As",
+          "view_as",
+          context,
+          iconPath: IconPath.viewAs,
+        ),
+        _buildPopupMenuItem(
+          isDarkMode,
+          "Settings",
+          "settings",
+          context,
+          iconPath: IconPath.settings,
+        ),
+        _buildPopupMenuItem(
+          isDarkMode,
+          "Go Pro",
+          "go_pro",
+          context,
+          iconPath: IconPath.goPro,
+        ),
+      ],
     );
   }
 
-  Widget _buildProfileSection(BuildContext context) {
+  Widget _buildProfileSection(BuildContext context, bool isDarkMode) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       spacing: 10,
@@ -118,7 +155,7 @@ class SpProfilePage extends StatelessWidget {
           children: [
             Icon(
               Icons.location_on_outlined,
-              color: AppColors.buttonColor2,
+              color: isDarkMode ? Colors.white : AppColors.buttonColor2,
               size: 20,
             ),
             Text(
@@ -126,7 +163,7 @@ class SpProfilePage extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: AppColors.textColor,
+                color: isDarkMode ? Colors.white : AppColors.textColor,
               ),
             ),
           ],
@@ -145,10 +182,11 @@ class SpProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingsSection(BuildContext context) {
+  Widget _buildSettingsSection(BuildContext context, bool isDarkMode) {
     return Column(
       children: [
         _buildSettingsTile(
+          isDarkMode,
           iconPath: IconPath.editProfile,
           title: "Edit Profile",
           onTap: () {
@@ -157,18 +195,29 @@ class SpProfilePage extends StatelessWidget {
         ),
         Obx(
           () => _buildSettingsTile(
+            isDarkMode,
             title: "Dark mood",
             iconPath: IconPath.dartMood,
             isSwitch: true,
             switchValue: spUserProfileControler.isDarkMode.value,
             onTap: () {
               spUserProfileControler.toggleDarkMode();
+              themeController.setThemeMode(
+                spUserProfileControler.isDarkMode.value
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+              );
             },
           ),
         ),
-        _buildSettingsTile(title: "Language", iconPath: IconPath.language),
+        _buildSettingsTile(
+          isDarkMode,
+          title: "Language",
+          iconPath: IconPath.language,
+        ),
         Obx(
           () => _buildSettingsTile(
+            isDarkMode,
             title: "Notification",
             iconPath: IconPath.notification,
             isSwitch: true,
@@ -176,8 +225,13 @@ class SpProfilePage extends StatelessWidget {
             onTap: () => spUserProfileControler.toggleNotifications(),
           ),
         ),
-        _buildSettingsTile(title: "Switch Role", iconPath: IconPath.switchRole),
         _buildSettingsTile(
+          isDarkMode,
+          title: "Switch Role",
+          iconPath: IconPath.switchRole,
+        ),
+        _buildSettingsTile(
+          isDarkMode,
           title: "Payment History",
           iconPath: IconPath.paymentHistory,
         ),
@@ -209,7 +263,8 @@ class SpProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingsTile({
+  Widget _buildSettingsTile(
+    bool isDarkMode, {
     required String iconPath,
     required String title,
     void Function()? onTap,
@@ -225,11 +280,15 @@ class SpProfilePage extends StatelessWidget {
           title: Row(
             spacing: 10,
             children: [
-              Image.asset(iconPath, width: 16, color: AppColors.textColor),
+              Image.asset(
+                iconPath,
+                width: 16,
+                color: isDarkMode ? Color(0xffD4AF37) : AppColors.textColor,
+              ),
               Text(
                 title,
                 style: getTextStyle(
-                  color: AppColors.textColor,
+                  color: isDarkMode ? Colors.white : AppColors.textColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -255,6 +314,7 @@ class SpProfilePage extends StatelessWidget {
 
   // Helper method to build a PopupMenuItem with an icon and a Divider
   PopupMenuItem<String> _buildPopupMenuItem(
+    bool isDarkMode,
     String text,
     String value,
     BuildContext context, {
@@ -288,7 +348,7 @@ class SpProfilePage extends StatelessWidget {
                     child: Image.asset(
                       iconPath,
                       width: 15,
-                      color: AppColors.textColor,
+                      color: isDarkMode ? AppColors.textColor : Colors.white,
                     ),
                     // child: Icon(icon, size: 20, color: Colors.black87),
                   ),

@@ -257,7 +257,6 @@ class EHomeScreen extends StatelessWidget {
         itemCount: 5,
         separatorBuilder: (context, index) => SizedBox(width: 16),
         itemBuilder: (context, index) {
-          
           return SizedBox(
             child: Column(
               children: [

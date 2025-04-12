@@ -6,14 +6,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/image_path.dart';
-
+import '../../../../core/utils/theme/custom_themes/text_theme.dart';
 
 class HomeEventPlanner extends StatelessWidget {
   const HomeEventPlanner({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var themeMode = Get.find<ThemeController>().themeMode.value;
     return Scaffold(
+      backgroundColor:
+          themeMode == ThemeMode.dark
+              ? Colors.black
+              : AppColors.backgroundColor,
       body: Stack(
         children: [
           Image.asset(

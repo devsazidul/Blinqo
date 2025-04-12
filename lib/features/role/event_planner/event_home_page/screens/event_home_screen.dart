@@ -11,14 +11,21 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/featu
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../core/utils/theme/custom_themes/text_theme.dart';
+
 class EventHomeScreen extends StatelessWidget {
   const EventHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     TextEditingController searchTEController = TextEditingController();
+    var themeMode = Get.find<ThemeController>().themeMode.value;
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          themeMode == ThemeMode.dark
+              ? Colors.black
+              : AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -32,7 +39,6 @@ class EventHomeScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 EventCard(),
                 SizedBox(height: 40),
-
                 _buildTitle(
                   'Featured Venues',
                   onTap: () {
@@ -62,11 +68,9 @@ class EventHomeScreen extends StatelessWidget {
                         ),
                   ],
                 ),
-
                 SizedBox(height: 40),
                 _buildTitle('Venues Near You'),
                 _buildVenueNearYouList(context),
-
                 SizedBox(height: 40),
                 _buildTitle('Event Services'),
                 _eventServicesList(context),
@@ -137,57 +141,6 @@ class EventHomeScreen extends StatelessWidget {
         }),
       ),
     );
-
-    /*Widget _buildVenueList(context) {
-    double screenHeight=MediaQuery.sizeOf(context).height;
-    return SizedBox(
-      height: screenHeight*0.45,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        separatorBuilder: (context, index) => SizedBox(width: 16),
-        itemBuilder: (context, index) {
-          return _buildVenueCard(context);
-        },
-      ),
-    );
-  }*/
-
-    /*Widget _eventServicesList(BuildContext context) {
-    return SizedBox(
-      height: 200, // Fixed height for the horizontal list
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        separatorBuilder: (context, index) => SizedBox(width: 16),
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  ImagePath.venuesHall,
-                  height: 85,
-                  width: 116,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                'Photography',
-                style: getTextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }*/
-
-    // Event Services List (Horizontal Scroll)
   }
 
   // Event Services

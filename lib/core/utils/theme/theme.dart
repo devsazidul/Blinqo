@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTheme {
   // Light Theme
@@ -18,39 +17,28 @@ class AppTheme {
       buttonColor: Colors.blue, // Button color for light theme
       textTheme: ButtonTextTheme.primary,
     ),
-
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Color(0xffA1A1A1), // Input fields background for light theme
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Color(
-            0xffA1A1A1,
-          ), // Set your desired color for the focused border
-        ),
+        borderSide: BorderSide(color: Color(0xffA1A1A1)),
         borderRadius: BorderRadius.circular(8),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Color(
-            0xffA1A1A1,
-          ), // Set your desired color for the enabled border
-        ),
+        borderSide: BorderSide(color: Color(0xffA1A1A1)),
         borderRadius: BorderRadius.circular(8),
       ),
       labelStyle: TextStyle(
-        fontSize: 12.sp,
+        fontSize: 12.0,
         fontWeight: FontWeight.w500,
         color: Color(0xff767676),
       ),
       hintStyle: TextStyle(
-        fontSize: 14.sp,
+        fontSize: 14.0,
         fontWeight: FontWeight.w500,
         color: Color(0xffA1A1A1),
       ),
     ),
-
-    // You can add other customizations for light theme here
   );
 
   // Dark Theme
@@ -72,32 +60,23 @@ class AppTheme {
       fillColor: Color(0xffA1A1A1), // Input fields background for light theme
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Color(
-            0xffA1A1A1,
-          ), // Set your desired color for the focused border
-        ),
+        borderSide: BorderSide(color: Color(0xffA1A1A1)),
         borderRadius: BorderRadius.circular(8),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Color(
-            0xffA1A1A1,
-          ), // Set your desired color for the enabled border
-        ),
+        borderSide: BorderSide(color: Color(0xffA1A1A1)),
         borderRadius: BorderRadius.circular(8),
       ),
       labelStyle: TextStyle(
-        fontSize: 12.sp,
+        fontSize: 12.0,
         fontWeight: FontWeight.w500,
         color: Color(0xff767676),
       ),
       hintStyle: TextStyle(
-        fontSize: 14.sp,
+        fontSize: 14.0,
         fontWeight: FontWeight.w500,
         color: Color(0xffA1A1A1),
       ),
     ),
-    // You can add other customizations for dark theme here
   );
 }
