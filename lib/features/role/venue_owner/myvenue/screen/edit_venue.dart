@@ -302,7 +302,7 @@ class EditVenue extends StatelessWidget {
 
                         boxShadow: [
                           BoxShadow(
-                            color:Color(0xff000000).withOpacity(.6),
+                            color:Color(0xff000000).withOpacity(.6),//sersr
                             blurRadius: 10,
                             offset: Offset(0, 3),
                           )
