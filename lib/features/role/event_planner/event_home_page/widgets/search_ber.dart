@@ -2,12 +2,14 @@
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class SearchBerSection extends StatelessWidget {
-  TextEditingController searchTEController = TextEditingController();
+  final SearchBerController controller = Get.put(SearchBerController());
    SearchBerSection({
-    required this.searchTEController,
     super.key,
   });
 
@@ -17,7 +19,9 @@ class SearchBerSection extends StatelessWidget {
       children: [
         Expanded(
           child: TextField(
-            controller: searchTEController,
+            onChanged: (value) {
+              controller.updateSearchQuery(value);
+            },
             decoration: InputDecoration(
               hintText: 'Search venues & services...',
               hintStyle: getTextStyle(color: Colors.grey, fontSize: 14),

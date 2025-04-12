@@ -5,8 +5,8 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/featu
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FeaturedVenuesScreen extends StatelessWidget {
-  const FeaturedVenuesScreen({super.key});
+class VenuesNearScreen extends StatelessWidget {
+  const VenuesNearScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class FeaturedVenuesScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Featured Venues',
+          'Venues Near You',
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,

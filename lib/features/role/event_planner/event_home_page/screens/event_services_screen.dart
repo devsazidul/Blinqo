@@ -1,16 +1,24 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
+import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FeaturedVenuesScreen extends StatelessWidget {
-  const FeaturedVenuesScreen({super.key});
+class EventServicesScreen extends StatelessWidget {
+  const EventServicesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    final List<Service> services = [
+      Service(imagePath: ImagePath.venuesHall, label: 'Photography'),
+      Service(imagePath: ImagePath.venuesHall, label: 'Videography'),
+      Service(imagePath: ImagePath.venuesHall, label: 'Entertainment'),
+      Service(imagePath: ImagePath.venuesHall, label: 'Decoration'),
+      Service(imagePath: ImagePath.venuesHall, label: 'Catering'),
+    ];
     print('screenWidth: $screenWidth');
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -30,7 +38,7 @@ class FeaturedVenuesScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Featured Venues',
+          'Event Services',
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -43,15 +51,15 @@ class FeaturedVenuesScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: GridView.builder(
           shrinkWrap: true,
-          itemCount: 10,
+          itemCount: 5,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+            crossAxisCount: 3,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
             childAspectRatio: _buildChildAspectRatio(screenWidth),
           ),
           itemBuilder: (context, index) {
-            return FeatureVenues(hasButton: false,);
+            return EventServiceCard(service: services[index]);
           },
         ),
       ),
@@ -59,11 +67,11 @@ class FeaturedVenuesScreen extends StatelessWidget {
   }
   _buildChildAspectRatio(double screenWidth) {
     if(screenWidth <= 360) {
-      return 0.703;
+      return 0.86;
     } if (screenWidth >= 360 && screenWidth < 448) {
-      return 0.735;
+      return 0.96;
     } else {
-      return 0.77;
+      return 1.1;
     }
   }
 }

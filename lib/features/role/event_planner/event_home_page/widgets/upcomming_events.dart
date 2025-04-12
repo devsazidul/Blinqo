@@ -4,7 +4,20 @@ import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
 
 class UpcommingEvents extends StatelessWidget {
-  const UpcommingEvents({super.key});
+  final String title;
+  final String venue;
+  final String date;
+  final String location;
+  final String status;
+
+  const UpcommingEvents({
+    super.key,
+    required this.title,
+    required this.venue,
+    required this.date,
+    required this.location,
+    required this.status,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +47,7 @@ class UpcommingEvents extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'The Community Block Party',
+                      title,
                       style: getTextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -43,7 +56,7 @@ class UpcommingEvents extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Whispering Pines Lodge',
+                          venue,
                           style: getTextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
@@ -92,36 +105,35 @@ class UpcommingEvents extends StatelessWidget {
                 spacing: 16,
                 runSpacing: 8,
                 children: [
-                  _iconWithText(
-                    Icons.calendar_month,
-                    '15 March,2025',
-                  ),
-                  _iconWithText(
-                    Icons.location_on_outlined,
-                    'New York',
-                  ),
+                  _iconWithText(Icons.calendar_month, date),
+                  _iconWithText(Icons.location_on_outlined, location),
                 ],
               ),
               Spacer(),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0x3337D459),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 6),
-                  child: Text(
-                    'Confirm',
-                    style: getTextStyle(
-                      fontSize: 12,
-                      color: Color(0xFF37D441),
-                    ),
-                  ),
-                ),
-              ),
+              _statusButton(status),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Container _statusButton(String status) {
+    Color buttonColor =
+        status == 'Confirmed' ? Color(0x3337D459) : Color(0x33D4AF37);
+    Color textColor =
+        status == 'Confirmed' ? Color(0xFF37D441) : Color(0xFFD4AF37);
+    return Container(
+      decoration: BoxDecoration(
+        color: buttonColor,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+        child: Text(
+          status,
+          style: getTextStyle(fontSize: 12, color: textColor),
+        ),
       ),
     );
   }
@@ -143,5 +155,4 @@ class UpcommingEvents extends StatelessWidget {
       ],
     );
   }
-
 }

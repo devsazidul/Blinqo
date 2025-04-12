@@ -8,6 +8,7 @@ class EventServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: [
         ClipRRect(
@@ -15,7 +16,7 @@ class EventServiceCard extends StatelessWidget {
           child: Image.asset(
             service.imagePath,
             height: 85,
-            width: 116,
+            width: screenWidth * 0.3,
             fit: BoxFit.cover,
           ),
         ),
