@@ -61,6 +61,7 @@ class IconPath {
   static const String vernuownerdeactive= 'assets/icons/vernuownerdeactive.png';
   static const String rotatevenue = 'assets/icons/rotatevenue.png';
   static const String verify = 'assets/icons/verify.png';
+  static const String edit_button = 'assets/icons/edit_button.png';
 
   
   
