@@ -6,6 +6,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/widget/customcircleavater.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/service_provider_profile.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -512,7 +513,9 @@ class ProfileSetupScreen extends StatelessWidget {
                 SizedBox(height: 40),
                 CustomContinueButton(
                   onTap: () {
+                    /// TODO: Before push must change the screen to get verified
                     Get.to(GetVerifiedScreen());
+                    // Get.to(ServiceProviderProfile());
                   },
                   title: "Continue",
                 ),

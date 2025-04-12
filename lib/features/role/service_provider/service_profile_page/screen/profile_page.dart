@@ -12,7 +12,6 @@ class SpProfilePage extends StatelessWidget {
   final ServiceUserProfileControler spUserProfileControler = Get.put(
     ServiceUserProfileControler(),
   );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,12 +74,31 @@ class SpProfilePage extends StatelessWidget {
       context: context,
       position: RelativeRect.fromLTRB(100, 50, 0, 0),
       items: [
-        _buildPopupMenuItem("Edit Profile", "Edit Profile", context, iconPath: IconPath.editPencil),
-        _buildPopupMenuItem("View As", "view_as", context, iconPath: IconPath.viewAs),
-        _buildPopupMenuItem("Settings", "settings", context, iconPath: IconPath.settings),
-        _buildPopupMenuItem("Go Pro", "go_pro", context, iconPath: IconPath.goPro),
-      ]
-      
+        _buildPopupMenuItem(
+          "Edit Profile",
+          "Edit Profile",
+          context,
+          iconPath: IconPath.editPencil,
+        ),
+        _buildPopupMenuItem(
+          "View As",
+          "view_as",
+          context,
+          iconPath: IconPath.viewAs,
+        ),
+        _buildPopupMenuItem(
+          "Settings",
+          "settings",
+          context,
+          iconPath: IconPath.settings,
+        ),
+        _buildPopupMenuItem(
+          "Go Pro",
+          "go_pro",
+          context,
+          iconPath: IconPath.goPro,
+        ),
+      ],
     );
   }
 
