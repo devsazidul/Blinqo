@@ -1,7 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/eventCard.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/home_header_section.dart';
@@ -16,63 +19,68 @@ class EventHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchTEController = TextEditingController();
+    final UpcomingEventsController controller = Get.put(
+      UpcomingEventsController(),
+    );
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
+      appBar: HomeHeaderSection(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                HomeHeaderSection(),
-                SizedBox(height: 32),
-                SearchBerSection(searchTEController: searchTEController),
-                SizedBox(height: 20),
-                EventCard(),
-                SizedBox(height: 40),
+            child: Obx(() {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 32),
+                  SearchBerSection(),
+                  SizedBox(height: 20),
+                  EventCard(),
+                  SizedBox(height: 40),
 
-                _buildTitle(
-                  'Featured Venues',
-                  onTap: () {
-                    Get.to(FeaturedVenuesScreen());
-                  },
-                ),
-                SizedBox(height: 8),
-                _featureVenuesList(context),
-                SizedBox(height: 40),
-
-                // Upcoming Events
-                Text(
-                  'Upcoming Events',
-                  style: getTextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
+                  _buildTitle(
+                    'Featured Venues',
+                    onTap: () {
+                      Get.to(FeaturedVenuesScreen());
+                    },
                   ),
-                ),
-                SizedBox(height: 20),
-                Column(
-                  children: [
-                    for (int i = 0; i < 3; i++)
-                      if (i < 3)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: UpcommingEvents(),
-                        ),
-                  ],
-                ),
+                  SizedBox(height: 8),
+                  _featureVenuesList(context),
+                  SizedBox(height: 40),
 
-                SizedBox(height: 40),
-                _buildTitle('Venues Near You'),
-                _buildVenueNearYouList(context),
+                  // Upcoming Events
+                  Text(
+                    'Upcoming Events',
+                    style: getTextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  _buildUpComingEventList(controller),
 
-                SizedBox(height: 40),
-                _buildTitle('Event Services'),
-                _eventServicesList(context),
-                SizedBox(height: 20),
-              ],
-            ),
+                  SizedBox(height: 40),
+                  _buildTitle(
+                    'Venues Near You',
+                    onTap: () {
+                      Get.to(VenuesNearScreen());
+                    },
+                  ),
+                  _buildVenueNearYouList(context),
+
+                  SizedBox(height: 40),
+                  _buildTitle('Event Services',
+                      onTap: (){
+                    Get.to(EventServicesScreen());
+                      }
+
+                  ),
+                  _eventServicesList(context),
+                  SizedBox(height: 20),
+                ],
+              );
+            }),
           ),
         ),
       ),
@@ -124,6 +132,30 @@ class EventHomeScreen extends StatelessWidget {
     );
   }
 
+  // Upcoming Events
+  Widget _buildUpComingEventList(UpcomingEventsController controller) {
+    return Column(
+      children: List.generate(
+        controller.upcomingEvents.length > 3
+            ? 3
+            : controller.upcomingEvents.length,
+        (index) {
+          var event = controller.upcomingEvents[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: UpcommingEvents(
+              title: event['title'],
+              venue: event['venue'],
+              date: event['date'],
+              location: event['location'],
+              status: event['status'],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   // Venues Near You
   Widget _buildVenueNearYouList(BuildContext context) {
     return SingleChildScrollView(
@@ -137,57 +169,6 @@ class EventHomeScreen extends StatelessWidget {
         }),
       ),
     );
-
-    /*Widget _buildVenueList(context) {
-    double screenHeight=MediaQuery.sizeOf(context).height;
-    return SizedBox(
-      height: screenHeight*0.45,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        separatorBuilder: (context, index) => SizedBox(width: 16),
-        itemBuilder: (context, index) {
-          return _buildVenueCard(context);
-        },
-      ),
-    );
-  }*/
-
-    /*Widget _eventServicesList(BuildContext context) {
-    return SizedBox(
-      height: 200, // Fixed height for the horizontal list
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        separatorBuilder: (context, index) => SizedBox(width: 16),
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  ImagePath.venuesHall,
-                  height: 85,
-                  width: 116,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                'Photography',
-                style: getTextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }*/
-
-    // Event Services List (Horizontal Scroll)
   }
 
   // Event Services

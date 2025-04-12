@@ -32,5 +32,6 @@ class ImagePath {
   static const String myvenue1 = 'assets/images/myvenue1.png';
   static const String myvenue2 = 'assets/images/myvenue2.png';
   static const String emptyvenue = 'assets/images/emptyvenue.png';
+  static const String nochecklist = 'assets/images/nochecklist.svg';
 
 }
