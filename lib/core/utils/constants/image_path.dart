@@ -34,5 +34,8 @@ class ImagePath {
   static const String emptyvenue = 'assets/images/emptyvenue.png';
 static const String venueview = 'assets/images/venueview.png';
 static const String location = 'assets/images/map.png';
-
+  static const String nochecklist = 'assets/images/nochecklist.svg';
+  static const String weddingPhotography1 = 'assets/images/wedding_photography_1.jpeg';
+  static const String weddingPhotography2 = 'assets/images/wedding_photography_2.jpeg';
+  static const String weddingPhotography3 = 'assets/images/wedding_photography_3.jpeg';
 }

@@ -23,6 +23,7 @@ class FeatureVenues extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _venueImageSection(),
@@ -42,7 +43,6 @@ class FeatureVenues extends StatelessWidget {
               color: AppColors.iconColor,
             ),
           ),
-          SizedBox(height: 8),
           hasButton ? _venueBottomRow(buttonFontSize) :SizedBox(),
         ],
       ),

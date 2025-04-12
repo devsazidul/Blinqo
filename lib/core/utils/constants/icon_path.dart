@@ -57,13 +57,14 @@ class IconPath {
   static const String checkoutdeactive = 'assets/icons/checkoutdeactive.png';
   static const String overviewactive = 'assets/icons/overviewactive.png';
   static const String overviewdeactive = 'assets/icons/overviewdeactive.png';
-  static const String venueactive= 'assets/icons/venueactive.png';
-  static const String vernuownerdeactive= 'assets/icons/vernuownerdeactive.png';
+  static const String venueactive = 'assets/icons/venueactive.png';
+  static const String vernuownerdeactive =
+      'assets/icons/vernuownerdeactive.png';
   static const String rotatevenue = 'assets/icons/rotatevenue.png';
   static const String verify = 'assets/icons/verify.png';
   static const String edit_button = 'assets/icons/edit_button.png';
-
-  
-  
+  static const String locationOn = 'assets/icons/location_on.svg';
+  static const String camera = 'assets/icons/camera.svg';
+  static const String arrowLeftAltSvg = 'assets/icons/arrow_left_alt.svg';
 
 }

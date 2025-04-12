@@ -64,6 +64,7 @@ dependencies:
   flutter_image_compress: ^2.4.0
   # Stripe
   flutter_stripe: ^11.4.0
+  flutter_svg: ^2.0.17
   
 
 dev_dependencies:

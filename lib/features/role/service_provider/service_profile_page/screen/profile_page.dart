@@ -3,8 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/profile_popup_menu_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +12,6 @@ class SpProfilePage extends StatelessWidget {
   final ServiceUserProfileControler spUserProfileControler = Get.put(
     ServiceUserProfileControler(),
   );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,85 +74,29 @@ class SpProfilePage extends StatelessWidget {
       context: context,
       position: RelativeRect.fromLTRB(100, 50, 0, 0),
       items: [
-        // Edit Profile
-        PopupMenuItem<String>(
-          padding: EdgeInsets.zero,
-          onTap: () {
-            Get.to(SpEditProfilePage(), arguments: 4);
-          },
-          // value: 'Edit Profile',
-          child: ProfilePopupMenuItemWidget(
-            iconPath: IconPath.editPencil,
-            title: 'Edit Profile',
-          ),
+        _buildPopupMenuItem(
+          "Edit Profile",
+          "Edit Profile",
+          context,
+          iconPath: IconPath.editPencil,
         ),
-
-        // View as
-        PopupMenuItem<String>(
-          padding: EdgeInsets.zero,
-          onTap: () {
-            Get.to(SpEditProfilePage(), arguments: 4);
-          },
-          // value: 'view_as',
-          child: ProfilePopupMenuItemWidget(
-            iconPath: IconPath.viewAs,
-            title: 'View As',
-          ),
+        _buildPopupMenuItem(
+          "View As",
+          "view_as",
+          context,
+          iconPath: IconPath.viewAs,
         ),
-
-        // Settings
-        PopupMenuItem<String>(
-          padding: EdgeInsets.zero,
-          height: 40,
-          onTap: () {
-            Get.to(SpShareWorkPage(), arguments: 4);
-          },
-          // value: 'settings',
-          child: ProfilePopupMenuItemWidget(
-            iconPath: IconPath.settings,
-            title: 'Settings',
-            hasDivider: false,
-          ),
+        _buildPopupMenuItem(
+          "Settings",
+          "settings",
+          context,
+          iconPath: IconPath.settings,
         ),
-
-        // Go Pro
-        PopupMenuItem<String>(
-          padding: EdgeInsets.symmetric(vertical: 0),
-
-          // height: 10,
-          onTap: () {
-            Get.to(SpEditProfilePage(), arguments: 4);
-          },
-          // value: 'go_pro',
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(width: 10),
-              Image.asset(
-                IconPath.goPro,
-                width: 15,
-                color: AppColors.textColor,
-              ),
-              SizedBox(width: 10),
-              Container(
-                margin: EdgeInsets.zero,
-                decoration: BoxDecoration(
-                  color: Color(0x15AF371A),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 4.0),
-                child: Text(
-                  "Go Pro",
-                  style: getTextStyle(
-                    color: Color.fromARGB(255, 205, 168, 46),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    lineHeight: 1.6,
-                  ),
-                ),
-              ),
-            ],
-          ),
+        _buildPopupMenuItem(
+          "Go Pro",
+          "go_pro",
+          context,
+          iconPath: IconPath.goPro,
         ),
       ],
     );
@@ -327,6 +268,74 @@ class SpProfilePage extends StatelessWidget {
         ),
         const Divider(height: 1, color: Color(0xFFEBEBEB)),
       ],
+    );
+  }
+
+  // Helper method to build a PopupMenuItem with an icon and a Divider
+  PopupMenuItem<String> _buildPopupMenuItem(
+    String text,
+    String value,
+    BuildContext context, {
+    String iconPath = IconPath.editPencil,
+    bool addDivider = true,
+  }) {
+    return PopupMenuItem<String>(
+      value: value,
+      // Set padding to zero since we're handling it in the Container
+      padding: EdgeInsets.zero,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Wrap in InkWell to show ripple effect
+          InkWell(
+            onTap: () {
+              // Close the menu
+              Navigator.pop(context, value);
+            },
+            // Make the InkWell take the full width
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  SizedBox(width: 10),
+
+                  // Icon prefix
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: Image.asset(
+                      iconPath,
+                      width: 15,
+                      color: AppColors.textColor,
+                    ),
+                    // child: Icon(icon, size: 20, color: Colors.black87),
+                  ),
+
+                  // Menu item text
+                  Text(
+                    text,
+                    style: getTextStyle(
+                      color: Color(0xFF003285),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      lineHeight: 1.6,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Add divider if needed
+          if (addDivider)
+            const Divider(
+              height: 1,
+              thickness: 1,
+              color: Color(0xFFEEEEEE), // Light gray color
+              endIndent: 0,
+              indent: 0,
+            ),
+        ],
+      ),
     );
   }
 }
