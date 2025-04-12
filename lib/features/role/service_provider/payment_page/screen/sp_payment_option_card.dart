@@ -6,7 +6,6 @@ import 'package:blinqo/features/role/service_provider/payment_page/controller/sp
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class SpPaymentOptionCard extends StatelessWidget {
   SpPaymentOptionCard({super.key});

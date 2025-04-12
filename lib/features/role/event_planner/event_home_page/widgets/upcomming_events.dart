@@ -123,7 +123,7 @@ class UpcommingEvents extends StatelessWidget {
           ),
         ],
       ),
-    );;
+    );
   }
 
   Widget _iconWithText(IconData icon, String text) {

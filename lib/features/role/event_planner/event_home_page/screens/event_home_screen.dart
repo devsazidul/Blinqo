@@ -10,7 +10,6 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/upcom
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class EventHomeScreen extends StatelessWidget {
   const EventHomeScreen({super.key});

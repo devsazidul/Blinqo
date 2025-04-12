@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class AddcardScreen extends StatelessWidget {
   AddcardScreen({super.key});
@@ -11,8 +10,8 @@ class AddcardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController CardHolderName = TextEditingController();
-    TextEditingController CardNumber = TextEditingController();
+    TextEditingController cardHolderName = TextEditingController();
+    TextEditingController cardNumber = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -39,7 +38,7 @@ class AddcardScreen extends StatelessWidget {
               ),
               SizedBox(height: 24),
               TextField(
-                controller: CardHolderName,
+                controller: cardHolderName,
                 decoration: InputDecoration(
                   labelText: 'Card Holder Name',
                   labelStyle: getTextStyle(
@@ -51,7 +50,7 @@ class AddcardScreen extends StatelessWidget {
               ),
               SizedBox(height: 16),
               TextField(
-                controller: CardNumber,
+                controller: cardNumber,
                 decoration: InputDecoration(
                   labelText: 'Card Number',
                   labelStyle: getTextStyle(

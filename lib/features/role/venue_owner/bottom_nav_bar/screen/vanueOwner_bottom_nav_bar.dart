@@ -1,5 +1,6 @@
- import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
+// ignore_for_file: file_names
 import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
