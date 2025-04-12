@@ -62,7 +62,9 @@ class IconPath {
       'assets/icons/vernuownerdeactive.png';
   static const String rotatevenue = 'assets/icons/rotatevenue.png';
   static const String verify = 'assets/icons/verify.png';
+  static const String edit_button = 'assets/icons/edit_button.png';
   static const String locationOn = 'assets/icons/location_on.svg';
   static const String camera = 'assets/icons/camera.svg';
   static const String arrowLeftAltSvg = 'assets/icons/arrow_left_alt.svg';
+
 }
