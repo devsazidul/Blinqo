@@ -70,11 +70,11 @@ class EventHomeScreen extends StatelessWidget {
                   _buildVenueNearYouList(context),
 
                   SizedBox(height: 40),
-                  _buildTitle('Event Services',
-                      onTap: (){
-                    Get.to(EventServicesScreen());
-                      }
-
+                  _buildTitle(
+                    'Event Services',
+                    onTap: () {
+                      Get.to(EventServicesScreen());
+                    },
                   ),
                   _eventServicesList(context),
                   SizedBox(height: 20),
