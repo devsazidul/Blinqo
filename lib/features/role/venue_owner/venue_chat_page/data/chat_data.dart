@@ -5,7 +5,7 @@ class ChatData {
   static final User currentUser = User(
     id: "current-user",
     name: "Current User",
-    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     isOnline: true,
   );
 
@@ -13,25 +13,25 @@ class ChatData {
     User(
       id: "1",
       name: "Floyd Miles",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      avatar: "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       isOnline: false,
     ),
     User(
       id: "2",
       name: "Samantha Green",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      avatar: "https://plus.unsplash.com/premium_photo-1689747698547-271d2d553cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       isOnline: true,
     ),
     User(
       id: "3",
       name: "Oliver Smith",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      avatar: "https://avatars.githubusercontent.com/u/174879559?v=4",
       isOnline: false,
     ),
     User(
       id: "4",
       name: "Isabella Johnson",
-      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      avatar: "https://plus.unsplash.com/premium_photo-1689708721750-8a0e6dc14cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       isOnline: true,
     ),
     User(
@@ -43,7 +43,7 @@ class ChatData {
     User(
       id: "6",
       name: "Mia Wilson",
-      avatar: "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      avatar: "https://plus.unsplash.com/premium_photo-1689533448099-2dc408030f0f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       isOnline: true,
     ),
     User(
@@ -55,7 +55,7 @@ class ChatData {
     User(
       id: "8",
       name: "Emma Martinez",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      avatar: "https://avatars.githubusercontent.com/u/80408775?v=4",
       isOnline: true,
     ),
     User(
@@ -74,7 +74,7 @@ class ChatData {
         receiverId: "current-user",
         text: "Hi, I'm Alex! Today, I'm here to assist you in finding the perfect Webflow Template! 👋",
         timestamp: DateTime.now().millisecondsSinceEpoch - 3600000 * 2,
-        isRead: true,
+        isRead: false,
         type: MessageType.text,
       ),
       Message(
@@ -85,7 +85,7 @@ class ChatData {
         timestamp: DateTime.now().millisecondsSinceEpoch - (3600000 * 1.5).toInt(),
         isRead: true,
         type: MessageType.image,
-        mediaUrl: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        mediaUrl: "https://avatars.githubusercontent.com/u/174879559?v=4",
       ),
       Message(
         id: "m3",
@@ -127,15 +127,15 @@ class ChatData {
       ),
     ],
     "1": [
-      Message(
-        id: "m7",
-        senderId: "1",
-        receiverId: "current-user",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        timestamp: DateTime.now().millisecondsSinceEpoch - 3600000 * 5,
-        isRead: true,
-        type: MessageType.text,
-      ),
+      // Message(
+      //   id: "m7",
+      //   senderId: "1",
+      //   receiverId: "current-user",
+      //   text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      //   timestamp: DateTime.now().millisecondsSinceEpoch - 3600000 * 5,
+      //   isRead: true,
+      //   type: MessageType.text,
+      // ),
     ],
     "3": [
       Message(
