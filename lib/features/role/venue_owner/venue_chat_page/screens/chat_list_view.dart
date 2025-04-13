@@ -1,3 +1,6 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/chat_details_view.dart';
 import 'package:flutter/material.dart';
@@ -12,32 +15,47 @@ class ChatListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        forceMaterialTransparency: true,
+        centerTitle: true,
         title: Text(
           'Chat',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+          style: getTextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF333333),
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: AppColors.backgroundColor,
       ),
+
       body: Obx(() {
         final chats = chatController.chats;
 
+        /* If there are no chats, show a message */
         if (chats.isEmpty) {
-          return Center(
-            child: Text(
-              'No conversations yet',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
+          return SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    ImagePath.nocontentbackground,
+                    height: 250,
+                    width: 230,
+                  ),
+                  Text(
+                    'No conversations yet',
+                    style: getTextStyle(fontSize: 16, color: Color(0xFF333333)),
+                  ),
+                ],
               ),
             ),
           );
         }
 
+        /* If there are chats, show them */
         return ListView.builder(
           itemCount: chats.length,
           itemBuilder: (context, index) {
@@ -55,15 +73,12 @@ class ChatListView extends StatelessWidget {
   }
 }
 
+// Widget to display a chat list item
 class ChatListItem extends StatelessWidget {
   final ChatPreview chat;
   final VoidCallback onTap;
 
-  const ChatListItem({
-    Key? key,
-    required this.chat,
-    required this.onTap,
-  }) : super(key: key);
+  const ChatListItem({super.key, required this.chat, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +89,10 @@ class ChatListItem extends StatelessWidget {
     String messagePreview;
     switch (lastMessage.type) {
       case MessageType.text:
-        messagePreview = lastMessage.text.length > 30
-            ? '${lastMessage.text.substring(0, 30)}...'
-            : lastMessage.text;
+        messagePreview =
+            lastMessage.text.length > 30
+                ? '${lastMessage.text.substring(0, 30)}...'
+                : lastMessage.text;
         break;
       case MessageType.image:
         messagePreview = '📷 Image';
@@ -89,21 +105,15 @@ class ChatListItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: Colors.grey[200]!,
-              width: 1,
-            ),
-          ),
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+
         child: Row(
           children: [
             // Avatar with online indicator
             Stack(
               children: [
                 CircleAvatar(
+                  backgroundColor: Colors.grey[300],
                   radius: 25,
                   backgroundImage: NetworkImage(user.avatar),
                 ),
@@ -117,10 +127,7 @@ class ChatListItem extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.green,
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2,
-                        ),
+                        border: Border.all(color: Colors.white, width: 2),
                       ),
                     ),
                   ),
@@ -138,16 +145,20 @@ class ChatListItem extends StatelessWidget {
                     children: [
                       Text(
                         user.name,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                        style: getTextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
+                      // time
                       Text(
-                        ChatDateUtils.formatMessageTime(lastMessage.timestamp.toInt()),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
+                        ChatDateUtils.formatMessageTime(
+                          lastMessage.timestamp.toInt(),
+                        ),
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFFABB7C2),
                         ),
                       ),
                     ],
@@ -159,22 +170,29 @@ class ChatListItem extends StatelessWidget {
                       Expanded(
                         child: Text(
                           messagePreview,
-                          style: TextStyle(
+                          style: getTextStyle(
                             fontSize: 14,
-                            color: chat.unreadCount > 0
-                                ? Colors.black
-                                : Colors.grey[600],
-                            fontWeight: chat.unreadCount > 0
-                                ? FontWeight.w500
-                                : FontWeight.normal,
+                            color:
+                                chat.unreadCount > 0
+                                    ? Colors.black
+                                    : Color(0xff767676),
+                            fontWeight:
+                                chat.unreadCount > 0
+                                    ? FontWeight.w500
+                                    : FontWeight.w400,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
+
+                      // Unread count
                       if (chat.unreadCount > 0)
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Color(0xFF205295),
                             borderRadius: BorderRadius.circular(10),
@@ -186,7 +204,7 @@ class ChatListItem extends StatelessWidget {
                           child: Center(
                             child: Text(
                               chat.unreadCount.toString(),
-                              style: TextStyle(
+                              style: getTextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,

@@ -3,7 +3,6 @@ import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
 // ignore_for_file: file_names
 import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/chat_list_view.dart';
-import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/venue_chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
