@@ -41,4 +41,8 @@ class ImagePath {
       'assets/images/wedding_photography_2.jpeg';
   static const String weddingPhotography3 =
       'assets/images/wedding_photography_3.jpeg';
+  static const String weddingPhotography1 = 'assets/images/wedding_photography_1.jpeg';
+  static const String weddingPhotography2 = 'assets/images/wedding_photography_2.jpeg';
+  static const String weddingPhotography3 = 'assets/images/wedding_photography_3.jpeg';
+  static const String nocontentbackground = 'assets/images/nocontentbackground.png';
 }
