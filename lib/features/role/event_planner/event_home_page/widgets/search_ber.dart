@@ -5,13 +5,12 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class SearchBerSection extends StatelessWidget {
   final SearchBerController controller = Get.put(SearchBerController());
-   SearchBerSection({
-    super.key,
-  });
+
+  final ThemeMode themeMode;
+  SearchBerSection({super.key, required this.themeMode});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +23,22 @@ class SearchBerSection extends StatelessWidget {
             },
             decoration: InputDecoration(
               hintText: 'Search venues & services...',
-              hintStyle: getTextStyle(color: Colors.grey, fontSize: 14),
+              hintStyle: getTextStyle(
+                color:
+                    themeMode == ThemeMode.dark
+                        ? Color.fromARGB(255, 198, 202, 206)
+                        : Colors.grey,
+                fontSize: 14,
+              ),
               filled: true,
-              suffixIcon: Icon(Icons.mic_none),
-              fillColor: AppColors.primary,
+              suffixIcon: Icon(
+                Icons.mic_none,
+                color: themeMode == ThemeMode.dark ? AppColors.secondary : null,
+              ),
+              fillColor:
+                  themeMode == ThemeMode.dark
+                      ? AppColors.textFrieldDarkColor
+                      : AppColors.primary,
 
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),

@@ -4,6 +4,7 @@ import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
 
 class UpcommingEvents extends StatelessWidget {
+  final ThemeMode themeMode;
   final String title;
   final String venue;
   final String date;
@@ -12,6 +13,7 @@ class UpcommingEvents extends StatelessWidget {
 
   const UpcommingEvents({
     super.key,
+    required this.themeMode,
     required this.title,
     required this.venue,
     required this.date,
@@ -23,7 +25,10 @@ class UpcommingEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.primary,
+        color:
+            themeMode == ThemeMode.dark
+                ? AppColors.textFrieldDarkColor
+                : AppColors.primary,
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(12),
@@ -51,6 +56,10 @@ class UpcommingEvents extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.primary
+                                : AppColors.textFrieldDarkColor,
                       ),
                     ),
                     Row(

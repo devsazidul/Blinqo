@@ -51,16 +51,18 @@ class FeaturedVenuesScreen extends StatelessWidget {
             childAspectRatio: _buildChildAspectRatio(screenWidth),
           ),
           itemBuilder: (context, index) {
-            return FeatureVenues(hasButton: false,);
+            return FeatureVenues(hasButton: false);
           },
         ),
       ),
     );
   }
+
   _buildChildAspectRatio(double screenWidth) {
-    if(screenWidth <= 360) {
+    if (screenWidth <= 360) {
       return 0.703;
-    } if (screenWidth >= 360 && screenWidth < 448) {
+    }
+    if (screenWidth >= 360 && screenWidth < 448) {
       return 0.735;
     } else {
       return 0.77;

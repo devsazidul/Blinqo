@@ -23,7 +23,6 @@ class SpProfilePage extends StatelessWidget {
               ? ThemeMode.dark
               : ThemeMode.light;
 
-      // Get the appropriate background color based on the theme mode
       return Scaffold(
         backgroundColor:
             themeMode == ThemeMode.dark
