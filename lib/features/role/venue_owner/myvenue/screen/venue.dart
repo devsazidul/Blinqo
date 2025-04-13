@@ -6,7 +6,7 @@ import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/icon_path.dart';
 import '../widget/SearchBarWidget.dart';
 import '../widget/venueplaceholder.dart';
-import 'VenueDetailsScreen.dart';
+import 'venueDetailsScreen.dart';
 
 class Venue extends StatelessWidget {
   Venue({super.key});

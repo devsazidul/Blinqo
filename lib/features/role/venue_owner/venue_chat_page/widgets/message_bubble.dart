@@ -30,10 +30,17 @@ class MessageBubble extends StatelessWidget {
           maxWidth: MediaQuery.of(context).size.width * 0.8,
         ),
         decoration: BoxDecoration(
-          color: isCurrentUser ? AppColors.buttonColor2 : const Color(0xFFF2F3F5),
+          color:
+              isCurrentUser ? AppColors.buttonColor2 : const Color(0xFFF2F3F5),
           borderRadius: BorderRadius.circular(16).copyWith(
-            bottomRight: isCurrentUser ? const Radius.circular(4) : const Radius.circular(16),
-            bottomLeft: !isCurrentUser ? const Radius.circular(4) : const Radius.circular(16),
+            bottomRight:
+                isCurrentUser
+                    ? const Radius.circular(4)
+                    : const Radius.circular(16),
+            bottomLeft:
+                !isCurrentUser
+                    ? const Radius.circular(4)
+                    : const Radius.circular(16),
           ),
         ),
         child: Column(
@@ -47,9 +54,10 @@ class MessageBubble extends StatelessWidget {
                 ChatDateUtils.formatTime(message.timestamp.toInt()),
                 style: getTextStyle(
                   fontSize: 12,
-                  color: isCurrentUser
-                      ? Colors.white.withOpacity(0.7)
-                      : Colors.black.withOpacity(0.5),
+                  color:
+                      isCurrentUser
+                          ? Colors.white.withOpacity(0.7)
+                          : Colors.black.withOpacity(0.5),
                 ),
               ),
             ),
@@ -63,69 +71,77 @@ class MessageBubble extends StatelessWidget {
     switch (message.type) {
       case MessageType.image:
         return GestureDetector(
-          onTap: () => message.mediaUrl != null && onImageTap != null
-              ? onImageTap!(message.mediaUrl!)
-              : null,
+          onTap:
+              () =>
+                  message.mediaUrl != null && onImageTap != null
+                      ? onImageTap!(message.mediaUrl!)
+                      : null,
           child: ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: message.mediaUrl != null
-                ? message.mediaUrl!.startsWith('http') || message.mediaUrl!.startsWith('file://')
-                ? Image.network(
-              message.mediaUrl!.replaceFirst('file://', ''),
-              width: 200,
-              height: 150,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
-                width: 200,
-                height: 150,
-                color: Colors.grey[300],
-                child: const Center(
-                  child: Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 40,
-                  ),
-                ),
-              ),
-            )
-                : Image.file(
-              File(message.mediaUrl!),
-              width: 200,
-              height: 150,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
-                width: 200,
-                height: 150,
-                color: Colors.grey[300],
-                child: const Center(
-                  child: Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 40,
-                  ),
-                ),
-              ),
-            )
-                : Container(
-              width: 200,
-              height: 150,
-              color: Colors.grey[300],
-              child: const Center(
-                child: Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                  size: 40,
-                ),
-              ),
-            ),
+            child:
+                message.mediaUrl != null
+                    ? message.mediaUrl!.startsWith('http') ||
+                            message.mediaUrl!.startsWith('file://')
+                        ? Image.network(
+                          message.mediaUrl!.replaceFirst('file://', ''),
+                          width: 200,
+                          height: 150,
+                          fit: BoxFit.cover,
+                          errorBuilder:
+                              (context, error, stackTrace) => Container(
+                                width: 200,
+                                height: 150,
+                                color: Colors.grey[300],
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.error_outline,
+                                    color: Colors.red,
+                                    size: 40,
+                                  ),
+                                ),
+                              ),
+                        )
+                        : Image.file(
+                          File(message.mediaUrl!),
+                          width: 200,
+                          height: 150,
+                          fit: BoxFit.cover,
+                          errorBuilder:
+                              (context, error, stackTrace) => Container(
+                                width: 200,
+                                height: 150,
+                                color: Colors.grey[300],
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.error_outline,
+                                    color: Colors.red,
+                                    size: 40,
+                                  ),
+                                ),
+                              ),
+                        )
+                    : Container(
+                      width: 200,
+                      height: 150,
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 40,
+                        ),
+                      ),
+                    ),
           ),
         );
 
       case MessageType.audio:
         return GestureDetector(
-          onTap: () => message.mediaUrl != null && onAudioTap != null
-              ? onAudioTap!(message.mediaUrl!)
-              : null,
+          onTap:
+              () =>
+                  message.mediaUrl != null && onAudioTap != null
+                      ? onAudioTap!(message.mediaUrl!)
+                      : null,
           child: Container(
             padding: const EdgeInsets.all(12),
             child: Row(
@@ -145,19 +161,24 @@ class MessageBubble extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Container(
+                SizedBox(
                   width: 100,
                   child: Row(
                     children: List.generate(
                       8,
-                          (index) => Container(
+                      (index) => Container(
                         width: 3,
                         height: 4 + (index % 3) * 4.0,
                         margin: const EdgeInsets.symmetric(horizontal: 1),
                         decoration: BoxDecoration(
-                          color: isCurrentUser
-                              ? Colors.white.withOpacity(0.2 + (index % 5) * 0.15)
-                              : Colors.black.withOpacity(0.2 + (index % 5) * 0.15),
+                          color:
+                              isCurrentUser
+                                  ? Colors.white.withOpacity(
+                                    0.2 + (index % 5) * 0.15,
+                                  )
+                                  : Colors.black.withOpacity(
+                                    0.2 + (index % 5) * 0.15,
+                                  ),
                           borderRadius: BorderRadius.circular(1.5),
                         ),
                       ),
@@ -167,7 +188,7 @@ class MessageBubble extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   message.audioDuration ?? '0:00',
-                  style: TextStyle(
+                  style: getTextStyle(
                     fontSize: 14,
                     color: isCurrentUser ? Colors.white : Colors.black,
                   ),
@@ -176,10 +197,14 @@ class MessageBubble extends StatelessWidget {
             ),
           ),
         );
-
       default:
         return Padding(
-          padding: const EdgeInsets.only(right: 16, left: 16, top: 8, bottom: 2),
+          padding: const EdgeInsets.only(
+            right: 16,
+            left: 16,
+            top: 8,
+            bottom: 2,
+          ),
           child: Text(
             message.text,
             style: getTextStyle(

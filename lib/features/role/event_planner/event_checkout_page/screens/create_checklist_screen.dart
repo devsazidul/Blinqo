@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +33,8 @@ class CreateChecklistScreen extends StatelessWidget {
               TextField(
                 controller: controller.eventNameController,
                 onChanged: (value) {
-                  controller.eventName.value = value; // Update eventName reactively
+                  controller.eventName.value =
+                      value; // Update eventName reactively
                 },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -282,16 +282,14 @@ class CreateChecklistScreen extends StatelessWidget {
                     onPressed:
                         isEnabled
                             ? () {
-                          controller.saveChecklist();
+                              controller.saveChecklist();
                             }
-                            : null, // Disable the button if fields are not filled
+                            : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
                           isEnabled
-                              ? const Color(0xFF003366) // Enabled: #003366
-                              : const Color(
-                                0xFFE6EBF0,
-                              ), // Disabled: original color
+                              ? const Color(0xFF003366)
+                              : const Color(0xFFE6EBF0),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -306,11 +304,8 @@ class CreateChecklistScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           color:
                               isEnabled
-                                  ? Colors
-                                      .white // Enabled: white text
-                                  : const Color(
-                                    0xFF8AA1B9,
-                                  ), // Disabled: original color
+                                  ? Colors.white
+                                  : const Color(0xFF8AA1B9),
                         ),
                       ),
                     ),

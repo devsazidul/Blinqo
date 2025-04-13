@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
-
 class User {
   final String id;
   final String name;
@@ -52,8 +50,4 @@ class ChatPreview {
   });
 }
 
-enum MessageType {
-  text,
-  image,
-  audio,
-}
+enum MessageType { text, image, audio }
