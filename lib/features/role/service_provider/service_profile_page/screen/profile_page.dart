@@ -4,6 +4,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/widget/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -56,14 +57,19 @@ class SpProfilePage extends StatelessWidget {
       forceMaterialTransparency: true,
       leading: Padding(
         padding: const EdgeInsets.only(left: 20.0),
-        child: CircleAvatar(
-          backgroundColor:
-              themeMode == ThemeMode.dark
-                  ? Color(0xFFD9D9D9).withAlpha(40)
-                  : const Color(0xFFD9D9D9),
-          child: Image.asset(
-            IconPath.arrowLeftAlt,
-            color: AppColors.backgroundColor,
+        child: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: CircleAvatar(
+            backgroundColor:
+                themeMode == ThemeMode.dark
+                    ? Color(0xFFD9D9D9).withAlpha(40)
+                    : const Color(0xFFD9D9D9),
+            child: Image.asset(
+              IconPath.arrowLeftAlt,
+              color: themeMode == ThemeMode.dark ? Colors.white : AppColors.textColor,
+            ),
           ),
         ),
       ),
@@ -82,10 +88,11 @@ class SpProfilePage extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            _showPopupMenu(context);
+            showPopupMenu(context);
           },
           icon: Image.asset(
             IconPath.moreVert,
+            height: 22.5,
             color:
                 themeMode == ThemeMode.dark
                     ? AppColors.backgroundColor

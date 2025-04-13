@@ -4,6 +4,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_edit_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/profile_edit_text_form_field.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/widget/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,13 +20,12 @@ class SpEditProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        
         forceMaterialTransparency: true,
         leading: GestureDetector(
           onTap: Get.back,
           child: Padding(
             padding: const EdgeInsets.only(left: 20.0),
-            child: CircleAvatar(    
+            child: CircleAvatar(
               backgroundColor: const Color(0xFFD9D9D9),
               child: Image.asset(IconPath.arrowLeftAlt),
             ),
@@ -41,7 +41,12 @@ class SpEditProfilePage extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Image.asset(IconPath.moreVert)),
+          IconButton(
+            onPressed: () {
+              showPopupMenu(context);
+            },
+            icon: Image.asset(IconPath.moreVert, height: 22.5),
+          ),
         ],
       ),
       body: SingleChildScrollView(

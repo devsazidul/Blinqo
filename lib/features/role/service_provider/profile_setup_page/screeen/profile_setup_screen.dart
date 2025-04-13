@@ -512,9 +512,7 @@ class ProfileSetupScreen extends StatelessWidget {
                 SizedBox(height: 40),
                 CustomContinueButton(
                   onTap: () {
-                    /// TODO: Before push must change the screen to get verified
                     Get.to(GetVerifiedScreen());
-                    // Get.to(ServiceProviderProfile());
                   },
                   title: "Continue",
                 ),
