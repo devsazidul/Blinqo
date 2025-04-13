@@ -16,19 +16,24 @@ class Blinqo extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppRoute.getsplashoScreen(),
-          getPages: AppRoute.routes,
-          initialBinding: ControllerBinder(),
+        return Obx(() {
+          final themeController = Get.find<ThemeController>();
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            initialRoute: AppRoute.getsplashoScreen(),
+            getPages: AppRoute.routes,
+            initialBinding: ControllerBinder(),
 
-          // Use Obx to observe the themeMode and rebuild the app when the theme changes
-          themeMode: Get.find<ThemeController>().themeMode.value,
-
-          // You can specify both themes here
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-        );
+            // Use Obx to observe the themeMode and rebuild the app when the theme changes
+            themeMode:
+                themeController.isDarkMode.value
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+            // Specify both themes here
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+          );
+        });
       },
     );
   }

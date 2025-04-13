@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ThemeController extends GetxController {
-  Rx<ThemeMode> themeMode = ThemeMode.light.obs;
+  // Observable for dark mode
+  var isDarkMode = false.obs;
 
-  // Function to set the theme mode and persist it
-  void setThemeMode(ThemeMode mode) async {
-    themeMode.value = mode;
-    // Apply theme change to the app
-    Get.changeThemeMode(mode);
-
-    update();
+  // Method to toggle between dark and light mode
+  void toggleTheme() {
+    isDarkMode.value = !isDarkMode.value;
   }
 }
