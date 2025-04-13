@@ -2,6 +2,8 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/widget/show_profile_popup_menu.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/widget/works_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -14,6 +16,7 @@ class ServiceProviderProfile extends StatelessWidget {
       body: DefaultTabController(
         length: 2,
         child: NestedScrollView(
+          reverse: false,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverToBoxAdapter(
@@ -23,6 +26,8 @@ class ServiceProviderProfile extends StatelessWidget {
                     Stack(
                       children: [
                         SizedBox(height: 270, width: double.infinity),
+
+                        /// Cover image
                         Image.asset(
                           "assets/images/profile_cover_image.jpeg",
                           height: 220,
@@ -30,7 +35,7 @@ class ServiceProviderProfile extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
 
-                        /// back button
+                        /// Three-dot menu and back button
                         Positioned(
                           top: 50,
                           left: 0,
@@ -56,7 +61,7 @@ class ServiceProviderProfile extends StatelessWidget {
                               Spacer(),
                               GestureDetector(
                                 onTap: () {
-                                  _showPopupMenu(context);
+                                  showPopupMenu(context);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 20.0),
@@ -75,6 +80,7 @@ class ServiceProviderProfile extends StatelessWidget {
                           ),
                         ),
 
+                        /// Avatar image
                         Positioned(
                           bottom: 0,
                           left: 0,
@@ -94,6 +100,8 @@ class ServiceProviderProfile extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 12),
+
+                    /// name
                     Text(
                       'Ronald Richards',
                       style: getTextStyle(
@@ -103,7 +111,8 @@ class ServiceProviderProfile extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 8),
-                    // City
+
+                    /// City
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -124,7 +133,8 @@ class ServiceProviderProfile extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 8),
-                    // Profession
+
+                    /// Profession
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -145,7 +155,8 @@ class ServiceProviderProfile extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 24),
-                    // Button
+
+                    /// Button
                     SizedBox(
                       width: 148,
                       child: CustomContinueButton(
@@ -154,7 +165,8 @@ class ServiceProviderProfile extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 40),
-                    // TabBar
+
+                    /// TabBar
                     Align(
                       alignment: Alignment.centerLeft,
                       child: TabBar(
@@ -190,24 +202,25 @@ class ServiceProviderProfile extends StatelessWidget {
               ),
             ];
           },
+
+          /// Tabbar view
           body: Padding(
             padding: EdgeInsets.zero,
             child: TabBarView(
               physics: NeverScrollableScrollPhysics(),
               children: [
-                // Works Tab
+                /// Works Tab
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         for (int i = 0; i < 3; i++)
-                          ProfileWorkCardWidget(
+                          WorksCardWidget(
                             imagePath:
                                 "assets/images/wedding_photography_${i + 1}.jpeg",
                           ),
                         SizedBox(height: 16),
-
                         // Add more work cards as needed
                         GestureDetector(
                           onTap: () {},
@@ -224,7 +237,6 @@ class ServiceProviderProfile extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 // Reviews Tab
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -240,7 +252,7 @@ class ServiceProviderProfile extends StatelessWidget {
                           ),
                         ),
                         for (int i = 0; i < 3; i++)
-                          ProfileWorkCardWidget(
+                          WorksCardWidget(
                             imagePath:
                                 "assets/images/wedding_photography_${i + 1}.jpeg",
                           ),
@@ -251,184 +263,6 @@ class ServiceProviderProfile extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  void _showPopupMenu(BuildContext context) {
-    // Show the popup menu
-    showMenu(
-      color: Colors.white,
-      context: context,
-      position: RelativeRect.fromLTRB(100, 50, 0, 0),
-      items: [
-        _buildPopupMenuItem(
-          "Edit Profile",
-          "Edit Profile",
-          context,
-          iconPath: IconPath.editPencil,
-        ),
-        _buildPopupMenuItem(
-          "View As",
-          "view_as",
-          context,
-          iconPath: IconPath.viewAs,
-        ),
-        _buildPopupMenuItem(
-          "Settings",
-          "settings",
-          context,
-          iconPath: IconPath.settings,
-        ),
-        _buildPopupMenuItem(
-          "Go Pro",
-          "go_pro",
-          context,
-          iconPath: IconPath.goPro,
-        ),
-      ],
-    );
-  }
-
-  // Helper method to build a PopupMenuItem with an icon and a Divider
-  PopupMenuItem<String> _buildPopupMenuItem(
-    String text,
-    String value,
-    BuildContext context, {
-    String iconPath = IconPath.editPencil,
-    bool addDivider = true,
-  }) {
-    return PopupMenuItem<String>(
-      value: value,
-      // Set padding to zero since we're handling it in the Container
-      padding: EdgeInsets.zero,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Wrap in InkWell to show ripple effect
-          InkWell(
-            onTap: () {
-              // Close the menu
-              Navigator.pop(context, value);
-            },
-            // Make the InkWell take the full width
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                children: [
-                  SizedBox(width: 10),
-
-                  // Icon prefix
-                  Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: Image.asset(
-                      iconPath,
-                      width: 15,
-                      color: AppColors.textColor,
-                    ),
-                    // child: Icon(icon, size: 20, color: Colors.black87),
-                  ),
-
-                  // Menu item text
-                  Text(
-                    text,
-                    style: getTextStyle(
-                      color: Color(0xFF003285),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      lineHeight: 1.6,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // Add divider if needed
-          if (addDivider)
-            const Divider(
-              height: 1,
-              thickness: 1,
-              color: Color(0xFFEEEEEE), // Light gray color
-              endIndent: 0,
-              indent: 0,
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class ProfileWorkCardWidget extends StatelessWidget {
-  const ProfileWorkCardWidget({super.key, required this.imagePath});
-
-  final String imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4, // Adds shadow for the card effect
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12), // Rounded corners
-      ),
-      child: Container(
-        height: 150, // Adjust height as needed
-        width: double.infinity, // Adjust width as needed
-
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          image: DecorationImage(
-            image: AssetImage(imagePath), // Replace with your image path
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
-          children: [
-            // Overlay for better text readability
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.black.withValues(
-                      alpha: 0.5,
-                    ), // Top is slightly darker
-                    Colors.black.withAlpha(50), // Bottom is darker
-                  ],
-                ),
-              ),
-            ),
-            // Text content
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'WEDDING PHOTOGRAPHY',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Ronald Richards',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFFD4AF37),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         ),
       ),
     );
