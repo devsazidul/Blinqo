@@ -11,6 +11,8 @@ import '../utils/date_utils.dart';
 class ChatListView extends StatelessWidget {
   final ChatController chatController = Get.put(ChatController());
 
+  ChatListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

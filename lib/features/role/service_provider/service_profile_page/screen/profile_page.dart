@@ -4,7 +4,6 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -67,7 +66,10 @@ class SpProfilePage extends StatelessWidget {
                     : const Color(0xFFD9D9D9),
             child: Image.asset(
               IconPath.arrowLeftAlt,
-              color: themeMode == ThemeMode.dark ? Colors.white : AppColors.textColor,
+              color:
+                  themeMode == ThemeMode.dark
+                      ? Colors.white
+                      : AppColors.textColor,
             ),
           ),
         ),
@@ -103,7 +105,7 @@ class SpProfilePage extends StatelessWidget {
   }
 
   // Function to show the popup menu
-  void _showPopupMenu(BuildContext context) {
+  void showPopupMenu(BuildContext context) {
     showMenu(
       color: Colors.white,
       context: context,

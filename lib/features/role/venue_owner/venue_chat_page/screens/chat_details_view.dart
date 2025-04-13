@@ -7,7 +7,6 @@ import 'package:blinqo/features/role/venue_owner/venue_chat_page/widgets/message
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/chat_controller.dart';
-import '../utils/date_utils.dart';
 
 class ChatDetailView extends StatelessWidget {
   final String chatId;
@@ -65,20 +64,14 @@ class ChatDetailView extends StatelessWidget {
       ),
       title: Row(
         children: [
-          CircleAvatar(
-            radius: 20,
-            backgroundImage: NetworkImage(user.avatar),
-          ),
+          CircleAvatar(radius: 20, backgroundImage: NetworkImage(user.avatar)),
           SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 user.name,
-                style: getTextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: getTextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               Text(
                 user.isOnline ? 'Online' : 'Offline',
@@ -101,25 +94,16 @@ class ChatDetailView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Spacer(flex: 3),
-        CircleAvatar(
-          radius: 60,
-          backgroundImage: NetworkImage(user.avatar),
-        ),
+        CircleAvatar(radius: 60, backgroundImage: NetworkImage(user.avatar)),
         const SizedBox(height: 16),
         Text(
           user.name,
-          style: getTextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
+          style: getTextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 18),
         Text(
           'Say hello to ${user.name}',
-          style: getTextStyle(
-            fontSize: 14,
-            color: const Color(0xFF767676),
-          ),
+          style: getTextStyle(fontSize: 14, color: const Color(0xFF767676)),
         ),
         const Spacer(),
       ],
@@ -134,7 +118,8 @@ class ChatDetailView extends StatelessWidget {
       itemCount: messages.length,
       itemBuilder: (context, index) {
         final message = messages[index];
-        final isCurrentUser = message.senderId == controller.currentUser.value.id;
+        final isCurrentUser =
+            message.senderId == controller.currentUser.value.id;
         return MessageBubble(
           message: message,
           isCurrentUser: isCurrentUser,
@@ -155,40 +140,41 @@ class ChatDetailView extends StatelessWidget {
 
   Widget _buildUploadingIndicator(ChatController controller) {
     // Show progress indicator during image uploads
-    return Obx(() => controller.isUploading.value
-        ? Container(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      color: Colors.white,
-      child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Color(0xFF205295),
+    return Obx(
+      () =>
+          controller.isUploading.value
+              ? Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF205295),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text('Sending image...'),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Text('Sending image...'),
-          ],
-        ),
-      ),
-    )
-        : const SizedBox.shrink());
+              )
+              : const SizedBox.shrink(),
+    );
   }
 
   Widget _buildChatInput(ChatController controller) {
     // Build input area with text field and action buttons
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-      decoration: const BoxDecoration(
-        color: Color(0xFFFFF5D7),
-      ),
+      decoration: const BoxDecoration(color: Color(0xFFFFF5D7)),
       child: SafeArea(
         child: Row(
           children: [
@@ -217,7 +203,9 @@ class ChatDetailView extends StatelessWidget {
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
                         ),
                         maxLines: null,
                       ),
@@ -225,12 +213,13 @@ class ChatDetailView extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.image),
                       color: AppColors.iconColor,
-                      onPressed: () => Get.bottomSheet(
-                        ImagePickerBottomSheet(
-                          chatId: chatId,
-                          chatController: controller,
-                        ),
-                      ),
+                      onPressed:
+                          () => Get.bottomSheet(
+                            ImagePickerBottomSheet(
+                              chatId: chatId,
+                              chatController: controller,
+                            ),
+                          ),
                     ),
                   ],
                 ),
@@ -242,7 +231,10 @@ class ChatDetailView extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   if (hasText) {
-                    controller.sendMessage(chatId, controller.messageController.text.trim());
+                    controller.sendMessage(
+                      chatId,
+                      controller.messageController.text.trim(),
+                    );
                     controller.messageController.clear();
                   } else {
                     Get.snackbar(

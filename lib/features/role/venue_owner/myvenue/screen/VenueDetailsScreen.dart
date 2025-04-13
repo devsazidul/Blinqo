@@ -1,5 +1,4 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/utils/constants/app_sizes.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
@@ -9,18 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../../core/utils/constants/icon_path.dart';
 
 final ValueNotifier<List<DateTime>> selectedDatesNotifier =
-ValueNotifier<List<DateTime>>([
-  DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day,
-  )
-]);
+    ValueNotifier<List<DateTime>>([
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+    ]);
 
 class VenueDetailsScreen extends StatelessWidget {
   final String title;
@@ -51,14 +45,14 @@ class VenueDetailsScreen extends StatelessWidget {
       'September',
       'October',
       'November',
-      'December'
+      'December',
     ];
     return months[month - 1];
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> reviews =  [
+    List<Map<String, String>> reviews = [
       {
         "title": "Corporate Event",
         "subtitle": "Conference Hall",
@@ -84,18 +78,20 @@ class VenueDetailsScreen extends StatelessWidget {
         "status": "Confirmed",
       },
     ];
-    List <Map<String,String>>  seereview =[
+    List<Map<String, String>> seereview = [
       {
-        "title":"Floyd Miles",
-        "time":"Today",
-        "image":ImagePath.reviewer1,
-        "desc":"Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient."
+        "title": "Floyd Miles",
+        "time": "Today",
+        "image": ImagePath.reviewer1,
+        "desc":
+            "Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient.",
       },
       {
-        "title":"Renee Ellis",
-        "time":"2 days ago",
+        "title": "Renee Ellis",
+        "time": "2 days ago",
         "image": ImagePath.reviewer3,
-        "desc":"Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
+        "desc":
+            "Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
       },
     ];
     TextEditingController priceCOntroller = TextEditingController();
@@ -107,7 +103,7 @@ class VenueDetailsScreen extends StatelessWidget {
       if (selectedDatesNotifier.value.isEmpty) {
         final today = DateTime.now();
         selectedDatesNotifier.value = [
-          DateTime(today.year, today.month, today.day)
+          DateTime(today.year, today.month, today.day),
         ];
       }
     });
@@ -137,6 +133,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         end: Alignment.topCenter,
                         colors: [
                           Color(0xff161616),
+                          // ignore: deprecated_member_use
                           Color(0xff000000).withOpacity(.1),
                         ],
                       ),
@@ -172,7 +169,7 @@ class VenueDetailsScreen extends StatelessWidget {
                             width: 26,
                             height: 17,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -187,17 +184,21 @@ class VenueDetailsScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(title,
-                          style: getTextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xff333333),
-                          )),
+                      Text(
+                        title,
+                        style: getTextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff333333),
+                        ),
+                      ),
                       const SizedBox(width: 10),
                       Image.asset(IconPath.verify, height: 16, width: 16),
                       const Spacer(),
                       InkWell(
-                        onTap: (){Get.to(() => EditVenue(image: image));},
+                        onTap: () {
+                          Get.to(() => EditVenue(image: image));
+                        },
                         child: Container(
                           height: 27,
                           width: 76,
@@ -208,35 +209,45 @@ class VenueDetailsScreen extends StatelessWidget {
                           child: Row(
                             children: [
                               const SizedBox(width: 10),
-                               Text('Edit',
-                                    style: getTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xffFFFFFF),
-                                    )),
+                              Text(
+                                'Edit',
+                                style: getTextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xffFFFFFF),
+                                ),
+                              ),
 
                               const SizedBox(width: 8),
-                              const Icon(Icons.edit,
-                                  color: Colors.white, size: 15)
+                              const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                                size: 15,
+                              ),
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Row(
                     children: [
-                      const Icon(Icons.star,
-                          size: 20, color: Color(0xffF0C020)),
+                      const Icon(
+                        Icons.star,
+                        size: 20,
+                        color: Color(0xffF0C020),
+                      ),
                       const SizedBox(width: 1.5),
                       Text(rating),
                       const SizedBox(width: 5),
-                      Text("(345 reviews)",
-                          style: getTextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xffABB7C2),
-                          )),
+                      Text(
+                        "(345 reviews)",
+                        style: getTextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xffABB7C2),
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -244,133 +255,168 @@ class VenueDetailsScreen extends StatelessWidget {
                     children: [
                       const Icon(Icons.location_on_outlined, size: 20),
                       const SizedBox(width: 5),
-                      Text(address,
-                          style: getTextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 14)),
+                      Text(
+                        address,
+                        style: getTextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
                       const Spacer(),
-                      Text(guest,
-                          style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xff333333),
-                          )),
+                      Text(
+                        guest,
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xff333333),
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text('Amenities',
-                      style: getTextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        color: const Color(0xff333333),
-                      )),
+                  Text(
+                    'Amenities',
+                    style: getTextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      color: const Color(0xff333333),
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             border: Border.all(
                               width: 1,
                               color: Color(0xffC0C0C0),
-                            )
-                          ),child: Row(
-
-                          children: [
-                            SizedBox(width: 5,),
-                            Icon(Icons.wifi,size: 14,color: Color(0xffD4AF37),),
-                            SizedBox(width: 8),
-                            Text('Wifi',style: getTextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff333333)
-                            ),)
-                          ],
-                        ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.22,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(0xffC0C0C0),
-                              )
-                          ),child: Row(
-
-                          children: [
-                            SizedBox(width: 5,),
-                            Icon(Icons.wifi,size: 14,color: Color(0xffD4AF37),),
-                            SizedBox(width: 8),
-                            Text('Parking',style: getTextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff333333)
-                            ),)
-                          ],
-                        ),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 5),
+                              Icon(
+                                Icons.wifi,
+                                size: 14,
+                                color: Color(0xffD4AF37),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Wifi',
+                                style: getTextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff333333),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.22,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(0xffC0C0C0),
-                              )
-                          ),child: Row(
-
-                          children: [
-                            SizedBox(width: 5,),
-                            Icon(Icons.wifi,size: 14,color: Color(0xffD4AF37),),
-                            SizedBox(width: 8),
-                            Text('AC',style: getTextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff333333)
-                            ),)
-                          ],
-                        ),
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              width: 1,
+                              color: Color(0xffC0C0C0),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 5),
+                              Icon(
+                                Icons.wifi,
+                                size: 14,
+                                color: Color(0xffD4AF37),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Parking',
+                                style: getTextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff333333),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(0xffC0C0C0),
-                              )
-                          ),child: Row(
-
-                          children: [
-                            SizedBox(width: 5,),
-                            Icon(Icons.wifi,size: 14,color: Color(0xffD4AF37),),
-                            SizedBox(width: 8),
-                            Text('Pool',style: getTextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff333333)
-                            ),)
-                          ],
-                        ),
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              width: 1,
+                              color: Color(0xffC0C0C0),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 5),
+                              Icon(
+                                Icons.wifi,
+                                size: 14,
+                                color: Color(0xffD4AF37),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'AC',
+                                style: getTextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff333333),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              width: 1,
+                              color: Color(0xffC0C0C0),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 5),
+                              Icon(
+                                Icons.wifi,
+                                size: 14,
+                                color: Color(0xffD4AF37),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Pool',
+                                style: getTextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff333333),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 40),
@@ -382,16 +428,16 @@ class VenueDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   Center(
-                    child: Text('Availability',
-                        style: getTextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                          color: const Color(0xff333333),
-                        )),
+                    child: Text(
+                      'Availability',
+                      style: getTextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20,
+                        color: const Color(0xff333333),
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
+                  SizedBox(height: 16),
 
                   SizedBox(height: 16),
                   Container(
@@ -413,10 +459,13 @@ class VenueDetailsScreen extends StatelessWidget {
                                   selectedDatesNotifier.value = [date];
                                 } else if (selectedDates.contains(date)) {
                                   selectedDatesNotifier.value =
-                                      selectedDates.where((d) => d != date).toList();
+                                      selectedDates
+                                          .where((d) => d != date)
+                                          .toList();
                                 } else {
-                                  selectedDatesNotifier.value =
-                                  List.from(selectedDates)..add(date);
+                                  selectedDatesNotifier.value = List.from(
+                                    selectedDates,
+                                  )..add(date);
                                 }
                               },
                               markedDatesMap: EventList(
@@ -434,9 +483,12 @@ class VenueDetailsScreen extends StatelessWidget {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Center(
-                                      child: Text('${event.date.day}',
-                                          style: const TextStyle(
-                                              color: Colors.white)),
+                                      child: Text(
+                                        '${event.date.day}',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
                                   );
                                 } else {
@@ -446,9 +498,12 @@ class VenueDetailsScreen extends StatelessWidget {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Center(
-                                      child: Text('${event.date.day}',
-                                          style: const TextStyle(
-                                              color: Colors.white)),
+                                      child: Text(
+                                        '${event.date.day}',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
                                   );
                                 }
@@ -456,7 +511,9 @@ class VenueDetailsScreen extends StatelessWidget {
                               todayBorderColor: Colors.transparent,
                               todayButtonColor: Colors.transparent,
                               selectedDayButtonColor: const Color(0xff0066CC),
-                              selectedDayTextStyle: const TextStyle(color: Colors.white),
+                              selectedDayTextStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
                               weekendTextStyle: getTextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -489,9 +546,13 @@ class VenueDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Text('Booked',
-                          style: getTextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 14)),
+                      Text(
+                        'Booked',
+                        style: getTextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -506,9 +567,13 @@ class VenueDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Text('Selected',
-                          style: getTextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 14)),
+                      Text(
+                        'Selected',
+                        style: getTextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -528,11 +593,13 @@ class VenueDetailsScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('Selected Date',
-                                  style: getTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      color: const Color(0xff333333))
+                              Text(
+                                'Selected Date',
+                                style: getTextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff333333),
+                                ),
                               ),
                               const Spacer(),
                               ValueListenableBuilder<List<DateTime>>(
@@ -563,711 +630,856 @@ class VenueDetailsScreen extends StatelessWidget {
                                   );
                                 },
                               ),
-
                             ],
                           ),
-                          SizedBox(
-                            height:8 ,
-                          ),
-                         Row(
-                           children: [
-                             Text('Price',style: getTextStyle(
-                                 fontSize: 16,
-                                 fontWeight: FontWeight.w400,
-                                 color: Color(0xff333333)
-                             ),),
-                             Spacer(),
+                          SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Text(
+                                'Price',
+                                style: getTextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff333333),
+                                ),
+                              ),
+                              Spacer(),
                               Container(
-                                height: screenHeight*0.036,
-                                width: screenWidth*0.2,
+                                height: screenHeight * 0.036,
+                                width: screenWidth * 0.2,
 
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
                                     width: 1,
-                                    color:Color(0xffABB7C2),
+                                    color: Color(0xffABB7C2),
                                   ),
-
-
                                 ),
                                 child: TextField(
                                   controller: priceCOntroller,
-                                 style: getTextStyle(
-                                   fontWeight:FontWeight.w700,
-                                   fontSize: 14,
-                                   color: Color(0xff19480B)
-                                 ),
+                                  style: getTextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                    color: Color(0xff19480B),
+                                  ),
 
-                                 decoration: InputDecoration(
-
-                                   labelText: 'Price',
-                                   labelStyle: getTextStyle(
-                                     fontSize:14,
-                                     fontWeight: FontWeight.w500,
-                                     color: Color(0xff767676),
-
-                                   )
-                                 ),
+                                  decoration: InputDecoration(
+                                    labelText: 'Price',
+                                    labelStyle: getTextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff767676),
+                                    ),
+                                  ),
                                 ),
-                              )
-                           ],
-                         ),
-                          SizedBox(height: 18,),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 18),
                           Center(
                             child: Container(
-                              height:screenHeight*0.048 ,
-                              width: screenWidth*0.50,
+                              height: screenHeight * 0.048,
+                              width: screenWidth * 0.50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                border:Border.all(
+                                border: Border.all(
                                   width: 1,
-                                  color: Color(0xff003366)
-                                )
+                                  color: Color(0xff003366),
+                                ),
                               ),
                               child: Center(
-                                child: Text('Save Changes',style: getTextStyle(
-                                 fontWeight: FontWeight.w500,
-                                 fontSize: 16,
-                                 color: Color(0xff003366)
-                                ),),
+                                child: Text(
+                                  'Save Changes',
+                                  style: getTextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: Color(0xff003366),
+                                  ),
+                                ),
                               ),
                             ),
-                          )
-
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height:40 ,
+                  SizedBox(height: 40),
+                  Text(
+                    "Decoration",
+                    style: getTextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff333333),
+                    ),
                   ),
-                  Text("Decoration",style: getTextStyle(fontSize:20,fontWeight: FontWeight.w700,color: Color(0xff333333) ),),
-                  SizedBox(height: 16,),
-                  Container(
+                  SizedBox(height: 16),
+                  SizedBox(
                     height: screenHeight * 0.249,
                     width: double.infinity,
-                    child: Image.asset(ImagePath.venueview,  fit: BoxFit.cover,),
+                    child: Image.asset(ImagePath.venueview, fit: BoxFit.cover),
                   ),
-                  SizedBox(height:40),
-                  Text('Table Shape',style: getTextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff333333)
-                  ),),
+                  SizedBox(height: 40),
+                  Text(
+                    'Table Shape',
+                    style: getTextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff333333),
+                    ),
+                  ),
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color:Color(0xff000000).withOpacity(.6),
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
                                 blurRadius: 10,
-                                offset: Offset(0, 3)
-                              )
+                                offset: Offset(0, 3),
+                              ),
                             ],
-                              borderRadius: BorderRadius.circular(34),
-                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Round",style: getTextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff333333)
-                        ),)),
+                            borderRadius: BorderRadius.circular(34),
+                            color: Color(0xffFFFFFF),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Round",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Oval",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Oval",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.22,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.22,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Hexagonal",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Hexagonal",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.20,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.20,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Square",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Square",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Text('Seating Style',style: getTextStyle(
+                  SizedBox(height: 20),
+                  Text(
+                    'Seating Style',
+                    style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333)
-                  ),),
+                      color: Color(0xff333333),
+                    ),
+                  ),
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Round",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Round",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Oval",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Oval",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.22,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.22,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Hexagonal",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Hexagonal",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.20,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.20,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Square",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Square",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Text('Lighting Style',style: getTextStyle(
+                  SizedBox(height: 20),
+                  Text(
+                    'Lighting Style',
+                    style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333)
-                  ),),
+                      color: Color(0xff333333),
+                    ),
+                  ),
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Round",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Round",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                // ignore: deprecated_member_use
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Oval",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Oval",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.22,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.22,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Hexagonal",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Hexagonal",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.20,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.20,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Square",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Square",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Text('Flower Color',style: getTextStyle(
+                  SizedBox(height: 20),
+                  Text(
+                    'Flower Color',
+                    style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333)
-                  ),),
+                      color: Color(0xff333333),
+                    ),
+                  ),
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Round",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Round",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Oval",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Oval",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.22,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.22,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Hexagonal",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Hexagonal",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.20,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.20,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Square",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Square",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Text('Flower Type',style: getTextStyle(
+                  SizedBox(height: 20),
+                  Text(
+                    'Flower Type',
+                    style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333)
-                  ),),
+                      color: Color(0xff333333),
+                    ),
+                  ),
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Round",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Round",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Oval",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Oval",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.22,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.22,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Hexagonal",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Hexagonal",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.20,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.20,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Square",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Square",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Text('  Fragrance',style: getTextStyle(
+                  SizedBox(height: 20),
+                  Text(
+                    '  Fragrance',
+                    style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333)
-                  ),),
+                      color: Color(0xff333333),
+                    ),
+                  ),
 
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Round",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Round",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.15,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.15,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Oval",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Oval",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.22,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.22,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Hexagonal",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Hexagonal",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          height: screenHeight*0.03,
-                          width: screenWidth*0.20,
+                          height: screenHeight * 0.03,
+                          width: screenWidth * 0.20,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color:Color(0xff000000).withOpacity(.6),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3)
-                              )
+                                color: Color(0xff000000).withOpacity(.6),
+                                blurRadius: 10,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(34),
                             color: Color(0xffFFFFFF),
-
-                          ),child: Center(child: Text("Square",style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff333333)
-                        ),)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Square",
+                              style: getTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff333333),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-
                     ],
                   ),
-                  SizedBox(height: 40,),
+                  SizedBox(height: 40),
                   Text(
                     'Upcoming Bookings',
                     style: getTextStyle(
@@ -1282,14 +1494,17 @@ class VenueDetailsScreen extends StatelessWidget {
                       children: [
                         Spacer(),
                         InkWell(
-                          onTap:(){},
-                          child: Text('Explore All',style: getTextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                            color: Color(0xff444444),
-                          ),),
+                          onTap: () {},
+                          child: Text(
+                            'Explore All',
+                            style: getTextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Color(0xff444444),
+                            ),
+                          ),
                         ),
-                        Icon(Icons.arrow_right_alt)
+                        Icon(Icons.arrow_right_alt),
                       ],
                     ),
                   ),
@@ -1309,84 +1524,115 @@ class VenueDetailsScreen extends StatelessWidget {
                       children: [
                         Spacer(),
                         InkWell(
-                          onTap:(){},
-                          child: Text('Explore All',style: getTextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                            color: Color(0xff444444),
-                          ),),
+                          onTap: () {},
+                          child: Text(
+                            'Explore All',
+                            style: getTextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Color(0xff444444),
+                            ),
+                          ),
                         ),
-                        Icon(Icons.arrow_right_alt)
+                        Icon(Icons.arrow_right_alt),
                       ],
                     ),
                   ),
-                  ListView.builder(shrinkWrap: true, // VERY IMPORTANT
-                      physics: NeverScrollableScrollPhysics(), itemCount: seereview.length,itemBuilder: (context,index){
-                    return Padding(padding: EdgeInsets.all(20),
-                      child: SizedBox(
-
-
-                        child:Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                ClipOval(
-                                  child:Image.asset(
-                                    seereview[index]["image"]!,
-                                    fit: BoxFit.cover,
-                                    height: 40,
-                                    width: 40,
+                  ListView.builder(
+                    shrinkWrap: true, // VERY IMPORTANT
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: seereview.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.all(20),
+                        child: SizedBox(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  ClipOval(
+                                    child: Image.asset(
+                                      seereview[index]["image"]!,
+                                      fit: BoxFit.cover,
+                                      height: 40,
+                                      width: 40,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width:8),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(seereview[index]["title"]!,style: getTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff333333),
-                                    ),),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
-                                        Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
-                                        Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
-                                        Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
-                                        Icon(Icons.star,color: Color(0xffF0C020),size: 15,),
-                                      ],
-                                    )
+                                  SizedBox(width: 8),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        seereview[index]["title"]!,
+                                        style: getTextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff333333),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            Icons.star,
+                                            color: Color(0xffF0C020),
+                                            size: 15,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Color(0xffF0C020),
+                                            size: 15,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Color(0xffF0C020),
+                                            size: 15,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Color(0xffF0C020),
+                                            size: 15,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Color(0xffF0C020),
+                                            size: 15,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    seereview[index]["time"]!,
+                                    style: getTextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xffC0C0C0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 15),
 
-                                  ],
-                                ),
-                                Spacer(),
-                                Text(seereview[index]["time"]!,style: getTextStyle(
+                              Text(
+                                seereview[index]["desc"]!,
+                                style: getTextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
-                                  color: Color(0xffC0C0C0),
-                                ),)
-                              ],
-                            ),
-                            SizedBox(height: 15,),
-
-                            Text(seereview[index]["desc"]!,style:getTextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff5C5C5C)
-                            ),)
-
-                          ],
-
-
+                                  color: Color(0xff5C5C5C),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
-
-
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

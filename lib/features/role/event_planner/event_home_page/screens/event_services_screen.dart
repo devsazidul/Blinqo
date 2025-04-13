@@ -19,7 +19,7 @@ class EventServicesScreen extends StatelessWidget {
       Service(imagePath: ImagePath.venuesHall, label: 'Decoration'),
       Service(imagePath: ImagePath.venuesHall, label: 'Catering'),
     ];
-    print('screenWidth: $screenWidth');
+    debugPrint('screenWidth: $screenWidth');
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -65,10 +65,12 @@ class EventServicesScreen extends StatelessWidget {
       ),
     );
   }
+
   _buildChildAspectRatio(double screenWidth) {
-    if(screenWidth <= 360) {
+    if (screenWidth <= 360) {
       return 0.86;
-    } if (screenWidth >= 360 && screenWidth < 448) {
+    }
+    if (screenWidth >= 360 && screenWidth < 448) {
       return 0.96;
     } else {
       return 1.1;

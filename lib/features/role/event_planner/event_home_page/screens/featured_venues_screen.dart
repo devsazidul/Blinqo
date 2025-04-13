@@ -11,7 +11,7 @@ class FeaturedVenuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    print('screenWidth: $screenWidth');
+    debugPrint('screenWidth: $screenWidth');
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(

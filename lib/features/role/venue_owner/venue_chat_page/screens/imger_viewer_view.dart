@@ -5,7 +5,7 @@ import 'dart:io';
 class ImageViewerView extends StatelessWidget {
   final String imageUrl;
 
-  const ImageViewerView({Key? key, required this.imageUrl}) : super(key: key);
+  const ImageViewerView({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -68,30 +68,35 @@ class ImageViewerView extends StatelessWidget {
         child: InteractiveViewer(
           minScale: 0.5,
           maxScale: 3.0,
-          child: isLocalImage
-              ? Image.file(
-            File(imageUrl),
-            fit: BoxFit.contain,
-            width: double.infinity,
-            height: double.infinity,
-          )
-              : Image.network(
-            imageUrl,
-            fit: BoxFit.contain,
-            width: double.infinity,
-            height: double.infinity,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                      : null,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              );
-            },
-          ),
+          child:
+              isLocalImage
+                  ? Image.file(
+                    File(imageUrl),
+                    fit: BoxFit.contain,
+                    width: double.infinity,
+                    height: double.infinity,
+                  )
+                  : Image.network(
+                    imageUrl,
+                    fit: BoxFit.contain,
+                    width: double.infinity,
+                    height: double.infinity,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value:
+                              loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
         ),
       ),
     );

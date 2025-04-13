@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
-import '../../../../core/utils/theme/custom_themes/text_theme.dart';
 
 class ProfileSetup extends StatelessWidget {
   const ProfileSetup({super.key});
