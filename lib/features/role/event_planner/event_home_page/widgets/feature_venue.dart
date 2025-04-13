@@ -1,55 +1,99 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart'
     show getTextStyle;
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 
 class FeatureVenues extends StatelessWidget {
   final bool hasButton;
-   const FeatureVenues({super.key, this.hasButton=true});
+  final bool? isColorChinge;
+  const FeatureVenues({
+    super.key,
+    this.hasButton = true,
+    this.isColorChinge = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-
     double screenWidth = MediaQuery.of(context).size.width;
     double cardWidth = screenWidth * 0.7;
     double buttonFontSize = screenWidth <= 360 ? 14 : 16;
 
-    return Container(
-      width: cardWidth,
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _venueImageSection(),
-          SizedBox(height: 12),
-          Text(
-            'The Grand Hall',
-            style: getTextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: 4),
-          _venueLocationRow(),
-          SizedBox(height: 4),
-          Text(
-            'Add to Compare',
-            style: getTextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: AppColors.iconColor,
+    final ServiceUserProfileControler spUserProfileControler =
+        Get.find<ServiceUserProfileControler>();
+    return Obx(() {
+      final themeMode =
+          spUserProfileControler.isDarkMode.value
+              ? ThemeMode.dark
+              : ThemeMode.light;
+      return Container(
+        width: cardWidth,
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color:
+              isColorChinge == true
+                  ? themeMode == ThemeMode.dark
+                      ? Color(0xff32383D)
+                      : AppColors.primary
+                  : AppColors.primary,
+
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _venueImageSection(themeMode),
+            SizedBox(height: 12),
+            Row(
+              children: [
+                Text(
+                  'The Grand Hall',
+                  style: getTextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color:
+                        isColorChinge == true
+                            ? themeMode == ThemeMode.dark
+                                ? AppColors.primary
+                                : Colors.black
+                            : Colors.grey.shade200,
+                  ),
+                ),
+                SizedBox(width: 4.0),
+                Image.asset(IconPath.verifiedlogo, height: 16, width: 16),
+              ],
             ),
-          ),
-          hasButton ? _venueBottomRow(buttonFontSize) :SizedBox(),
-        ],
-      ),
-    );
+            SizedBox(height: 4),
+            _venueLocationRow(),
+            SizedBox(height: 4),
+            Text(
+              'Add to Compare',
+              style: getTextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color:
+                    isColorChinge == true
+                        ? themeMode == ThemeMode.dark
+                            ? AppColors.secondary
+                            : AppColors.iconColor
+                        : AppColors.iconColor,
+              ),
+            ),
+            hasButton
+                ? _venueBottomRow(buttonFontSize, themeMode, isColorChinge)
+                : SizedBox(),
+          ],
+        ),
+      );
+    });
   }
 
-  Widget _venueImageSection() {
+  Widget _venueImageSection(ThemeMode themeMode) {
     return Stack(
       children: [
         ClipRRect(
@@ -66,7 +110,10 @@ class FeatureVenues extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color:
+                  themeMode == ThemeMode.dark
+                      ? Color(0xffEBEBEB).withOpacity(0.50)
+                      : AppColors.primary,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -79,7 +126,14 @@ class FeatureVenues extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 4),
-                Icon(Icons.star, size: 12),
+                Icon(
+                  Icons.star,
+                  size: 12,
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.primary
+                          : Colors.black,
+                ),
               ],
             ),
           ),
@@ -89,7 +143,10 @@ class FeatureVenues extends StatelessWidget {
           right: 8,
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color:
+                  themeMode == ThemeMode.dark
+                      ? Color(0xffEBEBEB).withOpacity(0.50)
+                      : AppColors.primary,
               borderRadius: BorderRadius.circular(25),
             ),
             child: Padding(
@@ -120,7 +177,11 @@ class FeatureVenues extends StatelessWidget {
     );
   }
 
-  Widget _venueBottomRow(double buttonFontSize) {
+  Widget _venueBottomRow(
+    double buttonFontSize,
+    ThemeMode themeMode,
+    bool? isColorChinge,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,7 +207,12 @@ class FeatureVenues extends StatelessWidget {
         ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.buttonColor2,
+            backgroundColor:
+                isColorChinge == true
+                    ? themeMode == ThemeMode.dark
+                        ? AppColors.buttonColor
+                        : AppColors.buttonColor2
+                    : AppColors.buttonColor2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),

@@ -4,9 +4,8 @@ import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
-  const HomeHeaderSection({
-    super.key,
-  });
+  final ThemeMode themeMode;
+  const HomeHeaderSection({super.key, required this.themeMode});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,14 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   Text(
                     'Dianne Russell',
-                    style: getTextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffEBEBEB)
+                              : AppColors.textColor,
+                    ),
                   ),
                   SizedBox(height: 6),
                   Row(
@@ -86,6 +92,4 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(65);
-
-
 }

@@ -14,6 +14,8 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/featu
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+
 class EventHomeScreen extends StatelessWidget {
   const EventHomeScreen({super.key});
 
@@ -22,79 +24,107 @@ class EventHomeScreen extends StatelessWidget {
     final UpcomingEventsController controller = Get.put(
       UpcomingEventsController(),
     );
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: HomeHeaderSection(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Obx(() {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 32),
-                  SearchBerSection(),
-                  SizedBox(height: 20),
-                  EventCard(),
-                  SizedBox(height: 40),
 
-                  _buildTitle(
-                    'Featured Venues',
-                    onTap: () {
-                      Get.to(FeaturedVenuesScreen());
-                    },
-                  ),
-                  SizedBox(height: 8),
-                  _featureVenuesList(context),
-                  SizedBox(height: 40),
+    final ServiceUserProfileControler spUserProfileControler =
+        Get.find<ServiceUserProfileControler>();
 
-                  // Upcoming Events
-                  Text(
-                    'Upcoming Events',
-                    style: getTextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
+    return Obx(() {
+      // Get the current theme mode (light or dark)
+      final themeMode =
+          spUserProfileControler.isDarkMode.value
+              ? ThemeMode.dark
+              : ThemeMode.light;
+
+      return Scaffold(
+        backgroundColor:
+            themeMode == ThemeMode.dark
+                ? Colors.black
+                : AppColors.backgroundColor,
+        appBar: HomeHeaderSection(themeMode: themeMode),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Obx(() {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 32),
+                    SearchBerSection(themeMode: themeMode),
+                    SizedBox(height: 20),
+                    EventCard(),
+                    SizedBox(height: 40),
+
+                    _buildTitle(
+                      'Featured Venues',
+                      themeMode,
+                      onTap: () {
+                        Get.to(FeaturedVenuesScreen());
+                      },
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  _buildUpComingEventList(controller),
+                    SizedBox(height: 8),
+                    _featureVenuesList(context, themeMode),
+                    SizedBox(height: 40),
 
-                  SizedBox(height: 40),
-                  _buildTitle(
-                    'Venues Near You',
-                    onTap: () {
-                      Get.to(VenuesNearScreen());
-                    },
-                  ),
-                  _buildVenueNearYouList(context),
+                    // Upcoming Events
+                    Text(
+                      'Upcoming Events',
+                      style: getTextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
 
-                  SizedBox(height: 40),
-                  _buildTitle(
-                    'Event Services',
-                    onTap: () {
-                      Get.to(EventServicesScreen());
-                    },
-                  ),
-                  _eventServicesList(context),
-                  SizedBox(height: 20),
-                ],
-              );
-            }),
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.backgroundColor
+                                : Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    _buildUpComingEventList(controller, themeMode),
+
+                    SizedBox(height: 40),
+                    _buildTitle(
+                      'Venues Near You',
+                      themeMode,
+                      onTap: () {
+                        Get.to(VenuesNearScreen());
+                      },
+                    ),
+                    _buildVenueNearYouList(context),
+
+                    SizedBox(height: 40),
+                    _buildTitle(
+                      'Event Services',
+                      themeMode,
+                      onTap: () {
+                        Get.to(EventServicesScreen());
+                      },
+                    ),
+                    _eventServicesList(context),
+                    SizedBox(height: 20),
+                  ],
+                );
+              }),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   // title
-  Widget _buildTitle(String title, {VoidCallback? onTap}) {
+  Widget _buildTitle(String title, ThemeMode themeMode, {VoidCallback? onTap}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: getTextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          style: getTextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color:
+                themeMode == ThemeMode.dark ? Colors.white : Color(0xFF444444),
+          ),
         ),
         GestureDetector(
           onTap: onTap,
@@ -106,10 +136,20 @@ class EventHomeScreen extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF444444),
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? Colors.white
+                          : Color(0xFF444444),
                 ),
               ),
-              Icon(Icons.trending_flat, size: 16),
+              Icon(
+                Icons.trending_flat,
+                size: 16,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? Colors.white
+                        : Color(0xFF444444),
+              ),
             ],
           ),
         ),
@@ -118,14 +158,14 @@ class EventHomeScreen extends StatelessWidget {
   }
 
   // Feature Venues
-  Widget _featureVenuesList(BuildContext context) {
+  Widget _featureVenuesList(BuildContext context, ThemeMode themeMode) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: List.generate(5, (index) {
           return Padding(
             padding: EdgeInsets.only(right: 16),
-            child: FeatureVenues(),
+            child: FeatureVenues(isColorChinge: true),
           );
         }),
       ),
@@ -133,7 +173,10 @@ class EventHomeScreen extends StatelessWidget {
   }
 
   // Upcoming Events
-  Widget _buildUpComingEventList(UpcomingEventsController controller) {
+  Widget _buildUpComingEventList(
+    UpcomingEventsController controller,
+    ThemeMode themeMode,
+  ) {
     return Column(
       children: List.generate(
         controller.upcomingEvents.length > 3
@@ -144,6 +187,7 @@ class EventHomeScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: UpcommingEvents(
+              themeMode: themeMode,
               title: event['title'],
               venue: event['venue'],
               date: event['date'],
@@ -164,7 +208,7 @@ class EventHomeScreen extends StatelessWidget {
         children: List.generate(5, (index) {
           return Padding(
             padding: EdgeInsets.only(right: 16),
-            child: FeatureVenues(),
+            child: FeatureVenues(isColorChinge: false),
           );
         }),
       ),
