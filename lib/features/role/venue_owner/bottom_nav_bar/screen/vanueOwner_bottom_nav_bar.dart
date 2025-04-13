@@ -2,6 +2,8 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
 // ignore_for_file: file_names
 import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen.dart';
+import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/chat_list_view.dart';
+import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/venue_chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +22,8 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
       OverviewScreen(),
       Venue(),
       Text('Screen 3'),
-      Text('Screen 4'),
+      // VenueChatScreen(),
+      ChatListView(),
       Text('Screen 5'),
     ];
 
@@ -34,7 +37,7 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
             BoxShadow(
               // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.2),
-              spreadRadius: 2,
+              spreadRadius: 0,
               blurRadius: 6,
               offset: Offset(0, -2),
             ),
