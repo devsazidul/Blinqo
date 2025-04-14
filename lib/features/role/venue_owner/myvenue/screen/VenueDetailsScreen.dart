@@ -53,32 +53,7 @@ class VenueDetailsScreen extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> reviews = [
-      {
-        "title": "Corporate Event",
-        "subtitle": "Conference Hall",
-        "date": "15 March,2025",
-        "time": "3.00 PM",
-        "image": ImagePath.event,
-        "status": "Confirmed",
-      },
-      {
-        "title": "Team Building Retreat",
-        "subtitle": "Lakeside Lodge",
-        "date": "22 April,2025",
-        "time": "10.00 AM",
-        "image": ImagePath.event2,
-        "status": "Pending",
-      },
-      {
-        "title": "Product Launch",
-        "subtitle": "Main Auditorium",
-        "date": "30 May,2025",
-        "time": "1:00 PM",
-        "image": ImagePath.event3,
-        "status": "Confirmed",
-      },
-    ];
+ 
     List<Map<String, String>> seereview = [
       {
         "title": "Floyd Miles",
@@ -323,14 +298,11 @@ class VenueDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 25),
-                  const RevenueCard(
-                    revenue: '\$50,000',
-                    percentage: '5.75%',
-                    pendingBooking: '15,000',
-                    bookingsCount: 2,
-                  ),
-                  const SizedBox(height: 25),
+
+                  const SizedBox(height: 40),
+                   RevenueCard(),
+                  const SizedBox(height: 40),
+
                   Center(
                     child: Text(
                       'Availability',
@@ -468,6 +440,7 @@ class VenueDetailsScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
+
                       CustomShapeTag(
                         label: "Round",
                         height: screenHeight * 0.04,
@@ -487,6 +460,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         label: "Square",
                         height: screenHeight * 0.04,
                         width: screenWidth * 0.20,
+
                       ),
                     ],
                   ),
@@ -501,6 +475,7 @@ class VenueDetailsScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
+
                       CustomShapeTag(
                         label: "Round",
                         height: screenHeight * 0.04,
@@ -520,6 +495,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         label: "Square",
                         height: screenHeight * 0.04,
                         width: screenWidth * 0.20,
+
                       ),
                     ],
                   ),
@@ -534,6 +510,7 @@ class VenueDetailsScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
+
                       CustomShapeTag(
                         label: "Round",
                         height: screenHeight * 0.04,
@@ -553,6 +530,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         label: "Square",
                         height: screenHeight * 0.04,
                         width: screenWidth * 0.20,
+
                       ),
                     ],
                   ),
@@ -567,6 +545,7 @@ class VenueDetailsScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
+
                       CustomShapeTag(
                         label: "Round",
                         height: screenHeight * 0.04,
@@ -586,6 +565,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         label: "Square",
                         height: screenHeight * 0.04,
                         width: screenWidth * 0.20,
+
                       ),
                     ],
                   ),
@@ -618,7 +598,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  NewWidget(reviews: reviews),
+                  NewWidget(),
                   SizedBox(height: 30),
                   Text(
                     'Recent Views',
