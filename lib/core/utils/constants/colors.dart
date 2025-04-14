@@ -19,4 +19,9 @@ class AppColors {
   static const Color appBarIcolor = Color(0xFFD9D9D9);
   static const Color thimeIconColor = Color(0xFF898989);
   static const Color textFrieldDarkColor = Color(0xff32383D);
+  static const Color subTextColor = Color(0xff767676);
+  static const Color subTextColor2 = Color(0xffABB7C2);
+  static const Color chatBackground = Color(0xffE6EBF0);
+  static const Color hintTextColor = Color(0xffA1A1A1);
+  static const Color subTitleColor = Color(0xff999999);
 }

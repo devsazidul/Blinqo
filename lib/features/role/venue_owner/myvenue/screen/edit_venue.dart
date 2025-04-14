@@ -30,7 +30,7 @@ class EditVenue extends StatelessWidget {
                   child: Image.asset(
                     image,
                     width: double.infinity,
-                    height: screenHeight * 0.4,
+                  height: screenHeight*0.4,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -50,7 +50,7 @@ class EditVenue extends StatelessWidget {
                       children: [
                         Positioned(
                           left: 24,
-                          top: 24,
+                          top: 40,
                           child: CircleAvatar(
                             radius: 25,
                             backgroundColor: const Color(0xFFD9D9D9),
@@ -59,7 +59,7 @@ class EditVenue extends StatelessWidget {
                         ),
                         Positioned(
                           left: 135,
-                          top: 30,
+                          top: 48,
                           child: Text(
                             "View Details",
                             style: getTextStyle(
@@ -84,14 +84,14 @@ class EditVenue extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 32),
+            SizedBox(height: 10),
             Padding(padding: EdgeInsets.all(20),
             child:Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: screenWidth*0.87   ,
-                  height: screenHeight*0.06,
+                  width: double.infinity  ,
+
                   child: TextField(
                     controller: venueName,
                     decoration: InputDecoration(
@@ -106,8 +106,7 @@ class EditVenue extends StatelessWidget {
                 ),
                 SizedBox(height: 16,),
                 SizedBox(
-                  width: screenWidth*0.87   ,
-                  height: screenHeight*0.06,
+                 width: double.infinity,
                   child: TextField(
                     controller: location,
                     decoration: InputDecoration(
@@ -128,8 +127,8 @@ class EditVenue extends StatelessWidget {
                 ),),
                 SizedBox(height: 12),
                 Container(
-                  height: screenHeight*0.2,
-                  width: screenWidth*0.88,
+
+                  width: double.infinity,
 
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
@@ -145,8 +144,8 @@ class EditVenue extends StatelessWidget {
                 ),
                 SizedBox(height: 16,),
                 SizedBox(
-                  width: screenWidth*0.87   ,
-                  height: screenHeight*0.06,
+                  width: double.infinity ,
+
                   child: TextField(
                     controller: numberGuests,
                     decoration: InputDecoration(

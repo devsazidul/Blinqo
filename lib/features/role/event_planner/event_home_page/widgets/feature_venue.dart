@@ -5,8 +5,8 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import '../../event_compare/screen/add_compare.dart';
 
 class FeatureVenues extends StatelessWidget {
   final bool hasButton;
@@ -71,17 +71,22 @@ class FeatureVenues extends StatelessWidget {
             SizedBox(height: 4),
             _venueLocationRow(),
             SizedBox(height: 4),
-            Text(
-              'Add to Compare',
-              style: getTextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color:
-                    isColorChinge == true
-                        ? themeMode == ThemeMode.dark
-                            ? AppColors.secondary
-                            : AppColors.iconColor
-                        : AppColors.iconColor,
+            GestureDetector(
+              onTap: () {
+                Get.to(AddCompare());
+              },
+              child: Text(
+                'Add to Compare',
+                style: getTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color:
+                      isColorChinge == true
+                          ? themeMode == ThemeMode.dark
+                              ? AppColors.secondary
+                              : AppColors.iconColor
+                          : AppColors.iconColor,
+                ),
               ),
             ),
             hasButton

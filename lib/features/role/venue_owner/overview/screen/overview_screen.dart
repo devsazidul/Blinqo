@@ -12,32 +12,7 @@ class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> reviews = [
-      {
-        "title": "Corporate Event",
-        "subtitle": "Conference Hall",
-        "date": "15 March,2025",
-        "time": "3.00 PM",
-        "image": ImagePath.event,
-        "status": "Confirmed",
-      },
-      {
-        "title": "Team Building Retreat",
-        "subtitle": "Lakeside Lodge",
-        "date": "22 April,2025",
-        "time": "10.00 AM",
-        "image": ImagePath.event2,
-        "status": "Pending",
-      },
-      {
-        "title": "Product Launch",
-        "subtitle": "Main Auditorium",
-        "date": "30 May,2025",
-        "time": "1:00 PM",
-        "image": ImagePath.event3,
-        "status": "Confirmed",
-      },
-    ];
+    
     List <Map<String,String>>  seereview =[
       {
        "title":"Floyd Miles",
@@ -71,12 +46,7 @@ class OverviewScreen extends StatelessWidget {
                 Obx(
                   () =>
                       controller.isPayment.value
-                          ? RevenueCard(
-                            revenue: '\$92,500',
-                            percentage: '12.5%',
-                            pendingBooking: '&20,500',
-                            bookingsCount: 5,
-                          )
+                          ? RevenueCard()
                           : PaymentCard(),
                 ),
                 SizedBox(height: 40),
@@ -88,7 +58,7 @@ class OverviewScreen extends StatelessWidget {
                     color: Color(0xff333333),
                   ),
                 ),
-                if(reviews.isNotEmpty)
+                if(controller.reviews.isNotEmpty)
              Padding(
                padding: const EdgeInsets.all(8.0),
                child: Row(
@@ -107,7 +77,7 @@ class OverviewScreen extends StatelessWidget {
                ),
              ),
                 SizedBox(height: 7),
-                NewWidget(reviews: reviews),
+                NewWidget(),
                 SizedBox(height: 30),
                 InkWell(
                   onTap: () {},

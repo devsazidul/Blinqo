@@ -1,33 +1,22 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart' show getTextStyle;
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RevenueCard extends StatelessWidget {
-  final String revenue;
-  final String percentage;
-  final String pendingBooking;
-  final int bookingsCount;
+   RevenueCard({
+    super.key });
 
-  const RevenueCard({
-    super.key,
-    required this.revenue,
-    required this.percentage,
-    required this.pendingBooking,
-    required this.bookingsCount,
-  });
+ 
 
-  TextStyle getTextStyle({
-    required double fontSize,
-    required FontWeight fontWeight,
-    required Color color,
-  }) {
-    return TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: color);
-  }
+  final OverviewController controller = Get.find<OverviewController>();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 205,
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
@@ -60,12 +49,12 @@ class RevenueCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(7.0),
+                    padding:  EdgeInsets.all(7.0),
                     child: Row(
                       children: [
                         Image.asset(ImagePath.move, height: 20, width: 22),
                         Text(
-                          percentage,
+                          controller.percentage.value.toString(),
                           style: getTextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -80,7 +69,7 @@ class RevenueCard extends StatelessWidget {
             ),
             SizedBox(height: 3),
             Text(
-              revenue,
+              controller.totalRevenue.value.toString(),
               style: getTextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
@@ -113,7 +102,7 @@ class RevenueCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  pendingBooking,
+                  controller.totalEarnings.value.toString(),
                   style: getTextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w600,
@@ -124,7 +113,7 @@ class RevenueCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Text(
-                    '$bookingsCount',
+                    '${controller.totalBookings.value}',
                     style: getTextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 22,
