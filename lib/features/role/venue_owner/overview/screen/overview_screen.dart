@@ -71,12 +71,7 @@ class OverviewScreen extends StatelessWidget {
                 Obx(
                   () =>
                       controller.isPayment.value
-                          ? RevenueCard(
-                            revenue: '\$92,500',
-                            percentage: '12.5%',
-                            pendingBooking: '&20,500',
-                            bookingsCount: 5,
-                          )
+                          ? RevenueCard()
                           : PaymentCard(),
                 ),
                 SizedBox(height: 40),

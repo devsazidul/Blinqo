@@ -420,12 +420,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  const RevenueCard(
-                    revenue: '\$50,000',
-                    percentage: '5.75%',
-                    pendingBooking: '15,000',
-                    bookingsCount: 2,
-                  ),
+                   RevenueCard(),
                   const SizedBox(height: 40),
                   Center(
                     child: Text(
