@@ -7,37 +7,35 @@ import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/c
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
-// Stateless widget for the Event Checklist screen to display saved checklist items or a "No Data" state
 class EventChecklistScreen extends StatelessWidget {
   const EventChecklistScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Get the ChecklistController instance to access the checklist items
     final ChecklistController controller = Get.put(ChecklistController());
-
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor, // Set the background color
-      appBar: _buildAppBar(), // Build the AppBar with only the three-dot menu
+      backgroundColor: Color(0xffEBEBEB),
+      appBar: _buildAppBar(),
       body: Obx(() {
-        // Use Obx to reactively update the UI based on the checklistItems list
         return Padding(
-          padding: const EdgeInsets.all(16.0), // Add padding around the body
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Show the filter section only if there are items in checklistItems
               if (controller.checklistItems.isNotEmpty) ...[
                 Row(
                   children: [
-                    // Dropdown for filtering tasks (ALL Task, Urgent, Completed)
                     Expanded(
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(color: Colors.grey),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+
+                              width: 3,
+                              // Set the border color to red
+                            ),
                           ),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 12,
@@ -47,7 +45,7 @@ class EventChecklistScreen extends StatelessWidget {
                         value:
                             controller.filterType.value, // Bind to filterType
                         items:
-                            ['ALL Task', 'Urgent', 'Completed']
+                            ['ALL Task', 'Urgent!', 'Completed']
                                 .map(
                                   (label) => DropdownMenuItem(
                                     value: label,
@@ -70,6 +68,7 @@ class EventChecklistScreen extends StatelessWidget {
                         },
                       ),
                     ),
+
                     const SizedBox(width: 16), // Space between dropdowns
                     // Dropdown for sorting (By Date, By Venue)
                     Expanded(
@@ -77,7 +76,9 @@ class EventChecklistScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(color: Colors.grey),
+                            borderSide: const BorderSide(
+                              color: AppColors.iconColor,
+                            ),
                           ),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 12,
@@ -103,31 +104,23 @@ class EventChecklistScreen extends StatelessWidget {
                                 .toList(),
                         onChanged: (value) {
                           if (value != null) {
-                            controller.sortType.value =
-                                value; // Update sort type
+                            controller.sortType.value = value;
                           }
                         },
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ), // Space between dropdowns and content
+                const SizedBox(height: 16),
               ],
-              // Check if there are filtered items to display
               controller.filteredChecklistItems.isEmpty
                   ? Expanded(
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Display the "No Checklist" SVG image
                           SvgPicture.asset(ImagePath.nochecklist),
-                          const SizedBox(
-                            height: 20,
-                          ), // Space between image and text
-                          // "Nothing Found" text
+                          const SizedBox(height: 20),
                           Text(
                             'Noting Found',
                             style: getTextStyle(
@@ -135,8 +128,7 @@ class EventChecklistScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(height: 4), // Space between text lines
-                          // Description text
+                          const SizedBox(height: 4),
                           Text(
                             "You didn't added any task yes",
                             style: getTextStyle(
@@ -145,10 +137,8 @@ class EventChecklistScreen extends StatelessWidget {
                               color: const Color(0xff767676),
                             ),
                           ),
-                          const SizedBox(
-                            height: 40,
-                          ), // Space between text and button
-                          // "Add Task" button to navigate to CreateChecklistScreen
+                          const SizedBox(height: 40),
+
                           OutlinedButton(
                             onPressed: () {
                               Get.to(const CreateChecklistScreen());
@@ -195,125 +185,102 @@ class EventChecklistScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ListView.builder(
-                            itemCount:
-                                controller
-                                    .filteredChecklistItems
-                                    .length, // Number of filtered items
+                            itemCount: 10, // Number of items in the list
                             itemBuilder: (context, index) {
-                              final item =
-                                  controller
-                                      .filteredChecklistItems[index]; // Get the current item
                               return Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: 12.0,
-                                ), // Space between list items
-                                child: Row(
-                                  children: [
-                                    // Checkbox to mark the task as completed
-                                    Checkbox(
-                                      value: item.isCompleted, // Checkbox state
-                                      onChanged: (value) {
-                                        // Find the index in the original list
-                                        final originalIndex = controller
-                                            .checklistItems
-                                            .indexOf(item);
-                                        controller.toggleCompletion(
-                                          originalIndex,
-                                        ); // Toggle completion status
-                                      },
-                                      activeColor:
-                                          Colors.blue, // Color when checked
-                                    ),
-                                    // Task details container
-                                    Expanded(
-                                      child: Container(
-                                        padding: const EdgeInsets.all(
-                                          12,
-                                        ), // Padding inside the container
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Colors.grey,
-                                          ), // Border around the container
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ), // Rounded corners
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            // Display the event name
-                                            Text(
-                                              item.eventName,
-                                              style: getTextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: AppColors.textColor,
+                                padding: const EdgeInsets.only(bottom: 12.0),
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height *
+                                      0.10, // Height based on screen size
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color:
+                                        AppColors
+                                            .backgroundColor, // Container color
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween, // Space out children
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Obx(() {
+                                            return Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Checkbox(
+                                                value:
+                                                    controller
+                                                        .selectedIndex
+                                                        .value ==
+                                                    index, // Check if the current index is selected
+                                                onChanged: (bool? value) {
+                                                  if (value != null) {
+                                                    controller.toggleCheckbox(
+                                                      index,
+                                                      value,
+                                                    ); // Update the selected index
+                                                  }
+                                                },
                                               ),
+                                            );
+                                          }),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 6.0,
                                             ),
-                                            // Display the task name if it exists and is not empty
-                                            if (item.taskName != null &&
-                                                item.taskName!.isNotEmpty) ...[
-                                              const SizedBox(
-                                                height: 4,
-                                              ), // Space between text
-                                              Text(
-                                                item.taskName!,
-                                                style: getTextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: AppColors.textColor,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Venue booking $index', // Example text for the venue
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    color:
+                                                        Colors
+                                                            .black, // Text color
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                            const SizedBox(
-                                              height: 4,
-                                            ), // Space between text
-                                            // Display the venue
-                                            Text(
-                                              item.venue ?? 'No Venue',
-                                              style: getTextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: const Color(0xFF003285),
-                                              ),
+                                                Text(
+                                                  'The Grand Hall',
+                                                  style: TextStyle(
+                                                    fontSize: 10.0,
+                                                    color:
+                                                        Colors
+                                                            .grey, // Text color for smaller text
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '20 Mar 2025',
+                                                  style: TextStyle(
+                                                    fontSize: 8.0,
+                                                    color:
+                                                        Colors
+                                                            .grey, // Date text color
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            const SizedBox(
-                                              height: 4,
-                                            ), // Space between text
-                                            // Display the date
-                                            Text(
-                                              item.taskDate != null
-                                                  ? DateFormat(
-                                                    'dd MMM yyyy',
-                                                  ).format(item.taskDate!)
-                                                  : 'No Date',
-                                              style: getTextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+
+                                      // Conditionally show the button when the index is selected
+                                    ],
+                                  ),
                                 ),
                               );
                             },
                           ),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ), // Space between list and button
-                        // "Add Task" button to navigate to the CreateChecklistScreen
+
+                        const SizedBox(height: 16),
                         Center(
                           child: OutlinedButton(
                             onPressed: () {
-                              Get.to(
-                                const CreateChecklistScreen(),
-                              ); // Navigate to create screen
+                              Get.to(const CreateChecklistScreen());
                             },
                             style: OutlinedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -359,63 +326,54 @@ class EventChecklistScreen extends StatelessWidget {
     );
   }
 
-  // Method to build the AppBar with only the three-dot menu
   AppBar _buildAppBar() {
     final ChecklistController controller = Get.find<ChecklistController>();
 
     return AppBar(
-      backgroundColor: AppColors.backgroundColor, // Match the background color
-      forceMaterialTransparency: true, // Make the AppBar transparent
+      backgroundColor: AppColors.backgroundColor,
+      forceMaterialTransparency: true,
       leading: Padding(
         padding: const EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 8.0),
         child: GestureDetector(
           onTap: () {
-            Get.back(); // Navigate back when the back button is tapped
+            Get.back();
           },
           child: CircleAvatar(
-            backgroundColor: const Color(
-              0xFFD9D9D9,
-            ), // Grey background for the back button
-            child: Image.asset(IconPath.arrowLeftAlt), // Back arrow icon
+            backgroundColor: const Color(0xFFD9D9D9),
+            child: Image.asset(IconPath.arrowLeftAlt),
           ),
         ),
       ),
       title: Text(
-        'Checklist', // Title of the screen
+        'Checklist',
         style: getTextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: AppColors.textColor,
         ),
       ),
-      centerTitle: true, // Center the title
+      centerTitle: true,
       actions: [
-        // Three-dot menu button
         PopupMenuButton<String>(
           onSelected: (value) {
-            // Handle the selected menu option
             if (value == 'Delete') {
-              // Delete all items
               controller.checklistItems.clear();
               controller.updateFilteredList();
             } else if (value == 'Mark As Completed') {
-              // Mark all items as completed
               for (var item in controller.checklistItems) {
                 item.isCompleted = true;
               }
               controller.checklistItems.refresh();
               controller.updateFilteredList();
             } else if (value == 'Mark As Urgent') {
-              // Mark all items as urgent
               for (var item in controller.checklistItems) {
                 item.isUrgent = true;
               }
               controller.checklistItems.refresh();
               controller.updateFilteredList();
             } else if (value == 'Edit') {
-              // For simplicity, we'll allow editing the first item if the list isn't empty
               if (controller.checklistItems.isNotEmpty) {
-                controller.editItem(0); // Edit the first item
+                controller.editItem(0);
               }
             }
           },
@@ -435,10 +393,7 @@ class EventChecklistScreen extends StatelessWidget {
                 ),
                 const PopupMenuItem<String>(value: 'Edit', child: Text('Edit')),
               ],
-          icon: const Icon(
-            Icons.more_vert,
-            color: Colors.black,
-          ), // Three-dot icon
+          icon: const Icon(Icons.more_vert, color: Colors.black),
         ),
       ],
     );
