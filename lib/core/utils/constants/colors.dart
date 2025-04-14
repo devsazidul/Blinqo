@@ -19,4 +19,5 @@ class AppColors {
   static const Color appBarIcolor = Color(0xFFD9D9D9);
   static const Color thimeIconColor = Color(0xFF898989);
   static const Color textFrieldDarkColor = Color(0xff32383D);
+  static const Color subTitleColor = Color(0xff999999);
 }
