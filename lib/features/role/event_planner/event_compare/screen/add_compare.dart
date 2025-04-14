@@ -12,8 +12,8 @@ class AddCompare extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use MediaQuery to get screen size
     double screenWidth = MediaQuery.of(context).size.width;
-    final ServiceUserProfileControler spUserProfileControler =
-        Get.find<ServiceUserProfileControler>();
+    final SpProfileController spUserProfileControler =
+        Get.find<SpProfileController>();
     // Determine font size and padding based on screen size
     double fontSize =
         screenWidth > 600 ? 15 : 13; // Adjust font size for larger screens

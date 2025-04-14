@@ -188,14 +188,14 @@ class BookingDetailsPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-             Wrap(
-                spacing: 8,
-                children: [
-                  _buildAdditionalServices('Catering'),
-                  _buildAdditionalServices('Photography'),
-                  _buildAdditionalServices('Decoration'),
-                ],
-              ),
+            Wrap(
+              spacing: 8,
+              children: [
+                _buildAdditionalServices('Catering'),
+                _buildAdditionalServices('Photography'),
+                _buildAdditionalServices('Decoration'),
+              ],
+            ),
 
             // Seating Arrangement
             SizedBox(height: 40),
@@ -245,11 +245,17 @@ class BookingDetailsPage extends StatelessWidget {
                       SizedBox(height: 16),
                       _buildDecorationDetailsRow('Fragrance', 'Sweet'),
                       SizedBox(height: 16),
-                      _buildDecorationDetailsRow('Lighting Styles', 'Warm Yellow',),
+                      _buildDecorationDetailsRow(
+                        'Lighting Styles',
+                        'Warm Yellow',
+                      ),
                       SizedBox(height: 16),
                       _buildDecorationDetailsRow('Tablecloth Colors', 'White'),
                       SizedBox(height: 16),
-                      _buildDecorationDetailsRow('Stage Decor', 'LED Backdrops',),
+                      _buildDecorationDetailsRow(
+                        'Stage Decor',
+                        'LED Backdrops',
+                      ),
                     ],
                   ),
                 ),
@@ -368,21 +374,16 @@ class BookingDetailsPage extends StatelessWidget {
   void _priceButton(PriceController controller) {
     Get.dialog(
       AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         backgroundColor: Colors.white,
         content: TextField(
-          onChanged:
-              (value) => controller.price.value = value,
+          onChanged: (value) => controller.price.value = value,
           decoration: InputDecoration(
             hintText: 'Enter price',
             label: Text('Set A Price'),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                width: 1,
-              ),
+              borderSide: BorderSide(width: 1),
             ),
           ),
           keyboardType: TextInputType.number,
@@ -391,10 +392,7 @@ class BookingDetailsPage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed:
-                  () => controller.submitPrice(
-                controller.price.value,
-              ),
+              onPressed: () => controller.submitPrice(controller.price.value),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.iconColor,
                 shape: RoundedRectangleBorder(
