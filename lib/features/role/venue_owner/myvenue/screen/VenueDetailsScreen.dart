@@ -300,7 +300,7 @@ class VenueDetailsScreen extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 40),
-                   RevenueCard(),
+                  RevenueCard(),
                   const SizedBox(height: 40),
 
                   Center(
