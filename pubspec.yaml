@@ -66,6 +66,7 @@ dependencies:
   flutter_stripe: ^11.4.0
   flutter_svg: ^2.0.17
   flutter_launcher_icons: ^0.14.3
+  emoji_picker_flutter: ^4.3.0
   
 
 dev_dependencies:
