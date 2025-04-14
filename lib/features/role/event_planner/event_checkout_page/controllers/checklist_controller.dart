@@ -11,7 +11,8 @@ class ChecklistController extends GetxController {
 
   // Reactive variables to store form inputs
   var selectedDate = DateTime.now().obs; // Selected date for the task
-  var selectedTime = TimeOfDay(hour: 0, minute: 0).obs; // Selected time for the task
+  var selectedTime =
+      TimeOfDay(hour: 0, minute: 0).obs; // Selected time for the task
   var eventName = ''.obs; // Event Name input
   var taskName = ''.obs; // Task Name input
   var venue = ''.obs; // Venue input (optional)
@@ -22,7 +23,8 @@ class ChecklistController extends GetxController {
   var checklistItems = <ChecklistModel>[].obs;
 
   // Reactive variables for filtering and sorting
-  var filterType = 'ALL Task'.obs; // Current filter type (ALL Task, Urgent, Completed)
+  var filterType =
+      'ALL Task'.obs; // Current filter type (ALL Task, Urgent, Completed)
   var sortType = 'By Date'.obs; // Current sort type (By Date, By Venue)
 
   // Filtered and sorted list of checklist items
@@ -90,8 +92,8 @@ class ChecklistController extends GetxController {
     return eventName.value.isNotEmpty &&
         (isTaskFormVisible.value
             ? (taskName.value.isNotEmpty &&
-            isDateSelected.value &&
-            isTimeSelected.value)
+                isDateSelected.value &&
+                isTimeSelected.value)
             : true);
   }
 
@@ -210,5 +212,17 @@ class ChecklistController extends GetxController {
 
     // Update the filteredChecklistItems
     filteredChecklistItems.assignAll(filteredList);
+  }
+
+  // Track the index of the selected checkbox
+  var selectedIndex = (-1).obs; // -1 means no checkbox is selected initially
+
+  // Function to toggle checkbox state
+  void toggleCheckbox(int index, bool value) {
+    if (value) {
+      selectedIndex.value = index; // Set selected index when checked
+    } else {
+      selectedIndex.value = -1; // Reset when unchecked
+    }
   }
 }

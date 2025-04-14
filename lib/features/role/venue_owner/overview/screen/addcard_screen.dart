@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class AddcardScreen extends StatelessWidget {
   AddcardScreen({super.key});
 
-  final OverviewController controller = Get.put(OverviewController());
+ final OverviewController controller = Get.find<OverviewController>();
 
   @override
   Widget build(BuildContext context) {
