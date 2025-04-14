@@ -19,8 +19,8 @@ class EventBottomNavBar extends StatelessWidget {
     final EventBottomNavController controller = Get.put(
       EventBottomNavController(),
     );
-    final ServiceUserProfileControler spUserProfileControler =
-        Get.find<ServiceUserProfileControler>();
+    final SpProfileController spUserProfileControler =
+        Get.find<SpProfileController>();
     final List<Widget> pages = [
       EventHomeScreen(),
       EventChecklistScreen(),
