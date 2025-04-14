@@ -77,5 +77,3 @@ class ServiceProviderProfile extends StatelessWidget {
     );
   }
 }
-
-

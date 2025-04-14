@@ -19,8 +19,8 @@ class EventBottomNavBar extends StatelessWidget {
     final EventBottomNavController controller = Get.put(
       EventBottomNavController(),
     );
-    final ServiceUserProfileControler spUserProfileControler =
-        Get.find<ServiceUserProfileControler>();
+    final SpProfileController spUserProfileControler =
+        Get.find<SpProfileController>();
     final List<Widget> pages = [
       EventHomeScreen(),
       EventChecklistScreen(),
@@ -29,7 +29,7 @@ class EventBottomNavBar extends StatelessWidget {
       SpProfilePage(),
     ];
     double screenWidth = MediaQuery.of(context).size.width;
-    double iconSize = screenWidth < 700 ? 65 : 70;
+    double iconSize = screenWidth < 700 ? 60 : 70;
 
     return Obx(() {
       final themeMode =

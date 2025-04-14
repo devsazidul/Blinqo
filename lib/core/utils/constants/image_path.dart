@@ -47,4 +47,6 @@ class ImagePath {
   static const String nocontentbackground =
       'assets/images/nocontentbackground.png';
   static const String homenodata = 'assets/images/homenodata.png';
+  static const String nocontentbackground = 'assets/images/nocontentbackground.png';
+  static const String seatingArrangement = 'assets/images/seatingArrangement.png';
 }

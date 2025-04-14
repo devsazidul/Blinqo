@@ -95,12 +95,12 @@ class ChatDetailView extends StatelessWidget {
       children: [
         const Spacer(flex: 3),
         CircleAvatar(radius: 60, backgroundImage: NetworkImage(user.avatar)),
-        const SizedBox(height: 16),
+        const SizedBox(height: 4),
         Text(
           user.name,
           style: getTextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
-        const SizedBox(height: 18),
+        const SizedBox(height: 8),
         Text(
           'Say hello to ${user.name}',
           style: getTextStyle(fontSize: 14, color: const Color(0xFF767676)),

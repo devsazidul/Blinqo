@@ -19,7 +19,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Get.to(SpEditProfilePage(), arguments: 4);
+          Get.to(() => SpEditProfilePage(), arguments: 4);
         },
       ),
       _buildPopupMenuItem(
@@ -35,7 +35,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "settings",
         iconPath: IconPath.settings,
         onTap: () {
-          Get.to(SpProfilePage());
+          Get.to(() => SpProfilePage());
         },
         addDivider: false,
       ),
