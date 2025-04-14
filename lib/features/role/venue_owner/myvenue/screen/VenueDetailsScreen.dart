@@ -52,32 +52,7 @@ class VenueDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> reviews = [
-      {
-        "title": "Corporate Event",
-        "subtitle": "Conference Hall",
-        "date": "15 March,2025",
-        "time": "3.00 PM",
-        "image": ImagePath.event,
-        "status": "Confirmed",
-      },
-      {
-        "title": "Team Building Retreat",
-        "subtitle": "Lakeside Lodge",
-        "date": "22 April,2025",
-        "time": "10.00 AM",
-        "image": ImagePath.event2,
-        "status": "Pending",
-      },
-      {
-        "title": "Product Launch",
-        "subtitle": "Main Auditorium",
-        "date": "30 May,2025",
-        "time": "1:00 PM",
-        "image": ImagePath.event3,
-        "status": "Confirmed",
-      },
-    ];
+ 
     List<Map<String, String>> seereview = [
       {
         "title": "Floyd Miles",
@@ -1048,7 +1023,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1076,7 +1051,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1117,7 +1092,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1145,7 +1120,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1173,7 +1148,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1201,7 +1176,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1242,7 +1217,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1270,7 +1245,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1298,7 +1273,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1326,7 +1301,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1368,7 +1343,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1396,7 +1371,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1424,7 +1399,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1452,7 +1427,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(.6),
+                                color: Color(0xff000000).withValues(alpha:  0.6),
                                 blurRadius: 10,
                                 offset: Offset(0, 3),
                               ),
@@ -1503,7 +1478,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  NewWidget(reviews: reviews),
+                  NewWidget(),
                   SizedBox(height: 30),
                   Text(
                     'Recent Views',
