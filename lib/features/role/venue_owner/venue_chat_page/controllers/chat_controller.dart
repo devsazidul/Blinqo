@@ -1,38 +1,39 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import '../data/chat_data.dart';
 
 class ChatController extends GetxController {
-  // Reactive state for current user, users, chats, and messages
+  // Reactive state for chat data
   final Rx<User> currentUser = ChatData.currentUser.obs;
   final RxList<User> users = ChatData.users.obs;
   final RxList<ChatPreview> chats = <ChatPreview>[].obs;
   final Rx<String?> activeChat = Rx<String?>(null);
   final RxMap<String, List<Message>> messages = <String, List<Message>>{}.obs;
 
-  // Image picking state
+  // Image picking and preview state
   final ImagePicker _imagePicker = ImagePicker();
-  final Rx<File?> selectedImage = Rx<File?>(null);
+  final Rx<File?> previewImage = Rx<File?>(null); // For preview before sending
   final RxBool isUploading = false.obs;
 
-  // Track typing state for input field
+  // Typing and UI controllers
   final RxBool isTyping = false.obs;
-
-  // Controllers for text input and messages list scrolling
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
   @override
   void onInit() {
     super.onInit();
-    // Load initial chats and messages from data source
+    // Initialize chats and messages
     chats.value = ChatData.getChatPreviews();
     messages.value = Map.from(ChatData.messages);
 
-    // Auto-scroll to latest message when messages update
+    // Auto-scroll to latest message
     messages.listen((_) {
       if (scrollController.hasClients) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -45,7 +46,7 @@ class ChatController extends GetxController {
       }
     });
 
-    // Update typing state when text input changes
+    // Track typing state
     messageController.addListener(() {
       onMessageChanged(messageController.text);
     });
@@ -53,14 +54,12 @@ class ChatController extends GetxController {
 
   @override
   void onClose() {
-    // Clean up controllers to prevent memory leaks
     messageController.dispose();
     scrollController.dispose();
     super.onClose();
   }
 
   void setActiveChat(String? chatId) {
-    // Set the currently active chat and mark its messages as read
     activeChat.value = chatId;
     if (chatId != null) {
       markAsRead(chatId);
@@ -68,12 +67,11 @@ class ChatController extends GetxController {
   }
 
   void onMessageChanged(String text) {
-    // Update typing state based on whether input is non-empty
     isTyping.value = text.trim().isNotEmpty;
   }
 
   Future<void> pickImage(String chatId, ImageSource source) async {
-    // Pick an image from camera or gallery and send it
+    // Pick an image and show preview
     try {
       final XFile? pickedFile = await _imagePicker.pickImage(
         source: source,
@@ -81,19 +79,46 @@ class ChatController extends GetxController {
       );
 
       if (pickedFile != null) {
-        isUploading.value = true;
+        // Copy image to app's storage
+        final File tempFile = File(pickedFile.path);
+        final Directory appDir = await getApplicationDocumentsDirectory();
+        final String newPath =
+            '${appDir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+        final File savedFile = await tempFile.copy(newPath);
 
-        // Simulate upload delay (replace with actual upload logic)
-        await Future.delayed(const Duration(seconds: 1));
+        // Store for preview
+        previewImage.value = savedFile;
 
-        final File imageFile = File(pickedFile.path);
-        selectedImage.value = imageFile;
-
-        sendImageMessage(chatId, imageFile.path);
-        isUploading.value = false;
+        // Show preview dialog
+        Get.dialog(
+          AlertDialog(
+            backgroundColor: Colors.white,
+            title: const Text('Send Image?'),
+            content: Image.file(savedFile, height: 200, fit: BoxFit.cover),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  previewImage.value = null; // Clear preview
+                  Get.back(); // Close dialog
+                },
+                child: Text('Cancel', style: getTextStyle(color: AppColors.iconColor,)),
+              ),
+              TextButton(
+                onPressed: () {
+                  sendImageMessage(chatId, savedFile.path);
+                  previewImage.value = null; // Clear after sending
+                  Get.back();
+                },
+                child: Text(
+                  'Send',
+                  style: TextStyle(color: AppColors.iconColor),
+                ),
+              ),
+            ],
+          ),
+        );
       }
     } catch (e) {
-      isUploading.value = false;
       Get.snackbar(
         'Error',
         'Failed to pick image: $e',
@@ -103,7 +128,7 @@ class ChatController extends GetxController {
   }
 
   void sendImageMessage(String chatId, String imagePath) {
-    // Create and send an image message with file path
+    // Create and send an image message
     final newMessage = Message(
       id: 'm${DateTime.now().millisecondsSinceEpoch}',
       senderId: currentUser.value.id,
@@ -112,14 +137,19 @@ class ChatController extends GetxController {
       timestamp: DateTime.now().millisecondsSinceEpoch,
       isRead: false,
       type: MessageType.image,
-      mediaUrl: imagePath.startsWith('http') ? imagePath : 'file://$imagePath',
+      mediaUrl: imagePath, // Store raw path for local file
     );
 
     _addMessageToChat(chatId, newMessage);
   }
 
-  void sendMessage(String chatId, String text, {MessageType type = MessageType.text, String? mediaUrl, String? audioDuration}) {
-    // Send a message (text, image, or audio) if valid
+  void sendMessage(
+    String chatId,
+    String text, {
+    MessageType type = MessageType.text,
+    String? mediaUrl,
+    String? audioDuration,
+  }) {
     if (text.trim().isEmpty && type == MessageType.text) return;
 
     final newMessage = Message(
@@ -131,74 +161,75 @@ class ChatController extends GetxController {
       isRead: false,
       type: type,
       mediaUrl: mediaUrl,
-      audioDuration: type == MessageType.audio ? (audioDuration ?? '0:00') : null,
+      audioDuration:
+          type == MessageType.audio ? (audioDuration ?? '0:00') : null,
     );
 
     _addMessageToChat(chatId, newMessage);
   }
 
   void _addMessageToChat(String chatId, Message newMessage) {
-    // Add message to chat and update chat preview
     final chatMessages = [...(messages[chatId] ?? []), newMessage];
     messages[chatId] = List<Message>.from(chatMessages);
 
-    final updatedChats = chats.map((chat) {
-      if (chat.id == chatId) {
-        return ChatPreview(
-          id: chat.id,
-          user: chat.user,
-          lastMessage: newMessage,
-          unreadCount: chat.unreadCount,
-        );
-      }
-      return chat;
-    }).toList();
+    final updatedChats =
+        chats.map((chat) {
+          if (chat.id == chatId) {
+            return ChatPreview(
+              id: chat.id,
+              user: chat.user,
+              lastMessage: newMessage,
+              unreadCount: chat.unreadCount,
+            );
+          }
+          return chat;
+        }).toList();
 
-    // Sort chats by latest message timestamp
-    updatedChats.sort((a, b) => b.lastMessage.timestamp.compareTo(a.lastMessage.timestamp));
+    updatedChats.sort(
+      (a, b) => b.lastMessage.timestamp.compareTo(a.lastMessage.timestamp),
+    );
     chats.value = updatedChats;
   }
 
   void markAsRead(String chatId) {
-    // Mark all unread messages in a chat as read
     final chatMessages = messages[chatId] ?? [];
-    final updatedMessages = chatMessages.map((msg) {
-      if (msg.senderId == chatId && !msg.isRead) {
-        return Message(
-          id: msg.id,
-          senderId: msg.senderId,
-          receiverId: msg.receiverId,
-          text: msg.text,
-          timestamp: msg.timestamp,
-          isRead: true,
-          type: msg.type,
-          mediaUrl: msg.mediaUrl,
-          audioDuration: msg.audioDuration,
-        );
-      }
-      return msg;
-    }).toList();
+    final updatedMessages =
+        chatMessages.map((msg) {
+          if (msg.senderId == chatId && !msg.isRead) {
+            return Message(
+              id: msg.id,
+              senderId: msg.senderId,
+              receiverId: msg.receiverId,
+              text: msg.text,
+              timestamp: msg.timestamp,
+              isRead: true,
+              type: msg.type,
+              mediaUrl: msg.mediaUrl,
+              audioDuration: msg.audioDuration,
+            );
+          }
+          return msg;
+        }).toList();
 
     messages[chatId] = List<Message>.from(updatedMessages);
 
-    // Reset unread count for the chat
-    final updatedChats = chats.map((chat) {
-      if (chat.id == chatId) {
-        return ChatPreview(
-          id: chat.id,
-          user: chat.user,
-          lastMessage: chat.lastMessage,
-          unreadCount: 0,
-        );
-      }
-      return chat;
-    }).toList();
+    final updatedChats =
+        chats.map((chat) {
+          if (chat.id == chatId) {
+            return ChatPreview(
+              id: chat.id,
+              user: chat.user,
+              lastMessage: chat.lastMessage,
+              unreadCount: 0,
+            );
+          }
+          return chat;
+        }).toList();
 
     chats.value = updatedChats;
   }
 
   User? getUserById(String userId) {
-    // Retrieve user by ID, return null if not found
     try {
       return users.firstWhere((user) => user.id == userId);
     } catch (e) {
@@ -207,7 +238,6 @@ class ChatController extends GetxController {
   }
 
   List<Message> getChatMessages(String chatId) {
-    // Get messages for a specific chat
     return messages[chatId] ?? [];
   }
 }
