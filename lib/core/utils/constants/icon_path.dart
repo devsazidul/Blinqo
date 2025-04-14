@@ -66,5 +66,5 @@ class IconPath {
   static const String locationOn = 'assets/icons/location_on.svg';
   static const String camera = 'assets/icons/camera.svg';
   static const String arrowLeftAltSvg = 'assets/icons/arrow_left_alt.svg';
-
+  static const String notifications = 'assets/icons/notifications.png';
 }
