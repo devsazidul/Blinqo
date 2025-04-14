@@ -23,8 +23,8 @@ class FeatureVenues extends StatelessWidget {
     double cardWidth = screenWidth * 0.7;
     double buttonFontSize = screenWidth <= 360 ? 14 : 16;
 
-    final ServiceUserProfileControler spUserProfileControler =
-        Get.find<ServiceUserProfileControler>();
+    final SpProfileController spUserProfileControler =
+        Get.find<SpProfileController>();
     return Obx(() {
       final themeMode =
           spUserProfileControler.isDarkMode.value

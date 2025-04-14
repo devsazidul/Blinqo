@@ -3,7 +3,7 @@ import 'package:blinqo/features/role/service_provider/service_booking_page/scree
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_chat_page.dart';
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/service_provider_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +21,7 @@ class BottomNavBar extends StatelessWidget {
       SpEarningPage(),
       SpBookingPage(),
       SpChatPage(),
-      SpProfilePage(),
+      ServiceProviderProfile(),
     ];
     double screenWidth = MediaQuery.of(context).size.width;
     double iconSize = screenWidth < 700 ? 65 : 70;
