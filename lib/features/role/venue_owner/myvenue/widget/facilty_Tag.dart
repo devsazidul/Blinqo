@@ -19,11 +19,14 @@ class FacilityTag extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: const Color(0xffFBF7EB),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          width: 1,
-          color: const Color(0xffC0C0C0),
-        ),
+        borderRadius: BorderRadius.circular(34),
+       boxShadow: [
+         BoxShadow(
+           color: Color(0xff000000).withValues(alpha: .3),
+           blurRadius: 8,
+           offset: Offset(0, 3)
+         )
+       ]
       ),
       child: Row(
         children: [

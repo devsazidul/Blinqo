@@ -24,21 +24,21 @@ class CustomAmenityBox extends StatelessWidget {
      height:heights ,
       width: widths,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(5),
         border: Border.all(
-          width: 1,
-          color: const Color(0xffC0C0C0),
+          width: 1  ,
+          color: const Color(0xffC0C0C0).withValues(alpha: 0.6),
         ),
       ),
       child: Row(
         children: [
-          const SizedBox(width: 5),
-          Icon(
+          const SizedBox(width: 4),
+          Icon( 
             icon,
-            size: 14,
+            size: 18,
             color: const Color(0xffD4AF37),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 10),
           Text(
             label,
             style: getTextStyle(
