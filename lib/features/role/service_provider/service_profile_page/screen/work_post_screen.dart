@@ -2,35 +2,33 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/device/device_utility.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/work_post_controller.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/show_profile_popup_menu.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WorkPostScreen extends StatelessWidget {
-  final WorkPostController _workPostController = Get.put(WorkPostController());
+  static const String name = '/sp_works_portfolio';
 
   WorkPostScreen({super.key});
 
+  final WorkPostController _workPostController = Get.put(WorkPostController());
+  final SpProfileController spProfileController =
+      Get.find<SpProfileController>();
+
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = spProfileController.isDarkMode.value;
+    final ThemeMode themeMode =
+        spProfileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
     // final themeMode =
     //       controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
-    // List<String> imageUrls = [
-    //   'assets/images/wedding_photography_1.jpeg',
-    //   'assets/images/wedding_photography_2.jpeg',
-    //   'assets/images/wedding_photography_3.jpeg',
-    //   'assets/images/wedding_photography_1.jpeg',
-    //   'assets/images/wedding_photography_2.jpeg',
-    //   'assets/images/wedding_photography_3.jpeg',
-    //   'assets/images/wedding_photography_1.jpeg',
-    //   'assets/images/wedding_photography_2.jpeg',
-    //   'assets/images/wedding_photography_3.jpeg',
-    // ];
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: _buildAppBar(context, ThemeMode.light),
+      backgroundColor: themeMode == ThemeMode.dark ? AppColors.darkBackgroundColor : AppColors.backgroundColor,
+      appBar: SpProfileAppBar(onPressed: () => showEditDeletePopup(context)),
       body: Obx(
         () => SingleChildScrollView(
           child: Padding(
@@ -44,7 +42,7 @@ class WorkPostScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.buttonColor2,
+                    color: isDarkMode ? AppColors.darkHeaddingTextColor : AppColors.buttonColor2,
                   ),
                 ),
                 SizedBox(height: 16),
@@ -53,7 +51,7 @@ class WorkPostScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFF5C5C5C),
+                    color: isDarkMode? AppColors.darkTextColor : Color(0xFF5C5C5C),
                   ),
                 ),
                 SizedBox(height: 12),
@@ -68,7 +66,7 @@ class WorkPostScreen extends StatelessWidget {
                       // '${post.likes}',
                       style: getTextStyle(
                         fontSize: 14,
-                        color: AppColors.textColor,
+                        color: isDarkMode ? Colors.grey.shade50 : AppColors.textColor,
                         // lineHeight: 1
                       ),
                     ),
@@ -79,7 +77,7 @@ class WorkPostScreen extends StatelessWidget {
                       },
                       child: Column(
                         children: [
-                          Image.asset(IconPath.likeIcon, width: 20),
+                          Image.asset(IconPath.likeIcon, width: 20, color: isDarkMode? AppColors.buttonColor : AppColors.buttonColor2,),
                           SizedBox(height: 6),
                         ],
                       ),
@@ -179,54 +177,13 @@ class WorkPostScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                SizedBox(height: 80),
               ],
             ),
           ),
         ),
       ), // body: Row(
-    );
-  }
-
-  AppBar _buildAppBar(BuildContext context, ThemeMode themeMode) {
-    return AppBar(
-      backgroundColor: AppColors.backgroundColor,
-      forceMaterialTransparency: true,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 20.0),
-        child: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: CircleAvatar(
-            backgroundColor:
-                themeMode == ThemeMode.dark
-                    ? Color(0xFFD9D9D9).withAlpha(40)
-                    : const Color(0xFFD9D9D9),
-            child: Image.asset(
-              IconPath.arrowLeftAlt,
-              color:
-                  themeMode == ThemeMode.dark
-                      ? Colors.white
-                      : AppColors.textColor,
-            ),
-          ),
-        ),
-      ),
-      actions: [
-        IconButton(
-          onPressed: () {
-            showPopupMenu(context);
-          },
-          icon: Image.asset(
-            IconPath.moreVert,
-            height: 22.5,
-            color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.backgroundColor
-                    : AppColors.textColor,
-          ),
-        ),
-      ],
     );
   }
 }

@@ -3,11 +3,13 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/show_profile_popup_menu.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SpProfilePage extends StatelessWidget {
+  static const String name = '/sp_profile_settings';
+
   const SpProfilePage({super.key});
 
   @override
@@ -23,7 +25,7 @@ class SpProfilePage extends StatelessWidget {
             themeMode == ThemeMode.dark
                 ? Colors.black
                 : AppColors.backgroundColor,
-        appBar: _buildAppBar(context, themeMode),
+        appBar: SpProfileAppBar(title: "Profile"),
         body: ColoredBox(
           color:
               themeMode == ThemeMode.dark
@@ -43,61 +45,6 @@ class SpProfilePage extends StatelessWidget {
         ),
       );
     });
-  }
-
-  AppBar _buildAppBar(BuildContext context, ThemeMode themeMode) {
-    return AppBar(
-      backgroundColor: AppColors.backgroundColor,
-      forceMaterialTransparency: true,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 20.0),
-        child: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: CircleAvatar(
-            backgroundColor:
-                themeMode == ThemeMode.dark
-                    ? Color(0xFFD9D9D9).withAlpha(40)
-                    : const Color(0xFFD9D9D9),
-            child: Image.asset(
-              IconPath.arrowLeftAlt,
-              color:
-                  themeMode == ThemeMode.dark
-                      ? Colors.white
-                      : AppColors.textColor,
-            ),
-          ),
-        ),
-      ),
-      title: Text(
-        'Profile',
-        style: getTextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color:
-              themeMode == ThemeMode.dark
-                  ? AppColors.backgroundColor
-                  : AppColors.textColor,
-        ),
-      ),
-      centerTitle: true,
-      actions: [
-        IconButton(
-          onPressed: () {
-            showPopupMenu(context);
-          },
-          icon: Image.asset(
-            IconPath.moreVert,
-            height: 22.5,
-            color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.backgroundColor
-                    : AppColors.textColor,
-          ),
-        ),
-      ],
-    );
   }
 
   Widget _buildProfileSection(
@@ -155,19 +102,6 @@ class SpProfilePage extends StatelessWidget {
             ],
           );
         }),
-
-        /// Center(
-        //   child: CircleAvatar(
-        //     radius: 60,
-        //     backgroundColor: AppColors.primary,
-        //     child: Image.asset(
-        //       IconPath.profile01,
-        //       width: 125,
-        //       height: 125,
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
 
         /// Avater name
         Text(
@@ -228,7 +162,7 @@ class SpProfilePage extends StatelessWidget {
           iconPath: IconPath.editProfile,
           title: "Edit Profile",
           onTap: () {
-            Get.to(SpEditProfilePage(), arguments: 4);
+            Navigator.pushNamed(context, SpEditProfilePage.name);
           },
         ),
         Obx(
@@ -263,11 +197,6 @@ class SpProfilePage extends StatelessWidget {
           themeMode,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
-        ),
-        _buildSettingsTile(
-          themeMode,
-          title: "Payment History",
-          iconPath: IconPath.paymentHistory,
         ),
         ListTile(
           minTileHeight: 60,
@@ -353,36 +282,4 @@ class SpProfilePage extends StatelessWidget {
       ],
     );
   }
-
-  /// build image picker sheet
-  // Widget _buildImagePickerSheet(
-  //   BuildContext context,
-  //   SpProfileController controller,
-  // ) {
-  //   // final ProfileController controller = Get.find();
-  //   return Container(
-  //     padding: EdgeInsets.all(16),
-  //     child: Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         ListTile(
-  //           leading: Icon(Icons.photo),
-  //           title: Text("Choose from Gallery"),
-  //           onTap: () {
-  //             controller.pickImage(ImageSource.gallery);
-  //             Navigator.pop(context);
-  //           },
-  //         ),
-  //         ListTile(
-  //           leading: Icon(Icons.camera_alt),
-  //           title: Text("Take a Photo"),
-  //           onTap: () {
-  //             controller.pickImage(ImageSource.camera);
-  //             Get.back(result: controller.loadProfileImage());
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

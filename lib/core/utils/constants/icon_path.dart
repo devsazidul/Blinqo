@@ -50,6 +50,7 @@ class IconPath {
   static const String cardvisa = 'assets/icons/cardvisa.png';
   static const String sphprofile = 'assets/icons/sphprofile.png';
   static const String editPencil = 'assets/icons/edit_pencil.png';
+  static const String delete = 'assets/icons/delete.png';
   static const String viewAs = 'assets/icons/visibility.png';
   static const String settings = 'assets/icons/settings.png';
   static const String goPro = 'assets/icons/workspace_premium.png';
@@ -63,8 +64,8 @@ class IconPath {
   static const String rotatevenue = 'assets/icons/rotatevenue.png';
   static const String verify = 'assets/icons/verify.png';
   static const String edit_button = 'assets/icons/edit_button.png';
-  static const String locationOn = 'assets/icons/location_on.svg';
-  static const String camera = 'assets/icons/camera.svg';
+  static const String locationOn = 'assets/icons/location_on.png';
+  static const String camera = 'assets/icons/camera.png';
   static const String arrowLeftAltSvg = 'assets/icons/arrow_left_alt.svg';
   static const String notifications = 'assets/icons/notifications.png';
   static const String likeIcon = 'assets/icons/thumb_up.png';

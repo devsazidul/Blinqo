@@ -9,7 +9,10 @@ class AppColors {
   static const Color accent = Color(0xFF89A7FF);
   static const Color buttonColor = Color(0xFFD4AF37);
   static const Color textColor = Color(0xFF333333);
+  static const Color darkTextColor = Color(0xFFC0C0C0);
+  static const Color darkHeaddingTextColor = Color(0xFFC0C0C0);
   static const Color backgroundColor = Color(0xFFF4F4F4);
+  static const Color darkBackgroundColor = Color(0xFF151515);
   static const Color buttonColor2 = Color(0xFF003366);
   static const Color borderColor = Color(0xFFAFB1B6);
   static const Color borderColor2 = Color(0xFFEBEBEB);
