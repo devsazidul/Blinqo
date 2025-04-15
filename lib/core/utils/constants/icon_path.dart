@@ -70,6 +70,14 @@ class IconPath {
   static const String likeIcon = 'assets/icons/thumb_up.png';
   static const String locationOnPath = "assets/icons/location_on.png";
   static const String imagePath = "assets/icons/Image.png";
+  static const String exploreallright = "assets/icons/exploreallright.png";
+  static const String upcominglogo = "assets/icons/upcominglogo.png";
+  static const String upcomingicon = "assets/icons/upcomingicon.png";
+  static const String upcomingcalendar = "assets/icons/upcomingcalendar.png";
+  static const String corporateEventLogo =
+      "assets/icons/corporateEventLogo.png";
+  static const String productLaunchLogo = "assets/icons/productLaunchLogo.png";
+  static const String teamBuildinglogo = "assets/icons/teamBuildinglogo.png";
   static const String attachmoney = "assets/icons/attach_money.png";
   static const String messageicon = "assets/icons/messageicon.png";
   static const String calendermonthe = "assets/icons/calendar_month.png";
