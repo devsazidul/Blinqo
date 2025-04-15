@@ -1,138 +1,299 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_screen_controller.dart';
+import 'package:blinqo/features/role/venue_owner/venue_chat_page/controllers/chat_controller.dart';
+import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
+import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/imger_viewer_view.dart';
+import 'package:blinqo/features/role/venue_owner/venue_chat_page/widgets/image_picker_bottom_sheet.dart';
+import 'package:blinqo/features/role/venue_owner/venue_chat_page/widgets/message_bubble.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatDetails extends StatelessWidget {
-  final EpChatScreenController epChatScreenController = Get.put(
-    EpChatScreenController(),
-  );
-  ChatDetails({super.key});
-  final TextEditingController messageController = TextEditingController();
+  final String chatId;
+
+  const ChatDetails({super.key, required this.chatId});
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    final ChatController controller = Get.find<ChatController>();
+
+    final user = controller.getUserById(chatId);
+    if (user == null) {
+      return Scaffold(
+        backgroundColor: AppColors.chatBackground,
+        appBar: AppBar(
+          forceMaterialTransparency: true,
+          title: const Text('Chat'),
+          elevation: 0,
+        ),
+        body: const Center(child: Text('User not found')),
+      );
+    }
 
     return Scaffold(
       backgroundColor: AppColors.chatBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        elevation: 0,
-        forceMaterialTransparency: false,
-        leadingWidth: screenHeight * 0.04,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: screenHeight * 0.03),
-          onPressed: () => Get.back(),
-        ),
-        title: Row(
-          children: [
-            CircleAvatar(backgroundImage: AssetImage(ImagePath.profile)),
-            SizedBox(width: screenWidth * 0.023),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Mia Wilson',
-                  style: getTextStyle(
-                    fontSize: screenHeight * 0.017,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.textColor,
-                  ),
+      appBar: coustomAppBar(user),
+      body: Column(
+        children: [
+          Expanded(
+            child: Obx(() {
+              final messages = controller.messages[chatId] ?? [];
+              return messages.isEmpty
+                  ? userEmptyChat(user)
+                  : userMessageList(messages, controller);
+            }),
+          ),
+          uploadingImage(controller),
+          coustomTextField(controller),
+        ],
+      ),
+    );
+  }
+
+  AppBar coustomAppBar(User user) {
+    return AppBar(
+      elevation: 0,
+      forceMaterialTransparency: false,
+      backgroundColor: AppColors.backgroundColor,
+      leadingWidth: 35,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back, size: 28),
+        onPressed: () => Get.back(),
+      ),
+      title: Row(
+        children: [
+          CircleAvatar(radius: 20, backgroundImage: NetworkImage(user.avatar)),
+          SizedBox(width: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                user.name,
+                style: getTextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                user.isOnline ? 'Online' : 'Offline',
+                style: getTextStyle(
+                  fontSize: 14,
+                  color: user.isOnline ? Colors.green : Colors.grey,
                 ),
-                SizedBox(height: screenHeight * 0.005),
-                Text(
-                  'Online',
-                  style: getTextStyle(
-                    fontSize: screenHeight * 0.015,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff008D36),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.more_vert,
-              color: AppColors.textColor,
-              size: screenHeight * 0.035,
-            ),
+              ),
+            ],
           ),
         ],
       ),
-      body: Stack(
-        children: [searchBar(screenHeight), sendButton(screenHeight)],
-      ),
+      actions: [
+        IconButton(icon: Icon(Icons.more_vert, size: 30), onPressed: () {}),
+      ],
     );
   }
 
-  Widget searchBar(double screenHeight) {
-    return Positioned(
-      bottom: screenHeight * 0.02,
-      left: screenHeight * 0.02,
-      right: screenHeight * 0.09,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.primary,
-          borderRadius: BorderRadius.circular(8),
+  Widget userEmptyChat(User user) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Spacer(flex: 3),
+        CircleAvatar(radius: 60, backgroundImage: NetworkImage(user.avatar)),
+        const SizedBox(height: 4),
+        Text(
+          user.name,
+          style: getTextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
-        child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.insert_emoticon),
-              color: AppColors.iconColor,
-              onPressed: () {},
-            ),
-            Expanded(
-              child: TextField(
-                controller: messageController,
-                decoration: InputDecoration(
-                  hintText: 'Type Message',
-                  hintStyle: getTextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.hintTextColor,
+        const SizedBox(height: 8),
+        Text(
+          'Say hello to ${user.name}',
+          style: getTextStyle(fontSize: 14, color: const Color(0xFF767676)),
+        ),
+        const Spacer(),
+      ],
+    );
+  }
+
+  Widget userMessageList(List<Message> messages, ChatController controller) {
+    return ListView.builder(
+      controller: controller.scrollController,
+      padding: const EdgeInsets.all(16),
+      itemCount: messages.length,
+      itemBuilder: (context, index) {
+        final message = messages[index];
+        final isCurrentUser =
+            message.senderId == controller.currentUser.value.id;
+        return MessageBubble(
+          message: message,
+          isCurrentUser: isCurrentUser,
+          onImageTap: (url) {
+            Get.to(() => ImageViewerView(imageUrl: url));
+          },
+        );
+      },
+    );
+  }
+
+  Widget uploadingImage(ChatController controller) {
+    return Obx(
+      () =>
+          controller.isUploading.value
+              ? Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF205295),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text('Sending image...'),
+                    ],
                   ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
                 ),
-                maxLines: 1,
+              )
+              : const SizedBox.shrink(),
+    );
+  }
+
+  Widget coustomTextField(ChatController controller) {
+    final RxBool showEmojiPicker = false.obs;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      decoration: const BoxDecoration(color: AppColors.chatBackground),
+      child: SafeArea(
+        child: Column(
+          children: [
+            Obx(
+              () => Offstage(
+                offstage: !showEmojiPicker.value,
+                child: SizedBox(
+                  child: EmojiPicker(
+                    onEmojiSelected: (category, emoji) {
+                      controller.messageController.text += emoji.emoji;
+                      showEmojiPicker.value = false;
+                    },
+                    onBackspacePressed: () {
+                      controller.messageController.text =
+                          controller.messageController.text.characters
+                              .skipLast(1)
+                              .toString();
+                    },
+                    config: Config(
+                      height: 256,
+                      checkPlatformCompatibility: true,
+                      emojiViewConfig: EmojiViewConfig(
+                        emojiSizeMax:
+                            28 *
+                            (foundation.defaultTargetPlatform ==
+                                    TargetPlatform.iOS
+                                ? 1.20
+                                : 1.0),
+                      ),
+                      bottomActionBarConfig: BottomActionBarConfig(
+                        showSearchViewButton: false,
+                        showBackspaceButton: false,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.link_sharp),
-              color: AppColors.iconColor,
-              onPressed: () {},
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.emoji_emotions_outlined),
+                          color: AppColors.iconColor,
+                          onPressed: () {
+                            showEmojiPicker.value = !showEmojiPicker.value;
+                          },
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: controller.messageController,
+                            decoration: InputDecoration(
+                              hintText: 'Type Message',
+                              hintStyle: getTextStyle(
+                                fontSize: 16,
+                                color: Colors.grey,
+                              ),
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10,
+                              ),
+                            ),
+                            maxLines: 1,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add_link_sharp),
+                          color: AppColors.iconColor,
+                          onPressed:
+                              () => Get.bottomSheet(
+                                ImagePickerBottomSheet(
+                                  chatId: chatId,
+                                  chatController: controller,
+                                ),
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Obx(() {
+                  final hasText = controller.isTyping.value;
+                  return GestureDetector(
+                    onTap: () {
+                      if (hasText) {
+                        controller.sendMessage(
+                          chatId,
+                          controller.messageController.text.trim(),
+                        );
+                        controller.messageController.clear();
+                      } else {
+                        Get.snackbar(
+                          'Empty!',
+                          'empty message',
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      }
+                    },
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: AppColors.iconColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.send,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  );
+                }),
+              ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget sendButton(double screenHeight) {
-    return Positioned(
-      bottom: screenHeight * 0.023,
-      right: screenHeight * 0.03,
-      child: Container(
-        width: 44,
-        height: 44,
-        decoration: BoxDecoration(
-          color: AppColors.iconColor,
-          shape: BoxShape.circle,
-        ),
-        child: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.send, color: AppColors.primary),
         ),
       ),
     );
