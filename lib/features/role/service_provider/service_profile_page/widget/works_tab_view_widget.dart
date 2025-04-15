@@ -1,7 +1,6 @@
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/work_post_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/works_card_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class WorksTabViewWidget extends StatelessWidget {
   const WorksTabViewWidget({super.key});
@@ -15,7 +14,7 @@ class WorksTabViewWidget extends StatelessWidget {
           children: [
             for (int i = 0; i < 3; i++)
               GestureDetector(
-                onTap: () => Get.to(() => WorkPostScreen()),
+                onTap: () => Navigator.pushNamed(context, WorkPostScreen.name),
                 child: WorksCardWidget(
                   imagePath: "assets/images/wedding_photography_${i + 1}.jpeg",
                 ),

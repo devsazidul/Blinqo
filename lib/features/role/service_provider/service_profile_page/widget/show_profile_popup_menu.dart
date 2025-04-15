@@ -4,7 +4,6 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 Future<void> showPopupMenu(BuildContext context) async {
   // Show the popup menu
@@ -19,7 +18,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Get.to(() => SpEditProfilePage(), arguments: 4);
+          Navigator.pushNamed(context, SpEditProfilePage.name);
         },
       ),
       _buildPopupMenuItem(
@@ -35,7 +34,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "settings",
         iconPath: IconPath.settings,
         onTap: () {
-          Get.to(() => SpProfilePage());
+          Navigator.pushNamed(context, SpProfilePage.name);
         },
         addDivider: false,
       ),
@@ -47,6 +46,34 @@ Future<void> showPopupMenu(BuildContext context) async {
         onTap: () {},
         addDivider: false,
         isPro: true,
+      ),
+    ],
+  );
+}
+
+Future<void> showEditDeletePopup(BuildContext context) async {
+  // Show the popup menu
+  showMenu(
+    color: Colors.white,
+    context: context,
+    position: RelativeRect.fromLTRB(100, 50, 0, 0),
+    items: [
+      _buildPopupMenuItem(
+        context,
+        text: "Edit Project",
+        value: "Edit Project",
+        iconPath: IconPath.editPencil,
+        onTap: () {
+          Navigator.pushNamed(context, SpEditProfilePage.name);
+        },
+      ),
+      _buildPopupMenuItem(
+        context,
+        text: "Delete Project",
+        value: "Delete Project",
+        iconPath: IconPath.delete,
+        onTap: () {},
+        addDivider: false,
       ),
     ],
   );
@@ -70,9 +97,7 @@ PopupMenuItem<String> _buildPopupMenuItem(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Wrap in InkWell to show ripple effect
         Container(
-          // width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           constraints: BoxConstraints(
             minWidth: MediaQuery.of(context).size.width * 0.4,

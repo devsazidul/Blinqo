@@ -33,10 +33,8 @@ class WorksCardWidget extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withValues(
-                      alpha: 0.5,
-                    ), // Top is slightly darker
-                    Colors.black.withAlpha(50), // Bottom is darker
+                    Colors.white.withAlpha(100), // Top is slightly darker
+                    Colors.black.withAlpha(100), // Bottom is darker
                   ],
                 ),
               ),
