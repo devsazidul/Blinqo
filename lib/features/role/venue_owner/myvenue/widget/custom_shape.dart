@@ -26,8 +26,12 @@ class CustomShapeTag extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: const Color(0xff000000).withOpacity(0.3),
+              color: const Color(0xff000000).withValues(alpha: .1),
               blurRadius: 3,
+              offset: Offset(0, 3)
+
+
+            
             ),
           ],
           borderRadius: BorderRadius.circular(34),

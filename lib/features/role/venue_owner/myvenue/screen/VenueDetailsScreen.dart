@@ -5,9 +5,8 @@ import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart'
 import 'package:blinqo/features/role/venue_owner/overview/widgets/NewWidget.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/revenue_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/utils/constants/icon_path.dart';
 import '../widget/custom_amenity.dart';
@@ -154,8 +153,9 @@ class VenueDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
@@ -165,13 +165,13 @@ class VenueDetailsScreen extends StatelessWidget {
                         children: [
                           Text(
                             title,
-                            style: getTextStyle(
+                            style: GoogleFonts.roboto(
                               fontSize: 24,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w600,
                               color: const Color(0xff333333),
                             ),
                           ),
-                          const SizedBox(width: 10),
+                          const SizedBox(width: 8),
                           Image.asset(IconPath.verify, height: 16, width: 16),
                           const Spacer(),
                           InkWell(
@@ -179,13 +179,17 @@ class VenueDetailsScreen extends StatelessWidget {
                               Get.to(() => EditVenue(image: image));
                             },
                             child: Container(
-                              height: 27,
-                              width: 76,
+                              height: screenHeight*0.040,
+                              width: screenWidth*0.18,
+
+
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
                                 color: const Color(0xffD4AF37),
                               ),
                               child: Row(
+                                mainAxisSize: MainAxisSize.min,
+
                                 children: [
                                   const SizedBox(width: 10),
                                   Text(
@@ -198,7 +202,7 @@ class VenueDetailsScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 8),
                                   const Icon(
-                                    Icons.edit,
+                                    Icons.edit_outlined,
                                     color: Colors.white,
                                     size: 15,
                                   ),
@@ -230,16 +234,15 @@ class VenueDetailsScreen extends StatelessWidget {
                         children: [
                           const Icon(Icons.location_on_outlined, size: 20),
                           const SizedBox(width: 5),
-                          Expanded(
-                            child: Text(
-                              address,
-                              style: getTextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                          Text(
+                            address,
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
                             ),
+                            overflow: TextOverflow.ellipsis,
                           ),
+                          Spacer(),
                           Text(
                             guest,
                             style: getTextStyle(
@@ -262,7 +265,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: const Color(0xff333333),
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
                       CustomAmenityBox(
@@ -272,7 +275,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         widths: screenWidth*0.18,
 
                       ),
-                      SizedBox(width: 8,),
+                      SizedBox(width: 7,),
                       CustomAmenityBox(
                         icon: Icons.wifi,
                         label: 'Parking',
@@ -280,20 +283,20 @@ class VenueDetailsScreen extends StatelessWidget {
                         widths: screenWidth*0.26
 
                       ),
-                      SizedBox(width: 8,),
+                      SizedBox(width: 7,),
                       CustomAmenityBox(
                         icon: Icons.wifi,
                         label: 'AC',
                         heights: screenHeight * 0.04,
-                        widths: screenWidth*0.18,
+                        widths: screenWidth*0.19,
 
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 7),
                       CustomAmenityBox(
                         icon: Icons.wifi,
                         label: 'Pool',
                         heights: screenHeight * 0.04,
-                        widths: screenWidth*0.18,
+                        widths: screenWidth*0.20,
 
                       ),
                     ],
@@ -315,7 +318,7 @@ class VenueDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Container     (
-                    padding: const EdgeInsets.all(20),
+
 
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -372,6 +375,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
+                  SizedBox(height: 16,),
                   Row(
                     children: [
                       CustomShapeTag(
@@ -393,6 +397,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         label: "Square",
                         height: screenHeight * 0.04,
                         width: screenWidth * 0.20,
+
                       ),
                     ],
                   ),
@@ -405,6 +410,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
+                  SizedBox(height: 16),
                   Row(
                     children: [
                       CustomShapeTag(
@@ -426,6 +432,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         label: "Square",
                         height: screenHeight * 0.04,
                         width: screenWidth * 0.20,
+
                       ),
                     ],
                   ),
@@ -438,6 +445,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
+                  SizedBox(height: 16),
                   Row(
                     children: [
 
@@ -473,6 +481,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
+                  SizedBox(height: 16,),
                   Row(
                     children: [
 
@@ -508,6 +517,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
+                  SizedBox(height: 16,),
                   Row(
                     children: [
 
@@ -543,6 +553,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
+                  SizedBox(height: 16,),
                   Row(
                     children: [
 

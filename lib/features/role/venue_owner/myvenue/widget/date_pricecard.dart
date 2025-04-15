@@ -35,7 +35,7 @@ class DatePriceCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30  ,vertical: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20  ,vertical: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -132,7 +132,7 @@ class DatePriceCard extends StatelessWidget {
             /// Save Button
             Center(
               child: Container(
-                height: screenHeight * 0.048,
+                height: screenHeight * 0.06,
                 width: screenWidth * 0.50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
