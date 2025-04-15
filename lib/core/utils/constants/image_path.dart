@@ -49,4 +49,6 @@ class ImagePath {
   static const String homenodata = 'assets/images/homenodata.png';
   static const String seatingArrangement =
       'assets/images/seatingArrangement.png';
+  static const String bookingList = 'assets/images/booking_list.png';
+  static const String newIcon = 'assets/images/new_icon.png';
 }

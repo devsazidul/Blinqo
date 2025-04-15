@@ -24,7 +24,6 @@ class Blinqo extends StatelessWidget {
             getPages: AppRoute.routes,
             initialBinding: ControllerBinder(),
 
-            // Use Obx to observe the themeMode and rebuild the app when the theme changes
             themeMode:
                 themeController.isDarkMode.value
                     ? ThemeMode.dark
