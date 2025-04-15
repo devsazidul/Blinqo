@@ -10,15 +10,11 @@ class AddCompare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Use MediaQuery to get screen size
     double screenWidth = MediaQuery.of(context).size.width;
     final SpProfileController spUserProfileControler =
         Get.find<SpProfileController>();
-    // Determine font size and padding based on screen size
-    double fontSize =
-        screenWidth > 600 ? 15 : 13; // Adjust font size for larger screens
-    double paddingValue =
-        screenWidth > 600 ? 16.0 : 8.0; // Adjust padding for smaller screens
+    double fontSize = screenWidth > 600 ? 15 : 13;
+    double paddingValue = screenWidth > 600 ? 16.0 : 8.0;
 
     return Obx(() {
       final themeMode =
@@ -77,15 +73,11 @@ class AddCompare extends StatelessWidget {
                     _buildHeaderCell(
                       fontSize: fontSize,
                       text: "Grand Elegance Hall",
-                      isSelected: false,
-                      themeMode: themeMode,
                     ),
 
                     _buildHeaderCell(
                       fontSize: fontSize,
                       text: "Grand Elegance Hall",
-                      themeMode: themeMode,
-                      isSelected: false, // This will display the image if true
                     ),
                   ],
                 ),
@@ -93,18 +85,9 @@ class AddCompare extends StatelessWidget {
                 TableRow(
                   children: [
                     _buildEmptyCell(),
-                    _buildHeaderCell(
-                      fontSize: 16.0,
+                    _buildHeaderCell(fontSize: 16.0, isImageShow: true),
 
-                      isSelected: false, // This will display the image if true
-                      isImageShow: true,
-                    ),
-
-                    _buildHeaderCell(
-                      fontSize: 16.0,
-                      isImageShow: true,
-                      isSelected: false, // This will display the image if true
-                    ),
+                    _buildHeaderCell(fontSize: 16.0, isImageShow: true),
                   ],
                 ),
 
@@ -265,16 +248,13 @@ class AddCompare extends StatelessWidget {
   Widget _buildHeaderCell({
     required double fontSize,
     String? text,
-    bool isSelected = false,
-    ThemeMode? themeMode,
+
     bool? isImageShow,
   }) {
     return Container(
       color:
-          isSelected == true
-              ? themeMode == ThemeMode.dark
-                  ? Colors.black87
-                  : Colors.black87
+          isImageShow == true
+              ? AppColors.appBarIcolor
               : AppColors.backgroundColor,
       padding: EdgeInsets.all(12.0),
       child:
@@ -294,10 +274,7 @@ class AddCompare extends StatelessWidget {
                   textAlign: TextAlign.center,
 
                   style: getTextStyle(
-                    color:
-                        themeMode == ThemeMode.dark
-                            ? AppColors.secondary
-                            : AppColors.buttonColor2,
+                    color: AppColors.buttonColor2,
                     fontWeight: FontWeight.bold,
                     fontSize: fontSize,
                   ),
@@ -316,25 +293,18 @@ class AddCompare extends StatelessWidget {
       padding: EdgeInsets.all(5.0),
       child: Text(
         text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: _getTextColor(themeMode, isColorChinged),
+        textAlign: TextAlign.start,
+        style: getTextStyle(
+          color:
+              isColorChinged == true
+                  ? AppColors.buttonColor2
+                  : AppColors.textColor,
           fontSize: fontSize,
           fontWeight:
               isColorChinged == true ? FontWeight.w600 : FontWeight.normal,
         ),
       ),
     );
-  }
-
-  Color _getTextColor(ThemeMode? themeMode, bool? isColorChinged) {
-    if (themeMode == ThemeMode.dark && isColorChinged == true) {
-      return AppColors.secondary;
-    } else if (themeMode == ThemeMode.dark) {
-      return AppColors.backgroundColor;
-    } else {
-      return Colors.black87;
-    }
   }
 
   Widget _buildCellWithIcon(
@@ -351,10 +321,7 @@ class AddCompare extends StatelessWidget {
         children: [
           Image.asset(
             IconPath.locationOnPath,
-            color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.backgroundColor
-                    : Colors.blue,
+            color: AppColors.locationIconColor,
             width: 10,
           ),
           SizedBox(width: 8),
