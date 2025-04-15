@@ -70,4 +70,8 @@ class IconPath {
   static const String likeIcon = 'assets/icons/thumb_up.png';
   static const String locationOnPath = "assets/icons/location_on.png";
   static const String imagePath = "assets/icons/Image.png";
+  static const String attachmoney = "assets/icons/attach_money.png";
+  static const String messageicon = "assets/icons/messageicon.png";
+  static const String calendermonthe = "assets/icons/calendar_month.png";
+  static const String rightarrow = "assets/icons/trending_flat.png";
 }

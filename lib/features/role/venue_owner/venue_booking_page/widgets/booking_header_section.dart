@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BookingHeader extends StatelessWidget {
   const BookingHeader({super.key});
@@ -24,7 +25,7 @@ class BookingHeader extends StatelessWidget {
           left: 20,
           child: GestureDetector(
             onTap: () {
-              // Get.back();
+              Navigator.pop(context);
             },
             child: CircleAvatar(
               radius: 20,
@@ -50,7 +51,6 @@ class BookingHeader extends StatelessWidget {
           right: 20,
           child: GestureDetector(
             onTap: () {
-              // Need to be implemented
             },
             child: Icon(Icons.threesixty, size: 32, color: Colors.white),
           ),

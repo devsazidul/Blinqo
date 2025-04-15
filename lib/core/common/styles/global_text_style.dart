@@ -15,3 +15,18 @@ TextStyle getTextStyle({
     color: color,
   );
 }
+TextStyle getTextStylePoppins({
+  double fontSize = 14,
+  FontWeight fontWeight = FontWeight.normal,
+  double lineHeight = 1.5,
+  TextAlign textAlign = TextAlign.center,
+  Color color = const Color(0xff767676),
+}) {
+  return GoogleFonts.poppins(
+    fontSize: fontSize,
+    fontWeight: fontWeight,
+    height: lineHeight,
+    color: color,
+  );
+}
+
