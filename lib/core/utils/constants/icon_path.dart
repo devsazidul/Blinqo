@@ -78,4 +78,8 @@ class IconPath {
       "assets/icons/corporateEventLogo.png";
   static const String productLaunchLogo = "assets/icons/productLaunchLogo.png";
   static const String teamBuildinglogo = "assets/icons/teamBuildinglogo.png";
+  static const String attachmoney = "assets/icons/attach_money.png";
+  static const String messageicon = "assets/icons/messageicon.png";
+  static const String calendermonthe = "assets/icons/calendar_month.png";
+  static const String rightarrow = "assets/icons/trending_flat.png";
 }

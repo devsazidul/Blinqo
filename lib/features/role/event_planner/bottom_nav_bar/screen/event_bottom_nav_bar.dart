@@ -1,6 +1,7 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/bottom_nav_bar/controller/event_bottom_nav_controller.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/screen/ep_Chat_Screen.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/event_checklist_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
@@ -9,7 +10,6 @@ import 'package:get/get.dart';
 import '../../../service_provider/service_earning_page/screen/sp_earning_page.dart'
     show SpEarningPage;
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-import '../../chat_screen/screen/ep_Chat_Screen.dart' show EPChatScreen;
 
 class EventBottomNavBar extends StatelessWidget {
   const EventBottomNavBar({super.key});
@@ -25,7 +25,7 @@ class EventBottomNavBar extends StatelessWidget {
       EventHomeScreen(),
       EventChecklistScreen(),
       SpEarningPage(),
-      EPChatScreen(),
+      EpChatScreen(),
       SpProfilePage(),
     ];
     double screenWidth = MediaQuery.of(context).size.width;
