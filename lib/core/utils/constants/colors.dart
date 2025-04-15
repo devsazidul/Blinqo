@@ -24,4 +24,6 @@ class AppColors {
   static const Color chatBackground = Color(0xffE6EBF0);
   static const Color hintTextColor = Color(0xffA1A1A1);
   static const Color subTitleColor = Color(0xff999999);
+  static const Color locationIconColor = Color(0xff8A8A8A);
+  static const Color statusColor = Color(0xff008D36);
 }

@@ -70,4 +70,5 @@ class IconPath {
   static const String likeIcon = 'assets/icons/thumb_up.png';
   static const String locationOnPath = "assets/icons/location_on.png";
   static const String imagePath = "assets/icons/Image.png";
+  static const String trendingFlat = "assets/icons/trending_flat.png";
 }
