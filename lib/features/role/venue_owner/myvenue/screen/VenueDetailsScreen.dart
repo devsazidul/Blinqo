@@ -639,7 +639,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         title: review["title"]!,
                         time: review["time"]!,
                         desc: review["desc"]!,
-                        rating: 5, // চাইলে dynamic rating বানাতে পারো later
+                        rating: 5,
                       );
                     },
                   ),
