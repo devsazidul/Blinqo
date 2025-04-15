@@ -115,11 +115,16 @@ class SpPaymentOptionCard extends StatelessWidget {
                           child: Image.asset(IconPath.paymentaddcircle),
                         ),
                         SizedBox(width: 14),
-                        Text(
-                          'Add a new payment method',
-                          style: getTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            'Add a new payment method',
+                            style: getTextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
                         ),
                       ],
