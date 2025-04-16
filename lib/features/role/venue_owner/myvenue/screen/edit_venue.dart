@@ -10,7 +10,6 @@ import '../../../../../core/utils/constants/icon_path.dart';
 import '../widget/custom_textfield.dart';
 import '../widget/facilty_Tag.dart';
 class EditVenue extends StatelessWidget {
-
   final String image;
   const EditVenue({super.key, required this.image});
   @override
@@ -57,7 +56,7 @@ class EditVenue extends StatelessWidget {
                           left: 24,
                           top: 40,
                           child: CircleAvatar(
-                            radius: 25,
+                            radius: 20,
                             backgroundColor: const Color(0xFFD9D9D9),
                             child: Image.asset(IconPath.arrowLeftAlt),
                           ),
@@ -146,29 +145,24 @@ class EditVenue extends StatelessWidget {
                       icon: Icons.wifi,
                       label: 'Wifi',
                     ),
-
                     SizedBox(width: 13,),
                     FacilityTag(
                       width: screenWidth * 0.24,
                       icon: Icons.wifi,
                       label: 'Parking',
                     ),
-
                     SizedBox(width: 13,),
                     FacilityTag(
                       width: screenWidth * 0.16,
                       icon: Icons.wifi,
                       label: 'AC',
                     ),
-
                     SizedBox(width: 13,),
                     FacilityTag(
                       width: screenWidth * 0.19,
                       icon: Icons.wifi,
                       label: 'Pool',
                     ),
-
-
                   ],
                 ),
                 SizedBox(height: 16,),
@@ -196,7 +190,6 @@ class EditVenue extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CustomShapeTag(label: 'Barservices',  height: screenHeight * 0.04, width:screenWidth*0.27,icon:Icon(Icons.wifi, size: 15, color: Color(0xffD4AF37)),),
-
                     CustomShapeTag(label: '  Elevator', height: screenHeight * 0.04, width: screenWidth * 0.24,icon:Icon(Icons.wifi, size: 15, color: Color(0xffD4AF37)),),
                     CustomShapeTag(label: 'Restroom', height: screenHeight * 0.04, width: screenWidth * 0.25,icon:Icon(Icons.wifi, size: 15, color: Color(0xffD4AF37)),),
                   ],
@@ -250,7 +243,7 @@ class EditVenue extends StatelessWidget {
                     color: Color(0xff333333),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 15),
                 FittedBox(
                   fit: BoxFit.contain,
                   child: Obx(() {
@@ -326,6 +319,7 @@ class EditVenue extends StatelessWidget {
                   fontWeight:FontWeight.w500,
                   fontSize: 20,
                 ),),
+                SizedBox(height: 20,),
                 FittedBox(
                   fit: BoxFit.contain,
                   child: Obx(() {
@@ -549,16 +543,12 @@ class EditVenue extends StatelessWidget {
                   fit: BoxFit.contain,
                   child: Obx(() {
                     final types = List<String>.from(controller.FlowerType);
-
-                    // Rearrange to make sure "Orchids" is the last one in the first row
                     if (types.contains("Orchids") && types.indexOf("Orchids") != 3) {
                       types.remove("Orchids");
                       types.insert(3, "Orchids");
                     }
-
                     final firstRowTypes = types.take(4).toList(); // Ends with "Orchids"
                     final secondRowTypes = types.skip(4).toList(); // Starts with "Tulips"
-
                     Widget buildRow(List<String> typeList) {
                       return Row(
                         mainAxisSize: MainAxisSize.min,
@@ -603,7 +593,6 @@ class EditVenue extends StatelessWidget {
                         }).toList(),
                       );
                     }
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -711,7 +700,6 @@ class EditVenue extends StatelessWidget {
                     ),),
                   ),
                 )
-
               ],
             ))
           ],

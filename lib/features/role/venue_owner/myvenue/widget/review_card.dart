@@ -74,7 +74,7 @@ class ReviewCard extends StatelessWidget {
           ],
         ),
 
-        const SizedBox(height: 15),
+        const SizedBox(height: 17),
 
         /// Description
         Text(

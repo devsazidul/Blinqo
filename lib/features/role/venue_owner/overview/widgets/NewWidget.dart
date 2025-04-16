@@ -43,12 +43,13 @@ class NewWidget extends StatelessWidget {
         ),
       )
           : ListView.builder(
+        shrinkWrap: true,
         itemCount: controller.reviews.length,
-        physics: NeverScrollableScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           var reviews = controller.reviews[index];
           return Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(8),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.85, // সরাসরি শতাংশে নির্ধারণ
               decoration: BoxDecoration(
@@ -79,7 +80,7 @@ class NewWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(   
+                        Container(
                           width: MediaQuery.of(context).size.width * 0.12,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
