@@ -4,8 +4,6 @@ import 'package:blinqo/features/role/venue_owner/venue_booking_page/controllers/
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/model/booking.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/widgets/booking_card.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 
 /// A screen that displays all bookings for a specific section.
 class ExploreAllScreen extends StatelessWidget {

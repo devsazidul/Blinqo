@@ -51,4 +51,5 @@ class ImagePath {
       'assets/images/seatingArrangement.png';
   static const String bookingList = 'assets/images/booking_list.png';
   static const String newIcon = 'assets/images/new_icon.png';
+  static const String newprofile = 'assets/images/newprofile.png';
 }
