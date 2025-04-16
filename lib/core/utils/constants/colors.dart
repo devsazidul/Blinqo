@@ -29,5 +29,8 @@ class AppColors {
   static const Color subTitleColor = Color(0xff999999);
   static const Color indicatorColors = Color(0xffA1A1A1);
   static const Color locationIconColor = Color(0xff8A8A8A);
+  static const Color subtitleColor2 = Color(0xff848484);
+  static const Color cardsubtextColor = Color(0xffB0C0D0);
+  static const Color spcalendarColor = Color(0xff615E83);
   static const Color statusColor = Color(0xff008D36);
 }

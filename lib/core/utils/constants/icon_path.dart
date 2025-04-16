@@ -84,4 +84,6 @@ class IconPath {
   static const String calendermonthe = "assets/icons/calendar_month.png";
   static const String rightarrow = "assets/icons/trending_flat.png";
   static const String trendingFlat = "assets/icons/trending_flat.png";
+  static const String arrowleft = "assets/icons/arrow_left.png";
+  static const String cardimage = "assets/icons/cardimage.png";
 }

@@ -56,7 +56,7 @@ class SpHomePage extends StatelessWidget {
                       color:
                           themeMode == ThemeMode.dark
                               ? AppColors.primary
-                              : AppColors.borderColor2,
+                              : AppColors.textColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -84,7 +84,7 @@ class SpHomePage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      controller.toggleDarkMode();
+                      // controller.toggleDarkMode();
                     },
                     child: Container(
                       width: 80,
@@ -236,11 +236,14 @@ class SpHomePage extends StatelessWidget {
                     itemCount: spHomeController.bookings.length,
                     itemBuilder: (context, index) {
                       final item = spHomeController.bookings[index];
-                      return CustomBookingCard(
-                        title: item["title"] ?? '',
-                        description: item["description"] ?? '',
-                        day: item["day"] ?? '',
-                        date: item["date"] ?? '',
+                      return Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: CustomBookingCard(
+                          title: item["title"] ?? '',
+                          description: item["description"] ?? '',
+                          day: item["day"] ?? '',
+                          date: item["date"] ?? '',
+                        ),
                       );
                     },
                   ),
