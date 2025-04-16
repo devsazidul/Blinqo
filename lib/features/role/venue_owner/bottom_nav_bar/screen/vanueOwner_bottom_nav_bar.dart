@@ -76,8 +76,8 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
                 iconSize: iconSize,
               ),
               _buildNavItem(
-                activeImage: IconPath.profileactive,
-                passiveImage: IconPath.profiledeactive,
+                activeImage: IconPath.activeteam,
+                passiveImage: IconPath.deactiveteam,
                 index: 4,
                 iconSize: iconSize,
               ),

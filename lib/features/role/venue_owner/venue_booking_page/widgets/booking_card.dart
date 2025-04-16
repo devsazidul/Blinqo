@@ -5,7 +5,7 @@ import 'package:blinqo/features/role/venue_owner/venue_booking_page/controllers/
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/model/booking.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/booking_details_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 
 /// A container widget that displays details of a single booking.
 class BookingCard extends StatelessWidget {
@@ -57,6 +57,7 @@ class BookingCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 6),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             booking.name,
@@ -66,23 +67,13 @@ class BookingCard extends StatelessWidget {
                               color: const Color(0xFF333333),
                             ),
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                booking.venue,
-                                style: getTextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12,
-                                  color: const Color(0xFF999999),
-                                ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Icon(
-                                Icons.verified,
-                                color: Colors.blueAccent,
-                                size: 16,
-                              ),
-                            ],
+                          Text(
+                            booking.venue,
+                            style: getTextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: const Color(0xFF999999),
+                            ),
                           ),
                         ],
                       ),
