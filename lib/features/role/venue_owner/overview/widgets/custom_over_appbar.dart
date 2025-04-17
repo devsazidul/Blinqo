@@ -1,4 +1,6 @@
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileRow extends StatelessWidget {
   final String imagePath;
@@ -24,36 +26,45 @@ class ProfileRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ClipOval(
-          child: Image.asset(
-            imagePath,
-            width: 40,
-            height: 40,
-            fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {
+            Get.to(VenueProfileScreen());
+          },
+          child: Row(
+            children: [
+              ClipOval(
+                child: Image.asset(
+                  imagePath,
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(width: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff333333),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    role,
+                    style: getTextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffA1A1A1),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ),
-        SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: getTextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Color(0xff333333),
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              role,
-              style: getTextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Color(0xffA1A1A1),
-              ),
-            ),
-          ],
         ),
         Spacer(),
         Container(

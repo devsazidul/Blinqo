@@ -86,4 +86,7 @@ class IconPath {
   static const String trendingFlat = "assets/icons/trending_flat.png";
   static const String arrowleft = "assets/icons/arrow_left.png";
   static const String cardimage = "assets/icons/cardimage.png";
+  static const String activeteam = "assets/icons/activeteam.png";
+  static const String deactiveteam = "assets/icons/deactiveteam.png";
+  static const String slidersIcon = "assets/icons/sliders.png";
 }

@@ -70,7 +70,6 @@ class Venue extends StatelessWidget {
               SearchBarWidget(controller: searchController),
               const SizedBox(height: 12),
 
-              // Venue List
               venueList.isEmpty
                   ? const VenuePlaceholderWidget()
                   : ListView.builder(
@@ -267,10 +266,7 @@ class Venue extends StatelessWidget {
                   );
                 },
               ),
-
               const SizedBox(height: 15),
-
-              // Add Venue Button
               Padding(
                 padding: const EdgeInsets.symmetric(vertical:6),
                 child: Center(

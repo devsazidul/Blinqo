@@ -1,16 +1,16 @@
-import 'package:blinqo/features/role/venue_owner/venue_chat_page/controllers/chat_controller.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImagePicker extends StatelessWidget {
+class ImagesPicker extends StatelessWidget {
   final String chatId;
-  final ChatController chatController;
+  final EpChatController epChatController;
 
-  const ImagePicker({
+  const ImagesPicker({
     super.key,
     required this.chatId,
-    required this.chatController,
+    required this.epChatController,
   });
 
   Widget imagePickerOption({
@@ -66,7 +66,7 @@ class ImagePicker extends StatelessWidget {
                   title: 'Camera',
                   onTap: () {
                     Get.back();
-                    chatController.pickImage(chatId, ImageSource.camera);
+                    epChatController.pickImage(chatId, ImageSource.camera);
                   },
                 ),
                 imagePickerOption(
@@ -74,7 +74,7 @@ class ImagePicker extends StatelessWidget {
                   title: 'Gallery',
                   onTap: () {
                     Get.back();
-                    chatController.pickImage(chatId, ImageSource.gallery);
+                    epChatController.pickImage(chatId, ImageSource.gallery);
                   },
                 ),
               ],

@@ -21,6 +21,8 @@ class OverviewController extends GetxController {
       "image": ImagePath.event,
       "status": "Confirmed",
     },
+
+
     {
       "title": "Team Building Retreat",
       "subtitle": "Lakeside Lodge",
@@ -37,5 +39,6 @@ class OverviewController extends GetxController {
       "image": ImagePath.event3,
       "status": "Confirmed",
     },
+
   ];
 }

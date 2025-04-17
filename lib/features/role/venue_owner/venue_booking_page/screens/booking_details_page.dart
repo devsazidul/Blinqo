@@ -12,11 +12,13 @@ import '../widgets/booking_header_section.dart';
 
 class BookingDetailsPage extends StatelessWidget {
   static const String name = '/booking_details_page';
+
   const BookingDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final PriceController controller = Get.put(PriceController());
+    final BookingController bookingController = Get.put(BookingController());
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -91,8 +93,10 @@ class BookingDetailsPage extends StatelessWidget {
             DecorationDetailsSection(),
             SizedBox(height: 40),
 
-            // Accept and Delete buttons
-            _buildActionButtons(),
+            // condition check that if the booking status is "Booking Requests" or "In Progress" then show the action buttons
+            if (bookingController.bookings[0].status == "Booking Requests" ||
+                bookingController.bookings[0].status == "In Progress")
+              _buildActionButtons(),
             SizedBox(height: 100),
           ],
         ),
