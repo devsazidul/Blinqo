@@ -1,13 +1,13 @@
+import 'dart:ui';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/screen/image_view.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/image_picker.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/widget/message_picker.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/widget/pop_up_menu.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
-import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/imger_viewer_view.dart';
-import 'package:blinqo/features/role/venue_owner/venue_chat_page/widgets/message_bubble.dart';
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,8 +42,7 @@ class ChatDetails extends StatelessWidget {
                     : userMessageList(messages, epChatController);
               }),
             ),
-            uploadingImage(epChatController),
-            coustomTextField(epChatController, context),
+            coustomTextField(epChatController, themeMode, context),
           ],
         ),
       );
@@ -52,10 +51,20 @@ class ChatDetails extends StatelessWidget {
 
   AppBar coustomAppBar(User? user, ThemeMode themeMode) {
     return AppBar(
+      automaticallyImplyLeading: false,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(12),
           bottomRight: Radius.circular(12),
+        ),
+      ),
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(12),
+          ),
+          border: Border(bottom: BorderSide(color: AppColors.iconColor)),
         ),
       ),
       elevation: 0,
@@ -63,17 +72,26 @@ class ChatDetails extends StatelessWidget {
       backgroundColor:
           themeMode == ThemeMode.dark
               ? AppColors.textFrieldDarkColor
-              : Color(0xffFFFFFF),
-      leadingWidth: 35,
-      leading: CircleAvatar(
-        backgroundColor: Color(0xffD9D9D9),
-        child: IconButton(
-          icon: Icon(Icons.arrow_back, size: 28),
-          onPressed: () => Get.back(),
-        ),
-      ),
+              : AppColors.primary,
       title: Row(
         children: [
+          CircleAvatar(
+            backgroundColor:
+                themeMode == ThemeMode.dark
+                    ? AppColors.primary.withValues(alpha: 0.1)
+                    : AppColors.darkWhite.withValues(alpha: 0.15),
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.primary
+                        : AppColors.textColor,
+              ),
+              onPressed: () => Get.back(),
+            ),
+          ),
+          SizedBox(width: 10),
           CircleAvatar(
             radius: 20,
             backgroundImage: NetworkImage(user?.avatar ?? ''),
@@ -97,26 +115,19 @@ class ChatDetails extends StatelessWidget {
                 user?.isOnline == true ? 'Online' : 'Offline',
                 style: getTextStyle(
                   fontSize: 14,
-                  color: user?.isOnline == true ? Colors.green : Colors.grey,
+                  fontWeight: FontWeight.w400,
+                  color:
+                      user?.isOnline == true
+                          ? AppColors.statusColor
+                          : Colors.grey,
                 ),
               ),
             ],
           ),
         ],
       ),
-      actions: [
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            size: 30,
-            color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.borderColor2
-                    : AppColors.textColor,
-          ),
-          onPressed: () {},
-        ),
-      ],
+
+      actions: [PopUpMenu()],
     );
   }
 
@@ -167,125 +178,60 @@ class ChatDetails extends StatelessWidget {
         final message = messages[index];
         final isCurrentUser =
             message.senderId == controller.currentUser.value.id;
-        return MessageBubble(
+        return MessagePicker(
           message: message,
           isCurrentUser: isCurrentUser,
           onImageTap: (url) {
-            Get.to(() => ImageViewerView(imageUrl: url));
+            Get.to(() => ImageView(imageUrl: url));
           },
         );
       },
     );
   }
 
-  Widget uploadingImage(EpChatController controller) {
-    return Obx(
-      () =>
-          controller.isUploading.value
-              ? Container(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                color: Colors.white,
-                child: Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xFF205295),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Text('Sending image...'),
-                    ],
-                  ),
-                ),
-              )
-              : const SizedBox.shrink(),
-    );
-  }
-
-  Widget coustomTextField(EpChatController controller, BuildContext context) {
-    final RxBool showEmojiPicker = false.obs;
-    final FocusNode focusNode = FocusNode();
+  Widget coustomTextField(
+    EpChatController controller,
+    ThemeMode themeMode,
+    BuildContext context,
+  ) {
+    // final RxBool showEmojiPicker = false.obs;
+    // final FocusNode focusNode = FocusNode();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-      decoration: const BoxDecoration(color: AppColors.chatBackground),
+      decoration: BoxDecoration(
+        color:
+            themeMode == ThemeMode.dark
+                ? AppColors.darkBackgroundColor
+                : AppColors.chatBackground,
+      ),
       child: SafeArea(
         child: Column(
           children: [
-            Obx(
-              () => Offstage(
-                offstage: !showEmojiPicker.value,
-                child: SizedBox(
-                  child: EmojiPicker(
-                    // onEmojiSelected: (category, emoji) {
-                    //   controller.messageController.text += emoji.emoji;
-                    //   showEmojiPicker.value = false;
-                    // },
-                    // onBackspacePressed: () {
-                    //   controller.messageController.text =
-                    //       controller.messageController.text.characters
-                    //           .skipLast(1)
-                    //           .toString();
-                    // },
-                    // config: Config(
-                    //   height: 256,
-                    //   checkPlatformCompatibility: true,
-                    //   emojiViewConfig: EmojiViewConfig(
-                    //     emojiSizeMax:
-                    //         28 *
-                    //         (foundation.defaultTargetPlatform ==
-                    //                 TargetPlatform.iOS
-                    //             ? 1.20
-                    //             : 1.0),
-                    //   ),
-                    //   bottomActionBarConfig: BottomActionBarConfig(
-                    //     showSearchViewButton: false,
-                    //     showBackspaceButton: false,
-                    //   ),
-                    // ),
-                  ),
-                ),
-              ),
-            ),
             Row(
               children: [
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.textFrieldDarkColor,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       children: [
                         IconButton(
                           icon: Icon(Icons.emoji_emotions_outlined),
-                          color: AppColors.iconColor,
-                          onPressed: () {
-                            showEmojiPicker.value = !showEmojiPicker.value;
-                            if (showEmojiPicker.value) {
-                              FocusScope.of(context).unfocus();
-                            } else {
-                              FocusScope.of(context).requestFocus();
-                            }
-                          },
+                          color: AppColors.buttonColor,
+                          onPressed: () {},
                         ),
                         Expanded(
                           child: TextField(
-                            onTap: () {
-                              controller.showImage(showEmojiPicker.value);
-                            },
+                            onTap: () {},
                             controller: controller.messageController,
                             decoration: InputDecoration(
                               hintText: 'Type Message',
                               hintStyle: getTextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.hintTextColor,
                               ),
                               border: InputBorder.none,
                               focusedBorder: InputBorder.none,
@@ -294,12 +240,13 @@ class ChatDetails extends StatelessWidget {
                                 vertical: 10,
                               ),
                             ),
+                            style: getTextStyle(color: AppColors.hintTextColor),
                             maxLines: 1,
                           ),
                         ),
                         IconButton(
                           icon: const Icon(Icons.add_link_sharp),
-                          color: AppColors.iconColor,
+                          color: AppColors.buttonColor,
                           onPressed:
                               () => Get.bottomSheet(
                                 ImagesPicker(
@@ -338,9 +285,9 @@ class ChatDetails extends StatelessWidget {
                         color: AppColors.iconColor,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.send,
-                        color: Colors.white,
+                        color: AppColors.buttonColor,
                         size: 20,
                       ),
                     ),

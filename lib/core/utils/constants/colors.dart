@@ -4,7 +4,8 @@ class AppColors {
   AppColors._();
 
   // Brand Colors
-  static const Color primary = Colors.white;
+  static const Color primary = Color(0xffFFFFFF);
+  static const Color darkWhite = Color(0xffFFFFFF);
   static const Color secondary = Color(0xFFFEC601);
   static const Color accent = Color(0xFF89A7FF);
   static const Color buttonColor = Color(0xFFD4AF37);
@@ -33,4 +34,5 @@ class AppColors {
   static const Color cardsubtextColor = Color(0xffB0C0D0);
   static const Color spcalendarColor = Color(0xff615E83);
   static const Color statusColor = Color(0xff008D36);
+  static const Color popUpBackground = Color(0xffFBF7EB);
 }
