@@ -42,23 +42,18 @@ class SpProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
               IconPath.arrowLeftAlt,
               width: 16,
               height: 12,
-              color:
-                  isDarkMode
-                      ? Colors.white
-                      : AppColors.textColor,
+              color: isDarkMode ? Colors.white : AppColors.textColor,
             ),
           ),
         ),
       ),
+
       title: Text(
         title ?? '',
         style: getTextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color:
-              isDarkMode
-                  ? AppColors.backgroundColor
-                  : AppColors.textColor,
+          color: isDarkMode ? AppColors.backgroundColor : AppColors.textColor,
         ),
       ),
       centerTitle: true,
@@ -74,9 +69,7 @@ class SpProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
               width: 4,
               height: 22.5,
               color:
-                  isDarkMode
-                      ? AppColors.backgroundColor
-                      : AppColors.textColor,
+                  isDarkMode ? AppColors.backgroundColor : AppColors.textColor,
             ),
           ),
       ],

@@ -7,9 +7,9 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/event
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../service_provider/service_earning_page/screen/sp_earning_page.dart'
-    show SpEarningPage;
+
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import '../../event_home_page/screens/bookinge_list.dart';
 
 class EventBottomNavBar extends StatelessWidget {
   const EventBottomNavBar({super.key});
@@ -24,7 +24,7 @@ class EventBottomNavBar extends StatelessWidget {
     final List<Widget> pages = [
       EventHomeScreen(),
       EventChecklistScreen(),
-      SpEarningPage(),
+      BookingeList(),
       EpChatScreen(),
       SpProfilePage(),
     ];

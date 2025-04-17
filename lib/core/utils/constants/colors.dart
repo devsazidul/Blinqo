@@ -33,4 +33,8 @@ class AppColors {
   static const Color cardsubtextColor = Color(0xffB0C0D0);
   static const Color spcalendarColor = Color(0xff615E83);
   static const Color statusColor = Color(0xff008D36);
+  static const Color appBarArrowIconColor = Color(0xff1C1B1F);
+  static const Color cardDarkColor = Color(0xff32383D);
+  static const Color darkGreaColor = Color(0xffB0C0D0);
+  static const Color dopdownTextColor = Color(0xff003285);
 }
