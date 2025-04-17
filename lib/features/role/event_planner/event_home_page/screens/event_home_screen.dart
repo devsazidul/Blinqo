@@ -50,6 +50,7 @@ class EventHomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 32),
+
                     SearchBerSection(themeMode: themeMode),
                     SizedBox(height: 20),
                     EventCard(),
