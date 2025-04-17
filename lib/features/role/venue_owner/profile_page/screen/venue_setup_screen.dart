@@ -2,6 +2,8 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/amenities_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/add_amenities_dialog.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/venue_setup_header.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/google_map_venue_setup.dart';
@@ -9,7 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VenueSetupScreen extends StatelessWidget {
-  const VenueSetupScreen({super.key});
+  static const String name = '/venue-setup-screen';
+  final bool isDarkMode =
+      Get.put(VenueOwnerProfileController()).isDarkMode.value;
+
+  VenueSetupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,10 @@ class VenueSetupScreen extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -45,7 +54,7 @@ class VenueSetupScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -61,7 +70,7 @@ class VenueSetupScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -73,7 +82,10 @@ class VenueSetupScreen extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.grey,
+                                color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Colors.grey,
                               ),
                             )
                             : Wrap(
@@ -98,7 +110,7 @@ class VenueSetupScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -110,7 +122,10 @@ class VenueSetupScreen extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.grey,
+                                color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Colors.grey,
                               ),
                             )
                             : Wrap(
@@ -141,7 +156,7 @@ class VenueSetupScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         Get.dialog(
-                            AddAmenitiesDialog(controller: amenitiesController)
+                          AddAmenitiesDialog(controller: amenitiesController),
                         );
                       },
 
@@ -155,7 +170,7 @@ class VenueSetupScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -204,7 +219,9 @@ class VenueSetupScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => VenueOwnerProfilePage());
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(
                           vertical: 12,
@@ -220,7 +237,10 @@ class VenueSetupScreen extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xffFFFFFF),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffE6EBF0)
+                                  : Color(0xffFFFFFF),
                         ),
                       ),
                     ),
@@ -230,10 +250,15 @@ class VenueSetupScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => VenueOwnerProfilePage());
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: 12),
-                        backgroundColor: AppColors.backgroundColor,
+                        backgroundColor:
+                            isDarkMode
+                                ? AppColors.darkBackgroundColor
+                                : AppColors.backgroundColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(width: 1, color: Color(0xff003366)),
@@ -244,7 +269,10 @@ class VenueSetupScreen extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xff003366),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffE6EBF0)
+                                  : Color(0xff003366),
                         ),
                       ),
                     ),
@@ -266,21 +294,27 @@ class VenueSetupScreen extends StatelessWidget {
         labelStyle: getTextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w500,
-          color: Color(0xff767676),
+          color: isDarkMode ? Color(0xffC0C0C0) : Color(0xff767676),
         ),
         hintText: hintText,
         hintStyle: getTextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: Color(0xff767676),
+          color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff767676),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0xffABB7C2), width: 1),
+          borderSide: BorderSide(
+            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+            width: 1,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0xffABB7C2), width: 1),
+          borderSide: BorderSide(
+            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+            width: 1,
+          ),
         ),
       ),
     );
@@ -324,5 +358,4 @@ class VenueSetupScreen extends StatelessWidget {
       ),
     );
   }
-
 }

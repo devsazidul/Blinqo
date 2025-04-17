@@ -5,6 +5,7 @@ import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/venue_booking_page.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/venue_owner_booking.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/chat_list_view.dart';
+import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +26,8 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
       OverviewScreen(),
       Venue(),
       VenueOwnerBooking(),
-      ChatListView(),
+      // ChatListView(),
+      MainView(),
       Text('Screen 5'),
     ];
 
