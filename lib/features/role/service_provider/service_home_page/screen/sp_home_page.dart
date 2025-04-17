@@ -1,4 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/custombookingcard.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/project_request_card.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/upcoming_project_card.dart'
@@ -296,7 +297,9 @@ class SpHomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(SpUpcomingProject());
+                      },
                       child: Row(
                         children: [
                           Text(
