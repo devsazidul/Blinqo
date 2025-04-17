@@ -1,8 +1,10 @@
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMapVenueSetup extends StatelessWidget {
-  const GoogleMapVenueSetup({super.key});
+  final bool isDarkMode = VenueOwnerProfileController().isDarkMode.value;
+   GoogleMapVenueSetup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,12 +12,12 @@ class GoogleMapVenueSetup extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     GoogleMapController? mapController;
     return Container(
-      padding: EdgeInsets.all(3),
+      padding: isDarkMode ? EdgeInsets.all(0) : EdgeInsets.all(3),
       width: width * 0.9,
       height: height * 0.26,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color(0xffABB7C2), width: 1),
+        border: Border.all(color:isDarkMode ? Color(0xffABB7C2) : Color(0xffABB7C2), width: 1),
       ),
       child: Stack(
         children: [
