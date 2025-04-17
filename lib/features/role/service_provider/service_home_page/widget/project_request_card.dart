@@ -4,8 +4,6 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class ProjectRequestCard extends StatelessWidget {
   final String title;
@@ -92,7 +90,7 @@ class ProjectRequestCard extends StatelessWidget {
                       color:
                           themeMode == ThemeMode.dark
                               ? AppColors.buttonColor
-                              : AppColors.chatBackground,
+                              : AppColors.buttonColor2,
                     ),
                   ),
                 ],

@@ -1,65 +1,63 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/features/role/service_provider/service_earning_page/controller/sp_earning_controller.dart';
+import 'package:blinqo/features/role/service_provider/service_earning_page/widget/custom_cashIn_Card.dart';
+import 'package:blinqo/features/role/service_provider/service_earning_page/widget/sp_custom_total_revenue_card.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/start_booking.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/icon_path.dart';
-import '../../service_home_page/widget/booking_list_card.dart';
 import '../../service_profile_page/controller/service_user_profile_controler.dart';
 
 class SpEarningPage extends StatelessWidget {
-  const SpEarningPage({super.key});
+  SpEarningPage({super.key});
+  final SpEarningController spEarningController = Get.put(
+    SpEarningController(),
+  );
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     final controller = Get.put(SpProfileController());
 
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
-
       return Scaffold(
         backgroundColor:
             themeMode == ThemeMode.dark ? Colors.black : AppColors.borderColor2,
         appBar: AppBar(
-          backgroundColor:
-              themeMode == ThemeMode.dark
-                  ? Colors.black
-                  : AppColors.borderColor2,
           forceMaterialTransparency: true,
-          leading:
-              themeMode == ThemeMode.dark
-                  ? SizedBox()
-                  : Padding(
-                    padding: EdgeInsets.only(left: screenWidth * 0.05),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        child: Image.asset(
-                          width: 16,
-                          IconPath.arrowLeftAlt,
-                          color: AppColors.textColor,
-                        ),
-                      ),
-                    ),
-                  ),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: CircleAvatar(
+              radius: 20,
+              backgroundColor:
+                  themeMode == ThemeMode.dark
+                      ? AppColors.textColor
+                      : AppColors.appBarIcolor,
+              child: Image.asset(
+                IconPath.arrowleft,
+                width: 16,
+                height: 12,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.primary
+                        : AppColors.textColor,
+              ),
+            ),
+          ),
           centerTitle: true,
           title: Text(
-            'Booking',
+            "Earning",
             style: getTextStyle(
-              fontSize: screenWidth * 0.05,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
               color:
                   themeMode == ThemeMode.dark
-                      ? AppColors.borderColor2
-                      : AppColors.buttonColor2,
+                      ? AppColors.primary
+                      : AppColors.textColor,
             ),
           ),
         ),

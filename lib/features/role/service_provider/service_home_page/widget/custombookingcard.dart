@@ -27,7 +27,7 @@ class CustomBookingCard extends StatelessWidget {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
       return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
         decoration: BoxDecoration(
           color:
               themeMode == ThemeMode.dark
