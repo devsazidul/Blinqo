@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:flutter/material.dart';
 
 class BookingListCard extends StatelessWidget {
@@ -7,7 +8,7 @@ class BookingListCard extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.screenWidth,
-
+    required this.themeMode,
     this.bookingName,
     this.bookingDate,
     this.bookingTime,
@@ -15,9 +16,10 @@ class BookingListCard extends StatelessWidget {
     this.bookingStatus,
     this.bookingPrice,
   });
-
+  // textFrieldDarkColor
   final double screenHeight;
   final double screenWidth;
+  final ThemeMode themeMode;
   final String? bookingName;
   final String? bookingDate;
   final String? bookingTime;
@@ -28,9 +30,12 @@ class BookingListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: screenHeight * 0.02),
+      margin: EdgeInsets.only(bottom: screenHeight * 0.0001),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:
+            themeMode == ThemeMode.dark
+                ? AppColors.textFrieldDarkColor
+                : Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       height: screenHeight * 0.25,
@@ -61,7 +66,10 @@ class BookingListCard extends StatelessWidget {
                           left: screenWidth * 0.02,
                           top: screenWidth * 0.02,
                         ),
-                        color: Colors.white,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.textFrieldDarkColor
+                                : Colors.white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -72,7 +80,10 @@ class BookingListCard extends StatelessWidget {
                                 fontSize:
                                     screenWidth * 0.04, // 4% of screen width
                                 fontWeight: FontWeight.w600,
-                                color: AppColors.textColor,
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? AppColors.backgroundColor
+                                        : AppColors.textColor,
                               ),
                             ),
                             Row(
@@ -82,14 +93,21 @@ class BookingListCard extends StatelessWidget {
                                   style: getTextStyle(
                                     fontSize: screenWidth * 0.04,
                                     fontWeight: FontWeight.w400,
-                                    color: Color(0xff767676),
+                                    color:
+                                        themeMode == ThemeMode.dark
+                                            ? Color(0xffB0C0D0)
+                                            : Color(0xff767676),
                                   ),
                                 ),
                                 Text(
                                   "ABC Place, New York",
                                   style: getTextStyle(
                                     fontSize: screenWidth * 0.04,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                        themeMode == ThemeMode.dark
+                                            ? Colors.white
+                                            : AppColors.textColor,
                                   ),
                                 ),
                               ],
@@ -101,14 +119,21 @@ class BookingListCard extends StatelessWidget {
                                   style: getTextStyle(
                                     fontSize: screenWidth * 0.04,
                                     fontWeight: FontWeight.w400,
-                                    color: Color(0xff767676),
+                                    color:
+                                        themeMode == ThemeMode.dark
+                                            ? Color(0xffB0C0D0)
+                                            : Color(0xff767676),
                                   ),
                                 ),
                                 Text(
                                   " \$500",
                                   style: getTextStyle(
                                     fontSize: screenWidth * 0.04,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                        themeMode == ThemeMode.dark
+                                            ? Colors.white
+                                            : AppColors.textColor,
                                   ),
                                 ),
                               ],
@@ -119,7 +144,10 @@ class BookingListCard extends StatelessWidget {
                     ),
                     Expanded(
                       child: Container(
-                        color: Colors.white,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.textFrieldDarkColor
+                                : Colors.white,
                         padding: EdgeInsets.only(top: screenWidth * 0.02),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +157,10 @@ class BookingListCard extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: screenWidth * 0.04,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xff767676),
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? Color(0xffB0C0D0)
+                                        : Color(0xff767676),
                               ),
                             ),
                             Text(
@@ -137,6 +168,10 @@ class BookingListCard extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: screenWidth * 0.04,
                                 fontWeight: FontWeight.w600,
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? AppColors.chatBackground
+                                        : AppColors.textColor,
                               ),
                             ),
                           ],
@@ -155,7 +190,10 @@ class BookingListCard extends StatelessWidget {
                 right: screenWidth * 0.02,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.textFrieldDarkColor
+                        : Colors.white,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
@@ -172,14 +210,17 @@ class BookingListCard extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: screenWidth * 0.03,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.subTextColor,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Color(0xffB0C0D0)
+                                  : AppColors.subTextColor,
                         ),
                       ),
                       Text(
                         "Confirmed",
                         style: getTextStyle(
                           fontSize: screenWidth * 0.03,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
                           color: AppColors.statusColor,
                         ),
                       ),
@@ -192,14 +233,21 @@ class BookingListCard extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: screenWidth * 0.03,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.buttonColor2,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.buttonColor
+                                  : AppColors.buttonColor2,
                         ),
                       ),
                       IconButton(
                         onPressed: () {},
                         icon: Image.asset(
-                          "assets/icons/trending_flat.png",
+                          IconPath.rightarrow,
                           width: screenWidth * 0.05,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.buttonColor
+                                  : AppColors.buttonColor2,
                         ),
                       ),
                     ],
