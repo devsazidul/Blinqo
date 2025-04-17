@@ -25,10 +25,7 @@ class ImagesPicker extends StatelessWidget {
           Container(
             width: 60,
             height: 60,
-            decoration: BoxDecoration(
-              color: const Color(0xFF205295),
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle),
             child: Icon(icon, color: const Color(0xFF205295), size: 30),
           ),
           const SizedBox(height: 8),
