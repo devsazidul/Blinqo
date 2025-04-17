@@ -3,7 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class ProfileSummarySection extends StatelessWidget {
@@ -58,7 +57,8 @@ class ProfileSummarySection extends StatelessWidget {
               IconPath.camera,
               height: 16,
               width: 16,
-              color: isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+              color:
+                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
             ),
             SizedBox(width: 4),
             Text(

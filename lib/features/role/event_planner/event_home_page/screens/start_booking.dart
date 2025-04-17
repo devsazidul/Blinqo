@@ -1,7 +1,5 @@
-import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:timeline_tile_plus/timeline_tile_plus.dart';
 
 // class StartBooking extends StatelessWidget {
