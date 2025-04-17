@@ -35,4 +35,6 @@ class AppColors {
   static const Color spcalendarColor = Color(0xff615E83);
   static const Color statusColor = Color(0xff008D36);
   static const Color popUpBackground = Color(0xffFBF7EB);
+  static const Color darkCalendarColor = Color(0xff0066CC);
+  static const Color darkCalendarColor2 = Color(0xff34C759);
 }

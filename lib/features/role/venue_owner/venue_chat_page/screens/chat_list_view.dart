@@ -16,21 +16,21 @@ class ChatListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         automaticallyImplyLeading: false,
         forceMaterialTransparency: true,
         centerTitle: true,
-        title: Text(
-          'Chat',
-          style: getTextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF333333),
-          ),
-        ),
+        // title: Text(
+        //   'Chat',
+        //   style: getTextStyle(
+        //     fontSize: 32,
+        //     fontWeight: FontWeight.w600,
+        //     color: Color(0xFF333333),
+        //   ),
+        // ),
         elevation: 0,
         backgroundColor: AppColors.backgroundColor,
-      ),
+      ),*/
 
       body: Obx(() {
         final chats = chatController.chats;

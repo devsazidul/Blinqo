@@ -46,7 +46,7 @@ class ChatDetailView extends StatelessWidget {
             }),
           ),
           _buildUploadingIndicator(controller),
-          _buildChatInput(controller),
+          _buildChatInput(controller, context),
         ],
       ),
     );
@@ -162,7 +162,7 @@ class ChatDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildChatInput(ChatController controller) {
+  Widget _buildChatInput(ChatController controller, BuildContext context) {
     final RxBool showEmojiPicker = false.obs;
 
     return Container(
@@ -171,50 +171,6 @@ class ChatDetailView extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // Emoji Picker
-            Obx(() => Offstage(
-              offstage: !showEmojiPicker.value,
-              child: SizedBox(
-                height: 250,
-                child: EmojiPicker(
-                  onEmojiSelected: (category, emoji) {
-                    controller.messageController.text += emoji.emoji;
-                    showEmojiPicker.value = false; // Hide picker after selection
-                  },
-                  onBackspacePressed: () {
-                    controller.messageController.text =
-                        controller.messageController.text.characters.skipLast(1).toString();
-                  },
-                  config: Config(
-                    height: 256,
-                    // bgColor: const Color(0xFFF2F2F2),
-                    checkPlatformCompatibility: true,
-                    emojiViewConfig: EmojiViewConfig(
-                      backgroundColor: Colors.white,
-                      emojiSizeMax: 28 *
-                          (foundation.defaultTargetPlatform == TargetPlatform.iOS
-                              ?  1.20
-                              :  1.0),
-                    ),
-                    viewOrderConfig:  ViewOrderConfig(
-                      top: EmojiPickerItem.categoryBar,
-                      middle: EmojiPickerItem.emojiView,
-                      bottom: EmojiPickerItem.searchBar,
-                    ),
-                    skinToneConfig:  SkinToneConfig(
-                      indicatorColor: AppColors.iconColor,
-                    ),
-                    categoryViewConfig:  CategoryViewConfig(
-                      backgroundColor: Colors.white,
-                      indicatorColor: AppColors.iconColor,
-                    ),
-                    bottomActionBarConfig:  BottomActionBarConfig(
-                      enabled: false,
-                    ),
-                  ),
-                ),
-              ),
-            )),
             // Chat Input Row
             Row(
               children: [
@@ -231,9 +187,17 @@ class ChatDetailView extends StatelessWidget {
                           icon: const Icon(Icons.emoji_emotions_outlined),
                           color: AppColors.iconColor,
                           onPressed: () {
-                            showEmojiPicker.value = !showEmojiPicker.value; // Toggle emoji picker
+                            if (!showEmojiPicker.value) {
+                              // Hide keyboard and show emoji picker
+                              FocusScope.of(context).unfocus();
+                              showEmojiPicker.value = true;
+                            } else {
+                              // Hide emoji picker
+                              showEmojiPicker.value = false;
+                            }
                           },
                         ),
+                        const SizedBox(width: 8), // Space between emoji icon and text field
                         Expanded(
                           child: TextField(
                             controller: controller.messageController,
@@ -249,8 +213,15 @@ class ChatDetailView extends StatelessWidget {
                               contentPadding: const EdgeInsets.symmetric(vertical: 10),
                             ),
                             maxLines: null,
+                            onTap: () {
+                              // Hide emoji picker when keyboard is opened
+                              if (showEmojiPicker.value) {
+                                showEmojiPicker.value = false;
+                              }
+                            },
                           ),
                         ),
+                        const SizedBox(width: 8), // Space between text field and image icon
                         IconButton(
                           icon: const Icon(Icons.image),
                           color: AppColors.iconColor,
@@ -277,6 +248,7 @@ class ChatDetailView extends StatelessWidget {
                           controller.messageController.text.trim(),
                         );
                         controller.messageController.clear();
+                        showEmojiPicker.value = false; // Hide emoji picker after sending
                       }
                     },
                     child: Container(
@@ -296,6 +268,50 @@ class ChatDetailView extends StatelessWidget {
                 }),
               ],
             ),
+            SizedBox(height: 4),
+            // Emoji Picker (below the input field)
+            Obx(() => Offstage(
+              offstage: !showEmojiPicker.value,
+              child: SizedBox(
+                height: 250,
+                child: EmojiPicker(
+                  onEmojiSelected: (category, emoji) {
+                    controller.messageController.text += emoji.emoji;
+                    // Do not hide the picker, allowing multiple selections
+                  },
+                  onBackspacePressed: () {
+                    controller.messageController.text =
+                        controller.messageController.text.characters.skipLast(1).toString();
+                  },
+                  config: Config(
+                    height: 256,
+                    checkPlatformCompatibility: true,
+                    emojiViewConfig: EmojiViewConfig(
+                      backgroundColor: Colors.white,
+                      emojiSizeMax: 28 *
+                          (foundation.defaultTargetPlatform == TargetPlatform.iOS
+                              ? 1.20
+                              : 1.0),
+                    ),
+                    viewOrderConfig: ViewOrderConfig(
+                      top: EmojiPickerItem.categoryBar,
+                      middle: EmojiPickerItem.emojiView,
+                      bottom: EmojiPickerItem.searchBar,
+                    ),
+                    skinToneConfig: SkinToneConfig(
+                      indicatorColor: AppColors.iconColor,
+                    ),
+                    categoryViewConfig: CategoryViewConfig(
+                      backgroundColor: Colors.white,
+                      indicatorColor: AppColors.iconColor,
+                    ),
+                    bottomActionBarConfig: BottomActionBarConfig(
+                      enabled: false,
+                    ),
+                  ),
+                ),
+              ),
+            )),
           ],
         ),
       ),

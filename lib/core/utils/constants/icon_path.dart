@@ -89,4 +89,8 @@ class IconPath {
   static const String activeteam = "assets/icons/activeteam.png";
   static const String deactiveteam = "assets/icons/deactiveteam.png";
   static const String slidersIcon = "assets/icons/sliders.png";
+  static const String projectrequestimage =
+      "assets/icons/projectrequestimage.png";
+  static const String projectrequestlocation =
+      "assets/icons/projectrequestlocation.png";
 }
