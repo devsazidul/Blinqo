@@ -23,7 +23,7 @@ class SpEarningPage extends StatelessWidget {
       return Scaffold(
         backgroundColor:
             themeMode == ThemeMode.dark
-                ? Colors.black
+                ? AppColors.darkBackgroundColor
                 : AppColors.backgroundColor,
         appBar: AppBar(
           forceMaterialTransparency: true,
