@@ -23,6 +23,13 @@ class EpChatController extends GetxController {
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
+  void showImage(bool values) {
+    if (values == true) {
+      values != values;
+    }
+    update();
+  }
+
   @override
   void onInit() {
     super.onInit();

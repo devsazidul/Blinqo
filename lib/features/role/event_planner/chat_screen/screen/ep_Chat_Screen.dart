@@ -1,86 +1,109 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/chat_details.dart';
-import 'package:blinqo/features/role/venue_owner/venue_chat_page/controllers/chat_controller.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/widget/date_picker.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
-import 'package:blinqo/features/role/venue_owner/venue_chat_page/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpChatScreen extends StatelessWidget {
-  final ChatController chatController = Get.put(ChatController());
+  final EpChatController epChatController = Get.put(EpChatController());
+  final themeController = Get.find<SpProfileController>();
 
   EpChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        forceMaterialTransparency: true,
-        centerTitle: true,
-        title: Text(
-          'Chat',
-          style: getTextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textColor,
-          ),
-        ),
-        elevation: 0,
-        backgroundColor: AppColors.backgroundColor,
-      ),
-
-      body: Obx(() {
-        final chats = chatController.chats;
-
-        if (chats.isEmpty) {
-          return SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    ImagePath.nocontentbackground,
-                    height: 250,
-                    width: 230,
-                  ),
-                  Text(
-                    'No conversations yet',
-                    style: getTextStyle(
-                      fontSize: 16,
-                      color: AppColors.textColor,
-                    ),
-                  ),
-                ],
-              ),
+    return Obx(() {
+      final themeMode =
+          themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+      return Scaffold(
+        backgroundColor:
+            themeMode == ThemeMode.dark
+                ? AppColors.darkBackgroundColor
+                : AppColors.backgroundColor,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          forceMaterialTransparency: true,
+          centerTitle: true,
+          title: Text(
+            'Chat',
+            style: getTextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w600,
+              color:
+                  themeMode == ThemeMode.dark
+                      ? AppColors.borderColor2
+                      : AppColors.textColor,
             ),
-          );
-        }
+          ),
+          elevation: 0,
+          backgroundColor:
+              themeMode == ThemeMode.dark
+                  ? AppColors.darkBackgroundColor
+                  : AppColors.backgroundColor,
+        ),
 
-        return ListView.builder(
-          itemCount: chats.length,
-          itemBuilder: (context, index) {
-            return ChatList(
-              chat: chats[index],
-              onTap: () {
-                chatController.setActiveChat(chats[index].id);
-                Get.to(() => ChatDetails(chatId: chats[index].id));
-              },
+        body: Obx(() {
+          final chats = epChatController.chats;
+
+          if (chats.isEmpty) {
+            return SafeArea(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      ImagePath.nocontentbackground,
+                      height: 250,
+                      width: 230,
+                    ),
+                    Text(
+                      'No conversations yet',
+                      style: getTextStyle(
+                        fontSize: 16,
+                        color: AppColors.textColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             );
-          },
-        );
-      }),
-    );
+          }
+
+          return ListView.builder(
+            itemCount: chats.length,
+            itemBuilder: (context, index) {
+              return ChatList(
+                themeMode: themeMode,
+                chat: chats[index],
+                onTap: () {
+                  epChatController.setActiveChat(chats[index].id);
+                  Get.to(() => ChatDetails(chatId: chats[index].id));
+                },
+              );
+            },
+          );
+        }),
+      );
+    });
   }
 }
 
 class ChatList extends StatelessWidget {
   final ChatPreview chat;
   final VoidCallback onTap;
+  final ThemeMode? themeMode;
 
-  const ChatList({super.key, required this.chat, required this.onTap});
+  const ChatList({
+    super.key,
+    required this.chat,
+    required this.onTap,
+    this.themeMode,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -115,20 +138,6 @@ class ChatList extends StatelessWidget {
                   radius: 25,
                   backgroundImage: NetworkImage(user.avatar),
                 ),
-                if (user.isOnline)
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
-                      ),
-                    ),
-                  ),
               ],
             ),
             SizedBox(width: 16),
@@ -144,16 +153,20 @@ class ChatList extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
                         ),
                       ),
                       Text(
-                        ChatDateUtils.formatMessageTime(
+                        DatePicker.formatMessageTime(
                           lastMessage.timestamp.toInt(),
                         ),
                         style: getTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xFFABB7C2),
+                          color: AppColors.subTextColor2,
                         ),
                       ),
                     ],
@@ -168,43 +181,17 @@ class ChatList extends StatelessWidget {
                             fontSize: 14,
                             color:
                                 chat.unreadCount > 0
-                                    ? Colors.black
-                                    : Color(0xff767676),
+                                    ? AppColors.subTextColor
+                                    : AppColors.subTextColor,
                             fontWeight:
                                 chat.unreadCount > 0
-                                    ? FontWeight.w500
+                                    ? FontWeight.w400
                                     : FontWeight.w400,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-
-                      if (chat.unreadCount > 0)
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Color(0xFF205295),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          constraints: BoxConstraints(
-                            minWidth: 20,
-                            minHeight: 20,
-                          ),
-                          child: Center(
-                            child: Text(
-                              chat.unreadCount.toString(),
-                              style: getTextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
                     ],
                   ),
                 ],
