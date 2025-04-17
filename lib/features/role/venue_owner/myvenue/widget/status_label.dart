@@ -6,11 +6,7 @@ class StatusLabel extends StatelessWidget {
   final Color color;
   final String label;
 
-  const StatusLabel({
-    super.key,
-    required this.color,
-    required this.label,
-  });
+  const StatusLabel({super.key, required this.color, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +23,7 @@ class StatusLabel extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           label,
-          style: getTextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-          ),
+          style: getTextStyle(fontWeight: FontWeight.w400, fontSize: 14),
         ),
       ],
     );
