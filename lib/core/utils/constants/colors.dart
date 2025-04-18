@@ -41,4 +41,5 @@ class AppColors {
   static const Color popUpBackground = Color(0xffFBF7EB);
   static const Color darkCalendarColor = Color(0xff0066CC);
   static const Color darkCalendarColor2 = Color(0xff34C759);
+  static const Color loginBg = Color(0xffF9FAFB);
 }

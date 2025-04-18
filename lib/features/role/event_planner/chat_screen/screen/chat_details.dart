@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/screen/group_profile.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/image_view.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/image_picker.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/message_picker.dart';
@@ -79,7 +80,7 @@ class ChatDetails extends StatelessWidget {
             backgroundColor:
                 themeMode == ThemeMode.dark
                     ? AppColors.primary.withValues(alpha: 0.1)
-                    : AppColors.darkWhite.withValues(alpha: 0.15),
+                    : AppColors.textColor.withValues(alpha: 0.15),
             child: IconButton(
               icon: Icon(
                 Icons.arrow_back,
@@ -92,34 +93,48 @@ class ChatDetails extends StatelessWidget {
             ),
           ),
           SizedBox(width: 10),
-          CircleAvatar(
-            radius: 20,
-            backgroundImage: NetworkImage(user?.avatar ?? ''),
-          ),
-          SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text(
-                user?.name ?? '',
-                style: getTextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.borderColor2
-                          : AppColors.textColor,
+              GestureDetector(
+                onTap: () {
+                  Get.to(GroupProfile(chatId: chatId));
+                },
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundImage: NetworkImage(user?.avatar ?? ''),
                 ),
               ),
-              Text(
-                user?.isOnline == true ? 'Online' : 'Offline',
-                style: getTextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color:
-                      user?.isOnline == true
-                          ? AppColors.statusColor
-                          : Colors.grey,
+              SizedBox(width: 10),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => GroupProfile(chatId: chatId));
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user?.name ?? '',
+                      style: getTextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.borderColor2
+                                : AppColors.textColor,
+                      ),
+                    ),
+                    Text(
+                      user?.isOnline == true ? 'Online' : 'Offline',
+                      style: getTextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color:
+                            user?.isOnline == true
+                                ? AppColors.statusColor
+                                : Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -127,7 +142,7 @@ class ChatDetails extends StatelessWidget {
         ],
       ),
 
-      actions: [PopUpMenu()],
+      actions: [PopUpMenu(themeMode: themeMode)],
     );
   }
 
@@ -194,8 +209,6 @@ class ChatDetails extends StatelessWidget {
     ThemeMode themeMode,
     BuildContext context,
   ) {
-    // final RxBool showEmojiPicker = false.obs;
-    // final FocusNode focusNode = FocusNode();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       decoration: BoxDecoration(
@@ -220,7 +233,9 @@ class ChatDetails extends StatelessWidget {
                         IconButton(
                           icon: Icon(Icons.emoji_emotions_outlined),
                           color: AppColors.buttonColor,
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(GroupProfile(chatId: chatId));
+                          },
                         ),
                         Expanded(
                           child: TextField(

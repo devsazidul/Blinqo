@@ -1,3 +1,7 @@
+import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
@@ -65,6 +69,10 @@ class AppRoute {
   static String venuesNearScreen = '/venuesNearScreen';
   static String spProjectRequest = '/spProjectRequest';
   static String spUpcomingProject = '/spUpcomingProject';
+  static String loginscreen = '/loginscreen';
+  static String signupscreen = '/signupscreen';
+  static String forgetpasswordscreen = '/forgetpasswordscreen';
+  static String otpscreen = '/otpscreen';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -98,6 +106,10 @@ class AppRoute {
   static String getvenuesNearScreen() => venuesNearScreen;
   static String getspProjectRequest() => spProjectRequest;
   static String getspUpcomingProject() => spUpcomingProject;
+  static String getloginscreen() => loginscreen;
+  static String getsignupscreen() => signupscreen;
+  static String getforgetpasswordscreen() => forgetpasswordscreen;
+  static String getotpscreen() => otpscreen;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -135,5 +147,9 @@ class AppRoute {
     GetPage(name: venuesNearScreen, page: () => VenuesNearScreen()),
     GetPage(name: spProjectRequest, page: () => SpProjectRequest()),
     GetPage(name: spUpcomingProject, page: () => SpUpcomingProject()),
+    GetPage(name: loginscreen, page: () => LogInScreen()),
+    GetPage(name: signupscreen, page: () => SignUpScreen()),
+    GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
+    GetPage(name: otpscreen, page: () => OTPScreen()),
   ];
 }
