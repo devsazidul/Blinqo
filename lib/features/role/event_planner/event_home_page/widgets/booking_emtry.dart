@@ -4,6 +4,9 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+
+import '../../home/start_booking.dart';
 
 class BookingEmtry extends StatelessWidget {
   const BookingEmtry({
@@ -100,33 +103,38 @@ class BookingEmtry extends StatelessWidget {
           onTap: () {
             // print("Add Booking button tapped");
           },
-          child: Container(
-            width: 353 * screenWidthFactor,
-            height: 48 * screenHeightFactor,
-            decoration: BoxDecoration(
-              color: AppColors.buttonColor2,
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Add Booking',
-                    style: getTextStyle(
-                      fontSize: 16 * screenWidthFactor,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primary,
+          child: GestureDetector(
+            onTap: () {
+              Get.to(() => const StartBooking());
+            },
+            child: Container(
+              width: 353 * screenWidthFactor,
+              height: 48 * screenHeightFactor,
+              decoration: BoxDecoration(
+                color: AppColors.buttonColor2,
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Center(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Add Booking',
+                      style: getTextStyle(
+                        fontSize: 16 * screenWidthFactor,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primary,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 4 * screenWidthFactor),
-                  Icon(
-                    Icons.add,
-                    color: AppColors.primary,
-                    size: 20 * screenWidthFactor,
-                  ),
-                ],
+                    SizedBox(width: 4 * screenWidthFactor),
+                    Icon(
+                      Icons.add,
+                      color: AppColors.primary,
+                      size: 20 * screenWidthFactor,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

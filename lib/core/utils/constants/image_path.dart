@@ -52,4 +52,5 @@ class ImagePath {
   static const String bookingList = 'assets/images/booking_list.png';
   static const String newIcon = 'assets/images/new_icon.png';
   static const String newprofile = 'assets/images/newprofile.png';
+  static const String cancelIcon = 'assets/';
 }
