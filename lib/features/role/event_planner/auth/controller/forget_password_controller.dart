@@ -13,13 +13,13 @@ class ForgetPasswordController extends GetxController {
     isFormValid2.value = pinController.text.length == 6;
   }
 
-  @override
-  void onClose() {
-    // Remove the duplicate pinController.dispose()
-    pinController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
-    super.onClose();
-    debugPrint("Pin Controller disposed");
-  }
+  // @override
+  // void onClose() {
+  //   // Remove the duplicate pinController.dispose()
+  //   pinController.dispose();
+  //   emailController.dispose();
+  //   phoneController.dispose();
+  //   super.onClose();
+  //   debugPrint("Pin Controller disposed");
+  // }
 }

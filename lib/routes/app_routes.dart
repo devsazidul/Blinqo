@@ -1,3 +1,4 @@
+import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
@@ -73,6 +74,7 @@ class AppRoute {
   static String signupscreen = '/signupscreen';
   static String forgetpasswordscreen = '/forgetpasswordscreen';
   static String otpscreen = '/otpscreen';
+  static String changePasswordScreen = '/changePasswordScreen';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -110,6 +112,7 @@ class AppRoute {
   static String getsignupscreen() => signupscreen;
   static String getforgetpasswordscreen() => forgetpasswordscreen;
   static String getotpscreen() => otpscreen;
+  static String getchangePasswordScreen() => changePasswordScreen;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -151,5 +154,6 @@ class AppRoute {
     GetPage(name: signupscreen, page: () => SignUpScreen()),
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
     GetPage(name: otpscreen, page: () => OTPScreen()),
+    GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
   ];
 }

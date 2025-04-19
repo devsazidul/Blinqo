@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/signup_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,14 +14,14 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.loginBg,
       appBar: AppBar(
         centerTitle: true,
-        automaticallyImplyLeading: false,
         forceMaterialTransparency: true,
         title: Text(
           'Sign Up',
           style: getTextStyle(
-            color: Color(0xFF082B09),
+            color: AppColors.textColor,
             fontSize: 24,
             fontWeight: FontWeight.w600,
           ),
@@ -39,7 +37,7 @@ class SignUpScreen extends StatelessWidget {
               Text(
                 'Name',
                 style: getTextStyle(
-                  color: Color(0xFF333333),
+                  color: AppColors.textColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -58,11 +56,11 @@ class SignUpScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 20),
               Text(
                 'Phone Number',
                 style: getTextStyle(
-                  color: Color(0xFF333333),
+                  color: AppColors.textColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -85,11 +83,11 @@ class SignUpScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 20),
               Text(
                 'Email',
                 style: getTextStyle(
-                  color: Color(0xFF333333),
+                  color: AppColors.textColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -115,13 +113,13 @@ class SignUpScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 20),
               Text(
                 'Password',
                 style: getTextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xFF333333),
+                  color: AppColors.textColor,
                 ),
               ),
               SizedBox(height: 8),
@@ -138,7 +136,7 @@ class SignUpScreen extends StatelessWidget {
                       singupController.isPasswordVisible.value
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
-                      color: Color(0xFF003366),
+                      color: AppColors.buttonColor2,
                     ),
                     onPressed: singupController.togglePasswordVisibility,
                   ),
@@ -157,7 +155,7 @@ class SignUpScreen extends StatelessWidget {
               Text(
                 'Retype Password',
                 style: getTextStyle(
-                  color: Color(0xFF333333),
+                  color: AppColors.textColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -176,7 +174,7 @@ class SignUpScreen extends StatelessWidget {
                       singupController.isPasswordVisible1.value
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
-                      color: Color(0xFF003366),
+                      color: AppColors.buttonColor2,
                     ),
                     onPressed: singupController.togglePasswordVisibility1,
                   ),
@@ -191,45 +189,33 @@ class SignUpScreen extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: 32),
+              SizedBox(height: 30),
               Obx(
                 () => CustomButton(
                   title: 'Sign Up',
                   textcolor:
                       singupController.isFromValid.value
                           ? Colors.white
-                          : Color(0xFF003366),
-                  onPress:
-                      singupController.isFromValid.value
-                          ? () {
-                            // singupController.signup();
-                          }
-                          : null,
+                          : AppColors.buttonColor2,
+                  onPress: singupController.isFromValid.value ? () {} : null,
                   backgroundColor:
                       singupController.isFromValid.value
-                          ? Color(0xFF003366)
-                          // ignore: deprecated_member_use
-                          : Color(0xFF003366).withOpacity(0.1),
+                          ? AppColors.buttonColor2
+                          : AppColors.buttonColor2.withValues(alpha: 0.1),
                   borderColor:
                       singupController.isFromValid.value
-                          ? Color(0xFF003366)
-                          // ignore: deprecated_member_use
-                          : Color(0xFF003366).withOpacity(0.1),
+                          ? AppColors.buttonColor2
+                          : AppColors.buttonColor2.withValues(alpha: 0.1),
                 ),
               ),
-              SizedBox(height: 28),
-              SizedBox(height: 32),
-              if (Platform.isAndroid || Platform.isIOS) ...[],
-              SizedBox(height: 16),
-              if (Platform.isIOS) ...[],
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              SizedBox(height: 60),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Don not have an account?",
                     style: getTextStyle(
-                      color: Color(0xFF333333),
+                      color: AppColors.textColor,
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                     ),
@@ -242,7 +228,7 @@ class SignUpScreen extends StatelessWidget {
                     child: Text(
                       "Sign In",
                       style: getTextStyle(
-                        color: Color(0xFF003366),
+                        color: AppColors.buttonColor2,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

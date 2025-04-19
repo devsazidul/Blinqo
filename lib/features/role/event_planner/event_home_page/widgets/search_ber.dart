@@ -3,6 +3,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,14 @@ class SearchBerSection extends StatelessWidget {
             onChanged: (value) {
               controller.updateSearchQuery(value);
             },
+            onTap: () {
+              Get.to(() => SearchDetailsScreen());
+            },
             decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 14,
+                horizontal: 10,
+              ),
               hintText: 'Search venues & services...',
               hintStyle: getTextStyle(
                 color:
@@ -29,11 +37,15 @@ class SearchBerSection extends StatelessWidget {
                         ? Color.fromARGB(255, 198, 202, 206)
                         : Colors.grey,
                 fontSize: 14,
+                fontWeight: FontWeight.w400,
               ),
               filled: true,
               suffixIcon: Icon(
                 Icons.mic_none,
-                color: themeMode == ThemeMode.dark ? AppColors.secondary : null,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.secondary
+                        : AppColors.buttonColor2,
               ),
               fillColor:
                   themeMode == ThemeMode.dark

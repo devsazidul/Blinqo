@@ -10,6 +10,7 @@ import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_b
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
   LoginController loginController = Get.find<LoginController>();
@@ -38,15 +39,6 @@ class LogInScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                // Text(
-                //   'Log In',
-                //   style: globalTextStyle(
-                //     color: Color(0xFF082B09),
-                //     fontSize: 24,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -112,19 +104,19 @@ class LogInScreen extends StatelessWidget {
                     title: 'Log In',
                     textcolor:
                         loginController.isFromValid.value
-                            ? Colors.white
-                            : Color(0xFF003366),
+                            ? AppColors.primary
+                            : AppColors.buttonColor2,
                     onPress: () {
                       Get.to((EventBottomNavBar()));
                     },
                     backgroundColor:
                         loginController.isFromValid.value
-                            ? Color(0xFF003366)
-                            : Color(0xFF003366).withOpacity(0.1),
+                            ? AppColors.buttonColor2
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                     borderColor:
                         loginController.isFromValid.value
-                            ? Color(0xFF003366)
-                            : Color(0xFF003366).withOpacity(0.1),
+                            ? AppColors.buttonColor2
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                   ),
                 ),
                 SizedBox(height: 16),

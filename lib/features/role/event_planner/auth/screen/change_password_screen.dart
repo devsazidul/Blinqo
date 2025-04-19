@@ -3,6 +3,7 @@ import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/change_password_controller.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,14 +19,14 @@ class ChangePasswordScreen extends StatelessWidget {
     debugPrint("email: $email");
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.loginBg,
       appBar: AppBar(
         centerTitle: true,
         forceMaterialTransparency: true,
         title: Text(
           'Changed Password',
           style: getTextStyle(
-            color: Color(0xFF082B09),
+            color: AppColors.textColor,
             fontSize: 24,
             fontWeight: FontWeight.w600,
           ),
@@ -38,16 +39,16 @@ class ChangePasswordScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 18.0),
+                SizedBox(height: 18),
                 Text(
                   'Enter Verification Code:',
                   style: getTextStyle(
-                    color: Color(0xFF082B09),
+                    color: Color(0xff000000),
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(height: 32),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +56,7 @@ class ChangePasswordScreen extends StatelessWidget {
                     Text(
                       'New Password',
                       style: getTextStyle(
-                        color: Color(0xFF333333),
+                        color: AppColors.textColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),
@@ -89,7 +90,7 @@ class ChangePasswordScreen extends StatelessWidget {
                     Text(
                       'Confirm Password',
                       style: getTextStyle(
-                        color: Color(0xFF333333),
+                        color: AppColors.textColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),
@@ -100,10 +101,9 @@ class ChangePasswordScreen extends StatelessWidget {
                 AuthCustomTextField(
                   controller:
                       changePasswordController.confirmPasswordEditingController,
-                  text: 'Confirm your Password',
+                  text: 'Enter your Password',
                   onChanged: (value) {
-                    changePasswordController.confirmPasswordError.value =
-                        ''; // Reset error on change
+                    changePasswordController.confirmPasswordError.value = '';
                   },
                   validator: (value) {
                     if (changePasswordController
@@ -117,12 +117,12 @@ class ChangePasswordScreen extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(height: 44.0),
+                SizedBox(height: 68),
                 CustomButton(
-                  title: 'Change Password',
-                  textcolor: Colors.white,
+                  title: 'Changed',
+                  textcolor: AppColors.primary,
                   onPress: () {
-                    // controller.changePassword(email);
+                    Get.off(() => LogInScreen());
                   },
                 ),
               ],

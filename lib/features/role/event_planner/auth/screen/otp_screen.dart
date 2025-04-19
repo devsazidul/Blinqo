@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
-import 'package:blinqo/features/role/venue_owner/authentication/widgets/v_cistom_pin.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 // ignore: use_key_in_widget_constructors
 class OTPScreen extends StatelessWidget {
@@ -14,13 +14,13 @@ class OTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.loginBg,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   'Enter the confirmation \n code',
@@ -33,41 +33,41 @@ class OTPScreen extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                 ),
-                // SizedBox(height: 32),
-                CustomPinField(
-                  controller: forgetPasswordController.pinController,
-                ),
-                //SizedBox(height: 20),
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text:
-                            'Verification code has been sent to the email Your ',
-                        style: getTextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          lineHeight: 14,
-                        ),
-                      ),
-                      TextSpan(
-                        text: '****abc@gmal.com',
-                        style: getTextStyle(
-                          color: Color(0xFF003366),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
+                SizedBox(height: 32),
+                _buildPinCodeTextField(context),
+                SizedBox(height: 20),
+                Text(
+                  'Verification code has been sent to the email',
+                  style: getTextStyle(
+                    color: AppColors.textColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-                // SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      ' Your ',
+                      style: getTextStyle(
+                        color: AppColors.textColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      '****abc@gmal.com',
+                      style: getTextStyle(
+                        color: AppColors.buttonColor2,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
                 GestureDetector(
-                  onTap: () {
-                    // Code to resend OTP
-                  },
+                  onTap: () {},
                   child: Text(
                     "Resend Code",
                     style: getTextStyle(
@@ -77,30 +77,29 @@ class OTPScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 40),
                 Obx(
                   () => CustomButton(
+                    // onPress: () => Get.to(() => ChangePasswordScreen()),
                     title: 'Continue',
                     textcolor:
                         forgetPasswordController.isFormValid2.value
-                            ? Colors.white
-                            : Color(0xFF003366),
+                            ? AppColors.primary
+                            : AppColors.buttonColor2,
                     onPress:
                         forgetPasswordController.isFormValid2.value
                             ? () {
-                              // Proceed with form submission
+                              // Get.to(() => ChangePasswordScreen());
                             }
                             : null,
                     backgroundColor:
                         forgetPasswordController.isFormValid2.value
-                            ? Color(0xFF003366)
-                            // ignore: deprecated_member_use
-                            : Color(0xFF003366).withOpacity(0.1),
+                            ? AppColors.buttonColor2
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                     borderColor:
                         forgetPasswordController.isFormValid2.value
-                            ? Color(0xFF003366)
-                            // ignore: deprecated_member_use
-                            : Color(0xFF003366).withOpacity(0.1),
+                            ? AppColors.buttonColor2
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                   ),
                 ),
               ],
@@ -108,6 +107,31 @@ class OTPScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildPinCodeTextField(BuildContext context) {
+    return PinCodeTextField(
+      length: 6,
+      obscureText: false,
+      keyboardType: TextInputType.number,
+      // animationType: AnimationType.fade,
+      pinTheme: PinTheme(
+        shape: PinCodeFieldShape.box,
+        borderRadius: BorderRadius.circular(8),
+        fieldHeight: 40,
+        fieldWidth: 40,
+        activeFillColor: AppColors.otpbg,
+        selectedFillColor: AppColors.otpbg,
+        inactiveFillColor: AppColors.otpbg,
+        inactiveColor: AppColors.otpbg,
+        selectedColor: AppColors.otpbg,
+        activeColor: AppColors.otpbg,
+      ),
+      animationDuration: const Duration(milliseconds: 300),
+      backgroundColor: Colors.transparent,
+      controller: forgetPasswordController.pinController,
+      appContext: context,
     );
   }
 }
