@@ -45,4 +45,8 @@ class AppColors {
   static const Color loginBg = Color(0xffF9FAFB);
   static const Color otpbg = Color(0xffE5E6EB);
   static const Color timeicon = Color(0xff9CA4AB);
+  static const Color labalStyleColor = Color(0xff868686);
+  static const Color buttonBuckdownColor = Color(0xffFBF7EB);
+  static const Color buttonBuckdownColor2 = Color(0xffF4F4F4);
+  static const Color alrtdailogeBackdownColor = Color(0xffE0E0E0);
 }

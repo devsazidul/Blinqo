@@ -202,7 +202,9 @@ class CreateChecklistScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       const SizedBox(height: 12),
+
                       // Set Time
                       Text(
                         'Set Time',

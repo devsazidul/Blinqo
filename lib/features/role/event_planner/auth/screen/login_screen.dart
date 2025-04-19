@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 // ignore: must_be_immutable
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
-  LoginController loginController = Get.find<LoginController>();
+  final LoginController loginController = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {

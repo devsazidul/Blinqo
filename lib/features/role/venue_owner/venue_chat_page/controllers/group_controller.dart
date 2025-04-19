@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-
 import '../data/chat_data.dart';
 import '../data/group_data.dart';
 
@@ -14,6 +13,11 @@ class GroupController extends GetxController {
   final RxList<GroupChatPreview> groupChats = <GroupChatPreview>[].obs;
   final Rx<String?> activeGroup = Rx<String?>(null);
   final RxMap<String, List<GroupMessage>> groupMessages = <String, List<GroupMessage>>{}.obs;
+
+  // Typing and UI controllers
+  final RxBool isTyping = false.obs;
+  final TextEditingController messageController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
 
   // For image picking
   final ImagePicker _imagePicker = ImagePicker();

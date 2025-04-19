@@ -1,3 +1,5 @@
+import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_single_page_chat.dart'
+    show SpSinglePageChat;
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,7 +65,7 @@ class SpChatPage extends StatelessWidget {
               final chat = spChatController.chats[index];
               return GestureDetector(
                 onTap: () {
-                  // Get.to(() => SpSingleChatPage(chat: chat));
+                  Get.to(() => SpSinglePageChat(chat: chat));
                 },
                 child: SpCustomChatList(
                   imagePath: chat['image'] ?? '',
