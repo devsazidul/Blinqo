@@ -1,3 +1,7 @@
+import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
@@ -12,9 +16,11 @@ import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_pay
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_booking_page.dart';
+import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_project_request.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_chat_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
+import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
@@ -61,8 +67,12 @@ class AppRoute {
   static String eventServicesScreen = '/eventServicesScreen';
   static String featuredVenuesScreen = '/featuredVenuesScreen';
   static String venuesNearScreen = '/venuesNearScreen';
-
-
+  static String spProjectRequest = '/spProjectRequest';
+  static String spUpcomingProject = '/spUpcomingProject';
+  static String loginscreen = '/loginscreen';
+  static String signupscreen = '/signupscreen';
+  static String forgetpasswordscreen = '/forgetpasswordscreen';
+  static String otpscreen = '/otpscreen';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -94,6 +104,12 @@ class AppRoute {
   static String geteventServicesScreen() => eventServicesScreen;
   static String getfeaturedVenuesScreen() => featuredVenuesScreen;
   static String getvenuesNearScreen() => venuesNearScreen;
+  static String getspProjectRequest() => spProjectRequest;
+  static String getspUpcomingProject() => spUpcomingProject;
+  static String getloginscreen() => loginscreen;
+  static String getsignupscreen() => signupscreen;
+  static String getforgetpasswordscreen() => forgetpasswordscreen;
+  static String getotpscreen() => otpscreen;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -129,5 +145,11 @@ class AppRoute {
     GetPage(name: eventServicesScreen, page: () => EventServicesScreen()),
     GetPage(name: featuredVenuesScreen, page: () => FeaturedVenuesScreen()),
     GetPage(name: venuesNearScreen, page: () => VenuesNearScreen()),
+    GetPage(name: spProjectRequest, page: () => SpProjectRequest()),
+    GetPage(name: spUpcomingProject, page: () => SpUpcomingProject()),
+    GetPage(name: loginscreen, page: () => LogInScreen()),
+    GetPage(name: signupscreen, page: () => SignUpScreen()),
+    GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
+    GetPage(name: otpscreen, page: () => OTPScreen()),
   ];
 }

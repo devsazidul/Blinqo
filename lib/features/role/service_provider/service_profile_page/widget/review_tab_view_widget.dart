@@ -1,37 +1,37 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/review_controller.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/rating_summary.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/ratting_distribution_widget.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/review_filter_star_buttons.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/review_list_widget.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 
 class ReviewsTabViewWidget extends StatelessWidget {
-  const ReviewsTabViewWidget({
-    super.key,
-    required this.controller,
-  });
+  const ReviewsTabViewWidget({super.key, required this.controller});
 
   final ReviewController controller;
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(SpProfileController()).isDarkMode.value;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(Icons.star, color: Colors.amber, size: 22.5),
-    
+
           /// Rating Summary Section
           RatingSummary(controller: controller),
           SizedBox(height: 16),
-    
+
           /// Rating Distribution
           RattingDistributionWidget(controller: controller),
           SizedBox(height: 16),
-    
+
           /// Leave a Review Text Field
           TextFormField(
             decoration: InputDecoration(
@@ -44,20 +44,17 @@ class ReviewsTabViewWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16),
-    
+
           /// Star buttons
           ReviewFilterStarButtons(),
           SizedBox(height: 20),
-    
+
           ///
           Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Review",
-              style: getTextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
+              style: getTextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor),
             ),
           ),
           // SizedBox(height: 16),

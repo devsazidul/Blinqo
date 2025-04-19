@@ -1,12 +1,11 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/image_path.dart';
-
 
 class HomeEventPlanner extends StatelessWidget {
   const HomeEventPlanner({super.key});
@@ -44,7 +43,7 @@ class HomeEventPlanner extends StatelessWidget {
             right: 20.w,
             child: GestureDetector(
               onTap: () {
-                Get.to(EventBottomNavBar());
+                Get.to(LogInScreen());
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),

@@ -50,6 +50,7 @@ class IconPath {
   static const String cardvisa = 'assets/icons/cardvisa.png';
   static const String sphprofile = 'assets/icons/sphprofile.png';
   static const String editPencil = 'assets/icons/edit_pencil.png';
+  static const String delete = 'assets/icons/delete.png';
   static const String viewAs = 'assets/icons/visibility.png';
   static const String settings = 'assets/icons/settings.png';
   static const String goPro = 'assets/icons/workspace_premium.png';
@@ -63,8 +64,44 @@ class IconPath {
   static const String rotatevenue = 'assets/icons/rotatevenue.png';
   static const String verify = 'assets/icons/verify.png';
   static const String edit_button = 'assets/icons/edit_button.png';
-  static const String locationOn = 'assets/icons/location_on.svg';
-  static const String camera = 'assets/icons/camera.svg';
+  static const String locationOn = 'assets/icons/location_on.png';
+  static const String camera = 'assets/icons/camera.png';
   static const String arrowLeftAltSvg = 'assets/icons/arrow_left_alt.svg';
-
+  static const String notifications = 'assets/icons/notifications.png';
+  static const String likeIcon = 'assets/icons/thumb_up.png';
+  static const String locationOnPath = "assets/icons/location_on.png";
+  static const String imagePath = "assets/icons/Image.png";
+  static const String exploreallright = "assets/icons/exploreallright.png";
+  static const String upcominglogo = "assets/icons/upcominglogo.png";
+  static const String upcomingicon = "assets/icons/upcomingicon.png";
+  static const String upcomingcalendar = "assets/icons/upcomingcalendar.png";
+  static const String corporateEventLogo =
+      "assets/icons/corporateEventLogo.png";
+  static const String productLaunchLogo = "assets/icons/productLaunchLogo.png";
+  static const String teamBuildinglogo = "assets/icons/teamBuildinglogo.png";
+  static const String attachmoney = "assets/icons/attach_money.png";
+  static const String messageicon = "assets/icons/messageicon.png";
+  static const String calendermonthe = "assets/icons/calendar_month.png";
+  static const String rightarrow = "assets/icons/trending_flat.png";
+  static const String trendingFlat = "assets/icons/trending_flat.png";
+  static const String arrowleft = "assets/icons/arrow_left.png";
+  static const String cardimage = "assets/icons/cardimage.png";
+  static const String activeteam = "assets/icons/activeteam.png";
+  static const String deactiveteam = "assets/icons/deactiveteam.png";
+  static const String slidersIcon = "assets/icons/sliders.png";
+  static const String backButton = "assets/icons/back_button.png";
+  static const String addicon = "assets/icons/add_icon.png";
+  static const String projectrequestimage =
+      "assets/icons/projectrequestimage.png";
+  static const String projectrequestlocation =
+      "assets/icons/projectrequestlocation.png";
+  static const String chatlogo1 = "assets/icons/chatlogo1.png";
+  static const String chatlogo2 = "assets/icons/chatlogo2.png";
+  static const String chatlogo3 = "assets/icons/chatlogo3.png";
+  static const String chatlogo4 = "assets/icons/chatlogo4.png";
+  static const String chatlogo5 = "assets/icons/chatlogo5.png";
+  static const String chatlogo6 = "assets/icons/chatlogo6.png";
+  static const String chatlogo7 = "assets/icons/chatlogo7.png";
+  static const String chatlogo8 = "assets/icons/chatlogo8.png";
+  static const String chatlogo9 = "assets/icons/chatlogo9.png";
 }

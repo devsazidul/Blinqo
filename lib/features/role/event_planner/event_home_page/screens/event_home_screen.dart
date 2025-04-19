@@ -25,8 +25,8 @@ class EventHomeScreen extends StatelessWidget {
       UpcomingEventsController(),
     );
 
-    final ServiceUserProfileControler spUserProfileControler =
-        Get.find<ServiceUserProfileControler>();
+    final SpProfileController spUserProfileControler =
+        Get.find<SpProfileController>();
 
     return Obx(() {
       // Get the current theme mode (light or dark)
@@ -50,6 +50,7 @@ class EventHomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 32),
+
                     SearchBerSection(themeMode: themeMode),
                     SizedBox(height: 20),
                     EventCard(),

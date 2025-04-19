@@ -1,6 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileEditTextFormField extends StatelessWidget {
   const ProfileEditTextFormField({
@@ -14,48 +16,38 @@ class ProfileEditTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.find<SpProfileController>().isDarkMode.value;
     return Container(
+      padding: EdgeInsets.only(top: 9.5, bottom: 2, left: 8, right: 8),
       decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(8),
+        color: isDarkMode ? Color(0xff32383D) : AppColors.primary,
+        // shape: BoxShape.rectangle,
+        border: Border.all(
+          color: isDarkMode ? Color(0xff32383D) : AppColors.borderColor2,
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: TextFormField(
         style: getTextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: AppColors.textColor,
+          color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
         ),
         decoration: InputDecoration(
           labelText: label,
+          contentPadding: EdgeInsets.zero,
           // floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: getTextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color: AppColors.textColor,
+            color: isDarkMode ? AppColors.hintTextColor : AppColors.textColor,
           ),
           filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(
-              color: AppColors.borderColor2,
-              width: 1,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(
-              color: AppColors.borderColor2,
-              width: 1,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(
-              color: AppColors.borderColor2,
-              width: 1,
-            ),
-          ),
+          fillColor: isDarkMode ? Color(0xff32383D) : Colors.white,
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
         ),
       ),
     );

@@ -4,28 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-// Controller class to manage checklist creation and listing
 class ChecklistController extends GetxController {
-  // Reactive variable to toggle the visibility of the task form in CreateChecklistScreen
   var isTaskFormVisible = false.obs;
 
-  // Reactive variables to store form inputs
-  var selectedDate = DateTime.now().obs; // Selected date for the task
-  var selectedTime = TimeOfDay(hour: 0, minute: 0).obs; // Selected time for the task
-  var eventName = ''.obs; // Event Name input
-  var taskName = ''.obs; // Task Name input
-  var venue = ''.obs; // Venue input (optional)
-  var isDateSelected = false.obs; // Track if a date is explicitly selected
-  var isTimeSelected = false.obs; // Track if a time is explicitly selected
+  var selectedDate = DateTime.now().obs;
+  var selectedTime = TimeOfDay(hour: 0, minute: 0).obs;
+  var eventName = ''.obs;
+  var taskName = ''.obs;
+  var venue = ''.obs;
+  var isDateSelected = false.obs;
+  var isTimeSelected = false.obs;
 
-  // Reactive list to store all checklist items (in-memory storage)
   var checklistItems = <ChecklistModel>[].obs;
 
-  // Reactive variables for filtering and sorting
-  var filterType = 'ALL Task'.obs; // Current filter type (ALL Task, Urgent, Completed)
-  var sortType = 'By Date'.obs; // Current sort type (By Date, By Venue)
+  var filterType = 'ALL Task'.obs;
+  var sortType = 'By Date'.obs;
 
-  // Filtered and sorted list of checklist items
   var filteredChecklistItems = <ChecklistModel>[].obs;
 
   // Controllers for TextFields to clear them after saving
@@ -90,8 +84,8 @@ class ChecklistController extends GetxController {
     return eventName.value.isNotEmpty &&
         (isTaskFormVisible.value
             ? (taskName.value.isNotEmpty &&
-            isDateSelected.value &&
-            isTimeSelected.value)
+                isDateSelected.value &&
+                isTimeSelected.value)
             : true);
   }
 
@@ -210,5 +204,17 @@ class ChecklistController extends GetxController {
 
     // Update the filteredChecklistItems
     filteredChecklistItems.assignAll(filteredList);
+  }
+
+  // Track the index of the selected checkbox
+  var selectedIndex = (-1).obs; // -1 means no checkbox is selected initially
+
+  // Function to toggle checkbox state
+  void toggleCheckbox(int index, bool value) {
+    if (value) {
+      selectedIndex.value = index; // Set selected index when checked
+    } else {
+      selectedIndex.value = -1; // Reset when unchecked
+    }
   }
 }
