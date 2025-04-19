@@ -90,6 +90,7 @@ class IconPath {
   static const String deactiveteam = "assets/icons/deactiveteam.png";
   static const String slidersIcon = "assets/icons/sliders.png";
   static const String backButton = "assets/icons/back_button.png";
+  static const String addicon = "assets/icons/add_icon.png";
   static const String projectrequestimage =
       "assets/icons/projectrequestimage.png";
   static const String projectrequestlocation =
