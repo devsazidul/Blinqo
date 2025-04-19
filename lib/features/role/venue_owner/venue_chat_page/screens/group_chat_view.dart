@@ -439,9 +439,9 @@ class GroupChatView extends StatelessWidget {
 
                   //Send/mic button
                   Obx(() {
-                    final hasText = messageController.text.trim().isNotEmpty;
+                    final hasText = messageController.text.trim().isNotEmpty.obs;
                     return GestureDetector(
-                      onTap: hasText
+                      onTap: hasText.value
                           ? () {
                         groupController.sendGroupMessage(
                           groupId,
@@ -463,7 +463,7 @@ class GroupChatView extends StatelessWidget {
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: hasText
+                          color: hasText.value
                               ? const Color(0xFF205295)
                               : const Color(0xFF205295).withOpacity(0.5),
                           shape: BoxShape.circle,

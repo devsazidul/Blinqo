@@ -1,3 +1,4 @@
+import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_verified_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,20 +68,25 @@ class ProfileRow extends StatelessWidget {
           ),
         ),
         Spacer(),
-        Container(
-          height: 42,
-          width: 82,
-          decoration: BoxDecoration(
-            color: Color(0xffD4AF37),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Center(
-            child: Text(
-              "Go Pro",
-              style: getTextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
+        GestureDetector(
+          onTap: () {
+            Get.to(VGetVerifiedScreen());
+          },
+          child: Container(
+            height: 42,
+            width: 82,
+            decoration: BoxDecoration(
+              color: Color(0xffD4AF37),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Center(
+              child: Text(
+                "Go Pro",
+                style: getTextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
