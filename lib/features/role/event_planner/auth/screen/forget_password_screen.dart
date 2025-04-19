@@ -18,15 +18,15 @@ class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.loginBg,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
           "Forget Password",
           style: getTextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: Color(0xff333333),
+            color: AppColors.textColor,
           ),
         ),
       ),
@@ -41,27 +41,24 @@ class ForgetPasswordScreen extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xff5F5F5F),
+                  color: AppColors.textColor2,
                 ),
               ),
             ),
-            SizedBox(height: 10),
             Center(
               child: Text(
                 "number for confirmation code.",
                 style: getTextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xff5F5F5F),
+                  color: AppColors.textColor2,
                 ),
               ),
             ),
             SizedBox(height: 18),
-            Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
+            SizedBox(
               height: 44,
               width: 190,
-
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -90,8 +87,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                                 fontSize: 16,
                                 color:
                                     value == 0
-                                        ? Colors.white
-                                        : Color(0xff082B09),
+                                        ? AppColors.primary
+                                        : AppColors.textColor,
                               ),
                             ),
                           ),
@@ -124,8 +121,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                                 fontSize: 16,
                                 color:
                                     value == 1
-                                        ? Colors.white
-                                        : Color(0xff082B09),
+                                        ? AppColors.primary
+                                        : AppColors.textColor,
                               ),
                             ),
                           ),
@@ -155,7 +152,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                                   style: getTextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
-                                    color: Color(0xff333333),
+                                    color: AppColors.textColor,
                                   ),
                                 ),
                               ],
@@ -182,7 +179,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                                   style: getTextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
-                                    color: Color(0xff333333),
+                                    color: AppColors.textColor,
                                   ),
                                 ),
                               ],
@@ -200,17 +197,15 @@ class ForgetPasswordScreen extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(height: 63),
+            SizedBox(height: 50),
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.only(left: 20, right: 20),
               child: SizedBox(
                 height: 48,
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(0),
-                    backgroundColor: Color(0xff003366),
-                    minimumSize: Size(double.infinity, 48),
+                    backgroundColor: AppColors.buttonColor2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -225,7 +220,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                     // }
                     Get.to(() => OTPScreen());
                   },
-                  child: Text("Send", style: TextStyle(color: Colors.white)),
+                  child: Text(
+                    "Send",
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ),

@@ -10,6 +10,7 @@ class AppColors {
   static const Color accent = Color(0xFF89A7FF);
   static const Color buttonColor = Color(0xFFD4AF37);
   static const Color textColor = Color(0xFF333333);
+  static const Color textColor2 = Color(0xff5F5F5F);
   static const Color darkTextColor = Color(0xFFC0C0C0);
   static const Color darkHeaddingTextColor = Color(0xFFC0C0C0);
   static const Color backgroundColor = Color(0xFFF4F4F4);
@@ -42,6 +43,8 @@ class AppColors {
   static const Color darkCalendarColor = Color(0xff0066CC);
   static const Color darkCalendarColor2 = Color(0xff34C759);
   static const Color loginBg = Color(0xffF9FAFB);
+  static const Color otpbg = Color(0xffE5E6EB);
+  static const Color timeicon = Color(0xff9CA4AB);
   static const Color labalStyleColor = Color(0xff868686);
   static const Color buttonBuckdownColor = Color(0xffFBF7EB);
   static const Color buttonBuckdownColor2 = Color(0xffF4F4F4);

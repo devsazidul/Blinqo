@@ -33,7 +33,7 @@ class AuthCustomTextField extends StatelessWidget {
       ),
       validator: validator,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         hintText: text,
         suffixIcon: suffixIcon,
         hintStyle: getTextStyle(
