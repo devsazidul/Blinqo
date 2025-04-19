@@ -94,4 +94,13 @@ class IconPath {
       "assets/icons/projectrequestimage.png";
   static const String projectrequestlocation =
       "assets/icons/projectrequestlocation.png";
+  static const String chatlogo1 = "assets/icons/chatlogo1.png";
+  static const String chatlogo2 = "assets/icons/chatlogo2.png";
+  static const String chatlogo3 = "assets/icons/chatlogo3.png";
+  static const String chatlogo4 = "assets/icons/chatlogo4.png";
+  static const String chatlogo5 = "assets/icons/chatlogo5.png";
+  static const String chatlogo6 = "assets/icons/chatlogo6.png";
+  static const String chatlogo7 = "assets/icons/chatlogo7.png";
+  static const String chatlogo8 = "assets/icons/chatlogo8.png";
+  static const String chatlogo9 = "assets/icons/chatlogo9.png";
 }
