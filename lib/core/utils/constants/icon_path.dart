@@ -104,4 +104,7 @@ class IconPath {
   static const String chatlogo7 = "assets/icons/chatlogo7.png";
   static const String chatlogo8 = "assets/icons/chatlogo8.png";
   static const String chatlogo9 = "assets/icons/chatlogo9.png";
+  static const String klarna = "assets/icons/klarna.png";
+  static const String paypalcard = "assets/icons/paypalcard.png";
+  static const String debitcard = "assets/icons/debitcard.png";
 }
