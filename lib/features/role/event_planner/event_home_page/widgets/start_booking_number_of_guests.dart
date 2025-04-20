@@ -10,10 +10,13 @@ class StartBookingNumberOfGuests extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.bookingController,
+    required this.themeMode,
   });
 
   final double screenHeight;
   final BookingController bookingController;
+
+  final ThemeMode themeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,10 @@ class StartBookingNumberOfGuests extends StatelessWidget {
         Text(
           'Number of Guests',
           style: getTextStyle(
-            color: AppColors.dopdownTextColor,
+            color:
+                themeMode == ThemeMode.dark
+                    ? AppColors.borderColor2
+                    : AppColors.dopdownTextColor,
             fontSize: 14,
             fontWeight: FontWeight.w400,
           ),

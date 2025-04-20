@@ -2,10 +2,10 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
 
 class SpProfilePage extends StatelessWidget {
   static const String name = '/sp_profile_settings';
@@ -162,7 +162,8 @@ class SpProfilePage extends StatelessWidget {
           iconPath: IconPath.editProfile,
           title: "Edit Profile",
           onTap: () {
-            Navigator.pushNamed(context, SpEditProfilePage.name);
+            // Navigator.pushNamed(context, SpEditProfilePage.name);
+            Get.to(EvenProfileSetupScreen());
           },
         ),
         Obx(

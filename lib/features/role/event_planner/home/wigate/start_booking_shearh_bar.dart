@@ -7,11 +7,15 @@ class StartBookingShearshBar extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.screenWidth,
+    required this.themeMode,
+    this.onChanged,
   });
 
   final double screenHeight;
   final double screenWidth;
+  final ThemeMode themeMode;
 
+  final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,20 +25,29 @@ class StartBookingShearshBar extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: TextField(
-                onChanged: (value) {},
+              child: TextFormField(
+                onChanged: onChanged,
                 decoration: InputDecoration(
                   hintText: 'Search venues & services...',
                   hintStyle: getTextStyle(
-                    color: AppColors.subTextColor2,
+                    color:
+                        themeMode == ThemeMode.dark
+                            ? Color(0xffE6EBF0)
+                            : AppColors.subTextColor2,
                     fontSize: 14,
                   ),
                   filled: true,
                   suffixIcon: Icon(
                     Icons.mic_none,
-                    color: AppColors.buttonColor2,
+                    color:
+                        themeMode == ThemeMode.dark
+                            ? AppColors.buttonColor
+                            : AppColors.buttonColor2,
                   ),
-                  fillColor: AppColors.primary,
+                  fillColor:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.iconBackground
+                          : AppColors.primary,
 
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),

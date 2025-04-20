@@ -293,6 +293,7 @@ class ProfileSetupScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 20),
+
                 TextFormField(
                   controller: profileController.spdescriptionController,
                   maxLines: 5,
