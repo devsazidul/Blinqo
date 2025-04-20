@@ -1,7 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../service_provider/payment_page/screen/get_verified_screen.dart';
 import 'controllers/even_profile_controller.dart';
 import 'profile_setup_widget/avater_profile_setup_screen.dart';
 import 'profile_setup_widget/even_planner_gender.dart';
@@ -34,6 +37,16 @@ class EvenProfileSetupScreen extends StatelessWidget {
 
                 // Event Preferences Grid
                 _buildPreferencesGrid(),
+
+                SizedBox(height: 40),
+                UpgradeToProcard(onTap: () {}),
+                SizedBox(height: 40),
+                CustomContinueButton(
+                  onTap: () {
+                    Get.to(GetVerifiedScreen());
+                  },
+                  title: "Continue",
+                ),
               ],
             ),
           ),
@@ -73,7 +86,6 @@ class EvenProfileSetupScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => myController.toggleSelection(index),
       child: Obx(() {
-        final isSelected = myController.selectedItems[index];
         return Stack(
           children: [
             Column(
@@ -96,9 +108,8 @@ class EvenProfileSetupScreen extends StatelessWidget {
                   myController.eventPreferences[index]['name']!,
                   style: getTextStyle(
                     fontSize: 12,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
-                    color: isSelected ? Colors.blue : Colors.black,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
                   ),
                 ),
               ],
