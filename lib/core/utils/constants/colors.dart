@@ -49,4 +49,6 @@ class AppColors {
   static const Color buttonBuckdownColor = Color(0xffFBF7EB);
   static const Color buttonBuckdownColor2 = Color(0xffF4F4F4);
   static const Color alrtdailogeBackdownColor = Color(0xffE0E0E0);
+  static const Color buttonColor3 = Color(0x1A003366);
+  static const Color textFromDarkBackdownColor = Color(0x0F0D0A2C0F);
 }

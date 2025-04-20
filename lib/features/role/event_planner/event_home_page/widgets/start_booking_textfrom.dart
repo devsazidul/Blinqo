@@ -10,10 +10,12 @@ class StartBookingTextFrom extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.bookingController,
+    required this.themeMode,
   });
 
   final double screenHeight;
   final BookingController bookingController;
+  final ThemeMode themeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,15 @@ class StartBookingTextFrom extends StatelessWidget {
         Text(
           'Event Name',
           style: getTextStyle(
-            color: AppColors.dopdownTextColor,
+            color:
+                themeMode == ThemeMode.dark
+                    ? AppColors.borderColor2
+                    : AppColors.dopdownTextColor,
             fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
         ),
-        SizedBox(height: screenHeight * 0.002),
+        SizedBox(height: screenHeight * 0.01),
         AuthCustomTextField(
           controller: bookingController.eventNameController,
           onChanged: (value) {},
@@ -42,15 +47,19 @@ class StartBookingTextFrom extends StatelessWidget {
             return null;
           },
         ),
-        SizedBox(height: screenHeight * 0.02),
+        SizedBox(height: screenHeight * 0.03),
         Text(
           'Event Planner Name',
           style: getTextStyle(
-            color: AppColors.dopdownTextColor,
+            color:
+                themeMode == ThemeMode.dark
+                    ? AppColors.borderColor2
+                    : AppColors.dopdownTextColor,
             fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
         ),
+        SizedBox(height: screenHeight * 0.01),
         AuthCustomTextField(
           controller: bookingController.eventPlannerNameController,
           onChanged: (value) {},

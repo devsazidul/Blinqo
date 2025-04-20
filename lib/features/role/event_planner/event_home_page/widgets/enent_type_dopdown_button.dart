@@ -10,10 +10,12 @@ class EventTypeDopdownButton extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.bookingController,
+    required this.themeMode,
   });
 
   final double screenHeight;
   final BookingController bookingController;
+  final ThemeMode themeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +35,25 @@ class EventTypeDopdownButton extends StatelessWidget {
         Text(
           'Event Type',
           style: getTextStyle(
-            color: AppColors.dopdownTextColor,
+            color:
+                themeMode == ThemeMode.dark
+                    ? AppColors.borderColor2
+                    : AppColors.dopdownTextColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w400,
           ),
         ),
-        SizedBox(height: screenHeight * 0.02),
+        SizedBox(height: screenHeight * 0.01),
 
         // Dropdown for selecting event type with no icon, only text
         SizedBox(
           height: 52,
           width: 343,
           child: DropdownButtonFormField<String>(
+            dropdownColor:
+                themeMode == ThemeMode.dark
+                    ? AppColors.darkBackgroundColor
+                    : null,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 10.w,
@@ -76,7 +85,10 @@ class EventTypeDopdownButton extends StatelessWidget {
                     child: Text(
                       country,
                       style: getTextStyle(
-                        color: AppColors.dopdownTextColor,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.backgroundColor
+                                : AppColors.dopdownTextColor,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                       ),

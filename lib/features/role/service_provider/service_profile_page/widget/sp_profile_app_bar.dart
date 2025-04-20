@@ -31,7 +31,7 @@ class SpProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(left: 20.0),
         child: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Get.back();
           },
           child: CircleAvatar(
             backgroundColor:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import 'start_booking_decoration_card.dart';
 
@@ -7,10 +8,13 @@ class StartBookingTextOrButton extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.screenWidth,
+    required this.themeMode,
   });
 
   final double screenHeight;
   final double screenWidth;
+
+  final ThemeMode themeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           onTap: () {
             print("Short by Table Shape");
           },
+          themeMode: themeMode,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -32,6 +37,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenHeight: screenHeight,
           screenWidth: screenWidth,
           onTap: () {},
+          themeMode: themeMode,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -40,6 +46,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenHeight: screenHeight,
           screenWidth: screenWidth,
           onTap: () {},
+          themeMode: themeMode,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -48,6 +55,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenHeight: screenHeight,
           screenWidth: screenWidth,
           onTap: () {},
+          themeMode: themeMode,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -56,6 +64,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenHeight: screenHeight,
           screenWidth: screenWidth,
           onTap: () {},
+          themeMode: themeMode,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -64,6 +73,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenHeight: screenHeight,
           screenWidth: screenWidth,
           onTap: () {},
+          themeMode: themeMode,
         ),
         SizedBox(height: screenHeight * 0.02),
       ],

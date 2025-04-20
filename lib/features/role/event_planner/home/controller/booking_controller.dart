@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class BookingController extends GetxController {
+import '../../event_home_page/mixin/service_management_mixin.dart';
+
+class BookingController extends GetxController with ServiceManagementMixin {
   final eventNameController = TextEditingController();
   final eventPlannerNameController = TextEditingController();
   final numberOfGuestsController = TextEditingController();

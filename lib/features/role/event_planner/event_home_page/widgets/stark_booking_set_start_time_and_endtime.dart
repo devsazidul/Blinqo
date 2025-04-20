@@ -9,9 +9,11 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
   const StarkBookingSetStartTimeOrEndTime({
     super.key,
     required this.bookingController,
+    required this.themeMode,
   });
 
   final BookingController bookingController;
+  final ThemeMode themeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,10 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xFF003285),
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.borderColor2
+                        : AppColors.dopdownTextColor,
               ),
             ),
             const SizedBox(height: 6),
@@ -40,14 +45,33 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFE6E6E6), width: 1),
-                    color: Color(0xFFE6E6E6),
+                    border: Border.all(
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? Colors.transparent
+                              : Color(0xFFE6E6E6),
+                      width: 1,
+                    ),
+                    color:
+                        themeMode == ThemeMode.dark
+                            ? Color(
+                              0x26979797,
+                            ) // Light border color for dark theme
+                            : Color(
+                              0xFFBDBDBD,
+                            ), // A non-transparent color for light theme
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.access_time, color: AppColors.iconColor),
+                      Icon(
+                        Icons.access_time,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.buttonColor
+                                : AppColors.iconColor,
+                      ),
                       SizedBox(width: 4),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,6 +81,10 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
+                              color:
+                                  themeMode == ThemeMode.dark
+                                      ? AppColors.borderColor2
+                                      : AppColors.dopdownTextColor,
                             ),
                           ),
                           Obx(
@@ -65,7 +93,10 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF003285),
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? AppColors.buttonColor
+                                        : AppColors.iconColor,
                               ),
                             ),
                           ),
@@ -74,9 +105,12 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                       Spacer(),
                       Transform.rotate(
                         angle: 256,
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_ios_new,
-                          color: AppColors.iconColor,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.buttonColor
+                                  : AppColors.iconColor,
                           size: 18,
                         ),
                       ),
@@ -101,14 +135,31 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFE6E6E6), width: 1),
-                    color: Color(0xFFE6E6E6),
+                    border: Border.all(
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? Colors.transparent
+                              : Color(0xFFE6E6E6),
+                      width: 1,
+                    ),
+                    color:
+                        themeMode == ThemeMode.dark
+                            ? Color(
+                              0x26979797,
+                            ) // Light border color for dark theme
+                            : Color(0xFFBDBDBD),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.access_time, color: AppColors.iconColor),
+                      Icon(
+                        Icons.access_time,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.buttonColor
+                                : AppColors.iconColor,
+                      ),
                       SizedBox(width: 4),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,6 +169,10 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
+                              color:
+                                  themeMode == ThemeMode.dark
+                                      ? AppColors.borderColor2
+                                      : AppColors.dopdownTextColor,
                             ),
                           ),
                           Obx(
@@ -126,7 +181,10 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF003285),
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? AppColors.buttonColor
+                                        : AppColors.iconColor,
                               ),
                             ),
                           ),
@@ -135,9 +193,12 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                       Spacer(),
                       Transform.rotate(
                         angle: 256,
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_ios_new,
-                          color: AppColors.iconColor,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.buttonColor
+                                  : AppColors.iconColor,
                           size: 18,
                         ),
                       ),
