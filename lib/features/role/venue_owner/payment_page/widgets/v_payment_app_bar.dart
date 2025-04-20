@@ -1,7 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class VPaymentAppBar extends StatelessWidget implements PreferredSize {
   final String title;
@@ -16,6 +18,7 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return AppBar(
       backgroundColor: AppColors.backgroundColor,
       forceMaterialTransparency: true,
@@ -28,12 +31,12 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
           child: Visibility(
             visible: isBackButtonVisible ?? false,
             child: CircleAvatar(
-              backgroundColor: const Color(0x1A333333),
+              backgroundColor:isDarkMode ? Color(0x1AFFFFFF) : const Color(0x1A333333),
               child: Image.asset(
                 IconPath.arrowLeftAlt,
                 width: 16,
                 height: 12,
-                color: AppColors.textColor,
+                color:isDarkMode ? Colors.white : AppColors.textColor,
               ),
             ),
           ),
@@ -45,7 +48,7 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
         style: getTextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w600,
-          color: AppColors.textColor,
+          color:isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
         ),
       ),
       actions: [
@@ -58,12 +61,12 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
             child: Visibility(
               visible: isCloseButtonVisible ?? false,
               child: CircleAvatar(
-                backgroundColor: const Color(0x1A333333),
+                backgroundColor:isDarkMode ? Color(0x1AFFFFFF) :  Color(0x1A333333),
                 child: Image.asset(
                   IconPath.close,
                   width: 16,
                   height: 16,
-                  color: AppColors.textColor,
+                  color:isDarkMode ? Colors.white : AppColors.textColor,
                 ),
               ),
             ),

@@ -2,7 +2,9 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_payment_method.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/v_payment_app_bar.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,8 +15,10 @@ class VThankYouScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
-      backgroundColor: Color(0xffF9FAFB),
+      backgroundColor:isDarkMode ? Color(0xff151515) : Color(0xffF9FAFB),
       appBar: VPaymentAppBar(isBackButtonVisible: false, title: 'Thank You'),
       body: SafeArea(
         child: Center(
@@ -30,7 +34,7 @@ class VThankYouScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textColor,
+                    color:isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -39,10 +43,11 @@ class VThankYouScreen extends StatelessWidget {
                 // Get Verified Button
                 GestureDetector(
                   onTap: () {
-                    // Get.to(
-                    //   transition: Transition.rightToLeft,
-                    //   duration: const Duration(milliseconds: 400),
-                    // );
+                    Get.to(
+                     VPaymentMethod(),
+                      transition: Transition.rightToLeft,
+                      duration: const Duration(milliseconds: 400),
+                    );
                   },
                   child: Container(
                     width: double.infinity,

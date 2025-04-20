@@ -1,7 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PhotoUploadWidget extends StatelessWidget {
   final VoidCallback? onTap;
@@ -10,10 +12,12 @@ class PhotoUploadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return GestureDetector(
       onTap: onTap,
       child: ColoredBox(
-        color: Color(0xffFAFAFA),
+        color: isDarkMode ? Color(0xff32383D) : Color(0xffFAFAFA),
         child: SizedBox(
           width: double.infinity,
           child: DottedBorder(

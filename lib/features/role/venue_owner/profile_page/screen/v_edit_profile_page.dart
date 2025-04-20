@@ -16,7 +16,7 @@ class VEditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
       backgroundColor:
           isDarkMode
