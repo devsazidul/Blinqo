@@ -11,6 +11,7 @@ class StartBookingDecorationCard extends StatelessWidget {
     required this.screenWidth,
     required this.text,
     required this.text2,
+    required this.themeMode,
 
     this.onTap,
   });
@@ -20,6 +21,8 @@ class StartBookingDecorationCard extends StatelessWidget {
   final void Function()? onTap;
   final String text;
   final String text2;
+
+  final ThemeMode themeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,11 @@ class StartBookingDecorationCard extends StatelessWidget {
           style: getTextStyle(
             fontSize: 15.sp,
             fontWeight: FontWeight.w500,
-            color: AppColors.buttonColor2,
+
+            color:
+                themeMode == ThemeMode.dark
+                    ? AppColors.borderColor2
+                    : AppColors.buttonColor2,
           ),
         ),
         GestureDetector(

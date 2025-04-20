@@ -9,11 +9,13 @@ class StartBookingDecorationImage extends StatelessWidget {
     super.key,
     required this.screenHeight,
     required this.screenWidth,
+    required this.themeMode,
   });
 
   final double screenHeight;
   final double screenWidth;
 
+  final ThemeMode themeMode;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,7 +24,10 @@ class StartBookingDecorationImage extends StatelessWidget {
         Text(
           'Decoration',
           style: getTextStyle(
-            color: AppColors.textColor,
+            color:
+                themeMode == ThemeMode.dark
+                    ? AppColors.borderColor2
+                    : AppColors.textColor,
             fontSize: 18.sp,
             fontWeight: FontWeight.w700,
           ),
