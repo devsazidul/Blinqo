@@ -112,6 +112,7 @@ class IconPath {
   static const String chatemoji = "assets/icons/chatemoji.png";
   static const String chatattachfile = "assets/icons/chatattachfile.png";
   static const String spchatsend = "assets/icons/spchatsend.png";
+  static const String paymentaddicone = "assets/icons/paymentaddicone.png";
   static const String cancel2 = "assets/icons/cancel2.png";
   static const String addIcon = "assets/icons/add_icon.png";
 }

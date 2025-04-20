@@ -1,19 +1,23 @@
-
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_payment_method.dart';
+import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_thank_you_screen.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/photo_upload_widget.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/v_payment_app_bar.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VVerificationSubmissionScreen extends StatelessWidget {
-  const VVerificationSubmissionScreen({super.key});
+  final bool isDarkMode =
+      Get.put(VenueOwnerProfileController()).isDarkMode.value;
+
+  VVerificationSubmissionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF9FAFB),
+      backgroundColor: isDarkMode ? Color(0xff151515) : const Color(0xffF9FAFB),
       appBar: VPaymentAppBar(title: 'Verification Submission'),
       body: SafeArea(
         child: Padding(
@@ -31,7 +35,8 @@ class VVerificationSubmissionScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff333333),
+                    color:
+                        isDarkMode ? AppColors.borderColor2 : Color(0xff333333),
                   ),
                 ),
                 SizedBox(height: 16),
@@ -43,7 +48,8 @@ class VVerificationSubmissionScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff333333),
+                    color:
+                        isDarkMode ? AppColors.borderColor2 : Color(0xff333333),
                   ),
                 ),
                 SizedBox(height: 16),
@@ -54,17 +60,18 @@ class VVerificationSubmissionScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff333333),
+                    color:
+                        isDarkMode ? AppColors.borderColor2 : Color(0xff333333),
                   ),
                 ),
                 SizedBox(height: 16),
-                _buildTextField('Bio', 'Bio',2),
+                _buildTextField('Bio', 'Bio', 2),
                 SizedBox(height: 48),
                 // Get Verified Button
                 GestureDetector(
                   onTap: () {
                     Get.to(
-                      VPaymentMethod(),
+                      VThankYouScreen(),
                       transition: Transition.rightToLeft,
                       duration: const Duration(milliseconds: 400),
                     );
@@ -103,31 +110,45 @@ class VVerificationSubmissionScreen extends StatelessWidget {
     int? maxLines = 1,
   ]) {
     return TextField(
+      style: getTextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff333333),
+      ),
       maxLines: maxLines,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: getTextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w500,
-          color: Color(0xff767676),
+          color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff767676),
         ),
         hintText: hintText,
         hintStyle: getTextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: Color(0xff767676),
+          color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff767676),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0xffABB7C2), width: 1),
+          borderSide: BorderSide(
+            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+            width: 1,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0xffABB7C2), width: 1),
+          borderSide: BorderSide(
+            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+            width: 1,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0xffABB7C2), width: 1),
+          borderSide: BorderSide(
+            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+            width: 1,
+          ),
         ),
       ),
     );
