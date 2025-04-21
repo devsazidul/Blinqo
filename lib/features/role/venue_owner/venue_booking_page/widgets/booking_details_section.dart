@@ -1,5 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class BookingDetailsSection extends StatelessWidget {
@@ -7,11 +9,13 @@ class BookingDetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          color: isDarkMode ? Color(0xff32383D) : AppColors.primary,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
@@ -24,7 +28,7 @@ class BookingDetailsSection extends StatelessWidget {
                 style: getTextStylePoppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xff003366),
+                  color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                 ),
               ),
               SizedBox(height: 16),
@@ -43,17 +47,25 @@ class BookingDetailsSection extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildBookingDetailsRow(String label, String value) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: getTextStylePoppins()),
+        Text(
+          label,
+          style: getTextStylePoppins(
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff767676),
+          ),
+        ),
         Text(
           value,
           style: getTextStylePoppins(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: Color(0xff333333),
+            color: isDarkMode ? Color(0xffD4AF37) : Color(0xff333333),
           ),
         ),
       ],

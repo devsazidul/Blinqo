@@ -1,14 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_payment_method.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/v_payment_app_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'v_verification_submission_screen.dart';
 
 class VThankYouScreen extends StatelessWidget {
   const VThankYouScreen({super.key});
