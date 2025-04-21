@@ -45,7 +45,7 @@ class VenueDetailsScreen extends StatelessWidget {
       'September',
       'October',
       'November',
-      'December',
+      'December',//month name
     ];
     return months[month - 1];
   }
@@ -609,7 +609,7 @@ class VenueDetailsScreen extends StatelessWidget {
                             'Explore All',
                             style: getTextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 14,
+                              fontSize: 14,///hghghg
                               color: Color(0xff444444),
                             ),
                           ),
