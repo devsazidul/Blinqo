@@ -1,10 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/controllers/booking_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/model/booking.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/booking_details_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 /// A container widget that displays details of a single booking.
@@ -20,10 +22,12 @@ class BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:isDarkMode ? Color(0xff32383D) : Colors.white,
         borderRadius: BorderRadius.circular(12), // Rounded corners
         boxShadow: [
           BoxShadow(
@@ -64,7 +68,7 @@ class BookingCard extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: const Color(0xFF333333),
+                              color:isDarkMode ? Color(0xffEBEBEB) : const Color(0xFF333333),
                             ),
                           ),
                           Text(
@@ -72,7 +76,7 @@ class BookingCard extends StatelessWidget {
                             style: getTextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
-                              color: const Color(0xFF999999),
+                              color:isDarkMode ? Color(0xffEBEBEB) : const Color(0xFF999999),
                             ),
                           ),
                         ],
@@ -87,6 +91,7 @@ class BookingCard extends StatelessWidget {
                         IconPath.calendermonthe,
                         height: 16,
                         width: 16,
+                        color: isDarkMode? Color(0xff8A8A8A) : null,
                       ),
                       const SizedBox(width: 4),
                       Text(
@@ -94,7 +99,7 @@ class BookingCard extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: const Color(0xFF999999),
+                          color:isDarkMode ? Color(0xff8A8A8A) : const Color(0xFF999999),
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -103,7 +108,7 @@ class BookingCard extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: const Color(0xFF999999),
+                          color:isDarkMode ? Color(0xff8A8A8A) : const Color(0xFF999999),
                         ),
                       ),
                     ],
@@ -118,7 +123,7 @@ class BookingCard extends StatelessWidget {
                 backgroundColor: Color(0xff003366),
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 9),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(4),
                 ),
               ),
               child: Text(

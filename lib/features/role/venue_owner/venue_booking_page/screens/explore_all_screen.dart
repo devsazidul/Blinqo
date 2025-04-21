@@ -1,9 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/controllers/booking_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/model/booking.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/widgets/booking_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// A screen that displays all bookings for a specific section.
 class ExploreAllScreen extends StatelessWidget {
@@ -21,27 +24,44 @@ class ExploreAllScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF333333)),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        ),
-        centerTitle: true,
-        title: Text(
-          title,
-          style: getTextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: const Color(0xFF333333),
+        backgroundColor: AppColors.backgroundColor,
+        forceMaterialTransparency: true,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CircleAvatar(
+              backgroundColor:
+              isDarkMode
+                  ? Color(0xFFD9D9D9).withAlpha(40)
+                  : const Color(0xFFD9D9D9),
+              child: Image.asset(
+                IconPath.arrowLeftAlt,
+                width: 16,
+                height: 12,
+                color: isDarkMode ? Colors.white : AppColors.textColor,
+              ),
+            ),
           ),
         ),
-        elevation: 0,
-        backgroundColor: AppColors.backgroundColor,
+
+        title: Text(
+          title ?? '',
+          style: getTextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: isDarkMode ? AppColors.backgroundColor : AppColors.textColor,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -49,10 +69,7 @@ class ExploreAllScreen extends StatelessWidget {
           itemCount: bookings.length,
           itemBuilder: (context, index) {
             final booking = bookings[index];
-            return BookingCard(
-              booking: booking,
-              controller: controller,
-            );
+            return BookingCard(booking: booking, controller: controller);
           },
         ),
       ),

@@ -14,10 +14,12 @@ import '../widget/custom_shape.dart';
 import '../widget/date_pricecard.dart';
 import '../widget/review_card.dart';
 import '../widget/status_label.dart';
+
 final ValueNotifier<List<DateTime>> selectedDatesNotifier =
     ValueNotifier<List<DateTime>>([
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
     ]);
+
 class VenueDetailsScreen extends StatelessWidget {
   final String title;
   final String address;
@@ -49,6 +51,7 @@ class VenueDetailsScreen extends StatelessWidget {
     ];
     return months[month - 1];
   }
+
   @override
   Widget build(BuildContext context) {
     List<Map<String, String>> seereview = [
@@ -66,7 +69,6 @@ class VenueDetailsScreen extends StatelessWidget {
         "desc":
             "Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
       },
-
     ];
     TextEditingController priceCOntroller = TextEditingController();
     final Size screenSize = MediaQuery.of(context).size;
@@ -124,7 +126,7 @@ class VenueDetailsScreen extends StatelessWidget {
                           ),
                           Positioned(
                             left: 135,
-                            top: 48  ,
+                            top: 48,
                             child: Text(
                               "View Details",
                               style: getTextStyle(
@@ -178,8 +180,8 @@ class VenueDetailsScreen extends StatelessWidget {
                               Get.to(() => EditVenue(image: image));
                             },
                             child: Container(
-                              height: screenHeight*0.040,
-                              width: screenWidth*0.18,
+                              height: screenHeight * 0.040,
+                              width: screenWidth * 0.18,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
                                 color: const Color(0xffD4AF37),
@@ -211,7 +213,11 @@ class VenueDetailsScreen extends StatelessWidget {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          const Icon(Icons.star, size: 20, color: Color(0xffF0C020)),
+                          const Icon(
+                            Icons.star,
+                            size: 20,
+                            color: Color(0xffF0C020),
+                          ),
                           const SizedBox(width: 1.5),
                           Text(rating),
                           const SizedBox(width: 5),
@@ -267,28 +273,28 @@ class VenueDetailsScreen extends StatelessWidget {
                         icon: Icons.wifi,
                         label: 'Wifi',
                         heights: screenHeight * 0.04,
-                        widths: screenWidth*0.18,
+                        widths: screenWidth * 0.18,
                       ),
-                      SizedBox(width: 7,),
+                      SizedBox(width: 7),
                       CustomAmenityBox(
                         icon: Icons.wifi,
                         label: 'Parking',
                         heights: screenHeight * 0.04,
-                        widths: screenWidth*0.26
+                        widths: screenWidth * 0.26,
                       ),
-                      SizedBox(width: 7,),
+                      SizedBox(width: 7),
                       CustomAmenityBox(
                         icon: Icons.wifi,
                         label: 'AC',
                         heights: screenHeight * 0.04,
-                        widths: screenWidth*0.19,
+                        widths: screenWidth * 0.19,
                       ),
                       SizedBox(width: 7),
                       CustomAmenityBox(
                         icon: Icons.wifi,
                         label: 'Pool',
                         heights: screenHeight * 0.04,
-                        widths: screenWidth*0.20,
+                        widths: screenWidth * 0.20,
                       ),
                     ],
                   ),
@@ -306,7 +312,8 @@ class VenueDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
-                  Container     (
+
+                  Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -320,18 +327,13 @@ class VenueDetailsScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      StatusLabel(
-                        color: Color(0xff0066CC),
-                        label: 'Booked',
-                      ),
+                      StatusLabel(color: Color(0xff0066CC), label: 'Booked'),
                       SizedBox(height: 8),
-                      StatusLabel(
-                        color: Color(0xff19480B),
-                        label: 'Selected',
-                      ),
+                      StatusLabel(color: Color(0xff19480B), label: 'Selected'),
                     ],
                   ),
                   const SizedBox(height: 24),
+
                   DatePriceCard(
                     selectedDatesNotifier: selectedDatesNotifier,
                     priceController: priceCOntroller,
@@ -362,7 +364,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   Row(
                     children: [
                       CustomShapeTag(
@@ -384,7 +386,6 @@ class VenueDetailsScreen extends StatelessWidget {
                         label: "Square",
                         height: screenHeight * 0.04,
                         width: screenWidth * 0.20,
-
                       ),
                     ],
                   ),
@@ -419,7 +420,6 @@ class VenueDetailsScreen extends StatelessWidget {
                         label: "Square",
                         height: screenHeight * 0.04,
                         width: screenWidth * 0.20,
-
                       ),
                     ],
                   ),
@@ -466,7 +466,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   Row(
                     children: [
                       CustomShapeTag(
@@ -500,7 +500,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   Row(
                     children: [
                       CustomShapeTag(
@@ -534,7 +534,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: Color(0xff333333),
                     ),
                   ),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   Row(
                     children: [
                       CustomShapeTag(

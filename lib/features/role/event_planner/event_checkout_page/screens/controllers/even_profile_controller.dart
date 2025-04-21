@@ -4,9 +4,14 @@ import 'package:get/get.dart';
 
 import '../mixin/image_packer.dart';
 import '../mixin/map_location.dart';
+import '../mixin/profile_setup_event_preference.dart';
 
 class EvenProfileController extends GetxController
-    with ImagePackerMixin, GenderMixin, MapLocation {
+    with
+        ImagePackerMixin,
+        GenderMixin,
+        MapLocation,
+        ProfileSetupEventPreference {
   final spnameController = TextEditingController();
   final spdescriptionController = TextEditingController();
 

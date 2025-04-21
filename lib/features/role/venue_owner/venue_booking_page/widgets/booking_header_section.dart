@@ -20,6 +20,21 @@ class BookingHeader extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
+        // container with gradient
+        Container(
+          width: double.infinity,
+          height: screenHeight * 0.35,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0x00000000),
+                Color(0x00000000),
+                Color(0xFF000000),
+              ]
+          ))
+        ),
         Positioned(
           top: 60,
           left: 20,
@@ -29,7 +44,7 @@ class BookingHeader extends StatelessWidget {
             },
             child: CircleAvatar(
               radius: 20,
-              backgroundColor: Colors.white.withAlpha(100),
+              backgroundColor: Colors.white.withAlpha(40),
               child: Icon(Icons.arrow_back, size: 24, color: Colors.white),
             ),
           ),

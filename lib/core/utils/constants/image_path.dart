@@ -59,4 +59,5 @@ class ImagePath {
   static const String nopaymentfound = 'assets/images/nopaymentfound.png';
   static const String borderImage = 'assets/images/bordarImage.png';
   static const String invitationAvatar = 'assets/images/invitationAvatar.png';
+  static const String rectangle = 'assets/images/Rectangle.png';
 }

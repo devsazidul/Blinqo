@@ -1,7 +1,6 @@
 import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/v_profile_app_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/v_profile_edit_text_form_field.dart';

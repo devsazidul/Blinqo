@@ -1,11 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_edit_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/v_profile_app_bar.dart';
+import 'package:blinqo/features/role/venue_owner/venue_payment_history/screens/v_payment_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -204,6 +203,13 @@ class VenueOwnerProfilePage extends StatelessWidget {
           themeMode,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
+        ),_buildSettingsTile(
+          onTap: () {
+            Get.to(VPaymentHistoryScreen());
+          },
+          themeMode,
+          title: "Payment History",
+          iconPath: IconPath.paymentHistory,
         ),
         ListTile(
           minTileHeight: 60,
