@@ -34,7 +34,7 @@ class VenueDetailsScreen extends StatelessWidget {
     required this.rating,
     required this.image,
   });
-  String _getMonthName(int month) {
+  String getMonthName(int month) {
     const months = [
       'January',
       'February',
