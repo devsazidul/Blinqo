@@ -115,4 +115,5 @@ class IconPath {
   static const String paymentaddicone = "assets/icons/paymentaddicone.png";
   static const String cancel2 = "assets/icons/cancel2.png";
   static const String addIcon = "assets/icons/add_icon.png";
+  static const String editPancilOnFram = "assets/icons/editPencilOnFram.png";
 }
