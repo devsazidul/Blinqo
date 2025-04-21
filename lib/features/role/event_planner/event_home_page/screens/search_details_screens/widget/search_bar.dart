@@ -1,18 +1,19 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SearchBerSection extends StatelessWidget {
-  final SearchBerController controller = Get.put(SearchBerController());
+class SearchBer extends StatelessWidget {
+  final SearchDetailsController searchDetailsController = Get.put(
+    SearchDetailsController(),
+  );
 
   final ThemeMode themeMode;
-  SearchBerSection({super.key, required this.themeMode});
+  SearchBer({super.key, required this.themeMode});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +21,7 @@ class SearchBerSection extends StatelessWidget {
       children: [
         Expanded(
           child: TextField(
-            onChanged: (value) {
-              controller.updateSearchQuery(value);
-            },
+            onChanged: (value) {},
             onTap: () {
               Get.to(() => SearchDetailsScreen());
             },
