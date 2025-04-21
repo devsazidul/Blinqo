@@ -3,6 +3,8 @@ import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
 
 // ignore_for_file: file_names
 import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/emptyschedule.dart';
+import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/venue_booking_page.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/venue_owner_booking.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/chat_list_view.dart';
@@ -27,6 +29,11 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
       OverviewScreen(),
       Venue(),
       VenueOwnerBooking(),
+      // ChatListView(),
+      MainView(),
+      Emptyschedule(),
+
+       
       ChatListView(),
       // MainView(),
       Text('Screen 5'),
