@@ -9,11 +9,13 @@ class StartBookingShearshBar extends StatelessWidget {
     required this.screenWidth,
     required this.themeMode,
     this.onChanged,
+    this.onTap,
   });
 
   final double screenHeight;
   final double screenWidth;
   final ThemeMode themeMode;
+  final void Function()? onTap;
 
   final void Function(String)? onChanged;
   @override
@@ -26,6 +28,7 @@ class StartBookingShearshBar extends StatelessWidget {
           children: [
             Expanded(
               child: TextFormField(
+                onTap: onTap,
                 onChanged: onChanged,
                 decoration: InputDecoration(
                   hintText: 'Search venues & services...',

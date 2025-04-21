@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 import '../controllers/even_profile_controller.dart';
 
 class AvaterProfileSetupScreen extends StatelessWidget {
-  AvaterProfileSetupScreen({super.key});
+  AvaterProfileSetupScreen({super.key, required this.themeMode});
   final evenProfileController = Get.find<EvenProfileController>();
+  final ThemeMode themeMode;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,7 +22,10 @@ class AvaterProfileSetupScreen extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
-                color: AppColors.textColor,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.borderColor2
+                        : AppColors.textColor,
               ),
             ),
           ],

@@ -46,9 +46,10 @@ class StartBookingDate extends StatelessWidget {
               color:
                   themeMode == ThemeMode.dark
                       ? Color(0x26979797) // Light border color for dark theme
-                      : Color(
-                        0xFFBDBDBD,
-                      ), // A non-transparent color for light theme
+                      // : Color(
+                      //   0xFFBDBDBD,
+                      // ), // A non-transparent color for light theme
+                      : AppColors.dopdwonBackdownColor,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Row(

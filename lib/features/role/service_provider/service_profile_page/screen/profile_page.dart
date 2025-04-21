@@ -23,7 +23,7 @@ class SpProfilePage extends StatelessWidget {
       return Scaffold(
         backgroundColor:
             themeMode == ThemeMode.dark
-                ? Colors.black
+                ? AppColors.darkBackgroundColor
                 : AppColors.backgroundColor,
         appBar: SpProfileAppBar(title: "Profile"),
         body: ColoredBox(
