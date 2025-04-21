@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,8 +9,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../controllers/even_profile_controller.dart';
 
 class ProfileSetupGoogleMap extends StatelessWidget {
-  ProfileSetupGoogleMap({super.key});
-
+  ProfileSetupGoogleMap({super.key, required this.themeMode});
+  final ThemeMode themeMode;
   final evenprofileController = Get.find<EvenProfileController>();
   @override
   Widget build(BuildContext context) {
@@ -43,9 +44,12 @@ class ProfileSetupGoogleMap extends StatelessWidget {
           child: Text(
             "Select From Map",
             style: getTextStyle(
-              fontSize: 20,
+              fontSize: 18,
               fontWeight: FontWeight.w500,
-              color: AppColors.textColor,
+              color:
+                  themeMode == ThemeMode.dark
+                      ? AppColors.borderColor2
+                      : AppColors.textColor,
             ),
           ),
         ),
@@ -99,5 +103,11 @@ class ProfileSetupGoogleMap extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<ThemeMode>('themeMode', themeMode));
   }
 }

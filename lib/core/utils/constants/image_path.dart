@@ -47,8 +47,7 @@ class ImagePath {
   static const String nocontentbackground =
       'assets/images/nocontentbackground.png';
 
-  static const String splashImage =
-      'assets/images/splashImage.png';
+  static const String splashImage = 'assets/images/splashImage.png';
 
   static const String homenodata = 'assets/images/homenodata.png';
   static const String seatingArrangement =
@@ -59,4 +58,7 @@ class ImagePath {
   static const String cancelIcon = 'assets/';
   static const String nopaymentfound = 'assets/images/nopaymentfound.png';
   static const String empty = 'assets/images/empty.png';
+  static const String borderImage = 'assets/images/bordarImage.png';
+  static const String invitationAvatar = 'assets/images/invitationAvatar.png';
+  static const String rectangle = 'assets/images/Rectangle.png';
 }

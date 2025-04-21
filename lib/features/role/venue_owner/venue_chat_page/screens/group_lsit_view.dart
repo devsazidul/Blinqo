@@ -13,16 +13,15 @@ class GroupListView extends StatelessWidget {
   final GroupController groupController = Get.find<GroupController>();
   final ChatController chatController = Get.find<ChatController>();
 
+  GroupListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Group Chats',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         elevation: 0,
         backgroundColor: Colors.white,
@@ -44,10 +43,7 @@ class GroupListView extends StatelessWidget {
               children: [
                 Text(
                   'No group conversations yet',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[600],
-                  ),
+                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
@@ -74,7 +70,9 @@ class GroupListView extends StatelessWidget {
               groupChat: groupChats[index],
               onTap: () {
                 groupController.setActiveGroup(groupChats[index].group.id);
-                Get.to(() => GroupChatView(groupId: groupChats[index].group.id));
+                Get.to(
+                  () => GroupChatView(groupId: groupChats[index].group.id),
+                );
               },
             );
           },
@@ -94,10 +92,10 @@ class GroupChatListItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const GroupChatListItem({
-    Key? key,
+    super.key,
     required this.groupChat,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -122,9 +120,10 @@ class GroupChatListItem extends StatelessWidget {
     String messagePreview;
     switch (lastMessage.type) {
       case MessageType.text:
-        messagePreview = lastMessage.text.length > 30
-            ? '${senderName}${lastMessage.text.substring(0, 30 - senderName.length)}...'
-            : '$senderName${lastMessage.text}';
+        messagePreview =
+            lastMessage.text.length > 30
+                ? '$senderName${lastMessage.text.substring(0, 30 - senderName.length)}...'
+                : '$senderName${lastMessage.text}';
         break;
       case MessageType.image:
         messagePreview = '$senderName📷 Image';
@@ -140,10 +139,7 @@ class GroupChatListItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(
-              color: Colors.grey[200]!,
-              width: 1,
-            ),
+            bottom: BorderSide(color: Colors.grey[200]!, width: 1),
           ),
         ),
         child: Row(
@@ -151,9 +147,10 @@ class GroupChatListItem extends StatelessWidget {
             // Group avatar
             CircleAvatar(
               radius: 25,
-              backgroundImage: group.avatar.startsWith('http')
-                  ? NetworkImage(group.avatar)
-                  : FileImage(File(group.avatar)) as ImageProvider,
+              backgroundImage:
+                  group.avatar.startsWith('http')
+                      ? NetworkImage(group.avatar)
+                      : FileImage(File(group.avatar)) as ImageProvider,
             ),
             SizedBox(width: 16),
             // Content
@@ -174,10 +171,7 @@ class GroupChatListItem extends StatelessWidget {
                       ),
                       Text(
                         ChatDateUtils.formatMessageTime(lastMessage.timestamp),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
                   ),
@@ -190,12 +184,14 @@ class GroupChatListItem extends StatelessWidget {
                           messagePreview,
                           style: TextStyle(
                             fontSize: 14,
-                            color: groupChat.unreadCount > 0
-                                ? Colors.black
-                                : Colors.grey[600],
-                            fontWeight: groupChat.unreadCount > 0
-                                ? FontWeight.w500
-                                : FontWeight.normal,
+                            color:
+                                groupChat.unreadCount > 0
+                                    ? Colors.black
+                                    : Colors.grey[600],
+                            fontWeight:
+                                groupChat.unreadCount > 0
+                                    ? FontWeight.w500
+                                    : FontWeight.normal,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -203,7 +199,10 @@ class GroupChatListItem extends StatelessWidget {
                       ),
                       if (groupChat.unreadCount > 0)
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Color(0xFF205295),
                             borderRadius: BorderRadius.circular(10),

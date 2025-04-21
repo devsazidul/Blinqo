@@ -70,7 +70,7 @@ class CustomTotalRevenueCard extends StatelessWidget {
           SizedBox(height: 5),
 
           Text(
-            "\$${totalRevenue}",
+            "\$$totalRevenue",
             style: getTextStyle(
               fontSize: 32,
               fontWeight: FontWeight.w600,

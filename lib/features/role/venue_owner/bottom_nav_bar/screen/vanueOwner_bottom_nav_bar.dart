@@ -1,15 +1,15 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
+
 // ignore_for_file: file_names
 import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/emptyschedule.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/venue_booking_page.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/venue_owner_booking.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/chat_list_view.dart';
-import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../controller/vanueOwner_bottom_nav_controller.dart';
 
 class VanueOwnerBottomNavBar extends StatelessWidget {
@@ -17,6 +17,8 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     double screenWidth = MediaQuery.of(context).size.width;
     double iconSize = screenWidth < 700 ? 60 : 70;
     final VanueOwnerBottomNavController controller = Get.put(
@@ -32,6 +34,9 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
       Emptyschedule(),
 
        
+      ChatListView(),
+      // MainView(),
+      Text('Screen 5'),
     ];
 
     return Scaffold(
@@ -49,7 +54,7 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
               offset: Offset(0, -2),
             ),
           ],
-          color: Colors.white,
+          color: isDarkMode ? Color(0xff1B2731) : Colors.white,
         ),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 5, top: 10),
@@ -104,6 +109,8 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
         Get.find<VanueOwnerBottomNavController>().changeIndex(index);
       },
       child: Obx(() {
+        final bool isDarkMode =
+            Get.put(VenueOwnerProfileController()).isDarkMode.value;
         final isSelected =
             Get.find<VanueOwnerBottomNavController>().currentIndex.value ==
             index;
@@ -111,6 +118,12 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
           isSelected ? activeImage : passiveImage,
           height: iconSize,
           fit: BoxFit.contain,
+          color:
+              isDarkMode && isSelected
+                  ? Color(0xffD4AF37)
+                  : isSelected && !isDarkMode
+                  ? null
+                  : Color(0xff8A8A8A),
         );
       }),
     );

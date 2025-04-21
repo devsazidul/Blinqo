@@ -1,6 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/features/role/service_provider/service_earning_page/controller/sp_earning_controller.dart';
-import 'package:blinqo/features/role/service_provider/service_earning_page/widget/custom_cashIn_Card.dart';
+import 'package:blinqo/features/role/service_provider/service_earning_page/widget/custom_cashIn_card.dart';
 import 'package:blinqo/features/role/service_provider/service_earning_page/widget/sp_custom_total_revenue_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

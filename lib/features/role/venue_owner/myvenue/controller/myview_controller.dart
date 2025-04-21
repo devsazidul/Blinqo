@@ -5,8 +5,8 @@ class MyVenueController extends GetxController {
   var selectedSeatingStyles = <String>[].obs;
   var selectedLightingStyles = <String>[].obs;
   var selectedFlowerColor = <String>[].obs;
-   var selectedFlowerType = <String>[].obs;
-    var selectedFragrance = <String>[].obs;
+  var selectedFlowerType = <String>[].obs;
+  var selectedFragrance = <String>[].obs;
 
   List<String> tableShapeOptions = [
     "Round",
@@ -23,19 +23,19 @@ class MyVenueController extends GetxController {
     "Classroom",
     "Cabaret",
     "U-Shaped",
-    "Cocktail"
+    "Cocktail",
   ];
-  List <String> LightingStyle=[
+  List<String> lightingStyle = [
     "Ambient",
     "Spotlighting",
     "Fairy",
     "Chandeliers",
     "LED",
     "Neon",
-     "Gobo",
+    "Gobo",
   ];
 
-  List <String> FlowerColor=[
+  List<String> flowerColor = [
     "White",
     "Red",
     "Yellow",
@@ -45,7 +45,7 @@ class MyVenueController extends GetxController {
     "Green",
     "Orange",
   ];
-  List<String>FlowerType =[
+  List<String> flowerType = [
     "Roses",
     "Peonies",
     "Lilies",
@@ -54,42 +54,44 @@ class MyVenueController extends GetxController {
     "Sunflowers",
     "Hydrangeas",
   ];
-  List<String>Frogrance=[
-     "Floral Scents",
+  List<String> frogrance = [
+    "Floral Scents",
     "Citrus Scents",
     "Herba; Scents",
     "Oceanic Scents",
     "Woody Scents",
     "Spicy",
   ];
-  void toogleFrance(String shape){
-    if(selectedFragrance .contains(shape)){
-      selectedFragrance .remove(shape);
-    }else{
-      selectedFragrance .add(shape);
+  void toogleFrance(String shape) {
+    if (selectedFragrance.contains(shape)) {
+      selectedFragrance.remove(shape);
+    } else {
+      selectedFragrance.add(shape);
     }
   }
-  void toogleFlowerType(String shape){
-    if(selectedFlowerType.contains(shape)){
+
+  void toogleFlowerType(String shape) {
+    if (selectedFlowerType.contains(shape)) {
       selectedFlowerType.remove(shape);
-    }else{
+    } else {
       selectedFlowerType.add(shape);
     }
   }
-  void toogleFlowerColor(String shape){
-    if(selectedFlowerColor.contains(shape)){
+
+  void toogleFlowerColor(String shape) {
+    if (selectedFlowerColor.contains(shape)) {
       selectedFlowerColor.remove(shape);
-    }else{
+    } else {
       selectedFlowerColor.add(shape);
     }
   }
-  void tooggleLightingStyle(String shape){
-   if(selectedLightingStyles.contains(shape)){
-     selectedLightingStyles.remove(shape);
-   }else{
-     selectedLightingStyles.add(shape);
-   }
 
+  void tooggleLightingStyle(String shape) {
+    if (selectedLightingStyles.contains(shape)) {
+      selectedLightingStyles.remove(shape);
+    } else {
+      selectedLightingStyles.add(shape);
+    }
   }
 
   void toggleTableShape(String shape) {

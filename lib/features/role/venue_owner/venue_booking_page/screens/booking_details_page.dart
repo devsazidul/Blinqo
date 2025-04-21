@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/widgets/booking_details_section.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/widgets/decoration_details_section.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/widgets/message_button_section.dart';
@@ -17,12 +18,15 @@ class BookingDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final PriceController controller = Get.put(PriceController());
     final BookingController bookingController = Get.put(BookingController());
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -40,7 +44,7 @@ class BookingDetailsPage extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
-                color: Color(0xff003285),
+                color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff003285),
               ),
             ),
             SizedBox(height: 20),
@@ -53,7 +57,7 @@ class BookingDetailsPage extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
-                color: AppColors.textColor,
+                color: isDarkMode ? Color(0xffEBEBEB) : AppColors.textColor,
               ),
             ),
             SizedBox(height: 20),
@@ -77,7 +81,7 @@ class BookingDetailsPage extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xff333333),
+                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                   ),
                 ),
               ),
@@ -105,6 +109,8 @@ class BookingDetailsPage extends StatelessWidget {
   }
 
   Widget _buildActionButtons() {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Row(
       children: [
         SizedBox(width: 20),
@@ -115,8 +121,12 @@ class BookingDetailsPage extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0x1A003366),
+                color: isDarkMode ? Color(0xff151515) : Color(0x1A003366),
                 borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: isDarkMode ? Color(0xff003366) : Colors.transparent,
+                  width: 1,
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -126,7 +136,10 @@ class BookingDetailsPage extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.buttonColor2,
+                      color:
+                          isDarkMode
+                              ? Color(0xffEBEBEB)
+                              : AppColors.buttonColor2,
                     ),
                   ),
                 ),
@@ -167,16 +180,18 @@ class BookingDetailsPage extends StatelessWidget {
   }
 
   Widget _buildAdditionalServices(String service) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: Color(0x1A003366),
+        color:isDarkMode ? Color(0x1AD4AF37) : Color(0x1A003366),
         borderRadius: BorderRadius.circular(40),
       ),
       child: Text(
         service,
         style: getTextStyle(
-          color: AppColors.iconColor,
+          color: isDarkMode ? Color(0xffD4AF37) : AppColors.iconColor,
           fontWeight: FontWeight.w500,
         ),
       ),

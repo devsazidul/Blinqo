@@ -3,6 +3,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class SearchBerSection extends StatelessWidget {
             },
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
-                vertical: 14,
+                vertical: 13,
                 horizontal: 10,
               ),
               hintText: 'Search venues & services...',
@@ -69,7 +70,9 @@ class SearchBerSection extends StatelessWidget {
         ),
         SizedBox(width: 8),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Get.to(() => FilterDetailsScreen());
+          },
           child: Container(
             height: 48,
             width: 48,

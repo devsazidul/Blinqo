@@ -3,6 +3,7 @@ import 'package:blinqo/features/role/event_planner/home/wigate/custom_appbar.dar
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../event_home_page/sharch_start_booking/screen/search_start_booking.dart';
 import '../event_home_page/widgets/enent_type_dopdown_button.dart';
 import '../event_home_page/widgets/stark_booking_additional_services.dart';
 import '../event_home_page/widgets/stark_booking_set_start_time_and_endtime.dart';
@@ -51,6 +52,9 @@ class StartBooking extends StatelessWidget {
                   screenHeight: screenHeight,
                   screenWidth: screenWidth,
                   themeMode: themeMode,
+                  onTap: () {
+                    Get.to(SearchStartBooking());
+                  },
                 ),
 
                 StartBookingTextFrom(

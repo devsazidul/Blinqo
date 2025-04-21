@@ -8,10 +8,8 @@ import 'package:get/get.dart';
 import 'v_verification_submission_screen.dart';
 
 class VGetVerifiedScreen extends StatelessWidget {
-  // dark mode
 
-
-  VGetVerifiedScreen({super.key});
+  const VGetVerifiedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

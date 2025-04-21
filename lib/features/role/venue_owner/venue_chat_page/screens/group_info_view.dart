@@ -10,7 +10,7 @@ class GroupInfoView extends StatelessWidget {
   final GroupController groupController = Get.find<GroupController>();
   final ChatController chatController = Get.find<ChatController>();
 
-  GroupInfoView({Key? key, required this.groupId}) : super(key: key);
+  GroupInfoView({super.key, required this.groupId});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +18,8 @@ class GroupInfoView extends StatelessWidget {
 
     if (group == null) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text('Group Info'),
-          elevation: 0,
-        ),
-        body: Center(
-          child: Text('Group not found'),
-        ),
+        appBar: AppBar(title: Text('Group Info'), elevation: 0),
+        body: Center(child: Text('Group not found')),
       );
     }
 
@@ -49,27 +44,22 @@ class GroupInfoView extends StatelessWidget {
             // Group image
             CircleAvatar(
               radius: 60,
-              backgroundImage: group.avatar.startsWith('http')
-                  ? NetworkImage(group.avatar)
-                  : FileImage(File(group.avatar)) as ImageProvider,
+              backgroundImage:
+                  group.avatar.startsWith('http')
+                      ? NetworkImage(group.avatar)
+                      : FileImage(File(group.avatar)) as ImageProvider,
             ),
             SizedBox(height: 16),
 
             // Group name
             Text(
               group.name,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 4),
             Text(
               '${members.length} Members',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
             SizedBox(height: 24),
 
@@ -104,13 +94,15 @@ class GroupInfoView extends StatelessWidget {
                 children: [
                   Text(
                     'Members',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 12),
-                  ...members.map((member) => _buildMemberItem(member, isCreator && member.id != group.creatorId)),
+                  ...members.map(
+                    (member) => _buildMemberItem(
+                      member,
+                      isCreator && member.id != group.creatorId,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -126,10 +118,7 @@ class GroupInfoView extends StatelessWidget {
                 icon: Icon(Icons.exit_to_app, color: Colors.red),
                 label: Text(
                   'Leave Group',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(color: Colors.red, fontSize: 16),
                 ),
               ),
 
@@ -142,10 +131,7 @@ class GroupInfoView extends StatelessWidget {
                 icon: Icon(Icons.delete_forever, color: Colors.red),
                 label: Text(
                   'Delete Group',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(color: Colors.red, fontSize: 16),
                 ),
               ),
 
@@ -174,10 +160,7 @@ class GroupInfoView extends StatelessWidget {
               children: [
                 Text(
                   '${member.name} ${isCurrentUser ? '(You)' : ''}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 Text(
                   member.isOnline ? 'Online' : 'Offline',
@@ -194,18 +177,13 @@ class GroupInfoView extends StatelessWidget {
               onPressed: () {
                 _showRemoveMemberConfirmation(member);
               },
-              child: Text(
-                'Remove',
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              ),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.grey[200],
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
+              child: Text('Remove', style: TextStyle(color: Colors.red)),
             ),
         ],
       ),
@@ -218,10 +196,7 @@ class GroupInfoView extends StatelessWidget {
         title: Text('Leave Group'),
         content: Text('Are you sure you want to leave this group?'),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
           TextButton(
             onPressed: () {
               Get.back();
@@ -238,12 +213,11 @@ class GroupInfoView extends StatelessWidget {
     Get.dialog(
       AlertDialog(
         title: Text('Delete Group'),
-        content: Text('Are you sure you want to delete this group? This action cannot be undone.'),
+        content: Text(
+          'Are you sure you want to delete this group? This action cannot be undone.',
+        ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
           TextButton(
             onPressed: () {
               Get.back();
@@ -260,12 +234,11 @@ class GroupInfoView extends StatelessWidget {
     Get.dialog(
       AlertDialog(
         title: Text('Remove Member'),
-        content: Text('Are you sure you want to remove ${member.name} from the group?'),
+        content: Text(
+          'Are you sure you want to remove ${member.name} from the group?',
+        ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
           TextButton(
             onPressed: () {
               Get.back();
