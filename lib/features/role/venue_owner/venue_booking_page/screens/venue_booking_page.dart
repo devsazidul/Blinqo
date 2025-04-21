@@ -1,6 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/controllers/booking_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/widgets/booking_section.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +9,13 @@ import 'no_bookings_view.dart';
 
 class VenueBookingPage extends StatelessWidget {
   static const String name = '/venue_booking_page';
-  final bool isDarkMode = Get.put(SpProfileController()).isDarkMode.value;
 
-  VenueBookingPage({super.key});
+  const VenueBookingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final BookingController controller = Get.put(BookingController());
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -34,6 +35,8 @@ class VenueBookingPage extends StatelessWidget {
 
   /// Builds the AppBar with the title and transparent background.
   AppBar _buildAppBar() {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return AppBar(
       automaticallyImplyLeading: false,
       forceMaterialTransparency: true,
@@ -53,6 +56,8 @@ class VenueBookingPage extends StatelessWidget {
 
   /// Builds the header with the "Booking List" title and "Sort by" dropdown.
   Widget _buildHeader(BookingController controller) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Padding(
       padding: const EdgeInsets.only(top: 36),
       child: Row(
@@ -62,7 +67,7 @@ class VenueBookingPage extends StatelessWidget {
             height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
-              color: isDarkMode ? Color(0xff151515) : Color(0xFF003366),
+              color: isDarkMode ? Color(0xff151515) : Color(0xFFF4F4F4),
               border: Border.all(
                 color: isDarkMode ? Color(0xffABB7C2) : Color(0xFF003366),
                 width: 1,
@@ -142,7 +147,7 @@ class VenueBookingPage extends StatelessWidget {
                       controller.setSortBy(value);
                     }
                   },
-                  dropdownColor: Colors.white,
+                  dropdownColor:isDarkMode ? Color(0xff32383D) : Colors.white,
                 ),
               );
             }),

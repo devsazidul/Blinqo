@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'start_booking_decoration_card.dart';
 
 class StartBookingTextOrButton extends StatelessWidget {

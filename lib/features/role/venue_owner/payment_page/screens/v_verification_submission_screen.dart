@@ -1,6 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_payment_method.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_thank_you_screen.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/photo_upload_widget.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/v_payment_app_bar.dart';
@@ -9,13 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VVerificationSubmissionScreen extends StatelessWidget {
-  final bool isDarkMode =
-      Get.put(VenueOwnerProfileController()).isDarkMode.value;
-
-  VVerificationSubmissionScreen({super.key});
+  const VVerificationSubmissionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
       backgroundColor: isDarkMode ? Color(0xff151515) : const Color(0xffF9FAFB),
       appBar: VPaymentAppBar(title: 'Verification Submission'),
@@ -109,6 +107,8 @@ class VVerificationSubmissionScreen extends StatelessWidget {
     String labelText, [
     int? maxLines = 1,
   ]) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return TextField(
       style: getTextStyle(
         fontSize: 16,

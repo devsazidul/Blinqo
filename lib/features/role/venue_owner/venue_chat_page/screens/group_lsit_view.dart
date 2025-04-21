@@ -123,7 +123,7 @@ class GroupChatListItem extends StatelessWidget {
     switch (lastMessage.type) {
       case MessageType.text:
         messagePreview = lastMessage.text.length > 30
-            ? '${senderName}${lastMessage.text.substring(0, 30 - senderName.length)}...'
+            ? '$senderName${lastMessage.text.substring(0, 30 - senderName.length)}...'
             : '$senderName${lastMessage.text}';
         break;
       case MessageType.image:

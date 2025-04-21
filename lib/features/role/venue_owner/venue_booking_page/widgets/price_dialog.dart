@@ -1,9 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/controllers/booking_controller.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:get/get.dart';
 
 class PriceDialog extends StatelessWidget {
 
@@ -12,25 +12,31 @@ class PriceDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      backgroundColor: Colors.white,
+      backgroundColor:isDarkMode ? Color(0xff151515) : Colors.white,
       content: TextField(
         onChanged: (value) => controller.price.value = value,
         keyboardType: TextInputType.number,
+        style: getTextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff171725),
+        ),
         decoration: InputDecoration(
           hintText: 'Enter price',
           hintStyle: getTextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: AppColors.hintTextColor,
+            color:isDarkMode ? Color(0xffEBEBEB) : AppColors.hintTextColor,
           ),
           label: Text(
             'Set A Price',
             style: getTextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: Colors.grey,
+              color:isDarkMode ? Color(0xffEBEBEB) : Colors.grey,
             ),
           ),
           border: OutlineInputBorder(

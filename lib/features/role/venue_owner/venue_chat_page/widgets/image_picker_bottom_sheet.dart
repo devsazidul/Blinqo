@@ -29,7 +29,7 @@ class ImagePickerBottomSheet extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: const Color(0xFF205295).withOpacity(0.1),
+              color: const Color(0xFF205295).withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
