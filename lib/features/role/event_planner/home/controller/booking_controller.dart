@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../event_home_page/mixin/service_management_mixin.dart';
+import '../../event_home_page/sharch_start_booking/mixin/amenities.dart';
+import '../../event_home_page/sharch_start_booking/mixin/sharch_set_price.dart';
 
-class BookingController extends GetxController with ServiceManagementMixin {
+class BookingController extends GetxController
+    with ServiceManagementMixin, Amenities, SharchSetPrice {
   final eventNameController = TextEditingController();
   final eventPlannerNameController = TextEditingController();
   final numberOfGuestsController = TextEditingController();

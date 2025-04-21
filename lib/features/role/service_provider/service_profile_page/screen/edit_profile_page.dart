@@ -47,28 +47,28 @@ class SpEditProfilePage extends StatelessWidget {
                     spacing: 8,
                     children: [
                       // first name text
-          
+
                       /// First Name
                       ProfileEditTextFormField(
                         label: 'First Name',
                         controller: controller.nameController,
                       ),
-          
+
                       /// Last Name
                       ProfileEditTextFormField(label: 'Last Name'),
-          
+
                       /// Email
                       ProfileEditTextFormField(label: 'Email'),
-          
+
                       /// Country
                       ProfileEditTextFormField(label: 'Country'),
-          
+
                       /// City
                       ProfileEditTextFormField(label: 'City'),
                     ],
                   ),
                 ),
-          
+
                 SizedBox(height: 40),
                 CustomContinueButton(onTap: () {}, title: 'Save & Change'),
               ],

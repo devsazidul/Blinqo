@@ -24,7 +24,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenHeight: screenHeight,
           screenWidth: screenWidth,
           onTap: () {
-            print("Short by Table Shape");
+            // print("Short by Table Shape");
           },
           themeMode: themeMode,
         ),

@@ -47,8 +47,7 @@ class ImagePath {
   static const String nocontentbackground =
       'assets/images/nocontentbackground.png';
 
-  static const String splashImage =
-      'assets/images/splashImage.png';
+  static const String splashImage = 'assets/images/splashImage.png';
 
   static const String homenodata = 'assets/images/homenodata.png';
   static const String seatingArrangement =
@@ -58,4 +57,5 @@ class ImagePath {
   static const String newprofile = 'assets/images/newprofile.png';
   static const String cancelIcon = 'assets/';
   static const String nopaymentfound = 'assets/images/nopaymentfound.png';
+  static const String rectangle = 'assets/images/Rectangle.png';
 }
