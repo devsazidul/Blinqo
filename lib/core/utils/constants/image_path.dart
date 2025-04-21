@@ -58,4 +58,5 @@ class ImagePath {
   static const String newprofile = 'assets/images/newprofile.png';
   static const String cancelIcon = 'assets/';
   static const String nopaymentfound = 'assets/images/nopaymentfound.png';
+  static const String empty = 'assets/images/empty.png';
 }
