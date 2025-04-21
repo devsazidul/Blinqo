@@ -194,16 +194,16 @@ class GroupInfoView extends StatelessWidget {
               onPressed: () {
                 _showRemoveMemberConfirmation(member);
               },
-              child: Text(
-                'Remove',
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              ),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.grey[200],
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: Text(
+                'Remove',
+                style: TextStyle(
+                  color: Colors.red,
                 ),
               ),
             ),

@@ -35,7 +35,7 @@ class BookingController extends GetxController {
   /// Loads initial booking data.
   void _loadBookings() {
     bookings.addAll([
-      // Booking Requests
+     // Booking Requests
       Booking(
         id: '1',
         name: 'Corporate Event',
@@ -101,21 +101,24 @@ class BookingController extends GetxController {
         date: '30 March, 2025',
         time: '5:00 PM',
         status: 'Completed',
-      ),Booking(
+      ),
+      Booking(
         id: '9',
         name: 'Charity Event',
         venue: 'Crystal Room',
         date: '30 March, 2025',
         time: '5:00 PM',
         status: 'Completed',
-      ),Booking(
+      ),
+      Booking(
         id: '10',
         name: 'Charity Event',
         venue: 'Crystal Room',
         date: '30 March, 2025',
         time: '5:00 PM',
         status: 'Completed',
-      ),Booking(
+      ),
+      Booking(
         id: '11',
         name: 'Charity Event',
         venue: 'Crystal Room',

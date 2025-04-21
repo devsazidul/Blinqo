@@ -1,10 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
 
 class SpProfilePage extends StatelessWidget {
@@ -23,7 +25,7 @@ class SpProfilePage extends StatelessWidget {
       return Scaffold(
         backgroundColor:
             themeMode == ThemeMode.dark
-                ? Colors.black
+                ? AppColors.darkBackgroundColor
                 : AppColors.backgroundColor,
         appBar: SpProfileAppBar(title: "Profile"),
         body: ColoredBox(
@@ -198,6 +200,10 @@ class SpProfilePage extends StatelessWidget {
           themeMode,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
+          onTap: () {
+            // TODO: Change the route to the role selection page
+            Get.to(InvitationCardScreen());
+          },
         ),
         ListTile(
           minTileHeight: 60,
