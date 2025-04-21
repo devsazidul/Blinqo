@@ -1,5 +1,5 @@
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_verified_screen.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_screen.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

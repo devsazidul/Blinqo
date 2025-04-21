@@ -1,20 +1,20 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VenueProfileScreen extends StatelessWidget {
-  final VenueOwnerProfileController controller = Get.put(
-    VenueOwnerProfileController(),
-  );
 
-  VenueProfileScreen({super.key});
+
+  const VenueProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final VenueOwnerProfileController controller = Get.put(
+      VenueOwnerProfileController(),
+    );
     // Get the current theme mode (light or dark)
     final bool isDarkMode = controller.isDarkMode.value;
     return Scaffold(
@@ -209,6 +209,7 @@ class VenueProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
               ],
             ),
           ),
@@ -218,6 +219,9 @@ class VenueProfileScreen extends StatelessWidget {
   }
 
   Widget _buildTextField(String hintText, String labelText) {
+    final VenueOwnerProfileController controller = Get.put(
+      VenueOwnerProfileController(),
+    );
     // dark theme text field
     final bool isDarkMode = controller.isDarkMode.value;
     return TextField(
