@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
@@ -19,8 +18,19 @@ class DatePriceCard extends StatelessWidget {
 
   String _getMonthName(int month) {
     const months = [
-      '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      '',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     return months[month];
   }
@@ -28,14 +38,13 @@ class DatePriceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       width: double.infinity,
       decoration: BoxDecoration(
         color: const Color(0xffFFFFFF),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20  ,vertical: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -136,10 +145,7 @@ class DatePriceCard extends StatelessWidget {
                 width: screenWidth * 0.50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    width: 1,
-                    color: const Color(0xff003366),
-                  ),
+                  border: Border.all(width: 1, color: const Color(0xff003366)),
                 ),
                 child: Center(
                   child: Text(

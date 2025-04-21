@@ -1,3 +1,4 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/group_model.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/imger_viewer_view.dart';
@@ -19,7 +20,7 @@ class GroupChatView extends StatelessWidget {
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
-  GroupChatView({Key? key, required this.groupId}) : super(key: key);
+  GroupChatView({super.key, required this.groupId});
 
   void _showImagePickerOptions() {
     Get.bottomSheet(
@@ -35,10 +36,7 @@ class GroupChatView extends StatelessWidget {
             children: [
               Text(
                 'Select Image',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
               Row(
@@ -86,19 +84,12 @@ class GroupChatView extends StatelessWidget {
               color: Color(0xFF205295).withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              icon,
-              color: Color(0xFF205295),
-              size: 30,
-            ),
+            child: Icon(icon, color: Color(0xFF205295), size: 30),
           ),
           SizedBox(height: 8),
           Text(
             title,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -108,9 +99,7 @@ class GroupChatView extends StatelessWidget {
   void _showGroupOptions() {
     Get.dialog(
       Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Column(
@@ -160,26 +149,33 @@ class GroupChatView extends StatelessWidget {
     );
   }
 
-  Widget _buildOptionItem(String title, {required VoidCallback onTap, bool isLast = false}) {
+  Widget _buildOptionItem(
+    String title, {
+    required VoidCallback onTap,
+    bool isLast = false,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
-          border: !isLast ? Border(
-            bottom: BorderSide(
-              color: Colors.grey[200]!,
-              width: 1,
-            ),
-          ) : null,
+          border:
+              !isLast
+                  ? Border(
+                    bottom: BorderSide(color: Colors.grey[200]!, width: 1),
+                  )
+                  : null,
         ),
         child: Center(
           child: Text(
             title,
             style: TextStyle(
               fontSize: 16,
-              color: title.contains('Leave') || title.contains('Delete') ? Colors.red : Colors.black,
+              color:
+                  title.contains('Leave') || title.contains('Delete')
+                      ? Colors.red
+                      : Colors.black,
             ),
           ),
         ),
@@ -193,10 +189,7 @@ class GroupChatView extends StatelessWidget {
         title: Text('Leave Group'),
         content: Text('Are you sure you want to leave this group?'),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
           TextButton(
             onPressed: () {
               Get.back();
@@ -213,12 +206,11 @@ class GroupChatView extends StatelessWidget {
     Get.dialog(
       AlertDialog(
         title: Text('Delete Conversation'),
-        content: Text('Are you sure you want to delete this conversation? This action cannot be undone.'),
+        content: Text(
+          'Are you sure you want to delete this conversation? This action cannot be undone.',
+        ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
           TextButton(
             onPressed: () {
               Get.back();
@@ -243,13 +235,8 @@ class GroupChatView extends StatelessWidget {
 
     if (group == null) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text('Group Chat'),
-          elevation: 0,
-        ),
-        body: Center(
-          child: Text('Group not found'),
-        ),
+        appBar: AppBar(title: Text('Group Chat'), elevation: 0),
+        body: Center(child: Text('Group not found')),
       );
     }
 
@@ -268,9 +255,10 @@ class GroupChatView extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 18,
-                backgroundImage: group.avatar.startsWith('http')
-                    ? NetworkImage(group.avatar)
-                    : FileImage(File(group.avatar)) as ImageProvider,
+                backgroundImage:
+                    group.avatar.startsWith('http')
+                        ? NetworkImage(group.avatar)
+                        : FileImage(File(group.avatar)) as ImageProvider,
               ),
               SizedBox(width: 10),
               Expanded(
@@ -287,10 +275,7 @@ class GroupChatView extends StatelessWidget {
                     ),
                     Text(
                       'Online',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.green,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.green),
                     ),
                   ],
                 ),
@@ -299,10 +284,7 @@ class GroupChatView extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: _showGroupOptions,
-          ),
+          IconButton(icon: Icon(Icons.more_vert), onPressed: _showGroupOptions),
         ],
       ),
       body: Column(
@@ -314,14 +296,14 @@ class GroupChatView extends StatelessWidget {
                 final messages = controller.getGroupMessages(groupId);
 
                 if (messages.isEmpty) {
-                  return Center(
-                    child: Text('No messages yet'),
-                  );
+                  return Center(child: Text('No messages yet'));
                 }
 
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   if (scrollController.hasClients) {
-                    scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                    scrollController.jumpTo(
+                      scrollController.position.maxScrollExtent,
+                    );
                   }
                 });
 
@@ -331,7 +313,8 @@ class GroupChatView extends StatelessWidget {
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
                     final message = messages[index];
-                    final isCurrentUser = message.senderId == chatController.currentUser.value.id;
+                    final isCurrentUser =
+                        message.senderId == chatController.currentUser.value.id;
                     final isSystemMessage = message.senderId == 'system';
 
                     if (isSystemMessage) {
@@ -363,26 +346,28 @@ class GroupChatView extends StatelessWidget {
           Obx(() {
             return groupController.isUploading.value
                 ? Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              color: Colors.white,
-              child: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF205295)),
-                      ),
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  color: Colors.white,
+                  child: Center(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFF205295),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Text('Sending image...'),
+                      ],
                     ),
-                    SizedBox(width: 10),
-                    Text('Sending image...'),
-                  ],
-                ),
-              ),
-            )
+                  ),
+                )
                 : SizedBox.shrink();
           }),
 
@@ -392,10 +377,7 @@ class GroupChatView extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border(
-                top: BorderSide(
-                  color: Colors.grey[200]!,
-                  width: 1,
-                ),
+                top: BorderSide(color: Colors.grey[200]!, width: 1),
               ),
             ),
             child: SafeArea(
@@ -421,7 +403,9 @@ class GroupChatView extends StatelessWidget {
                               decoration: InputDecoration(
                                 hintText: 'Type Message',
                                 border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(vertical: 10),
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ),
                               ),
                               maxLines: null,
                             ),
@@ -439,33 +423,43 @@ class GroupChatView extends StatelessWidget {
 
                   //Send/mic button
                   Obx(() {
-                    final hasText = messageController.text.trim().isNotEmpty.obs;
+                    final hasText =
+                        messageController.text.trim().isNotEmpty.obs;
                     return GestureDetector(
-                      onTap: hasText.value
-                          ? () {
-                        groupController.sendGroupMessage(
-                          groupId,
-                          messageController.text.trim(),
-                        );
-                        messageController.clear();
-                        Future.delayed(const Duration(milliseconds: 100), () {
-                          if (scrollController.hasClients) {
-                            scrollController.animateTo(
-                              scrollController.position.maxScrollExtent,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeOut,
-                            );
-                          }
-                        });
-                      }
-                          : null,
+                      onTap:
+                          hasText.value
+                              ? () {
+                                groupController.sendGroupMessage(
+                                  groupId,
+                                  messageController.text.trim(),
+                                );
+                                messageController.clear();
+                                Future.delayed(
+                                  const Duration(milliseconds: 100),
+                                  () {
+                                    if (scrollController.hasClients) {
+                                      scrollController.animateTo(
+                                        scrollController
+                                            .position
+                                            .maxScrollExtent,
+                                        duration: const Duration(
+                                          milliseconds: 300,
+                                        ),
+                                        curve: Curves.easeOut,
+                                      );
+                                    }
+                                  },
+                                );
+                              }
+                              : null,
                       child: Container(
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: hasText.value
-                              ? const Color(0xFF205295)
-                              : const Color(0xFF205295).withOpacity(0.5),
+                          color:
+                              hasText.value
+                                  ? const Color(0xFF205295)
+                                  : const Color(0xFF205295).withOpacity(0.5),
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -493,12 +487,12 @@ class GroupMessageBubble extends StatelessWidget {
   final Function(String)? onAudioTap;
 
   const GroupMessageBubble({
-    Key? key,
+    super.key,
     required this.message,
     required this.isCurrentUser,
     this.onImageTap,
     this.onAudioTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -514,7 +508,8 @@ class GroupMessageBubble extends StatelessWidget {
           maxWidth: MediaQuery.of(context).size.width * 0.8,
         ),
         child: Column(
-          crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          crossAxisAlignment:
+              isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             // Sender name (only for non-current user)
             if (!isCurrentUser)
@@ -535,8 +530,10 @@ class GroupMessageBubble extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isCurrentUser ? Color(0xFF205295) : Color(0xFFF0F0F0),
                 borderRadius: BorderRadius.circular(16).copyWith(
-                  bottomRight: isCurrentUser ? Radius.circular(4) : Radius.circular(16),
-                  bottomLeft: !isCurrentUser ? Radius.circular(4) : Radius.circular(16),
+                  bottomRight:
+                      isCurrentUser ? Radius.circular(4) : Radius.circular(16),
+                  bottomLeft:
+                      !isCurrentUser ? Radius.circular(4) : Radius.circular(16),
                 ),
               ),
               child: Column(
@@ -552,9 +549,10 @@ class GroupMessageBubble extends StatelessWidget {
                       ChatDateUtils.formatTime(message.timestamp),
                       style: TextStyle(
                         fontSize: 10,
-                        color: isCurrentUser
-                            ? Colors.white.withOpacity(0.7)
-                            : Colors.black.withOpacity(0.5),
+                        color:
+                            isCurrentUser
+                                ? Colors.white.withOpacity(0.7)
+                                : Colors.black.withOpacity(0.5),
                       ),
                     ),
                   ),
@@ -571,32 +569,37 @@ class GroupMessageBubble extends StatelessWidget {
     switch (message.type) {
       case MessageType.image:
         return GestureDetector(
-          onTap: () => message.mediaUrl != null && onImageTap != null
-              ? onImageTap!(message.mediaUrl!)
-              : null,
+          onTap:
+              () =>
+                  message.mediaUrl != null && onImageTap != null
+                      ? onImageTap!(message.mediaUrl!)
+                      : null,
           child: ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-            child: message.mediaUrl!.startsWith('http')
-                ? Image.network(
-              message.mediaUrl!,
-              width: 200,
-              height: 150,
-              fit: BoxFit.cover,
-            )
-                : Image.file(
-              File(message.mediaUrl!),
-              width: 200,
-              height: 150,
-              fit: BoxFit.cover,
-            ),
+            child:
+                message.mediaUrl!.startsWith('http')
+                    ? Image.network(
+                      message.mediaUrl!,
+                      width: 200,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    )
+                    : Image.file(
+                      File(message.mediaUrl!),
+                      width: 200,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
           ),
         );
 
       case MessageType.audio:
         return GestureDetector(
-          onTap: () => message.mediaUrl != null && onAudioTap != null
-              ? onAudioTap!(message.mediaUrl!)
-              : null,
+          onTap:
+              () =>
+                  message.mediaUrl != null && onAudioTap != null
+                      ? onAudioTap!(message.mediaUrl!)
+                      : null,
           child: Container(
             padding: EdgeInsets.all(12),
             child: Row(
@@ -616,20 +619,25 @@ class GroupMessageBubble extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8),
-                Container(
+                SizedBox(
                   width: 100, // Fixed width for audio waveform
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: List.generate(
                       15,
-                          (index) => Expanded(
+                      (index) => Expanded(
                         child: Container(
                           height: 4 + (index % 3) * 4.0,
                           margin: EdgeInsets.symmetric(horizontal: 1),
                           decoration: BoxDecoration(
-                            color: isCurrentUser
-                                ? Colors.white.withOpacity(0.2 + (index % 5) * 0.15)
-                                : Colors.black.withOpacity(0.2 + (index % 5) * 0.15),
+                            color:
+                                isCurrentUser
+                                    ? Colors.white.withOpacity(
+                                      0.2 + (index % 5) * 0.15,
+                                    )
+                                    : Colors.black.withOpacity(
+                                      0.2 + (index % 5) * 0.15,
+                                    ),
                             borderRadius: BorderRadius.circular(1.5),
                           ),
                         ),
@@ -640,7 +648,7 @@ class GroupMessageBubble extends StatelessWidget {
                 SizedBox(width: 8),
                 Text(
                   message.audioDuration ?? '0:00',
-                  style: TextStyle(
+                  style: getTextStyle(
                     fontSize: 12,
                     color: isCurrentUser ? Colors.white : Colors.black,
                   ),
@@ -668,7 +676,7 @@ class GroupMessageBubble extends StatelessWidget {
 class SystemMessage extends StatelessWidget {
   final String text;
 
-  const SystemMessage({Key? key, required this.text}) : super(key: key);
+  const SystemMessage({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

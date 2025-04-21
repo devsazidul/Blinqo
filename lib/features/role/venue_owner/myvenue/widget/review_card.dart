@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../core/common/styles/global_text_style.dart';
 
 class ReviewCard extends StatelessWidget {
@@ -52,7 +50,7 @@ class ReviewCard extends StatelessWidget {
                   Row(
                     children: List.generate(
                       rating,
-                          (index) => const Icon(
+                      (index) => const Icon(
                         Icons.star,
                         color: Color(0xffF0C020),
                         size: 15,

@@ -13,12 +13,14 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
   const VPaymentAppBar({
     super.key,
     required this.title,
-    this.isCloseButtonVisible, this.isBackButtonVisible =true,
+    this.isCloseButtonVisible,
+    this.isBackButtonVisible = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return AppBar(
       backgroundColor: AppColors.backgroundColor,
       forceMaterialTransparency: true,
@@ -31,12 +33,13 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
           child: Visibility(
             visible: isBackButtonVisible ?? false,
             child: CircleAvatar(
-              backgroundColor:isDarkMode ? Color(0x1AFFFFFF) : const Color(0x1A333333),
+              backgroundColor:
+                  isDarkMode ? Color(0x1AFFFFFF) : const Color(0x1A333333),
               child: Image.asset(
                 IconPath.arrowLeftAlt,
                 width: 16,
                 height: 12,
-                color:isDarkMode ? Colors.white : AppColors.textColor,
+                color: isDarkMode ? Colors.white : AppColors.textColor,
               ),
             ),
           ),
@@ -48,7 +51,7 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
         style: getTextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w600,
-          color:isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+          color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
         ),
       ),
       actions: [
@@ -61,12 +64,13 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
             child: Visibility(
               visible: isCloseButtonVisible ?? false,
               child: CircleAvatar(
-                backgroundColor:isDarkMode ? Color(0x1AFFFFFF) :  Color(0x1A333333),
+                backgroundColor:
+                    isDarkMode ? Color(0x1AFFFFFF) : Color(0x1A333333),
                 child: Image.asset(
                   IconPath.close,
                   width: 16,
                   height: 16,
-                  color:isDarkMode ? Colors.white : AppColors.textColor,
+                  color: isDarkMode ? Colors.white : AppColors.textColor,
                 ),
               ),
             ),
@@ -78,10 +82,8 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(56.0);
 
   @override
-  // TODO: implement child
   Widget get child => throw UnimplementedError();
 }
