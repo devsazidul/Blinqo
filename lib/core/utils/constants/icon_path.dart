@@ -115,6 +115,7 @@ class IconPath {
   static const String paymentaddicone = "assets/icons/paymentaddicone.png";
   static const String cancel2 = "assets/icons/cancel2.png";
   static const String addIcon = "assets/icons/add_icon.png";
+  static const String editPancilOnFram = "assets/icons/editPencilOnFram.png";
   static const String wifi = "assets/icons/wifi.png";
   static const String bikeDock = "assets/icons/bike_dock.png";
   static const String modeFan = "assets/icons/mode_fan.png";
