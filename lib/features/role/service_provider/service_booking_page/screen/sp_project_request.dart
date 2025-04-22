@@ -9,10 +9,9 @@ import 'package:blinqo/features/role/service_provider/service_profile_page/contr
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class SpProjectRequest extends StatelessWidget {
   SpProjectRequest({super.key});
-  SpProjectRequestcontroller spProjectRequestcontroller = Get.put(
+  final SpProjectRequestcontroller spProjectRequestcontroller = Get.put(
     SpProjectRequestcontroller(),
   );
   final controller = Get.put(SpProfileController());

@@ -185,7 +185,7 @@ class BookingDetailsPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color:isDarkMode ? Color(0x1AD4AF37) : Color(0x1A003366),
+        color: isDarkMode ? Color(0x1AD4AF37) : Color(0x1A003366),
         borderRadius: BorderRadius.circular(40),
       ),
       child: Text(

@@ -2,6 +2,9 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../review_booking/screen/review_booking.dart';
 
 class StartBookingButton extends StatelessWidget {
   const StartBookingButton({
@@ -21,7 +24,9 @@ class StartBookingButton extends StatelessWidget {
           width: double.infinity,
 
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(ReviewBooking());
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.buttonColor2, // Your custom color
               shape: RoundedRectangleBorder(
@@ -68,6 +73,7 @@ class StartBookingButton extends StatelessWidget {
             ),
           ),
         ),
+
         SizedBox(height: screenHeight * 0.04),
       ],
     );
