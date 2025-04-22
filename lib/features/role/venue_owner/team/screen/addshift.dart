@@ -1,22 +1,19 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/widget/SearchBarWidget.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/addshiftcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/shifcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/widget/search_employee.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class Addshift extends StatelessWidget {
   const Addshift({super.key});
   @override
   Widget build(BuildContext context) {
     final Addshiftcontroller controller = Get.put(Addshiftcontroller());
-    TextEditingController Search = TextEditingController();
+    TextEditingController search = TextEditingController();
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
-    final double screenWidth = screenSize.width;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -27,7 +24,7 @@ class Addshift extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 24),
-                SearchEmployee(controller: Search),
+                SearchEmployee(controller: search),
                 SizedBox(height: 20),
                 Text(
                   '${controller.employees.length} Members', // Dynamically show the number of employees

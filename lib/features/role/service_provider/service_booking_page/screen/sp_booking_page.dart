@@ -11,7 +11,6 @@ import 'package:blinqo/features/role/service_provider/service_home_page/widget/u
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venueDetailsScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class SpBookingPage extends StatelessWidget {

@@ -204,7 +204,6 @@ class SpProfilePage extends StatelessWidget {
           title: "Switch Role",
           iconPath: IconPath.switchRole,
           onTap: () {
-            // TODO: Change the route to the role selection page
             Get.to(InvitationCardScreen());
           },
         ),

@@ -22,8 +22,6 @@ class VenueSetupScreen extends StatelessWidget {
     final AmenitiesController amenitiesController = Get.put(
       AmenitiesController(),
     );
-    // Text controller for the popup text field
-    final TextEditingController amenityController = TextEditingController();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 

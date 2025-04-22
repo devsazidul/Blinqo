@@ -2,15 +2,11 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/createshift.dart';
 import 'package:blinqo/features/role/venue_owner/team/widget/custom_calendar.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Schedule extends StatelessWidget {
@@ -19,11 +15,8 @@ class Schedule extends StatelessWidget {
   Widget build(BuildContext context) {
     final TeamControllerGetx teamControllerGetx =
         Get.find<TeamControllerGetx>();
-    final SpHomeController spHomeController = Get.put(SpHomeController());
-
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
-    final double screenWidth = screenSize.width;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -38,7 +31,7 @@ class Schedule extends StatelessWidget {
                 child: const CustomDatePicker(),
               ),
               SizedBox(height: 40),
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Obx(() {
                   if (teamControllerGetx.containerList.isEmpty) {
@@ -101,9 +94,12 @@ class Schedule extends StatelessWidget {
                                       ),
                                     ),
                                     Spacer(),
-                                    InkWell( 
-                                      onTap: (){
-                                         Get.to(() => Createshift(title: item['title']));
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(
+                                          () =>
+                                              Createshift(title: item['title']),
+                                        );
                                       },
                                       child: Image.asset(
                                         IconPath.editPencil,
@@ -151,28 +147,34 @@ class Schedule extends StatelessWidget {
                   }
                 }),
               ),
-              SizedBox(height: 40,),
+              SizedBox(height: 40),
               InkWell(
-                onTap: (){
-                 Get.to(()=>Createshift());
-                }, 
+                onTap: () {
+                  Get.to(() => Createshift());
+                },
                 child: Container(
                   width: double.infinity,
-                  height: screenHeight*0.070,
+                  height: screenHeight * 0.070,
                   decoration: BoxDecoration(
                     color: Color(0xff003366),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
-                
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Add Shift',style: GoogleFonts.roboto(fontSize: 16,fontWeight: FontWeight.w500,color: Color(0xffF4F4F4)),),
-                      SizedBox(width: 15,),
-                      Icon(Icons.add,color: Color(0xffF4F4F4),weight: 24,),
-                    ],
-                  ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Add Shift',
+                          style: GoogleFonts.roboto(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xffF4F4F4),
+                          ),
+                        ),
+                        SizedBox(width: 15),
+                        Icon(Icons.add, color: Color(0xffF4F4F4), weight: 24),
+                      ],
+                    ),
                   ),
                 ),
               ),

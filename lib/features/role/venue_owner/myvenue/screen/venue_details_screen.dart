@@ -361,7 +361,7 @@ class VenueDetailsScreen extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color:isDarkMode ? Color(0xff32383D) : Colors.white,
+                      color: isDarkMode ? Color(0xff32383D) : Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: CustomCalendar(
@@ -372,9 +372,17 @@ class VenueDetailsScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      StatusLabel(color:isDarkMode ? Color(0xff0066CC) : Color(0xff0066CC), label: 'Booked'),
+                      StatusLabel(
+                        color:
+                            isDarkMode ? Color(0xff0066CC) : Color(0xff0066CC),
+                        label: 'Booked',
+                      ),
                       const SizedBox(height: 8),
-                      StatusLabel(color:isDarkMode ? Color(0xff34C759) : Color(0xff19480B), label: 'Selected'),
+                      StatusLabel(
+                        color:
+                            isDarkMode ? Color(0xff34C759) : Color(0xff19480B),
+                        label: 'Selected',
+                      ),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -610,7 +618,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   Padding(
@@ -625,7 +633,10 @@ class VenueDetailsScreen extends StatelessWidget {
                             style: getTextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
-                              color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff444444),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff444444),
                             ),
                           ),
                         ),
@@ -640,7 +651,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   Padding(
@@ -655,11 +666,21 @@ class VenueDetailsScreen extends StatelessWidget {
                             style: getTextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
-                              color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff444444),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff444444),
                             ),
                           ),
                         ),
-                        Icon(Icons.arrow_right_alt,size:16,color: isDarkMode?Color(0xffEBEBEB):Color(0xff444444,),),
+                        Icon(
+                          Icons.arrow_right_alt,
+                          size: 16,
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xff444444),
+                        ),
                       ],
                     ),
                   ),

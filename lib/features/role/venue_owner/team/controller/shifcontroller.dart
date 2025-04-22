@@ -1,7 +1,6 @@
 import 'package:blinqo/features/role/venue_owner/team/controller/addshiftcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class ShiftController extends GetxController {
   var startTime = Rx<TimeOfDay?>(null);
@@ -35,6 +34,7 @@ class ShiftController extends GetxController {
       }
     }
   }
+
   var selectedEmployees = <Employee>[].obs;
 
   // Function to set selected employees

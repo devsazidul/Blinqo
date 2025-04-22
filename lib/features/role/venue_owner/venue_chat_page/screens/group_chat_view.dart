@@ -158,8 +158,6 @@ class GroupChatView extends StatelessWidget {
     required VoidCallback onTap,
     bool isLast = false,
   }) {
-    final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return InkWell(
       onTap: onTap,
       child: Container(

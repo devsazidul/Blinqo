@@ -40,9 +40,9 @@ class ExploreAllScreen extends StatelessWidget {
             },
             child: CircleAvatar(
               backgroundColor:
-              isDarkMode
-                  ? Color(0xFFD9D9D9).withAlpha(40)
-                  : const Color(0xFFD9D9D9),
+                  isDarkMode
+                      ? Color(0xFFD9D9D9).withAlpha(40)
+                      : const Color(0xFFD9D9D9),
               child: Image.asset(
                 IconPath.arrowLeftAlt,
                 width: 16,
@@ -54,7 +54,7 @@ class ExploreAllScreen extends StatelessWidget {
         ),
 
         title: Text(
-          title ?? '',
+          title,
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,

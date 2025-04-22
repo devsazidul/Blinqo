@@ -27,7 +27,10 @@ class WorkPostScreen extends StatelessWidget {
     //       controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
 
     return Scaffold(
-      backgroundColor: themeMode == ThemeMode.dark ? AppColors.darkBackgroundColor : AppColors.backgroundColor,
+      backgroundColor:
+          themeMode == ThemeMode.dark
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       appBar: SpProfileAppBar(onPressed: () => showEditDeletePopup(context)),
       body: Obx(
         () => SingleChildScrollView(
@@ -42,7 +45,10 @@ class WorkPostScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
-                    color: isDarkMode ? AppColors.darkHeaddingTextColor : AppColors.buttonColor2,
+                    color:
+                        isDarkMode
+                            ? AppColors.darkHeaddingTextColor
+                            : AppColors.buttonColor2,
                   ),
                 ),
                 SizedBox(height: 16),
@@ -51,7 +57,10 @@ class WorkPostScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: isDarkMode? AppColors.darkTextColor : Color(0xFF5C5C5C),
+                    color:
+                        isDarkMode
+                            ? AppColors.darkTextColor
+                            : Color(0xFF5C5C5C),
                   ),
                 ),
                 SizedBox(height: 12),
@@ -66,7 +75,10 @@ class WorkPostScreen extends StatelessWidget {
                       // '${post.likes}',
                       style: getTextStyle(
                         fontSize: 14,
-                        color: isDarkMode ? Colors.grey.shade50 : AppColors.textColor,
+                        color:
+                            isDarkMode
+                                ? Colors.grey.shade50
+                                : AppColors.textColor,
                         // lineHeight: 1
                       ),
                     ),
@@ -77,7 +89,14 @@ class WorkPostScreen extends StatelessWidget {
                       },
                       child: Column(
                         children: [
-                          Image.asset(IconPath.likeIcon, width: 20, color: isDarkMode? AppColors.buttonColor : AppColors.buttonColor2,),
+                          Image.asset(
+                            IconPath.likeIcon,
+                            width: 20,
+                            color:
+                                isDarkMode
+                                    ? AppColors.buttonColor
+                                    : AppColors.buttonColor2,
+                          ),
                           SizedBox(height: 6),
                         ],
                       ),
@@ -108,7 +127,7 @@ class WorkPostScreen extends StatelessWidget {
                           if (i % 2 == 0)
                             GestureDetector(
                               onTap: () {
-                                print(
+                                debugPrint(
                                   'Image tapped: ${_workPostController.imageUrls[i]}',
                                 );
                               },
@@ -149,7 +168,7 @@ class WorkPostScreen extends StatelessWidget {
                           if (i % 2 == 1)
                             GestureDetector(
                               onTap: () {
-                                print(
+                                debugPrint(
                                   'Image tapped: ${_workPostController.imageUrls[i]}',
                                 );
                               },
