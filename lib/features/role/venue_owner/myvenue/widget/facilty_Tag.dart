@@ -17,20 +17,21 @@ class FacilityTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
       width: width,
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color:isDarkMode ? Color(0xff32383D) :  Color(0xffFBF7EB),
+        color: isDarkMode ? Color(0xff32383D) : Color(0xffFBF7EB),
         borderRadius: BorderRadius.circular(34),
-       boxShadow: [
-         BoxShadow(
-           color: Color(0xff000000).withValues(alpha: .3),
-           blurRadius: 8,
-           offset: Offset(0, 3)
-         )
-       ]
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xff000000).withValues(alpha: .3),
+            blurRadius: 8,
+            offset: Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -42,7 +43,7 @@ class FacilityTag extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color:isDarkMode ? Color(0xffEBEBEB) : const Color(0xff333333),
+              color: isDarkMode ? Color(0xffEBEBEB) : const Color(0xff333333),
             ),
           ),
         ],

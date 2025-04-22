@@ -9,7 +9,7 @@ import '../../../../../core/common/styles/global_text_style.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/icon_path.dart';
 import '../widget/custom_textfield.dart';
-import '../widget/facilty_Tag.dart';
+import '../widget/facilty_tag.dart';
 
 class EditVenue extends StatelessWidget {
   final String image;
@@ -64,8 +64,10 @@ class EditVenue extends StatelessWidget {
                           top: 40,
                           child: CircleAvatar(
                             radius: 20,
-                            backgroundColor: isDarkMode
-                                ? Color(0xFFD9D9D9).withAlpha(40): Color(0xFFD9D9D9),
+                            backgroundColor:
+                                isDarkMode
+                                    ? Color(0xFFD9D9D9).withAlpha(40)
+                                    : Color(0xFFD9D9D9),
                             child: Image.asset(
                               IconPath.arrowLeftAlt,
                               width: 16,
