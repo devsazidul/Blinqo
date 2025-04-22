@@ -38,23 +38,6 @@ class SpChatPage extends StatelessWidget {
                       : AppColors.textColor,
             ),
           ),
-          actions: [
-            GestureDetector(
-              onTap: () {
-                controller.toggleDarkMode();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.dark_mode,
-                  color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.primary
-                          : AppColors.textColor,
-                ),
-              ),
-            ),
-          ],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),

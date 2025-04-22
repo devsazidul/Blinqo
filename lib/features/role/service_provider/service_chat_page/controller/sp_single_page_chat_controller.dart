@@ -79,60 +79,91 @@ class SpSinglePageChatController extends GetxController {
   // Inside SpSinglePageChatController
 
   var selectedImage = Rx<XFile?>(null);
-
   Future<void> pickImage() async {
-    final pickedOption = await showDialog<String>(
+    final pickedOption = await showModalBottomSheet<String>(
       context: Get.context!,
       builder: (context) {
-        return AlertDialog(
-          title: Text(
-            'Pick an image',
-            style: getTextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-              color: AppColors.buttonColor2,
-            ),
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          height: 170,
+          child: Column(
+            children: [
+              Text(
+                'Select Image',
+                style: getTextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.buttonColor2,
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Camera option
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop('camera');
+                    },
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.buttonColor2.withOpacity(
+                            0.1,
+                          ),
+                          radius: 25,
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: AppColors.buttonColor2,
+                            size: 30,
+                          ),
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          'Camera',
+                          style: getTextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.buttonColor2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Gallery option
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop('gallery');
+                    },
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.buttonColor2.withValues(
+                            alpha: 0.1,
+                          ),
+                          radius: 25,
+                          child: Icon(
+                            Icons.photo,
+                            color: AppColors.buttonColor2,
+                            size: 30,
+                          ),
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          'Gallery',
+                          style: getTextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.buttonColor2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop('gallery');
-              },
-              child: Row(
-                children: [
-                  Icon(Icons.photo, color: AppColors.buttonColor2),
-                  SizedBox(width: 8),
-                  Text(
-                    'Gallery',
-                    style: getTextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.buttonColor2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop('camera');
-              },
-              child: Row(
-                children: [
-                  Icon(Icons.camera_alt, color: AppColors.buttonColor2),
-                  SizedBox(width: 8),
-                  Text(
-                    'Camera',
-                    style: getTextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.buttonColor2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         );
       },
     );

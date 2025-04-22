@@ -23,7 +23,7 @@ class SpPaymentOption extends StatelessWidget {
           child: CircleAvatar(
             radius: 20,
             backgroundColor: const Color(0xFFD9D9D9),
-            child: Image.asset(IconPath.arrowLeftAlt),
+            child: Image.asset(IconPath.arrowleft, width: 20, height: 20),
           ),
         ),
         title: Text(
