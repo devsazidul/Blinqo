@@ -1,9 +1,13 @@
+import 'dart:ui';
+
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/core/utils/helpers/app_helper.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/edit_invitation_card_screen.dart';
+import 'package:blinqo/features/role/event_planner/invitation/screens/guest_list_screen.dart';
 import 'package:blinqo/features/role/event_planner/invitation/widgets/custom_appbar_widget.dart';
+import 'package:blinqo/features/role/event_planner/invitation/widgets/ep_custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -113,16 +117,47 @@ class InvitationCardScreen extends StatelessWidget {
                 horizontal: 16.0,
                 vertical: 40,
               ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffFF2D55),
-                  foregroundColor: Colors.white,
-                  minimumSize: Size(AppHelperFunctions.screenWidth(), 48),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {},
+              child: EpCustomButton(
+                onPressed: () {
+                  _showBlurredDialog(context);
+
+                  // Get.dialog(
+                  //   barrierColor: Colors.transparent.withValues(),
+                  //   Dialog(
+                  //     insetPadding: EdgeInsets.zero,
+                  //     backgroundColor: Colors.white,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(14),
+                  //     ),
+                  //     child: Column(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       children: [
+                  //         SizedBox(height: 16),
+                  //         Image.network(
+                  //           "https://s3-alpha-sig.figma.com/img/745a/740e/1df6209b7348876fd5caeabc40134c47?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Kl6FEco0-0babaW9dSJlR351yRCs~-DCTDh6kDGDv0-W4NIbacvenGkmS910qSQaLflRDdLIvgQ2h9Oux6eRHsh7EN9v6xP9hjm1A9TUi2Bmd5hHVpuAR7Vs6eUXDyzvWpEO~KFXwAdSGom2yDYpEIB9r4hw~U~LeovHvv55NiSh8kxtgnH1tJAv~0SkcQIAkvp~YJ1RNKbSJ~fbnFXCsRso5tHWCUvDZaBd1MlPSlNfiMlNoMc7lfYDR-miCTZtEFyRPJndDIV~eJyVtVosGUnUXqCP2P6mqc0lCHVPBVEHyut-71ln46-Yky0YqAXv926swZEfkZvzoqqjcvQYPQ__",
+                  //           width: 217,
+                  //           height: 217,
+                  //         ),
+                  //         SizedBox(height: 32),
+                  //         SizedBox(
+                  //           width: 136,
+                  //           child: EpCustomButton(
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               spacing: 16,
+                  //               children: [
+                  //                 Text("Share"),
+                  //                 Icon(Icons.share_outlined),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(height: 32),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // );
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 16,
@@ -136,6 +171,59 @@ class InvitationCardScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showBlurredDialog(BuildContext context) {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: "Blurred Dialog",
+      barrierColor: Colors.black.withAlpha(180), // Semi-transparent background
+      transitionDuration: Duration(milliseconds: 300),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Apply blur effect
+          child: Center(
+            child: Dialog(
+              insetPadding: EdgeInsets.zero,
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(13),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 16),
+                  Image.network(
+                    "https://s3-alpha-sig.figma.com/img/745a/740e/1df6209b7348876fd5caeabc40134c47?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Kl6FEco0-0babaW9dSJlR351yRCs~-DCTDh6kDGDv0-W4NIbacvenGkmS910qSQaLflRDdLIvgQ2h9Oux6eRHsh7EN9v6xP9hjm1A9TUi2Bmd5hHVpuAR7Vs6eUXDyzvWpEO~KFXwAdSGom2yDYpEIB9r4hw~U~LeovHvv55NiSh8kxtgnH1tJAv~0SkcQIAkvp~YJ1RNKbSJ~fbnFXCsRso5tHWCUvDZaBd1MlPSlNfiMlNoMc7lfYDR-miCTZtEFyRPJndDIV~eJyVtVosGUnUXqCP2P6mqc0lCHVPBVEHyut-71ln46-Yky0YqAXv926swZEfkZvzoqqjcvQYPQ__",
+                    width: 217,
+                    height: 217,
+                  ),
+                  SizedBox(height: 32),
+                  SizedBox(
+                    width: 136,
+                    child: EpCustomButton(
+                      onPressed: () {
+                        Get.to(() => GuestListScreen());
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Share"),
+                          SizedBox(width: 8),
+                          Icon(Icons.share_outlined),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

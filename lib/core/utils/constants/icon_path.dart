@@ -122,6 +122,7 @@ class IconPath {
   static const String bikeDock = "assets/icons/bike_dock.png";
   static const String modeFan = "assets/icons/mode_fan.png";
   static const String pool = "assets/icons/pool.png";
+  static const String filterIcon = "assets/icons/filterIcon.png";
   static const String group = "assets/icons/Group.png";
   static const String shoppingmode = "assets/icons/shoppingmode.png";
   static const String cardsstar = "assets/icons/cards_star.png";

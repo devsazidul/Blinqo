@@ -178,6 +178,9 @@ class SpProfilePage extends StatelessWidget {
             onTap: () {
               // Toggle the dark mode using the spUserProfileControler
               controller.toggleDarkMode();
+              Get.isDarkMode
+                  ? Get.changeThemeMode(ThemeMode.light)
+                  : Get.changeThemeMode(ThemeMode.dark);
             },
           ),
         ),
