@@ -29,9 +29,10 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
       Venue(),
       VenueOwnerBooking(),
       // ChatListView(),
+       ChatListView(),
       Emptyschedule(),
 
-      ChatListView(),
+    
       // MainView(),
       Text('Screen 5'),
     ];

@@ -31,6 +31,7 @@ import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_send_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_signup_screen.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/createshift.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
@@ -77,6 +78,7 @@ class AppRoute {
   static String otpscreen = '/otpscreen';
   static String changePasswordScreen = '/changePasswordScreen';
   static String createshift = '/createShiftScreen';
+  static String addShift = '/addShift';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -121,6 +123,7 @@ class AppRoute {
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
     GetPage(name: homeEventPlanner, page: () => const HomeEventPlanner()),
     GetPage(name: roleScreen, page: () => const RoleScreen()),
+    GetPage(name:addShift, page: ()=>Addshift()),
     // GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: onbordingScreen, page: () => OnbordingScreen()),
     GetPage(name: bottomNavBar, page: () => BottomNavBar()),
