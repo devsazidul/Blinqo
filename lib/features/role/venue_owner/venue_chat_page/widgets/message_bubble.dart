@@ -2,9 +2,12 @@ import 'dart:io';
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/utils/date_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class MessageBubble extends StatelessWidget {
   final Message message;
@@ -22,6 +25,7 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Align(
       alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
@@ -31,7 +35,7 @@ class MessageBubble extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color:
-              isCurrentUser ? AppColors.buttonColor2 : const Color(0xFFF2F3F5),
+              isCurrentUser ? AppColors.buttonColor2 : Color(0xFFEEEEEE),
           borderRadius: BorderRadius.circular(16).copyWith(
             bottomRight:
                 isCurrentUser

@@ -1,4 +1,5 @@
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_forget_password_controller.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
@@ -44,7 +45,7 @@ class VOptSendScreen extends StatelessWidget {
                           color: Color(0xFF333333),
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          lineHeight: 14,
+                          lineHeight: 1.5,
                         ),
                       ),
                       TextSpan(
@@ -76,13 +77,14 @@ class VOptSendScreen extends StatelessWidget {
                 SizedBox(height: 32),
                 Obx(
                   () => CustomButton(
+
                     title: 'Continue',
                     textcolor: vForgetPasswordController.isFormValid2.value
                         ? Colors.white
                         : Color(0xFF003366),
                     onPress: vForgetPasswordController.isFormValid2.value
                         ? () {
-                            // Proceed with form submission
+                      Get.to(VChangePassword());
                           }
                         : null,
                     backgroundColor: vForgetPasswordController.isFormValid2.value

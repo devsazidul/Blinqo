@@ -1,4 +1,6 @@
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
 
@@ -37,10 +39,11 @@ class DatePriceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xffFFFFFF),
+        color: isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
@@ -56,7 +59,7 @@ class DatePriceCard extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xff333333),
+                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                   ),
                 ),
                 const Spacer(),
@@ -82,7 +85,7 @@ class DatePriceCard extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xff19480B),
+                        color: isDarkMode ? Color(0xff34C759) : Color(0xff19480B),
                       ),
                     );
                   },
@@ -100,7 +103,7 @@ class DatePriceCard extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xff333333),
+                    color:isDarkMode ? Color(0xffEBEBEB) : const Color(0xff333333),
                   ),
                 ),
                 const Spacer(),
@@ -111,7 +114,7 @@ class DatePriceCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       width: 1,
-                      color: const Color(0xffABB7C2),
+                      color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
                     ),
                   ),
                   child: TextField(
@@ -119,7 +122,7 @@ class DatePriceCard extends StatelessWidget {
                     style: getTextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
-                      color: const Color(0xff19480B),
+                      color: isDarkMode ? Color(0xff34C759) : Color(0xff19480B),
                     ),
                     decoration: InputDecoration(
                       labelText: 'Price',
@@ -145,7 +148,7 @@ class DatePriceCard extends StatelessWidget {
                 width: screenWidth * 0.50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(width: 1, color: const Color(0xff003366)),
+                  border: Border.all(width: 1, color:isDarkMode ? Color(0xffD4AF37) : const Color(0xff003366)),
                 ),
                 child: Center(
                   child: Text(
@@ -153,7 +156,7 @@ class DatePriceCard extends StatelessWidget {
                     style: getTextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
-                      color: const Color(0xff003366),
+                      color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                     ),
                   ),
                 ),

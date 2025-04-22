@@ -1,16 +1,19 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/group_model.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/imger_viewer_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'dart:io';
 import '../controllers/chat_controller.dart';
 import '../controllers/group_controller.dart';
-
 import '../utils/date_utils.dart';
-
 import 'group_info_view.dart';
 
 class GroupChatView extends StatelessWidget {
@@ -19,6 +22,7 @@ class GroupChatView extends StatelessWidget {
   final ChatController chatController = Get.find<ChatController>();
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
+  final RxBool showEmojiPicker = false.obs;
 
   GroupChatView({super.key, required this.groupId});
 
@@ -36,7 +40,7 @@ class GroupChatView extends StatelessWidget {
             children: [
               Text(
                 'Select Image',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: getTextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
               Row(
@@ -81,15 +85,15 @@ class GroupChatView extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: Color(0xFF205295).withOpacity(0.1),
+              color: AppColors.iconColor.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: Color(0xFF205295), size: 30),
+            child: Icon(icon, color: AppColors.iconColor, size: 30),
           ),
           SizedBox(height: 8),
           Text(
             title,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            style: getTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -154,6 +158,8 @@ class GroupChatView extends StatelessWidget {
     required VoidCallback onTap,
     bool isLast = false,
   }) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -170,7 +176,7 @@ class GroupChatView extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: TextStyle(
+            style: getTextStyle(
               fontSize: 16,
               color:
                   title.contains('Leave') || title.contains('Delete')
@@ -189,13 +195,16 @@ class GroupChatView extends StatelessWidget {
         title: Text('Leave Group'),
         content: Text('Are you sure you want to leave this group?'),
         actions: [
-          TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text('Cancel', style: getTextStyle()),
+          ),
           TextButton(
             onPressed: () {
               Get.back();
               groupController.leaveGroup(groupId);
             },
-            child: Text('Leave', style: TextStyle(color: Colors.red)),
+            child: Text('Leave', style: getTextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -210,11 +219,13 @@ class GroupChatView extends StatelessWidget {
           'Are you sure you want to delete this conversation? This action cannot be undone.',
         ),
         actions: [
-          TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text('Cancel', style: getTextStyle()),
+          ),
           TextButton(
             onPressed: () {
               Get.back();
-              // In a real app, you would delete the conversation here
               Get.back(); // Go back to chat list
               Get.snackbar(
                 'Success',
@@ -222,7 +233,7 @@ class GroupChatView extends StatelessWidget {
                 snackPosition: SnackPosition.BOTTOM,
               );
             },
-            child: Text('Delete', style: TextStyle(color: Colors.red)),
+            child: Text('Delete', style: getTextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -231,51 +242,86 @@ class GroupChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final group = groupController.getGroupById(groupId);
 
     if (group == null) {
       return Scaffold(
-        appBar: AppBar(title: Text('Group Chat'), elevation: 0),
+        backgroundColor: const Color(0xFFFFF5D7),
+        appBar: AppBar(
+          title: Text('Group Chat'),
+          elevation: 0,
+          backgroundColor: AppColors.backgroundColor,
+        ),
         body: Center(child: Text('Group not found')),
       );
     }
 
     return Scaffold(
+      backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xFFE6EBF0),
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Get.back(),
+        automaticallyImplyLeading: false,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: CircleAvatar(
+              backgroundColor:
+                  isDarkMode
+                      ? Color(0xFFD9D9D9).withAlpha(40)
+                      : const Color(0xFFD9D9D9),
+              child: Image.asset(
+                IconPath.arrowLeftAlt,
+                width: 16,
+                height: 12,
+                color: isDarkMode ? Colors.white : AppColors.textColor,
+              ),
+            ),
+          ),
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+          side: BorderSide(color: Color(0xff003366), width: 1),
+        ),
+        elevation: 0,
+        backgroundColor: isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
+        forceMaterialTransparency: false,
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back, size: 24),
+        //   onPressed: () => Get.back(),
+        // ),
         title: GestureDetector(
           onTap: () => Get.to(() => GroupInfoView(groupId: groupId)),
           child: Row(
             children: [
               CircleAvatar(
-                radius: 18,
+                radius: 20,
                 backgroundImage:
                     group.avatar.startsWith('http')
                         ? NetworkImage(group.avatar)
                         : FileImage(File(group.avatar)) as ImageProvider,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       group.name,
-                      style: TextStyle(
+                      style: getTextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
+                        color:
+                            isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       'Online',
-                      style: TextStyle(fontSize: 12, color: Colors.green),
+                      style: getTextStyle(fontSize: 14, color: Colors.green),
                     ),
                   ],
                 ),
@@ -284,12 +330,18 @@ class GroupChatView extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(icon: Icon(Icons.more_vert), onPressed: _showGroupOptions),
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: isDarkMode ? Colors.white : Colors.black,
+              size: 28,
+            ),
+            onPressed: _showGroupOptions,
+          ),
         ],
       ),
       body: Column(
         children: [
-          // Messages list
           Expanded(
             child: GetBuilder<GroupController>(
               builder: (controller) {
@@ -309,7 +361,7 @@ class GroupChatView extends StatelessWidget {
 
                 return ListView.builder(
                   controller: scrollController,
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
                     final message = messages[index];
@@ -328,7 +380,6 @@ class GroupChatView extends StatelessWidget {
                         Get.to(() => ImageViewerView(imageUrl: url));
                       },
                       onAudioTap: (url) {
-                        // Audio playback functionality would go here
                         Get.snackbar(
                           'Coming Soon',
                           'Audio playback will be available in the next update',
@@ -341,140 +392,234 @@ class GroupChatView extends StatelessWidget {
               },
             ),
           ),
+          _buildUploadingIndicator(),
+          _buildChatInput(context),
+        ],
+      ),
+    );
+  }
 
-          // Uploading indicator
-          Obx(() {
-            return groupController.isUploading.value
-                ? Container(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  color: Colors.white,
-                  child: Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Color(0xFF205295),
-                            ),
+  Widget _buildUploadingIndicator() {
+    return Obx(
+      () =>
+          groupController.isUploading.value
+              ? Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF205295),
                           ),
                         ),
-                        SizedBox(width: 10),
-                        Text('Sending image...'),
+                      ),
+                      SizedBox(width: 10),
+                      Text('Sending image...'),
+                    ],
+                  ),
+                ),
+              )
+              : const SizedBox.shrink(),
+    );
+  }
+
+  Widget _buildChatInput(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      decoration: BoxDecoration(
+        color: isDarkMode ? Color(0xff151515) : Color(0xFFE6EBF0),
+      ),
+      child: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: isDarkMode ? Color(0xff32383D) : Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.emoji_emotions_outlined),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffD4AF37)
+                                  : AppColors.iconColor,
+                          onPressed: () {
+                            if (!showEmojiPicker.value) {
+                              FocusScope.of(context).unfocus();
+                              showEmojiPicker.value = true;
+                            } else {
+                              showEmojiPicker.value = false;
+                            }
+                          },
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: TextField(
+                            style: getTextStyle(
+                              color: isDarkMode ? Colors.white : Colors.black,
+                            ),
+                            controller: messageController,
+                            decoration: InputDecoration(
+                              hintText: 'Type Message',
+                              hintStyle: getTextStyle(
+                                fontSize: 16,
+                                color: Colors.grey,
+                              ),
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10,
+                              ),
+                            ),
+                            maxLines: null,
+                            onChanged: (text) {
+                              groupController.isTyping.value =
+                                  text.trim().isNotEmpty;
+                            },
+                            onTap: () {
+                              if (showEmojiPicker.value) {
+                                showEmojiPicker.value = false;
+                              }
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(Icons.image),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffD4AF37)
+                                  : AppColors.iconColor,
+                          onPressed: _showImagePickerOptions,
+                        ),
                       ],
                     ),
                   ),
-                )
-                : SizedBox.shrink();
-          }),
-
-          // Chat input
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                top: BorderSide(color: Colors.grey[200]!, width: 1),
-              ),
-            ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  // Input field with emoji button
-                  Expanded(
+                ),
+                const SizedBox(width: 8),
+                Obx(() {
+                  final hasText = groupController.isTyping.value;
+                  return GestureDetector(
+                    onTap:
+                        hasText
+                            ? () {
+                              groupController.sendGroupMessage(
+                                groupId,
+                                messageController.text.trim(),
+                              );
+                              messageController.clear();
+                              showEmojiPicker.value = false;
+                              Future.delayed(
+                                const Duration(milliseconds: 100),
+                                () {
+                                  if (scrollController.hasClients) {
+                                    scrollController.animateTo(
+                                      scrollController.position.maxScrollExtent,
+                                      duration: const Duration(
+                                        milliseconds: 300,
+                                      ),
+                                      curve: Curves.easeOut,
+                                    );
+                                  }
+                                },
+                              );
+                            }
+                            : null,
                     child: Container(
+                      width: 44,
+                      height: 44,
                       decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(24),
+                        color:
+                            hasText
+                                ? (isDarkMode
+                                    ? Color(0xffD4AF37)
+                                    : AppColors.iconColor)
+                                : (isDarkMode
+                                    ? Color(0xffD4AF37).withValues(alpha: 0.5)
+                                    : AppColors.iconColor.withValues(
+                                      alpha: 0.5,
+                                    )),
+                        shape: BoxShape.circle,
                       ),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.emoji_emotions_outlined),
-                            color: Colors.grey[600],
-                            onPressed: () {},
-                          ),
-                          Expanded(
-                            child: TextField(
-                              controller: messageController,
-                              decoration: InputDecoration(
-                                hintText: 'Type Message',
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10,
-                                ),
-                              ),
-                              maxLines: null,
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.image),
-                            color: Colors.grey[600],
-                            onPressed: _showImagePickerOptions,
-                          ),
-                        ],
+                      child: const Icon(
+                        Icons.send,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  );
+                }),
+              ],
+            ),
+            SizedBox(height: 4),
+            Obx(
+              () => Offstage(
+                offstage: !showEmojiPicker.value,
+                child: SizedBox(
+                  height: 250,
+                  child: EmojiPicker(
+                    onEmojiSelected: (category, emoji) {
+                      messageController.text += emoji.emoji;
+                      groupController.isTyping.value =
+                          messageController.text.trim().isNotEmpty;
+                    },
+                    onBackspacePressed: () {
+                      messageController.text =
+                          messageController.text.characters
+                              .skipLast(1)
+                              .toString();
+                      groupController.isTyping.value =
+                          messageController.text.trim().isNotEmpty;
+                    },
+                    config: Config(
+                      height: 256,
+                      checkPlatformCompatibility: true,
+                      emojiViewConfig: EmojiViewConfig(
+                        backgroundColor: Colors.white,
+                        emojiSizeMax:
+                            28 *
+                            (foundation.defaultTargetPlatform ==
+                                    TargetPlatform.iOS
+                                ? 1.20
+                                : 1.0),
+                      ),
+                      viewOrderConfig: ViewOrderConfig(
+                        top: EmojiPickerItem.categoryBar,
+                        middle: EmojiPickerItem.emojiView,
+                        bottom: EmojiPickerItem.searchBar,
+                      ),
+                      skinToneConfig: SkinToneConfig(
+                        indicatorColor: AppColors.iconColor,
+                      ),
+                      categoryViewConfig: CategoryViewConfig(
+                        backgroundColor: Colors.white,
+                        indicatorColor: AppColors.iconColor,
+                      ),
+                      bottomActionBarConfig: BottomActionBarConfig(
+                        enabled: false,
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
-
-                  //Send/mic button
-                  Obx(() {
-                    final hasText =
-                        messageController.text.trim().isNotEmpty.obs;
-                    return GestureDetector(
-                      onTap:
-                          hasText.value
-                              ? () {
-                                groupController.sendGroupMessage(
-                                  groupId,
-                                  messageController.text.trim(),
-                                );
-                                messageController.clear();
-                                Future.delayed(
-                                  const Duration(milliseconds: 100),
-                                  () {
-                                    if (scrollController.hasClients) {
-                                      scrollController.animateTo(
-                                        scrollController
-                                            .position
-                                            .maxScrollExtent,
-                                        duration: const Duration(
-                                          milliseconds: 300,
-                                        ),
-                                        curve: Curves.easeOut,
-                                      );
-                                    }
-                                  },
-                                );
-                              }
-                              : null,
-                      child: Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          color:
-                              hasText.value
-                                  ? const Color(0xFF205295)
-                                  : const Color(0xFF205295).withOpacity(0.5),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.send,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    );
-                  }),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -496,9 +641,12 @@ class GroupMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final ChatController chatController = Get.find<ChatController>();
     final sender = chatController.getUserById(message.senderId);
     final senderName = sender?.name.split(' ')[0] ?? 'Unknown';
+    final senderAvatar = sender?.avatar ?? 'https://via.placeholder.com/150';
 
     return Align(
       alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
@@ -511,21 +659,30 @@ class GroupMessageBubble extends StatelessWidget {
           crossAxisAlignment:
               isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            // Sender name (only for non-current user)
             if (!isCurrentUser)
               Padding(
                 padding: EdgeInsets.only(left: 12, bottom: 2),
-                child: Text(
-                  senderName,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey[700],
-                  ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundImage:
+                          senderAvatar.startsWith('http')
+                              ? NetworkImage(senderAvatar)
+                              : FileImage(File(senderAvatar)) as ImageProvider,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      senderName,
+                      style: getTextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-
-            // Message bubble
             Container(
               decoration: BoxDecoration(
                 color: isCurrentUser ? Color(0xFF205295) : Color(0xFFF0F0F0),
@@ -539,15 +696,12 @@ class GroupMessageBubble extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  // Message content
                   _buildMessageContent(context),
-
-                  // Timestamp
                   Padding(
                     padding: EdgeInsets.only(right: 8, bottom: 4, left: 8),
                     child: Text(
                       ChatDateUtils.formatTime(message.timestamp),
-                      style: TextStyle(
+                      style: getTextStyle(
                         fontSize: 10,
                         color:
                             isCurrentUser
@@ -620,7 +774,7 @@ class GroupMessageBubble extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 SizedBox(
-                  width: 100, // Fixed width for audio waveform
+                  width: 100,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: List.generate(
@@ -663,7 +817,7 @@ class GroupMessageBubble extends StatelessWidget {
           padding: EdgeInsets.all(12),
           child: Text(
             message.text,
-            style: TextStyle(
+            style: getTextStyle(
               fontSize: 16,
               color: isCurrentUser ? Colors.white : Colors.black,
             ),
@@ -691,10 +845,9 @@ class SystemMessage extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
+          style: getTextStyle(
             fontSize: 12,
-            color: Colors.grey[800],
-            fontStyle: FontStyle.italic,
+            color: Colors.grey[800] ?? Colors.grey,
           ),
         ),
       ),

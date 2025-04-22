@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,7 @@ class NewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return SizedBox(
       height: 360,
       child:
@@ -35,7 +37,7 @@ class NewWidget extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: Color(0xff333333),
+                color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
               ),
               textAlign: TextAlign.center,
             ),
@@ -51,13 +53,13 @@ class NewWidget extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.all(8),
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.85, // সরাসরি শতাংশে নির্ধারণ
+              width: MediaQuery.of(context).size.width * 0.85,
               decoration: BoxDecoration(
-                color: Color(0xffFFFFFF),
+                color:isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   width: 1,
-                  color: Color(0xffEBEBEB),
+                  color:isDarkMode ? Color(0xff32383D) : Color(0xffEBEBEB),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -99,7 +101,7 @@ class NewWidget extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xff333333),
+                                color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                               ),
                             ),
                             SizedBox(height: 4), // Reduced from 5 to 4
@@ -119,6 +121,7 @@ class NewWidget extends StatelessWidget {
                           child: Image.asset(
                             ImagePath.pending,
                             fit: BoxFit.cover,
+                            color: isDarkMode ? Color(0xff8D4AF37) : Color(0xff767676),
                           ),
                         ),
                       ],
@@ -137,6 +140,7 @@ class NewWidget extends StatelessWidget {
                           style: getTextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
+                            color: isDarkMode ? Color(0xff8A8A8A) : Color(0xff767676),
                           ),
                         ),
                         SizedBox(width: 12), // Reduced from 16
@@ -145,6 +149,7 @@ class NewWidget extends StatelessWidget {
                           style: getTextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
+                            color: isDarkMode ? Color(0xff8A8A8A) : Color(0xff767676),
                           ),
                         ),
                         Spacer(),

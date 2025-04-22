@@ -45,15 +45,6 @@ class VLoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                // Text(
-                //   'Log In',
-                //   style: globalTextStyle(
-                //     color: Color(0xFF082B09),
-                //     fontSize: 24,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
                 SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,

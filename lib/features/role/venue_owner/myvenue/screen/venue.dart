@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,9 +36,10 @@ class Venue extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -51,23 +53,26 @@ class Venue extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    backgroundColor: const Color(0xFFD9D9D9),
-                    child: Image.asset(IconPath.arrowLeftAlt),
+                    backgroundColor:isDarkMode ? Color(0xFFD9D9D9).withAlpha(40) : Color(0xFFD9D9D9),
+                    child: Image.asset(IconPath.arrowLeftAlt,
+                      width: 16,
+                      height: 12,
+                      color: isDarkMode ? Colors.white : AppColors.textColor,),
                   ),
                   SizedBox(width: screenWidth * 0.1349),
                   Text(
                     'My Venues',
-                    style: GoogleFonts.montserrat(
+                    style: getTextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                 ],
               ),
 
               const SizedBox(height: 15),
-              SearchBarWidget(controller: searchController),
+              SearchBarWidget(textcontroller: searchController,),
               const SizedBox(height: 12),
 
               venueList.isEmpty
@@ -84,7 +89,7 @@ class Venue extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:isDarkMode ? Color(0xff132383D) : Colors.white,
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
@@ -175,24 +180,22 @@ class Venue extends StatelessWidget {
                                   style: getTextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: const Color(0xff333333),
+                                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                                   ),
                                 ),
                                 const SizedBox(height: 3),
                                 Row(
                                   children: [
-                                    const Icon(
-                                      Icons.location_on_outlined,
-                                      size: 16,
-                                      color: Color(0xff8A8A8A),
-                                    ),
+                                    Image.asset(
+                                      IconPath.locationOn,
+                                      height: 14,),
                                     const SizedBox(width: 4),
                                     Text(
                                       venue["address"]!,
                                       style: getTextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
-                                        color: const Color(0xff8A8A8A),
+                                        color: isDarkMode ? Color(0xff8A8A8A) : Color(0xff8A8A8A),
                                       ),
                                     ),
                                   ],
