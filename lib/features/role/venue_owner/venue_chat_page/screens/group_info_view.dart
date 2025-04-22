@@ -1,3 +1,5 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,8 @@ class GroupInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final group = groupController.getGroupById(groupId);
 
     if (group == null) {
@@ -27,13 +31,24 @@ class GroupInfoView extends StatelessWidget {
     final isCreator = group.creatorId == chatController.currentUser.value.id;
 
     return Scaffold(
+      backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xFFE6EBF0),
       appBar: AppBar(
-        title: Text('Group Info'),
+        centerTitle: true,
+        title: Text(
+          'Group Info',
+          style: getTextStyle(
+            color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+            fontSize: 24,
+          ),
+        ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: isDarkMode ? Color(0xff151515) : Colors.white,
         foregroundColor: Colors.black,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+          ),
           onPressed: () => Get.back(),
         ),
       ),
@@ -54,12 +69,12 @@ class GroupInfoView extends StatelessWidget {
             // Group name
             Text(
               group.name,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: isDarkMode ? Color(0xffEBEBEB) : Colors.black),
             ),
             SizedBox(height: 4),
             Text(
               '${members.length} Members',
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              style: TextStyle(fontSize: 16, color:isDarkMode ? Color(0xffC0C0C0) : Colors.grey[600]),
             ),
             SizedBox(height: 24),
 
@@ -94,7 +109,11 @@ class GroupInfoView extends StatelessWidget {
                 children: [
                   Text(
                     'Members',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+                    ),
                   ),
                   SizedBox(height: 12),
                   ...members.map(
@@ -143,6 +162,8 @@ class GroupInfoView extends StatelessWidget {
   }
 
   Widget _buildMemberItem(User member, bool canRemove) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final isCurrentUser = member.id == chatController.currentUser.value.id;
 
     return Container(
@@ -160,7 +181,11 @@ class GroupInfoView extends StatelessWidget {
               children: [
                 Text(
                   '${member.name} ${isCurrentUser ? '(You)' : ''}',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+                  ),
                 ),
                 Text(
                   member.isOnline ? 'Online' : 'Offline',
@@ -178,12 +203,22 @@ class GroupInfoView extends StatelessWidget {
                 _showRemoveMemberConfirmation(member);
               },
               style: TextButton.styleFrom(
-                backgroundColor: Colors.grey[200],
+                backgroundColor:
+                    isDarkMode ? Color(0xff151515) : Colors.grey[200],
                 shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: isDarkMode ? Color(0xffABB7C2) : Colors.grey[200]!,
+                    width: 1,
+                  ),
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              child: Text('Remove', style: TextStyle(color: Colors.red)),
+              child: Text(
+                'Remove',
+                style: TextStyle(
+                  color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+                ),
+              ),
             ),
         ],
       ),

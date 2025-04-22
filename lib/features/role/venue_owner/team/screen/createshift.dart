@@ -3,21 +3,20 @@ import 'package:blinqo/core/utils/constants/app_sizes.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/shifcontroller.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/schedule.dart';
-
 import 'package:blinqo/features/role/venue_owner/team/widget/custom_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 class Createshift extends StatelessWidget {
-  const Createshift({super.key});
-
+  final String? title;
+  const Createshift({super.key, this.title});
   @override
   Widget build(BuildContext context) {
     final ShiftController controller = Get.put(ShiftController());
-    TextEditingController textEditingController =TextEditingController();
-
+    TextEditingController textEditingController = TextEditingController();
+   
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
     final double screenWidth = screenSize.width;
@@ -53,15 +52,19 @@ class Createshift extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: screenWidth * 0.2),
+                    SizedBox(width:screenWidth*0.20),
                     Text(
-                      'Create Shift',
+                    title ?? 'Create Shift',
                       style: GoogleFonts.montserrat(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                         color: const Color(0xff333333),
                       ),
                     ),
+                    Spacer(),
+                  if(title!=null)
+                  Image.asset(IconPath.delete,color: Color(0xff003366),height: 15,width: 15,)
+                    
                   ],
                 ),
                 SizedBox(height: 19),
@@ -143,66 +146,162 @@ class Createshift extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 40,),
-                Text('Shift Name',style: getTextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff333333)
-                ),),
-              TextField(
-                controller: textEditingController,
-  decoration: InputDecoration(
-    border: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-    ),
-    enabledBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-    ),
-    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-    ),
-    isCollapsed: true,
-    contentPadding: EdgeInsets.zero,
-  ),
-  style: TextStyle(
-    color: Colors.black,
-    fontSize: 14,
-  ),
-),
-SizedBox(height: 40,),
-   InkWell(
-                onTap: (){
-                 Get.to(()=>Schedule());
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: screenHeight*0.070,
-                  decoration: BoxDecoration(
-                    color: Color(0xff003366),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                
-                  child: Text('Create Shift',style: getTextStyle(
-                    fontSize: 16,
+                SizedBox(height: 40),
+                Text(
+                  'Shift Name',
+                  style: getTextStyle(
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xffF4F4F4),
-                  ),),
+                    color: Color(0xff333333),
                   ),
                 ),
+                TextField(
+                  controller: textEditingController,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    isCollapsed: true,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                  style: TextStyle(color: Colors.black, fontSize: 14),
+                ),
+                SizedBox(height: 40),
+                InkWell( 
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: screenHeight * 0.070,
+                    decoration: BoxDecoration(
+                      color: Color(0xff003366),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Create Shift',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffF4F4F4),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 40),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Employees',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff333333),
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Container(
+                        height: 25,
+                        width: 25,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Color(0xffD4AF37).withValues(alpha: .10),
+                        ), 
+                       child: Obx(() => Center(child: Text(controller.selectedEmployees.length.toString()))),
+
+                      ),
+                    ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    onTap:(){
+                      Get.to(()=>Addshift());
+                    },
+                    child: Container(
+                      height: 46,
+                      width: 53,
+                      decoration: BoxDecoration(
+                        color: Color(0xff003366),
+                       boxShadow: [
+                        BoxShadow(
+                          color: Color(0xff000000 ).withValues(alpha: .6),
+                          offset: Offset(0, 1),
+                          blurRadius: 2
+                       
+                        )
+                       ],
+                        borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(34),
+                                  topRight: Radius.circular(34),
+                                    bottomLeft: Radius.circular(34),
+                                    bottomRight: Radius.circular(34),
+                      ),
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ), //
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+Obx(() {
+  return Column(
+    children: controller.selectedEmployees.map((employee) {
+      return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(bottom: 8), // spacing between cards
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Color(0xffFFFFFF),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Color(0xffEBEBEB), width: 1),
+        ),
+        child: Row(
+          children: [
+            Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              employee.name,
+              style: getTextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Color(0xff333333),
               ),
-      SizedBox(height: 40,),
-         Center(
-           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Employees',)
-            ],
-           ),
-         )
-
-     
-
+            ),
+            SizedBox(height: 4),
+            Text(
+              employee.position,
+              style: getTextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Color(0xffA1A1A1),
+              ),
+            ),
+          ],
+        ),
+        Spacer(),
+        Icon(Icons.edit_outlined,size:24 ,
+        color: Color(0xff003366),)
+          ],
+        )
+      );
+    }).toList(),
+  );
+}),
               ],
             ),
           ),

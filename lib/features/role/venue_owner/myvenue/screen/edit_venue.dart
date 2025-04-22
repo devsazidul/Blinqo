@@ -1,6 +1,7 @@
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,9 +13,13 @@ import '../widget/facilty_Tag.dart';
 
 class EditVenue extends StatelessWidget {
   final String image;
+
   const EditVenue({super.key, required this.image});
+
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final controller = Get.put(MyVenueController());
     TextEditingController venueName = TextEditingController();
     TextEditingController location = TextEditingController();
@@ -23,7 +28,8 @@ class EditVenue extends StatelessWidget {
     final double screenHeight = screenSize.height;
     final double screenWidth = screenSize.width;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,8 +64,14 @@ class EditVenue extends StatelessWidget {
                           top: 40,
                           child: CircleAvatar(
                             radius: 20,
-                            backgroundColor: const Color(0xFFD9D9D9),
-                            child: Image.asset(IconPath.arrowLeftAlt),
+                            backgroundColor: isDarkMode
+                                ? Color(0xFFD9D9D9).withAlpha(40): Color(0xFFD9D9D9),
+                            child: Image.asset(
+                              IconPath.arrowLeftAlt,
+                              width: 16,
+                              height: 12,
+                              color: isDarkMode ? Colors.white : Colors.white,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -104,7 +116,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 12),
@@ -134,7 +146,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
-                      color: const Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 12),
@@ -171,7 +183,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
-                      color: const Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -285,7 +297,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -300,7 +312,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 15),
@@ -367,7 +379,10 @@ class EditVenue extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: const Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
@@ -393,6 +408,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -462,7 +478,10 @@ class EditVenue extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: const Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
@@ -488,7 +507,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -543,7 +562,10 @@ class EditVenue extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: const Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
@@ -569,7 +591,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -627,7 +649,10 @@ class EditVenue extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: const Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
@@ -653,7 +678,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   FittedBox(
@@ -711,7 +736,10 @@ class EditVenue extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: const Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
@@ -737,7 +765,7 @@ class EditVenue extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   FittedBox(
@@ -799,7 +827,10 @@ class EditVenue extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: const Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
@@ -822,7 +853,7 @@ class EditVenue extends StatelessWidget {
                   SizedBox(height: 45),
                   Container(
                     width: double.infinity,
-                    height: screenHeight * 0.075,
+                    height: screenHeight * 0.07,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: Color(0xff003366),

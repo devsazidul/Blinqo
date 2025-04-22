@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../service_provider/payment_page/screen/get_verified_screen.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'controllers/even_profile_controller.dart';
 import 'profile_setup_widget/avater_profile_setup_screen.dart';
@@ -57,7 +56,7 @@ class EvenProfileSetupScreen extends StatelessWidget {
                   SizedBox(height: 40),
                   ProfileSetupButton(
                     onTap: () {
-                      Get.to(GetVerifiedScreen());
+                      // Get.to(GetVerifiedScreen());
                     },
                     title: "Continue",
                     themeMode: themeMode,

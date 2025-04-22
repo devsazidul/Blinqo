@@ -20,6 +20,7 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     double screenWidth = MediaQuery.of(context).size.width;
     double iconSize = screenWidth < 700 ? 60 : 70;
+
     final VanueOwnerBottomNavController controller = Get.put(
       VanueOwnerBottomNavController(),
     );
@@ -28,12 +29,8 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
       OverviewScreen(),
       Venue(),
       VenueOwnerBooking(),
-      // ChatListView(),
-      Emptyschedule(),
-
       ChatListView(),
-      // MainView(),
-      Text('Screen 5'),
+      Emptyschedule(),
     ];
 
     return Scaffold(

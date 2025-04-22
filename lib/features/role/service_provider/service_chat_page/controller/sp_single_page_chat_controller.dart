@@ -18,6 +18,9 @@ class ChatMessage {
   });
 }
 
+final scrollController = ScrollController();
+FocusNode messageFocusNode = FocusNode();
+
 class SpSinglePageChatController extends GetxController {
   var chatMessages =
       <ChatMessage>[
@@ -43,6 +46,7 @@ class SpSinglePageChatController extends GetxController {
 
   final messageController = TextEditingController();
   var messageText = ''.obs;
+  var isEmojiVisible = false.obs;
 
   final ImagePicker _picker = ImagePicker();
 
@@ -63,6 +67,13 @@ class SpSinglePageChatController extends GetxController {
       );
       messageController.clear();
       messageText.value = '';
+      Future.delayed(Duration(milliseconds: 100), () {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      });
     }
   }
   // Inside SpSinglePageChatController
@@ -152,6 +163,13 @@ class SpSinglePageChatController extends GetxController {
         ),
       );
       selectedImage.value = null;
+      Future.delayed(Duration(milliseconds: 100), () {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      });
     }
   }
 }

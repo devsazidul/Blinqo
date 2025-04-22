@@ -4,6 +4,7 @@ import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/NewWidget.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/revenue_card.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,7 @@ class VenueDetailsScreen extends StatelessWidget {
   final String guest;
   final String rating;
   final String image;
+
   const VenueDetailsScreen({
     super.key,
     required this.title,
@@ -34,6 +36,7 @@ class VenueDetailsScreen extends StatelessWidget {
     required this.rating,
     required this.image,
   });
+
   String getMonthName(int month) {
     const months = [
       'January',
@@ -47,13 +50,15 @@ class VenueDetailsScreen extends StatelessWidget {
       'September',
       'October',
       'November',
-      'December',//month name
+      'December', //month name
     ];
     return months[month - 1];
   }
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     List<Map<String, String>> seereview = [
       {
         "title": "Floyd Miles",
@@ -83,7 +88,8 @@ class VenueDetailsScreen extends StatelessWidget {
       }
     });
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -120,8 +126,19 @@ class VenueDetailsScreen extends StatelessWidget {
                             top: 40,
                             child: CircleAvatar(
                               radius: 20,
-                              backgroundColor: const Color(0xFFD9D9D9),
-                              child: Image.asset(IconPath.arrowLeftAlt),
+                              backgroundColor:
+                                  isDarkMode
+                                      ? Color(0xFFD9D9D9).withValues(alpha: .1)
+                                      : Color(0xFFD9D9D9).withValues(alpha: .1),
+                              child: Image.asset(
+                                IconPath.arrowLeftAlt,
+                                width: 16,
+                                height: 16,
+                                color:
+                                    isDarkMode
+                                        ? Colors.white
+                                        : AppColors.textColor,
+                              ),
                             ),
                           ),
                           Positioned(
@@ -169,7 +186,10 @@ class VenueDetailsScreen extends StatelessWidget {
                             style: GoogleFonts.roboto(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
-                              color: const Color(0xff333333),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff333333),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -219,14 +239,27 @@ class VenueDetailsScreen extends StatelessWidget {
                             color: Color(0xffF0C020),
                           ),
                           const SizedBox(width: 1.5),
-                          Text(rating),
+                          Text(
+                            rating,
+                            style: getTextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff333333),
+                            ),
+                          ),
                           const SizedBox(width: 5),
                           Text(
                             "(345 reviews)",
                             style: getTextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
-                              color: const Color(0xffABB7C2),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffABB7C2)
+                                      : Color(0xffABB7C2),
                             ),
                           ),
                         ],
@@ -234,13 +267,21 @@ class VenueDetailsScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          const Icon(Icons.location_on_outlined, size: 20),
+                          const Icon(
+                            Icons.location_on_outlined,
+                            size: 20,
+                            color: Color(0xffD4AF37),
+                          ),
                           const SizedBox(width: 5),
                           Text(
                             address,
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff333333),
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -250,7 +291,10 @@ class VenueDetailsScreen extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: const Color(0xff333333),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff333333),
                             ),
                           ),
                         ],
@@ -263,7 +307,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
-                      color: const Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -307,7 +351,8 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
-                        color: const Color(0xff333333),
+                        color:
+                            isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                       ),
                     ),
                   ),
@@ -316,7 +361,7 @@ class VenueDetailsScreen extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color:isDarkMode ? Color(0xff32383D) : Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: CustomCalendar(
@@ -326,10 +371,10 @@ class VenueDetailsScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      StatusLabel(color: Color(0xff0066CC), label: 'Booked'),
-                      SizedBox(height: 8),
-                      StatusLabel(color: Color(0xff19480B), label: 'Selected'),
+                    children: [
+                      StatusLabel(color:isDarkMode ? Color(0xff0066CC) : Color(0xff0066CC), label: 'Booked'),
+                      const SizedBox(height: 8),
+                      StatusLabel(color:isDarkMode ? Color(0xff34C759) : Color(0xff19480B), label: 'Selected'),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -346,7 +391,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -361,7 +406,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -395,7 +440,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -429,7 +474,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -463,7 +508,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -497,7 +542,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -531,7 +576,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -565,7 +610,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xff333333),
+                      color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   Padding(
@@ -580,7 +625,7 @@ class VenueDetailsScreen extends StatelessWidget {
                             style: getTextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
-                              color: Color(0xff444444),
+                              color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff444444),
                             ),
                           ),
                         ),
@@ -595,7 +640,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xff333333),
+                      color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
                   Padding(
@@ -609,12 +654,12 @@ class VenueDetailsScreen extends StatelessWidget {
                             'Explore All',
                             style: getTextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 14,///hghghg
-                              color: Color(0xff444444),
+                              fontSize: 14,
+                              color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff444444),
                             ),
                           ),
                         ),
-                        Icon(Icons.arrow_right_alt),
+                        Icon(Icons.arrow_right_alt,size:16,color: isDarkMode?Color(0xffEBEBEB):Color(0xff444444,),),
                       ],
                     ),
                   ),

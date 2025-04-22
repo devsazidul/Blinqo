@@ -1,4 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,7 +7,12 @@ import '../../../home/controller/booking_controller.dart';
 import 'amenities_card.dart';
 
 class AmenitiesItemCard extends StatelessWidget {
-  const AmenitiesItemCard({super.key, required this.bookingController});
+  final ThemeMode themeMode;
+  const AmenitiesItemCard({
+    super.key,
+    required this.bookingController,
+    required this.themeMode,
+  });
 
   final BookingController bookingController;
 
@@ -18,9 +24,16 @@ class AmenitiesItemCard extends StatelessWidget {
         SizedBox(height: 12),
         Text(
           "Amenities",
-          style: getTextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
+          style: getTextStyle(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+            color:
+                themeMode == ThemeMode.dark
+                    ? AppColors.borderColor2
+                    : AppColors.textColor,
+          ),
         ),
-
+        SizedBox(height: 12),
         SizedBox(
           height: 36,
 

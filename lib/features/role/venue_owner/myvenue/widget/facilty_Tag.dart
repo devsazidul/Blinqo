@@ -1,5 +1,7 @@
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:get/get.dart';
 
 class FacilityTag extends StatelessWidget {
   final double width;
@@ -15,10 +17,12 @@ class FacilityTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
       width: width,
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: const Color(0xffFBF7EB),
+        color:isDarkMode ? Color(0xff32383D) :  Color(0xffFBF7EB),
         borderRadius: BorderRadius.circular(34),
        boxShadow: [
          BoxShadow(
@@ -38,7 +42,7 @@ class FacilityTag extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: const Color(0xff333333),
+              color:isDarkMode ? Color(0xffEBEBEB) : const Color(0xff333333),
             ),
           ),
         ],
