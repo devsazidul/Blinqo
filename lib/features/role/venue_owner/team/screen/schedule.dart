@@ -101,11 +101,16 @@ class Schedule extends StatelessWidget {
                                       ),
                                     ),
                                     Spacer(),
-                                    Image.asset(
-                                      IconPath.editPencil,
-                                      height: 18,
-                                      width: 18,
-                                      color: Color(0xff003366),
+                                    InkWell( 
+                                      onTap: (){
+                                         Get.to(() => Createshift(title: item['title']));
+                                      },
+                                      child: Image.asset(
+                                        IconPath.editPencil,
+                                        height: 18,
+                                        width: 18,
+                                        color: Color(0xff003366),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -150,7 +155,7 @@ class Schedule extends StatelessWidget {
               InkWell(
                 onTap: (){
                  Get.to(()=>Createshift());
-                },
+                }, 
                 child: Container(
                   width: double.infinity,
                   height: screenHeight*0.070,

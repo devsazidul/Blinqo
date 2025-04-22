@@ -29,10 +29,8 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
       OverviewScreen(),
       Venue(),
       VenueOwnerBooking(),
-      // ChatListView(),
       ChatListView(),
       Emptyschedule(),
-
     ];
 
     return Scaffold(
