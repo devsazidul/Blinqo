@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReviesCard extends StatelessWidget {
-  const ReviesCard({super.key});
+  final ThemeMode themeMode;
+  const ReviesCard({super.key, required this.themeMode});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,10 @@ class ReviesCard extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: titleFontSize.sp,
                   fontWeight: FontWeight.w600,
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.borderColor2
+                          : AppColors.textColor,
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -53,7 +58,10 @@ class ReviesCard extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: priceFontSize.sp,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.buttonColor2,
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.buttonColor
+                          : AppColors.buttonColor2,
                 ),
               ),
             ),
@@ -70,7 +78,10 @@ class ReviesCard extends StatelessWidget {
             Text(
               "5.0 ",
               style: getTextStyle(
-                color: Colors.black,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.borderColor2
+                        : AppColors.textColor,
                 fontSize: ratingFontSize.sp,
                 fontWeight: FontWeight.w600,
               ),
@@ -90,7 +101,10 @@ class ReviesCard extends StatelessWidget {
           children: [
             Icon(
               Icons.location_on_outlined,
-              color: AppColors.buttonColor2,
+              color:
+                  themeMode == ThemeMode.dark
+                      ? AppColors.borderColor2
+                      : AppColors.buttonColor2,
               size: 14.sp, // Make icon size responsive
             ),
             SizedBox(width: 8.0.w), // Use .w for responsive width
@@ -100,6 +114,10 @@ class ReviesCard extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: locationFontSize.sp,
                   fontWeight: FontWeight.w400,
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.borderColor2
+                          : AppColors.buttonColor2,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
