@@ -3,11 +3,13 @@ import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_change_password_controller.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VChangePassword extends StatelessWidget {
   final String? email;
+
   const VChangePassword({super.key, this.email});
 
   @override
@@ -41,14 +43,14 @@ class VChangePassword extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 18.0),
-                Text(
-                  'Enter Verification Code:',
-                  style: getTextStyle(
-                    color: Color(0xFF082B09),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                // Text(
+                //   'Enter Verification Code:',
+                //   style: getTextStyle(
+                //     color: Color(0xFF082B09),
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.w400,
+                //   ),
+                // ),
                 SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -114,7 +116,7 @@ class VChangePassword extends StatelessWidget {
                   title: 'Change Password',
                   textcolor: Colors.white,
                   onPress: () {
-                    // controller.changePassword(email);
+                    Get.offAll(VLoginScreen());
                   },
                 ),
               ],

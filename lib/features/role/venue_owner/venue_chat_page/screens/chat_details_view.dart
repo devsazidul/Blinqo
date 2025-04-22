@@ -1,5 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/imger_viewer_view.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/widgets/image_picker_bottom_sheet.dart';
@@ -17,12 +19,14 @@ class ChatDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final ChatController controller = Get.find<ChatController>();
     final user = controller.getUserById(chatId);
 
     if (user == null) {
       return Scaffold(
-        backgroundColor: const Color(0xFFFFF5D7),
+        backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xFFE6EBF0),
         appBar: AppBar(
           forceMaterialTransparency: true,
           title: const Text('Chat'),
@@ -33,7 +37,7 @@ class ChatDetailView extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF5D7),
+      backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xFFE6EBF0),
       appBar: _buildAppBar(user),
       body: Column(
         children: [
@@ -53,14 +57,41 @@ class ChatDetailView extends StatelessWidget {
   }
 
   AppBar _buildAppBar(User user) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return AppBar(
       elevation: 0,
+      automaticallyImplyLeading: false,
       forceMaterialTransparency: false,
-      backgroundColor: AppColors.backgroundColor,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back, size: 28),
-        onPressed: () => Get.back(),
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 20.0),
+        child: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: CircleAvatar(
+            backgroundColor:
+            isDarkMode
+                ? Color(0xFFD9D9D9).withAlpha(40)
+                : const Color(0xFFD9D9D9),
+            child: Image.asset(
+              IconPath.arrowLeftAlt,
+              width: 16,
+              height: 12,
+              color: isDarkMode ? Colors.white : AppColors.textColor,
+            ),
+          ),
+        ),
       ),
+      backgroundColor: isDarkMode ? Color(0xff32383D) : Color(0xffffffff),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        side: BorderSide(color: Color(0xFF003366), width: 1),
+      ),
+      // leading: IconButton(
+      //   icon: const Icon(Icons.arrow_back, size: 28),
+      //   onPressed: () => Get.back(),
+      // ),
       title: Row(
         children: [
           CircleAvatar(radius: 20, backgroundImage: NetworkImage(user.avatar)),
@@ -70,7 +101,11 @@ class ChatDetailView extends StatelessWidget {
             children: [
               Text(
                 user.name,
-                style: getTextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: getTextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                ),
               ),
               Text(
                 user.isOnline ? 'Online' : 'Offline',
@@ -83,11 +118,22 @@ class ChatDetailView extends StatelessWidget {
           ),
         ],
       ),
-      actions: [IconButton(icon: const Icon(Icons.more_vert), onPressed: () {})],
+      actions: [
+        IconButton(
+          icon: Icon(
+            Icons.more_vert,
+            size: 28,
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+          ),
+          onPressed: () {},
+        ),
+      ],
     );
   }
 
   Widget _buildEmptyState(User user) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -96,12 +142,19 @@ class ChatDetailView extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           user.name,
-          style: getTextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          style: getTextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+          ),
         ),
         const SizedBox(height: 8),
         Text(
           'Say hello to ${user.name}',
-          style: getTextStyle(fontSize: 14, color: const Color(0xFF767676)),
+          style: getTextStyle(
+            fontSize: 14,
+            color: isDarkMode ? Color(0xffC0C0C0) : Color(0xFF767676),
+          ),
         ),
         const Spacer(),
       ],
@@ -115,7 +168,8 @@ class ChatDetailView extends StatelessWidget {
       itemCount: messages.length,
       itemBuilder: (context, index) {
         final message = messages[index];
-        final isCurrentUser = message.senderId == controller.currentUser.value.id;
+        final isCurrentUser =
+            message.senderId == controller.currentUser.value.id;
         return MessageBubble(
           message: message,
           isCurrentUser: isCurrentUser,
@@ -136,38 +190,45 @@ class ChatDetailView extends StatelessWidget {
 
   Widget _buildUploadingIndicator(ChatController controller) {
     return Obx(
-          () => controller.isUploading.value
-          ? Container(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        color: Colors.white,
-        child: Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF205295)),
+      () =>
+          controller.isUploading.value
+              ? Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.white,
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF205295),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text('Sending image...'),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(width: 10),
-              Text('Sending image...'),
-            ],
-          ),
-        ),
-      )
-          : const SizedBox.shrink(),
+              )
+              : const SizedBox.shrink(),
     );
   }
 
   Widget _buildChatInput(ChatController controller, BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final RxBool showEmojiPicker = false.obs;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-      decoration: const BoxDecoration(color: Color(0xFFFFF5D7)),
+      decoration: BoxDecoration(
+        color: isDarkMode ? Color(0xff151515) : Color(0xffE6EBF0),
+      ),
       child: SafeArea(
         child: Column(
           children: [
@@ -177,7 +238,7 @@ class ChatDetailView extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: isDarkMode ? Color(0xff32383D) : Colors.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -185,7 +246,10 @@ class ChatDetailView extends StatelessWidget {
                         // Emoji Button
                         IconButton(
                           icon: const Icon(Icons.emoji_emotions_outlined),
-                          color: AppColors.iconColor,
+                          color:
+                              isDarkMode
+                                  ? Color(0xffD4AF37)
+                                  : AppColors.iconColor,
                           onPressed: () {
                             if (!showEmojiPicker.value) {
                               // Hide keyboard and show emoji picker
@@ -197,9 +261,13 @@ class ChatDetailView extends StatelessWidget {
                             }
                           },
                         ),
-                        const SizedBox(width: 8), // Space between emoji icon and text field
+                        const SizedBox(width: 8),
+                        // Space between emoji icon and text field
                         Expanded(
                           child: TextField(
+                            style: getTextStyle(
+                              color: isDarkMode ? Colors.white : Colors.black,
+                            ),
                             controller: controller.messageController,
                             decoration: InputDecoration(
                               hintText: 'Type Message',
@@ -210,7 +278,9 @@ class ChatDetailView extends StatelessWidget {
                               border: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10,
+                              ),
                             ),
                             maxLines: null,
                             onTap: () {
@@ -221,16 +291,21 @@ class ChatDetailView extends StatelessWidget {
                             },
                           ),
                         ),
-                        const SizedBox(width: 8), // Space between text field and image icon
+                        const SizedBox(width: 8),
+                        // Space between text field and image icon
                         IconButton(
                           icon: const Icon(Icons.image),
-                          color: AppColors.iconColor,
-                          onPressed: () => Get.bottomSheet(
-                            ImagePickerBottomSheet(
-                              chatId: chatId,
-                              chatController: controller,
-                            ),
-                          ),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffD4AF37)
+                                  : AppColors.iconColor,
+                          onPressed:
+                              () => Get.bottomSheet(
+                                ImagePickerBottomSheet(
+                                  chatId: chatId,
+                                  chatController: controller,
+                                ),
+                              ),
                         ),
                       ],
                     ),
@@ -248,14 +323,18 @@ class ChatDetailView extends StatelessWidget {
                           controller.messageController.text.trim(),
                         );
                         controller.messageController.clear();
-                        showEmojiPicker.value = false; // Hide emoji picker after sending
+                        showEmojiPicker.value =
+                            false; // Hide emoji picker after sending
                       }
                     },
                     child: Container(
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: AppColors.iconColor,
+                        color:
+                            isDarkMode
+                                ? Color(0xffD4AF37)
+                                : AppColors.iconColor,
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
@@ -270,48 +349,54 @@ class ChatDetailView extends StatelessWidget {
             ),
             SizedBox(height: 4),
             // Emoji Picker (below the input field)
-            Obx(() => Offstage(
-              offstage: !showEmojiPicker.value,
-              child: SizedBox(
-                height: 250,
-                child: EmojiPicker(
-                  onEmojiSelected: (category, emoji) {
-                    controller.messageController.text += emoji.emoji;
-                    // Do not hide the picker, allowing multiple selections
-                  },
-                  onBackspacePressed: () {
-                    controller.messageController.text =
-                        controller.messageController.text.characters.skipLast(1).toString();
-                  },
-                  config: Config(
-                    height: 256,
-                    checkPlatformCompatibility: true,
-                    emojiViewConfig: EmojiViewConfig(
-                      backgroundColor: Colors.white,
-                      emojiSizeMax: 28 *
-                          (foundation.defaultTargetPlatform == TargetPlatform.iOS
-                              ? 1.20
-                              : 1.0),
-                    ),
-                    viewOrderConfig: ViewOrderConfig(
-                      top: EmojiPickerItem.categoryBar,
-                      middle: EmojiPickerItem.emojiView,
-                      bottom: EmojiPickerItem.searchBar,
-                    ),
-                    skinToneConfig: SkinToneConfig(
-                      indicatorColor: AppColors.iconColor,
-                    ),
-                    categoryViewConfig: CategoryViewConfig(
-                      backgroundColor: Colors.white,
-                      indicatorColor: AppColors.iconColor,
-                    ),
-                    bottomActionBarConfig: BottomActionBarConfig(
-                      enabled: false,
+            Obx(
+              () => Offstage(
+                offstage: !showEmojiPicker.value,
+                child: SizedBox(
+                  height: 250,
+                  child: EmojiPicker(
+                    onEmojiSelected: (category, emoji) {
+                      controller.messageController.text += emoji.emoji;
+                      // Do not hide the picker, allowing multiple selections
+                    },
+                    onBackspacePressed: () {
+                      controller.messageController.text =
+                          controller.messageController.text.characters
+                              .skipLast(1)
+                              .toString();
+                    },
+                    config: Config(
+                      height: 256,
+                      checkPlatformCompatibility: true,
+                      emojiViewConfig: EmojiViewConfig(
+                        backgroundColor: Colors.white,
+                        emojiSizeMax:
+                            28 *
+                            (foundation.defaultTargetPlatform ==
+                                    TargetPlatform.iOS
+                                ? 1.20
+                                : 1.0),
+                      ),
+                      viewOrderConfig: ViewOrderConfig(
+                        top: EmojiPickerItem.categoryBar,
+                        middle: EmojiPickerItem.emojiView,
+                        bottom: EmojiPickerItem.searchBar,
+                      ),
+                      skinToneConfig: SkinToneConfig(
+                        indicatorColor: AppColors.iconColor,
+                      ),
+                      categoryViewConfig: CategoryViewConfig(
+                        backgroundColor: Colors.white,
+                        indicatorColor: AppColors.iconColor,
+                      ),
+                      bottomActionBarConfig: BottomActionBarConfig(
+                        enabled: false,
+                      ),
                     ),
                   ),
                 ),
               ),
-            )),
+            ),
           ],
         ),
       ),

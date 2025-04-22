@@ -24,6 +24,7 @@ class ChatListView extends StatelessWidget {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
+      backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xffF4F4F4),
       appBar: AppBar(
         title: Text(
           'Chat',
@@ -36,6 +37,7 @@ class ChatListView extends StatelessWidget {
         centerTitle: true,
         backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xffF4F4F4),
         automaticallyImplyLeading: false,
+        forceMaterialTransparency:true,
       ),
 
       body: Obx(() {

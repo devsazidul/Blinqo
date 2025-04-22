@@ -1,18 +1,24 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddcardScreen extends StatelessWidget {
   AddcardScreen({super.key});
 
- final OverviewController controller = Get.find<OverviewController>();
+  final OverviewController controller = Get.find<OverviewController>();
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     TextEditingController cardHolderName = TextEditingController();
     TextEditingController cardNumber = TextEditingController();
     return Scaffold(
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -24,7 +30,7 @@ class AddcardScreen extends StatelessWidget {
                 style: getTextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 20,
-                  color: Color(0xff333333),
+                  color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                 ),
               ),
               SizedBox(height: 8),
@@ -33,30 +39,36 @@ class AddcardScreen extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xff5C5C5C),
+                  color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff5C5C5C),
                 ),
               ),
               SizedBox(height: 24),
               TextField(
+                style: TextStyle(
+                  color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                ),
                 controller: cardHolderName,
                 decoration: InputDecoration(
                   labelText: 'Card Holder Name',
                   labelStyle: getTextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff767676),
+                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff767676),
                   ),
                 ),
               ),
               SizedBox(height: 16),
               TextField(
+                style: getTextStyle(
+                  color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                ),
                 controller: cardNumber,
                 decoration: InputDecoration(
                   labelText: 'Card Number',
                   labelStyle: getTextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff767676),
+                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff767676),
                   ),
                 ),
               ),
@@ -65,13 +77,37 @@ class AddcardScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(hintText: 'MM/YY'),
+                      style: getTextStyle(
+                        color:
+                            isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                      ),
+                      decoration: InputDecoration(
+                        hintText: 'MM/YY',
+                        hintStyle: TextStyle(
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xff333333),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: 15),
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(hintText: 'CVG'),
+                      style: getTextStyle(
+                        color:
+                            isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                      ),
+                      decoration: InputDecoration(
+                        hintText: 'CVG',
+                        hintStyle: TextStyle(
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xff333333),
+                        ),
+                      ),
                     ),
                   ),
                 ],

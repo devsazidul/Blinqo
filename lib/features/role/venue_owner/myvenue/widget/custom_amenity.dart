@@ -1,6 +1,9 @@
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
+import 'package:get/get.dart';
+
 
 class CustomAmenityBox extends StatelessWidget {
   final IconData icon;
@@ -20,6 +23,7 @@ class CustomAmenityBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
      height:heights ,
       width: widths,
@@ -27,7 +31,7 @@ class CustomAmenityBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
           width: 1  ,
-          color: const Color(0xffC0C0C0).withValues(alpha: 0.6),
+          color: const Color(0xffC0C0C0),
         ),
       ),
       child: Row(
@@ -44,7 +48,7 @@ class CustomAmenityBox extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: const Color(0xff333333),
+              color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
             ),
           ),
         ],
