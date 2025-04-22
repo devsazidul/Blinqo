@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/gif_path.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
@@ -44,9 +45,10 @@ class SpCongratulationsPage extends StatelessWidget {
         child: Column(
           children: [
             Image.asset(
-              ImagePath.congratulationslogo,
+              GifPath.successlight,
               width: double.infinity,
-              height: 250,
+              height: 270,
+              fit: BoxFit.cover,
             ),
             SizedBox(height: 20),
             Container(

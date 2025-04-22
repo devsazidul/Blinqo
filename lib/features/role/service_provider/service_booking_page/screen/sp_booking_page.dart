@@ -11,6 +11,7 @@ import 'package:blinqo/features/role/service_provider/service_home_page/widget/u
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venueDetailsScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class SpBookingPage extends StatelessWidget {
@@ -197,8 +198,16 @@ class SpBookingPage extends StatelessWidget {
                             ),
                             SizedBox(
                               height: 42,
-                              width: 100,
+                              width: 93,
                               child: TextField(
+                                style: getTextStyle(
+                                  fontSize: 16,
+                                  color:
+                                      themeMode == ThemeMode.dark
+                                          ? AppColors.darkCalendarColor2
+                                          : AppColors.buttonColor,
+                                ),
+                                textAlign: TextAlign.center,
                                 controller: spBookingController.priceController,
                                 decoration: InputDecoration(
                                   hintText: "\$5000",
@@ -213,6 +222,9 @@ class SpBookingPage extends StatelessWidget {
                                         themeMode == ThemeMode.dark
                                             ? AppColors.darkCalendarColor2
                                             : AppColors.buttonColor,
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 12.0,
                                   ),
                                 ),
                               ),
@@ -312,7 +324,7 @@ class SpBookingPage extends StatelessWidget {
                   time: '3:00 PM',
                   logoPath: IconPath.corporateEventLogo,
                   onTap: () {
-                    debugPrint("light call");
+                    Get.to(SpProjectRequest());
                   },
                 ),
 
@@ -323,7 +335,7 @@ class SpBookingPage extends StatelessWidget {
                   time: '3:00 PM',
                   logoPath: IconPath.corporateEventLogo,
                   onTap: () {
-                    debugPrint("light call");
+                    Get.to(SpProjectRequest());
                   },
                 ),
                 SpCustomBookingRequest(
@@ -333,7 +345,7 @@ class SpBookingPage extends StatelessWidget {
                   time: '3:00 PM',
                   logoPath: IconPath.corporateEventLogo,
                   onTap: () {
-                    debugPrint("light call");
+                    Get.to(SpProjectRequest());
                   },
                 ),
                 SizedBox(height: 40),

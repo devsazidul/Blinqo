@@ -4,6 +4,9 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/controller/sp_single_page_chat_controller.dart';
+import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_full_image_view.dart';
+import 'package:blinqo/features/role/service_provider/service_chat_page/widget/sp_custom_popup_menu.dart';
+import 'package:blinqo/features/role/service_provider/service_chat_page/widget/sp_custom_single_textfield.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart'
     show SpProfileController;
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
@@ -125,100 +128,7 @@ class SpSinglePageChat extends StatelessWidget {
                     ),
                   ],
                 ),
-                actions: [
-                  PopupMenuTheme(
-                    data: PopupMenuThemeData(
-                      color:
-                          themeMode == ThemeMode.dark
-                              ? AppColors.textColor
-                              : AppColors.popUpBackground,
-                    ),
-                    child: PopupMenuButton<String>(
-                      onSelected: (value) {
-                        debugPrint('Selected: $value');
-                      },
-                      itemBuilder:
-                          (context) => [
-                            PopupMenuItem<String>(
-                              value: 'delete',
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Delete Conversation',
-                                    style: getTextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color:
-                                          themeMode == ThemeMode.dark
-                                              ? AppColors.primary
-                                              : AppColors.textColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            PopupMenuItem<String>(
-                              value: 'mark_unread',
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Mark as Unread',
-                                    style: getTextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color:
-                                          themeMode == ThemeMode.dark
-                                              ? AppColors.primary
-                                              : AppColors.textColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            PopupMenuItem<String>(
-                              value: 'block',
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Block',
-                                    style: getTextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color:
-                                          themeMode == ThemeMode.dark
-                                              ? AppColors.primary
-                                              : AppColors.textColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            PopupMenuItem<String>(
-                              value: 'report',
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Report',
-                                    style: getTextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color:
-                                          themeMode == ThemeMode.dark
-                                              ? AppColors.primary
-                                              : AppColors.textColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                    ),
-                  ),
-                ],
+                actions: [ChatCustomPopUpMenui(themeMode: themeMode)],
               ),
             ),
           ),
@@ -274,8 +184,8 @@ class SpSinglePageChat extends StatelessWidget {
                                       ),
                                       decoration: BoxDecoration(
                                         color:
-                                            message.isUser
-                                                ? AppColors.buttonColor2
+                                            message.imageUrl.isNotEmpty
+                                                ? Colors.transparent
                                                 : AppColors.buttonColor2,
                                         borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(15),
@@ -297,14 +207,27 @@ class SpSinglePageChat extends StatelessWidget {
                                                 : CrossAxisAlignment.start,
                                         children: [
                                           if (message.imageUrl.isNotEmpty)
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Image.file(
-                                                File(message.imageUrl),
-                                                width: 250,
-                                                height: 250,
-                                                fit: BoxFit.cover,
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.to(
+                                                  () => FullImageView(
+                                                    imagePath: message.imageUrl,
+                                                  ),
+                                                );
+                                              },
+                                              child: Hero(
+                                                tag: message.imageUrl,
+
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  child: Image.file(
+                                                    File(message.imageUrl),
+                                                    width: 250,
+                                                    height: 250,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           if (message.message.isNotEmpty)
@@ -323,8 +246,14 @@ class SpSinglePageChat extends StatelessWidget {
                                             children: [
                                               Text(
                                                 message.time,
-                                                style: const TextStyle(
-                                                  color: AppColors.primary,
+                                                style: TextStyle(
+                                                  color:
+                                                      message
+                                                              .imageUrl
+                                                              .isNotEmpty
+                                                          ? AppColors
+                                                              .darkTextColor
+                                                          : AppColors.primary,
                                                   fontSize: 12,
                                                 ),
                                               ),
@@ -388,93 +317,9 @@ class SpSinglePageChat extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextField(
+                      child: CustomSingleTextfield(
                         focusNode: focusNode,
-                        controller: controller.messageController,
-                        onChanged: (text) {
-                          controller.onMessageChanged(text);
-                          if (controller.isEmojiVisible.value) {
-                            controller.isEmojiVisible.value = false;
-                          }
-                        },
-
-                        style: getTextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.primary,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: "Type Message",
-                          hintStyle: getTextStyle(
-                            color: AppColors.primary.withValues(alpha: 0.4),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide.none,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide.none,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide.none,
-                          ),
-                          fillColor: AppColors.textFrieldDarkColor,
-                          filled: true,
-                          suffixIcon: Obx(
-                            () => GestureDetector(
-                              onTap: () {
-                                if (controller.selectedImage.value != null) {
-                                  controller.sendImage();
-                                } else if (controller
-                                    .messageText
-                                    .value
-                                    .isNotEmpty) {
-                                  controller.sendMessage();
-                                } else {
-                                  controller.pickImage();
-                                }
-                              },
-                              child: CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                radius: 12,
-                                child: Image.asset(
-                                  controller.selectedImage.value != null ||
-                                          controller
-                                              .messageText
-                                              .value
-                                              .isNotEmpty
-                                      ? IconPath.spchatsend
-                                      : IconPath.chatattachfile,
-                                  width: 18,
-                                  height: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          prefixIcon: GestureDetector(
-                            onTap: () {
-                              if (controller.isEmojiVisible.value) {
-                                focusNode.requestFocus();
-                              } else {
-                                FocusScope.of(context).unfocus();
-                              }
-                              controller.isEmojiVisible.value =
-                                  !controller.isEmojiVisible.value;
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              radius: 12,
-                              child: Image.asset(
-                                IconPath.chatemoji,
-                                width: 24,
-                                height: 24,
-                              ),
-                            ),
-                          ),
-                        ),
+                        controller: controller,
                       ),
                     ),
                   ],

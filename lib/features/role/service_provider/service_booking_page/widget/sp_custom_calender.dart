@@ -66,7 +66,7 @@ class SpCustomCalender extends StatelessWidget {
                     event.date.day,
                     themeMode == ThemeMode.dark
                         ? AppColors.darkCalendarColor
-                        : AppColors.spcalendarColor,
+                        : AppColors.darkTextColor,
                   );
                 }
               },
@@ -111,6 +111,14 @@ class SpCustomCalender extends StatelessWidget {
                         : Color(0xff9291A5),
               ),
               todayTextStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.primary
+                        : AppColors.textColor,
+              ),
+              daysTextStyle: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color:

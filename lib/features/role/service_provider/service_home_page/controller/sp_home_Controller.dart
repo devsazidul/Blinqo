@@ -58,6 +58,41 @@ class SpHomeController extends GetxController {
       "uplogo": IconPath.teamBuildinglogo,
     },
     {
+      "title": "Annual Meeting",
+      "location": "Conference Room A",
+      "date": "15-06-2025",
+      "time": "9:30 AM",
+      "uplogo": IconPath.teamBuildinglogo,
+    },
+    {
+      "title": "Annual Meeting",
+      "location": "Conference Room A",
+      "date": "15-06-2025",
+      "time": "9:30 AM",
+      "uplogo": IconPath.teamBuildinglogo,
+    },
+    {
+      "title": "Annual Meeting",
+      "location": "Conference Room A",
+      "date": "15-06-2025",
+      "time": "9:30 AM",
+      "uplogo": IconPath.teamBuildinglogo,
+    },
+    {
+      "title": "Annual Meeting",
+      "location": "Conference Room A",
+      "date": "15-06-2025",
+      "time": "9:30 AM",
+      "uplogo": IconPath.teamBuildinglogo,
+    },
+    {
+      "title": "Annual Meeting",
+      "location": "Conference Room A",
+      "date": "15-06-2025",
+      "time": "9:30 AM",
+      "uplogo": IconPath.teamBuildinglogo,
+    },
+    {
       "title": "Marketing Strategy",
       "location": "Room 203",
       "date": "20-06-2025",
@@ -81,11 +116,25 @@ class SpHomeController extends GetxController {
       "logo": IconPath.productLaunchLogo,
     },
     {
+      "title": "Product Launch",
+      "location": "Skyview Pavilion",
+      "date": "22 March,2025",
+      "time": "10:00 AM",
+      "logo": IconPath.productLaunchLogo,
+    },
+    {
       "title": "Team Building Retreat",
       "location": "Riverside Retreat",
       "date": "29 March,2025",
       "time": "9:00 AM",
       "logo": IconPath.teamBuildinglogo,
+    },
+    {
+      "title": "Product Launch",
+      "location": "Skyview Pavilion",
+      "date": "22 March,2025",
+      "time": "10:00 AM",
+      "logo": IconPath.productLaunchLogo,
     },
   ];
 }

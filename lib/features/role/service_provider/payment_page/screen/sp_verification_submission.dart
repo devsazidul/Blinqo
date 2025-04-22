@@ -23,7 +23,7 @@ class SpVerificationSubmission extends StatelessWidget {
           child: CircleAvatar(
             radius: 20,
             backgroundColor: const Color(0xFFD9D9D9),
-            child: Image.asset(IconPath.arrowLeftAlt),
+            child: Image.asset(IconPath.arrowleft, width: 20, height: 20),
           ),
         ),
         title: Text(
@@ -46,6 +46,7 @@ class SpVerificationSubmission extends StatelessWidget {
                 TextFormField(
                   controller: verificationSubmissionController.spnameController,
                   decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: "Name",
                     labelStyle: getTextStyle(
                       fontSize: 16,
@@ -251,6 +252,7 @@ class SpVerificationSubmission extends StatelessWidget {
                   controller:
                       verificationSubmissionController.spProfileLinkController,
                   decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: "Portfolio link",
                     labelStyle: getTextStyle(
                       fontSize: 16,
@@ -281,6 +283,7 @@ class SpVerificationSubmission extends StatelessWidget {
                       verificationSubmissionController.spShortBioController,
                   maxLines: 3,
                   decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: "Bio",
                     labelStyle: getTextStyle(
                       fontSize: 16,

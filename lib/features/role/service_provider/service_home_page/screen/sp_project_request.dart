@@ -2,14 +2,14 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
-import 'package:blinqo/features/role/service_provider/service_home_page/widget/upcoming_project_card.dart';
+import 'package:blinqo/features/role/service_provider/service_home_page/widget/project_request_card.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class SpUpcomingProject extends StatelessWidget {
-  SpUpcomingProject({super.key});
+class SpProjectRequest extends StatelessWidget {
+  SpProjectRequest({super.key});
   final controller = Get.put(SpProfileController());
   final SpHomeController spHomeController = Get.put(SpHomeController());
   @override
@@ -67,17 +67,18 @@ class SpUpcomingProject extends StatelessWidget {
             children: [
               Expanded(
                 child: ListView.builder(
-                  itemCount: spHomeController.upcomingProjects.length,
+                  itemCount: spHomeController.projectRequests.length,
                   itemBuilder: (context, index) {
-                    var project = spHomeController.upcomingProjects[index];
+                    var project = spHomeController.projectRequests[index];
+
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: UpcomingProjectCard(
+                      padding: const EdgeInsets.symmetric(vertical: 3.0),
+                      child: ProjectRequestCard(
                         title: project['title']!,
                         location: project['location']!,
                         date: project['date']!,
                         time: project['time']!,
-                        logoPath: project['uplogo']!,
+                        logoPath: project['logo']!,
                       ),
                     );
                   },
