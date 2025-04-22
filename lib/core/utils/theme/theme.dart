@@ -1,3 +1,5 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,7 +10,7 @@ class AppTheme {
     primaryColor: Colors.blue, // Primary color for light theme
     scaffoldBackgroundColor:
         Colors.white, // Background color for light theme (white)
-    textTheme: TextTheme(),
+    textTheme: TextTheme(labelMedium: getTextStyle(fontSize: 14)),
     appBarTheme: AppBarTheme(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -59,7 +61,9 @@ class AppTheme {
     primaryColor: Colors.blueGrey, // Primary color for dark theme
     scaffoldBackgroundColor:
         Colors.black, // Background color for dark theme (black)
-    textTheme: TextTheme(),
+    textTheme: TextTheme(
+      labelMedium: getTextStyle(fontSize: 14, color: AppColors.darkSecondary),
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.black,
       titleTextStyle: TextStyle(color: Colors.white, fontSize: 24),

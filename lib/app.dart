@@ -2,6 +2,7 @@ import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'core/bindings/controller_binder.dart';
 import 'core/utils/theme/custom_themes/text_theme.dart';
 import 'core/utils/theme/theme.dart';
@@ -23,7 +24,6 @@ class Blinqo extends StatelessWidget {
             initialRoute: AppRoute.getsplashoScreen(),
             getPages: AppRoute.routes,
             initialBinding: ControllerBinder(),
-
             themeMode:
                 themeController.isDarkMode.value
                     ? ThemeMode.dark

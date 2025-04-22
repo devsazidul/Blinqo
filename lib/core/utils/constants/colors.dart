@@ -52,4 +52,6 @@ class AppColors {
   static const Color buttonColor3 = Color(0x1A003366);
   static const Color reviesStarColor = Color(0xffF0C020);
   static const Color dopdwonBackdownColor = Color(0x26979797);
+  static const Color pinkColor = Color(0xffFF2D55);
+  static const Color darkSecondary = Color(0xffD4AF37);
 }
