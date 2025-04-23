@@ -1,6 +1,7 @@
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_verified_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_setup_screen.dart';
+import 'package:blinqo/features/role/venue_owner/venue_notification_page/screens/v_notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -96,7 +97,9 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             SizedBox(width: 10),
-            InkWell(onTap: () {}, child: Icon(Icons.notifications, size: 30,color: isDarkMode ? Color(0xffD4AF37) : null)),
+            InkWell(onTap: () {
+              Get.to(VNotificationScreen());
+            }, child: Icon(Icons.notifications, size: 30,color: isDarkMode ? Color(0xffD4AF37) : null)),
           ],
         ),
       ),

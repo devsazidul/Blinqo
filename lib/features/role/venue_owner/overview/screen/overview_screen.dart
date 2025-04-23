@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/overview/screen/add_new_venue.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/payment_card.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
@@ -73,7 +74,7 @@ class OverviewScreen extends StatelessWidget {
                      color:isDarkMode?Color(0xffEBEBEB): Color(0xff444444),
                    ),),
                  ),
-                 Icon(Icons.arrow_right_alt)
+                 Icon(Icons.arrow_right_alt,color: isDarkMode?Color(0xffEBEBEB): null,size: 18,)
                ],
              ),
            ),
@@ -81,7 +82,11 @@ class OverviewScreen extends StatelessWidget {
               NewWidget(),
               SizedBox(height: 30),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                      AddNewVenue(image: ImagePath.venuesHall),
+                  );
+                },
                 child: Container(
                   height: 48,
                   width: double.infinity,
@@ -124,7 +129,7 @@ class OverviewScreen extends StatelessWidget {
                           color:isDarkMode?Color(0xffEBEBEB): Color(0xff444444),
                         ),),
                       ),
-                      Icon(Icons.arrow_right_alt)
+                      Icon(Icons.arrow_right_alt,color:isDarkMode?Color(0xffEBEBEB): null,size: 18,)
                     ],
                   ),
                 ),

@@ -52,12 +52,12 @@ class ChatController extends GetxController {
     });
   }
 
-  @override
-  void onClose() {
-    messageController.dispose();
-    scrollController.dispose();
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   messageController.dispose();
+  //   scrollController.dispose();
+  //   super.onClose();
+  // }
 
   void setActiveChat(String? chatId) {
     activeChat.value = chatId;
