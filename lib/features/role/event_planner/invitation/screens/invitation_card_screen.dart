@@ -1,13 +1,14 @@
 import 'dart:ui';
 
+import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/core/utils/helpers/app_helper.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/profile/widget/f_custom_button.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/edit_invitation_card_screen.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/guest_list_screen.dart';
-import 'package:blinqo/features/role/event_planner/invitation/widgets/custom_appbar_widget.dart';
-import 'package:blinqo/features/role/event_planner/invitation/widgets/ep_custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,12 +19,23 @@ class InvitationCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          Get.find<ProfileController>().isDarkMode.value
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       appBar: CustomAppBarWidget(
         title: 'Invitation Card',
         actions: [
           IconButton(
-            icon: Image.asset(IconPath.editPancilOnFram, width: 24, height: 24),
+            icon: Image.asset(
+              IconPath.editPancilOnFram,
+              width: 24,
+              height: 24,
+              color:
+                  Get.find<ProfileController>().isDarkMode.value
+                      ? Color(0xffD4AF37)
+                      : null,
+            ),
             onPressed: () {
               Get.to(() => EditInvitationCardScreen());
             },
@@ -117,7 +129,7 @@ class InvitationCardScreen extends StatelessWidget {
                 horizontal: 16.0,
                 vertical: 40,
               ),
-              child: EpCustomButton(
+              child: FCustomButton(
                 onPressed: () {
                   _showBlurredDialog(context);
 
@@ -203,7 +215,7 @@ class InvitationCardScreen extends StatelessWidget {
                   SizedBox(height: 32),
                   SizedBox(
                     width: 136,
-                    child: EpCustomButton(
+                    child: FCustomButton(
                       onPressed: () {
                         Get.to(() => GuestListScreen());
                       },

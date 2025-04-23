@@ -1,9 +1,9 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -82,7 +82,7 @@ class OTPScreen extends StatelessWidget {
                   () => CustomButton(
                     // onPress: () => Get.to(() => ChangePasswordScreen()),
                     title: 'Continue',
-                    textcolor:
+                    textColor:
                         forgetPasswordController.isFormValid2.value
                             ? AppColors.primary
                             : AppColors.buttonColor2,

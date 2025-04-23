@@ -1,12 +1,13 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/helpers/app_helper.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/profile/widget/f_custom_button.dart';
+import 'package:blinqo/features/profile/widget/f_label_text.dart';
 import 'package:blinqo/features/role/event_planner/invitation/controller/edit_invitation_card_controller.dart';
-import 'package:blinqo/features/role/event_planner/invitation/widgets/custom_appbar_widget.dart';
-import 'package:blinqo/features/role/event_planner/invitation/widgets/ep_custom_button.dart';
 import 'package:blinqo/features/role/event_planner/invitation/widgets/invitation_card_text_form_field.dart';
-import 'package:blinqo/features/role/event_planner/invitation/widgets/label_text.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,10 @@ class EditInvitationCardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(EditInvitationCardController());
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          Get.find<ProfileController>().isDarkMode.value
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       appBar: CustomAppBarWidget(title: "Edit Invitation Card"),
       body: SingleChildScrollView(
         child: Padding(
@@ -27,18 +31,18 @@ class EditInvitationCardScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 62),
-              LabelText(text: "Event Subject"),
+              FLabelText(text: "Event Subject"),
               SizedBox(height: 6),
               InvitationCardTextFormField(hintText: "Jhon & Jeni Wedding"),
               SizedBox(height: 20),
-              LabelText(text: "Event Description"),
+              FLabelText(text: "Event Description"),
               SizedBox(height: 6),
               InvitationCardTextFormField(
                 maxLines: 4,
                 hintText: "Write Invitation Letter Here.....",
               ),
               SizedBox(height: 20),
-              LabelText(text: "Add Photos"),
+              FLabelText(text: "Add Photos"),
               SizedBox(height: 6),
               // ------------
               GestureDetector(
@@ -119,7 +123,7 @@ class EditInvitationCardScreen extends StatelessWidget {
               ),
 
               SizedBox(height: AppHelperFunctions.screenHeight() - 794),
-              EpCustomButton(child: Text("Save & Change")),
+              FCustomButton(child: Text("Save & Change")),
               SizedBox(height: 20),
 
               // Row(
