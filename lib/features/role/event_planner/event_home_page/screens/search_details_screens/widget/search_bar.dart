@@ -2,8 +2,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
+import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,9 +21,6 @@ class SearchBer extends StatelessWidget {
         Expanded(
           child: TextField(
             onChanged: (value) {},
-            onTap: () {
-              Get.to(() => SearchDetailsScreen());
-            },
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
                 vertical: 13,
@@ -70,7 +66,7 @@ class SearchBer extends StatelessWidget {
         SizedBox(width: 8),
         GestureDetector(
           onTap: () {
-            Get.to(() => FilterDetailsScreen());
+            Navigator.pushNamed(context, AppRoute.getfilterDetailsScreen());
           },
           child: Container(
             height: 48,

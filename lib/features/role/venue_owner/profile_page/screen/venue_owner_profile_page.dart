@@ -184,11 +184,6 @@ class VenueOwnerProfilePage extends StatelessWidget {
             },
           ),
         ),
-        _buildSettingsTile(
-          themeMode,
-          title: "Language",
-          iconPath: IconPath.language,
-        ),
         Obx(
           () => _buildSettingsTile(
             themeMode,

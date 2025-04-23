@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,8 @@ class VProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return AppBar(
       backgroundColor: AppColors.backgroundColor,
       forceMaterialTransparency: true,
@@ -31,7 +33,11 @@ class VProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(left: 20.0),
         child: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => VanueOwnerBottomNavBar()),
+              (route) => false,
+            );
           },
           child: CircleAvatar(
             backgroundColor:
@@ -42,10 +48,7 @@ class VProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
               IconPath.arrowLeftAlt,
               width: 16,
               height: 12,
-              color:
-                  isDarkMode
-                      ? Colors.white
-                      : AppColors.textColor,
+              color: isDarkMode ? Colors.white : AppColors.textColor,
             ),
           ),
         ),
@@ -55,31 +58,26 @@ class VProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: getTextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color:
-              isDarkMode
-                  ? AppColors.backgroundColor
-                  : AppColors.textColor,
+          color: isDarkMode ? AppColors.backgroundColor : AppColors.textColor,
         ),
       ),
       centerTitle: true,
-      actions: [
-        if (isMoreVertIcon)
-          IconButton(
-            // onPressed: () {
-            //   showPopupMenu(context);
-            // },
-            onPressed: onPressed ?? () => vShowPopupMenu(context),
-            icon: Image.asset(
-              IconPath.moreVert,
-              width: 4,
-              height: 22.5,
-              color:
-                  isDarkMode
-                      ? AppColors.backgroundColor
-                      : AppColors.textColor,
-            ),
-          ),
-      ],
+      // actions: [
+      //   if (isMoreVertIcon)
+      //     IconButton(
+      //       // onPressed: () {
+      //       //   showPopupMenu(context);
+      //       // },
+      //       onPressed: onPressed ?? () => vShowPopupMenu(context),
+      //       icon: Image.asset(
+      //         IconPath.moreVert,
+      //         width: 4,
+      //         height: 22.5,
+      //         color:
+      //             isDarkMode ? AppColors.backgroundColor : AppColors.textColor,
+      //       ),
+      //     ),
+      // ],
     );
   }
 }

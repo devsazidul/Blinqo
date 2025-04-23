@@ -10,7 +10,7 @@ class CustomDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SpHomeController spHomeController = Get.find<SpHomeController>();
+    final SpHomeController spHomeController = Get.put(SpHomeController());
 
     return EasyDateTimeLine(
       initialDate: DateTime.now(),

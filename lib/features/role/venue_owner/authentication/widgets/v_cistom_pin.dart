@@ -14,6 +14,7 @@ class CustomPinField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PinCodeTextField(
+      autoDisposeControllers: false,
       controller: controller,
       appContext: context,
       length: 6,
@@ -33,6 +34,7 @@ class CustomPinField extends StatelessWidget {
         shape: PinCodeFieldShape.box,
         borderRadius: BorderRadius.circular(10),
       ),
+
     );
   }
 }

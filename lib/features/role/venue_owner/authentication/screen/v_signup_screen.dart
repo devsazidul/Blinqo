@@ -9,8 +9,6 @@ import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-
 // ignore: must_be_immutable
 class VSignupScreen extends StatelessWidget {
   VSignupScreen({super.key});
@@ -197,7 +195,7 @@ class VSignupScreen extends StatelessWidget {
               Obx(
                 () => CustomButton(
                   title: 'Sign Up',
-                  textcolor:
+                  textColor:
                       singupController.isFromValid.value
                           ? Colors.white
                           : Color(0xFF003366),
@@ -222,13 +220,9 @@ class VSignupScreen extends StatelessWidget {
               ),
               SizedBox(height: 28),
               SizedBox(height: 32),
-              if (Platform.isAndroid || Platform.isIOS) ...[
-  
-              ],
+              if (Platform.isAndroid || Platform.isIOS) ...[],
               SizedBox(height: 16),
-              if (Platform.isIOS) ...[
-
-              ],
+              if (Platform.isIOS) ...[],
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -248,7 +242,7 @@ class VSignupScreen extends StatelessWidget {
                     },
                     child: Text(
                       "Sign In",
-                      style: getTextStyle( 
+                      style: getTextStyle(
                         color: Color(0xFF003366),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,

@@ -87,6 +87,7 @@ class VCongratulationScreen extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: isDarkMode ? Color(0xffC0C0C0) : Color(0xff333333),
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
