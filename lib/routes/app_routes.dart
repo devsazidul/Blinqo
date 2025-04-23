@@ -35,6 +35,7 @@ import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_sen
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_signup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/createshift.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/myteamedit.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/teaminformation.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
@@ -89,6 +90,7 @@ class AppRoute {
   static const String pickColorScreen = "/pick_color_screen";
 
   static String employeeInformtaion ='/employeeInformation';
+  static String myteamedit ='/myteamedit';
 
 
   static String getsplashoScreen() => splashoScreen;
@@ -174,15 +176,12 @@ class AppRoute {
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
     GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
-
     GetPage(name: createshift, page: () => Createshift()),
     GetPage(name: getProfile(), page: () => MainProfileScreen()),
     GetPage(name: getEditProfileScreen(), page: () => SpEditProfilePage()),
     GetPage(name: getPickColorScreen(), page: () => PickColorScreen()),
-
     GetPage(name:createshift , page:()=>Createshift()),
     GetPage(name: employeeInformtaion, page:()=>EmployeeInformation()),
-    
-
+    GetPage(name:myteamedit , page: ()=>Myteamedit(index: Get.arguments as int)),
   ];
 }

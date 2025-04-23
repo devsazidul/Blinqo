@@ -4,42 +4,49 @@ import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_o
 import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart'; 
-class EmployeeInformation extends StatelessWidget {
-  const EmployeeInformation({super.key});
+import 'package:get/get_core/src/get_main.dart';
+
+class Myteamedit extends StatelessWidget {
+  final int index;
+   Myteamedit({super.key, required this.index});
+  final TeamControllerGetx controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
-      final bool isDarkMode =
+        final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
-    TextEditingController firstname = TextEditingController();
-    TextEditingController lastname = TextEditingController();
-    TextEditingController role = TextEditingController();
-    final TeamControllerGetx controller =Get.put(TeamControllerGetx());
+    
+    TextEditingController editFirstName = TextEditingController();
+    TextEditingController editLastName = TextEditingController();
+    TextEditingController editrole = TextEditingController();
+    final TeamControllerGetx controller = Get.find();
+     final Size screenSize = MediaQuery.of(context).size;
+    final double screenHeight = screenSize.height;
+    final double screenWidth = screenSize.width;
     return Scaffold(
-        backgroundColor:isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 24),
-                Text('Employee Information',style: getTextStyle(
+          backgroundColor:isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
+         body: SafeArea(child: SingleChildScrollView(
+          child: Padding(padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             Text('Employee Information',style: getTextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color:  isDarkMode?Color(0xffEBEBEB): Color(0xff000000),
+                 color:  isDarkMode?Color(0xffEBEBEB): Color(0xff000000),
                 ),),
                 SizedBox(height:16 ,),
                 SizedBox(
                   width: double.infinity,
                   
                  child: TextField(
-                  controller: firstname,
-                  style: getTextStyle(
+                  controller: editFirstName,
+                    style: getTextStyle(
                     color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
                     fontSize: 16,
                     fontWeight: FontWeight.w400 
                   ),
+                  
                   decoration: InputDecoration(
                     
                      enabledBorder: OutlineInputBorder(
@@ -61,12 +68,12 @@ class EmployeeInformation extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                  child: TextField(
-                  controller: lastname,
-                   style: getTextStyle(
+                    style: getTextStyle(
                     color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
                     fontSize: 16,
                     fontWeight: FontWeight.w400 
                   ),
+                 controller: editLastName,
                   decoration: InputDecoration(
                      enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -75,11 +82,11 @@ class EmployeeInformation extends StatelessWidget {
                       )
                     ),
                     labelText: 'Last Name',
-                    labelStyle: getTextStyle(
+                   labelStyle: getTextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
-                    )
+                    ),
                   ),
                  ),
                 ),
@@ -87,7 +94,7 @@ class EmployeeInformation extends StatelessWidget {
                  SizedBox(
                   width: double.infinity,
                  child: TextField(
-                   style: getTextStyle(
+                    style: getTextStyle(
                     color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
                     fontSize: 16,
                     fontWeight: FontWeight.w400 
@@ -100,20 +107,19 @@ class EmployeeInformation extends StatelessWidget {
                       )
                     ),
                     labelText: 'Email Address',
-                    labelStyle: getTextStyle(
+                   labelStyle: getTextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
-                    )
+                    ),
                   ),
                  ),
                 ),
                  SizedBox(height: 12,),
                  SizedBox(
                   width: double.infinity,
-                  
                  child: TextField(
-                   style: getTextStyle(
+                    style: getTextStyle(
                     color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
                     fontSize: 16,
                     fontWeight: FontWeight.w400 
@@ -126,11 +132,11 @@ class EmployeeInformation extends StatelessWidget {
                       )
                     ),
                     labelText: 'Phone Number',
-                    labelStyle: getTextStyle(
+                     labelStyle: getTextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
-                    )
+                    ),
                   ),
                  ),
                 ),
@@ -138,12 +144,12 @@ class EmployeeInformation extends StatelessWidget {
                    SizedBox(
                   width: double.infinity,
                  child: TextField(
-                   style: getTextStyle(
+                    style: getTextStyle(
                     color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
                     fontSize: 16,
                     fontWeight: FontWeight.w400 
                   ),
-                  controller: role,
+                 controller: editrole,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -152,52 +158,72 @@ class EmployeeInformation extends StatelessWidget {
                       )
                     ),
                     labelText: 'Role',
-                    labelStyle: getTextStyle(
+                     labelStyle: getTextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
-                    )
+                    ),
                   ),
                  ),
                 ),
                 SizedBox(height: 40,),
                 InkWell(
                   onTap: (){
-                      if (firstname.text.trim().isNotEmpty && lastname.text.trim().isNotEmpty && role.text.trim().isNotEmpty) {
-        controller.addTeamMember(
-      firstName: firstname.text.trim(),
-      lastName: lastname.text.trim(),
-      role: role.text.trim(),
-         );  Get.back();
+                  controller.updateTeamMember(
+                index,
+                editFirstName.text.trim(),
+                editLastName.text.trim(),
+               editrole.text.trim(),
 
-    // Clear fields after adding
-       firstname.clear();
-       lastname.clear();
-       role.clear();
-  }
+              ); Get.back(); 
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 48,
+                     decoration: BoxDecoration(
+                        color: Color(0xff003366),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Color(0xff003366),
+                          width: 1
+                        ),
+                      ),
+                      child: Center(child: Text('Save Changes',style: getTextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xffF4F4F4)
+                      ),),),
+                  
+                  ),
+                ),
+                SizedBox(height: 16,),
+                InkWell(
+                  onTap: (){
+                    Get.back();
                   },
                   child: Container(
                     width: double.infinity,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: Color(0xff003366),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                         color: Color(0xff003366),
-                        width: 1
+                          width: 1
                       ),
-                    ),child: Center(child: Text('Add Team Member',style: getTextStyle(
-                      fontSize: 15,
+                    ),
+                    child: Center(child: Text('Delete',style: getTextStyle(
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xffF4F4F4)
+                      color: isDarkMode?Color(0xffE6EBF0): Color(0xff003366)
+                  
                     ),),),
                   ),
                 )
-              ],
-            ),
-            ),
+
+            ],
           ),
-        ),
+          ),
+         )),
     );
   }
 }
