@@ -33,12 +33,14 @@ import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_sen
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_signup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/createshift.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/teaminformation.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:get/get.dart';
 import '../features/role/venue_owner/overview/screen/addcard_screen.dart';
 
 class AppRoute {
+
   static String splashoScreen = "/splashoScreen";
   static String homeEventPlanner = "/homeEventPlanner";
   static String roleScreen = "/roleScreen";
@@ -79,6 +81,7 @@ class AppRoute {
   static String changePasswordScreen = '/changePasswordScreen';
   static String createshift = '/createShiftScreen';
   static String addShift = '/addShift';
+  static String employeeInformtaion ='/employeeInformation';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -162,5 +165,7 @@ class AppRoute {
     GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
     GetPage(name:createshift , page:()=>Createshift()),
+    GetPage(name: employeeInformtaion, page:()=>EmployeeInformation()),
+    
   ];
 }

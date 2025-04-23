@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class  TeamControllerGetx extends GetxController {
+   final teamList = <Map<String, String>>[].obs;
+
+  void addTeamMember({required String firstName, required String lastName, required String role}) {
+  teamList.add({
+    'firstName': firstName,
+    'lastName': lastName,
+    'role': role,
+  });
+}
+
+  void clearTeam() {
+    teamList.clear();
+  }
   var selectedIndex = 0.obs;
   var selectedDate = DateTime.now().obs;
   var containerList = <Map<String, String>>[].obs;
