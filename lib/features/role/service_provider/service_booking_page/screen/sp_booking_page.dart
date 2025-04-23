@@ -9,9 +9,10 @@ import 'package:blinqo/features/role/service_provider/service_booking_page/widge
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/upcoming_project_card.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/screen/venueDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../venue_owner/myvenue/screen/venue_details_screen.dart';
 
 class SpBookingPage extends StatelessWidget {
   SpBookingPage({super.key});

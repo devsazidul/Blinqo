@@ -55,4 +55,5 @@ class AppColors {
   static const Color pinkColor = Color(0xffFF2D55);
   static const Color darkSecondary = Color(0xffD4AF37);
   static const Color thumbColor = Color(0xff006F6A);
+  static const Color blackColor = Color(0x00000000);
 }

@@ -1,7 +1,6 @@
 import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
-import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
@@ -117,13 +116,12 @@ class AppRoute {
   static String getforgetpasswordscreen() => forgetpasswordscreen;
   static String getotpscreen() => otpscreen;
   static String getchangePasswordScreen() => changePasswordScreen;
-    
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
     GetPage(name: homeEventPlanner, page: () => const HomeEventPlanner()),
     GetPage(name: roleScreen, page: () => const RoleScreen()),
-    GetPage(name:addShift, page: ()=>Addshift()),
+    GetPage(name: addShift, page: () => Addshift()),
     // GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: onbordingScreen, page: () => OnbordingScreen()),
     GetPage(name: bottomNavBar, page: () => BottomNavBar()),
@@ -152,15 +150,15 @@ class AppRoute {
     GetPage(name: spPaymentOptionCard, page: () => SpPaymentOptionCard()),
     GetPage(name: eventHomeScreen, page: () => EventHomeScreen()),
     GetPage(name: eventServicesScreen, page: () => EventServicesScreen()),
-    GetPage(name: featuredVenuesScreen, page: () => FeaturedVenuesScreen()),
+    // GetPage(name: featuredVenuesScreen, page: () => FeaturedVenuesScreen()),
     GetPage(name: venuesNearScreen, page: () => VenuesNearScreen()),
     GetPage(name: spProjectRequest, page: () => SpProjectRequest()),
     GetPage(name: spUpcomingProject, page: () => SpUpcomingProject()),
     GetPage(name: loginscreen, page: () => LogInScreen()),
     GetPage(name: signupscreen, page: () => SignUpScreen()),
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
-    GetPage(name: otpscreen, page: () => OTPScreen()),
+    // GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
-    GetPage(name:createshift , page:()=>Createshift()),
+    GetPage(name: createshift, page: () => Createshift()),
   ];
 }

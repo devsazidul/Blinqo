@@ -1,15 +1,17 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-// ignore: use_key_in_widget_constructors
+import '../controller/otp_controller.dart';
+
 class OTPScreen extends StatelessWidget {
-  final ForgetPasswordController forgetPasswordController =
-      Get.find<ForgetPasswordController>();
+  // Get the OTP controller instance using Get.find()
+  final OTPController otpController = Get.put(OTPController());
+
+  OTPScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,23 +85,24 @@ class OTPScreen extends StatelessWidget {
                     // onPress: () => Get.to(() => ChangePasswordScreen()),
                     title: 'Continue',
                     textcolor:
-                        forgetPasswordController.isFormValid2.value
+                        otpController.isFormValid.value
                             ? AppColors.primary
                             : AppColors.buttonColor2,
                     onPress:
-                        forgetPasswordController.isFormValid2.value
+                        otpController.isFormValid.value
                             ? () {
+                              // Navigate to the next screen if the OTP is valid
                               // Get.to(() => ChangePasswordScreen());
                             }
                             : null,
                     backgroundColor:
-                        forgetPasswordController.isFormValid2.value
+                        otpController.isFormValid.value
                             ? AppColors.buttonColor2
-                            : AppColors.buttonColor2.withValues(alpha: 0.1),
+                            : AppColors.buttonColor2.withOpacity(0.1),
                     borderColor:
-                        forgetPasswordController.isFormValid2.value
+                        otpController.isFormValid.value
                             ? AppColors.buttonColor2
-                            : AppColors.buttonColor2.withValues(alpha: 0.1),
+                            : AppColors.buttonColor2.withOpacity(0.1),
                   ),
                 ),
               ],
@@ -115,7 +118,6 @@ class OTPScreen extends StatelessWidget {
       length: 6,
       obscureText: false,
       keyboardType: TextInputType.number,
-      // animationType: AnimationType.fade,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
         borderRadius: BorderRadius.circular(8),
@@ -130,8 +132,12 @@ class OTPScreen extends StatelessWidget {
       ),
       animationDuration: const Duration(milliseconds: 300),
       backgroundColor: Colors.transparent,
-      controller: forgetPasswordController.pinController,
+      controller: otpController.pinController,
       appContext: context,
+      onChanged: (value) {
+        // Call validate form on OTP field change
+        otpController.validateForm();
+      },
     );
   }
 }
