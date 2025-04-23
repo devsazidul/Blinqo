@@ -77,7 +77,8 @@ class BookingSection extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Image.asset(IconPath.rightarrow, height: 16, width: 16),
+                    Image.asset(
+                        IconPath.rightarrow, height: 16, width: 16, color: isDarkMode?Color(0xffEBEBEB):null,),
                   ],
                 ),
               ),
