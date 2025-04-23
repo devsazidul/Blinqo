@@ -62,17 +62,22 @@ class EditVenue extends StatelessWidget {
                         Positioned(
                           left: 24,
                           top: 40,
-                          child: CircleAvatar(
-                            radius: 20,
-                            backgroundColor:
-                                isDarkMode
-                                    ? Color(0xFFD9D9D9).withAlpha(40)
-                                    : Color(0xFFD9D9D9),
-                            child: Image.asset(
-                              IconPath.arrowLeftAlt,
-                              width: 16,
-                              height: 12,
-                              color: isDarkMode ? Colors.white : Colors.white,
+                          child: GestureDetector(
+                            onTap: (){
+                              Get.back();
+                            },
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor:
+                                  isDarkMode
+                                      ? Color(0xFFD9D9D9).withAlpha(40)
+                                      : Color(0x1A333333),
+                              child: Image.asset(
+                                IconPath.arrowLeftAlt,
+                                width: 16,
+                                height: 12,
+                                color: isDarkMode ? Colors.white : Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -81,7 +86,7 @@ class EditVenue extends StatelessWidget {
                           top: 48,
                           child: Text(
                             "View Details",
-                            style: GoogleFonts.montserrat(
+                            style: getTextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                               color: Color(0xffFFFFFF),
@@ -91,10 +96,14 @@ class EditVenue extends StatelessWidget {
                         Positioned(
                           bottom: 26,
                           right: 26,
-                          child: Image.asset(
-                            IconPath.edit,
-                            width: 32,
-                            height: 32,
+                          child: CircleAvatar(
+                            backgroundColor: Color(0xffD4AF37),
+                            radius: 14,
+                            child: Icon(
+                              Icons.mode_edit_outline_outlined,
+                              size: 16,
+                              color: Color(0xff003366),
+                            ),
                           ),
                         ),
                       ],

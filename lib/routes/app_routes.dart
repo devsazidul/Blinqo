@@ -1,3 +1,5 @@
+import 'package:blinqo/features/profile/screen/pick_color_screen.dart';
+import 'package:blinqo/features/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
@@ -22,12 +24,12 @@ import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_ver
 import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_booking_page.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_project_request.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_chat_page.dart';
-import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
+import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_f_otp_send_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
@@ -36,12 +38,16 @@ import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_sen
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_signup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/createshift.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/myteamedit.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/teaminformation.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:get/get.dart';
+
 import '../features/role/venue_owner/overview/screen/addcard_screen.dart';
 
 class AppRoute {
+
   static String splashoScreen = "/splashoScreen";
   static String homeEventPlanner = "/homeEventPlanner";
   static String roleScreen = "/roleScreen";
@@ -85,6 +91,13 @@ class AppRoute {
   static String searchDetailsScreen = '/searchDetailsScreen';
   static String filterDetailsScreen = '/filterDetailsScreen';
   static String filterViewScreen = '/filterViewScreen';
+  static String profile = "/profile_screen";
+  static const String editProfileScreen = "/edit_profile_screen";
+  static const String pickColorScreen = "/pick_color_screen";
+
+  static String employeeInformtaion ='/employeeInformation';
+  static String myteamedit ='/myteamedit';
+
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -126,6 +139,9 @@ class AppRoute {
   static String getsearchDetailsScreen() => searchDetailsScreen;
   static String getfilterDetailsScreen() => filterDetailsScreen;
   static String getfilterViewScreen() => filterViewScreen;
+  static String getProfile() => profile;
+  static String getEditProfileScreen() => editProfileScreen;
+  static String getPickColorScreen() => pickColorScreen;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -173,5 +189,11 @@ class AppRoute {
     GetPage(name: searchDetailsScreen, page: () => SearchDetailsScreen()),
     GetPage(name: filterDetailsScreen, page: () => FilterDetailsScreen()),
     GetPage(name: filterViewScreen, page: () => FilterViewScreen()),
+    GetPage(name: getProfile(), page: () => MainProfileScreen()),
+    GetPage(name: getEditProfileScreen(), page: () => SpEditProfilePage()),
+    GetPage(name: getPickColorScreen(), page: () => PickColorScreen()),
+    GetPage(name:createshift , page:()=>Createshift()),
+    GetPage(name: employeeInformtaion, page:()=>EmployeeInformation()),
+    GetPage(name:myteamedit , page: ()=>Myteamedit(index: Get.arguments as int)),
   ];
 }

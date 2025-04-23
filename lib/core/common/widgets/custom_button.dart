@@ -10,9 +10,9 @@ class CustomButton extends StatelessWidget {
     this.borderColor = AppColors.buttonColor2,
     this.textStyle,
     required this.onPress,
-    this.textcolor = AppColors.backgroundColor,
+    this.textColor = AppColors.backgroundColor,
   });
-  final Color textcolor;
+  final Color textColor;
   final String title;
   final Color backgroundColor;
   final Color? borderColor;
@@ -38,7 +38,7 @@ class CustomButton extends StatelessWidget {
               title,
               style: getTextStyle(
                 fontSize: 16,
-                color: textcolor,
+                color: textColor,
                 fontWeight: FontWeight.w600,
               ),
             ),

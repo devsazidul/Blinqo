@@ -4,7 +4,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/device/device_utility.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/work_post_controller.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/show_profile_popup_menu.dart';
+import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
