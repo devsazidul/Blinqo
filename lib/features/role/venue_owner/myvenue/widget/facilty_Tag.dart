@@ -4,13 +4,11 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:get/get.dart';
 
 class FacilityTag extends StatelessWidget {
-  final double width;
   final IconData icon;
   final String label;
 
   const FacilityTag({
     super.key,
-    required this.width,
     required this.icon,
     required this.label,
   });
@@ -20,7 +18,6 @@ class FacilityTag extends StatelessWidget {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
-      width: width,
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: isDarkMode ? Color(0xff32383D) : Color(0xffFBF7EB),

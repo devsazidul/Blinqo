@@ -19,12 +19,17 @@ class AddNewVenue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+        Get
+            .put(VenueOwnerProfileController())
+            .isDarkMode
+            .value;
     final controller = Get.put(MyVenueController());
     TextEditingController venueName = TextEditingController();
     TextEditingController location = TextEditingController();
     TextEditingController numberGuests = TextEditingController();
-    final Size screenSize = MediaQuery.of(context).size;
+    final Size screenSize = MediaQuery
+        .of(context)
+        .size;
     final double screenHeight = screenSize.height;
     final double screenWidth = screenSize.width;
     return Scaffold(
@@ -63,7 +68,7 @@ class AddNewVenue extends StatelessWidget {
                           left: 24,
                           top: 40,
                           child: GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Get.back();
                             },
                             child: CircleAvatar(
@@ -161,33 +166,33 @@ class AddNewVenue extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 12),
-                  Row(
-                    children: [
-                      FacilityTag(
-                        width: screenWidth * 0.18,
-                        icon: Icons.wifi,
-                        label: 'Wifi',
+                 
+                      FittedBox(
+                        child: Row(
+                          children: [
+                            FacilityTag(
+                              icon: Icons.wifi,
+                              label: 'Wifi',
+                            ),
+                            SizedBox(width: 13),
+                            FacilityTag(
+                              icon: Icons.wifi,
+                              label: 'Parking',
+                            ),
+                            SizedBox(width: 13),
+                            FacilityTag(
+                              icon: Icons.wifi,
+                              label: 'AC',
+                            ),
+                            SizedBox(width: 13),
+                            FacilityTag(
+                              icon: Icons.wifi,
+                              label: 'Pool',
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(width: 13),
-                      FacilityTag(
-                        width: screenWidth * 0.24,
-                        icon: Icons.wifi,
-                        label: 'Parking',
-                      ),
-                      SizedBox(width: 13),
-                      FacilityTag(
-                        width: screenWidth * 0.16,
-                        icon: Icons.wifi,
-                        label: 'AC',
-                      ),
-                      SizedBox(width: 13),
-                      FacilityTag(
-                        width: screenWidth * 0.19,
-                        icon: Icons.wifi,
-                        label: 'Pool',
-                      ),
-                    ],
-                  ),
+                  
                   SizedBox(height: 16),
                   Text(
                     'Select From Here',
@@ -376,8 +381,9 @@ class AddNewVenue extends StatelessWidget {
                                     child: Checkbox(
                                       value: isSelected,
                                       onChanged:
-                                          (_) => controller
-                                          .toggleTableShape(shape),
+                                          (_) =>
+                                          controller
+                                              .toggleTableShape(shape),
                                       activeColor: const Color(
                                         0xff003366,
                                       ), // or use .withOpacity(0.5) if needed
@@ -475,8 +481,9 @@ class AddNewVenue extends StatelessWidget {
                                     child: Checkbox(
                                       value: isSelected,
                                       onChanged:
-                                          (_) => controller
-                                          .toggleSeatingStyle(style),
+                                          (_) =>
+                                          controller
+                                              .toggleSeatingStyle(style),
                                       activeColor: Color(
                                         0xff003366,
                                       ).withValues(alpha: .5),
@@ -562,8 +569,9 @@ class AddNewVenue extends StatelessWidget {
                                     child: Checkbox(
                                       value: isSelected,
                                       onChanged:
-                                          (_) => controller
-                                          .tooggleLightingStyle(style),
+                                          (_) =>
+                                          controller
+                                              .tooggleLightingStyle(style),
                                       activeColor: const Color(0xff003366),
                                     ),
                                   ),
@@ -649,8 +657,9 @@ class AddNewVenue extends StatelessWidget {
                                     child: Checkbox(
                                       value: isSelected,
                                       onChanged:
-                                          (_) => controller
-                                          .toogleFlowerColor(color),
+                                          (_) =>
+                                          controller
+                                              .toogleFlowerColor(color),
                                       activeColor: const Color(0xff003366),
                                     ),
                                   ),
@@ -736,8 +745,9 @@ class AddNewVenue extends StatelessWidget {
                                     child: Checkbox(
                                       value: isSelected,
                                       onChanged:
-                                          (_) => controller
-                                          .toogleFlowerType(type),
+                                          (_) =>
+                                          controller
+                                              .toogleFlowerType(type),
                                       activeColor: const Color(0xff003366),
                                     ),
                                   ),
@@ -826,9 +836,10 @@ class AddNewVenue extends StatelessWidget {
                                     child: Checkbox(
                                       value: isSelected,
                                       onChanged:
-                                          (_) => controller.toogleFrance(
-                                        scent,
-                                      ),
+                                          (_) =>
+                                          controller.toogleFrance(
+                                            scent,
+                                          ),
                                       activeColor: const Color(0xff003366),
                                     ),
                                   ),

@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/createshift.dart';
 import 'package:blinqo/features/role/venue_owner/team/widget/custom_calendar.dart';
@@ -11,14 +12,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Schedule extends StatelessWidget {
   const Schedule({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final TeamControllerGetx teamControllerGetx =
         Get.find<TeamControllerGetx>();
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -64,10 +69,16 @@ class Schedule extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 12),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              color: Color(0xffFFFFFF),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xff32383D)
+                                      : Color(0xffFFFFFF),
                               border: Border.all(
                                 width: 1,
-                                color: Color(0xffEBEBEB),
+                                color:
+                                    isDarkMode
+                                        ? Color(0xff32383D)
+                                        : Color(0xffEBEBEB),
                               ),
                             ),
                             child: Column(
@@ -79,7 +90,10 @@ class Schedule extends StatelessWidget {
                                   style: getTextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: Color(0xff000000),
+                                    color:
+                                        isDarkMode
+                                            ? Color(0xffEBEBEB)
+                                            : Color(0xff000000),
                                   ),
                                 ),
                                 SizedBox(height: 8),
@@ -90,7 +104,10 @@ class Schedule extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: Color(0xff5C5C5C),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffC0C0C0)
+                                                : Color(0xff5C5C5C),
                                       ),
                                     ),
                                     Spacer(),
@@ -105,7 +122,10 @@ class Schedule extends StatelessWidget {
                                         IconPath.editPencil,
                                         height: 18,
                                         width: 18,
-                                        color: Color(0xff003366),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffD4AF37)
+                                                : Color(0xff003366),
                                       ),
                                     ),
                                   ],
@@ -113,7 +133,17 @@ class Schedule extends StatelessWidget {
                                 SizedBox(height: 8),
                                 Row(
                                   children: [
-                                    Text('Employee '),
+                                    Text(
+                                      'Employee ',
+                                      style: getTextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffC0C0C0)
+                                                : Color(0xff5C5C5C),
+                                      ),
+                                    ),
                                     SizedBox(width: 24),
                                     Container(
                                       height: 25,
@@ -128,8 +158,8 @@ class Schedule extends StatelessWidget {
                                         child: Text(
                                           item['employee'] ?? '',
                                           style: getTextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
                                             color: Color(0xffD4AF37),
                                           ),
                                         ),
@@ -178,7 +208,7 @@ class Schedule extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 60,),
+              SizedBox(height: 60),
             ],
           ),
         ),

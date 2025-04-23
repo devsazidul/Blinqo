@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/shifcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
 import 'package:blinqo/features/role/venue_owner/team/widget/custom_calendar.dart';
@@ -10,9 +11,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Createshift extends StatelessWidget {
   final String? title;
+
   const Createshift({super.key, this.title});
+
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final ShiftController controller = Get.put(ShiftController());
     TextEditingController textEditingController = TextEditingController();
 
@@ -20,7 +25,8 @@ class Createshift extends StatelessWidget {
     final double screenHeight = screenSize.height;
     final double screenWidth = screenSize.width;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -57,14 +63,16 @@ class Createshift extends StatelessWidget {
                       style: GoogleFonts.montserrat(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
-                        color: const Color(0xff333333),
+                        color:
+                            isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                       ),
                     ),
                     Spacer(),
                     if (title != null)
                       Image.asset(
                         IconPath.delete,
-                        color: Color(0xff003366),
+                        color:
+                            isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                         height: 15,
                         width: 15,
                       ),
@@ -85,7 +93,10 @@ class Createshift extends StatelessWidget {
                             horizontal: 12,
                           ),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(
+                              color:
+                                  isDarkMode ? Color(0xff003366) : Colors.grey,
+                            ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Obx(
@@ -93,7 +104,12 @@ class Createshift extends StatelessWidget {
                               controller.startTime.value != null
                                   ? controller.startTime.value!.format(context)
                                   : "Start Time",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(
+                                color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Colors.black,
+                              ),
                             ),
                           ),
                         ),
@@ -111,7 +127,10 @@ class Createshift extends StatelessWidget {
                             horizontal: 12,
                           ),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(
+                              color:
+                                  isDarkMode ? Color(0xff003366) : Colors.grey,
+                            ), //color: Colors.grey),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Obx(
@@ -119,7 +138,12 @@ class Createshift extends StatelessWidget {
                               controller.endTime.value != null
                                   ? controller.endTime.value!.format(context)
                                   : "End Time",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(
+                                color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Colors.black,
+                              ),
                             ),
                           ),
                         ),
@@ -135,14 +159,14 @@ class Createshift extends StatelessWidget {
                           horizontal: 12,
                         ),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
+                          border: Border.all(color:isDarkMode ? Color(0xff003366) : Colors.grey),
                           borderRadius: BorderRadius.circular(8),
-                          color: Colors.grey.shade200,
+                          color:isDarkMode ? Color(0xff151515) : Colors.grey.shade200,
                         ),
                         child: Obx(
                           () => Text(
                             controller.duration,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color:isDarkMode ? Color(0xffEBEBEB) : Colors.black),
                           ),
                         ),
                       ),
@@ -155,28 +179,31 @@ class Createshift extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff333333),
+                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                   ),
                 ),
                 TextField(
                   controller: textEditingController,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Colors.black),
                     ),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Colors.black),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Colors.black),
                     ),
                     isCollapsed: true,
                     contentPadding: EdgeInsets.zero,
                   ),
-                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  style: TextStyle(
+                    color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+                    fontSize: 14,
+                  ),
                 ),
                 SizedBox(height: 40),
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     Get.back();
                   },
@@ -209,7 +236,10 @@ class Createshift extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff333333),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffD4AF37)
+                                  : Color(0xff333333),
                         ),
                       ),
                       SizedBox(width: 20),
@@ -224,6 +254,14 @@ class Createshift extends StatelessWidget {
                           () => Center(
                             child: Text(
                               controller.selectedEmployees.length.toString(),
+                              style: getTextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color:
+                                    isDarkMode
+                                        ? Color(0xffD4AF37)
+                                        : Color(0xffD4AF37),
+                              ),
                             ),
                           ),
                         ),
@@ -267,15 +305,14 @@ class Createshift extends StatelessWidget {
                         controller.selectedEmployees.map((employee) {
                           return Container(
                             width: double.infinity,
-                            margin: EdgeInsets.only(
-                              bottom: 8,
-                            ), // spacing between cards
+                            margin: EdgeInsets.only(bottom: 8),
+                            // spacing between cards
                             padding: EdgeInsets.all(15),
                             decoration: BoxDecoration(
-                              color: Color(0xffFFFFFF),
+                              color:isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                color: Color(0xffEBEBEB),
+                                color:isDarkMode ? Color(0xff32383D) : Color(0xffEBEBEB),
                                 width: 1,
                               ),
                             ),
@@ -289,7 +326,7 @@ class Createshift extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
-                                        color: Color(0xff333333),
+                                        color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                                       ),
                                     ),
                                     SizedBox(height: 4),
@@ -307,7 +344,7 @@ class Createshift extends StatelessWidget {
                                 Icon(
                                   Icons.edit_outlined,
                                   size: 24,
-                                  color: Color(0xff003366),
+                                  color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                                 ),
                               ],
                             ),

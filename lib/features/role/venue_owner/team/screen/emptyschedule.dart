@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/myteam.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/schedule.dart';
@@ -11,15 +12,16 @@ class Emptyschedule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final TeamControllerGetx teamControllerGetx = Get.put(TeamControllerGetx());
 
-    const Color activeColor = Color(0xff003366);
+    Color activeColor =isDarkMode ? Color(0xffD4AF37) : Color(0xff003366);
     const Color inactiveColor = Color(0xffA1A1A1);
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor:isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,12 +54,11 @@ class Emptyschedule extends StatelessWidget {
                     ),
                   ),
                 ],
-                indicator: const UnderlineTabIndicator(
+                indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(width: 3, color: activeColor),
-                  insets: EdgeInsets.symmetric(horizontal: -30),
+                  insets: EdgeInsets.symmetric(horizontal: Get.width * 0.35),
                 ),
               )),
-              const Divider(height: 1, thickness: 1),
               Expanded(
                 child: Obx(() {
                   switch (teamControllerGetx.selectedIndex.value) {

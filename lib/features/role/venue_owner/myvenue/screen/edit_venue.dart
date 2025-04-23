@@ -161,32 +161,30 @@ class EditVenue extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 12),
-                  Row(
-                    children: [
-                      FacilityTag(
-                        width: screenWidth * 0.18,
-                        icon: Icons.wifi,
-                        label: 'Wifi',
-                      ),
-                      SizedBox(width: 13),
-                      FacilityTag(
-                        width: screenWidth * 0.24,
-                        icon: Icons.wifi,
-                        label: 'Parking',
-                      ),
-                      SizedBox(width: 13),
-                      FacilityTag(
-                        width: screenWidth * 0.16,
-                        icon: Icons.wifi,
-                        label: 'AC',
-                      ),
-                      SizedBox(width: 13),
-                      FacilityTag(
-                        width: screenWidth * 0.19,
-                        icon: Icons.wifi,
-                        label: 'Pool',
-                      ),
-                    ],
+                  FittedBox(
+                    child: Row(
+                      children: [
+                        FacilityTag(
+                          icon: Icons.wifi,
+                          label: 'Wifi',
+                        ),
+                        SizedBox(width: 13),
+                        FacilityTag(
+                          icon: Icons.wifi,
+                          label: 'Parking',
+                        ),
+                        SizedBox(width: 13),
+                        FacilityTag(
+                          icon: Icons.wifi,
+                          label: 'AC',
+                        ),
+                        SizedBox(width: 13),
+                        FacilityTag(
+                          icon: Icons.wifi,
+                          label: 'Pool',
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 16),
                   Text(
