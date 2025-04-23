@@ -199,7 +199,7 @@ class SpProfilePage extends StatelessWidget {
             onTap: () => controller.toggleNotifications(),
           ),
         ),
-        _buildSettingsTile(
+        _buildSettingsTile( 
           themeMode,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
@@ -234,7 +234,9 @@ class SpProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () {},
+          onTap: () {
+            
+          },
         ),
       ],
     );

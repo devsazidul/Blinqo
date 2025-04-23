@@ -1,6 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +14,8 @@ class SearchEmployee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+     final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
     return  Container(
       decoration: BoxDecoration(

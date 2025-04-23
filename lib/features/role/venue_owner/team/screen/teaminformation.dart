@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,14 +9,14 @@ class EmployeeInformation extends StatelessWidget {
   const EmployeeInformation({super.key});
   @override
   Widget build(BuildContext context) {
+      final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     TextEditingController firstname = TextEditingController();
     TextEditingController lastname = TextEditingController();
     TextEditingController role = TextEditingController();
     final TeamControllerGetx controller =Get.put(TeamControllerGetx());
-
-
     return Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor:isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(padding: EdgeInsets.symmetric(horizontal: 20),
@@ -26,7 +27,7 @@ class EmployeeInformation extends StatelessWidget {
                 Text('Employee Information',style: getTextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xff000000)
+                  color:  isDarkMode?Color(0xffEBEBEB): Color(0xff000000),
                 ),),
                 SizedBox(height:16 ,),
                 SizedBox(
@@ -34,6 +35,11 @@ class EmployeeInformation extends StatelessWidget {
                   
                  child: TextField(
                   controller: firstname,
+                  style: getTextStyle(
+                    color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400 
+                  ),
                   decoration: InputDecoration(
                     
                      enabledBorder: OutlineInputBorder(
@@ -45,8 +51,9 @@ class EmployeeInformation extends StatelessWidget {
                     labelText: 'First Name',
                     labelStyle: getTextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.w500
-                    )
+                      fontWeight: FontWeight.w500,
+                      color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
+                    ),
                   ),
                  ),
                 ),
@@ -55,6 +62,11 @@ class EmployeeInformation extends StatelessWidget {
                   width: double.infinity,
                  child: TextField(
                   controller: lastname,
+                   style: getTextStyle(
+                    color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400 
+                  ),
                   decoration: InputDecoration(
                      enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -65,7 +77,8 @@ class EmployeeInformation extends StatelessWidget {
                     labelText: 'Last Name',
                     labelStyle: getTextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.w500
+                      fontWeight: FontWeight.w500,
+                      color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
                     )
                   ),
                  ),
@@ -74,6 +87,11 @@ class EmployeeInformation extends StatelessWidget {
                  SizedBox(
                   width: double.infinity,
                  child: TextField(
+                   style: getTextStyle(
+                    color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400 
+                  ),
                   decoration: InputDecoration(
                      enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -84,7 +102,8 @@ class EmployeeInformation extends StatelessWidget {
                     labelText: 'Email Address',
                     labelStyle: getTextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.w500
+                      fontWeight: FontWeight.w500,
+                      color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
                     )
                   ),
                  ),
@@ -92,7 +111,13 @@ class EmployeeInformation extends StatelessWidget {
                  SizedBox(height: 12,),
                  SizedBox(
                   width: double.infinity,
+                  
                  child: TextField(
+                   style: getTextStyle(
+                    color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400 
+                  ),
                   decoration: InputDecoration(
                      enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -103,7 +128,8 @@ class EmployeeInformation extends StatelessWidget {
                     labelText: 'Phone Number',
                     labelStyle: getTextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.w500
+                      fontWeight: FontWeight.w500,
+                      color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
                     )
                   ),
                  ),
@@ -112,6 +138,11 @@ class EmployeeInformation extends StatelessWidget {
                    SizedBox(
                   width: double.infinity,
                  child: TextField(
+                   style: getTextStyle(
+                    color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400 
+                  ),
                   controller: role,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -123,7 +154,8 @@ class EmployeeInformation extends StatelessWidget {
                     labelText: 'Role',
                     labelStyle: getTextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.w500
+                      fontWeight: FontWeight.w500,
+                      color: isDarkMode?  Color(0xffC0C0C0): Color(0xff767676),
                     )
                   ),
                  ),

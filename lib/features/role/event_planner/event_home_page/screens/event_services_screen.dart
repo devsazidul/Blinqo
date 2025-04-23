@@ -1,7 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,11 +12,12 @@ class EventServicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     final List<Service> services = [
-      Service(imagePath: ImagePath.venuesHall, label: 'Photography'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Videography'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Entertainment'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Decoration'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Catering'),
+      Service(imagePath: IconPath.epphotograph, label: 'Photography'),
+      Service(imagePath: IconPath.epvideography, label: 'Videography'),
+      Service(imagePath: IconPath.epcatering, label: 'Catering'),
+      Service(imagePath: IconPath.epdj, label: 'Dj'),
+      Service(imagePath: IconPath.epentertainment, label: 'Entertainment'),
+      Service(imagePath: IconPath.epgame, label: 'Game'),
     ];
     debugPrint('screenWidth: $screenWidth');
     return Scaffold(
@@ -51,11 +51,11 @@ class EventServicesScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: GridView.builder(
           shrinkWrap: true,
-          itemCount: 5,
+          itemCount: 6,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
+            crossAxisCount: 2,
+            crossAxisSpacing: 2,
+            mainAxisSpacing: 1,
             childAspectRatio: _buildChildAspectRatio(screenWidth),
           ),
           itemBuilder: (context, index) {

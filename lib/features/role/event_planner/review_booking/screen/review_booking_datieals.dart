@@ -1,16 +1,18 @@
-import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../../core/utils/constants/colors.dart';
+import '../../../../../core/common/styles/global_text_style.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../event_home_page/sharch_start_booking/widget/revies_card.dart';
 import '../../event_home_page/sharch_start_booking/widget/shearch_start_booking_page.dart';
+import '../../payment_method/screen/even_payment_option.dart';
+import '../../payment_method/screen/evetnt_congratulation_screen.dart';
 import '../widget/ever_review_booking_details_section.dart';
 import '../widget/reviews_text.dart';
 
-class ReviewBooking extends StatelessWidget {
-  const ReviewBooking({super.key});
+class ReviewBookingDetails extends StatelessWidget {
+  const ReviewBookingDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +145,61 @@ class ReviewBooking extends StatelessWidget {
                         ),
                       ),
                     ),
+
+                    SizedBox(height: screenHeight * 0.03),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? Color(0xff32383D)
+                                : AppColors.primary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Price Details',
+                              style: getTextStylePoppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? AppColors.buttonColor
+                                        : AppColors.buttonColor2,
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: false,
+                              label: 'Total Cost',
+                              value: '\$8000',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: false,
+
+                              label: 'Payable Amount',
+                              value: '\$800(10%)',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: false,
+                              label: 'Due',
+                              value: '\$7200',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                          ],
+                        ),
+                      ),
+                    ),
+
                     SizedBox(height: screenHeight * 0.02),
 
                     SizedBox(
@@ -150,13 +207,12 @@ class ReviewBooking extends StatelessWidget {
 
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(ReviewBooking());
+                          Get.to(EvenPaymentOption());
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
-                          backgroundColor: Color(
-                            0xffE6EBF0,
-                          ), // Your custom color
+                          backgroundColor:
+                              AppColors.buttonColor2, // Your custom color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                               12.r,
@@ -168,7 +224,7 @@ class ReviewBooking extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xff8AA1B9),
+                            color: AppColors.primary,
                           ),
                         ),
                       ),
@@ -178,7 +234,9 @@ class ReviewBooking extends StatelessWidget {
                       width: double.infinity,
 
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(EventCongratulationScreen());
+                        },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           backgroundColor:

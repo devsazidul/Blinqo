@@ -6,10 +6,11 @@ import 'package:blinqo/features/role/service_provider/service_profile_page/scree
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+
+final bool isDarkMode =
+    Get.find<VenueOwnerProfileController>().isDarkMode.value;
 
 Future<void> vShowPopupMenu(BuildContext context) async {
-
   // Show the popup menu
   showMenu(
     color: isDarkMode ? Color(0xff32383D) : Colors.white,
@@ -135,7 +136,10 @@ PopupMenuItem<String> _buildPopupMenuItem(
                 Container(
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    color:isDarkMode ? Color(0x1AD4AF37) : Color(0xD4AF371A).withAlpha(10),
+                    color:
+                        isDarkMode
+                            ? Color(0x1AD4AF37)
+                            : Color(0xD4AF371A).withAlpha(10),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
