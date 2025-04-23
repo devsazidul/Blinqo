@@ -120,7 +120,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 SizedBox(height: 68),
                 CustomButton(
                   title: 'Changed',
-                  textcolor: AppColors.primary,
+                  textColor: AppColors.primary,
                   onPress: () {
                     Get.off(() => LogInScreen());
                   },
