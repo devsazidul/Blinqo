@@ -117,13 +117,12 @@ class AppRoute {
   static String getforgetpasswordscreen() => forgetpasswordscreen;
   static String getotpscreen() => otpscreen;
   static String getchangePasswordScreen() => changePasswordScreen;
-    
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
     GetPage(name: homeEventPlanner, page: () => const HomeEventPlanner()),
     GetPage(name: roleScreen, page: () => const RoleScreen()),
-    GetPage(name:addShift, page: ()=>Addshift()),
+    GetPage(name: addShift, page: () => Addshift()),
     // GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: onbordingScreen, page: () => OnbordingScreen()),
     GetPage(name: bottomNavBar, page: () => BottomNavBar()),
@@ -161,6 +160,6 @@ class AppRoute {
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
     GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
-    GetPage(name:createshift , page:()=>Createshift()),
+    GetPage(name: createshift, page: () => Createshift()),
   ];
 }

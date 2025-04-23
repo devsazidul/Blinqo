@@ -126,4 +126,20 @@ class IconPath {
   static const String group = "assets/icons/Group.png";
   static const String shoppingmode = "assets/icons/shoppingmode.png";
   static const String cardsstar = "assets/icons/cards_star.png";
+  static const String epphotograph = "assets/icons/epphotograph.png";
+  static const String epvideography = "assets/icons/epvideography.png";
+  static const String epcatering = "assets/icons/epcatering.png";
+  static const String epdj = "assets/icons/epdj.png";
+  static const String epentertainment = "assets/icons/epentertainment.png";
+  static const String epgame = "assets/icons/epgame.png";
+  static const String arrowleftwhite = "assets/icons/arrowleftwhite.png";
+  static const String epsearchfilter = "assets/icons/epsearchfilter.png";
+  static const String eventserviceverificaitonlogo =
+      "assets/icons/eventserviceverificaitonlogo.png";
+  static const String ratinglogo = "assets/icons/ratinglogo.png";
+  static const String arrowright = "assets/icons/arrowright.png";
+  static const String epsearch = "assets/icons/epsearch.png";
+  static const String eplocation = "assets/icons/eplocation.png";
+  static const String eprating = "assets/icons/eprating.png";
+  static const String ratingstart2 = "assets/icons/ratingstart2.png";
 }

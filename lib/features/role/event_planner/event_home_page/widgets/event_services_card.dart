@@ -1,5 +1,9 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_event_service_details.dart'
+    show EpEventServiceDetails;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 class EventServiceCard extends StatelessWidget {
   final Service service;
@@ -8,27 +12,32 @@ class EventServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.asset(
-            service.imagePath,
-            height: 85,
-            width: screenWidth * 0.3,
-            fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => EpEventServiceDetails(service: service));
+      },
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              service.imagePath,
+              height: 123,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        SizedBox(height: 6),
-        Text(
-          service.label,
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
+          SizedBox(height: 8),
+          Text(
+            service.label,
+            style: getTextStyle(
+              color: AppColors.textColor,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
