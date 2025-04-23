@@ -10,7 +10,6 @@ import '../../../../../core/utils/constants/icon_path.dart';
 import '../widget/SearchBarWidget.dart';
 import '../widget/venueplaceholder.dart';
 
-
 class Venue extends StatelessWidget {
   Venue({super.key});
 
