@@ -11,6 +11,14 @@ class  TeamControllerGetx extends GetxController {
     'role': role,
   });
 }
+void updateTeamMember(int index, String firstName, String lastName, String role) {
+  teamList[index] = {
+    'firstName': firstName,
+    'lastName': lastName,
+    'role': role,
+  };
+  update(); // GetX UI রিফ্রেশ করবে
+}
 
   void clearTeam() {
     teamList.clear();

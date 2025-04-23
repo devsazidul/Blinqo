@@ -1,4 +1,7 @@
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchEmployee extends StatelessWidget {
@@ -8,7 +11,8 @@ class SearchEmployee extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+     final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
     return  Container(
       decoration: BoxDecoration(
@@ -32,11 +36,11 @@ class SearchEmployee extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           suffixIcon: IconButton(
-            icon: const Icon(Icons.mic_none, color: Color(0xff003366), size: 19),
+            icon:  Icon(Icons.mic_none, color: isDarkMode?Color(0xffD4AF37): Color(0xff003366), size: 19),
             onPressed: () {},
           ),
           filled: true,
-          fillColor: const Color(0xffFFFFFF),
+          fillColor: isDarkMode?Color(0xff32383D):const Color(0xffFFFFFF),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide.none,
