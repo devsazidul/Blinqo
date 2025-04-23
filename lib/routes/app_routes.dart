@@ -8,6 +8,9 @@ import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dar
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_view_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
@@ -85,6 +88,9 @@ class AppRoute {
   static String changePasswordScreen = '/changePasswordScreen';
   static String createshift = '/createShiftScreen';
   static String addShift = '/addShift';
+  static String searchDetailsScreen = '/searchDetailsScreen';
+  static String filterDetailsScreen = '/filterDetailsScreen';
+  static String filterViewScreen = '/filterViewScreen';
   static String profile = "/profile_screen";
   static const String editProfileScreen = "/edit_profile_screen";
   static const String pickColorScreen = "/pick_color_screen";
@@ -130,6 +136,9 @@ class AppRoute {
   static String getforgetpasswordscreen() => forgetpasswordscreen;
   static String getotpscreen() => otpscreen;
   static String getchangePasswordScreen() => changePasswordScreen;
+  static String getsearchDetailsScreen() => searchDetailsScreen;
+  static String getfilterDetailsScreen() => filterDetailsScreen;
+  static String getfilterViewScreen() => filterViewScreen;
   static String getProfile() => profile;
   static String getEditProfileScreen() => editProfileScreen;
   static String getPickColorScreen() => pickColorScreen;
@@ -177,6 +186,9 @@ class AppRoute {
     GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
     GetPage(name: createshift, page: () => Createshift()),
+    GetPage(name: searchDetailsScreen, page: () => SearchDetailsScreen()),
+    GetPage(name: filterDetailsScreen, page: () => FilterDetailsScreen()),
+    GetPage(name: filterViewScreen, page: () => FilterViewScreen()),
     GetPage(name: getProfile(), page: () => MainProfileScreen()),
     GetPage(name: getEditProfileScreen(), page: () => SpEditProfilePage()),
     GetPage(name: getPickColorScreen(), page: () => PickColorScreen()),
