@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/addshiftcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/shifcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/widget/search_employee.dart';
@@ -8,14 +9,18 @@ import 'package:get/get.dart';
 
 class Addshift extends StatelessWidget {
   const Addshift({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final Addshiftcontroller controller = Get.put(Addshiftcontroller());
     TextEditingController search = TextEditingController();
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -27,7 +32,8 @@ class Addshift extends StatelessWidget {
                 SearchEmployee(controller: search),
                 SizedBox(height: 20),
                 Text(
-                  '${controller.employees.length} Members', // Dynamically show the number of employees
+                  '${controller.employees.length} Members',
+                  // Dynamically show the number of employees
                   style: getTextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -48,11 +54,17 @@ class Addshift extends StatelessWidget {
                           Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Color(0xffFFFFFF),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xff32383D)
+                                      : Color(0xffFFFFFF),
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
                                 width: 1,
-                                color: Color(0xffEBEBEB),
+                                color:
+                                    isDarkMode
+                                        ? Color(0xff32383D)
+                                        : Color(0xffEBEBEB),
                               ),
                             ),
                             child: Row(
@@ -68,7 +80,10 @@ class Addshift extends StatelessWidget {
                                         style: getTextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
-                                          color: Color(0xff333333),
+                                          color:
+                                              isDarkMode
+                                                  ? Color(0xffEBEBEB)
+                                                  : Color(0xff333333),
                                         ),
                                       ),
                                       SizedBox(height: 4, width: 4),
@@ -88,9 +103,15 @@ class Addshift extends StatelessWidget {
                                   () => Checkbox(
                                     side: BorderSide(
                                       width: 1,
-                                      color: Color(0xff003366),
+                                      color:
+                                          isDarkMode
+                                              ? Color(0xffD4AF37)
+                                              : Color(0xff003366),
                                     ),
-                                    activeColor: Color(0xff003366),
+                                    activeColor:
+                                        isDarkMode
+                                            ? Color(0xffD4AF37)
+                                            : Color(0xff003366),
                                     value: employee.isChecked.value,
                                     onChanged:
                                         (value) => controller.toggleCheckbox(
@@ -126,7 +147,7 @@ class Addshift extends StatelessWidget {
                   },
                   child: Container(
                     width: double.infinity,
-                    height: screenHeight * 0.080,
+                    padding: EdgeInsets.symmetric(vertical: 16),
                     decoration: BoxDecoration(
                       border: Border.all(width: 1, color: Color(0xff003366)),
                       borderRadius: BorderRadius.circular(12),
