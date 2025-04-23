@@ -7,17 +7,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class VenueOwnerProfileController extends GetxController {
-  //
   RxBool isDarkMode = false.obs;
   var showNotifications = true.obs;
-
   var profileImage = Rx<File?>(null);
+
+  @override
+  void onInit() {
+    super.onInit();
+    // Initialize isDarkMode based on current theme
+    isDarkMode.value = Get.isDarkMode;
+  }
 
   Future<void> pickImage() async {
     await requestPermissions();
 
     final ImagePicker picker = ImagePicker();
-
     final ImageSource? source = await showPickrOption();
 
     if (source != null) {
@@ -116,6 +120,7 @@ class VenueOwnerProfileController extends GetxController {
 
   void toggleDarkMode() {
     isDarkMode.value = !isDarkMode.value;
+    Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
   }
 
   void toggleNotifications() {
