@@ -3,7 +3,6 @@ import 'package:blinqo/features/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
-import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
@@ -176,14 +175,14 @@ class AppRoute {
     GetPage(name: spPaymentOptionCard, page: () => SpPaymentOptionCard()),
     GetPage(name: eventHomeScreen, page: () => EventHomeScreen()),
     GetPage(name: eventServicesScreen, page: () => EventServicesScreen()),
-    GetPage(name: featuredVenuesScreen, page: () => FeaturedVenuesScreen()),
+    // GetPage(name: featuredVenuesScreen, page: () => FeaturedVenuesScreen()),
     GetPage(name: venuesNearScreen, page: () => VenuesNearScreen()),
     GetPage(name: spProjectRequest, page: () => SpProjectRequest()),
     GetPage(name: spUpcomingProject, page: () => SpUpcomingProject()),
     GetPage(name: loginscreen, page: () => LogInScreen()),
     GetPage(name: signupscreen, page: () => SignUpScreen()),
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
-    GetPage(name: otpscreen, page: () => OTPScreen()),
+    // GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
     GetPage(name: createshift, page: () => Createshift()),
     GetPage(name: searchDetailsScreen, page: () => SearchDetailsScreen()),

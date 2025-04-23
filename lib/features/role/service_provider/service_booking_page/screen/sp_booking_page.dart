@@ -20,6 +20,8 @@ import 'package:get/get.dart';
 import '../../../venue_owner/myvenue/screen/venue_details_screen.dart';
 import '../../../event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart';
 
+import '../../../venue_owner/myvenue/screen/venue_details_screen.dart';
+
 class SpBookingPage extends StatelessWidget {
   SpBookingPage({super.key});
   final SpBookingController spBookingController = Get.put(

@@ -8,15 +8,15 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class ForgetPasswordScreen extends StatelessWidget {
-  ForgetPasswordScreen({super.key});
-  final ValueNotifier<int> focusedButtonIndex = ValueNotifier<int>(0);
-
-  final ForgetPasswordController forgetPasswordController =
-      Get.find<ForgetPasswordController>();
-  var isLoading = false.obs;
+  const ForgetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Get the controller instance using Get.find()
+    final ForgetPasswordController forgetPasswordController = Get.put(
+      ForgetPasswordController(),
+    );
+
     return Scaffold(
       backgroundColor: AppColors.loginBg,
       appBar: AppBar(
@@ -64,10 +64,11 @@ class ForgetPasswordScreen extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      focusedButtonIndex.value = 0;
+                      forgetPasswordController.focusedButtonIndex.value = 0;
                     },
                     child: ValueListenableBuilder<int>(
-                      valueListenable: focusedButtonIndex,
+                      valueListenable:
+                          forgetPasswordController.focusedButtonIndex,
                       builder: (context, value, child) {
                         return Container(
                           height: 44,
@@ -98,10 +99,11 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      focusedButtonIndex.value = 1;
+                      forgetPasswordController.focusedButtonIndex.value = 1;
                     },
                     child: ValueListenableBuilder<int>(
-                      valueListenable: focusedButtonIndex,
+                      valueListenable:
+                          forgetPasswordController.focusedButtonIndex,
                       builder: (context, value, child) {
                         return Container(
                           height: 44,
@@ -135,7 +137,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             ),
             SizedBox(height: 31),
             ValueListenableBuilder<int>(
-              valueListenable: focusedButtonIndex,
+              valueListenable: forgetPasswordController.focusedButtonIndex,
               builder: (context, value, child) {
                 return Column(
                   children: [
@@ -211,13 +213,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // if (emailController.text.isEmpty) {
-                    //   EasyLoading.showError('Please enter your email');
-                    // } else {
-                    //   forgetPasswordController.emailController.value =
-                    //       emailController.text;
-                    //   forgetPasswordController.sendOtp(emailController.text);
-                    // }
+                    // Add logic to handle form submission here
                     Get.to(() => OTPScreen());
                   },
                   child: Text(

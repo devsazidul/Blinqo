@@ -147,7 +147,7 @@ class VenueBookingPage extends StatelessWidget {
                       controller.setSortBy(value);
                     }
                   },
-                  dropdownColor:isDarkMode ? Color(0xff32383D) : Colors.white,
+                  dropdownColor: isDarkMode ? Color(0xff32383D) : Colors.white,
                 ),
               );
             }),

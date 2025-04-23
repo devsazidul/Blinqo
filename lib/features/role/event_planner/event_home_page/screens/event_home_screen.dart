@@ -17,6 +17,8 @@ import 'package:get/get.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 
 class EventHomeScreen extends StatelessWidget {
+  static const String routeName = '/eventHome'; // Add this line
+
   const EventHomeScreen({super.key});
 
   @override
