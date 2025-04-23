@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class VPaymentHistoryScreen extends StatelessWidget {
-
-   const VPaymentHistoryScreen({super.key});
+  const VPaymentHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
-      backgroundColor:isDarkMode ? Color(0xff151515) : Color(0xffF4F4F4),
+      backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xffF4F4F4),
       appBar: VPaymentAppBar(title: 'Payment History'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -90,8 +90,7 @@ class VPaymentHistoryScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    for (int i = 0; i < 10; i++)
-                      PaymentTransactionCard(),
+                    for (int i = 0; i < 10; i++) PaymentTransactionCard(),
                   ],
                 ),
               ),

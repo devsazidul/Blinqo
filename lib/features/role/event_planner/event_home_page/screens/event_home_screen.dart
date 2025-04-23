@@ -1,7 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';

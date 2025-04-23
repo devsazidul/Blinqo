@@ -5,8 +5,6 @@ import 'package:blinqo/features/role/event_planner/bottom_nav_bar/controller/eve
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/ep_chat_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/event_checklist_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_navigator.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';

@@ -4,7 +4,6 @@ import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dar
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../core/common/styles/global_text_style.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/icon_path.dart';
@@ -63,7 +62,7 @@ class EditVenue extends StatelessWidget {
                           left: 24,
                           top: 40,
                           child: GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Get.back();
                             },
                             child: CircleAvatar(
@@ -164,25 +163,13 @@ class EditVenue extends StatelessWidget {
                   FittedBox(
                     child: Row(
                       children: [
-                        FacilityTag(
-                          icon: Icons.wifi,
-                          label: 'Wifi',
-                        ),
+                        FacilityTag(icon: Icons.wifi, label: 'Wifi'),
                         SizedBox(width: 13),
-                        FacilityTag(
-                          icon: Icons.wifi,
-                          label: 'Parking',
-                        ),
+                        FacilityTag(icon: Icons.wifi, label: 'Parking'),
                         SizedBox(width: 13),
-                        FacilityTag(
-                          icon: Icons.wifi,
-                          label: 'AC',
-                        ),
+                        FacilityTag(icon: Icons.wifi, label: 'AC'),
                         SizedBox(width: 13),
-                        FacilityTag(
-                          icon: Icons.wifi,
-                          label: 'Pool',
-                        ),
+                        FacilityTag(icon: Icons.wifi, label: 'Pool'),
                       ],
                     ),
                   ),

@@ -16,8 +16,6 @@ class Addshift extends StatelessWidget {
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final Addshiftcontroller controller = Get.put(Addshiftcontroller());
     TextEditingController search = TextEditingController();
-    final Size screenSize = MediaQuery.of(context).size;
-    final double screenHeight = screenSize.height;
     return Scaffold(
       backgroundColor:
           isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,

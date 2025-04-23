@@ -10,7 +10,7 @@ import 'package:blinqo/features/role/venue_owner/team/widget/search_employee.dar
     show SearchEmployee;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 class Myteam extends StatelessWidget {
   const Myteam({super.key});
   @override
@@ -18,14 +18,13 @@ class Myteam extends StatelessWidget {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
-
     TextEditingController searchEditing = TextEditingController();
     final TeamControllerGetx controller = Get.put(TeamControllerGetx());
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
-    final double screenWidth = screenSize.width;
     return Scaffold(
-           backgroundColor:isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -71,11 +70,17 @@ class Myteam extends StatelessWidget {
                         margin: EdgeInsets.only(bottom: 8),
                         padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color:isDarkMode?Color(0xff32383D): Color(0xffFFFFFF),
+                          color:
+                              isDarkMode
+                                  ? Color(0xff32383D)
+                                  : Color(0xffFFFFFF),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                             width: 1,
-                            color:isDarkMode?Color(0xff32383D) :Color(0xffEBEBEB),
+                            color:
+                                isDarkMode
+                                    ? Color(0xff32383D)
+                                    : Color(0xffEBEBEB),
                           ),
                         ),
                         child: Padding(
@@ -90,7 +95,10 @@ class Myteam extends StatelessWidget {
                                     style: getTextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
-                                      color:isDarkMode?Color(0xffEBEBEB): Color(0xff333333),
+                                      color:
+                                          isDarkMode
+                                              ? Color(0xffEBEBEB)
+                                              : Color(0xff333333),
                                     ),
                                   ),
                                   SizedBox(height: 4),
@@ -106,16 +114,18 @@ class Myteam extends StatelessWidget {
                               ),
                               Spacer(),
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   Get.to(() => Myteamedit(index: index));
                                 },
                                 child: Icon(
                                   Icons.edit_outlined,
                                   size: 24,
-                                  color:isDarkMode?Color(0xffD4AF37): Color(0xff003366),
+                                  color:
+                                      isDarkMode
+                                          ? Color(0xffD4AF37)
+                                          : Color(0xff003366),
                                 ),
                               ),
-
                             ],
                           ),
                         ),
@@ -143,7 +153,10 @@ class Myteam extends StatelessWidget {
                           height: 195,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: isDarkMode?Color(0xff32383D): Color(0xffE6EBF0),
+                            color:
+                                isDarkMode
+                                    ? Color(0xff32383D)
+                                    : Color(0xffE6EBF0),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Column(
@@ -164,7 +177,10 @@ class Myteam extends StatelessWidget {
                                         height: 16,
                                         width: 22,
                                         fit: BoxFit.cover,
-                                        color: isDarkMode?Color(0xffD4AF37):Color(0xff003366),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffD4AF37)
+                                                : Color(0xff003366),
                                       ),
                                     ),
                                     SizedBox(width: 10),
@@ -173,7 +189,10 @@ class Myteam extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
-                                        color:isDarkMode?Color(0xffEBEBEB): Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                   ],
@@ -191,7 +210,10 @@ class Myteam extends StatelessWidget {
                                       height: 24,
                                       width: 24,
                                       fit: BoxFit.cover,
-                                       color: isDarkMode?Color(0xffD4AF37):Color(0xff003366),
+                                      color:
+                                          isDarkMode
+                                              ? Color(0xffD4AF37)
+                                              : Color(0xff003366),
                                     ),
                                     SizedBox(width: 10),
                                     Text(
@@ -199,7 +221,10 @@ class Myteam extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
-                                         color:isDarkMode?Color(0xffEBEBEB): Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                   ],
@@ -241,4 +266,3 @@ class Myteam extends StatelessWidget {
     );
   }
 }
- 
