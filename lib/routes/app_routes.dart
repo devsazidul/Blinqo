@@ -6,6 +6,9 @@ import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dar
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_view_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
@@ -79,6 +82,9 @@ class AppRoute {
   static String changePasswordScreen = '/changePasswordScreen';
   static String createshift = '/createShiftScreen';
   static String addShift = '/addShift';
+  static String searchDetailsScreen = '/searchDetailsScreen';
+  static String filterDetailsScreen = '/filterDetailsScreen';
+  static String filterViewScreen = '/filterViewScreen';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -117,13 +123,15 @@ class AppRoute {
   static String getforgetpasswordscreen() => forgetpasswordscreen;
   static String getotpscreen() => otpscreen;
   static String getchangePasswordScreen() => changePasswordScreen;
-    
+  static String getsearchDetailsScreen() => searchDetailsScreen;
+  static String getfilterDetailsScreen() => filterDetailsScreen;
+  static String getfilterViewScreen() => filterViewScreen;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
     GetPage(name: homeEventPlanner, page: () => const HomeEventPlanner()),
     GetPage(name: roleScreen, page: () => const RoleScreen()),
-    GetPage(name:addShift, page: ()=>Addshift()),
+    GetPage(name: addShift, page: () => Addshift()),
     // GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: onbordingScreen, page: () => OnbordingScreen()),
     GetPage(name: bottomNavBar, page: () => BottomNavBar()),
@@ -161,6 +169,9 @@ class AppRoute {
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
     GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
-    GetPage(name:createshift , page:()=>Createshift()),
+    GetPage(name: createshift, page: () => Createshift()),
+    GetPage(name: searchDetailsScreen, page: () => SearchDetailsScreen()),
+    GetPage(name: filterDetailsScreen, page: () => FilterDetailsScreen()),
+    GetPage(name: filterViewScreen, page: () => FilterViewScreen()),
   ];
 }

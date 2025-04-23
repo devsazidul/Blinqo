@@ -3,7 +3,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/bottom_nav_bar/controller/event_bottom_nav_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/ep_chat_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/event_checklist_screen.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_navigator.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +22,7 @@ class EventBottomNavBar extends StatelessWidget {
     final SpProfileController spUserProfileControler =
         Get.find<SpProfileController>();
     final List<Widget> pages = [
-      EventHomeScreen(),
+      EventHomeNavigator(),
       EventChecklistScreen(),
       BookingeList(),
       EpChatScreen(),
