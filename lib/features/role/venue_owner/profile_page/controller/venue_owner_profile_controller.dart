@@ -42,40 +42,73 @@ class VenueOwnerProfileController extends GetxController {
     }
   }
 
+  Widget _buildImagePickerOption({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: AppColors.iconColor.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: AppColors.iconColor, size: 30),
+          ),
+          SizedBox(height: 8),
+          Text(
+            title,
+            style: getTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<ImageSource?> showPickrOption() async {
     return await Get.bottomSheet(
       Container(
-        padding: EdgeInsets.all(20),
-        color: AppColors.primary,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Choose Image Source",
-              style: getTextStyle(color: AppColors.textColor, fontSize: 20),
-            ),
-            SizedBox(height: 20),
-            ListTile(
-              leading: Icon(Icons.camera_alt, color: AppColors.textColor),
-              title: Text(
-                "Camera",
-                style: getTextStyle(color: AppColors.textColor),
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Select Image',
+                style: getTextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              onTap: () {
-                Get.back(result: ImageSource.camera);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.image, color: AppColors.textColor),
-              title: Text(
-                "Gallery",
-                style: getTextStyle(color: AppColors.textColor),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildImagePickerOption(
+                    icon: Icons.camera_alt,
+                    title: 'Camera',
+                    onTap: () {
+                      Get.back(result: ImageSource.camera);
+                    },
+                  ),
+                  _buildImagePickerOption(
+                    icon: Icons.photo_library,
+                    title: 'Gallery',
+                    onTap: () {
+                      Get.back(result: ImageSource.gallery);
+                    },
+                  ),
+                ],
               ),
-              onTap: () {
-                Get.back(result: ImageSource.gallery);
-              },
-            ),
-          ],
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

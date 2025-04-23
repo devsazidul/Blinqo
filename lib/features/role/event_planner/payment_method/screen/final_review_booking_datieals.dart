@@ -1,0 +1,306 @@
+import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import '../../../../../core/common/styles/global_text_style.dart';
+import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import '../../event_home_page/sharch_start_booking/widget/revies_card.dart';
+import '../../payment_method/screen/even_payment_option.dart';
+import '../../payment_method/screen/evetnt_congratulation_screen.dart';
+import '../../review_booking/widget/ever_review_booking_details_section.dart';
+import '../../review_booking/widget/reviews_text.dart';
+
+class FinalReviewBookingDatieals extends StatelessWidget {
+  const FinalReviewBookingDatieals({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Get screen width and height for responsive design
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    final controller = Get.find<SpProfileController>();
+    return Obx(() {
+      final themeMode =
+          controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+
+      return Scaffold(
+        backgroundColor:
+            themeMode == ThemeMode.dark
+                ? AppColors.darkBackgroundColor
+                : AppColors.buttonBuckdownColor2,
+
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: screenHeight * 0.02),
+
+              // ShearchStartBookingPage(),
+              Container(
+                height: 326,
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: const Color(0xFFD9D9D9),
+                            child: Image.asset(
+                              IconPath.arrowLeftAlt,
+                              width: 16,
+                              height: 12,
+                              color: AppColors.textColor,
+                            ),
+                          ),
+                        ),
+
+                        Text(
+                          "Booking Details",
+                          style: getTextStyle(fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: screenHeight * 0.02),
+                    ReviesCard(themeMode: themeMode),
+
+                    SizedBox(height: screenHeight * 0.02),
+
+                    Center(
+                      child: Text(
+                        "Jhon's Birthday",
+                        style: getTextStyle(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff003285),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    EverReviewBookingDetailsSection(
+                      themeMode: themeMode,
+                      screenHeight: screenHeight,
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? Color(0xff32383D)
+                                : AppColors.primary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Decoration',
+                              style: getTextStylePoppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? AppColors.buttonColor
+                                        : AppColors.buttonColor2,
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: true,
+                              label: 'Table Shape',
+                              value: 'Round',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: true,
+
+                              label: 'Flower Color',
+                              value: 'Red',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: true,
+                              label: 'Seating Style',
+                              value: 'Banquet',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: true,
+
+                              label: 'Fragrance',
+                              value: 'Sweet',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: true,
+                              label: 'Lighting Styles',
+                              value: 'Warm Yellow',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: true,
+
+                              label: 'Tablecloth Colors',
+                              value: 'White',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: true,
+
+                              label: 'Stage Decor',
+                              value: 'LED Backdrops',
+                              themeMode: themeMode,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: screenHeight * 0.03),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? Color(0xff32383D)
+                                : AppColors.primary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Price Details',
+                              style: getTextStylePoppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? AppColors.buttonColor
+                                        : AppColors.buttonColor2,
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: false,
+                              label: 'Total Cost',
+                              value: '\$8000',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: false,
+
+                              label: 'Payable Amount',
+                              value: '\$800(10%)',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ReviewsText(
+                              isColorChinge: false,
+                              label: 'Due',
+                              value: '\$7200',
+                              themeMode: themeMode,
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: screenHeight * 0.02),
+
+                    SizedBox(
+                      width: double.infinity,
+
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(EvenPaymentOption());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor:
+                              AppColors.buttonColor2, // Your custom color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              12.r,
+                            ), // Adjust the radius as needed
+                          ),
+                        ),
+                        child: Text(
+                          "proceed to payment",
+                          style: getTextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    SizedBox(
+                      width: double.infinity,
+
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(EventCongratulationScreen());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor:
+                              AppColors.backgroundColor, // Your custom color
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: AppColors.buttonColor2),
+                            borderRadius: BorderRadius.circular(
+                              12.r,
+                            ), // Adjust the radius as needed
+                          ),
+                        ),
+                        child: Text(
+                          "Invite Guest",
+                          style: getTextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? AppColors.primary
+                                    : AppColors.buttonColor2,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+}

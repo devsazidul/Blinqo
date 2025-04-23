@@ -68,9 +68,9 @@ class SearchDetailsController extends GetxController {
 
   void toggleTab(int value) {
     if (selectedTab.value == value) {
-      selectedTab.value = -1; // Unselect if already selected
+      selectedTab.value = -1;
     } else {
-      selectedTab.value = value; // Select the radio button
+      selectedTab.value = value;
     }
   }
 

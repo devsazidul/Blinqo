@@ -193,7 +193,7 @@ class SignUpScreen extends StatelessWidget {
               Obx(
                 () => CustomButton(
                   title: 'Sign Up',
-                  textcolor:
+                  textColor:
                       singupController.isFromValid.value
                           ? Colors.white
                           : AppColors.buttonColor2,

@@ -142,4 +142,9 @@ class IconPath {
   static const String eplocation = "assets/icons/eplocation.png";
   static const String eprating = "assets/icons/eprating.png";
   static const String ratingstart2 = "assets/icons/ratingstart2.png";
+  static const String colorsIcon = "assets/icons/colors.png";
+  static const String checkCircle = "assets/icons/check_circle.png";
+
+  static const String personadd = 'assets/icons/person_add.png';
+  static const String contacts = 'assets/icons/contacts.png';
 }

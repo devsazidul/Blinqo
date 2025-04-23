@@ -1,10 +1,8 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_controller.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
+import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +22,7 @@ class SearchBerSection extends StatelessWidget {
               controller.updateSearchQuery(value);
             },
             onTap: () {
-              Get.to(() => SearchDetailsScreen());
+              Navigator.pushNamed(context, AppRoute.getsearchDetailsScreen());
             },
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
@@ -71,7 +69,7 @@ class SearchBerSection extends StatelessWidget {
         SizedBox(width: 8),
         GestureDetector(
           onTap: () {
-            Get.to(() => FilterDetailsScreen());
+            Navigator.pushNamed(context, AppRoute.getfilterDetailsScreen());
           },
           child: Container(
             height: 48,

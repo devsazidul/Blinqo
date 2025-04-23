@@ -16,89 +16,87 @@ class SearchDetailsScreen extends StatelessWidget {
     return Obx(() {
       final themeMode =
           themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
-      return SafeArea(
-        child: Scaffold(
-          backgroundColor: AppColors.backgroundColor,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SearchBer(themeMode: themeMode),
-                    SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Recent Searches',
+      return Scaffold(
+        backgroundColor: AppColors.backgroundColor,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SearchBer(themeMode: themeMode),
+                  SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Recent Searches',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textColor,
+                        ),
+                      ),
+                      Text(
+                        'Clear All',
+                        style: getTextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.buttonColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  ListView.builder(
+                    itemCount: 3,
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        contentPadding: EdgeInsets.all(0),
+                        leading: Icon(
+                          Icons.access_time,
+                          color: AppColors.timeicon,
+                          size: 27,
+                        ),
+                        title: Text(
+                          'Emerald Ballroom',
                           style: getTextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                             color: AppColors.textColor,
                           ),
                         ),
-                        Text(
-                          'Clear All',
+                        subtitle: Text(
+                          'Clearwater, Fl',
                           style: getTextStyle(
                             fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.buttonColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    ListView.builder(
-                      itemCount: 3,
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          contentPadding: EdgeInsets.all(0),
-                          leading: Icon(
-                            Icons.access_time,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.timeicon,
-                            size: 27,
-                          ),
-                          title: Text(
-                            'Emerald Ballroom',
-                            style: getTextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.textColor,
-                            ),
-                          ),
-                          subtitle: Text(
-                            'Clearwater, Fl',
-                            style: getTextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.timeicon,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(height: 20),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Recently Viewed',
-                          style: getTextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.textColor,
                           ),
                         ),
-                        SizedBox(height: 16),
-                        RecentlyViewed(),
-                      ],
-                    ),
-                  ],
-                ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 20),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Recently Viewed',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textColor,
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      RecentlyViewed(),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

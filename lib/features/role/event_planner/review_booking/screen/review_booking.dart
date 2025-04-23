@@ -8,6 +8,7 @@ import '../../event_home_page/sharch_start_booking/widget/revies_card.dart';
 import '../../event_home_page/sharch_start_booking/widget/shearch_start_booking_page.dart';
 import '../widget/ever_review_booking_details_section.dart';
 import '../widget/reviews_text.dart';
+import 'review_booking_datieals.dart';
 
 class ReviewBooking extends StatelessWidget {
   const ReviewBooking({super.key});
@@ -143,6 +144,7 @@ class ReviewBooking extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     SizedBox(height: screenHeight * 0.02),
 
                     SizedBox(
@@ -150,7 +152,7 @@ class ReviewBooking extends StatelessWidget {
 
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(ReviewBooking());
+                          Get.to(ReviewBookingDetails());
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,

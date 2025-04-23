@@ -124,20 +124,25 @@ class VenueDetailsScreen extends StatelessWidget {
                           Positioned(
                             left: 24,
                             top: 40,
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundColor:
-                                  isDarkMode
-                                      ? Color(0xFFD9D9D9).withValues(alpha: .1)
-                                      : Color(0xFFD9D9D9).withValues(alpha: .1),
-                              child: Image.asset(
-                                IconPath.arrowLeftAlt,
-                                width: 16,
-                                height: 16,
-                                color:
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: CircleAvatar(
+                                radius: 20,
+                                backgroundColor:
                                     isDarkMode
-                                        ? Colors.white
-                                        : AppColors.textColor,
+                                        ? Color(0xFFD9D9D9).withValues(alpha: .1)
+                                        : Color(0xFFD9D9D9).withValues(alpha: .1),
+                                child: Image.asset(
+                                  IconPath.arrowLeftAlt,
+                                  width: 16,
+                                  height: 16,
+                                  color:
+                                      isDarkMode
+                                          ? Colors.white
+                                          : null,
+                                ),
                               ),
                             ),
                           ),
