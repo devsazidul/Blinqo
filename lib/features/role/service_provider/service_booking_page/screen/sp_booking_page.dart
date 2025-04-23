@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart' show selectedDatesNotifier;
 import 'package:blinqo/features/role/service_provider/service_booking_page/controller/sp_booking_controller.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_project_request.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/sp_custom_booking_request.dart';
@@ -9,7 +10,6 @@ import 'package:blinqo/features/role/service_provider/service_booking_page/widge
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/upcoming_project_card.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/screen/venueDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

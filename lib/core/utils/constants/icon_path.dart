@@ -126,4 +126,6 @@ class IconPath {
   static const String group = "assets/icons/Group.png";
   static const String shoppingmode = "assets/icons/shoppingmode.png";
   static const String cardsstar = "assets/icons/cards_star.png";
+  static const String colorsIcon = "assets/icons/colors.png";
+  static const String checkCircle = "assets/icons/check_circle.png";
 }

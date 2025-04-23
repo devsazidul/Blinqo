@@ -114,7 +114,7 @@ class VChangePassword extends StatelessWidget {
                 SizedBox(height: 44.0),
                 CustomButton(
                   title: 'Change Password',
-                  textcolor: Colors.white,
+                  textColor: Colors.white,
                   onPress: () {
                     Get.offAll(VLoginScreen());
                   },
