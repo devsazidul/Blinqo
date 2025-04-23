@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
@@ -221,11 +222,12 @@ class EventHomeScreen extends StatelessWidget {
   // Event Services
   Widget _eventServicesList(BuildContext context) {
     final List<Service> services = [
-      Service(imagePath: ImagePath.venuesHall, label: 'Photography'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Videography'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Entertainment'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Decoration'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Catering'),
+      Service(imagePath: IconPath.epphotograph, label: 'Photography'),
+      Service(imagePath: IconPath.epvideography, label: 'Videography'),
+      Service(imagePath: IconPath.epcatering, label: 'Catering'),
+      Service(imagePath: IconPath.epdj, label: 'Dj'),
+      Service(imagePath: IconPath.epentertainment, label: 'Entertainment'),
+      Service(imagePath: IconPath.epgame, label: 'Game'),
     ];
 
     return SizedBox(
