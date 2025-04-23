@@ -125,11 +125,96 @@ class ChatDetailView extends StatelessWidget {
             size: 28,
             color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
           ),
-          onPressed: () {},
+          onPressed: () {
+            _showChatOptions();
+          },
         ),
       ],
     );
   }
+
+  void _showChatOptions() {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xffEEEEEE),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildOptionItem(
+                'Delete Conversation',
+                onTap: () {
+                  Get.back();
+
+                },
+              ),
+              _buildOptionItem(
+                'Mark as Unread',
+                onTap: () {
+                  Get.back();
+
+                },
+              ),
+              _buildOptionItem(
+                'Block',
+                onTap: () {
+                  Get.back();
+
+                },
+              ),
+              _buildOptionItem(
+                'Report',
+                onTap: () {
+                  Get.back();
+                },
+                isLast: true,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOptionItem(
+      String title, {
+        required VoidCallback onTap,
+        bool isLast = false,
+      }) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        decoration: BoxDecoration(
+          border:
+          !isLast
+              ? Border(
+            bottom: BorderSide(color: Colors.grey[200]!, width: 1),
+          )
+              : null,
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: getTextStyle(
+              fontSize: 16,
+              color:
+              title.contains('Leave') || title.contains('Delete')
+                  ? Colors.red
+                  : Colors.black,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildEmptyState(User user) {
     final bool isDarkMode =

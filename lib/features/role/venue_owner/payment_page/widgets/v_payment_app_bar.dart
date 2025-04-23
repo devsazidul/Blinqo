@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,7 +60,7 @@ class VPaymentAppBar extends StatelessWidget implements PreferredSize {
           padding: const EdgeInsets.only(right: 20.0),
           child: GestureDetector(
             onTap: () {
-              // Add your onTap logic here
+              Get.off(VanueOwnerBottomNavBar());
             },
             child: Visibility(
               visible: isCloseButtonVisible ?? false,

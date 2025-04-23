@@ -105,6 +105,10 @@ class GroupChatView extends StatelessWidget {
       Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xffEEEEEE),
+            borderRadius: BorderRadius.circular(12),
+          ),
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -655,61 +659,75 @@ class GroupMessageBubble extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment:
-              isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             if (!isCurrentUser)
-              Padding(
-                padding: EdgeInsets.only(left: 12, bottom: 2),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 10,
-                      backgroundImage:
-                          senderAvatar.startsWith('http')
-                              ? NetworkImage(senderAvatar)
-                              : FileImage(File(senderAvatar)) as ImageProvider,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
+              Row(
+                children: [
+                  SizedBox(width: 30),
+                  Padding(
+                    padding: EdgeInsets.only(left: 12, bottom: 2),
+                    child: Text(
                       senderName,
                       style: getTextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            Container(
-              decoration: BoxDecoration(
-                color: isCurrentUser ? Color(0xFF205295) : Color(0xFFF0F0F0),
-                borderRadius: BorderRadius.circular(16).copyWith(
-                  bottomRight:
-                      isCurrentUser ? Radius.circular(4) : Radius.circular(16),
-                  bottomLeft:
-                      !isCurrentUser ? Radius.circular(4) : Radius.circular(16),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  _buildMessageContent(context),
-                  Padding(
-                    padding: EdgeInsets.only(right: 8, bottom: 4, left: 8),
-                    child: Text(
-                      ChatDateUtils.formatTime(message.timestamp),
-                      style: getTextStyle(
-                        fontSize: 10,
-                        color:
-                            isCurrentUser
-                                ? Colors.white.withOpacity(0.7)
-                                : Colors.black.withOpacity(0.5),
-                      ),
+
                     ),
                   ),
                 ],
               ),
+            Row(
+              mainAxisAlignment: isCurrentUser
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                if (!isCurrentUser) ...[
+                  CircleAvatar(
+                    radius: 14,
+                    backgroundImage: senderAvatar.startsWith('http')
+                        ? NetworkImage(senderAvatar)
+                        : FileImage(File(senderAvatar)) as ImageProvider,
+                  ),
+                  const SizedBox(width: 8),
+                ],
+                Flexible(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: isCurrentUser ? Color(0xFF205295) : Color(0xFFF0F0F0),
+                      borderRadius: BorderRadius.circular(16).copyWith(
+                        bottomRight: isCurrentUser
+                            ? Radius.circular(4)
+                            : Radius.circular(16),
+                        bottomLeft: !isCurrentUser
+                            ? Radius.circular(4)
+                            : Radius.circular(16),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        _buildMessageContent(context),
+                        Padding(
+                          padding: EdgeInsets.only(right: 8, bottom: 4, left: 8),
+                          child: Text(
+                            ChatDateUtils.formatTime(message.timestamp),
+                            style: getTextStyle(
+                              fontSize: 10,
+                              color: isCurrentUser
+                                  ? Colors.white.withOpacity(0.7)
+                                  : Colors.black.withOpacity(0.5),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
