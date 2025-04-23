@@ -3,7 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/widgets/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

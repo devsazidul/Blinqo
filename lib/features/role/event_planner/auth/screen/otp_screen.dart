@@ -84,7 +84,7 @@ class OTPScreen extends StatelessWidget {
                   () => CustomButton(
                     // onPress: () => Get.to(() => ChangePasswordScreen()),
                     title: 'Continue',
-                    textcolor:
+                    textColor:
                         otpController.isFormValid.value
                             ? AppColors.primary
                             : AppColors.buttonColor2,

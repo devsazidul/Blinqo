@@ -2,14 +2,11 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_verified_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_edit_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VenueProfileScreen extends StatelessWidget {
-
-
   const VenueProfileScreen({super.key});
 
   @override
