@@ -1,20 +1,20 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_textfield.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/facilty_Tag.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../../../../core/common/styles/global_text_style.dart';
-import '../../../../../core/utils/constants/colors.dart';
-import '../../../../../core/utils/constants/icon_path.dart';
-import '../widget/custom_textfield.dart';
-import '../widget/facilty_tag.dart';
 
-class EditVenue extends StatelessWidget {
+
+class AddNewVenue extends StatelessWidget {
   final String image;
 
-  const EditVenue({super.key, required this.image});
+  const AddNewVenue({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class EditVenue extends StatelessWidget {
     final double screenWidth = screenSize.width;
     return Scaffold(
       backgroundColor:
-          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
+      isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,9 +69,9 @@ class EditVenue extends StatelessWidget {
                             child: CircleAvatar(
                               radius: 20,
                               backgroundColor:
-                                  isDarkMode
-                                      ? Color(0xFFD9D9D9).withAlpha(40)
-                                      : Color(0x1A333333),
+                              isDarkMode
+                                  ? Color(0xFFD9D9D9).withAlpha(40)
+                                  : Color(0x1A333333),
                               child: Image.asset(
                                 IconPath.arrowLeftAlt,
                                 width: 16,
@@ -85,7 +85,7 @@ class EditVenue extends StatelessWidget {
                           left: 120,
                           top: 48,
                           child: Text(
-                            "View Details",
+                            "Add New Venue",
                             style: getTextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -98,7 +98,7 @@ class EditVenue extends StatelessWidget {
                           right: 26,
                           child: CircleAvatar(
                             backgroundColor: Color(0xffD4AF37),
-                            radius: 14,
+                            radius: 15,
                             child: Icon(
                               Icons.mode_edit_outline_outlined,
                               size: 16,
@@ -348,58 +348,58 @@ class EditVenue extends StatelessWidget {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children:
-                              shapeList.map((shape) {
-                                final isSelected = controller
-                                    .selectedTableShapes
-                                    .contains(shape); // এখানে ইউজ করো
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Transform.scale(
-                                      scale: 1.2,
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                          unselectedWidgetColor: const Color(
-                                            0xffABB7C2,
-                                          ), // unchecked border color
-                                          checkboxTheme: CheckboxThemeData(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(2),
-                                            ),
-                                            side: const BorderSide(
-                                              width: 1, // thinner border
-                                              color: Color(0xff003366),
-                                            ),
-                                          ),
+                          shapeList.map((shape) {
+                            final isSelected = controller
+                                .selectedTableShapes
+                                .contains(shape); // এখানে ইউজ করো
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Transform.scale(
+                                  scale: 1.2,
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: const Color(
+                                        0xffABB7C2,
+                                      ), // unchecked border color
+                                      checkboxTheme: CheckboxThemeData(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(2),
                                         ),
-                                        child: Checkbox(
-                                          value: isSelected,
-                                          onChanged:
-                                              (_) => controller
-                                                  .toggleTableShape(shape),
-                                          activeColor: const Color(
-                                            0xff003366,
-                                          ), // or use .withOpacity(0.5) if needed
+                                        side: const BorderSide(
+                                          width: 1, // thinner border
+                                          color: Color(0xff003366),
                                         ),
                                       ),
                                     ),
+                                    child: Checkbox(
+                                      value: isSelected,
+                                      onChanged:
+                                          (_) => controller
+                                          .toggleTableShape(shape),
+                                      activeColor: const Color(
+                                        0xff003366,
+                                      ), // or use .withOpacity(0.5) if needed
+                                    ),
+                                  ),
+                                ),
 
-                                    Text(
-                                      shape,
-                                      style: getTextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color:
-                                            isDarkMode
-                                                ? Color(0xffEBEBEB)
-                                                : Color(0xff333333),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                );
-                              }).toList(),
+                                Text(
+                                  shape,
+                                  style: getTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Color(0xff333333),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                            );
+                          }).toList(),
                         );
                       }
 
@@ -436,69 +436,69 @@ class EditVenue extends StatelessWidget {
 
                       // 3 করে ভাগ করা
                       final firstRowStyles =
-                          styles.take(3).toList(); // index 0,1,2
+                      styles.take(3).toList(); // index 0,1,2
                       final secondRowStyles =
-                          styles.skip(3).take(3).toList(); // index 3,4,5
+                      styles.skip(3).take(3).toList(); // index 3,4,5
 
                       Widget buildRow(List<String> styleList) {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children:
-                              styleList.map((style) {
-                                final isSelected = controller
-                                    .selectedSeatingStyles
-                                    .contains(style);
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Transform.scale(
-                                      scale: 1,
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                          unselectedWidgetColor: const Color(
-                                            0xffABB7C2,
-                                          ), // unchecked border color
-                                          checkboxTheme: CheckboxThemeData(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(2),
-                                            ),
-                                            side: const BorderSide(
-                                              width:
-                                                  1, // এখানে width কমিয়ে দিচ্ছি
-                                              color: Color(
-                                                0xff003366,
-                                              ), // light grey border
-                                            ),
-                                          ),
+                          styleList.map((style) {
+                            final isSelected = controller
+                                .selectedSeatingStyles
+                                .contains(style);
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Transform.scale(
+                                  scale: 1,
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: const Color(
+                                        0xffABB7C2,
+                                      ), // unchecked border color
+                                      checkboxTheme: CheckboxThemeData(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(2),
                                         ),
-                                        child: Checkbox(
-                                          value: isSelected,
-                                          onChanged:
-                                              (_) => controller
-                                                  .toggleSeatingStyle(style),
-                                          activeColor: Color(
+                                        side: const BorderSide(
+                                          width:
+                                          1, // এখানে width কমিয়ে দিচ্ছি
+                                          color: Color(
                                             0xff003366,
-                                          ).withValues(alpha: .5),
+                                          ), // light grey border
                                         ),
                                       ),
                                     ),
-
-                                    Text(
-                                      style,
-                                      style: getTextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color:
-                                            isDarkMode
-                                                ? Color(0xffEBEBEB)
-                                                : Color(0xff333333),
-                                      ),
+                                    child: Checkbox(
+                                      value: isSelected,
+                                      onChanged:
+                                          (_) => controller
+                                          .toggleSeatingStyle(style),
+                                      activeColor: Color(
+                                        0xff003366,
+                                      ).withValues(alpha: .5),
                                     ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                );
-                              }).toList(),
+                                  ),
+                                ),
+
+                                Text(
+                                  style,
+                                  style: getTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Color(0xff333333),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                            );
+                          }).toList(),
                         );
                       }
 
@@ -534,55 +534,55 @@ class EditVenue extends StatelessWidget {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children:
-                              styleList.map((style) {
-                                final isSelected = controller
-                                    .selectedLightingStyles
-                                    .contains(style);
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Transform.scale(
-                                      scale: 1.2,
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                          unselectedWidgetColor: const Color(
-                                            0xffABB7C2,
-                                          ),
-                                          checkboxTheme: CheckboxThemeData(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(2),
-                                            ),
-                                            side: const BorderSide(
-                                              width: 1,
-                                              color: Color(0xff003366),
-                                            ),
-                                          ),
+                          styleList.map((style) {
+                            final isSelected = controller
+                                .selectedLightingStyles
+                                .contains(style);
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Transform.scale(
+                                  scale: 1.2,
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: const Color(
+                                        0xffABB7C2,
+                                      ),
+                                      checkboxTheme: CheckboxThemeData(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(2),
                                         ),
-                                        child: Checkbox(
-                                          value: isSelected,
-                                          onChanged:
-                                              (_) => controller
-                                                  .tooggleLightingStyle(style),
-                                          activeColor: const Color(0xff003366),
+                                        side: const BorderSide(
+                                          width: 1,
+                                          color: Color(0xff003366),
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      style,
-                                      style: getTextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color:
-                                            isDarkMode
-                                                ? Color(0xffEBEBEB)
-                                                : Color(0xff333333),
-                                      ),
+                                    child: Checkbox(
+                                      value: isSelected,
+                                      onChanged:
+                                          (_) => controller
+                                          .tooggleLightingStyle(style),
+                                      activeColor: const Color(0xff003366),
                                     ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                );
-                              }).toList(),
+                                  ),
+                                ),
+                                Text(
+                                  style,
+                                  style: getTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Color(0xff333333),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                            );
+                          }).toList(),
                         );
                       }
 
@@ -613,63 +613,63 @@ class EditVenue extends StatelessWidget {
                         controller.flowerColor,
                       );
                       final firstRowColors =
-                          flowerColors.take(4).toList(); // Ends with "Pink"
+                      flowerColors.take(4).toList(); // Ends with "Pink"
                       final secondRowColors =
-                          flowerColors.skip(4).toList(); // Starts with "Purple"
+                      flowerColors.skip(4).toList(); // Starts with "Purple"
 
                       Widget buildRow(List<String> colorList) {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children:
-                              colorList.map((color) {
-                                final isSelected = controller
-                                    .selectedFlowerColor
-                                    .contains(color);
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Transform.scale(
-                                      scale: 1.2,
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                          unselectedWidgetColor: const Color(
-                                            0xffABB7C2,
-                                          ),
-                                          checkboxTheme: CheckboxThemeData(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(2),
-                                            ),
-                                            side: const BorderSide(
-                                              width: 1,
-                                              color: Color(0xff003366),
-                                            ),
-                                          ),
+                          colorList.map((color) {
+                            final isSelected = controller
+                                .selectedFlowerColor
+                                .contains(color);
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Transform.scale(
+                                  scale: 1.2,
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: const Color(
+                                        0xffABB7C2,
+                                      ),
+                                      checkboxTheme: CheckboxThemeData(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(2),
                                         ),
-                                        child: Checkbox(
-                                          value: isSelected,
-                                          onChanged:
-                                              (_) => controller
-                                                  .toogleFlowerColor(color),
-                                          activeColor: const Color(0xff003366),
+                                        side: const BorderSide(
+                                          width: 1,
+                                          color: Color(0xff003366),
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      color,
-                                      style: getTextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color:
-                                            isDarkMode
-                                                ? Color(0xffEBEBEB)
-                                                : Color(0xff333333),
-                                      ),
+                                    child: Checkbox(
+                                      value: isSelected,
+                                      onChanged:
+                                          (_) => controller
+                                          .toogleFlowerColor(color),
+                                      activeColor: const Color(0xff003366),
                                     ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                );
-                              }).toList(),
+                                  ),
+                                ),
+                                Text(
+                                  color,
+                                  style: getTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Color(0xff333333),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                            );
+                          }).toList(),
                         );
                       }
 
@@ -702,61 +702,61 @@ class EditVenue extends StatelessWidget {
                         types.insert(3, "Orchids");
                       }
                       final firstRowTypes =
-                          types.take(4).toList(); // Ends with "Orchids"
+                      types.take(4).toList(); // Ends with "Orchids"
                       final secondRowTypes =
-                          types.skip(4).toList(); // Starts with "Tulips"
+                      types.skip(4).toList(); // Starts with "Tulips"
                       Widget buildRow(List<String> typeList) {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children:
-                              typeList.map((type) {
-                                final isSelected = controller.selectedFlowerType
-                                    .contains(type);
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Transform.scale(
-                                      scale: 1.2,
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                          unselectedWidgetColor: const Color(
-                                            0xffABB7C2,
-                                          ),
-                                          checkboxTheme: CheckboxThemeData(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(2),
-                                            ),
-                                            side: const BorderSide(
-                                              width: 1,
-                                              color: Color(0xff003366),
-                                            ),
-                                          ),
+                          typeList.map((type) {
+                            final isSelected = controller.selectedFlowerType
+                                .contains(type);
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Transform.scale(
+                                  scale: 1.2,
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: const Color(
+                                        0xffABB7C2,
+                                      ),
+                                      checkboxTheme: CheckboxThemeData(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(2),
                                         ),
-                                        child: Checkbox(
-                                          value: isSelected,
-                                          onChanged:
-                                              (_) => controller
-                                                  .toogleFlowerType(type),
-                                          activeColor: const Color(0xff003366),
+                                        side: const BorderSide(
+                                          width: 1,
+                                          color: Color(0xff003366),
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      type,
-                                      style: getTextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color:
-                                            isDarkMode
-                                                ? Color(0xffEBEBEB)
-                                                : Color(0xff333333),
-                                      ),
+                                    child: Checkbox(
+                                      value: isSelected,
+                                      onChanged:
+                                          (_) => controller
+                                          .toogleFlowerType(type),
+                                      activeColor: const Color(0xff003366),
                                     ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                );
-                              }).toList(),
+                                  ),
+                                ),
+                                Text(
+                                  type,
+                                  style: getTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Color(0xff333333),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                            );
+                          }).toList(),
                         );
                       }
 
@@ -792,62 +792,62 @@ class EditVenue extends StatelessWidget {
                       }
 
                       final firstRowScents =
-                          scents.take(3).toList(); // Ends with "Herba; Scents"
+                      scents.take(3).toList(); // Ends with "Herba; Scents"
                       final secondRowScents = scents.skip(3).toList();
 
                       Widget buildRow(List<String> scentList) {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children:
-                              scentList.map((scent) {
-                                final isSelected = controller.selectedFragrance
-                                    .contains(scent);
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Transform.scale(
-                                      scale: 1.2,
-                                      child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                          unselectedWidgetColor: const Color(
-                                            0xffABB7C2,
-                                          ),
-                                          checkboxTheme: CheckboxThemeData(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(2),
-                                            ),
-                                            side: const BorderSide(
-                                              width: 1,
-                                              color: Color(0xff003366),
-                                            ),
-                                          ),
+                          scentList.map((scent) {
+                            final isSelected = controller.selectedFragrance
+                                .contains(scent);
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Transform.scale(
+                                  scale: 1.2,
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: const Color(
+                                        0xffABB7C2,
+                                      ),
+                                      checkboxTheme: CheckboxThemeData(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(2),
                                         ),
-                                        child: Checkbox(
-                                          value: isSelected,
-                                          onChanged:
-                                              (_) => controller.toogleFrance(
-                                                scent,
-                                              ),
-                                          activeColor: const Color(0xff003366),
+                                        side: const BorderSide(
+                                          width: 1,
+                                          color: Color(0xff003366),
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      scent,
-                                      style: getTextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color:
-                                            isDarkMode
-                                                ? Color(0xffEBEBEB)
-                                                : Color(0xff333333),
+                                    child: Checkbox(
+                                      value: isSelected,
+                                      onChanged:
+                                          (_) => controller.toogleFrance(
+                                        scent,
                                       ),
+                                      activeColor: const Color(0xff003366),
                                     ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                );
-                              }).toList(),
+                                  ),
+                                ),
+                                Text(
+                                  scent,
+                                  style: getTextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                    isDarkMode
+                                        ? Color(0xffEBEBEB)
+                                        : Color(0xff333333),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                            );
+                          }).toList(),
                         );
                       }
 
@@ -872,7 +872,7 @@ class EditVenue extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'Save Changes',
+                        'Save',
                         style: getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

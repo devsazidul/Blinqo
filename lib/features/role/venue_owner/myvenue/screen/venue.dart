@@ -1,6 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_details_screen.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_details_screen.dart'
+    show VenueDetailsScreen;
+import 'package:blinqo/features/role/venue_owner/overview/screen/add_new_venue.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,21 +54,22 @@ class Venue extends StatelessWidget {
 
               // Header
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor:
-                        isDarkMode
-                            ? Color(0xFFD9D9D9).withAlpha(40)
-                            : Color(0xFFD9D9D9),
-                    child: Image.asset(
-                      IconPath.arrowLeftAlt,
-                      width: 16,
-                      height: 12,
-                      color: isDarkMode ? Colors.white : AppColors.textColor,
-                    ),
-                  ),
-                  SizedBox(width: screenWidth * 0.1349),
+                  // CircleAvatar(
+                  //   radius: 20,
+                  //   backgroundColor:
+                  //       isDarkMode
+                  //           ? Color(0xFFD9D9D9).withAlpha(40)
+                  //           : Color(0xFFD9D9D9),
+                  //   child: Image.asset(
+                  //     IconPath.arrowLeftAlt,
+                  //     width: 16,
+                  //     height: 12,
+                  //     color: isDarkMode ? Colors.white : AppColors.textColor,
+                  //   ),
+                  // ),
                   Text(
                     'My Venues',
                     style: getTextStyle(
@@ -295,20 +299,25 @@ class Venue extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: const Color(0xff003366),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Add Venue +',
-                        style: getTextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xffF4F4F4),
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(() => AddNewVenue(image: ImagePath.venuesHall));
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: const Color(0xff003366),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Add Venue +',
+                          style: getTextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xffF4F4F4),
+                          ),
                         ),
                       ),
                     ),
