@@ -2,6 +2,9 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
+import 'package:blinqo/features/role/venue_owner/overview/screen/all_coming_booking.dart';
+import 'package:blinqo/features/role/venue_owner/overview/screen/all_reviews.dart';
+import 'package:blinqo/features/role/venue_owner/overview/screen/bookviewerreview.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/NewWidget.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/revenue_card.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
@@ -95,8 +98,17 @@ class VenueDetailsScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Opacity(
-                  opacity: 0.8,
+                Container(
+                  
+                  decoration: BoxDecoration(
+                    
+                    gradient: LinearGradient(begin: Alignment.topCenter,end: Alignment.bottomCenter,colors: [
+                      Color(0xff000000).withValues(alpha: 0.6),
+                      Color(0xff161616),
+                      
+
+                    ])
+                  ),
                   child: Image.asset(
                     image,
                     width: double.infinity,
@@ -122,7 +134,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       child: Stack(
                         children: [
                           Positioned(
-                            left: 24,
+                            left: 20,
                             top: 40,
                             child: GestureDetector(
                               onTap: () {
@@ -147,10 +159,10 @@ class VenueDetailsScreen extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            left: 135,
+                            left: 110,
                             top: 48,
                             child: Text(
-                              "View Details",
+                              "Venue Details",
                               style: getTextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -181,128 +193,123 @@ class VenueDetailsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            title,
-                            style: GoogleFonts.roboto(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffEBEBEB)
-                                      : Color(0xff333333),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Image.asset(IconPath.verify, height: 16, width: 16),
-                          const Spacer(),
-                          InkWell(
-                            onTap: () {
-                              Get.to(() => EditVenue(image: image));
-                            },
-                            child: Container(
-                              height: screenHeight * 0.040,
-                              width: screenWidth * 0.18,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: const Color(0xffD4AF37),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'Edit',
-                                    style: getTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xffFFFFFF),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Icon(
-                                    Icons.edit_outlined,
-                                    color: Colors.white,
-                                    size: 15,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        title,
+                        style: GoogleFonts.roboto(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xff333333),
+                        ),
                       ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            size: 20,
-                            color: Color(0xffF0C020),
+                      const SizedBox(width: 8),
+                      Image.asset(IconPath.verify, height: 16, width: 16),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => EditVenue(image: image));
+                        },
+                        child: Container(
+                          height: screenHeight * 0.040,
+                          width: screenWidth * 0.18,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color: const Color(0xffD4AF37),
                           ),
-                          const SizedBox(width: 1.5),
-                          Text(
-                            rating,
-                            style: getTextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffEBEBEB)
-                                      : Color(0xff333333),
-                            ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(width: 10),
+                              Text(
+                                'Edit',
+                                style: getTextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xffFFFFFF),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.edit_outlined,
+                                color: Colors.white,
+                                size: 15,
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 5),
-                          Text(
-                            "(345 reviews)",
-                            style: getTextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffABB7C2)
-                                      : Color(0xffABB7C2),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on_outlined,
-                            size: 20,
-                            color: Color(0xffD4AF37),
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            address,
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffEBEBEB)
-                                      : Color(0xff333333),
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Spacer(),
-                          Text(
-                            guest,
-                            style: getTextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffEBEBEB)
-                                      : Color(0xff333333),
-                            ),
-                          ),
-                        ],
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        size: 20,
+                        color: Color(0xffF0C020),
+                      ),
+                      const SizedBox(width: 1.5),
+                      Text(
+                        rating,
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xff333333),
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        "(345 reviews)",
+                        style: getTextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color:
+                              isDarkMode
+                                  ? Color(0xffABB7C2)
+                                  : Color(0xffABB7C2),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
+                        size: 20,
+                        color: Color(0xffD4AF37),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        address,
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xff333333),
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Spacer(),
+                      Text(
+                        guest,
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xff333333),
+                        ),
                       ),
                     ],
                   ),
@@ -617,7 +624,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 20),
                   Text(
                     'Booking Requests',
                     style: getTextStyle(
@@ -626,28 +633,27 @@ class VenueDetailsScreen extends StatelessWidget {
                       color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Spacer(),
-                        InkWell(
-                          onTap: () {},
-                          child: Text(
-                            'Explore All',
-                            style: getTextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffEBEBEB)
-                                      : Color(0xff444444),
-                            ),
+                  Row(
+                    children: [
+                      Spacer(),
+                      InkWell(
+                        onTap: () {
+                         Get.to(()=>AllUpcomingBookingsScreen());
+                        },
+                        child: Text(
+                          'Explore All',
+                          style: getTextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color:
+                                isDarkMode
+                                    ? Color(0xffEBEBEB)
+                                    : Color(0xff444444),
                           ),
                         ),
-                        Icon(Icons.arrow_right_alt),
-                      ],
-                    ),
+                      ),
+                      Icon(Icons.arrow_right_alt),
+                    ],
                   ),
                   NewWidget(),
                   SizedBox(height: 30),
@@ -665,7 +671,9 @@ class VenueDetailsScreen extends StatelessWidget {
                       children: [
                         Spacer(),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(()=>AllReviewsScreen());
+                          },
                           child: Text(
                             'Explore All',
                             style: getTextStyle(

@@ -94,6 +94,7 @@ class AppRoute {
 
   static String employeeInformtaion = '/employeeInformation';
   static String myteamedit = '/myteamedit';
+  static String allreview = '/allreview';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -194,5 +195,6 @@ class AppRoute {
       name: myteamedit,
       page: () => Myteamedit(index: Get.arguments as int),
     ),
+   
   ];
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -117,11 +118,13 @@ class NewWidget extends StatelessWidget {
                         ),
                         Spacer(),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.025, // Slightly reduced
+                          height: MediaQuery.of(context).size.height * 0.045, // Slightly reduced
                           child: Image.asset(
-                            ImagePath.pending,
+                            IconPath.check,
+                            width:28 ,
+                            height: 28,
                             fit: BoxFit.cover,
-                            color: isDarkMode ? Color(0xff8D4AF37) : Color(0xff767676),
+                            color: isDarkMode ? Color(0xff8D4AF37) : Color(0xff003366),
                           ),
                         ),
                       ],

@@ -8,6 +8,7 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/event
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import '../../../service_provider/service_profile_page/screen/profile_page.dart';
 import '../../event_home_page/screens/bookinge_list.dart';
 
 class EventBottomNavBar extends StatelessWidget {
@@ -26,7 +27,7 @@ class EventBottomNavBar extends StatelessWidget {
       BookingeList(),
       EpChatScreen(),
       ProfileNavigator(),
-      // SpProfilePage(),
+      SpProfilePage(),
     ];
     double screenWidth = MediaQuery.of(context).size.width;
     double iconSize = screenWidth < 700 ? 60 : 70;

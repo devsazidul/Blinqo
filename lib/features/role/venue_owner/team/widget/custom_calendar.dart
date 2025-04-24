@@ -25,7 +25,7 @@ class CustomDatePicker extends StatelessWidget {
         monthStyle: getTextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
-          color:isDarkMode ? Color(0xffD4AF37) : AppColors.buttonColor2, // Static color for now
+          color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366), // Static color for now
         ),
         showSelectedDate: false,
         centerHeader: true,
@@ -52,7 +52,7 @@ class CustomDatePicker extends StatelessWidget {
           ),
             borderRadius: 8,
             decoration: BoxDecoration(
-              color: isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
+              color: isDarkMode ? Color(0xff32383D) : Colors.transparent,
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               border: Border.all(color:isDarkMode ? Color(0xff32383D) : AppColors.backgroundColor, width: 2),
             )
