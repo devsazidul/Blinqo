@@ -1,5 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GuestListCount extends StatelessWidget {
   const GuestListCount({
@@ -32,7 +34,10 @@ class GuestListCount extends StatelessWidget {
             style: getTextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w600,
-              color: Color(0xff003366),
+              color:
+                  Get.find<ProfileController>().isDarkMode.value
+                      ? Color(0xffD4AF37)
+                      : Color(0xff003366),
             ),
           ),
         ],

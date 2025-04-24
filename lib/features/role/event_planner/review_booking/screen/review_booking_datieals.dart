@@ -1,12 +1,13 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import '../../../../../core/common/styles/global_text_style.dart';
-import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../event_home_page/sharch_start_booking/widget/revies_card.dart';
 import '../../event_home_page/sharch_start_booking/widget/shearch_start_booking_page.dart';
-import '../../payment_method/screen/even_payment_option.dart';
 import '../../payment_method/screen/evetnt_congratulation_screen.dart';
 import '../widget/ever_review_booking_details_section.dart';
 import '../widget/reviews_text.dart';
@@ -19,7 +20,7 @@ class ReviewBookingDetails extends StatelessWidget {
     // Get screen width and height for responsive design
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    final controller = Get.find<SpProfileController>();
+    final controller = Get.find<ProfileController>();
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -207,7 +208,10 @@ class ReviewBookingDetails extends StatelessWidget {
 
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(EvenPaymentOption());
+                          Navigator.pushNamed(
+                            context,
+                            AppRoute.geteventPaymentOption(),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
@@ -240,9 +244,17 @@ class ReviewBookingDetails extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           backgroundColor:
-                              AppColors.backgroundColor, // Your custom color
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.darkBackgroundColor
+                                  : AppColors
+                                      .backgroundColor, // Your custom color
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(color: AppColors.buttonColor2),
+                            side: BorderSide(
+                              color:
+                                  themeMode == ThemeMode.dark
+                                      ? AppColors.darkBackgroundColor
+                                      : AppColors.buttonColor2,
+                            ),
                             borderRadius: BorderRadius.circular(
                               12.r,
                             ), // Adjust the radius as needed
@@ -261,7 +273,7 @@ class ReviewBookingDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.01),
+                    SizedBox(height: screenHeight * 0.1),
                   ],
                 ),
               ),

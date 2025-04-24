@@ -1,10 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
-import '../../review_booking/screen/review_booking.dart';
 
 class StartBookingButton extends StatelessWidget {
   const StartBookingButton({
@@ -25,7 +23,7 @@ class StartBookingButton extends StatelessWidget {
 
           child: ElevatedButton(
             onPressed: () {
-              Get.to(ReviewBooking());
+              Navigator.pushNamed(context, AppRoute.getReviewBooking());
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.buttonColor2, // Your custom color

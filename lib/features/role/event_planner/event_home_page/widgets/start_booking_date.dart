@@ -98,7 +98,7 @@ class StartBookingDate extends StatelessWidget {
                     Icons.arrow_back_ios_new,
                     color:
                         themeMode == ThemeMode.dark
-                            ? AppColors.buttonColor
+                            ? Color(0xFFEBEBEB)
                             : AppColors.iconColor,
                     size: 18,
                   ),

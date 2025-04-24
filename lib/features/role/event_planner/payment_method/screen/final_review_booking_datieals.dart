@@ -1,12 +1,14 @@
+import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/profile/utils/styles.dart';
+import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import '../../../../../core/common/styles/global_text_style.dart';
-import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../event_home_page/sharch_start_booking/widget/revies_card.dart';
-import '../../payment_method/screen/even_payment_option.dart';
 import '../../payment_method/screen/evetnt_congratulation_screen.dart';
 import '../../review_booking/widget/ever_review_booking_details_section.dart';
 import '../../review_booking/widget/reviews_text.dart';
@@ -19,7 +21,7 @@ class FinalReviewBookingDatieals extends StatelessWidget {
     // Get screen width and height for responsive design
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    final controller = Get.find<SpProfileController>();
+    final controller = Get.find<ProfileController>();
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -34,41 +36,18 @@ class FinalReviewBookingDatieals extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: screenHeight * 0.02),
-
-              // ShearchStartBookingPage(),
-              Container(
-                height: 326,
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: CircleAvatar(
-                            backgroundColor: const Color(0xFFD9D9D9),
-                            child: Image.asset(
-                              IconPath.arrowLeftAlt,
-                              width: 16,
-                              height: 12,
-                              color: AppColors.textColor,
-                            ),
-                          ),
-                        ),
-
-                        Text(
-                          "Booking Details",
-                          style: getTextStyle(fontSize: 20),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              Stack(
+                children: [
+                  Image.asset(
+                    'assets/images/bookingDetails.jpg',
+                    height: 326,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  CustomAppBarWidget(title: "Booking Details"),
+                ],
               ),
+              // SizedBox(height: screenHeight * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: Column(
@@ -85,7 +64,9 @@ class FinalReviewBookingDatieals extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff003285),
+                          color: ThemeStyle.goldToDark(
+                            themeMode == ThemeMode.dark,
+                          ),
                         ),
                       ),
                     ),
@@ -239,7 +220,7 @@ class FinalReviewBookingDatieals extends StatelessWidget {
 
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(EvenPaymentOption());
+                          Get.to(InvitationCardScreen());
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
@@ -252,7 +233,7 @@ class FinalReviewBookingDatieals extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          "proceed to payment",
+                          "Invite Guest",
                           style: getTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -271,8 +252,9 @@ class FinalReviewBookingDatieals extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
-                          backgroundColor:
-                              AppColors.backgroundColor, // Your custom color
+                          backgroundColor: ThemeStyle.bodyBackgroundColor(
+                            themeMode == ThemeMode.dark,
+                          ), // Your custom color
                           shape: RoundedRectangleBorder(
                             side: BorderSide(color: AppColors.buttonColor2),
                             borderRadius: BorderRadius.circular(

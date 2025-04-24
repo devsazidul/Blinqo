@@ -1,8 +1,11 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/profile/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../services/event_strip_service.dart';
 import '../widget/event_payment_card.dart';
 
@@ -11,8 +14,10 @@ class EvenPaymentOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
     return Scaffold(
-      backgroundColor: Color(0xffF4F4F4),
+      backgroundColor:
+          isDarkMode ? AppColors.darkBackgroundColor : Color(0xffF4F4F4),
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         forceMaterialTransparency: true,
@@ -20,15 +25,15 @@ class EvenPaymentOption extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0),
           child: GestureDetector(
             onTap: () {
-              Get.back();
+              Navigator.pop(context);
             },
             child: CircleAvatar(
-              backgroundColor: const Color(0xFFD9D9D9),
+              backgroundColor: ThemeStyle.circleAvatarColor(isDarkMode),
               child: Image.asset(
                 IconPath.arrowLeftAlt,
                 width: 16,
                 height: 12,
-                color: AppColors.textColor,
+                color: ThemeStyle.whiteBlackColor(isDarkMode),
               ),
             ),
           ),
@@ -39,7 +44,7 @@ class EvenPaymentOption extends StatelessWidget {
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: AppColors.textColor,
+            color: ThemeStyle.whiteBlackColor(isDarkMode),
           ),
         ),
         centerTitle: true,
@@ -54,17 +59,28 @@ class EvenPaymentOption extends StatelessWidget {
               EventPaymentCard(
                 imagePath: IconPath.mastercard,
                 cardName: 'MasterCard',
+                isDarkMode: isDarkMode,
               ),
               EventPaymentCard(
                 imagePath: IconPath.debitcard,
                 cardName: 'Debit Card',
+                isDarkMode: isDarkMode,
               ),
-              EventPaymentCard(imagePath: IconPath.cardvisa, cardName: 'Visa'),
+              EventPaymentCard(
+                imagePath: IconPath.cardvisa,
+                cardName: 'Visa',
+                isDarkMode: isDarkMode,
+              ),
               EventPaymentCard(
                 imagePath: IconPath.paypalcard,
                 cardName: 'PayPal',
+                isDarkMode: isDarkMode,
               ),
-              EventPaymentCard(imagePath: IconPath.klarna, cardName: 'Klarna'),
+              EventPaymentCard(
+                imagePath: IconPath.klarna,
+                cardName: 'Klarna',
+                isDarkMode: isDarkMode,
+              ),
               SizedBox(height: 36),
 
               // This is the button to add a new payment method
@@ -78,7 +94,10 @@ class EvenPaymentOption extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Color(0xff003366),
                     borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: Color(0xffE4E4E7), width: 1),
+                    border: Border.all(
+                      color: ThemeStyle.darkLight1(isDarkMode),
+                      width: 1,
+                    ),
                   ),
                   child: Center(
                     child: Text(

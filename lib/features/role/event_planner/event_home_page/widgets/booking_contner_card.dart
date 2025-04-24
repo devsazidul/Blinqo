@@ -1,13 +1,16 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BookingContainerCard extends StatelessWidget {
-  const BookingContainerCard({super.key, required this.themeMode});
-  final ThemeMode themeMode;
+  const BookingContainerCard({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -21,10 +24,7 @@ class BookingContainerCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color:
-            themeMode == ThemeMode.dark
-                ? AppColors.cardDarkColor
-                : AppColors.primary,
+        color: isDarkMode ? AppColors.cardDarkColor : AppColors.primary,
         borderRadius: BorderRadius.circular(12.0),
       ),
       padding: EdgeInsets.all(10.0),
@@ -42,7 +42,7 @@ class BookingContainerCard extends StatelessWidget {
                   fontSize: fontSize,
                   fontWeight: FontWeight.w600,
                   color:
-                      themeMode == ThemeMode.dark
+                      isDarkMode
                           ? AppColors.chatBackground
                           : AppColors.textColor,
                 ),
@@ -55,7 +55,7 @@ class BookingContainerCard extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: subFontSize,
                       color:
-                          themeMode == ThemeMode.dark
+                          isDarkMode
                               ? AppColors.darkGreaColor
                               : AppColors.subTextColor,
                       fontWeight: FontWeight.w400,
@@ -66,7 +66,7 @@ class BookingContainerCard extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: subFontSize,
                       color:
-                          themeMode == ThemeMode.dark
+                          isDarkMode
                               ? AppColors.chatBackground
                               : AppColors.textColor,
                       fontWeight: FontWeight.w400,
@@ -82,7 +82,7 @@ class BookingContainerCard extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: subFontSize,
                       color:
-                          themeMode == ThemeMode.dark
+                          isDarkMode
                               ? AppColors.darkGreaColor
                               : AppColors.subTextColor,
                       fontWeight: FontWeight.w400,
@@ -93,7 +93,7 @@ class BookingContainerCard extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: subFontSize,
                       color:
-                          themeMode == ThemeMode.dark
+                          isDarkMode
                               ? AppColors.chatBackground
                               : AppColors.textColor,
                       fontWeight: FontWeight.w400,
@@ -108,7 +108,7 @@ class BookingContainerCard extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: subFontSize,
                       color:
-                          themeMode == ThemeMode.dark
+                          isDarkMode
                               ? AppColors.darkGreaColor
                               : AppColors.subTextColor,
                       fontWeight: FontWeight.w400,
@@ -132,7 +132,8 @@ class BookingContainerCard extends StatelessWidget {
                 "Thursday",
                 style: getTextStyle(
                   fontSize: fontSize,
-                  color: AppColors.subTextColor,
+                  color:
+                      isDarkMode ? Color(0xffB0C0D0) : AppColors.subTextColor,
                   fontWeight: FontWeight.w400,
                 ),
               ),
@@ -142,7 +143,7 @@ class BookingContainerCard extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: fontSize,
                   color:
-                      themeMode == ThemeMode.dark
+                      isDarkMode
                           ? AppColors.chatBackground
                           : AppColors.textColor,
                   fontWeight: FontWeight.w400,
@@ -157,7 +158,7 @@ class BookingContainerCard extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: subFontSize,
                       color:
-                          themeMode == ThemeMode.dark
+                          isDarkMode
                               ? AppColors.buttonColor
                               : AppColors.buttonColor2,
                       fontWeight: FontWeight.w500,
@@ -169,7 +170,7 @@ class BookingContainerCard extends StatelessWidget {
                     width: 16,
                     height: 16,
                     color:
-                        themeMode == ThemeMode.dark
+                        isDarkMode
                             ? AppColors.buttonColor
                             : AppColors.buttonColor2,
                   ),
