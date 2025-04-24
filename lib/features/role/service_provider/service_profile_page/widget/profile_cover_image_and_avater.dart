@@ -3,18 +3,15 @@ import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-
 class ProfileCoverImageAndAvater extends StatelessWidget {
-  const ProfileCoverImageAndAvater({
-    super.key,
-  });
+  const ProfileCoverImageAndAvater({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         SizedBox(height: 270, width: double.infinity),
-    
+
         /// Cover image
         Image.asset(
           "assets/images/profile_cover_image.jpeg",
@@ -22,7 +19,7 @@ class ProfileCoverImageAndAvater extends StatelessWidget {
           width: double.infinity,
           fit: BoxFit.cover,
         ),
-    
+
         /// Three-dot menu and back button
         Positioned(
           top: 50,
@@ -31,18 +28,12 @@ class ProfileCoverImageAndAvater extends StatelessWidget {
           child: Row(
             children: [
               GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: () {},
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: CircleAvatar(
-                    backgroundColor: Colors.white.withAlpha(
-                      100,
-                    ),
-                    child: SvgPicture.asset(
-                      IconPath.arrowLeftAltSvg,
-                    ),
+                    backgroundColor: Colors.white.withAlpha(100),
+                    child: SvgPicture.asset(IconPath.arrowLeftAltSvg),
                   ),
                 ),
               ),
@@ -54,20 +45,15 @@ class ProfileCoverImageAndAvater extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: CircleAvatar(
-                    backgroundColor: Colors.white.withAlpha(
-                      100,
-                    ),
-                    child: Icon(
-                      Icons.more_vert,
-                      color: Colors.white,
-                    ),
+                    backgroundColor: Colors.white.withAlpha(100),
+                    child: Icon(Icons.more_vert, color: Colors.white),
                   ),
                 ),
               ),
             ],
           ),
         ),
-    
+
         /// Avatar image
         Positioned(
           bottom: 0,
@@ -77,10 +63,7 @@ class ProfileCoverImageAndAvater extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 50,
-                child: Image.asset(
-                  IconPath.profile01,
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset(IconPath.profile01, fit: BoxFit.cover),
               ),
             ],
           ),
@@ -89,4 +72,3 @@ class ProfileCoverImageAndAvater extends StatelessWidget {
     );
   }
 }
-

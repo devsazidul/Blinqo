@@ -6,6 +6,17 @@ import 'package:http/http.dart' as http;
 
 class SpPaymentOptionController extends GetxController {
   var isPaymentMethodAdded = false.obs;
+  RxList<bool> selectedCards = <bool>[].obs;
+
+  void toggleCardSelection(int index) {
+    selectedCards[index] = !selectedCards[index];
+    update();
+  }
+
+  void initializeSelectedCards(int numberOfCards) {
+    selectedCards = List.generate(numberOfCards, (index) => false).obs;
+    update();
+  }
 
   void togglePaymentMethod() {
     isPaymentMethodAdded.value = !isPaymentMethodAdded.value;

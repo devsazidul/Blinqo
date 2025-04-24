@@ -27,7 +27,7 @@ class UpcomingProjectCard extends StatelessWidget {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
       return Card(
-        elevation: 0,
+        elevation: 1,
         color:
             themeMode == ThemeMode.dark
                 ? AppColors.textColor

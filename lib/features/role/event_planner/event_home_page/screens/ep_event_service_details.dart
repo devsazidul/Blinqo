@@ -90,8 +90,7 @@ class EpEventServiceDetails extends StatelessWidget {
                   child: TextField(
                     controller: epServiceDetailsController.search,
                     onChanged: (value) {
-                      epServiceDetailsController.searchQuery.value =
-                          value.trim();
+                      epServiceDetailsController.searchQuery.value = value;
                     },
                     decoration: InputDecoration(
                       hintText: "Search Service Provider.......",
@@ -109,32 +108,44 @@ class EpEventServiceDetails extends StatelessWidget {
                       ),
                       filled: true,
                       fillColor: AppColors.primary,
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          epServiceDetailsController.searchQuery.value =
+                              epServiceDetailsController.search.text;
+                        },
+                        child: Image.asset(
+                          IconPath.epsearch,
+                          width: 18,
+                          height: 18,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(width: 10),
 
-                GestureDetector(
-                  onTap: () {
-                    epServiceDetailsController.showFilterDialog(context);
-                  },
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: AppColors.appBarArrowIconColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Center(
-                      child: Image.asset(
-                        IconPath.epsearchfilter,
-                        width: 18,
-                        height: 18,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     // epServiceDetailsController.showFilterDialog(context);
+                //   },
+                //   child: Container(
+                //     width: 48,
+                //     height: 48,
+                //     decoration: BoxDecoration(
+                //       color: AppColors.appBarArrowIconColor,
+                //       borderRadius: BorderRadius.circular(8),
+                //     ),
+                //     child: Center(
+                //       child: Image.asset(
+                //         IconPath.epsearchfilter,
+                //         width: 18,
+                //         height: 18,
+                //         fit: BoxFit.cover,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             SizedBox(height: 33),

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_signup_controller.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
@@ -16,6 +18,7 @@ class VSignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -203,7 +206,7 @@ class VSignupScreen extends StatelessWidget {
                       singupController.isFromValid.value
                           ? () {
                             // singupController.signup();
-                            Get.to(VLoginScreen());
+                            Get.to(SpLoginScreen());
                           }
                           : null,
                   backgroundColor:
@@ -238,7 +241,7 @@ class VSignupScreen extends StatelessWidget {
                   SizedBox(width: 8),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(AppRoute.vloginscreen);
+                      Get.to(SpLoginScreen());
                     },
                     child: Text(
                       "Sign In",

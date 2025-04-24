@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/controller/sp_booking_controller.dart';
+import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_booking_request_all.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/screen/sp_project_request.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/sp_custom_booking_request.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/sp_custom_calender.dart';
@@ -214,7 +215,18 @@ class SpBookingPage extends StatelessWidget {
                                 controller: spBookingController.priceController,
                                 decoration: InputDecoration(
                                   hintText: "\$5000",
-                                  label: Text("Price"),
+                                  label: Text(
+                                    "Price",
+                                    style: getTextStyle(
+                                      fontSize: 16,
+                                      color:
+                                          themeMode == ThemeMode.dark
+                                              ? AppColors.darkCalendarColor2
+                                              : AppColors.textColor,
+                                    ),
+                                  ),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                   labelStyle: getTextStyle(
                                     fontSize: 16,
                                     color: AppColors.borderColor,
@@ -236,6 +248,8 @@ class SpBookingPage extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         Container(
+                          width: 166,
+                          height: 48,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
@@ -249,7 +263,7 @@ class SpBookingPage extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 32,
-                              vertical: 16.0,
+                              vertical: 12.0,
                             ),
                             child: Text(
                               "Save Chage",
@@ -289,7 +303,7 @@ class SpBookingPage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(SpProjectRequest());
+                        Get.to(SpBookingRequestAll());
                       },
                       child: Row(
                         children: [
@@ -320,36 +334,29 @@ class SpBookingPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 8),
-                SpCustomBookingRequest(
-                  title: 'Corporate Event',
-                  location: 'The Grand Hall',
-                  date: '15 March,2025',
-                  time: '3:00 PM',
-                  logoPath: IconPath.corporateEventLogo,
-                  onTap: () {
-                    Get.to(SpProjectRequest());
-                  },
-                ),
 
-                SpCustomBookingRequest(
-                  title: 'Corporate Event',
-                  location: 'The Grand Hall',
-                  date: '15 March,2025',
-                  time: '3:00 PM',
-                  logoPath: IconPath.corporateEventLogo,
-                  onTap: () {
-                    Get.to(SpProjectRequest());
-                  },
-                ),
-                SpCustomBookingRequest(
-                  title: 'Corporate Event',
-                  location: 'The Grand Hall',
-                  date: '15 March,2025',
-                  time: '3:00 PM',
-                  logoPath: IconPath.corporateEventLogo,
-                  onTap: () {
-                    Get.to(SpProjectRequest());
-                  },
+                SizedBox(
+                  height: 350,
+                  child: ListView.builder(
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      final booking =
+                          spBookingController.bookingRequests[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: SpCustomBookingRequest(
+                          title: booking['title']!,
+                          location: booking['location']!,
+                          date: booking['date']!,
+                          time: booking['time']!,
+                          logoPath: booking['uplogo']!,
+                          onTap: () {
+                            Get.to(SpProjectRequest());
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 SizedBox(height: 40),
                 Align(
