@@ -3,7 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ShearchStartBookingPage extends StatelessWidget {
   const ShearchStartBookingPage({super.key});
@@ -25,7 +24,7 @@ class ShearchStartBookingPage extends StatelessWidget {
               top: 35,
               child: GestureDetector(
                 onTap: () {
-                  Get.back();
+                  Navigator.pop(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

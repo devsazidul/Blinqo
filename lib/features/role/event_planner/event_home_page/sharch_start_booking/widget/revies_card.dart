@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,18 +30,24 @@ class ReviesCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              child: Text(
-                "The Grand Hall",
-                style: getTextStyle(
-                  fontSize: titleFontSize.sp,
-                  fontWeight: FontWeight.w600,
-                  color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.borderColor2
-                          : AppColors.textColor,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              child: Row(
+                children: [
+                  Text(
+                    "The Grand Hall",
+                    style: getTextStyle(
+                      fontSize: titleFontSize.sp,
+                      fontWeight: FontWeight.w600,
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? AppColors.borderColor2
+                              : AppColors.textColor,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(width: 8),
+                  Image.asset(IconPath.verifiedlogo, height: 16, width: 16),
+                ],
               ),
             ),
 

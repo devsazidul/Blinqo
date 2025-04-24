@@ -10,7 +10,11 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/searc
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_view_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
+import 'package:blinqo/features/role/event_planner/home/start_booking.dart';
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
+import 'package:blinqo/features/role/event_planner/payment_method/screen/even_payment_option.dart';
+import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
+import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
@@ -91,9 +95,12 @@ class AppRoute {
   static String profile = "/profile_screen";
   static const String editProfileScreen = "/edit_profile_screen";
   static const String pickColorScreen = "/pick_color_screen";
-
+  static String startBooking = '/startBooking';
   static String employeeInformtaion = '/employeeInformation';
   static String myteamedit = '/myteamedit';
+  static String reviewBooking = '/ReviewBooking';
+  static String reviewBookingDetails = '/reviewBookingDetails';
+  static String eventPaymentOption = '/eventPaymentOption';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -138,6 +145,10 @@ class AppRoute {
   static String getProfile() => profile;
   static String getEditProfileScreen() => editProfileScreen;
   static String getPickColorScreen() => pickColorScreen;
+  static String getstartBooking() => startBooking;
+  static String getReviewBooking() => reviewBooking;
+  static String getReviewBookingDetails() => reviewBookingDetails;
+  static String geteventPaymentOption() => eventPaymentOption;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -194,5 +205,9 @@ class AppRoute {
       name: myteamedit,
       page: () => Myteamedit(index: Get.arguments as int),
     ),
+    GetPage(name: startBooking, page: () => StartBooking()),
+    GetPage(name: reviewBooking, page: () => ReviewBooking()),
+    GetPage(name: reviewBookingDetails, page: () => ReviewBookingDetails()),
+    GetPage(name: eventPaymentOption, page: () => EvenPaymentOption()),
   ];
 }

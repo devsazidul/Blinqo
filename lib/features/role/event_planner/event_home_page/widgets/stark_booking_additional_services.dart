@@ -20,6 +20,7 @@ class StarkBookingAdditionalServices extends StatelessWidget {
 
     showDialog(
       context: context,
+
       builder: (BuildContext context) {
         return AlertDialog(
           icon: Row(
@@ -33,7 +34,8 @@ class StarkBookingAdditionalServices extends StatelessWidget {
               ),
             ],
           ),
-          backgroundColor: Colors.white,
+          backgroundColor:
+              themeMode == ThemeMode.dark ? Color(0xFF151515) : Colors.white,
           content: SizedBox(
             width: dialogWidth,
             height: dialogHeight,
