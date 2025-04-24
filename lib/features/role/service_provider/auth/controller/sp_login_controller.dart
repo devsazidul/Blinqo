@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class SpLoginController extends GetxController {
   TextEditingController passwordControler = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  var isPasswordVisible = false.obs;
+  var isPasswordVisible = true.obs;
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
   }
@@ -22,6 +21,19 @@ class SpLoginController extends GetxController {
         emailController.text.isNotEmpty && passwordControler.text.isNotEmpty;
   }
 
+  // Password validation method
+  String? validatePassword(String value) {
+    if (value.isEmpty) {
+      return 'Password is required';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+    if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$').hasMatch(value)) {
+      return 'Password must contain at least one letter and one number';
+    }
+    return null;
+  }
   // Future<void> login() async {
   //   EasyLoading.show(status: 'Logging in...');
   //   try {

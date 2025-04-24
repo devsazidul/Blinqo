@@ -1,20 +1,22 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_forget_password_controller.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_change_password.dart';
+import 'package:blinqo/features/role/service_provider/auth/widgets/v_cistom_pin.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/widgets/v_cistom_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-// ignore: use_key_in_widget_constructors
 class SpOtpSendScreen extends StatelessWidget {
-  // Initialize the controller here
-  final SpForgetPasswordController vForgetPasswordController = Get.put(
+  final SpForgetPasswordController spForgetPasswordController = Get.put(
     SpForgetPasswordController(),
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -35,8 +37,8 @@ class SpOtpSendScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 32),
-                CustomPinField(
-                  controller: vForgetPasswordController.pinController,
+                SpCustomPinField(
+                  controller: spForgetPasswordController.pinController,
                 ),
                 SizedBox(height: 20),
                 Text.rich(
@@ -49,7 +51,7 @@ class SpOtpSendScreen extends StatelessWidget {
                           color: Color(0xFF333333),
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          lineHeight: 14,
+                          lineHeight: 1.5,
                         ),
                       ),
                       TextSpan(
@@ -83,22 +85,22 @@ class SpOtpSendScreen extends StatelessWidget {
                   () => CustomButton(
                     title: 'Continue',
                     textColor:
-                        vForgetPasswordController.isFormValid2.value
+                        spForgetPasswordController.isFormValid2.value
                             ? Colors.white
                             : Color(0xFF003366),
                     onPress:
-                        vForgetPasswordController.isFormValid2.value
+                        spForgetPasswordController.isFormValid2.value
                             ? () {
-                              // Proceed with form submission
+                              Get.to(SpChangePassword());
                             }
                             : null,
                     backgroundColor:
-                        vForgetPasswordController.isFormValid2.value
+                        spForgetPasswordController.isFormValid2.value
                             ? Color(0xFF003366)
                             // ignore: deprecated_member_use
                             : Color(0xFF003366).withOpacity(0.1),
                     borderColor:
-                        vForgetPasswordController.isFormValid2.value
+                        spForgetPasswordController.isFormValid2.value
                             ? Color(0xFF003366)
                             // ignore: deprecated_member_use
                             : Color(0xFF003366).withOpacity(0.1),

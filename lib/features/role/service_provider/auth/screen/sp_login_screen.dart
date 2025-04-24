@@ -7,8 +7,8 @@ import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_controller.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
-import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
 import 'package:blinqo/routes/app_routes.dart';
 
 import 'package:flutter/material.dart';
@@ -95,26 +95,26 @@ class SpLoginScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 8),
-                Obx(() {
-                  return AuthCustomTextField(
-                    onChanged: (value) {
-                      loginController.validateFrom();
-                    },
-                    text: 'Enter your password',
-                    controller: loginController.passwordControler,
-                    obscureText: loginController.isPasswordVisible.value,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Incorrect email or password';
-                      }
-                      return null;
-                    },
-                  );
-                }),
+                AuthCustomTextField(
+                  onChanged: (value) {
+                    loginController.validateFrom();
+                  },
+                  text: 'Enter your password',
+
+                  controller: loginController.passwordControler,
+                  obscureText: loginController.isPasswordVisible.value,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Incorrect email or password';
+                    }
+                    return null;
+                  },
+                ),
+
                 SizedBox(height: 32),
                 CustomContinueButton(
                   onTap: () {
-                    Get.to(ProfileSetupScreen());
+                    Get.offAll(ProfileSetupScreen());
                   },
                   title: "Log In",
                 ),
@@ -126,14 +126,14 @@ class SpLoginScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => VForgetPassword(),
+                          builder: (context) => SpForgetPassword(),
                         ),
                       );
                     },
                     child: Text(
                       'Forgot Password?',
                       style: getTextStyle(
-                        color: Color(0xFFD4AF37),
+                        color: AppColors.textColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

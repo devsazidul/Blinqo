@@ -40,7 +40,7 @@ class SpChatPage extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.only(left: 20.0),
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: spChatController.chats.length,

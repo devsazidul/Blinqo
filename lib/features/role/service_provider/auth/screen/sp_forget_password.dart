@@ -1,7 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_forget_password_controller.dart';
-import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_send_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_otp_send_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,7 @@ class SpForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -78,7 +80,7 @@ class SpForgetPassword extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 value == 0
-                                    ? Color(0xffD4AF37)
+                                    ? AppColors.textColor
                                     : Colors.transparent,
                             borderRadius: BorderRadius.circular(4),
                           ),
@@ -112,7 +114,7 @@ class SpForgetPassword extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 value == 1
-                                    ? Color(0xffD4AF37)
+                                    ? AppColors.textColor
                                     : Colors.transparent,
                             borderRadius: BorderRadius.circular(4),
                           ),
@@ -225,7 +227,9 @@ class SpForgetPassword extends StatelessWidget {
                     // }
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => VOptSendScreen()),
+                      MaterialPageRoute(
+                        builder: (context) => SpOtpSendScreen(),
+                      ),
                     );
                   },
                   child: Text("Send", style: TextStyle(color: Colors.white)),

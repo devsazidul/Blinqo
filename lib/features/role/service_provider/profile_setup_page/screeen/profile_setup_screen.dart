@@ -25,7 +25,10 @@ class ProfileSetupScreen extends StatelessWidget {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
       return Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor:
+            themeMode == ThemeMode.dark
+                ? AppColors.darkBackgroundColor
+                : AppColors.backgroundColor,
         body: SingleChildScrollView(
           child: SafeArea(
             child: Padding(
@@ -55,7 +58,7 @@ class ProfileSetupScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 50,
-                          backgroundColor: Colors.grey[300],
+
                           child: ClipOval(
                             child:
                                 profileController.profileImage.value == null
@@ -130,7 +133,13 @@ class ProfileSetupScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Role',
-                          style: getTextStyle(fontSize: 12, color: Colors.grey),
+                          style: getTextStyle(
+                            fontSize: 12,
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? AppColors.primary
+                                    : AppColors.subTextColor,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Container(
@@ -186,6 +195,10 @@ class ProfileSetupScreen extends StatelessWidget {
                                   IconPath.arrowdown,
                                   width: 18,
                                   height: 18,
+                                  color:
+                                      themeMode == ThemeMode.dark
+                                          ? AppColors.primary
+                                          : AppColors.textColor,
                                 ),
                               ],
                             ),
@@ -203,7 +216,10 @@ class ProfileSetupScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.textColor,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.primary
+                                : AppColors.textColor,
                       ),
                     ),
                   ),
@@ -319,7 +335,7 @@ class ProfileSetupScreen extends StatelessWidget {
                         color:
                             themeMode == ThemeMode.dark
                                 ? AppColors.primary
-                                : AppColors.borderColor,
+                                : AppColors.subTextColor,
                       ),
                       hintText: "I am a ............",
                       hintStyle: getTextStyle(
@@ -330,7 +346,10 @@ class ProfileSetupScreen extends StatelessWidget {
                                 : AppColors.textColor,
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                        borderSide: BorderSide(
+                          color: AppColors.subTextColor,
+                          width: 1.0,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -341,7 +360,6 @@ class ProfileSetupScreen extends StatelessWidget {
                     onFieldSubmitted: (value) {
                       profileController.searchLocation(value);
                     },
-
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelText: "Location",
@@ -350,7 +368,7 @@ class ProfileSetupScreen extends StatelessWidget {
                         color:
                             themeMode == ThemeMode.dark
                                 ? AppColors.primary
-                                : AppColors.borderColor,
+                                : AppColors.subTextColor,
                       ),
                       hintText: "New York City",
                       hintStyle: getTextStyle(
@@ -361,8 +379,25 @@ class ProfileSetupScreen extends StatelessWidget {
                                 : AppColors.textColor,
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                        borderSide: BorderSide(
+                          color: AppColors.subTextColor,
+                          width: 1.0,
+                        ),
                         borderRadius: BorderRadius.circular(10),
+                      ),
+                      suffixIcon: GestureDetector(
+                        onTap: () {},
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 6.0,
+                            horizontal: 14.0,
+                          ),
+                          child: Image.asset(
+                            IconPath.epsearch,
+                            width: 18,
+                            height: 18,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -375,7 +410,10 @@ class ProfileSetupScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.textColor,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.primary
+                                : AppColors.textColor,
                       ),
                     ),
                   ),
@@ -438,12 +476,15 @@ class ProfileSetupScreen extends StatelessWidget {
                         color:
                             themeMode == ThemeMode.dark
                                 ? AppColors.primary
-                                : AppColors.borderColor,
+                                : AppColors.subTextColor,
                       ),
                       hintText: "3 years",
                       hintStyle: getTextStyle(
                         fontSize: 14,
-                        color: AppColors.textColor,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.primary
+                                : AppColors.textColor,
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -465,7 +506,10 @@ class ProfileSetupScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.buttonColor2,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.buttonColor
+                                : AppColors.buttonColor2,
                       ),
                     ),
                   ),
@@ -476,7 +520,10 @@ class ProfileSetupScreen extends StatelessWidget {
                       return DottedBorder(
                         borderType: BorderType.RRect,
                         radius: Radius.circular(5),
-                        color: AppColors.buttonColor2,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.buttonColor2
+                                : AppColors.buttonColor2,
                         strokeWidth: 1.5,
                         dashPattern: [5, 3],
                         child: Container(

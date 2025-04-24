@@ -27,7 +27,7 @@ class ProjectRequestCard extends StatelessWidget {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
       return Card(
-        elevation: 4.0,
+        elevation: 1.0,
         color:
             themeMode == ThemeMode.dark
                 ? AppColors.textColor

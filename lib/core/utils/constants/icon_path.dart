@@ -147,6 +147,10 @@ class IconPath {
 
   static const String personadd = 'assets/icons/person_add.png';
   static const String contacts = 'assets/icons/contacts.png';
+  static const String spcheckboxcard = 'assets/icons/spcheckboxcard.png';
+  static const String cardklarna = 'assets/icons/cardklarna.png';
+  static const String cardpaypal = 'assets/icons/cardpaypal.png';
+  static const String carddebit = 'assets/icons/carddebit.png';
   static const String love = 'assets/icons/love.png'; 
   static const String check = 'assets/icons/checkstatus.png';
 }
