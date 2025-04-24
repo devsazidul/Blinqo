@@ -2,6 +2,7 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/event
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_view_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
+import 'package:blinqo/features/role/event_planner/home/start_booking.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,8 @@ class EventHomeNavigator extends StatelessWidget {
         Widget screens;
         if (settings.name == AppRoute.getsearchDetailsScreen()) {
           screens = SearchDetailsScreen();
+        } else if (settings.name == AppRoute.getstartBooking()) {
+          screens = StartBooking();
         } else if (settings.name == AppRoute.getfilterDetailsScreen()) {
           screens = FilterDetailsScreen();
         } else if (settings.name == AppRoute.getfilterViewScreen()) {

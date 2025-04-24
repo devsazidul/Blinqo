@@ -41,4 +41,19 @@ class OverviewController extends GetxController {
     },
 
   ];
+
+  List<Map<String, String>> seereview = [
+    {
+      "title": "Floyd Miles",
+      "time": "Today",
+      "image": ImagePath.reviewer1,
+      "desc": "Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient.",
+    },
+    {
+      "title": "Renee Ellis",
+      "time": "2 days ago",
+      "image": ImagePath.reviewer3,
+      "desc": "Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
+    },
+  ];
 }

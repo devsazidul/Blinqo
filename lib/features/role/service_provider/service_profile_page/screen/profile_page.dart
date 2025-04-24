@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
+import '../../../event_planner/venue_details/screen/venue_details.dart';
 
 class SpProfilePage extends StatelessWidget {
   static const String name = '/sp_profile_settings';
@@ -185,6 +186,9 @@ class SpProfilePage extends StatelessWidget {
           ),
         ),
         _buildSettingsTile(
+          onTap: () {
+           
+          },
           themeMode,
           title: "Language",
           iconPath: IconPath.language,

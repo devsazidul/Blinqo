@@ -1,7 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/add_new_venue.dart';
+import 'package:blinqo/features/role/venue_owner/overview/screen/all_coming_booking.dart';
+import 'package:blinqo/features/role/venue_owner/overview/screen/bookviewerreview.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/payment_card.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
@@ -16,20 +19,7 @@ class OverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     
-    List <Map<String,String>>  seereview =[
-      {
-       "title":"Floyd Miles",
-        "time":"Today",
-        "image":ImagePath.reviewer1,
-          "desc":"Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient."
-      },
-      {
-        "title":"Renee Ellis",
-        "time":"2 days ago",
-        "image": ImagePath.reviewer3,
-        "desc":"Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
-        },
-    ];
+ 
     final OverviewController controller = Get.put(OverviewController());
     return Scaffold(
       backgroundColor:isDarkMode?Color(0xff151515): AppColors.backgroundColor,
@@ -40,7 +30,7 @@ class OverviewScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,7 +41,7 @@ class OverviewScreen extends StatelessWidget {
                         ? RevenueCard()
                         : PaymentCard(),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 25),
               Text(
                 'Upcoming Bookings',
                 style: getTextStyle(
@@ -61,33 +51,29 @@ class OverviewScreen extends StatelessWidget {
                 ),
               ),
               if(controller.reviews.isNotEmpty)
-           Padding(
-             padding: const EdgeInsets.all(8.0),
-             child: Row(
-               children: [
-                 Spacer(),
-                 InkWell(
-                   onTap:(){},
-                   child: Text('Explore All',style: getTextStyle(
-                     fontWeight: FontWeight.w500,
-                     fontSize: 14,
-                     color:isDarkMode?Color(0xffEBEBEB): Color(0xff444444),
-                   ),),
-                 ),
-                 Icon(Icons.arrow_right_alt,color: isDarkMode?Color(0xffEBEBEB): null,size: 18,)
-               ],
-             ),
+           Row(
+             children: [
+               Spacer(),
+               InkWell(
+                 onTap:(){
+                  Get.to(()=>AllUpcomingBookingsScreen());
+                 },
+                 child: Text('Explore All',style: getTextStyle(
+                   fontWeight: FontWeight.w500,
+                   fontSize: 14,
+                   color:isDarkMode?Color(0xffEBEBEB): Color(0xff444444),
+                 ),),
+               ),
+               Icon(Icons.arrow_right_alt,color: isDarkMode?Color(0xffEBEBEB): null,size: 18,)
+             ],
            ),
-              SizedBox(height: 7),
+           
               NewWidget(),
-              SizedBox(height: 30),
               InkWell(
                 onTap: () {
-                  Get.to(
-                      AddNewVenue(image: ImagePath.venuesHall),
-                  );
+                 Get.to(()=>Venue());
                 },
-                child: Container(
+                child: Container(  
                   height: 48,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -108,37 +94,34 @@ class OverviewScreen extends StatelessWidget {
               ),
               SizedBox(height: 40),
               Text(
-                'Recent Views',
+                'Recent Reviews',
                 style: getTextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
                   color:isDarkMode?Color(0xffEBEBEB): Color(0xff333333),
                 ),
               ),
-              if(seereview.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Spacer(),
-                      InkWell(
-                        onTap:(){},
-                        child: Text('Explore All',style: getTextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color:isDarkMode?Color(0xffEBEBEB): Color(0xff444444),
-                        ),),
-                      ),
-                      Icon(Icons.arrow_right_alt,color:isDarkMode?Color(0xffEBEBEB): null,size: 18,)
-                    ],
-                  ),
+              if(controller.seereview.isNotEmpty)
+                Row(
+                  children: [
+                    Spacer(),
+                    InkWell(
+                      onTap:(){
+                        Get.to(()=>Bookviewerreview());
+                    
+                      },
+                      child: Text('Explore All',style: getTextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color:isDarkMode?Color(0xffEBEBEB): Color(0xff444444),
+                      ),),
+                    ),
+                    Icon(Icons.arrow_right_alt,color:isDarkMode?Color(0xffEBEBEB): null,size: 18,)
+                  ],
                 ),
-              SizedBox(height: 2),
-
               SizedBox(
-                height: MediaQuery.of(context).size.height * (380 / MediaQuery.of(context).size.height),
                 width: double.infinity,
-                child: seereview.isEmpty?Center(
+                child: controller.seereview.isEmpty?Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -163,11 +146,9 @@ class OverviewScreen extends StatelessWidget {
                     ],
                   ),
                 ):
-                ListView.builder(itemCount: seereview.length,itemBuilder: (context,index){
-                  return Padding(padding: EdgeInsets.all(20),
+                ListView.builder(physics: NeverScrollableScrollPhysics(),shrinkWrap: true,itemCount:controller.seereview.length,itemBuilder: (context,index){
+                  return Padding(padding: EdgeInsets.symmetric(vertical: 8),
                     child: SizedBox(
-
-
                       child:Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +157,7 @@ class OverviewScreen extends StatelessWidget {
                             children: [
                               ClipOval(
                                 child:Image.asset(
-                                  seereview[index]["image"]!,
+                                 controller. seereview[index]["image"]!,
                                   fit: BoxFit.cover,
                                   height: 40,
                                   width: 40,
@@ -186,7 +167,7 @@ class OverviewScreen extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(seereview[index]["title"]!,style: getTextStyle(
+                                  Text( controller.seereview[index]["title"]!,style: getTextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color:isDarkMode?Color(0xffEBEBEB): Color(0xff333333),
@@ -205,7 +186,7 @@ class OverviewScreen extends StatelessWidget {
                                 ],
                               ),
                               Spacer(),
-                              Text(seereview[index]["time"]!,style: getTextStyle(
+                              Text(controller.seereview[index]["time"]!,style: getTextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xffC0C0C0),
@@ -213,22 +194,18 @@ class OverviewScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 15,),
-
-                          Text(seereview[index]["desc"]!,style:getTextStyle(
+                          Text(controller.seereview[index]["desc"]!,maxLines: null,style:getTextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             color:isDarkMode?Color(0xffA1A1A1): Color(0xff5C5C5C)
                           ),)
-
                         ],
-
-
                       ),
                     ),
                   );
                 }),
               )
-
+       
             ],
           ),
         ),

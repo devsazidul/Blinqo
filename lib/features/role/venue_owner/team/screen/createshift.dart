@@ -4,6 +4,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/shifcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/teaminformation.dart';
 import 'package:blinqo/features/role/venue_owner/team/widget/custom_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -186,13 +187,13 @@ class Createshift extends StatelessWidget {
                   controller: textEditingController,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(
-                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Colors.black),
+                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0)),
                     ),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Colors.black),
+                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0)),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Colors.black),
+                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0  )),
                     ),
                     isCollapsed: true,
                     contentPadding: EdgeInsets.zero,
@@ -341,10 +342,15 @@ class Createshift extends StatelessWidget {
                                   ],
                                 ),
                                 Spacer(),
-                                Icon(
-                                  Icons.edit_outlined,
-                                  size: 24,
-                                  color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                                InkWell(
+                                  onTap:(){
+                                    Get.to(()=>EmployeeInformation());
+                                  },
+                                  child: Icon(
+                                    Icons.edit_outlined,
+                                    size: 24,
+                                    color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                                  ),
                                 ),
                               ],
                             ),

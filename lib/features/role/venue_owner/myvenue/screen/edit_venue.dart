@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../core/common/styles/global_text_style.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/icon_path.dart';
@@ -19,6 +22,7 @@ class EditVenue extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final Completer<GoogleMapController> _mapController = Completer();
     final controller = Get.put(MyVenueController());
     TextEditingController venueName = TextEditingController();
     TextEditingController location = TextEditingController();
@@ -35,15 +39,21 @@ class EditVenue extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Opacity(
-                  opacity: 0.8,
-                  child: Image.asset(
-                    image,
-                    width: double.infinity,
-                    height: screenHeight * 0.4,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                Obx(() {
+                  return controller.pickedImage.value != null
+                      ? Image.file(
+                        controller.pickedImage.value!,
+                        width: double.infinity,
+                        height: screenHeight * 0.4,
+                        fit: BoxFit.cover,
+                      )
+                      : Image.asset(
+                        image,
+                        width: double.infinity,
+                        height: screenHeight * 0.4,
+                        fit: BoxFit.cover,
+                      );
+                }),
                 Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
@@ -98,10 +108,15 @@ class EditVenue extends StatelessWidget {
                           child: CircleAvatar(
                             backgroundColor: Color(0xffD4AF37),
                             radius: 14,
-                            child: Icon(
-                              Icons.mode_edit_outline_outlined,
-                              size: 16,
-                              color: Color(0xff003366),
+                            child: InkWell(
+                              onTap: () {
+                                controller.pickImageFromGallery();
+                              },
+                              child: Icon(
+                                Icons.mode_edit_outline_outlined,
+                                size: 16,
+                                color: Color(0xff003366),
+                              ),
                             ),
                           ),
                         ),
@@ -130,20 +145,33 @@ class EditVenue extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 12),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(width: 1, color: Color(0xffABB7C2)),
-                    ),
-                    child: Image.asset(
-                      ImagePath.location,
-                      fit: BoxFit.cover,
-                      opacity: const AlwaysStoppedAnimation(
-                        0.5,
-                      ), // 0.0 to 1.0, এখানে 50% opacity
-                    ),
-                  ),
+                  Obx(() {
+                    return SizedBox(
+                      height: 200,
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: GoogleMap(
+                          initialCameraPosition: CameraPosition(
+                            target: controller.selectedLocation.value,
+                            zoom: 14.0,
+                          ),
+                          onMapCreated: (GoogleMapController mapController) {
+                            _mapController.complete(mapController);
+                          },
+                          onTap: (LatLng tappedPoint) {
+                            controller.updateLocation(tappedPoint);
+                          },
+                          markers: {
+                            Marker(
+                              markerId: MarkerId("selected-location"),
+                              position: controller.selectedLocation.value,
+                            ),
+                          },
+                        ),
+                      ),
+                    );
+                  }),
 
                   SizedBox(height: 16),
                   CustomInputField(
@@ -408,7 +436,7 @@ class EditVenue extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  FittedBox(
+                  FittedBox( 
                     fit: BoxFit.contain,
                     child: Obx(() {
                       final styles = List<String>.from(controller.seatingStyle);
@@ -509,7 +537,7 @@ class EditVenue extends StatelessWidget {
                   SizedBox(height: 20),
                   FittedBox(
                     fit: BoxFit.contain,
-                    child: Obx(() {
+                    child: Obx(() { 
                       final lightingStyles = List<String>.from(
                         controller.lightingStyle,
                       );

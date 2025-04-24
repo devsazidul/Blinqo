@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ReviewsText extends StatelessWidget {
   final String label;
   final String value;
-  final bool? isColorChinge;
+  final bool isColorChinge;
 
   final ThemeMode themeMode;
   const ReviewsText({
@@ -14,7 +14,7 @@ class ReviewsText extends StatelessWidget {
     required this.label,
     required this.value,
     required this.themeMode,
-    this.isColorChinge,
+    this.isColorChinge = false,
   });
 
   @override
@@ -27,7 +27,7 @@ class ReviewsText extends StatelessWidget {
           style: getTextStylePoppins(
             color:
                 themeMode == ThemeMode.dark
-                    ? AppColors.borderColor2
+                    ? Color(0xffC0C0C0)
                     : AppColors.subTextColor,
           ),
         ),
@@ -37,11 +37,11 @@ class ReviewsText extends StatelessWidget {
             fontSize: 12.sp,
             fontWeight: FontWeight.w400,
             color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.buttonColor
-                    : isColorChinge == true
-                    ? AppColors.buttonColor2
-                    : AppColors.textColor,
+                themeMode == ThemeMode.dark && isColorChinge
+                    ? Color(0xffD4AF37)
+                    : themeMode == ThemeMode.dark && !isColorChinge
+                    ? Color(0xffebebeb)
+                    : AppColors.subTextColor,
           ),
         ),
       ],

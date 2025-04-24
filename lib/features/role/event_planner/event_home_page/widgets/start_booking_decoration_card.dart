@@ -61,9 +61,9 @@ class StartBookingDecorationCard extends StatelessWidget {
                   Text(
                     "Short by",
                     style: getTextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.buttonColor,
+                      color: Color(0xffD4AF37),
                     ),
                   ),
                   Spacer(),
