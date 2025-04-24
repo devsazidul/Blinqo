@@ -147,4 +147,6 @@ class IconPath {
 
   static const String personadd = 'assets/icons/person_add.png';
   static const String contacts = 'assets/icons/contacts.png';
+  static const String love = 'assets/icons/love.png'; 
+  static const String check = 'assets/icons/checkstatus.png';
 }

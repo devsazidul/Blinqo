@@ -25,8 +25,8 @@ class FacilityTag extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Color(0xff000000).withValues(alpha: .3),
-            blurRadius: 8,
-            offset: Offset(0, 3),
+            blurRadius: 2,
+            offset: Offset(0, 2),
           ),
         ],
       ),

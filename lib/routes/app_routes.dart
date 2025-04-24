@@ -98,6 +98,7 @@ class AppRoute {
   static String startBooking = '/startBooking';
   static String employeeInformtaion = '/employeeInformation';
   static String myteamedit = '/myteamedit';
+  static String allreview = '/allreview';
   static String reviewBooking = '/ReviewBooking';
   static String reviewBookingDetails = '/reviewBookingDetails';
   static String eventPaymentOption = '/eventPaymentOption';
