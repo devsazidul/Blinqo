@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/widget/reviews_text.dart'
     show ReviewsText;
-
 import 'package:flutter/material.dart';
 
 class EverReviewBookingDetailsSection extends StatelessWidget {
@@ -27,7 +26,7 @@ class EverReviewBookingDetailsSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Booking',
+              'Your Booking',
               style: getTextStylePoppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

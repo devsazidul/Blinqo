@@ -2,25 +2,25 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import '../../home/start_booking.dart';
 
 class BookingEmtry extends StatelessWidget {
   const BookingEmtry({
     super.key,
     required this.screenWidthFactor,
     required this.screenHeightFactor,
-    required this.themeMode,
   });
 
   final double screenWidthFactor;
   final double screenHeightFactor;
-  final ThemeMode themeMode;
+
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
     return Column(
       children: [
         SizedBox(height: 20 * screenHeightFactor),
@@ -33,7 +33,7 @@ class BookingEmtry extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 // color: AppColors.buttonColor2,
                 color:
-                    themeMode == ThemeMode.dark
+                    isDarkMode
                         ? AppColors.borderColor2
                         : AppColors.buttonColor2,
               ),
@@ -46,9 +46,7 @@ class BookingEmtry extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.buttonColor
-                          : AppColors.buttonColor2,
+                      isDarkMode ? Color(0xffABB7C2) : AppColors.buttonColor2,
                 ),
                 borderRadius: BorderRadius.circular(4.0),
               ),
@@ -63,8 +61,8 @@ class BookingEmtry extends StatelessWidget {
                         fontSize: 12 * screenWidthFactor,
                         fontWeight: FontWeight.w400,
                         color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.buttonColor
+                            isDarkMode
+                                ? Color(0xffABB7C2)
                                 : AppColors.buttonColor2,
                       ),
                     ),
@@ -73,8 +71,8 @@ class BookingEmtry extends StatelessWidget {
                       width: 20 * screenWidthFactor,
                       height: 14 * screenHeightFactor,
                       color:
-                          themeMode == ThemeMode.dark
-                              ? AppColors.buttonColor
+                          isDarkMode
+                              ? Color(0xffABB7C2)
                               : AppColors.buttonColor2,
                     ),
                   ],
@@ -92,10 +90,7 @@ class BookingEmtry extends StatelessWidget {
           style: getTextStyle(
             fontSize: 14 * screenWidthFactor,
             fontWeight: FontWeight.w600,
-            color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.borderColor2
-                    : AppColors.textColor,
+            color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
           ),
         ),
         SizedBox(height: 40 * screenHeightFactor),
@@ -105,7 +100,8 @@ class BookingEmtry extends StatelessWidget {
           },
           child: GestureDetector(
             onTap: () {
-              Get.to(() => const StartBooking());
+              Navigator.pushNamed(context, AppRoute.startBooking);
+              // Get.to(() => const StartBooking());
             },
             child: Container(
               width: 353 * screenWidthFactor,

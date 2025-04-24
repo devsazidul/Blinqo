@@ -1,32 +1,37 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/features/profile/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/event_payment_controller.dart';
 
 class EventPaymentCard extends StatelessWidget {
-  final String imagePath;
-  final String cardName;
-
-  // required controller
-  final EventPaymentController controller = Get.put(EventPaymentController());
-
-  EventPaymentCard({
+  const EventPaymentCard({
     super.key,
     required this.imagePath,
     required this.cardName,
+    required this.isDarkMode,
   });
+
+  final String imagePath;
+  final String cardName;
+  final bool isDarkMode;
 
   @override
   Widget build(BuildContext context) {
+    // required controller
+    final EventPaymentController controller = Get.put(EventPaymentController());
     return Container(
       width: double.infinity,
       height: 64,
       padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: Color(0xffFEFEFE),
+        color: ThemeStyle.darkGreyWhite(isDarkMode),
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Color(0xffEBEBEB), width: 1),
+        border: Border.all(
+          color: ThemeStyle.darkGreyWhite(isDarkMode),
+          width: 1,
+        ),
       ),
       child: Row(
         children: [
@@ -37,7 +42,7 @@ class EventPaymentCard extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: Color(0xff171725),
+              color: ThemeStyle.text1(isDarkMode),
             ),
           ),
           Spacer(),
@@ -48,12 +53,16 @@ class EventPaymentCard extends StatelessWidget {
               onChanged: (_) {
                 controller.toggleSelection();
               },
-              activeColor: Color(0xff003366),
+              activeColor: ThemeStyle.goldToBlack(isDarkMode),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
-              side: BorderSide(color: Color(0xff003366), width: 1),
-              checkColor: Color(0xffF9FAFB),
+              side: BorderSide(
+                color: ThemeStyle.goldToBlack(isDarkMode),
+                width: 1,
+              ),
+              checkColor: ThemeStyle.darkGreyWhite(isDarkMode),
+              //  Color(0xffF9FAFB),
             ),
           ),
         ],
