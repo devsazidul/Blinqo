@@ -1,3 +1,4 @@
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +25,7 @@ class VenueImageHeader extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-                colors: [
-                  Color(0xff161616),
-                  Color(0xff000000).withOpacity(0.1),
-                ],
+                colors: [Color(0xff161616), Color(0xff000000).withOpacity(0.1)],
               ),
             ),
             child: Stack(
@@ -39,12 +37,12 @@ class VenueImageHeader extends StatelessWidget {
                     onTap: onBackTap,
                     child: CircleAvatar(
                       radius: 20,
-                      backgroundColor: Color(0x1A333333).withAlpha(25),
+                      backgroundColor: AppColors.appBarIcolor.withAlpha(25),
                       child: Image.asset(
                         IconPath.arrowLeftAlt,
                         width: 16,
                         height: 12,
-                        color: Colors.white,
+                        color: AppColors.primary,
                       ),
                     ),
                   ),
@@ -59,10 +57,10 @@ class VenueImageHeader extends StatelessWidget {
                       color: Color(0xff333333).withAlpha(25),
                       shape: BoxShape.circle,
                     ),
-                    child: Image.asset(
-                      IconPath.love,
-                      height: 30,
-                      width: 30,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: AppColors.appBarIcolor.withAlpha(25),
+                      child: Image.asset(IconPath.love, height: 30, width: 30),
                     ),
                   ),
                 ),

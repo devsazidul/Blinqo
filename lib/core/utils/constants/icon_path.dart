@@ -151,6 +151,9 @@ class IconPath {
   static const String cardklarna = 'assets/icons/cardklarna.png';
   static const String cardpaypal = 'assets/icons/cardpaypal.png';
   static const String carddebit = 'assets/icons/carddebit.png';
-  static const String love = 'assets/icons/love.png'; 
+  static const String love = 'assets/icons/love.png';
   static const String check = 'assets/icons/checkstatus.png';
+  static const String epguests = 'assets/icons/epguests.png';
+  static const String eproom = 'assets/icons/eproom.png';
+  static const String epoutdoor = 'assets/icons/epoutdoor.png';
 }
