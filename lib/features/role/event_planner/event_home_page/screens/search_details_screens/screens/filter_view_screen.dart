@@ -2,30 +2,33 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/widget/search_bar.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class FilterViewScreen extends StatelessWidget {
-  final themeController = Get.find<SpProfileController>();
+  final ProfileController themeController = Get.put(ProfileController());
+
   FilterViewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final themeMode =
-          themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+      bool isDarkMode = themeController.isDarkMode.value;
       return Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor:
+            isDarkMode
+                ? AppColors.darkBackgroundColor
+                : AppColors.backgroundColor,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SearchBer(themeMode: themeMode),
+                SearchBer(),
                 SizedBox(height: 20),
                 Expanded(
                   child: GridView.builder(
@@ -41,9 +44,17 @@ class FilterViewScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                         decoration: BoxDecoration(
-                          color: AppColors.primary,
+                          color:
+                              isDarkMode
+                                  ? AppColors.cardDarkColor
+                                  : AppColors.primary,
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.borderColor2),
+                          border: Border.all(
+                            color:
+                                isDarkMode
+                                    ? AppColors.cardDarkColor
+                                    : AppColors.borderColor2,
+                          ),
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -73,7 +84,10 @@ class FilterViewScreen extends StatelessWidget {
                                         height: 18,
                                         width: 45,
                                         decoration: BoxDecoration(
-                                          color: AppColors.primary,
+                                          color:
+                                              isDarkMode
+                                                  ? AppColors.cardsubtextColor
+                                                  : AppColors.primary,
                                           borderRadius: BorderRadius.circular(
                                             8,
                                           ),
@@ -93,7 +107,14 @@ class FilterViewScreen extends StatelessWidget {
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                               ),
-                                              Icon(Icons.star, size: 15),
+                                              Icon(
+                                                Icons.star,
+                                                size: 16,
+                                                color:
+                                                    isDarkMode
+                                                        ? AppColors.borderColor2
+                                                        : AppColors.textColor,
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -106,7 +127,10 @@ class FilterViewScreen extends StatelessWidget {
                                         height: 20,
                                         width: 20,
                                         decoration: BoxDecoration(
-                                          color: AppColors.primary,
+                                          color:
+                                              isDarkMode
+                                                  ? AppColors.cardsubtextColor
+                                                  : AppColors.primary,
                                           borderRadius: BorderRadius.circular(
                                             10,
                                           ),
@@ -140,7 +164,10 @@ class FilterViewScreen extends StatelessWidget {
                                               style: getTextStyle(
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: AppColors.textColor,
+                                                color:
+                                                    isDarkMode
+                                                        ? AppColors.borderColor2
+                                                        : AppColors.textColor,
                                               ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -179,7 +206,10 @@ class FilterViewScreen extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700,
-                                        color: AppColors.buttonColor2,
+                                        color:
+                                            isDarkMode
+                                                ? AppColors.buttonColor
+                                                : AppColors.buttonColor2,
                                       ),
                                     ),
                                   ],

@@ -8,10 +8,12 @@ import 'package:get/get.dart';
 
 class GroupProfile extends StatelessWidget {
   final EpChatController epChatController = Get.find<EpChatController>();
-  final themeController = Get.find<SpProfileController>();
+  // final EpGroupController epGroupController = Get.put(EpGroupController());
+  final themeController = Get.put(SpProfileController());
 
   GroupProfile({super.key, required this.chatId});
   final String chatId;
+  // final String groupId;
 
   @override
   Widget build(BuildContext context) {
@@ -79,36 +81,28 @@ class GroupProfile extends StatelessWidget {
 
               Row(
                 children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: SizedBox(
-                          height: 44,
-                          width: 44,
-                          child: Image.asset(
-                            IconPath.addicon,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Image.asset(
+                        IconPath.addicon,
+                        fit: BoxFit.cover,
+                        width: 24,
                       ),
-                    ],
+                    ),
                   ),
                   SizedBox(width: 10),
-                  Column(
-                    children: [
-                      Text(
-                        'Add Members',
-                        style: getTextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color:
-                              themeMode == ThemeMode.dark
-                                  ? AppColors.borderColor2
-                                  : AppColors.textColor,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Add Members',
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? AppColors.borderColor2
+                              : AppColors.textColor,
+                    ),
                   ),
                 ],
               ),
@@ -155,24 +149,27 @@ class GroupProfile extends StatelessWidget {
                                       : AppColors.textColor,
                             ),
                           ),
-                          trailing: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.subTextColor2,
+                          trailing: Padding(
+                            padding: EdgeInsets.all(9),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.subTextColor2,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(6),
-                              child: Text(
-                                'Remove',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color:
-                                      themeMode == ThemeMode.dark
-                                          ? AppColors.borderColor2
-                                          : AppColors.textColor,
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'Remove',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                        themeMode == ThemeMode.dark
+                                            ? AppColors.borderColor2
+                                            : AppColors.textColor,
+                                  ),
                                 ),
                               ),
                             ),
@@ -197,4 +194,25 @@ class GroupProfile extends StatelessWidget {
       );
     });
   }
+
+  // void removeMember(User member) {
+  //   Get.dialog(
+  //     AlertDialog(
+  //       title: Text('Remove Member'),
+  //       content: Text(
+  //         'Are you sure you want to remove ${member.name} from the group?',
+  //       ),
+  //       actions: [
+  //         TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
+  //         TextButton(
+  //           onPressed: () {
+  //             Get.back();
+  //             epGroupController.removeMemberFromGroup(groupId, member.id);
+  //           },
+  //           child: Text('Remove', style: TextStyle(color: Colors.red)),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

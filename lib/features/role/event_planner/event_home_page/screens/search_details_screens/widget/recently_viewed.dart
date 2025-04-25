@@ -1,13 +1,17 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RecentlyViewed extends StatelessWidget {
-  const RecentlyViewed({super.key});
+  final ProfileController themeController = Get.put(ProfileController());
+  RecentlyViewed({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = themeController.isDarkMode.value;
     return ListView.builder(
       physics: ScrollPhysics(),
       shrinkWrap: true,
@@ -17,7 +21,10 @@ class RecentlyViewed extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 6),
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color:
+                  isDarkMode
+                      ? AppColors.cardDarkColor.withValues(alpha: 0.6)
+                      : AppColors.primary,
               borderRadius: BorderRadius.circular(12),
             ),
             height: 96,
@@ -46,7 +53,10 @@ class RecentlyViewed extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: AppColors.textColor,
+                              color:
+                                  isDarkMode
+                                      ? AppColors.borderColor2
+                                      : AppColors.textColor,
                             ),
                           ),
                           Text(
@@ -69,35 +79,50 @@ class RecentlyViewed extends StatelessWidget {
                       ),
                       Spacer(),
                       CircleAvatar(
-                        backgroundColor: AppColors.appBarIcolor.withValues(
-                          alpha: 0.1,
-                        ),
+                        backgroundColor:
+                            isDarkMode
+                                ? AppColors.buttonColor.withValues(alpha: 0.1)
+                                : AppColors.appBarIcolor.withValues(alpha: 0.1),
                         radius: 14,
-                        child: Image.asset(IconPath.frame),
+                        child: Image.asset(
+                          IconPath.frame,
+                          color:
+                              isDarkMode
+                                  ? AppColors.buttonColor
+                                  : AppColors.iconColor,
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: [
-                      Icon(Icons.calendar_month_outlined, size: 16),
+                      Icon(
+                        Icons.calendar_month_outlined,
+                        size: 16,
+                        color: AppColors.subtitleColor2,
+                      ),
                       SizedBox(width: 4),
                       Text(
                         '15 March,2025',
                         style: getTextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.locationIconColor,
+                          color: AppColors.subtitleColor2,
                         ),
                       ),
                       SizedBox(width: 16),
-                      Icon(Icons.location_on_outlined, size: 16),
+                      Icon(
+                        Icons.location_on_outlined,
+                        size: 16,
+                        color: AppColors.subtitleColor2,
+                      ),
                       SizedBox(width: 4),
                       Text(
                         'New York',
                         style: getTextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.locationIconColor,
+                          color: AppColors.subtitleColor2,
                         ),
                       ),
                     ],

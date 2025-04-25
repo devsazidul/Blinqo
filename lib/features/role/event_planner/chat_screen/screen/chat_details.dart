@@ -1,4 +1,3 @@
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
@@ -13,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatDetails extends StatelessWidget {
-  final themeController = Get.find<SpProfileController>();
+  final themeController = Get.put(SpProfileController());
 
   ChatDetails({super.key, required this.chatId});
   final String chatId;

@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class EpChatScreen extends StatelessWidget {
   final EpChatController epChatController = Get.put(EpChatController());
-  final themeController = Get.find<SpProfileController>();
+  final themeController = Get.put(SpProfileController());
 
   EpChatScreen({super.key});
 
