@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
-import '../../../event_planner/venue_details/screen/venue_details.dart';
+import '../../../event_planner/venue_details/screen/ep_venue_details.dart';
 
 class SpProfilePage extends StatelessWidget {
   static const String name = '/sp_profile_settings';
@@ -186,9 +186,7 @@ class SpProfilePage extends StatelessWidget {
           ),
         ),
         _buildSettingsTile(
-          onTap: () {
-           
-          },
+          onTap: () {},
           themeMode,
           title: "Language",
           iconPath: IconPath.language,
@@ -203,7 +201,7 @@ class SpProfilePage extends StatelessWidget {
             onTap: () => controller.toggleNotifications(),
           ),
         ),
-        _buildSettingsTile( 
+        _buildSettingsTile(
           themeMode,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
@@ -238,9 +236,7 @@ class SpProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () {
-            
-          },
+          onTap: () {},
         ),
       ],
     );
