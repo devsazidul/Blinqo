@@ -9,7 +9,7 @@ import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../role/event_planner/venue_details/screen/venue_details.dart';
+import '../../role/event_planner/venue_details/screen/ep_venue_details.dart';
 
 class MainProfileScreen extends StatelessWidget {
   const MainProfileScreen({super.key});
@@ -200,7 +200,7 @@ class MainProfileScreen extends StatelessWidget {
         ),
         _buildSettingsTile(
           onTap: () {
-            Get.to(VenueDetails());
+            Get.to(EpVenueDetails());
           },
           controller: controller,
           title: "Language",

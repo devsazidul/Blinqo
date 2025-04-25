@@ -3,6 +3,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart'
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
+import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
@@ -47,21 +48,31 @@ class FeatureVenues extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _venueImageSection(themeMode),
+            GestureDetector(
+              onTap: () {
+                Get.to(EpVenueDetails());
+              },
+              child: _venueImageSection(themeMode),
+            ),
             SizedBox(height: 12),
             Row(
               children: [
-                Text(
-                  'The Grand Hall',
-                  style: getTextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color:
-                        isColorChinge == true
-                            ? themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : Colors.black
-                            : Colors.grey.shade200,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(EpVenueDetails());
+                  },
+                  child: Text(
+                    'The Grand Hall',
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color:
+                          isColorChinge == true
+                              ? themeMode == ThemeMode.dark
+                                  ? AppColors.primary
+                                  : Colors.black
+                              : AppColors.textColor,
+                    ),
                   ),
                 ),
                 SizedBox(width: 4.0),

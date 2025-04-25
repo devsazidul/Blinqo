@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../../service_provider/service_profile_page/screen/profile_page.dart';
-import '../../event_home_page/screens/bookinge_list.dart';
 
 class EventBottomNavBar extends StatelessWidget {
   const EventBottomNavBar({super.key});
