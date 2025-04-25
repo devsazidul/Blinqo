@@ -153,4 +153,5 @@ class IconPath {
   static const String carddebit = 'assets/icons/carddebit.png';
   static const String love = 'assets/icons/love.png'; 
   static const String check = 'assets/icons/checkstatus.png';
+ 
 }

@@ -4,21 +4,37 @@ import 'package:get/get.dart';
 
 class SpHomeController extends GetxController {
   var hasdata = false.obs;
-  var selectedDate = DateTime.now().obs;
-  var currentPageIndex = 0.obs;
-  final PageController pageController = PageController();
-  void updateSelectedDate(DateTime date) {
+var selectedDate = Rxn<DateTime>(); // প্রথম তারিখ
+var secondSelectedDate = Rxn<DateTime>(); // দ্বিতীয় তারিখ
+var currentPageIndex = 0.obs;
+final PageController pageController = PageController();
+
+// তারিখ আপডেট করার ফাংশন
+void updateSelectedDate(DateTime date) {
+  // প্রথম তারিখ না থাকলে সেট হবে
+  if (selectedDate.value == null) {
     selectedDate.value = date;
+  } 
+  // দ্বিতীয় তারিখ না থাকলে সেট হবে
+  else if (secondSelectedDate.value == null) {
+    secondSelectedDate.value = date;
+  } 
+  // যদি দুটো তারিখই নির্বাচন করা থাকে, তখন প্রথম তারিখ রিসেট হবে
+  else {
+    selectedDate.value = date; 
+    secondSelectedDate.value = null; // দ্বিতীয় তারিখ রিসেট
   }
+}
 
-  void updateDataStatus(bool status) {
-    hasdata.value = status;
-  }
+// ডাটা স্ট্যাটাস আপডেট করার ফাংশন
+void updateDataStatus(bool status) {
+  hasdata.value = status;
+}
 
-  void setPage(int index) {
-    currentPageIndex.value = index;
-  }
-
+// পেজ পরিবর্তন করার ফাংশন
+void setPage(int index) {
+  currentPageIndex.value = index;
+}
   final List<Map<String, String>> bookings = [
     {
       "title": "Jhon’s Birth Day",

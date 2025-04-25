@@ -39,6 +39,30 @@ class OverviewController extends GetxController {
       "image": ImagePath.event3,
       "status": "Confirmed",
     },
+    {
+      "title": "Team Building Retreat",
+      "subtitle": "Lakeside Lodge",
+      "date": "22 April,2025",
+      "time": "10.00 AM",
+      "image": ImagePath.event2,
+      "status": "Pending",
+    },
+     {
+      "title": "Corporate Event",
+      "subtitle": "Conference Hall",
+      "date": "15 March,2025",
+      "time": "3.00 PM",
+      "image": ImagePath.event,
+      "status": "Confirmed",
+    },
+      {
+      "title": "Team Building Retreat",
+      "subtitle": "Lakeside Lodge",
+      "date": "22 April,2025",
+      "time": "10.00 AM",
+      "image": ImagePath.event2,
+      "status": "Pending",
+    },
 
   ];
 
@@ -54,6 +78,12 @@ class OverviewController extends GetxController {
       "time": "2 days ago",
       "image": ImagePath.reviewer3,
       "desc": "Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
+    },
+    {
+      "title": "Floyd Miles",
+      "time": "Today",
+      "image": ImagePath.reviewer1,
+      "desc": "Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient.",
     },
   ];
 }

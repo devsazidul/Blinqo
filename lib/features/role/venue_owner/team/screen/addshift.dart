@@ -27,7 +27,7 @@ class Addshift extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 24),
-                SearchEmployee(controller: search),
+                SearchEmployee(controller: search,onChanged: controller.updateSearch,),
                 SizedBox(height: 20),
                 Text(
                   '${controller.employees.length} Members',
@@ -44,9 +44,9 @@ class Addshift extends StatelessWidget {
                   () => ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: controller.employees.length,
+                    itemCount:  controller.filteredEmployees.length,
                     itemBuilder: (context, index) {
-                      final employee = controller.employees[index];
+                     final employee = controller.filteredEmployees[index];
                       return Column(
                         children: [
                           Container(

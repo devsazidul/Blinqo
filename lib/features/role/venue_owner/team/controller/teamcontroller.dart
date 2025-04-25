@@ -3,6 +3,25 @@ import 'package:get/get.dart';
 
 class  TeamControllerGetx extends GetxController {
    final teamList = <Map<String, String>>[].obs;
+     var searchQuery = ''.obs;
+      List<Map<String, String>> get filteredTeamList {
+    if (searchQuery.value.trim().isEmpty) return teamList;
+    final q = searchQuery.value.toLowerCase();
+    final matched = teamList.where((m) {
+      final fullName = '${m['firstName']} ${m['lastName']}'.toLowerCase();
+      return fullName.contains(q);
+    }).toList();
+    final unmatched = teamList.where((m) {
+      final fullName = '${m['firstName']} ${m['lastName']}'.toLowerCase();
+      return !fullName.contains(q);
+    }).toList();
+    return [...matched, ...unmatched];
+  }
+
+  // ➌ Search query আপডেট করার মেথড
+  void updateSearch(String val) {
+    searchQuery.value = val;
+  }
 
   void addTeamMember({required String firstName, required String lastName, required String role}) {
   teamList.add({

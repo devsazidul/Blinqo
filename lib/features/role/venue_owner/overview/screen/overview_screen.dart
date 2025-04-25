@@ -69,6 +69,7 @@ class OverviewScreen extends StatelessWidget {
            ),
            
               NewWidget(),
+              
               InkWell(
                 onTap: () {
                  Get.to(()=>Venue());
@@ -146,7 +147,7 @@ class OverviewScreen extends StatelessWidget {
                     ],
                   ),
                 ):
-                ListView.builder(physics: NeverScrollableScrollPhysics(),shrinkWrap: true,itemCount:controller.seereview.length,itemBuilder: (context,index){
+                ListView.builder(physics: NeverScrollableScrollPhysics(),shrinkWrap: true,itemCount:2,itemBuilder: (context,index){
                   return Padding(padding: EdgeInsets.symmetric(vertical: 8),
                     child: SizedBox(
                       child:Column(

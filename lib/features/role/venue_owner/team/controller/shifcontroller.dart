@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ShiftController extends GetxController {
-  var startTime = Rx<TimeOfDay?>(null);
+var startTime = Rx<TimeOfDay?>(null);
   var endTime = Rx<TimeOfDay?>(null);
+
   String get duration {
     if (startTime.value != null && endTime.value != null) {
       final start = startTime.value!;
@@ -22,19 +23,47 @@ class ShiftController extends GetxController {
   }
 
   Future<void> pickTime({required bool isStartTime}) async {
-    final picked = await showTimePicker(
-      context: Get.context!,
-      initialTime: TimeOfDay.now(),
+    await showCustomTimePicker(isStartTime: isStartTime);
+  }
+
+  Future<void> showCustomTimePicker({required bool isStartTime}) async {
+    final times = List.generate(
+      24 * 4, // every 15 minutes
+      (index) {
+        final hour = index ~/ 4;
+        final minute = (index % 4) * 15;
+        return TimeOfDay(hour: hour, minute: minute);
+      },
     );
-    if (picked != null) {
+
+    final selected = await showModalBottomSheet<TimeOfDay>(
+      context: Get.context!,
+      builder: (context) {
+        return ListView.separated(
+          itemCount: times.length,
+          separatorBuilder: (_, __) => Divider(height: 1),
+          itemBuilder: (_, index) {
+            final time = times[index];
+            return ListTile(
+              title: Text(time.format(context)),
+              onTap: () {
+                Navigator.pop(context, time);
+              },
+            );
+          },
+        );
+      },
+    );
+
+    if (selected != null) {
       if (isStartTime) {
-        startTime.value = picked;
+        startTime.value = selected;
       } else {
-        endTime.value = picked;
+        endTime.value = selected;
       }
     }
   }
-
+ 
   var selectedEmployees = <Employee>[].obs;
 
   // Function to set selected employees

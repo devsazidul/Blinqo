@@ -33,25 +33,8 @@ class Venue extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  GestureDetector(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundColor:
-                                  isDarkMode
-                                      ? Color(0xFFD9D9D9).withAlpha(40)
-                                      : Color(0x1A333333),
-                              child: Image.asset(
-                                IconPath.arrowLeftAlt,
-                                width: 16,
-                                height: 12,
-                                color: isDarkMode ? Colors.white : Colors.white,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 63,),
+              
+                          SizedBox(width: 85 ,),
                   Text(
                     'My Venues',
                     style: getTextStyle(
