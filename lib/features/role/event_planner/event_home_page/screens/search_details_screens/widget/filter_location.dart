@@ -1,22 +1,20 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 
 class Location extends StatelessWidget {
-  const Location({
-    super.key,
-    required this.themeMode,
-    required this.searchDetailsController,
-  });
+  Location({super.key, required this.searchDetailsController});
+  final ProfileController themeController = Get.put(ProfileController());
 
-  final ThemeMode themeMode;
   final SearchDetailsController searchDetailsController;
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = themeController.isDarkMode.value;
     return Padding(
       padding: EdgeInsets.only(left: 28, top: 7),
       child: Row(
@@ -25,14 +23,14 @@ class Location extends StatelessWidget {
             child: Container(
               height: 38,
               decoration: BoxDecoration(
-                color: AppColors.primary,
+                color: isDarkMode ? AppColors.cardDarkColor : AppColors.primary,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Obx(
                 () => PopupMenuButton<String>(
                   initialValue: 'City',
                   color:
-                      themeMode == ThemeMode.dark
+                      isDarkMode
                           ? AppColors.textFrieldDarkColor
                           : AppColors.popUpBackground,
                   onSelected:
@@ -57,7 +55,10 @@ class Location extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w300,
-                            color: AppColors.subTextColor2,
+                            color:
+                                isDarkMode
+                                    ? AppColors.subTextColor2
+                                    : AppColors.subTextColor2,
                           ),
                         ),
                       ),
@@ -67,6 +68,10 @@ class Location extends StatelessWidget {
                           IconPath.arrowdown,
                           width: 16,
                           height: 16,
+                          color:
+                              isDarkMode
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
                         ),
                       ),
                     ],
@@ -80,14 +85,14 @@ class Location extends StatelessWidget {
             child: Container(
               height: 38,
               decoration: BoxDecoration(
-                color: AppColors.primary,
+                color: isDarkMode ? AppColors.cardDarkColor : AppColors.primary,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Obx(
                 () => PopupMenuButton<String>(
                   initialValue: 'Area',
                   color:
-                      themeMode == ThemeMode.dark
+                      isDarkMode
                           ? AppColors.textFrieldDarkColor
                           : AppColors.popUpBackground,
                   onSelected:
@@ -111,7 +116,10 @@ class Location extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w300,
-                            color: AppColors.subTextColor2,
+                            color:
+                                isDarkMode
+                                    ? AppColors.subTextColor2
+                                    : AppColors.subTextColor2,
                           ),
                         ),
                       ),
@@ -121,6 +129,10 @@ class Location extends StatelessWidget {
                           IconPath.arrowdown,
                           width: 16,
                           height: 16,
+                          color:
+                              isDarkMode
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
                         ),
                       ),
                     ],

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +11,19 @@ class SearchBer extends StatelessWidget {
   final SearchDetailsController searchDetailsController = Get.put(
     SearchDetailsController(),
   );
-
-  final ThemeMode themeMode;
-  SearchBer({super.key, required this.themeMode});
+  final ProfileController themeController = Get.put(ProfileController());
+  SearchBer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = themeController.isDarkMode.value;
     return Row(
       children: [
         Expanded(
           child: TextField(
+            style: getTextStyle(
+              color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+            ),
             onChanged: (value) {},
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
@@ -29,9 +33,9 @@ class SearchBer extends StatelessWidget {
               hintText: 'Search venues & services...',
               hintStyle: getTextStyle(
                 color:
-                    themeMode == ThemeMode.dark
-                        ? Color.fromARGB(255, 198, 202, 206)
-                        : Colors.grey,
+                    isDarkMode
+                        ? AppColors.chatBackground
+                        : AppColors.subTextColor2,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
@@ -39,14 +43,10 @@ class SearchBer extends StatelessWidget {
               suffixIcon: Icon(
                 Icons.mic_none,
                 color:
-                    themeMode == ThemeMode.dark
-                        ? AppColors.secondary
-                        : AppColors.buttonColor2,
+                    isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
               ),
               fillColor:
-                  themeMode == ThemeMode.dark
-                      ? AppColors.textFrieldDarkColor
-                      : AppColors.primary,
+                  isDarkMode ? AppColors.cardDarkColor : AppColors.primary,
 
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -73,7 +73,10 @@ class SearchBer extends StatelessWidget {
             width: 48,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: AppColors.iconBackground,
+              color:
+                  isDarkMode
+                      ? AppColors.cardDarkColor
+                      : AppColors.iconBackground,
             ),
             child: Icon(Icons.tune, color: AppColors.primary),
           ),
