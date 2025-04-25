@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class EditVenue extends StatelessWidget {
   final String image;
 
   const EditVenue({super.key, required this.image});
-
+  
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode =
@@ -324,22 +324,60 @@ class EditVenue extends StatelessWidget {
                       color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  SizedBox(
-                    height: screenHeight * 0.249,
-                    width: double.infinity,
-                    child: Image.asset(ImagePath.venueview, fit: BoxFit.cover),
-                  ),
+                 
+
                   SizedBox(height: 40),
-                  Text(
-                    'Table Shape',
+                 Obx(() {
+  return SizedBox(
+    height: screenHeight * 0.249,
+    width: double.infinity,
+    child: Stack(
+      children: [
+        // Background image (default or picked)
+        controller.decorationImage.value != null
+            ? Image.file(
+                controller.decorationImage.value!,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              )
+            : Image.asset(
+                ImagePath.venueview,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+
+        // Edit icon
+        Positioned(
+          bottom: 12,
+          left: 260,
+          child: InkWell(
+            onTap: () {
+              controller.pickDecorationImageFromGallery();
+            },
+            child: Image.asset(
+              IconPath.edit,
+              width: 32,
+              height: 32,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}),
+                  SizedBox(height: 40),
+                    Text(
+                    "Table Shape",
                     style: getTextStyle(
-                      fontSize: 20,
                       fontWeight: FontWeight.w500,
+                      fontSize: 20,
                       color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: 20),
                   FittedBox(
                     fit: BoxFit.contain,
                     child: Obx(() {
@@ -436,7 +474,7 @@ class EditVenue extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  FittedBox( 
+                  FittedBox(
                     fit: BoxFit.contain,
                     child: Obx(() {
                       final styles = List<String>.from(controller.seatingStyle);
@@ -490,9 +528,7 @@ class EditVenue extends StatelessWidget {
                                           onChanged:
                                               (_) => controller
                                                   .toggleSeatingStyle(style),
-                                          activeColor: Color(
-                                            0xff003366,
-                                          ).withValues(alpha: .5),
+                                          activeColor: Color(0xff003366),
                                         ),
                                       ),
                                     ),
@@ -537,7 +573,7 @@ class EditVenue extends StatelessWidget {
                   SizedBox(height: 20),
                   FittedBox(
                     fit: BoxFit.contain,
-                    child: Obx(() { 
+                    child: Obx(() {
                       final lightingStyles = List<String>.from(
                         controller.lightingStyle,
                       );
@@ -875,21 +911,26 @@ class EditVenue extends StatelessWidget {
                     }),
                   ),
                   SizedBox(height: 45),
-                  Container(
-                    width: double.infinity,
-                    height: screenHeight * 0.07,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Color(0xff003366),
-                      border: Border.all(width: 1, color: Color(0xff003366)),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Save Changes',
-                        style: getTextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xffF4F4F4),
+                  InkWell(
+                    onTap: (){
+                      Get.to(()=>Venue());
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: screenHeight * 0.07,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Color(0xff003366),
+                        border: Border.all(width: 1, color: Color(0xff003366)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Save Changes',
+                          style: getTextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xffF4F4F4),
+                          ),
                         ),
                       ),
                     ),

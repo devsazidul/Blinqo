@@ -176,4 +176,14 @@ class MyVenueController extends GetxController {
   void updateLocation(LatLng newLocation) {
     selectedLocation.value = newLocation;
   }
+  Rx<File?> decorationImage = Rx<File?>(null);
+
+void pickDecorationImageFromGallery() async {
+  final picker = ImagePicker();
+  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  if (pickedFile != null) {
+    decorationImage.value = File(pickedFile.path);
+  }
+}
+
 }

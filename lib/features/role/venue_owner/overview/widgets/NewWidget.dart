@@ -20,7 +20,7 @@ class NewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return SizedBox(
-      height: 360,
+      height: 345,
       child:
       controller.reviews.isEmpty
           ? Center(
@@ -28,7 +28,7 @@ class NewWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 232,
+              height: 250,
               width: 232,
               child: Image.asset(ImagePath.overviewbox),
             ),
@@ -47,8 +47,8 @@ class NewWidget extends StatelessWidget {
       )
           : ListView.builder(
         shrinkWrap: true,
-        itemCount: controller.reviews.length,
-        physics: BouncingScrollPhysics(),
+        itemCount: 3,
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           var reviews = controller.reviews[index];
           return Padding(
