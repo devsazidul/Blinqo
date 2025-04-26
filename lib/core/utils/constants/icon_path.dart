@@ -105,7 +105,7 @@ class IconPath {
   static const String chatlogo8 = "assets/icons/chatlogo8.png";
   static const String chatlogo9 = "assets/icons/chatlogo9.png";
   static const String cancelIcon = "assets/icons/cancel.png";
-  static const String cancelIcon2 = "assets/icons/cancel.png";
+  static const String cancelIcon2 = "assets/icons/cancel2.png";
   static const String klarna = "assets/icons/klarna.png";
   static const String paypalcard = "assets/icons/paypalcard.png";
   static const String debitcard = "assets/icons/debitcard.png";
@@ -113,7 +113,7 @@ class IconPath {
   static const String chatattachfile = "assets/icons/chatattachfile.png";
   static const String spchatsend = "assets/icons/spchatsend.png";
   static const String paymentaddicone = "assets/icons/paymentaddicone.png";
-  static const String cancel2 = "assets/icons/cancel2.png";
+  static const String cancel2 = "assets/icons/cancel.png";
   static const String addIcon = "assets/icons/add_icon.png";
   static const String vector2 = "assets/icons/Vector2.png";
   static const String frame = "assets/icons/Frame.png";
@@ -157,6 +157,6 @@ class IconPath {
   static const String epguests = 'assets/icons/epguests.png';
   static const String eproom = 'assets/icons/eproom.png';
   static const String epoutdoor = 'assets/icons/epoutdoor.png';
+  static const String cancel = 'assets/icons/cancel.png';
   static const String dropdown  =  'assets/icons/dropdown.png';
-
 }
