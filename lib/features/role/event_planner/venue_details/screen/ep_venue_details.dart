@@ -2,27 +2,37 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/controller/ep_venuw_details_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_all_reviews.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_vanue_details_custom_text_widget.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_vanue_details_custom_widget.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_venue_details_custom_review_widget.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/widget/venue_image_header.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_setup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-final EpVenuwDetailsController epVenuwDetailsController = Get.put(
-  EpVenuwDetailsController(),
-);
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class EpVenueDetails extends StatelessWidget {
-  const EpVenueDetails({super.key});
+  EpVenueDetails({super.key});
+  final EpVenuwDetailsController epVenuwDetailsController = Get.put(
+    EpVenuwDetailsController(),
+  );
+  final ProfileSetupController profileController = Get.put(
+    ProfileSetupController(),
+  );
+  final controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = controller.isDarkMode.value;
     final Size screenSize = MediaQuery.of(context).size;
     final double screenWidth = screenSize.width;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +52,10 @@ class EpVenueDetails extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff333333),
+                          color:
+                              isDarkMode
+                                  ? AppColors.primary
+                                  : AppColors.textColor,
                         ),
                       ),
                       SizedBox(width: 8),
@@ -54,9 +67,14 @@ class EpVenueDetails extends StatelessWidget {
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: AppColors.buttonColor2.withValues(
-                              alpha: .10,
-                            ),
+                            color:
+                                isDarkMode
+                                    ? AppColors.buttonColor.withValues(
+                                      alpha: .10,
+                                    )
+                                    : AppColors.buttonColor2.withValues(
+                                      alpha: .10,
+                                    ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -66,7 +84,11 @@ class EpVenueDetails extends StatelessWidget {
                                   Text(
                                     '\$',
                                     style: getTextStyle(
-                                      color: Color(0xff003366),
+                                      color:
+                                          isDarkMode
+                                              ? AppColors.buttonColor
+                                              : AppColors.buttonColor2,
+
                                       fontSize: 20,
                                     ),
                                   ),
@@ -76,7 +98,10 @@ class EpVenueDetails extends StatelessWidget {
                                     style: getTextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
-                                      color: AppColors.buttonColor2,
+                                      color:
+                                          isDarkMode
+                                              ? AppColors.buttonColor
+                                              : AppColors.buttonColor2,
                                     ),
                                   ),
                                 ],
@@ -97,6 +122,10 @@ class EpVenueDetails extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
+                          color:
+                              isDarkMode
+                                  ? AppColors.primary
+                                  : AppColors.textColor,
                         ),
                       ),
                       SizedBox(width: 8),
@@ -132,7 +161,10 @@ class EpVenueDetails extends StatelessWidget {
                   EpVanueDetailsCustomTextWidget(
                     text: 'Compare',
                     fontSize: 16,
-                    color: AppColors.buttonColor2,
+                    color:
+                        isDarkMode
+                            ? AppColors.buttonColor
+                            : AppColors.buttonColor2,
                     alignment: Alignment.centerRight,
                     fontWeight: FontWeight.w700,
                   ),
@@ -140,7 +172,7 @@ class EpVenueDetails extends StatelessWidget {
                   EpVanueDetailsCustomTextWidget(
                     text: 'Description',
                     fontSize: 20,
-                    color: AppColors.textColor,
+                    color: isDarkMode ? AppColors.primary : AppColors.textColor,
                     alignment: Alignment.centerLeft,
                     fontWeight: FontWeight.w700,
                   ),
@@ -152,7 +184,10 @@ class EpVenueDetails extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.subTextColor,
+                        color:
+                            isDarkMode
+                                ? AppColors.primary
+                                : AppColors.subTextColor,
                       ),
                     ),
                   ),
@@ -160,7 +195,7 @@ class EpVenueDetails extends StatelessWidget {
                   EpVanueDetailsCustomTextWidget(
                     text: "Location",
                     fontSize: 20,
-                    color: AppColors.textColor,
+                    color: isDarkMode ? AppColors.primary : AppColors.textColor,
                     alignment: Alignment.centerLeft,
                     fontWeight: FontWeight.w500,
                   ),
@@ -174,76 +209,79 @@ class EpVenueDetails extends StatelessWidget {
                         color: AppColors.buttonColor2,
                       ),
                       SizedBox(width: 8),
-                      Text("New York", style: getTextStyle(fontSize: 14)),
+                      Text(
+                        "New York",
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color:
+                              isDarkMode
+                                  ? AppColors.primary
+                                  : AppColors.textColor,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 12),
-
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   height: 200,
-                  //   child: Stack(
-                  //     children: [
-                  //       ClipRRect(
-                  //         borderRadius: BorderRadius.circular(16),
-                  //         child: GetBuilder<EpVenuwDetailsController>(
-                  //           builder: (_) {
-                  //             return GoogleMap(
-                  //               onMapCreated:
-                  //                   epVenuwDetailsController.onMapCreated,
-                  //               initialCameraPosition: CameraPosition(
-                  //                 target: epVenuwDetailsController.center,
-                  //                 zoom: 16.0,
-                  //               ),
-                  //               markers: epVenuwDetailsController.mapMarkers,
-                  //               myLocationButtonEnabled: false,
-                  //               zoomControlsEnabled: false,
-                  //             );
-                  //           },
-                  //         ),
-                  //       ),
-                  //       Positioned(
-                  //         bottom: 10,
-                  //         right: 10,
-                  //         child: Obx(
-                  //           () => FloatingActionButton(
-                  //             onPressed:
-                  //                 epVenuwDetailsController.isMapReady.value
-                  //                     ? () {
-                  //                       epVenuwDetailsController.mapController!
-                  //                           .animateCamera(
-                  //                             CameraUpdate.newLatLng(
-                  //                               epVenuwDetailsController.center,
-                  //                             ),
-                  //                           );
-                  //                     }
-                  //                     : null,
-                  //             backgroundColor: Colors.white,
-                  //             mini: true,
-                  //             elevation: 4,
-                  //             child: Image.asset(
-                  //               IconPath.mylocation,
-                  //               width: 24,
-                  //               height: 24,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: GetBuilder<ProfileSetupController>(
+                            builder: (_) {
+                              return GoogleMap(
+                                onMapCreated: profileController.onMapCreated,
+                                initialCameraPosition: CameraPosition(
+                                  target: profileController.center,
+                                  zoom: 16.0,
+                                ),
+                                markers: profileController.mapMarkers,
+                                myLocationButtonEnabled: false,
+                                zoomControlsEnabled: false,
+                              );
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              if (profileController.mapController != null) {
+                                profileController.mapController!.animateCamera(
+                                  CameraUpdate.newLatLng(
+                                    profileController.center,
+                                  ),
+                                );
+                              }
+                            },
+                            backgroundColor: Colors.white,
+                            mini: true,
+                            elevation: 4,
+                            child: Image.asset(
+                              IconPath.mylocation,
+                              width: 24,
+                              height: 24,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 38),
-
                   EpVanueDetailsCustomTextWidget(
                     text: "Reviews",
                     fontSize: 20,
-                    color: AppColors.textColor,
+                    color: isDarkMode ? AppColors.primary : AppColors.textColor,
                     alignment: Alignment.centerLeft,
                     fontWeight: FontWeight.w500,
                   ),
                   SizedBox(height: 20),
                   SizedBox(
-                    height: 300,
+                    height: 250,
                     child: ListView.builder(
                       itemCount: 2,
                       itemBuilder: (context, index) {

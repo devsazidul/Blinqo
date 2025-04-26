@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_event_service_details_controller.dart';
 
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/ep_service_provider_card.dart';
@@ -14,11 +15,15 @@ class EpEventServiceDetails extends StatelessWidget {
   final EpEventServiceDetailsController epServiceDetailsController = Get.put(
     EpEventServiceDetailsController(),
   );
-
+  final controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = controller.isDarkMode.value;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: AppBar(
@@ -96,7 +101,10 @@ class EpEventServiceDetails extends StatelessWidget {
                       hintText: "Search Service Provider.......",
                       hintStyle: getTextStyle(
                         fontSize: 16,
-                        color: AppColors.subTextColor2,
+                        color:
+                            isDarkMode
+                                ? AppColors.primary
+                                : AppColors.subTextColor2,
                       ),
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: 8.0,
@@ -106,46 +114,60 @@ class EpEventServiceDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide.none,
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
                       filled: true,
-                      fillColor: AppColors.primary,
+                      fillColor:
+                          isDarkMode
+                              ? AppColors.textFrieldDarkColor
+                              : AppColors.primary,
                       suffixIcon: GestureDetector(
                         onTap: () {
                           epServiceDetailsController.searchQuery.value =
                               epServiceDetailsController.search.text;
                         },
-                        child: Image.asset(
-                          IconPath.epsearch,
-                          width: 18,
-                          height: 18,
-                          fit: BoxFit.cover,
+                        child: Icon(
+                          Icons.search,
+                          color:
+                              isDarkMode
+                                  ? AppColors.buttonColor
+                                  : AppColors.textColor,
                         ),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(width: 10),
-
-                // GestureDetector(
-                //   onTap: () {
-                //     // epServiceDetailsController.showFilterDialog(context);
-                //   },
-                //   child: Container(
-                //     width: 48,
-                //     height: 48,
-                //     decoration: BoxDecoration(
-                //       color: AppColors.appBarArrowIconColor,
-                //       borderRadius: BorderRadius.circular(8),
-                //     ),
-                //     child: Center(
-                //       child: Image.asset(
-                //         IconPath.epsearchfilter,
-                //         width: 18,
-                //         height: 18,
-                //         fit: BoxFit.cover,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                GestureDetector(
+                  onTap: () {
+                    epServiceDetailsController.showFilterDialog(context);
+                  },
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color:
+                          isDarkMode
+                              ? AppColors.textFrieldDarkColor
+                              : AppColors.appBarArrowIconColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        IconPath.epsearchfilter,
+                        width: 18,
+                        height: 18,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 33),

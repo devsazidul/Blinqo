@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class EpEventServiceDetailsController extends GetxController {
   final TextEditingController search = TextEditingController();
+
   var allServiceProviders = <Map<String, dynamic>>[
     {
       'name': 'Thaddeus Mercer',
@@ -78,18 +79,23 @@ class EpEventServiceDetailsController extends GetxController {
       'verified': false,
     },
   ];
-
   var serviceProviders = <Map<String, dynamic>>[].obs;
   var searchQuery = ''.obs;
+
+  var locations = ['City 1', 'City 2', 'City 3'].obs;
+  var areas = ['Area 1', 'Area 2', 'Area 3'].obs;
+  var selectedLocation = ''.obs;
+  var selectedArea = ''.obs;
+  var rating = 4.5.obs;
+
   @override
   void onInit() {
     super.onInit();
     serviceProviders.assignAll(allServiceProviders);
-
-    ever(searchQuery, (_) => _filterProviders());
+    ever(searchQuery, (_) => filterProviders());
   }
 
-  void _filterProviders() {
+  void filterProviders() {
     final query = searchQuery.value.toLowerCase();
     if (query.isEmpty) {
       serviceProviders.assignAll(allServiceProviders);
@@ -99,8 +105,116 @@ class EpEventServiceDetailsController extends GetxController {
             final name = provider['name'].toString().toLowerCase();
             return name.contains(query);
           }).toList();
-
       serviceProviders.assignAll(filtered);
     }
+  }
+
+  void showFilterDialog(BuildContext context) {
+    Get.dialog(
+      AlertDialog(
+        title: Text('Filter Service Providers'),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Location & Area'),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Obx(
+                      () => DropdownButton<String>(
+                        value:
+                            selectedLocation.value.isEmpty
+                                ? null
+                                : selectedLocation.value,
+                        hint: Text('Select Location'),
+                        onChanged: (value) {
+                          selectedLocation.value = value!;
+                        },
+                        items:
+                            locations.map((location) {
+                              return DropdownMenuItem<String>(
+                                value: location,
+                                child: Text(location),
+                              );
+                            }).toList(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+
+                  Expanded(
+                    child: Obx(
+                      () => DropdownButton<String>(
+                        value:
+                            selectedArea.value.isEmpty
+                                ? null
+                                : selectedArea.value,
+                        hint: Text('Select Area'),
+                        onChanged: (value) {
+                          selectedArea.value = value!;
+                        },
+                        items:
+                            areas.map((area) {
+                              return DropdownMenuItem<String>(
+                                value: area,
+                                child: Text(area),
+                              );
+                            }).toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+
+              // Ratings & Reviews Slider
+              Text('Ratings & Reviews'),
+              Obx(
+                () => Row(
+                  children: [
+                    Text('${rating.value.toStringAsFixed(1)}'),
+                    Expanded(
+                      child: Slider(
+                        min: 1.0,
+                        max: 5.0,
+                        value: rating.value,
+                        onChanged: (value) {
+                          rating.value = value;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // Apply and Cancel Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Get.back(); // Close the dialog
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      filterProviders();
+                      Get.back(); // Close the dialog after applying filter
+                    },
+                    child: Text('Apply'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
