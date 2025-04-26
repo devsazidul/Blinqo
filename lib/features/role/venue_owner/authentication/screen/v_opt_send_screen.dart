@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_forget_password_controller.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/widgets/v_cistom_pin.dart';
@@ -45,7 +46,7 @@ class VOptSendScreen extends StatelessWidget {
                     children: [
                       TextSpan(
                         text:
-                            'Verification code has been sent to the phone number Your ',
+                            'Verification code has been sent to the phone number Your  ',
                         style: getTextStyle(
                           color: Color(0xFF333333),
                           fontSize: 16,
@@ -73,7 +74,7 @@ class VOptSendScreen extends StatelessWidget {
                   child: Text(
                     "Resend Code",
                     style: getTextStyle(
-                      color: Color(0xFFD4AF37),
+                      color: AppColors.textColor,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
