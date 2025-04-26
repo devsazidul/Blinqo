@@ -127,6 +127,7 @@ class StarkBookingAdditionalServices extends StatelessWidget {
         ),
 
         SizedBox(height: screenHeight * 0.02),
+
         Obx(() {
           return Wrap(
             spacing: 8.0,
@@ -158,8 +159,8 @@ class StarkBookingAdditionalServices extends StatelessWidget {
                             child: Text(
                               service,
                               style: getTextStyle(
-                                fontSize: isSmallScreen ? 13 : 16,
-                                fontWeight: FontWeight.w400,
+                                fontSize: isSmallScreen ? 14 : 16,
+                                fontWeight: FontWeight.w500,
                                 color:
                                     themeMode == ThemeMode.dark
                                         ? AppColors.buttonColor
@@ -231,7 +232,7 @@ class StarkBookingAdditionalServices extends StatelessWidget {
                   ),
                   SizedBox(width: isSmallScreen ? 6 : 8),
                   Image.asset(
-                    IconPath.addIcon,
+                    IconPath.cancel,
                     width: isSmallScreen ? 18 : 20,
                     height: isSmallScreen ? 18 : 20,
                     color:

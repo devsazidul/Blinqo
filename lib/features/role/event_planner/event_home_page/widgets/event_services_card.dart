@@ -18,15 +18,15 @@ class EventServiceCard extends StatelessWidget {
       },
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              service.imagePath,
-              height: 123,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
+          // ClipRRect(
+          //   borderRadius: BorderRadius.circular(8),
+          //   child: Image.asset(
+          //     service.imagePath,
+          //     height: 123,
+          //     width: double.infinity,
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
           SizedBox(height: 8),
           Text(
             service.label,

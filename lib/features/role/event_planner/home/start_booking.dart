@@ -103,12 +103,13 @@ class StartBooking extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.02),
 
                 StarkBookingAdditionalServices(themeMode: themeMode),
-
                 SizedBox(height: screenHeight * 0.05),
                 StartBookingButton(
                   screenHeight: screenHeight,
                   themeMode: themeMode,
                 ),
+
+                SizedBox(height: screenHeight * 0.06),
               ],
             ),
           ),
