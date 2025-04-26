@@ -12,10 +12,13 @@ class PaymentCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width*(385/MediaQuery.of(context).size.width), // 85% of screen width
       height: MediaQuery.of(context).size.height * (191 / MediaQuery.of(context).size.height),
       decoration: BoxDecoration(
+        
         gradient: LinearGradient(
+          
           colors: [
-            Color(0xff003366).withValues(alpha: .3),
-            Color(0xff0066CC).withValues(alpha: .3),
+            
+            Color(0xff003366).withValues(alpha: .6),
+            Color(0xff0066CC).withValues(alpha: .5),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -26,7 +29,7 @@ class PaymentCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 44,
+            width: 44,  
             height: 44,
             decoration: BoxDecoration(
               color: Colors.white,
