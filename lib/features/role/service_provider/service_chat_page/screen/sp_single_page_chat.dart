@@ -12,12 +12,11 @@ import 'package:blinqo/features/role/service_provider/service_profile_page/contr
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class SpSinglePageChat extends StatelessWidget {
   final Map<String, dynamic> chat;
 
-  SpSinglePageChat({Key? key, required this.chat}) : super(key: key);
+  SpSinglePageChat({super.key, required this.chat});
   final darkcontroller = Get.put(SpProfileController());
 
   @override

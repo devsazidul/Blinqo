@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class VenueImageHeader extends StatelessWidget {
   final VoidCallback onBackTap;
-  const VenueImageHeader({Key? key, required this.onBackTap}) : super(key: key);
+  const VenueImageHeader({super.key, required this.onBackTap});
 
   @override
   Widget build(BuildContext context) {

@@ -4,10 +4,7 @@ import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/booking_requests.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/booking_request.dart';
-import 'package:blinqo/features/role/venue_owner/overview/screen/all_coming_booking.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/all_reviews.dart';
-import 'package:blinqo/features/role/venue_owner/overview/screen/bookviewerreview.dart';
-import 'package:blinqo/features/role/venue_owner/overview/widgets/NewWidget.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/revenue_card.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -101,15 +98,15 @@ class VenueDetailsScreen extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  
                   decoration: BoxDecoration(
-                    
-                    gradient: LinearGradient(begin: Alignment.topCenter,end: Alignment.bottomCenter,colors: [
-                      Color(0xff000000).withValues(alpha: 0.6),
-                      Color(0xff161616),
-                      
-
-                    ])
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xff000000).withValues(alpha: 0.6),
+                        Color(0xff161616),
+                      ],
+                    ),
                   ),
                   child: Image.asset(
                     image,
@@ -146,16 +143,17 @@ class VenueDetailsScreen extends StatelessWidget {
                                 radius: 20,
                                 backgroundColor:
                                     isDarkMode
-                                        ? Color(0xFFD9D9D9).withValues(alpha: .1)
-                                        : Color(0xFFD9D9D9).withValues(alpha: .1),
+                                        ? Color(
+                                          0xFFD9D9D9,
+                                        ).withValues(alpha: .1)
+                                        : Color(
+                                          0xFFD9D9D9,
+                                        ).withValues(alpha: .1),
                                 child: Image.asset(
                                   IconPath.arrowLeftAlt,
                                   width: 16,
                                   height: 16,
-                                  color:
-                                      isDarkMode
-                                          ? Colors.white
-                                          : null,
+                                  color: isDarkMode ? Colors.white : null,
                                 ),
                               ),
                             ),
@@ -640,7 +638,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       Spacer(),
                       InkWell(
                         onTap: () {
-                         Get.to(()=> AllBookingRequests());
+                          Get.to(() => AllBookingRequests());
                         },
                         child: Text(
                           'Explore All',
@@ -672,7 +670,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       Spacer(),
                       InkWell(
                         onTap: () {
-                          Get.to(()=>AllReviewsScreen());
+                          Get.to(() => AllReviewsScreen());
                         },
                         child: Text(
                           'Explore All',
@@ -690,9 +688,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         Icons.arrow_right_alt,
                         size: 16,
                         color:
-                            isDarkMode
-                                ? Color(0xffEBEBEB)
-                                : Color(0xff444444),
+                            isDarkMode ? Color(0xffEBEBEB) : Color(0xff444444),
                       ),
                     ],
                   ),

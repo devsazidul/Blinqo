@@ -8,14 +8,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class AllBookingRequests extends StatelessWidget {
-   AllBookingRequests({super.key});
-final OverviewController controller = Get.find<OverviewController>();
-  final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+  AllBookingRequests({super.key});
+  final OverviewController controller = Get.find<OverviewController>();
+  final bool isDarkMode =
+      Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
       appBar: AppBar(
         forceMaterialTransparency: true,
         title: Text(
@@ -34,7 +36,7 @@ final OverviewController controller = Get.find<OverviewController>();
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(12),
-        itemCount: controller.bookingreviews .length,
+        itemCount: controller.bookingreviews.length,
         itemBuilder: (context, index) {
           var reviews = controller.bookingreviews[index];
           return Padding(
@@ -44,7 +46,10 @@ final OverviewController controller = Get.find<OverviewController>();
                 color: isDarkMode ? const Color(0xff32383D) : Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isDarkMode ? const Color(0xff32383D) : const Color(0xffEBEBEB),
+                  color:
+                      isDarkMode
+                          ? const Color(0xff32383D)
+                          : const Color(0xffEBEBEB),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -79,7 +84,10 @@ final OverviewController controller = Get.find<OverviewController>();
                               style: getTextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+                                color:
+                                    isDarkMode
+                                        ? const Color(0xffEBEBEB)
+                                        : const Color(0xff333333),
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -96,23 +104,33 @@ final OverviewController controller = Get.find<OverviewController>();
                         const Spacer(),
                         Image.asset(
                           IconPath.check,
-                        width: 28,
-                        height: 28 ,
-                          color: isDarkMode ? const Color(0xff8D4AF37) : const Color(0xff003366),
+                          width: 28,
+                          height: 28,
+                          color:
+                              isDarkMode
+                                  ? const Color(0xff8D4AF37)
+                                  : const Color(0xff003366),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        Icon(Icons.calendar_month, size: 16, color: const Color(0xff8A8A8A)),
+                        Icon(
+                          Icons.calendar_month,
+                          size: 16,
+                          color: const Color(0xff8A8A8A),
+                        ),
                         const SizedBox(width: 6),
                         Text(
                           reviews["date"]!,
                           style: getTextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
+                            color:
+                                isDarkMode
+                                    ? const Color(0xff8A8A8A)
+                                    : const Color(0xff767676),
                           ),
                         ),
                         const SizedBox(width: 10),
@@ -121,16 +139,23 @@ final OverviewController controller = Get.find<OverviewController>();
                           style: getTextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
+                            color:
+                                isDarkMode
+                                    ? const Color(0xff8A8A8A)
+                                    : const Color(0xff767676),
                           ),
                         ),
                         const Spacer(),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
-                             color: reviews["status"] == "Accept"
-                                ? Color(0xff003366)
-                                : Color(0xff003366),
+                            color:
+                                reviews["status"] == "Accept"
+                                    ? Color(0xff003366)
+                                    : Color(0xff003366),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -138,9 +163,10 @@ final OverviewController controller = Get.find<OverviewController>();
                             style: getTextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w400,
-                              color: reviews["status"] == "Accept"
-                                    ? Color(0xffE6EBF0)
-                                    : Color(0xffE6EBF0),
+                              color:
+                                  reviews["status"] == "Accept"
+                                      ? Color(0xffE6EBF0)
+                                      : Color(0xffE6EBF0),
                             ),
                           ),
                         ),

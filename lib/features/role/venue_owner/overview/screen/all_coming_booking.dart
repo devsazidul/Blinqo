@@ -5,14 +5,13 @@ import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_o
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../core/common/styles/global_text_style.dart';
-import '../../../../../core/utils/constants/image_path.dart';
-
 
 class AllUpcomingBookingsScreen extends StatelessWidget {
   AllUpcomingBookingsScreen({super.key});
 
   final OverviewController controller = Get.find<OverviewController>();
-  final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+  final bool isDarkMode =
+      Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,10 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                 color: isDarkMode ? const Color(0xff32383D) : Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isDarkMode ? const Color(0xff32383D) : const Color(0xffEBEBEB),
+                  color:
+                      isDarkMode
+                          ? const Color(0xff32383D)
+                          : const Color(0xffEBEBEB),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -82,7 +84,10 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+                                color:
+                                    isDarkMode
+                                        ? const Color(0xffEBEBEB)
+                                        : const Color(0xff333333),
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -99,23 +104,33 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                         const Spacer(),
                         Image.asset(
                           IconPath.check,
-                        width: 28,
-                        height: 28 ,
-                          color: isDarkMode ? const Color(0xff8D4AF37) : const Color(0xff003366),
+                          width: 28,
+                          height: 28,
+                          color:
+                              isDarkMode
+                                  ? const Color(0xff8D4AF37)
+                                  : const Color(0xff003366),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        Icon(Icons.calendar_month, size: 16, color: const Color(0xff8A8A8A)),
+                        Icon(
+                          Icons.calendar_month,
+                          size: 16,
+                          color: const Color(0xff8A8A8A),
+                        ),
                         const SizedBox(width: 6),
                         Text(
                           reviews["date"]!,
                           style: getTextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
+                            color:
+                                isDarkMode
+                                    ? const Color(0xff8A8A8A)
+                                    : const Color(0xff767676),
                           ),
                         ),
                         const SizedBox(width: 10),
@@ -124,16 +139,23 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
+                            color:
+                                isDarkMode
+                                    ? const Color(0xff8A8A8A)
+                                    : const Color(0xff767676),
                           ),
                         ),
                         const Spacer(),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
-                            color: reviews["status"] == "Confirmed"
-                                ? const Color(0xff37D459).withOpacity(0.2)
-                                : const Color(0xffD4AF37).withOpacity(0.2),
+                            color:
+                                reviews["status"] == "Confirmed"
+                                    ? const Color(0xff37D459).withOpacity(0.2)
+                                    : const Color(0xffD4AF37).withOpacity(0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -141,9 +163,10 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w400,
-                              color: reviews["status"] == "Confirmed"
-                                  ? const Color(0xff37D441)
-                                  : const Color(0xffD4AF37),
+                              color:
+                                  reviews["status"] == "Confirmed"
+                                      ? const Color(0xff37D441)
+                                      : const Color(0xffD4AF37),
                             ),
                           ),
                         ),

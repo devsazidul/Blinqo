@@ -5,7 +5,6 @@ import 'package:blinqo/features/role/event_planner/venue_details/controller/ep_v
 import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_venue_details_custom_review_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class EpAllReviews extends StatelessWidget {
   EpAllReviews({super.key});

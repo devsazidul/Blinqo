@@ -2,22 +2,20 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
-import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_payment_method.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'v_verification_submission_screen.dart';
 
 class VGetVerifiedScreen extends StatelessWidget {
-
   const VGetVerifiedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
-      backgroundColor:isDarkMode ? Color(0xff151515) : Color(0xffF9FAFB),
+      backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xffF9FAFB),
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -32,7 +30,10 @@ class VGetVerifiedScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w500,
-                    color:isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+                    color:
+                        isDarkMode
+                            ? AppColors.borderColor2
+                            : AppColors.textColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -85,7 +86,10 @@ class VGetVerifiedScreen extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color:isDarkMode ? Colors.white : AppColors.buttonColor2,
+                          color:
+                              isDarkMode
+                                  ? Colors.white
+                                  : AppColors.buttonColor2,
                         ),
                       ),
                     ),

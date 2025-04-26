@@ -1,7 +1,3 @@
-import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_event_service_details.dart'
-    show EpEventServiceDetails;
 import 'package:flutter/material.dart';
 
 class EventServiceCard extends StatelessWidget {

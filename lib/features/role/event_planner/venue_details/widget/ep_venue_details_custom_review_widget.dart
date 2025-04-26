@@ -4,7 +4,6 @@ import 'package:blinqo/core/utils/constants/icon_path.dart' show IconPath;
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
   final String userName;
