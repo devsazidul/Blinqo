@@ -1,7 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/booking_requests.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/booking_request.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/all_coming_booking.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/all_reviews.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/bookviewerreview.dart';
@@ -368,7 +370,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 14),
 
                   Container(
                     width: double.infinity,
@@ -624,7 +626,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 30),
                   Text(
                     'Booking Requests',
                     style: getTextStyle(
@@ -638,7 +640,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       Spacer(),
                       InkWell(
                         onTap: () {
-                         Get.to(()=>AllUpcomingBookingsScreen());
+                         Get.to(()=> AllBookingRequests());
                         },
                         child: Text(
                           'Explore All',
@@ -655,47 +657,44 @@ class VenueDetailsScreen extends StatelessWidget {
                       Icon(Icons.arrow_right_alt),
                     ],
                   ),
-                  NewWidget(),
-                  SizedBox(height: 30),
+                  BookingRequest(),
+                  SizedBox(height: 8),
                   Text(
-                    'Recent Views',
+                    'Recent Reviews',
                     style: getTextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                       color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: Row(
-                      children: [
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-                            Get.to(()=>AllReviewsScreen());
-                          },
-                          child: Text(
-                            'Explore All',
-                            style: getTextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffEBEBEB)
-                                      : Color(0xff444444),
-                            ),
+                  Row(
+                    children: [
+                      Spacer(),
+                      InkWell(
+                        onTap: () {
+                          Get.to(()=>AllReviewsScreen());
+                        },
+                        child: Text(
+                          'Explore All',
+                          style: getTextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color:
+                                isDarkMode
+                                    ? Color(0xffEBEBEB)
+                                    : Color(0xff444444),
                           ),
                         ),
-                        Icon(
-                          Icons.arrow_right_alt,
-                          size: 16,
-                          color:
-                              isDarkMode
-                                  ? Color(0xffEBEBEB)
-                                  : Color(0xff444444),
-                        ),
-                      ],
-                    ),
+                      ),
+                      Icon(
+                        Icons.arrow_right_alt,
+                        size: 16,
+                        color:
+                            isDarkMode
+                                ? Color(0xffEBEBEB)
+                                : Color(0xff444444),
+                      ),
+                    ],
                   ),
 
                   ListView.builder(
@@ -705,7 +704,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final review = seereview[index];
                       return Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: ReviewCard(
                           image: review["image"]!,
                           title: review["title"]!,

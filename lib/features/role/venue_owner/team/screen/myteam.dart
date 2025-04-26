@@ -6,7 +6,11 @@ import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_o
 import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/myteamedit.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/teaminformation.dart';
-import 'package:blinqo/features/role/venue_owner/team/widget/search_employee.dart' show SearchEmployee;
+import 'package:blinqo/features/role/venue_owner/team/widget/contact_permission.dart';
+import 'package:blinqo/features/role/venue_owner/team/widget/search_employee.dart'
+    show SearchEmployee;
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +26,8 @@ class Myteam extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -80,11 +85,15 @@ class Myteam extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 8),
                       padding: EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
+                        color:
+                            isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
                           width: 1,
-                          color: isDarkMode ? Color(0xff32383D) : Color(0xffEBEBEB),
+                          color:
+                              isDarkMode
+                                  ? Color(0xff32383D)
+                                  : Color(0xffEBEBEB),
                         ),
                       ),
                       child: Row(
@@ -98,7 +107,10 @@ class Myteam extends StatelessWidget {
                                 style: getTextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
-                                  color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                                  color:
+                                      isDarkMode
+                                          ? Color(0xffEBEBEB)
+                                          : Color(0xff333333),
                                 ),
                               ),
                               SizedBox(height: 4),
@@ -120,7 +132,10 @@ class Myteam extends StatelessWidget {
                             child: Icon(
                               Icons.edit_outlined,
                               size: 24,
-                              color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffD4AF37)
+                                      : Color(0xff003366),
                             ),
                           ),
                         ],
@@ -140,70 +155,104 @@ class Myteam extends StatelessWidget {
                     showModalBottomSheet(
                       isScrollControlled: true,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(24),
+                        ),
                       ),
                       context: context,
-                      builder: (_) => Container(
-                        height: 195,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: isDarkMode ? Color(0xff32383D) : Color(0xffE6EBF0),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 20),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 60),
-                              child: Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () => Get.to(() => EmployeeInformation()),
-                                    child: Image.asset(
-                                      IconPath.personadd,
-                                      height: 16,
-                                      width: 22,
-                                      color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    'Add team member manually',
-                                    style: getTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                      builder:
+                          (_) => Container(
+                            height: 195,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color:
+                                  isDarkMode
+                                      ? Color(0xff32383D)
+                                      : Color(0xffE6EBF0),
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                            SizedBox(height: 22),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 40),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    IconPath.contacts,
-                                    height: 24,
-                                    width: 24,
-                                    color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                            child: Column(
+                              children: [
+                                SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 60,
                                   ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    'Add team member from contact',
-                                    style: getTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                                  child: InkWell(
+                                    onTap:
+                                        () =>
+                                            Get.to(() => EmployeeInformation()),
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          IconPath.personadd,
+                                          height: 16,
+                                          width: 22,
+                                          color:
+                                              isDarkMode
+                                                  ? Color(0xffD4AF37)
+                                                  : Color(0xff003366),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          'Add team member manually',
+                                          style: getTextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color:
+                                                isDarkMode
+                                                    ? Color(0xffEBEBEB)
+                                                    : Color(0xff333333),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+
+                                SizedBox(height: 22),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 40,
+                                  ),
+                                  child: InkWell(
+                                   onTap: () async {
+     final result = await pickContact(context); // ইউজার কাকে সিলেক্ট করলো সেটা ফেরত পাবে
+
+     if (result != null) {
+    controller.addTeamMembercontact(result); // টিম লিস্টে অ্যাড করে ফেলো
+        }
+     },
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          IconPath.contacts,
+                                          height: 24,
+                                          width: 24,
+                                          color:
+                                              isDarkMode
+                                                  ? Color(0xffD4AF37)
+                                                  : Color(0xff003366),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          'Add team member from contact',
+                                          style: getTextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                                isDarkMode
+                                                    ? Color(0xffEBEBEB)
+                                                    : Color(0xff333333),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
                     );
                   },
                   child: Container(
@@ -211,7 +260,13 @@ class Myteam extends StatelessWidget {
                     width: 53,
                     decoration: BoxDecoration(
                       color: Color(0xff003366),
-                      boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0,1), blurRadius: 2)],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0, 1),
+                          blurRadius: 2,
+                        ),
+                      ],
                       borderRadius: BorderRadius.circular(34),
                     ),
                     child: Icon(Icons.add, color: Colors.white),
