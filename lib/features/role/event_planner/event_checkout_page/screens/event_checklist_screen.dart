@@ -10,18 +10,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart'
     show SpProfileController;
-import '../../event_home_page/widgets/checklist_add_tack_button.dart';
 
 class EventChecklistScreen extends StatelessWidget {
   const EventChecklistScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ChecklistController controller = Get.put(ChecklistController());
+    print("hello");
+    // final ChecklistController controller = Get.put(ChecklistController());
     final spProfileController = Get.find<SpProfileController>();
 
     double screenHeight =
         MediaQuery.of(context).size.height; // Get screen height
+    double screenWidth = MediaQuery.of(context).size.width; // Get screen width
+
     return Obx(() {
       final themeMode =
           spProfileController.isDarkMode.value
@@ -34,303 +36,71 @@ class EventChecklistScreen extends StatelessWidget {
                 ? AppColors.darkBackgroundColor
                 : AppColors.borderColor2,
         appBar: _buildAppBar(themeMode),
-        body: Obx(() {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                if (controller.checklistItems.isNotEmpty) ...[
-                  Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          autofocus: true,
-                          dropdownColor: AppColors.backgroundColor,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(
-                                color: AppColors.buttonColor2,
-                              ),
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                          ),
-                          value:
-                              controller.filterType.value, // Bind to filterType
-                          items:
-                              ['ALL Task', 'Urgent!', 'Completed']
-                                  .map(
-                                    (label) => DropdownMenuItem(
-                                      value: label,
-                                      child: Text(
-                                        label,
-                                        style: getTextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.textColor,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                          onChanged: (value) {
-                            if (value != null) {
-                              controller.filterType.value =
-                                  value; // Update filter type
-                            }
-                          },
-                        ),
-                      ),
 
-                      const SizedBox(width: 16), // Space between dropdowns
-
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          autofocus: true,
-                          dropdownColor: AppColors.backgroundColor,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(
-                                color: AppColors.buttonColor2,
-                              ),
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                          ),
-                          value: controller.sortType.value, // Bind to sortType
-                          items:
-                              ['By Date', 'By Venue']
-                                  .map(
-                                    (label) => DropdownMenuItem(
-                                      value: label,
-                                      child: Text(
-                                        label,
-                                        style: getTextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.textColor,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                          onChanged: (value) {
-                            if (value != null) {
-                              controller.sortType.value = value;
-                            }
-                          },
-                        ),
-                      ),
-                    ],
+        body: Center(
+          child: Column(
+            children: [
+              SizedBox(height: screenHeight * 0.08),
+              SvgPicture.asset(
+                ImagePath.nochecklist,
+                height: screenHeight * 0.3,
+              ),
+              SizedBox(height: screenHeight * 0.010),
+              Text(
+                'Noting Found!',
+                style: getTextStyle(
+                  fontSize: screenWidth > 600 ? 20 : 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.010),
+              Text(
+                "You didn't added any task yet",
+                style: getTextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: const Color(0xff767676),
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.04),
+              OutlinedButton(
+                onPressed: () {
+                  Get.to(const CreateChecklistScreen());
+                },
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
                   ),
-                  const SizedBox(height: 16),
-                ],
-                controller.filteredChecklistItems.isEmpty
-                    ? Expanded(
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(ImagePath.nochecklist),
-                            const SizedBox(height: 20),
-                            Text(
-                              'Noting Found',
-                              style: getTextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              "You didn't added any task yes",
-                              style: getTextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff767676),
-                              ),
-                            ),
-                            const SizedBox(height: 40),
-
-                            OutlinedButton(
-                              onPressed: () {
-                                Get.to(const CreateChecklistScreen());
-                              },
-                              style: OutlinedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 9,
-                                  horizontal: 12,
-                                ),
-                                fixedSize: const Size(125, 44),
-                                side: BorderSide(
-                                  color: AppColors.iconColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Add Task',
-                                    style: getTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.iconColor,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Icon(
-                                    Icons.add_circle_outline_outlined,
-                                    size: 24,
-                                    color: AppColors.iconColor,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                    : Expanded(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: ListView.builder(
-                              itemCount: 20, // Number of items in the list
-                              itemBuilder: (context, index) {
-                                double screenWidth =
-                                    MediaQuery.of(
-                                      context,
-                                    ).size.width; // Get screen width
-
-                                // Adjust font size based on screen size
-                                double titleFontSize =
-                                    screenWidth > 600
-                                        ? 18
-                                        : 16; // Larger font for larger screens
-                                double subTitleFontSize =
-                                    screenWidth > 600
-                                        ? 14
-                                        : 12; // Larger font for larger screens
-
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 12.0),
-                                  child: Container(
-                                    height:
-                                        screenHeight *
-                                        0.11, // Height based on screen size
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      color:
-                                          AppColors
-                                              .backgroundColor, // Container color
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween, // Space out children
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Obx(() {
-                                              return Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Checkbox(
-                                                  side: BorderSide(
-                                                    color:
-                                                        AppColors.buttonColor2,
-                                                  ),
-                                                  value:
-                                                      controller
-                                                          .selectedIndex
-                                                          .value ==
-                                                      index, // Check if the current index is selected
-                                                  onChanged: (bool? value) {
-                                                    if (value != null) {
-                                                      controller.toggleCheckbox(
-                                                        index,
-                                                        value,
-                                                      ); // Update the selected index
-                                                    }
-                                                  },
-                                                ),
-                                              );
-                                            }),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                top: 6.0,
-                                              ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Venue booking',
-                                                    style: getTextStyle(
-                                                      fontSize:
-                                                          titleFontSize, // Adjusted font size
-                                                      color:
-                                                          AppColors
-                                                              .buttonColor2,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'The Grand Hall',
-                                                    style: getTextStyle(
-                                                      fontSize:
-                                                          subTitleFontSize, // Adjusted font size
-                                                      color:
-                                                          AppColors
-                                                              .subTitleColor,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    '20 Mar 2025',
-                                                    style: getTextStyle(
-                                                      fontSize:
-                                                          subTitleFontSize, // Adjusted font size
-                                                      color:
-                                                          AppColors
-                                                              .subTitleColor,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-
-                          ChecklistAddTackButton(screenHeight: screenHeight),
-
-                          SizedBox(height: 20),
-                        ],
+                  padding: EdgeInsets.symmetric(
+                    vertical: screenWidth > 600 ? 12 : 9,
+                    horizontal: screenWidth > 600 ? 20 : 12,
+                  ),
+                  fixedSize: Size(screenWidth * 0.4, 44),
+                  side: BorderSide(color: AppColors.iconColor, width: 1.5),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Add Task',
+                      style: getTextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.iconColor,
                       ),
                     ),
-              ],
-            ),
-          );
-        }),
+                    const SizedBox(width: 10),
+                    Icon(
+                      Icons.add_circle_outline_outlined,
+                      size: 24,
+                      color: AppColors.iconColor,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     });
   }
@@ -341,25 +111,6 @@ class EventChecklistScreen extends StatelessWidget {
     return AppBar(
       backgroundColor: AppColors.backgroundColor,
       forceMaterialTransparency: true,
-      // leading: Padding(
-      //   padding: EdgeInsets.only(left: 20.0),
-      //   child: GestureDetector(
-      //     onTap: () {
-      //       Get.back();
-      //     },
-      //     child: CircleAvatar(
-      //       backgroundColor:
-      //           themeMode == ThemeMode.dark
-      //               ? Color(0xffFFFFFF1A).withValues(alpha: 0.15)
-      //               : Color(0xff000000).withValues(alpha: 0.15),
-      //       child: Image.asset(
-      //         IconPath.arrowLeftAlt,
-      //         width: 16,
-      //         color: AppColors.appBarArrowIconColor,
-      //       ),
-      //     ),
-      //   ),
-      // ),
       leading: Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: GestureDetector(
@@ -381,7 +132,6 @@ class EventChecklistScreen extends StatelessWidget {
           ),
         ),
       ),
-
       centerTitle: true,
       actions: [
         PopupMenuButton<String>(
@@ -480,3 +230,299 @@ class EventChecklistScreen extends StatelessWidget {
     );
   }
 }
+
+
+
+// body: Obx(() {
+        //   return Column(
+        //     children: [
+        //       if (controller.checklistItems.isNotEmpty) ...[
+        //         Row(
+        //           children: [
+        //             Expanded(
+        //               child: DropdownButtonFormField<String>(
+        //                 autofocus: true,
+        //                 dropdownColor: AppColors.backgroundColor,
+        //                 decoration: InputDecoration(
+        //                   border: OutlineInputBorder(
+        //                     borderRadius: BorderRadius.circular(8),
+        //                     borderSide: const BorderSide(
+        //                       color: AppColors.buttonColor2,
+        //                     ),
+        //                   ),
+        //                   contentPadding: const EdgeInsets.symmetric(
+        //                     horizontal: 12,
+        //                     vertical: 8,
+        //                   ),
+        //                 ),
+        //                 value:
+        //                     controller.filterType.value, // Bind to filterType
+        //                 items:
+        //                     ['ALL Task', 'Urgent!', 'Completed']
+        //                         .map(
+        //                           (label) => DropdownMenuItem(
+        //                             value: label,
+        //                             child: Text(
+        //                               label,
+        //                               style: getTextStyle(
+        //                                 fontSize: 14,
+        //                                 fontWeight: FontWeight.w400,
+        //                                 color: AppColors.textColor,
+        //                               ),
+        //                             ),
+        //                           ),
+        //                         )
+        //                         .toList(),
+        //                 onChanged: (value) {
+        //                   if (value != null) {
+        //                     controller.filterType.value =
+        //                         value; // Update filter type
+        //                   }
+        //                 },
+        //               ),
+        //             ),
+
+        //             const SizedBox(width: 16), // Space between dropdowns
+
+        //             Expanded(
+        //               child: DropdownButtonFormField<String>(
+        //                 autofocus: true,
+        //                 dropdownColor: AppColors.backgroundColor,
+        //                 decoration: InputDecoration(
+        //                   border: OutlineInputBorder(
+        //                     borderRadius: BorderRadius.circular(8),
+        //                     borderSide: const BorderSide(
+        //                       color: AppColors.buttonColor2,
+        //                     ),
+        //                   ),
+        //                   contentPadding: const EdgeInsets.symmetric(
+        //                     horizontal: 12,
+        //                     vertical: 8,
+        //                   ),
+        //                 ),
+        //                 value: controller.sortType.value, // Bind to sortType
+        //                 items:
+        //                     ['By Date', 'By Venue']
+        //                         .map(
+        //                           (label) => DropdownMenuItem(
+        //                             value: label,
+        //                             child: Text(
+        //                               label,
+        //                               style: getTextStyle(
+        //                                 fontSize: 14,
+        //                                 fontWeight: FontWeight.w400,
+        //                                 color: AppColors.textColor,
+        //                               ),
+        //                             ),
+        //                           ),
+        //                         )
+        //                         .toList(),
+        //                 onChanged: (value) {
+        //                   if (value != null) {
+        //                     controller.sortType.value = value;
+        //                   }
+        //                 },
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //         // const SizedBox(height: 16),
+        //       ],
+        //       controller.filteredChecklistItems.isEmpty
+        //           ?
+
+        //           Expanded(
+        //             flex: 2,
+        //             child: Center(
+        //               child: Column(
+        //                 mainAxisAlignment: MainAxisAlignment.center,
+        //                 children: [
+        //                   SvgPicture.asset(ImagePath.nochecklist, width: 100),
+        //                   const SizedBox(height: 20),
+        //                   Text(
+        //                     'Noting Found!',
+        //                     style: getTextStyle(
+        //                       fontSize: 16,
+        //                       fontWeight: FontWeight.w600,
+        //                     ),
+        //                   ),
+        //                   const SizedBox(height: 4),
+        //                   Text(
+        //                     "You didn't added any task yes",
+        //                     style: getTextStyle(
+        //                       fontSize: 12,
+        //                       fontWeight: FontWeight.w400,
+        //                       color: const Color(0xff767676),
+        //                     ),
+        //                   ),
+        //                   const SizedBox(height: 40),
+
+        //                   OutlinedButton(
+        //                     onPressed: () {
+        //                       Get.to(const CreateChecklistScreen());
+        //                     },
+        //                     style: OutlinedButton.styleFrom(
+        //                       shape: RoundedRectangleBorder(
+        //                         borderRadius: BorderRadius.circular(25),
+        //                       ),
+        //                       padding: const EdgeInsets.symmetric(
+        //                         vertical: 9,
+        //                         horizontal: 12,
+        //                       ),
+        //                       fixedSize: const Size(125, 44),
+        //                       side: BorderSide(
+        //                         color: AppColors.iconColor,
+        //                         width: 1.5,
+        //                       ),
+        //                     ),
+        //                     child: Row(
+        //                       children: [
+        //                         Text(
+        //                           'Add Task',
+        //                           style: getTextStyle(
+        //                             fontSize: 16,
+        //                             fontWeight: FontWeight.w400,
+        //                             color: AppColors.iconColor,
+        //                           ),
+        //                         ),
+        //                         const SizedBox(width: 10),
+        //                         Icon(
+        //                           Icons.add_circle_outline_outlined,
+        //                           size: 24,
+        //                           color: AppColors.iconColor,
+        //                         ),
+        //                       ],
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ),
+        //           )
+
+        //           :
+
+        //            Expanded(
+        //             child: Column(
+        //               children: [
+        //                 Expanded(
+        //                   flex: 3,
+        //                   child: ListView.builder(
+        //                     itemCount: 20, // Number of items in the list
+        //                     itemBuilder: (context, index) {
+        //                       double screenWidth =
+        //                           MediaQuery.of(
+        //                             context,
+        //                           ).size.width; // Get screen width
+
+        //                       // Adjust font size based on screen size
+        //                       double titleFontSize =
+        //                           screenWidth > 600
+        //                               ? 18
+        //                               : 16; // Larger font for larger screens
+        //                       double subTitleFontSize =
+        //                           screenWidth > 600
+        //                               ? 14
+        //                               : 12; // Larger font for larger screens
+
+        //                       return Padding(
+        //                         padding: const EdgeInsets.only(bottom: 12.0),
+        //                         child: Container(
+        //                           height:
+        //                               screenHeight *
+        //                               0.11, // Height based on screen size
+        //                           decoration: BoxDecoration(
+        //                             borderRadius: BorderRadius.circular(8.0),
+        //                             color:
+        //                                 AppColors
+        //                                     .backgroundColor, // Container color
+        //                           ),
+        //                           child: Row(
+        //                             mainAxisAlignment:
+        //                                 MainAxisAlignment
+        //                                     .spaceBetween, // Space out children
+        //                             children: [
+        //                               Row(
+        //                                 children: [
+        //                                   Obx(() {
+        //                                     return Align(
+        //                                       alignment: Alignment.topLeft,
+        //                                       child: Checkbox(
+        //                                         side: BorderSide(
+        //                                           color: AppColors.buttonColor2,
+        //                                         ),
+        //                                         value:
+        //                                             controller
+        //                                                 .selectedIndex
+        //                                                 .value ==
+        //                                             index, // Check if the current index is selected
+        //                                         onChanged: (bool? value) {
+        //                                           if (value != null) {
+        //                                             controller.toggleCheckbox(
+        //                                               index,
+        //                                               value,
+        //                                             ); // Update the selected index
+        //                                           }
+        //                                         },
+        //                                       ),
+        //                                     );
+        //                                   }),
+        //                                   Padding(
+        //                                     padding: const EdgeInsets.only(
+        //                                       top: 6.0,
+        //                                     ),
+        //                                     child: Column(
+        //                                       crossAxisAlignment:
+        //                                           CrossAxisAlignment.start,
+        //                                       children: [
+        //                                         Text(
+        //                                           'Venue booking',
+        //                                           style: getTextStyle(
+        //                                             fontSize:
+        //                                                 titleFontSize, // Adjusted font size
+        //                                             color:
+        //                                                 AppColors.buttonColor2,
+        //                                             fontWeight: FontWeight.w400,
+        //                                           ),
+        //                                         ),
+        //                                         Text(
+        //                                           'The Grand Hall',
+        //                                           style: getTextStyle(
+        //                                             fontSize:
+        //                                                 subTitleFontSize, // Adjusted font size
+        //                                             color:
+        //                                                 AppColors.subTitleColor,
+        //                                             fontWeight: FontWeight.w500,
+        //                                           ),
+        //                                         ),
+        //                                         Text(
+        //                                           '20 Mar 2025',
+        //                                           style: getTextStyle(
+        //                                             fontSize:
+        //                                                 subTitleFontSize, // Adjusted font size
+        //                                             color:
+        //                                                 AppColors.subTitleColor,
+        //                                             fontWeight: FontWeight.w500,
+        //                                           ),
+        //                                         ),
+        //                                       ],
+        //                                     ),
+        //                                   ),
+        //                                 ],
+        //                               ),
+        //                             ],
+        //                           ),
+        //                         ),
+        //                       );
+        //                     },
+        //                   ),
+        //                 ),
+
+        //                 ChecklistAddTackButton(screenHeight: screenHeight),
+
+        //                 SizedBox(height: 20),
+        //               ],
+        //             ),
+        //           ),
+        //     ],
+        //   );
+        // }),

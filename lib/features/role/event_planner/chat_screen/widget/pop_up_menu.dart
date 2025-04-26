@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PopUpMenu extends StatelessWidget {
-  const PopUpMenu({super.key, this.themeMode});
-  final ThemeMode? themeMode;
+  const PopUpMenu({super.key, required this.isDarkMode});
+  final bool isDarkMode;
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       color:
-          themeMode == ThemeMode.dark
+          isDarkMode
               ? AppColors.textFrieldDarkColor
               : AppColors.popUpBackground,
       onSelected: (String value) {},
@@ -25,9 +25,7 @@ class PopUpMenu extends StatelessWidget {
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.borderColor2
-                          : AppColors.textColor,
+                      isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
                 ),
               ),
             ),
@@ -42,9 +40,7 @@ class PopUpMenu extends StatelessWidget {
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.borderColor2
-                          : AppColors.textColor,
+                      isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
                 ),
               ),
             ),
@@ -59,9 +55,7 @@ class PopUpMenu extends StatelessWidget {
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.borderColor2
-                          : AppColors.textColor,
+                      isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
                 ),
               ),
             ),
@@ -76,9 +70,7 @@ class PopUpMenu extends StatelessWidget {
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.borderColor2
-                          : AppColors.textColor,
+                      isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
                 ),
               ),
             ),
@@ -88,10 +80,7 @@ class PopUpMenu extends StatelessWidget {
       icon: Icon(
         Icons.more_vert,
         size: 26,
-        color:
-            themeMode == ThemeMode.dark
-                ? AppColors.borderColor2
-                : AppColors.textColor,
+        color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
       ),
     );
   }

@@ -72,7 +72,7 @@ class StartBookingButton extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: screenHeight * 0.04),
+        SizedBox(height: screenHeight * 0.08),
       ],
     );
   }

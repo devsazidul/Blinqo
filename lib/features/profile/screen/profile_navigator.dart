@@ -23,7 +23,7 @@ class ProfileNavigator extends StatelessWidget {
         onGenerateRoute: (settings) {
           Widget screen;
           if (settings.name == AppRoute.getEditProfileScreen()) {
-            screen = EditProfileScreen();
+            screen = EditProfilePage();
           } else if (settings.name == AppRoute.getPickColorScreen()) {
             screen = PickColorScreen();
           } else {

@@ -1,12 +1,16 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class EventServicesScreen extends StatelessWidget {
-  const EventServicesScreen({super.key});
+  EventServicesScreen({super.key});
+  final ProfileController themeController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +24,26 @@ class EventServicesScreen extends StatelessWidget {
       Service(imagePath: IconPath.epgame, label: 'Game'),
     ];
     debugPrint('screenWidth: $screenWidth');
+    bool isDarkMode = themeController.isDarkMode.value;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         forceMaterialTransparency: true,
         leading: Padding(
-          padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 8.0),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: CircleAvatar(
-              backgroundColor: const Color(0xFFD9D9D9),
-              child: Image.asset(IconPath.arrowLeftAlt),
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: CircleAvatar(
+            backgroundColor: AppColors.textColor.withValues(alpha: 0.15),
+            child: IconButton(
+              padding: EdgeInsets.all(0),
+              icon: Icon(Icons.arrow_back, color: AppColors.textColor),
+
+              onPressed: () => Get.back(),
             ),
           ),
         ),
         title: Text(
-          'Event Services',
+          'Additional Services',
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -48,32 +53,41 @@ class EventServicesScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: GridView.builder(
-          shrinkWrap: true,
-          itemCount: 6,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 1,
-            childAspectRatio: _buildChildAspectRatio(screenWidth),
-          ),
-          itemBuilder: (context, index) {
-            return EventServiceCard(service: services[index]);
-          },
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // SizedBox(height: 20),
+            Expanded(
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 1,
+                  crossAxisSpacing: 1,
+                  childAspectRatio: 1,
+                ),
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return EventServiceCard(service: services[index]);
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  _buildChildAspectRatio(double screenWidth) {
-    if (screenWidth <= 360) {
-      return 0.86;
-    }
-    if (screenWidth >= 360 && screenWidth < 448) {
-      return 0.96;
-    } else {
-      return 1.1;
-    }
-  }
+  // _buildChildAspectRatio(double screenWidth) {
+  //   if (screenWidth <= 360) {
+  //     return 0.86;
+  //   }
+  //   if (screenWidth >= 360 && screenWidth < 448) {
+  //     return 0.96;
+  //   } else {
+  //     return 1.1;
+  //   }
+  // }
 }

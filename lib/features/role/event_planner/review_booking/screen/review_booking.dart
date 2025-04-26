@@ -47,6 +47,20 @@ class ReviewBooking extends StatelessWidget {
 
                     SizedBox(height: screenHeight * 0.02),
 
+                    Container(
+                      height: 200,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: EdgeInsets.all(10),
+                            child: Text("Ac"),
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+
                     Center(
                       child: Text(
                         "Jhon's Birthday",

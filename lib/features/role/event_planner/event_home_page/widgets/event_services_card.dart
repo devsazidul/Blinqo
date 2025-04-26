@@ -3,7 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_event_service_details.dart'
     show EpEventServiceDetails;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class EventServiceCard extends StatelessWidget {
   final Service service;
@@ -12,33 +11,39 @@ class EventServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(() => EpEventServiceDetails(service: service));
-      },
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              service.imagePath,
-              height: 123,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            service.label,
-            style: getTextStyle(
-              color: AppColors.textColor,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
+    return GestureDetector(child: Container(color: Colors.amber));
+    // return GestureDetector(
+    //   onTap: () {
+    //     Get.to(() => EpEventServiceDetails(service: service));
+    //   },
+    //   child: Container(
+    //     color: Colors.amber,
+    //     child: Column(
+    //       children: [
+    //         Container(
+    //           // color: Colors.amber,
+    //           child: ClipRRect(
+    //             borderRadius: BorderRadius.circular(8),
+    //             child: Image.asset(
+    //               service.imagePath,
+    //               // width: 116,
+    //               // height: 85,
+    //               fit: BoxFit.cover,
+    //             ),
+    //           ),
+    //         ),
+    //         Text(
+    //           service.label,
+    //           style: getTextStyle(
+    //             color: AppColors.textColor,
+    //             fontSize: 14,
+    //             fontWeight: FontWeight.w500,
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }
 

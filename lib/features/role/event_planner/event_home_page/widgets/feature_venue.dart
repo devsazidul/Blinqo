@@ -50,7 +50,9 @@ class FeatureVenues extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Get.to(EpVenueDetails());
+                // Get.to(EpVenueDetails());
+
+                print("hello flutter devolaper");
               },
               child: _venueImageSection(themeMode),
             ),

@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
@@ -56,7 +57,7 @@ class EvenProfileSetupScreen extends StatelessWidget {
                   SizedBox(height: 40),
                   ProfileSetupButton(
                     onTap: () {
-                      // Get.to(GetVerifiedScreen());
+                      Get.to(EventBottomNavBar());
                     },
                     title: "Continue",
                     themeMode: themeMode,

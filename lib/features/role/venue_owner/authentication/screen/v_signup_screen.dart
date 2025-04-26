@@ -6,8 +6,6 @@ import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_signup_controller.dart';
-import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
-import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
