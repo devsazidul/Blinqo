@@ -20,7 +20,7 @@ class NewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return SizedBox(
-      height: 345,
+      height: 360,
       child:
       controller.reviews.isEmpty
           ? Center(

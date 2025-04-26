@@ -82,145 +82,164 @@ class Createshift extends StatelessWidget {
                 SizedBox(height: 19),
                 SizedBox(width: double.infinity, child: CustomDatePicker()),
                 SizedBox(height: 32),
-     
-              Row(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    // Start Time
-    Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Start Time',
-            style: getTextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Color(0xff333333),
-            ),
-          ),
-          SizedBox(height: 4),
-          GestureDetector(
-            onTap: () {
-              controller.pickTime(isStartTime: true);
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xffC0C0C0),
-                    width: 1,
-                  ),
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Start Time
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Start Time',
+                            style: getTextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff333333),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          GestureDetector(
+                            onTap: () {
+                              controller.pickTime(isStartTime: true);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Color(0xffC0C0C0),
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Obx(
+                                    () => Text(
+                                      controller.startTime.value == null
+                                          ? 'Select time'
+                                          : controller.startTime.value!.format(
+                                            Get.context!,
+                                          ),
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color:
+                                            controller.startTime.value == null
+                                                ? Colors.grey
+                                                : Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                 Image.asset(IconPath.dropdown,
+                                 height: 10,
+                                 width: 10,
+                                 color: Color(0xff003366),
+                                 )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(width: 30), // Reduced gap between Start & End
+                    // End Time
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'End Time',
+                            style: getTextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff333333),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          GestureDetector(
+                            onTap: () {
+                              controller.pickTime(
+                                isStartTime: false,
+                              ); // End time এর জন্য false পাঠানো হচ্ছে
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Color(0xffC0C0C0),
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Obx(
+                                    () => Text(
+                                      controller.endTime.value == null
+                                          ? 'Select time'
+                                          : controller.endTime.value!.format(
+                                            Get.context!,
+                                          ),
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color:
+                                            controller.endTime.value == null
+                                                ? Colors.grey
+                                                : Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                   Image.asset(IconPath.dropdown,
+                                 height: 10,
+                                 width: 10,
+                                 color: Color(0xff003366),
+                                 )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(width: 30),
+
+                    // Duration
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Duration',
+                            style: getTextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff333333),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ), // Added gap below the Duration text
+                          Obx(
+                            () => Text(
+                              controller.duration,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Obx(() => Text(
-                        controller.startTime.value == null
-                            ? 'Select time'
-                            : controller.startTime.value!.format(Get.context!),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: controller.startTime.value == null
-                              ? Colors.grey
-                              : Colors.black,
-                        ),
-                      )),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    color: Color(0xff003366),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-
-    SizedBox(width: 4), // Reduced gap between Start & End
-
-    // End Time
-    Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'End Time',
-            style: getTextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Color(0xff333333),
-            ),
-          ),
-          SizedBox(height: 4),
-          GestureDetector(
-            onTap: () {
-              controller.pickTime(isStartTime: false); // End time এর জন্য false পাঠানো হচ্ছে
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xffC0C0C0),
-                    width: 1,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Obx(() => Text(
-                        controller.endTime.value == null
-                            ? 'Select time'
-                            : controller.endTime.value!.format(Get.context!),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: controller.endTime.value == null
-                              ? Colors.grey
-                              : Colors.black,
-                        ),
-                      )),
-                  Icon(
-                    Icons.arrow_drop_down_outlined,
-                    color: Color(0xff003366),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-
-    SizedBox(width: 10),
-
-    // Duration
-    Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Duration',
-            style: getTextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Color(0xff333333),
-            ),
-          ),
-          SizedBox(height: 8), // Added gap below the Duration text
-          Obx(() => Text(
-            controller.duration,
-            style: TextStyle(fontSize: 14),
-          )),
-        ],
-      ),
-    ),
-  ],
-),
 
                 SizedBox(height: 40),
                 Text(
@@ -235,13 +254,22 @@ class Createshift extends StatelessWidget {
                   controller: textEditingController,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(
-                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0)),
+                      borderSide: BorderSide(
+                        color:
+                            isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0),
+                      ),
                     ),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0)),
+                      borderSide: BorderSide(
+                        color:
+                            isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0),
+                      ),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color:isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0  )),
+                      borderSide: BorderSide(
+                        color:
+                            isDarkMode ? Color(0xff003366) : Color(0xffC0C0C0),
+                      ),
                     ),
                     isCollapsed: true,
                     contentPadding: EdgeInsets.zero,
@@ -358,10 +386,16 @@ class Createshift extends StatelessWidget {
                             // spacing between cards
                             padding: EdgeInsets.all(15),
                             decoration: BoxDecoration(
-                              color:isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xff32383D)
+                                      : Color(0xffFFFFFF),
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                color:isDarkMode ? Color(0xff32383D) : Color(0xffEBEBEB),
+                                color:
+                                    isDarkMode
+                                        ? Color(0xff32383D)
+                                        : Color(0xffEBEBEB),
                                 width: 1,
                               ),
                             ),
@@ -375,7 +409,10 @@ class Createshift extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
-                                        color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                                        color:
+                                            isDarkMode
+                                                ? Color(0xffEBEBEB)
+                                                : Color(0xff333333),
                                       ),
                                     ),
                                     SizedBox(height: 4),
@@ -391,13 +428,16 @@ class Createshift extends StatelessWidget {
                                 ),
                                 Spacer(),
                                 InkWell(
-                                  onTap:(){
-                                    Get.to(()=>EmployeeInformation());
+                                  onTap: () {
+                                    Get.to(() => EmployeeInformation());
                                   },
                                   child: Icon(
                                     Icons.edit_outlined,
                                     size: 24,
-                                    color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                                    color:
+                                        isDarkMode
+                                            ? Color(0xffD4AF37)
+                                            : Color(0xff003366),
                                   ),
                                 ),
                               ],

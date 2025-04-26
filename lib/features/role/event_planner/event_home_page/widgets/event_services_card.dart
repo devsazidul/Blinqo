@@ -12,6 +12,7 @@ class EventServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(child: Container(color: Colors.amber));
     // return GestureDetector(
     //   onTap: () {
@@ -45,6 +46,7 @@ class EventServiceCard extends StatelessWidget {
     //     ),
     //   ),
     // );
+
   }
 }
 

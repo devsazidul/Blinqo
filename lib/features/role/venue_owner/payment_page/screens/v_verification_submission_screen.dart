@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_payment_method.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_thank_you_screen.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/photo_upload_widget.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/v_payment_app_bar.dart';
@@ -12,11 +13,15 @@ class VVerificationSubmissionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize the controller
+    Get.put(VenueOwnerProfileController());
     final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+        Get.find<VenueOwnerProfileController>().isDarkMode.value;
+
     return Scaffold(
-      backgroundColor: isDarkMode ? Color(0xff151515) : const Color(0xffF9FAFB),
-      appBar: VPaymentAppBar(title: 'Verification Submission'),
+      backgroundColor:
+          isDarkMode ? const Color(0xff151515) : const Color(0xffF9FAFB),
+      appBar: const VPaymentAppBar(title: 'Verification Submission'),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -25,51 +30,59 @@ class VVerificationSubmissionScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 _buildTextField('Name', 'Name'),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Text(
                   'Nation ID',
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color:
-                        isDarkMode ? AppColors.borderColor2 : Color(0xff333333),
+                        isDarkMode
+                            ? AppColors.borderColor2
+                            : const Color(0xff333333),
                   ),
                 ),
-                SizedBox(height: 16),
-
-                PhotoUploadWidget(),
-                SizedBox(height: 24),
+                const SizedBox(height: 16),
+                const PhotoUploadWidget(imageKey: 'national_id'),
+                // Use "national_id" for this section
+                const SizedBox(height: 24),
                 Text(
                   'Business Registration Certificate',
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color:
-                        isDarkMode ? AppColors.borderColor2 : Color(0xff333333),
+                        isDarkMode
+                            ? AppColors.borderColor2
+                            : const Color(0xff333333),
                   ),
                 ),
-                SizedBox(height: 16),
-                PhotoUploadWidget(),
-                SizedBox(height: 24),
+                const SizedBox(height: 16),
+                const PhotoUploadWidget(imageKey: 'business_cert'),
+                // Use "business_cert" for this section
+                const SizedBox(height: 24),
                 Text(
                   'Short Bio',
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color:
-                        isDarkMode ? AppColors.borderColor2 : Color(0xff333333),
+                        isDarkMode
+                            ? AppColors.borderColor2
+                            : const Color(0xff333333),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 _buildTextField('Bio', 'Bio', 2),
-                SizedBox(height: 48),
+                const SizedBox(height: 48),
                 // Get Verified Button
                 GestureDetector(
                   onTap: () {
                     Get.to(
-                      VThankYouScreen(),
+                      // const VThankYouScreen(),
+                      VPaymentMethod(),
                       transition: Transition.rightToLeft,
                       duration: const Duration(milliseconds: 400),
                     );
@@ -78,7 +91,7 @@ class VVerificationSubmissionScreen extends StatelessWidget {
                     width: double.infinity,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: Color(0xff003366),
+                      color: const Color(0xff003366),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -93,7 +106,7 @@ class VVerificationSubmissionScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
               ],
             ),
           ),
@@ -108,12 +121,12 @@ class VVerificationSubmissionScreen extends StatelessWidget {
     int? maxLines = 1,
   ]) {
     final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+        Get.find<VenueOwnerProfileController>().isDarkMode.value;
     return TextField(
       style: getTextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w400,
-        color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff333333),
+        color: isDarkMode ? const Color(0xffA1A1A1) : const Color(0xff333333),
       ),
       maxLines: maxLines,
       decoration: InputDecoration(
@@ -121,32 +134,35 @@ class VVerificationSubmissionScreen extends StatelessWidget {
         labelStyle: getTextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w500,
-          color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff767676),
+          color: isDarkMode ? const Color(0xffA1A1A1) : const Color(0xff767676),
         ),
         hintText: hintText,
         hintStyle: getTextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff767676),
+          color: isDarkMode ? const Color(0xffA1A1A1) : const Color(0xff767676),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+            color:
+                isDarkMode ? const Color(0xffAFB1B6) : const Color(0xffABB7C2),
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+            color:
+                isDarkMode ? const Color(0xffAFB1B6) : const Color(0xffABB7C2),
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+            color:
+                isDarkMode ? const Color(0xffAFB1B6) : const Color(0xffABB7C2),
             width: 1,
           ),
         ),
