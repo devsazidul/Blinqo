@@ -1,7 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart' show IconPath;
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
   final String userName;
@@ -10,7 +13,7 @@ class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
   final String reviewText;
   final int rating;
 
-  const EpVenueDetailsCustomReviewsWidget({
+  EpVenueDetailsCustomReviewsWidget({
     required this.userName,
     required this.userIcon,
     required this.reviewDate,
@@ -18,9 +21,10 @@ class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
     required this.rating,
     super.key,
   });
-
+  final controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = controller.isDarkMode.value;
     return Column(
       children: [
         Row(
@@ -42,7 +46,7 @@ class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textColor,
+                    color: isDarkMode ? AppColors.primary : AppColors.textColor,
                   ),
                 ),
                 SizedBox(height: 3),
@@ -66,7 +70,7 @@ class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: AppColors.subTextColor,
+                color: isDarkMode ? AppColors.primary : AppColors.subTextColor,
               ),
             ),
           ],
@@ -79,7 +83,7 @@ class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: AppColors.subTextColor,
+              color: isDarkMode ? AppColors.primary : AppColors.subTextColor,
             ),
           ),
         ),

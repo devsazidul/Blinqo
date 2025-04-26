@@ -159,5 +159,7 @@ class IconPath {
   static const String epoutdoor = 'assets/icons/epoutdoor.png';
   static const String handshake = 'assets/icons/handshake.png';
   static const String cancel = 'assets/icons/cancel.png';
-  static const String dropdown  =  'assets/icons/dropdown.png';
+  static const String dropdown = 'assets/icons/dropdown.png';
+  static const String epservicecalender = 'assets/icons/epservicecalender.png';
+  static const String epserviceclock = 'assets/icons/epserviceclock.png';
 }

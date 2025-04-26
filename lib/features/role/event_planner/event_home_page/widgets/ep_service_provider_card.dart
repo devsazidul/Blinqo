@@ -1,19 +1,22 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_view_details_page.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/service_provider/screen/ep_service_provider_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpCustomServiceProdiverCard extends StatelessWidget {
-  const EpCustomServiceProdiverCard({super.key, required this.provider});
+  EpCustomServiceProdiverCard({super.key, required this.provider});
 
-  final Map<String, dynamic> provider; // Change Object to dynamic
+  final Map<String, dynamic> provider;
+  final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = controller.isDarkMode.value;
     return Card(
-      color: AppColors.primary,
+      color: isDarkMode ? AppColors.textFrieldDarkColor : AppColors.primary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 1,
       child: Padding(
@@ -25,7 +28,10 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 18,
-                  backgroundColor: AppColors.primary,
+                  backgroundColor:
+                      isDarkMode
+                          ? AppColors.textFrieldDarkColor
+                          : AppColors.primary,
                   child: Image.asset(provider['image'] as String),
                 ),
               ],
@@ -42,7 +48,10 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textColor,
+                          color:
+                              isDarkMode
+                                  ? AppColors.primary
+                                  : AppColors.textColor,
                         ),
                       ),
                       SizedBox(width: 8),
@@ -79,7 +88,10 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.buttonColor2,
+                      color:
+                          isDarkMode
+                              ? AppColors.primary
+                              : AppColors.buttonColor2,
                     ),
                   ),
                 ],
@@ -92,6 +104,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                   decoration: BoxDecoration(
+                    color: isDarkMode ? AppColors.primary : Colors.transparent,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       width: 1,
@@ -122,7 +135,10 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                 SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => EpViewDetailsPage(), arguments: provider);
+                    Get.to(
+                      () => EpServiceProviderProfile(),
+                      arguments: provider,
+                    );
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
