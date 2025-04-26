@@ -13,11 +13,10 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/upcom
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 
 class EventHomeScreen extends StatelessWidget {
-  static const String routeName = '/eventHome'; // Add this line
+  static const String routeName = '/eventHome';
 
   const EventHomeScreen({super.key});
 

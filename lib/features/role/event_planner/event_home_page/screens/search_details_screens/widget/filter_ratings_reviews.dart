@@ -29,12 +29,14 @@ class RatingsReviews extends StatelessWidget {
               children: [
                 Icon(Icons.star, color: AppColors.reviesStarColor, size: 12),
                 SizedBox(width: 6),
-                Text(
-                  '4.5',
-                  style: getTextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300,
-                    color: AppColors.subTextColor2,
+                Obx(
+                  () => Text(
+                    '${searchDetailsController.ratingValue.value}',
+                    style: getTextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                      color: AppColors.subTextColor2,
+                    ),
                   ),
                 ),
               ],
@@ -48,9 +50,10 @@ class RatingsReviews extends StatelessWidget {
               activeColor:
                   isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
               value: searchDetailsController.sliderValue.value,
-              divisions: 100,
+              divisions: 10,
               onChanged: (double value) {
                 searchDetailsController.updateSliderValue(value);
+                searchDetailsController.updateRatingValue(value);
               },
             ),
           ),
