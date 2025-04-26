@@ -9,7 +9,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_login_controller.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
 import 'package:blinqo/routes/app_routes.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,15 +44,6 @@ class VLoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                // Text(
-                //   'Log In',
-                //   style: globalTextStyle(
-                //     color: Color(0xFF082B09),
-                //     fontSize: 24,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
                 SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -117,7 +107,7 @@ class VLoginScreen extends StatelessWidget {
                 Obx(
                   () => CustomButton(
                     title: 'Log In',
-                    textcolor:
+                    textColor:
                         loginController.isFromValid.value
                             ? Colors.white
                             : Color(0xFF003366),

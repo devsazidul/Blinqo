@@ -30,8 +30,7 @@ class MessageBubble extends StatelessWidget {
           maxWidth: MediaQuery.of(context).size.width * 0.8,
         ),
         decoration: BoxDecoration(
-          color:
-              isCurrentUser ? AppColors.buttonColor2 : const Color(0xFFF2F3F5),
+          color: isCurrentUser ? AppColors.buttonColor2 : Color(0xFFEEEEEE),
           borderRadius: BorderRadius.circular(16).copyWith(
             bottomRight:
                 isCurrentUser
@@ -56,8 +55,8 @@ class MessageBubble extends StatelessWidget {
                   fontSize: 12,
                   color:
                       isCurrentUser
-                          ? Colors.white.withOpacity(0.7)
-                          : Colors.black.withOpacity(0.5),
+                          ? Colors.white.withValues(alpha: 0.7)
+                          : Colors.black.withValues(alpha: 0.5),
                 ),
               ),
             ),

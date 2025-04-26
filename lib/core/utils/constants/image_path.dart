@@ -46,4 +46,24 @@ class ImagePath {
   // static const String weddingPhotography3 = 'assets/images/wedding_photography_3.jpeg';
   static const String nocontentbackground =
       'assets/images/nocontentbackground.png';
+
+  static const String splashImage = 'assets/images/splashImage.png';
+
+  static const String homenodata = 'assets/images/homenodata.png';
+  static const String seatingArrangement =
+      'assets/images/seatingArrangement.png';
+  static const String bookingList = 'assets/images/booking_list.png';
+  static const String newIcon = 'assets/images/new_icon.png';
+  static const String newprofile = 'assets/images/newprofile.png';
+  static const String cancelIcon = 'assets/';
+  static const String nopaymentfound = 'assets/images/nopaymentfound.png';
+  static const String empty = 'assets/images/empty.png';
+  static const String borderImage = 'assets/images/bordarImage.png';
+  static const String invitationAvatar = 'assets/images/invitationAvatar.png';
+  static const String rectangle = 'assets/images/Rectangle.png';
+  static const String congratulations = "assets/images/Congratulations.png";
+  static const String filter = 'assets/images/filter.jpg';
+  static const String emptyTeam = 'assets/images/emptyteam.png';
+  static const String epprofilebackground =
+      'assets/images/epprofilebackground.png';
 }

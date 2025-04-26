@@ -1,6 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
@@ -17,6 +17,8 @@ import 'package:get/get.dart';
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 
 class EventHomeScreen extends StatelessWidget {
+  static const String routeName = '/eventHome'; // Add this line
+
   const EventHomeScreen({super.key});
 
   @override
@@ -25,8 +27,8 @@ class EventHomeScreen extends StatelessWidget {
       UpcomingEventsController(),
     );
 
-    final ServiceUserProfileControler spUserProfileControler =
-        Get.find<ServiceUserProfileControler>();
+    final SpProfileController spUserProfileControler =
+        Get.find<SpProfileController>();
 
     return Obx(() {
       // Get the current theme mode (light or dark)
@@ -50,6 +52,7 @@ class EventHomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 32),
+
                     SearchBerSection(themeMode: themeMode),
                     SizedBox(height: 20),
                     EventCard(),
@@ -94,7 +97,7 @@ class EventHomeScreen extends StatelessWidget {
 
                     SizedBox(height: 40),
                     _buildTitle(
-                      'Event Services',
+                      'Additional Services',
                       themeMode,
                       onTap: () {
                         Get.to(EventServicesScreen());
@@ -218,11 +221,12 @@ class EventHomeScreen extends StatelessWidget {
   // Event Services
   Widget _eventServicesList(BuildContext context) {
     final List<Service> services = [
-      Service(imagePath: ImagePath.venuesHall, label: 'Photography'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Videography'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Entertainment'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Decoration'),
-      Service(imagePath: ImagePath.venuesHall, label: 'Catering'),
+      Service(imagePath: IconPath.epphotograph, label: 'Photography'),
+      Service(imagePath: IconPath.epvideography, label: 'Videography'),
+      Service(imagePath: IconPath.epcatering, label: 'Catering'),
+      Service(imagePath: IconPath.epdj, label: 'Dj'),
+      Service(imagePath: IconPath.epentertainment, label: 'Entertainment'),
+      Service(imagePath: IconPath.epgame, label: 'Game'),
     ];
 
     return SizedBox(

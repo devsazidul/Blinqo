@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:blinqo/features/role/venue_owner/authentication/controller/v_forget_password_controller.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/controller/v_forget_password_controller.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/widgets/v_cistom_pin.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class VFOtpSendScreen extends StatelessWidget {
   VFOtpSendScreen({super.key});
@@ -82,7 +82,7 @@ class VFOtpSendScreen extends StatelessWidget {
                 Obx(
                   () => CustomButton(
                     title: 'Continue',
-                    textcolor:
+                    textColor:
                         forgetPasswordController.isFormValid2.value
                             ? Colors.white
                             : Color(0xFF7EE07E),

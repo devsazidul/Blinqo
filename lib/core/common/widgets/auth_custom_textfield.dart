@@ -28,12 +28,13 @@ class AuthCustomTextField extends StatelessWidget {
       onChanged: onChanged,
       obscureText: obscureText!,
       style: getTextStyle(
+        fontSize: 12,
         color: obscureText! ? Color(0xFF0047AB) : Color(0xFF1F1F1F),
         fontWeight: obscureText! ? FontWeight.bold : FontWeight.w400,
       ),
       validator: validator,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         hintText: text,
         suffixIcon: suffixIcon,
         hintStyle: getTextStyle(

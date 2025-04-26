@@ -1,30 +1,34 @@
 // ignore_for_file: file_names
 
+import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
 import '../../../../../core/utils/constants/image_path.dart';
 
 class NewWidget extends StatelessWidget {
-  const NewWidget({
+   NewWidget({
     super.key,
-    required this.reviews,
   });
 
-  final List<Map<String, String>> reviews;
+   final OverviewController controller = Get.find<OverviewController>();
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return SizedBox(
       height: 360,
       child:
-      reviews.isEmpty
+      controller.reviews.isEmpty
           ? Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 232,
+              height: 250,
               width: 232,
               child: Image.asset(ImagePath.overviewbox),
             ),
@@ -34,7 +38,7 @@ class NewWidget extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: Color(0xff333333),
+                color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
               ),
               textAlign: TextAlign.center,
             ),
@@ -42,18 +46,21 @@ class NewWidget extends StatelessWidget {
         ),
       )
           : ListView.builder(
-        itemCount: reviews.length,
+        shrinkWrap: true,
+        itemCount: 3,
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
+          var reviews = controller.reviews[index];
           return Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(8),
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.85, // সরাসরি শতাংশে নির্ধারণ
+              width: MediaQuery.of(context).size.width * 0.85,
               decoration: BoxDecoration(
-                color: Color(0xffFFFFFF),
+                color:isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   width: 1,
-                  color: Color(0xffEBEBEB),
+                  color:isDarkMode ? Color(0xff32383D) : Color(0xffEBEBEB),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -77,13 +84,12 @@ class NewWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.05, // Height slightly reduced
                           width: MediaQuery.of(context).size.width * 0.12,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Image.asset(
-                            reviews[index]["image"]!,
+                            reviews["image"]!,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -92,16 +98,16 @@ class NewWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              reviews[index]["title"]!,
+                              reviews["title"]!,
                               style: getTextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xff333333),
+                                color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                               ),
                             ),
                             SizedBox(height: 4), // Reduced from 5 to 4
                             Text(
-                              reviews[index]["subtitle"]!,
+                              reviews["subtitle"]!,
                               style: getTextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -112,10 +118,13 @@ class NewWidget extends StatelessWidget {
                         ),
                         Spacer(),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.025, // Slightly reduced
+                          height: MediaQuery.of(context).size.height * 0.045, // Slightly reduced
                           child: Image.asset(
-                            ImagePath.pending,
+                            IconPath.check,
+                            width:28 ,
+                            height: 28,
                             fit: BoxFit.cover,
+                            color: isDarkMode ? Color(0xff8D4AF37) : Color(0xff003366),
                           ),
                         ),
                       ],
@@ -130,18 +139,20 @@ class NewWidget extends StatelessWidget {
                         ),
                         SizedBox(width: 6), // Reduced width spacing
                         Text(
-                          reviews[index]["date"]!,
+                          reviews["date"]!,
                           style: getTextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
+                            color: isDarkMode ? Color(0xff8A8A8A) : Color(0xff767676),
                           ),
                         ),
                         SizedBox(width: 12), // Reduced from 16
                         Text(
-                          reviews[index]["time"]!,
+                          reviews["time"]!,
                           style: getTextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
+                            color: isDarkMode ? Color(0xff8A8A8A) : Color(0xff767676),
                           ),
                         ),
                         Spacer(),
@@ -149,18 +160,18 @@ class NewWidget extends StatelessWidget {
                           height: 22, // Reduced from 25
                           width: MediaQuery.of(context).size.width * 0.17, // Slightly reduced
                           decoration: BoxDecoration(
-                            color: reviews[index]["status"] == "Confirmed"
+                            color: reviews["status"] == "Confirmed"
                                 ? Color(0xff37D459).withValues(alpha: .20)
                                 : Color(0xffD4AF37).withValues(alpha: .20),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Center(
                             child: Text(
-                              reviews[index]["status"]!,
+                              reviews["status"]!,
                               style: getTextStyle(
                                 fontSize: 11, // Reduced from 12
                                 fontWeight: FontWeight.w400,
-                                color: reviews[index]["status"] == "Confirmed"
+                                color: reviews["status"] == "Confirmed"
                                     ? Color(0xff37D441)
                                     : Color(0xffD4AF37),
                               ),

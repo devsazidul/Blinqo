@@ -3,12 +3,11 @@ import 'dart:io';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_signup_controller.dart';
-import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
 
 // ignore: must_be_immutable
 class VSignupScreen extends StatelessWidget {
@@ -17,6 +16,7 @@ class VSignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -196,7 +196,7 @@ class VSignupScreen extends StatelessWidget {
               Obx(
                 () => CustomButton(
                   title: 'Sign Up',
-                  textcolor:
+                  textColor:
                       singupController.isFromValid.value
                           ? Colors.white
                           : Color(0xFF003366),
@@ -204,6 +204,7 @@ class VSignupScreen extends StatelessWidget {
                       singupController.isFromValid.value
                           ? () {
                             // singupController.signup();
+                            Get.to(SpLoginScreen());
                           }
                           : null,
                   backgroundColor:
@@ -220,13 +221,9 @@ class VSignupScreen extends StatelessWidget {
               ),
               SizedBox(height: 28),
               SizedBox(height: 32),
-              if (Platform.isAndroid || Platform.isIOS) ...[
-  
-              ],
+              if (Platform.isAndroid || Platform.isIOS) ...[],
               SizedBox(height: 16),
-              if (Platform.isIOS) ...[
-
-              ],
+              if (Platform.isIOS) ...[],
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -242,11 +239,11 @@ class VSignupScreen extends StatelessWidget {
                   SizedBox(width: 8),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(AppRoute.vloginscreen);
+                      Get.to(SpLoginScreen());
                     },
                     child: Text(
                       "Sign In",
-                      style: getTextStyle( 
+                      style: getTextStyle(
                         color: Color(0xFF003366),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,

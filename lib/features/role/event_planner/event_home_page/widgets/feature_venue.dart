@@ -3,10 +3,11 @@ import 'package:blinqo/core/common/styles/global_text_style.dart'
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
+import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import '../../event_compare/screen/add_compare.dart';
 
 class FeatureVenues extends StatelessWidget {
   final bool hasButton;
@@ -23,8 +24,8 @@ class FeatureVenues extends StatelessWidget {
     double cardWidth = screenWidth * 0.7;
     double buttonFontSize = screenWidth <= 360 ? 14 : 16;
 
-    final ServiceUserProfileControler spUserProfileControler =
-        Get.find<ServiceUserProfileControler>();
+    final SpProfileController spUserProfileControler =
+        Get.find<SpProfileController>();
     return Obx(() {
       final themeMode =
           spUserProfileControler.isDarkMode.value
@@ -47,21 +48,31 @@ class FeatureVenues extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _venueImageSection(themeMode),
+            GestureDetector(
+              onTap: () {
+                Get.to(EpVenueDetails());
+              },
+              child: _venueImageSection(themeMode),
+            ),
             SizedBox(height: 12),
             Row(
               children: [
-                Text(
-                  'The Grand Hall',
-                  style: getTextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color:
-                        isColorChinge == true
-                            ? themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : Colors.black
-                            : Colors.grey.shade200,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(EpVenueDetails());
+                  },
+                  child: Text(
+                    'The Grand Hall',
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color:
+                          isColorChinge == true
+                              ? themeMode == ThemeMode.dark
+                                  ? AppColors.primary
+                                  : Colors.black
+                              : AppColors.textColor,
+                    ),
                   ),
                 ),
                 SizedBox(width: 4.0),
@@ -71,17 +82,22 @@ class FeatureVenues extends StatelessWidget {
             SizedBox(height: 4),
             _venueLocationRow(),
             SizedBox(height: 4),
-            Text(
-              'Add to Compare',
-              style: getTextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color:
-                    isColorChinge == true
-                        ? themeMode == ThemeMode.dark
-                            ? AppColors.secondary
-                            : AppColors.iconColor
-                        : AppColors.iconColor,
+            GestureDetector(
+              onTap: () {
+                Get.to(AddCompare());
+              },
+              child: Text(
+                'Add to Compare',
+                style: getTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color:
+                      isColorChinge == true
+                          ? themeMode == ThemeMode.dark
+                              ? AppColors.secondary
+                              : AppColors.iconColor
+                          : AppColors.iconColor,
+                ),
               ),
             ),
             hasButton
