@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:permission_handler/permission_handler.dart';
+
 class  TeamControllerGetx extends GetxController {
    final teamList = <Map<String, String>>[].obs;
      var searchQuery = ''.obs;
@@ -37,6 +39,10 @@ void updateTeamMember(int index, String firstName, String lastName, String role)
     'role': role,
   };
   update(); // GetX UI রিফ্রেশ করবে
+}
+void addTeamMembercontact(Map<String, String> member) {
+  teamList.add(member);  // টিম লিস্টে নতুন মেম্বার যোগ
+  updateSearch('');      // সার্চ রিফ্রেশ
 }
 
   void clearTeam() {
@@ -102,4 +108,5 @@ void updateTeamMember(int index, String firstName, String lastName, String role)
       }
     }
   }
+
 }

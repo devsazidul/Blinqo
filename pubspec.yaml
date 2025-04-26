@@ -77,8 +77,9 @@ dependencies:
   get_storage: ^2.1.1
   flutter_onboarding_slider: ^1.0.11
   carousel_slider: ^5.0.0
+  flutter_contacts: ^1.1.9+2
+  
  
-
   
 
 dev_dependencies:

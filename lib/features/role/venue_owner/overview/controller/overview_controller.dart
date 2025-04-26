@@ -65,6 +65,59 @@ class OverviewController extends GetxController {
     },
 
   ];
+  List<Map<String, String>> bookingreviews = [
+    {
+      "title": "Corporate Event",
+      "subtitle": "Conference Hall",
+      "date": "15 March,2025",
+      "time": "3.00 PM",
+      "image": ImagePath.event,
+      "status": "Accept",
+    },
+
+
+    {
+      "title": "Team Building Retreat",
+      "subtitle": "Lakeside Lodge",
+      "date": "22 April,2025",
+      "time": "10.00 AM",
+      "image": ImagePath.event2,
+      "status": "Accept",
+    },
+    {
+      "title": "Product Launch",
+      "subtitle": "Main Auditorium",
+      "date": "30 May,2025",
+      "time": "1:00 PM",
+      "image": ImagePath.event3,
+      "status": "Accept",
+    },
+    {
+      "title": "Team Building Retreat",
+      "subtitle": "Lakeside Lodge",
+      "date": "22 April,2025",
+      "time": "10.00 AM",
+      "image": ImagePath.event2,
+      "status": "Accept",
+    },
+     {
+      "title": "Corporate Event",
+      "subtitle": "Conference Hall",
+      "date": "15 March,2025",
+      "time": "3.00 PM",
+      "image": ImagePath.event,
+      "status": "Accept",
+    },
+      {
+      "title": "Team Building Retreat",
+      "subtitle": "Lakeside Lodge",
+      "date": "22 April,2025",
+      "time": "10.00 AM",
+      "image": ImagePath.event2,
+      "status": "Accept",
+    },
+
+  ];
 
   List<Map<String, String>> seereview = [
     {
