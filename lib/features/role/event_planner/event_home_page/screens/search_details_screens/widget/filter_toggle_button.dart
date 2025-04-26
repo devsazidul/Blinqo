@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,9 @@ import 'package:get/get.dart';
 class ToggleButton extends StatelessWidget {
   final ProfileController themeController = Get.put(ProfileController());
   ToggleButton({super.key});
+  final SearchDetailsController searchDetailsController = Get.put(
+    SearchDetailsController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,9 @@ class ToggleButton extends StatelessWidget {
             ),
             side: BorderSide(color: AppColors.buttonColor2),
           ),
-          onPressed: () {},
+          onPressed: () {
+            searchDetailsController.allFieldCanceled();
+          },
           child: Text(
             'Cancel',
             style: getTextStyle(
