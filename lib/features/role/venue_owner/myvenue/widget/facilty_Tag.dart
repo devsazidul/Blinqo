@@ -24,9 +24,9 @@ class FacilityTag extends StatelessWidget {
         borderRadius: BorderRadius.circular(34),
         boxShadow: [
           BoxShadow(
-            color: Color(0xff000000).withValues(alpha: .3),
-            blurRadius: 2,
-            offset: Offset(0, 2),
+            color: Color(0xff000000).withValues(alpha: .2),
+            blurRadius: 3,
+           
           ),
         ],
       ),
