@@ -139,7 +139,7 @@ class VLoginScreen extends StatelessWidget {
                     child: Text(
                       'Forgot Password?',
                       style: getTextStyle(
-                        color: Color(0xFFD4AF37),
+                        color: Color(0xFF333333),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

@@ -257,36 +257,41 @@ SizedBox(height: 19),
         builder: (context) {
           TextEditingController newFacilityController = TextEditingController();
 
-          return AlertDialog(
-            title: Text("Add New Facility"),
-            content: TextField(
-              controller: newFacilityController,
-              decoration: InputDecoration(
-                labelText: 'Enter facility',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  // Dialog বন্ধ হবে
-                  Navigator.of(context).pop();
-                },
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  // New facility টি selectedFacilities এ যোগ করা হবে
-                  String newFacility = newFacilityController.text.trim();
-                  if (newFacility.isNotEmpty) {
-                    controllers.addFacility(newFacility); // controllers.addFacility ব্যবহার করে নতুন facility যোগ করতে হবে
-                    Navigator.of(context).pop(); // Dialog বন্ধ করা হবে
-                  }
-                },
-                child: Text('Add'),
-              ),
-            ],
-          );
+         return AlertDialog(
+          backgroundColor: Colors.white,
+  title: Text("Added New"),
+  content: SizedBox(
+    width: 300, // এখানে আপনি ইচ্ছামতো width বাড়াতে পারেন
+    child: TextField(
+      controller: newFacilityController,
+      decoration: InputDecoration(
+        labelText: 'Enter facility',
+        border: OutlineInputBorder(),
+      ),
+    ),
+  ),
+  actions: <Widget>[
+    TextButton(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      child: Text('Cancel',style: getTextStyle(
+        color: Colors.red
+      ),),
+    ),
+    TextButton(
+      onPressed: () {
+        String newFacility = newFacilityController.text.trim();
+        if (newFacility.isNotEmpty) {
+          controllers.addFacility(newFacility);
+          Navigator.of(context).pop();
+        }
+      },
+      child: Text('Add',style: getTextStyle(color: Colors.green),),
+    ),
+  ],
+);
+
         },
       );
     },

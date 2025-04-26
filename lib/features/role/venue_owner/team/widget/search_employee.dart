@@ -36,15 +36,7 @@ class SearchEmployee extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color:isDarkMode ? Color(0xffABB7C2) : Color(0xffABB7C2),
             ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            suffixIcon: IconButton(
-              icon: Icon(
-                Icons.mic_none,
-                color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
-                size: 19,
-              ),
-              onPressed: () {},
-            ),
+           
             filled: true,
             fillColor: isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
             border: OutlineInputBorder(

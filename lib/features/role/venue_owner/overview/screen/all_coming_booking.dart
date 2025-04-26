@@ -1,3 +1,4 @@
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
@@ -14,9 +15,11 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      backgroundColor: isDarkMode ? const Color(0xff151515) : Colors.white,
+      backgroundColor: isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
       appBar: AppBar(
+        forceMaterialTransparency: true,
         title: Text(
           'All Upcoming Bookings',
           style: getTextStyle(

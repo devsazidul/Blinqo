@@ -78,7 +78,7 @@ class VForgetPassword extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 value == 0
-                                    ? Color(0xffD4AF37)
+                                    ? Color(0xff333333)
                                     : Colors.transparent,
                             borderRadius: BorderRadius.circular(4),
                           ),
@@ -112,7 +112,7 @@ class VForgetPassword extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 value == 1
-                                    ? Color(0xffD4AF37)
+                                    ? Color(0xff333333)
                                     : Colors.transparent,
                             borderRadius: BorderRadius.circular(4),
                           ),
