@@ -72,6 +72,7 @@ class BookingList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // emty booking list
+
               BookingEmtry(
                 screenWidthFactor: screenWidthFactor,
                 screenHeightFactor: screenHeightFactor,

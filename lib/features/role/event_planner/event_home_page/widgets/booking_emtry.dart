@@ -86,12 +86,13 @@ class BookingEmtry extends StatelessWidget {
         SvgPicture.asset(ImagePath.nochecklist),
         SizedBox(height: 10 * screenHeightFactor),
         Text(
-          'It seems you haven\'t scheduled \n\t\t\t\t\t\t\t\tany events so far.',
+          'It seems you haven\'t scheduled \nany events so far.',
           style: getTextStyle(
             fontSize: 14 * screenWidthFactor,
             fontWeight: FontWeight.w600,
             color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
           ),
+          textAlign: TextAlign.center,
         ),
         SizedBox(height: 40 * screenHeightFactor),
         GestureDetector(
