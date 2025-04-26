@@ -1,108 +1,102 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/chat_details.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/date_picker.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpChatScreen extends StatelessWidget {
   final EpChatController epChatController = Get.put(EpChatController());
-  final themeController = Get.put(SpProfileController());
+  final ProfileController themeController = Get.put(ProfileController());
 
   EpChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      final themeMode =
-          themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
-      return Scaffold(
+    bool isDarkMode = themeController.isDarkMode.value;
+    return Scaffold(
+      backgroundColor:
+          isDarkMode
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        forceMaterialTransparency: true,
+        centerTitle: true,
+        title: Text(
+          'Chat',
+          style: getTextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+          ),
+        ),
+        elevation: 0,
         backgroundColor:
-            themeMode == ThemeMode.dark
+            isDarkMode
                 ? AppColors.darkBackgroundColor
                 : AppColors.backgroundColor,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          forceMaterialTransparency: true,
-          centerTitle: true,
-          title: Text(
-            'Chat',
-            style: getTextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w600,
-              color:
-                  themeMode == ThemeMode.dark
-                      ? AppColors.borderColor2
-                      : AppColors.textColor,
-            ),
-          ),
-          elevation: 0,
-          backgroundColor:
-              themeMode == ThemeMode.dark
-                  ? AppColors.darkBackgroundColor
-                  : AppColors.backgroundColor,
-        ),
+      ),
 
-        body: Obx(() {
-          final chats = epChatController.chats;
+      body: Obx(() {
+        final chats = epChatController.chats;
 
-          if (chats.isEmpty) {
-            return SafeArea(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      ImagePath.nocontentbackground,
-                      height: 250,
-                      width: 230,
+        if (chats.isEmpty) {
+          return SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    ImagePath.nocontentbackground,
+                    height: 250,
+                    width: 230,
+                  ),
+                  Text(
+                    'No conversations yet',
+                    style: getTextStyle(
+                      fontSize: 16,
+                      color: AppColors.textColor,
                     ),
-                    Text(
-                      'No conversations yet',
-                      style: getTextStyle(
-                        fontSize: 16,
-                        color: AppColors.textColor,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: chats.length,
-            itemBuilder: (context, index) {
-              return ChatList(
-                themeMode: themeMode,
-                chat: chats[index],
-                onTap: () {
-                  epChatController.setActiveChat(chats[index].id);
-                  Get.to(() => ChatDetails(chatId: chats[index].id));
-                },
-              );
-            },
+            ),
           );
-        }),
-      );
-    });
+        }
+
+        return ListView.builder(
+          itemCount: chats.length,
+          itemBuilder: (context, index) {
+            return ChatList(
+              isDarkMode: isDarkMode,
+              chat: chats[index],
+              onTap: () {
+                epChatController.setActiveChat(chats[index].id);
+                Get.to(() => ChatDetails(chatId: chats[index].id));
+              },
+            );
+          },
+        );
+      }),
+    );
   }
 }
 
 class ChatList extends StatelessWidget {
   final ChatPreview chat;
   final VoidCallback onTap;
-  final ThemeMode? themeMode;
+  final bool isDarkMode;
 
   const ChatList({
     super.key,
     required this.chat,
     required this.onTap,
-    this.themeMode,
+    required this.isDarkMode,
   });
 
   @override
@@ -154,7 +148,7 @@ class ChatList extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           color:
-                              themeMode == ThemeMode.dark
+                              isDarkMode
                                   ? AppColors.borderColor2
                                   : AppColors.textColor,
                         ),

@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -8,10 +9,11 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../controller/otp_controller.dart';
 
 class OTPScreen extends StatelessWidget {
+  final int? isSelect;
   // Get the OTP controller instance using Get.find()
   final OTPController otpController = Get.put(OTPController());
 
-  OTPScreen({super.key});
+  OTPScreen({super.key, this.isSelect});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,9 @@ class OTPScreen extends StatelessWidget {
                 _buildPinCodeTextField(context),
                 SizedBox(height: 20),
                 Text(
-                  'Verification code has been sent to the email',
+                  isSelect == 0
+                      ? 'Verification code has been sent to the email'
+                      : 'Verification code has been sent to the Phone',
                   style: getTextStyle(
                     color: AppColors.textColor,
                     fontSize: 16,
@@ -50,7 +54,7 @@ class OTPScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      ' Your ',
+                      isSelect == 0 ? ' Your ' : 'number Your',
                       style: getTextStyle(
                         color: AppColors.textColor,
                         fontSize: 16,
@@ -58,7 +62,7 @@ class OTPScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '****abc@gmal.com',
+                      isSelect == 0 ? '****abc@gmal.com' : ' 0724****',
                       style: getTextStyle(
                         color: AppColors.buttonColor2,
                         fontSize: 16,
@@ -82,7 +86,6 @@ class OTPScreen extends StatelessWidget {
                 SizedBox(height: 40),
                 Obx(
                   () => CustomButton(
-                    // onPress: () => Get.to(() => ChangePasswordScreen()),
                     title: 'Continue',
                     textColor:
                         otpController.isFormValid.value
@@ -91,18 +94,17 @@ class OTPScreen extends StatelessWidget {
                     onPress:
                         otpController.isFormValid.value
                             ? () {
-                              // Navigate to the next screen if the OTP is valid
-                              // Get.to(() => ChangePasswordScreen());
+                              Get.to(() => ChangePasswordScreen());
                             }
                             : null,
                     backgroundColor:
                         otpController.isFormValid.value
                             ? AppColors.buttonColor2
-                            : AppColors.buttonColor2.withOpacity(0.1),
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                     borderColor:
                         otpController.isFormValid.value
                             ? AppColors.buttonColor2
-                            : AppColors.buttonColor2.withOpacity(0.1),
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                   ),
                 ),
               ],

@@ -26,19 +26,19 @@ class EventServicesScreen extends StatelessWidget {
         backgroundColor: AppColors.backgroundColor,
         forceMaterialTransparency: true,
         leading: Padding(
-          padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 8.0),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: CircleAvatar(
-              backgroundColor: const Color(0xFFD9D9D9),
-              child: Image.asset(IconPath.arrowLeftAlt),
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: CircleAvatar(
+            backgroundColor: AppColors.textColor.withValues(alpha: 0.15),
+            child: IconButton(
+              padding: EdgeInsets.all(0),
+              icon: Icon(Icons.arrow_back, color: AppColors.textColor),
+
+              onPressed: () => Get.back(),
             ),
           ),
         ),
         title: Text(
-          'Event Services',
+          'Additional Services',
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -54,9 +54,9 @@ class EventServicesScreen extends StatelessWidget {
           itemCount: 6,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 1,
-            childAspectRatio: _buildChildAspectRatio(screenWidth),
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            childAspectRatio: 0.7,
           ),
           itemBuilder: (context, index) {
             return EventServiceCard(service: services[index]);
@@ -66,14 +66,14 @@ class EventServicesScreen extends StatelessWidget {
     );
   }
 
-  _buildChildAspectRatio(double screenWidth) {
-    if (screenWidth <= 360) {
-      return 0.86;
-    }
-    if (screenWidth >= 360 && screenWidth < 448) {
-      return 0.96;
-    } else {
-      return 1.1;
-    }
-  }
+  // _buildChildAspectRatio(double screenWidth) {
+  //   if (screenWidth <= 360) {
+  //     return 0.86;
+  //   }
+  //   if (screenWidth >= 360 && screenWidth < 448) {
+  //     return 0.96;
+  //   } else {
+  //     return 1.1;
+  //   }
+  // }
 }

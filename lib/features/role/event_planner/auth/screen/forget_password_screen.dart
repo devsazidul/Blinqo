@@ -214,7 +214,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     // Add logic to handle form submission here
-                    Get.to(() => OTPScreen());
+                    Get.to(
+                      () => OTPScreen(
+                        isSelect:
+                            forgetPasswordController.focusedButtonIndex.value,
+                      ),
+                    );
                   },
                   child: Text(
                     "Send",

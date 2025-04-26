@@ -1,18 +1,18 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/group_profile.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/image_view.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/image_picker.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/message_picker.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/pop_up_menu.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatDetails extends StatelessWidget {
-  final themeController = Get.put(SpProfileController());
+  final ProfileController themeController = Get.put(ProfileController());
 
   ChatDetails({super.key, required this.chatId});
   final String chatId;
@@ -22,34 +22,29 @@ class ChatDetails extends StatelessWidget {
     final EpChatController epChatController = Get.find<EpChatController>();
 
     final user = epChatController.getUserById(chatId);
+    bool isDarkMode = themeController.isDarkMode.value;
 
-    return Obx(() {
-      final themeMode =
-          themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
-      return Scaffold(
-        backgroundColor:
-            themeMode == ThemeMode.dark
-                ? AppColors.darkBackgroundColor
-                : AppColors.chatBackground,
-        appBar: coustomAppBar(user, themeMode),
-        body: Column(
-          children: [
-            Expanded(
-              child: Obx(() {
-                final messages = epChatController.messages[chatId] ?? [];
-                return messages.isEmpty
-                    ? userEmptyChat(user, themeMode)
-                    : userMessageList(messages, epChatController);
-              }),
-            ),
-            coustomTextField(epChatController, themeMode, context),
-          ],
-        ),
-      );
-    });
+    return Scaffold(
+      backgroundColor:
+          isDarkMode ? AppColors.darkBackgroundColor : AppColors.chatBackground,
+      appBar: coustomAppBar(user, isDarkMode),
+      body: Column(
+        children: [
+          Expanded(
+            child: Obx(() {
+              final messages = epChatController.messages[chatId] ?? [];
+              return messages.isEmpty
+                  ? userEmptyChat(user, isDarkMode)
+                  : userMessageList(messages, epChatController);
+            }),
+          ),
+          coustomTextField(epChatController, isDarkMode, context),
+        ],
+      ),
+    );
   }
 
-  AppBar coustomAppBar(User? user, ThemeMode themeMode) {
+  AppBar coustomAppBar(User? user, bool isDarkMode) {
     return AppBar(
       automaticallyImplyLeading: false,
       shape: RoundedRectangleBorder(
@@ -70,23 +65,18 @@ class ChatDetails extends StatelessWidget {
       elevation: 0,
       forceMaterialTransparency: false,
       backgroundColor:
-          themeMode == ThemeMode.dark
-              ? AppColors.textFrieldDarkColor
-              : AppColors.primary,
+          isDarkMode ? AppColors.textFrieldDarkColor : AppColors.primary,
       title: Row(
         children: [
           CircleAvatar(
             backgroundColor:
-                themeMode == ThemeMode.dark
+                isDarkMode
                     ? AppColors.primary.withValues(alpha: 0.1)
                     : AppColors.textColor.withValues(alpha: 0.15),
             child: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color:
-                    themeMode == ThemeMode.dark
-                        ? AppColors.primary
-                        : AppColors.textColor,
+                color: isDarkMode ? AppColors.primary : AppColors.textColor,
               ),
               onPressed: () => Get.back(),
             ),
@@ -117,7 +107,7 @@ class ChatDetails extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color:
-                            themeMode == ThemeMode.dark
+                            isDarkMode
                                 ? AppColors.borderColor2
                                 : AppColors.textColor,
                       ),
@@ -141,11 +131,11 @@ class ChatDetails extends StatelessWidget {
         ],
       ),
 
-      actions: [PopUpMenu(themeMode: themeMode)],
+      actions: [PopUpMenu(isDarkMode: isDarkMode)],
     );
   }
 
-  Widget userEmptyChat(User? user, ThemeMode themeMode) {
+  Widget userEmptyChat(User? user, bool isDarkMode) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -160,10 +150,7 @@ class ChatDetails extends StatelessWidget {
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w500,
-            color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.borderColor2
-                    : AppColors.textColor,
+            color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
           ),
         ),
         const SizedBox(height: 16),
@@ -173,9 +160,7 @@ class ChatDetails extends StatelessWidget {
             fontSize: 14,
             fontWeight: FontWeight.w400,
             color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.darkTextColor
-                    : AppColors.subTextColor,
+                isDarkMode ? AppColors.darkTextColor : AppColors.subTextColor,
           ),
         ),
         const Spacer(),
@@ -205,14 +190,14 @@ class ChatDetails extends StatelessWidget {
 
   Widget coustomTextField(
     EpChatController controller,
-    ThemeMode themeMode,
+    bool isDarkMode,
     BuildContext context,
   ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       decoration: BoxDecoration(
         color:
-            themeMode == ThemeMode.dark
+            isDarkMode
                 ? AppColors.darkBackgroundColor
                 : AppColors.chatBackground,
       ),
