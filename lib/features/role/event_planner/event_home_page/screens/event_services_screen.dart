@@ -1,11 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class EventServicesScreen extends StatelessWidget {
@@ -24,7 +22,6 @@ class EventServicesScreen extends StatelessWidget {
       Service(imagePath: IconPath.epgame, label: 'Game'),
     ];
     debugPrint('screenWidth: $screenWidth');
-    bool isDarkMode = themeController.isDarkMode.value;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(

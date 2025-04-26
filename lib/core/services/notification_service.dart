@@ -1,5 +1,6 @@
 import 'package:blinqo/features/role/event_planner/notification/screens/notification_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
@@ -43,7 +44,7 @@ class NotificationService {
       criticalAlert: false,
     );
 
-    print('Permission status: ${settings.authorizationStatus}');
+    debugPrint('Permission status: ${settings.authorizationStatus}');
   }
 
   Future<void> setupFlutterNotifications() async {

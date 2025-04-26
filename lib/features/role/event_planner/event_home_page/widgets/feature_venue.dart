@@ -52,7 +52,7 @@ class FeatureVenues extends StatelessWidget {
               onTap: () {
                 // Get.to(EpVenueDetails());
 
-                print("hello flutter devolaper");
+                debugPrint("hello flutter devolaper");
               },
               child: _venueImageSection(themeMode),
             ),

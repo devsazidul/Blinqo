@@ -3,7 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_payment_controller/ep_payment_option_controller.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

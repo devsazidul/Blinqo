@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/rendering.dart';
 
 class FirebaseNotificationService {
   FirebaseNotificationService._();
@@ -20,24 +21,24 @@ class FirebaseNotificationService {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      debugPrint('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
+      debugPrint('User granted provisional permission');
     } else {
-      print('User denied permission');
+      debugPrint('User denied permission');
     }
   }
 
   Future<void> getDeviceToken() async {
     String? token = await messaging.getToken();
-    print("Device token: $token");
+    debugPrint("Device token: $token");
     // return token!;
   }
 
   Future<void> isTokenRefresh() async {
-    await messaging.onTokenRefresh.listen((token) {
-      print("Refreshed token: $token");
+    messaging.onTokenRefresh.listen((token) {
+      debugPrint("Refreshed token: $token");
       token.toString();
     });
     // return token!;

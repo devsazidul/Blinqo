@@ -7,8 +7,6 @@ import 'package:blinqo/features/role/service_provider/service_booking_page/widge
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class SpBookingRequestAll extends StatelessWidget {
   SpBookingRequestAll({super.key});

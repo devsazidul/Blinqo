@@ -6,9 +6,7 @@ import 'package:blinqo/features/role/service_provider/service_profile_page/contr
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
-import '../../../event_planner/venue_details/screen/ep_venue_details.dart';
 
 class SpProfilePage extends StatelessWidget {
   static const String name = '/sp_profile_settings';

@@ -4,7 +4,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_forget_password_controller.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_change_password.dart';
 import 'package:blinqo/features/role/service_provider/auth/widgets/v_cistom_pin.dart';
-import 'package:blinqo/features/role/venue_owner/authentication/widgets/v_cistom_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +11,8 @@ class SpOtpSendScreen extends StatelessWidget {
   final SpForgetPasswordController spForgetPasswordController = Get.put(
     SpForgetPasswordController(),
   );
+
+  SpOtpSendScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/widget/f_custom_button.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_paymant_screen/ep_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen1.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/controller/review_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/widget/profile_cover_image_and_avater.dart';
@@ -24,9 +22,6 @@ class EpServiceProviderProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final EpSpReviewController controller = Get.put(EpSpReviewController());
     final ProfileController profileController = Get.find<ProfileController>();
-    final PickColorController pickColorController =
-        Get.find<PickColorController>();
-
     return Scaffold(
       body: Obx(() {
         return ColoredBox(

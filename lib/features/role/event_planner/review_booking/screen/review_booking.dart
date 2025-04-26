@@ -44,10 +44,8 @@ class ReviewBooking extends StatelessWidget {
                   children: [
                     SizedBox(height: screenHeight * 0.02),
                     ReviesCard(themeMode: themeMode),
-
                     SizedBox(height: screenHeight * 0.02),
-
-                    Container(
+                    SizedBox(
                       height: 200,
                       child: ListView.builder(
                         shrinkWrap: true,
