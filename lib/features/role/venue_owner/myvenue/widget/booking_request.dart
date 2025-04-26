@@ -9,8 +9,8 @@ import 'package:get/get.dart';
 import '../../../../../core/common/styles/global_text_style.dart';
 import '../../../../../core/utils/constants/image_path.dart';
 
-class NewWidget extends StatelessWidget {
-   NewWidget({
+class BookingRequest extends StatelessWidget {
+   BookingRequest({
     super.key,
   });
 
@@ -50,9 +50,9 @@ class NewWidget extends StatelessWidget {
         itemCount: 3,
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          var reviews = controller.reviews[index];
+          var reviews = controller.bookingreviews[index];
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 12),
+            padding: EdgeInsets.symmetric(vertical: 8),
             child: Container(
              
               decoration: BoxDecoration(
@@ -160,9 +160,9 @@ class NewWidget extends StatelessWidget {
                           height: 22, // Reduced from 25
                           width: MediaQuery.of(context).size.width * 0.17, // Slightly reduced
                           decoration: BoxDecoration(
-                            color: reviews["status"] == "Confirmed"
-                                ? Color(0xff37D459).withValues(alpha: .20)
-                                : Color(0xffD4AF37).withValues(alpha: .20),
+                            color: reviews["status"] == "Accept"
+                                ? Color(0xff003366)
+                                : Color(0xff003366),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Center(
@@ -171,9 +171,9 @@ class NewWidget extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 11, // Reduced from 12
                                 fontWeight: FontWeight.w400,
-                                color: reviews["status"] == "Confirmed"
-                                    ? Color(0xff37D441)
-                                    : Color(0xffD4AF37),
+                                color: reviews["status"] == "Accept"
+                                    ? Color(0xffE6EBF0)
+                                    : Color(0xffE6EBF0),
                               ),
                             ),
                           ),

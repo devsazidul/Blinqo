@@ -131,7 +131,7 @@ class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double scaledHeight = (screenHeight < 700) ? 0 : 0;
+    double scaledHeight = (screenHeight < 700) ? 0 : -7;
     double imageHeight = (screenHeight < 700) ? 430 : 610;
     return Column(
       children: [
@@ -153,6 +153,7 @@ class Page1 extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
+                    lineHeight: 1.2
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -192,7 +193,7 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double scaledHeight = (screenHeight < 700) ? 0 : 0;
+    double scaledHeight = (screenHeight < 700) ? 0 : -7;
     double imageHeight = (screenHeight < 700) ? 430 : 610;
     return Column(
       children: [
@@ -214,6 +215,7 @@ class Page2 extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
+                      lineHeight: 0
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -263,7 +265,7 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double scaledHeight = (screenHeight < 700) ? 0 : 0;
+    double scaledHeight = (screenHeight < 700) ? 0 : -7;
     double imageHeight = (screenHeight < 700) ? 430 : 610;
 
     return Column(
@@ -286,6 +288,7 @@ class Page3 extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
+                      lineHeight: 0
                     ),
                     textAlign: TextAlign.center,
                   ),

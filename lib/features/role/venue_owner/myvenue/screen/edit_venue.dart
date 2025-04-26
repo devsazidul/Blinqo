@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/venueownerprofilecontroller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
@@ -24,6 +25,7 @@ class EditVenue extends StatelessWidget {
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final Completer<GoogleMapController> _mapController = Completer();
     final controller = Get.put(MyVenueController());
+    final controllers = Get.put(FacilityController());
     TextEditingController venueName = TextEditingController();
     TextEditingController location = TextEditingController();
     TextEditingController numberGuests = TextEditingController();
@@ -179,142 +181,128 @@ class EditVenue extends StatelessWidget {
                     label: "Number of Guests",
                   ),
                   SizedBox(height: 15),
-                  Text(
-                    'Amenities',
-                    style: getTextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  FittedBox(
-                    child: Row(
-                      children: [
-                        FacilityTag(icon: Icons.wifi, label: 'Wifi'),
-                        SizedBox(width: 13),
-                        FacilityTag(icon: Icons.wifi, label: 'Parking'),
-                        SizedBox(width: 13),
-                        FacilityTag(icon: Icons.wifi, label: 'AC'),
-                        SizedBox(width: 13),
-                        FacilityTag(icon: Icons.wifi, label: 'Pool'),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Select From Here',
-                    style: getTextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustomShapeTag(
-                        label: 'Storage & lighting',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.38,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
-                      SizedBox(width: .2),
-                      CustomShapeTag(
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                        label: 'Sound System',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.38,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustomShapeTag(
-                        label: 'Barservices',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.27,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
-                      CustomShapeTag(
-                        label: '  Elevator',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.24,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
-                      CustomShapeTag(
-                        label: 'Restroom',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.25,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustomShapeTag(
-                        label: 'Event Staff',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.30,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
-                      SizedBox(width: .2),
-                      CustomShapeTag(
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                        label: 'Sound System',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.38,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 19),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      width: 48,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Color(0xff003366),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Icon(Icons.add, color: Colors.white, size: 24),
-                      ),
-                    ),
-                  ),
+         Text(
+  'Amenities',
+  style: getTextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 20,
+    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+  ),
+),
+SizedBox(height: 12),
+Obx(() {
+  List<String> facilities = controllers.selectedFacilities;
+
+  return Wrap(
+    spacing: 10, // Horizontal space between items
+    runSpacing: 10, // Vertical space between lines
+    children: facilities.map((facility) {
+      return Container(
+        width: (screenWidth - 40) / 2, // Each item takes up half the screen width (2 items per row)
+        child: FacilityTag(
+          icon: Icons.wifi,
+          label: facility,
+        ),
+      );
+    }).toList(),
+  );
+}),
+SizedBox(height: 16),
+Text(
+  'Select From Here',
+  style: getTextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+  ),
+),
+SizedBox(height: 16),
+Obx(() {
+  // যেসব এখনো সিলেক্ট হয়নি শুধু সেগুলো দেখাবে
+  List<String> remainingFacilities = controllers.allFacilities
+      .where((facility) => !controllers.selectedFacilities.contains(facility))
+      .toList();
+
+  return Wrap(
+    spacing: 10,
+    runSpacing: 10,
+    children: remainingFacilities.map((facility) => 
+      GestureDetector(
+        onTap: () {
+          controllers.addFacility(facility);
+        },
+        child: CustomShapeTag(
+          label: facility,
+          height: screenHeight * 0.04,
+          width: screenWidth * 0.35,
+          icon: Icon(
+            Icons.wifi,
+            size: 15,
+            color: Color(0xffD4AF37),
+          ),
+        ),
+      )
+    ).toList(),
+  );
+}),
+SizedBox(height: 19),
+       
+          Align(
+  alignment: Alignment.centerRight,
+  child: InkWell(
+    onTap: () {
+      // Button click হলে popup dialog দেখাবে
+      showDialog(
+        context: context,
+        builder: (context) {
+          TextEditingController newFacilityController = TextEditingController();
+
+          return AlertDialog(
+            title: Text("Add New Facility"),
+            content: TextField(
+              controller: newFacilityController,
+              decoration: InputDecoration(
+                labelText: 'Enter facility',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  // Dialog বন্ধ হবে
+                  Navigator.of(context).pop();
+                },
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // New facility টি selectedFacilities এ যোগ করা হবে
+                  String newFacility = newFacilityController.text.trim();
+                  if (newFacility.isNotEmpty) {
+                    controllers.addFacility(newFacility); // controllers.addFacility ব্যবহার করে নতুন facility যোগ করতে হবে
+                    Navigator.of(context).pop(); // Dialog বন্ধ করা হবে
+                  }
+                },
+                child: Text('Add'),
+              ),
+            ],
+          );
+        },
+      );
+    },
+    child: Container(
+      width: 48,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Color(0xff003366),
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: Icon(Icons.add, color: Colors.white, size: 24),
+      ),
+    ),
+  ),
+),
                   SizedBox(height: 20),
                   Text(
                     'Decoration',
