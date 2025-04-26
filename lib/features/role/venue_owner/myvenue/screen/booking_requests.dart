@@ -16,7 +16,8 @@ class AllBookingRequests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
       appBar: AppBar(
         forceMaterialTransparency: true,
         title: Text(
