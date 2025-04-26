@@ -1,8 +1,9 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class SearchDetailsController extends GetxController {
   RxString selectedCity = "City".obs;
-  List<String> city = ["City", "New Work", "London", "Canada"];
+  List<String> city = ["City", "New York", "London", "Canada"];
   void updateSelectedCity(String value) {
     selectedCity.value = value;
   }
@@ -13,27 +14,26 @@ class SearchDetailsController extends GetxController {
     selectedArea.value = value;
   }
 
-  RxString selectedVenue = "Brithday Party".obs;
+  RxString selectedVenue = "Birthday Party".obs;
   List<String> venueType = [
-    "Brithday Party",
+    "Birthday Party",
     "Wedding",
     "Corporate Event",
-    "Bachlor Party",
+    "Bachelor Party",
     "Anniversary",
     "Others",
   ];
+
   void updateVenue(String value) {
     selectedVenue.value = value;
   }
 
-  ///Capacity///
   var capacityStart = 0.0.obs;
   void capacityStartValue(double value) {
     capacityStart.value = value;
   }
 
   var capacityEnd = 1000.0.obs;
-
   void capacityEndValue(double value) {
     capacityEnd.value = value;
   }
@@ -43,27 +43,30 @@ class SearchDetailsController extends GetxController {
     selectedBookingValue.value = (selectedBookingValue.value == 0) ? 1 : 0;
   }
 
-  ///Price Range///
   RxDouble priceStart = 0.0.obs;
   void priceRangeStart(double value) {
     priceStart.value = value;
   }
 
   var priceEnd = 12000.0.obs;
-
   void priceRangeEnd(double value) {
     priceEnd.value = value;
   }
 
-  RxDouble sliderValue = 0.0.obs;
+  var sliderValue = 0.0.obs;
+  var ratingValue = 0.0.obs;
+
   void updateSliderValue(double value) {
     sliderValue.value = value;
+    updateRatingValue(value);
   }
 
-  // RxInt selectedRatings = (-1).obs;
-  // void toggleRatings() {
-  //   selectedRatings.value != selectedRatings.value;
-  // }
+  void updateRatingValue(double value) {
+    double newRating = (value / 10).roundToDouble() * 0.5;
+    ratingValue.value = newRating.clamp(0.5, 5.0);
+    update();
+  }
+
   RxInt selectedTab = (-1).obs;
 
   void toggleTab(int value) {
@@ -77,5 +80,37 @@ class SearchDetailsController extends GetxController {
   RxInt focusedButtonIndex = 0.obs;
   void changeButton(int index) {
     focusedButtonIndex.value = index;
+  }
+
+  RxBool clear = false.obs;
+  void clearAll() {
+    clear.value = !clear.value;
+  }
+
+  final startDataController = TextEditingController();
+  final endDataController = TextEditingController();
+
+  void allFieldCanceled() {
+    startDataController.text = " ";
+    endDataController.text = " ";
+
+    selectedCity.value = "City";
+    selectedArea.value = "Area";
+    selectedVenue.value = "Birthday Party";
+
+    capacityStart.value = 0.0;
+    capacityEnd.value = 1000.0;
+
+    priceStart.value = 0.0;
+    priceEnd.value = 12000.0;
+
+    sliderValue.value = 0.0;
+    ratingValue.value = 0.0;
+
+    selectedTab.value = -1;
+    focusedButtonIndex.value = 0;
+
+    clear.value = false;
+    update();
   }
 }

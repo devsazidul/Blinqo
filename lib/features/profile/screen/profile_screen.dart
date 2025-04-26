@@ -5,11 +5,10 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
+import 'package:blinqo/features/role/event_planner/payment_history/screens/payment_history_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../role/event_planner/venue_details/screen/ep_venue_details.dart';
 
 class MainProfileScreen extends StatelessWidget {
   const MainProfileScreen({super.key});
@@ -198,14 +197,14 @@ class MainProfileScreen extends StatelessWidget {
             },
           ),
         ),
-        _buildSettingsTile(
-          onTap: () {
-            Get.to(EpVenueDetails());
-          },
-          controller: controller,
-          title: "Language",
-          iconPath: IconPath.language,
-        ),
+        // _buildSettingsTile(
+        //   onTap: () {
+        //     Get.to(EpVenueDetails());
+        //   },
+        //   controller: controller,
+        //   title: "Language",
+        //   iconPath: IconPath.language,
+        // ),
         Obx(
           () => _buildSettingsTile(
             controller: controller,
@@ -218,6 +217,14 @@ class MainProfileScreen extends StatelessWidget {
         ),
         _buildSettingsTile(
           controller: controller,
+          title: "Payment Historty",
+          iconPath: IconPath.paymentHistory,
+          onTap: () {
+            Get.to(PaymentHistoryScreen());
+          },
+        ),
+        _buildSettingsTile(
+          controller: controller,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
           onTap: () {
@@ -225,14 +232,14 @@ class MainProfileScreen extends StatelessWidget {
           },
         ),
         //* Colors
-        _buildSettingsTile(
-          controller: controller,
-          title: "Colors",
-          iconPath: IconPath.colorsIcon,
-          onTap: () {
-            Navigator.pushNamed(context, AppRoute.getPickColorScreen());
-          },
-        ),
+        // _buildSettingsTile(
+        //   controller: controller,
+        //   title: "Colors",
+        //   iconPath: IconPath.colorsIcon,
+        //   onTap: () {
+        //     Navigator.pushNamed(context, AppRoute.getPickColorScreen());
+        //   },
+        // ),
         ListTile(
           minTileHeight: 60,
           contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),

@@ -4,6 +4,8 @@ import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/signup_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile_setup/profile_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -197,7 +199,12 @@ class SignUpScreen extends StatelessWidget {
                       singupController.isFromValid.value
                           ? Colors.white
                           : AppColors.buttonColor2,
-                  onPress: singupController.isFromValid.value ? () {} : null,
+                  onPress:
+                      singupController.isFromValid.value
+                          ? () {
+                            Get.to(EvenProfileSetupScreen());
+                          }
+                          : null,
                   backgroundColor:
                       singupController.isFromValid.value
                           ? AppColors.buttonColor2

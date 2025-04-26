@@ -30,24 +30,27 @@ class AddCompare extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColors.backgroundColor,
           forceMaterialTransparency: true,
-          leading:
-              themeMode == ThemeMode.dark
-                  ? SizedBox()
-                  : Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        child: Image.asset(
-                          IconPath.arrowLeftAlt,
-                          color: AppColors.textColor,
-                        ),
-                      ),
-                    ),
-                  ),
+          leading: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: CircleAvatar(
+              backgroundColor:
+                  themeMode == ThemeMode.dark
+                      ? AppColors.primary.withValues(alpha: 0.1)
+                      : AppColors.textColor.withValues(alpha: 0.15),
+              child: IconButton(
+                padding: EdgeInsets.all(0),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.primary
+                          : AppColors.textColor,
+                ),
+
+                onPressed: () => Get.back(),
+              ),
+            ),
+          ),
           title: Text(
             'Compare',
             style: getTextStyle(

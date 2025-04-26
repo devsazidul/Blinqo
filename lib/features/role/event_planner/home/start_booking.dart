@@ -49,6 +49,7 @@ class StartBooking extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 StartBookingShearshBar(
                   screenHeight: screenHeight,
                   screenWidth: screenWidth,

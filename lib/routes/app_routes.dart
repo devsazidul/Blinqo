@@ -102,6 +102,7 @@ class AppRoute {
   static String reviewBooking = '/ReviewBooking';
   static String reviewBookingDetails = '/reviewBookingDetails';
   static String eventPaymentOption = '/eventPaymentOption';
+  static String profileEdit = '/edit_profile_page';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -150,6 +151,7 @@ class AppRoute {
   static String getReviewBooking() => reviewBooking;
   static String getReviewBookingDetails() => reviewBookingDetails;
   static String geteventPaymentOption() => eventPaymentOption;
+  static String getprofileEdit() => profileEdit;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),

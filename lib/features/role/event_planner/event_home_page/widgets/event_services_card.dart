@@ -3,7 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_event_service_details.dart'
     show EpEventServiceDetails;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class EventServiceCard extends StatelessWidget {
   final Service service;
@@ -12,7 +11,6 @@ class EventServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(child: Container(color: Colors.amber));
     // return GestureDetector(
     //   onTap: () {
@@ -46,7 +44,6 @@ class EventServiceCard extends StatelessWidget {
     //     ),
     //   ),
     // );
-
   }
 }
 
