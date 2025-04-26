@@ -39,15 +39,6 @@ class ChangePasswordScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 18),
-                Text(
-                  'Enter Verification Code:',
-                  style: getTextStyle(
-                    color: Color(0xff000000),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,

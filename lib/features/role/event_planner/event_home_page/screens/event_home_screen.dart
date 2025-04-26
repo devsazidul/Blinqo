@@ -97,7 +97,7 @@ class EventHomeScreen extends StatelessWidget {
 
                     SizedBox(height: 40),
                     _buildTitle(
-                      'Event Services',
+                      'Additional Services',
                       themeMode,
                       onTap: () {
                         Get.to(EventServicesScreen());
