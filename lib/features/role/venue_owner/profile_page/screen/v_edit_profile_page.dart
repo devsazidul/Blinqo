@@ -62,7 +62,9 @@ class VEditProfilePage extends StatelessWidget {
                 ),
           
                 SizedBox(height: 40),
-                CustomContinueButton(onTap: () {}, title: 'Save & Change'),
+                CustomContinueButton(onTap: () {
+                  Get.back();
+                }, title: 'Save & Change'),
               ],
             ),
           ),
