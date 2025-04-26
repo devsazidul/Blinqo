@@ -3,8 +3,8 @@ import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ProfileCoverImageAndAvater extends StatelessWidget {
-  const ProfileCoverImageAndAvater({super.key});
+class ProfileCoverImageAndAvatar extends StatelessWidget {
+  const ProfileCoverImageAndAvatar({super.key});
 
   @override
   Widget build(BuildContext context) {
