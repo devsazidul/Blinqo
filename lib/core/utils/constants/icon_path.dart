@@ -157,5 +157,5 @@ class IconPath {
   static const String epguests = 'assets/icons/epguests.png';
   static const String eproom = 'assets/icons/eproom.png';
   static const String epoutdoor = 'assets/icons/epoutdoor.png';
-
+  static const String handshake = 'assets/icons/handshake.png';
 }

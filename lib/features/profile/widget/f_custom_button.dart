@@ -21,15 +21,18 @@ class FCustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileController = Get.put(ProfileController());
+    final profileController = Get.find<ProfileController>();
     return GetBuilder<PickColorController>(
       builder: (controller) {
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
+            elevation: 0,
             backgroundColor:
-                profileController.isDarkMode == false
-                    ? backgroundColor ?? controller.selectedColor
-                    : Color(0xff003366),
+                backgroundColor ??
+                (profileController.isDarkMode.value == false
+                    ? controller.selectedColor
+                    : Color(0xff003366)),
+
             foregroundColor: foregroundColor ?? Colors.white,
 
             minimumSize: Size(double.infinity, 48),

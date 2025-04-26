@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "507585668184",
+    "project_id": "softvence-blinqo",
+    "storage_bucket": "softvence-blinqo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507585668184:android:d0f4ba5ba1711b1cfc162d",
+        "android_client_info": {
+          "package_name": "com.example.blinqo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuBZ03HnN7Fwcx5bmKu30BPzRbhcVRZ14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

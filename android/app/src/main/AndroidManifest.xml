@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="com.example.blinqo">
+<!-- Notification -->
+<!-- Notification -->
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.CAMERA" />
@@ -42,6 +44,14 @@ package="com.example.blinqo">
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- Notification -->
+        <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@mipmap/ic_launcher" />
+        <!-- <meta-data
+                android:name="com.google.firebase.messaging.default_notification_color"
+                android:resource="@color/notification_color" /> -->
+            <!-- Notification -->
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

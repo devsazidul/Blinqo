@@ -14,16 +14,21 @@ class ServiceProviderProfile extends StatelessWidget {
   static const String name = '/sp_profile_home';
 
   ServiceProviderProfile({super.key});
-  final SpProfileController spProfileController = Get.put(SpProfileController());
+  final SpProfileController spProfileController = Get.put(
+    SpProfileController(),
+  );
 
   @override
   Widget build(BuildContext context) {
     final ReviewController controller = Get.put(ReviewController());
-    
+
     return Scaffold(
       body: Obx(() {
         return ColoredBox(
-          color: spProfileController.isDarkMode.value ? Color(0xff151515) : Color(0xffF4F4F4),
+          color:
+              spProfileController.isDarkMode.value
+                  ? Color(0xff151515)
+                  : Color(0xffF4F4F4),
           child: DefaultTabController(
             length: 2,
             child: NestedScrollView(
@@ -37,7 +42,7 @@ class ServiceProviderProfile extends StatelessWidget {
                     child: Column(
                       children: [
                         // Profile Cover and Avatar
-                        ProfileCoverImageAndAvater(),
+                        ProfileCoverImageAndAvatar(),
                         SizedBox(height: 12),
 
                         /// Profile summary section
