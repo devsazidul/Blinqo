@@ -158,4 +158,5 @@ class IconPath {
   static const String eproom = 'assets/icons/eproom.png';
   static const String epoutdoor = 'assets/icons/epoutdoor.png';
   static const String cancel = 'assets/icons/cancel.png';
+  static const String dropdown  =  'assets/icons/dropdown.png';
 }
