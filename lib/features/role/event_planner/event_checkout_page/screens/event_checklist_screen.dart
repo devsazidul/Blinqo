@@ -45,10 +45,8 @@ class EventChecklistScreen extends StatelessWidget {
                       Expanded(
                         child: DropdownButtonFormField<String>(
                           autofocus: true,
-                          dropdownColor: AppColors.primary,
+                          dropdownColor: AppColors.backgroundColor,
                           decoration: InputDecoration(
-                            filled: true,
-                            fillColor: AppColors.chatBackground,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: const BorderSide(
@@ -84,12 +82,6 @@ class EventChecklistScreen extends StatelessWidget {
                                   value; // Update filter type
                             }
                           },
-                          icon: Image.asset(
-                            IconPath.backButton,
-                            width: 24,
-                            height: 24,
-                            fit: BoxFit.cover,
-                          ),
                         ),
                       ),
 
@@ -98,10 +90,8 @@ class EventChecklistScreen extends StatelessWidget {
                       Expanded(
                         child: DropdownButtonFormField<String>(
                           autofocus: true,
-                          dropdownColor: AppColors.primary,
+                          dropdownColor: AppColors.backgroundColor,
                           decoration: InputDecoration(
-                            filled: true,
-                            fillColor: AppColors.chatBackground,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: const BorderSide(
@@ -113,7 +103,7 @@ class EventChecklistScreen extends StatelessWidget {
                               vertical: 8,
                             ),
                           ),
-                          value: controller.sortType.value,
+                          value: controller.sortType.value, // Bind to sortType
                           items:
                               ['By Date', 'By Venue']
                                   .map(
@@ -135,12 +125,6 @@ class EventChecklistScreen extends StatelessWidget {
                               controller.sortType.value = value;
                             }
                           },
-                          icon: Image.asset(
-                            IconPath.backButton,
-                            width: 24,
-                            height: 24,
-                            fit: BoxFit.cover,
-                          ),
                         ),
                       ),
                     ],
@@ -233,26 +217,32 @@ class EventChecklistScreen extends StatelessWidget {
                                         ? 18
                                         : 16; // Larger font for larger screens
                                 double subTitleFontSize =
-                                    screenWidth > 600 ? 14 : 12;
+                                    screenWidth > 600
+                                        ? 14
+                                        : 12; // Larger font for larger screens
 
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 12.0),
                                   child: Container(
+                                    height:
+                                        screenHeight *
+                                        0.11, // Height based on screen size
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.0),
-                                      color: AppColors.primary,
+                                      color:
+                                          AppColors
+                                              .backgroundColor, // Container color
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment
+                                              .spaceBetween, // Space out children
                                       children: [
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
                                           children: [
                                             Obx(() {
                                               return Align(
-                                                alignment: Alignment.topCenter,
+                                                alignment: Alignment.topLeft,
                                                 child: Checkbox(
                                                   side: BorderSide(
                                                     color:
@@ -262,15 +252,13 @@ class EventChecklistScreen extends StatelessWidget {
                                                       controller
                                                           .selectedIndex
                                                           .value ==
-                                                      index,
-                                                  activeColor:
-                                                      AppColors.buttonColor2,
+                                                      index, // Check if the current index is selected
                                                   onChanged: (bool? value) {
                                                     if (value != null) {
                                                       controller.toggleCheckbox(
                                                         index,
                                                         value,
-                                                      );
+                                                      ); // Update the selected index
                                                     }
                                                   },
                                                 ),
@@ -287,7 +275,8 @@ class EventChecklistScreen extends StatelessWidget {
                                                   Text(
                                                     'Venue booking',
                                                     style: getTextStyle(
-                                                      fontSize: titleFontSize,
+                                                      fontSize:
+                                                          titleFontSize, // Adjusted font size
                                                       color:
                                                           AppColors
                                                               .buttonColor2,
@@ -299,7 +288,7 @@ class EventChecklistScreen extends StatelessWidget {
                                                     'The Grand Hall',
                                                     style: getTextStyle(
                                                       fontSize:
-                                                          subTitleFontSize,
+                                                          subTitleFontSize, // Adjusted font size
                                                       color:
                                                           AppColors
                                                               .subTitleColor,
@@ -311,7 +300,7 @@ class EventChecklistScreen extends StatelessWidget {
                                                     '20 Mar 2025',
                                                     style: getTextStyle(
                                                       fontSize:
-                                                          subTitleFontSize,
+                                                          subTitleFontSize, // Adjusted font size
                                                       color:
                                                           AppColors
                                                               .subTitleColor,
@@ -320,15 +309,6 @@ class EventChecklistScreen extends StatelessWidget {
                                                     ),
                                                   ),
                                                 ],
-                                              ),
-                                            ),
-                                            SizedBox(width: 160),
-                                            Text(
-                                              "11:00",
-                                              style: getTextStyle(
-                                                fontSize: subTitleFontSize,
-                                                color: AppColors.subTitleColor,
-                                                fontWeight: FontWeight.w500,
                                               ),
                                             ),
                                           ],
