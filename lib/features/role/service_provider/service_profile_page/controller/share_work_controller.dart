@@ -86,6 +86,7 @@ class ShareWorkController extends GetxController {
         'Please select at least one image.',
         snackPosition: SnackPosition.TOP,
       );
+
       return;
     }
 

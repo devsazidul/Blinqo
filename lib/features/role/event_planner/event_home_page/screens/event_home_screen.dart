@@ -8,13 +8,12 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/featu
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/eventCard.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/home_header_section.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/search_ber.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/upcomming_events.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 
 class EventHomeScreen extends StatelessWidget {
   static const String routeName = '/eventHome';
@@ -28,7 +27,6 @@ class EventHomeScreen extends StatelessWidget {
     );
 
     final ProfileController profileController = Get.find<ProfileController>();
-
     return Obx(() {
       // Get the current theme mode (light or dark)
       final themeMode =
