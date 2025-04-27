@@ -3,6 +3,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ShearchStartBookingPage extends StatelessWidget {
   const ShearchStartBookingPage({super.key});
@@ -14,7 +15,7 @@ class ShearchStartBookingPage extends StatelessWidget {
         Stack(
           children: [
             SizedBox(
-              height: 200,
+              height: Get.height * 0.35,
               width: double.infinity,
 
               child: Image.asset(ImagePath.rectangle, fit: BoxFit.cover),

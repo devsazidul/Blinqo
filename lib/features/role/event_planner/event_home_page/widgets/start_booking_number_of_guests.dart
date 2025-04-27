@@ -36,6 +36,7 @@ class StartBookingNumberOfGuests extends StatelessWidget {
         ),
         SizedBox(height: screenHeight * 0.002),
         AuthCustomTextField(
+          borderRadius: 4,
           controller: bookingController.numberOfGuestsController,
           onChanged: (value) {},
           text: '150 -200',

@@ -199,7 +199,7 @@ class StarkBookingAdditionalServices extends StatelessWidget {
           child: GestureDetector(
             onTap: () => _showSelectedServiceDialog(context),
             child: Container(
-              width: isSmallScreen ? screenWidth * 0.5 : 160.0,
+              width: screenWidth * 0.35,
               height: isSmallScreen ? 40.0 : 45.0,
               alignment: Alignment.center,
               decoration: BoxDecoration(

@@ -26,6 +26,7 @@ class StartBookingButton extends StatelessWidget {
               Navigator.pushNamed(context, AppRoute.getReviewBooking());
             },
             style: ElevatedButton.styleFrom(
+              padding:EdgeInsets.symmetric(vertical: 16),
               backgroundColor: AppColors.buttonColor2, // Your custom color
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
@@ -50,6 +51,7 @@ class StartBookingButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
+              padding:EdgeInsets.symmetric(vertical: 16),
               elevation: 0,
               backgroundColor: Color(0x1A003366), // Your custom color
               shape: RoundedRectangleBorder(

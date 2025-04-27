@@ -1,5 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/review_booking/widget/review_aminites_button.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +36,6 @@ class ReviewBooking extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: screenHeight * 0.02),
               ShearchStartBookingPage(),
 
               Padding(
@@ -45,20 +46,6 @@ class ReviewBooking extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.02),
                     ReviesCard(themeMode: themeMode),
                     SizedBox(height: screenHeight * 0.02),
-                    SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.all(10),
-                            child: Text("Ac"),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-
                     Center(
                       child: Text(
                         "Jhon's Birthday",
@@ -186,7 +173,7 @@ class ReviewBooking extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          "proceed to payment",
+                          "Proceed to payment",
                           style: getTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -205,6 +192,7 @@ class ReviewBooking extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 14),
                           elevation: 0,
                           backgroundColor:
                               themeMode == ThemeMode.dark

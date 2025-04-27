@@ -214,6 +214,7 @@ class ReviewBookingDetails extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
+                          padding:  EdgeInsets.symmetric(vertical: 14),
                           elevation: 0,
                           backgroundColor:
                               AppColors.buttonColor2, // Your custom color
@@ -224,7 +225,7 @@ class ReviewBookingDetails extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          "proceed to payment",
+                          "Proceed to payment",
                           style: getTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -242,6 +243,7 @@ class ReviewBookingDetails extends StatelessWidget {
                           Get.to(EventCongratulationScreen());
                         },
                         style: ElevatedButton.styleFrom(
+                          padding:  EdgeInsets.symmetric(vertical: 14),
                           elevation: 0,
                           backgroundColor:
                               themeMode == ThemeMode.dark
