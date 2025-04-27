@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:step_indicator_package/step_indicator_package.dart';
 import '../../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../../home/controller/booking_controller.dart';
 import '../../widgets/enent_type_dopdown_button.dart';
@@ -51,7 +52,6 @@ class SearchStartBooking extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: screenHeight * 0.02),
               ShearchStartBookingPage(),
 
               Padding(
@@ -67,6 +67,24 @@ class SearchStartBooking extends StatelessWidget {
                       themeMode: themeMode,
                     ),
 
+                    SizedBox(height: screenHeight * 0.02),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Booking Timeline',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff003285),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    StepIndicator(
+                      circleRadius: 18,
+                      paddingHorizontal: 60,
+                      showNavigationButtons: false,
+                    ),
                     SizedBox(height: screenHeight * 0.02),
                     StartBookingTextFrom(
                       screenHeight: screenHeight,
@@ -129,6 +147,7 @@ class SearchStartBooking extends StatelessWidget {
                                 : null,
                       ),
                       child: EventPlannerCustomCalendar(
+                        height: Get.height * 0.44,
                         selectedDatesNotifier: selectedDatesNotifier,
                         themeMode: themeMode,
                       ),

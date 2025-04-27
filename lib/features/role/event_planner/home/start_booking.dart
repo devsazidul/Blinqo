@@ -1,21 +1,23 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/enent_type_dopdown_button.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/stark_booking_additional_services.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/stark_booking_set_start_time_and_endtime.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start-booking_decoration_image.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_button.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_date.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_number_of_guests.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_text_or_button.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_textfrom.dart';
 import 'package:blinqo/features/role/event_planner/home/wigate/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../event_home_page/sharch_start_booking/screen/search_start_booking.dart';
-import '../event_home_page/widgets/enent_type_dopdown_button.dart';
-import '../event_home_page/widgets/stark_booking_additional_services.dart';
-import '../event_home_page/widgets/stark_booking_set_start_time_and_endtime.dart';
-import '../event_home_page/widgets/start-booking_decoration_image.dart';
-import '../event_home_page/widgets/start_booking_button.dart';
-import '../event_home_page/widgets/start_booking_date.dart';
-import '../event_home_page/widgets/start_booking_number_of_guests.dart';
-import '../event_home_page/widgets/start_booking_text_or_button.dart';
-import '../event_home_page/widgets/start_booking_textfrom.dart';
 import 'controller/booking_controller.dart';
 import 'wigate/start_booking_shearh_bar.dart';
+import 'package:step_indicator_package/step_indicator_package.dart';
 
 class StartBooking extends StatelessWidget {
   const StartBooking({super.key});
@@ -49,7 +51,6 @@ class StartBooking extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 StartBookingShearshBar(
                   screenHeight: screenHeight,
                   screenWidth: screenWidth,
@@ -58,7 +59,23 @@ class StartBooking extends StatelessWidget {
                     Get.to(SearchStartBooking());
                   },
                 ),
-
+                SizedBox(height: 40),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Booking Timeline',
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff003285),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                StepIndicator(
+                  paddingHorizontal: 60,
+                  showNavigationButtons: false,
+                ),
                 StartBookingTextFrom(
                   screenHeight: screenHeight,
                   bookingController: bookingController,

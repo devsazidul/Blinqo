@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/features/profile/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../controller/event_payment_controller.dart';
 
 class EventPaymentCard extends StatelessWidget {
@@ -11,20 +10,24 @@ class EventPaymentCard extends StatelessWidget {
     required this.imagePath,
     required this.cardName,
     required this.isDarkMode,
+    required this.index, // Add index to identify the card
   });
 
   final String imagePath;
   final String cardName;
   final bool isDarkMode;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    // required controller
+    // Get the controller (use Get.find since it's already initialized in the parent widget)
     final EventPaymentController controller = Get.put(EventPaymentController());
+
     return Container(
       width: double.infinity,
       height: 64,
       padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      margin: EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: ThemeStyle.darkGreyWhite(isDarkMode),
         borderRadius: BorderRadius.circular(15),
@@ -46,12 +49,14 @@ class EventPaymentCard extends StatelessWidget {
             ),
           ),
           Spacer(),
-          // checkbox
+          // Checkbox
           Obx(
-            () => Checkbox(
-              value: controller.isSelected.value,
-              onChanged: (_) {
-                controller.toggleSelection();
+                () => Checkbox(
+              value: controller.selectedIndex.value == index, // Check if this card is selected
+              onChanged: (bool? value) {
+                if (value == true) {
+                  controller.selectPaymentOption(index); // Select this card
+                }
               },
               activeColor: ThemeStyle.goldToBlack(isDarkMode),
               shape: RoundedRectangleBorder(
@@ -62,7 +67,6 @@ class EventPaymentCard extends StatelessWidget {
                 width: 1,
               ),
               checkColor: ThemeStyle.darkGreyWhite(isDarkMode),
-              //  Color(0xffF9FAFB),
             ),
           ),
         ],

@@ -53,7 +53,7 @@ class EventTypeDopdownButton extends StatelessWidget {
             dropdownColor:
                 themeMode == ThemeMode.dark
                     ? AppColors.darkBackgroundColor
-                    : null,
+                    : AppColors.backgroundColor,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 10.w,

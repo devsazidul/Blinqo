@@ -21,8 +21,8 @@ class ReviesCard extends StatelessWidget {
     final locationFontSize = screenWidth < 400 ? 12.0 : 14.0;
 
     // Adjust padding based on screen size
-    final horizontalPadding = screenWidth < 400 ? 10.0 : 14.0;
-    final verticalPadding = screenWidth < 400 ? 8.0 : 10.0;
+    final horizontalPadding = screenWidth < 400 ? 20.0 : 22.0;
+    final verticalPadding = screenWidth < 400 ? 14.0 : 16.0;
 
     return Column(
       children: [
@@ -82,6 +82,7 @@ class ReviesCard extends StatelessWidget {
               size: 18.sp, // Make icon size responsive
               color: AppColors.reviesStarColor,
             ),
+            SizedBox(width: 4.0.w), // Use .w for responsive width
             Text(
               "5.0 ",
               style: getTextStyle(
@@ -93,6 +94,7 @@ class ReviesCard extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
+            SizedBox(width: 4.0.w), // Use .w for responsive width
             Text(
               "(345 reviews)",
               style: getTextStyle(
@@ -106,13 +108,14 @@ class ReviesCard extends StatelessWidget {
         SizedBox(height: 12.0.h),
         Row(
           children: [
-            Icon(
-              Icons.location_on_outlined,
+            Image.asset(
+              IconPath.locationOn,
+              height: 14,
+              width: 14,
               color:
                   themeMode == ThemeMode.dark
                       ? AppColors.borderColor2
                       : AppColors.buttonColor2,
-              size: 14.sp, // Make icon size responsive
             ),
             SizedBox(width: 8.0.w), // Use .w for responsive width
             Flexible(
