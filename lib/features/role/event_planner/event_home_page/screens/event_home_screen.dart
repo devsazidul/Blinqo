@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
@@ -26,15 +27,12 @@ class EventHomeScreen extends StatelessWidget {
       UpcomingEventsController(),
     );
 
-    final SpProfileController spUserProfileControler =
-        Get.find<SpProfileController>();
+    final ProfileController profileController = Get.find<ProfileController>();
 
     return Obx(() {
       // Get the current theme mode (light or dark)
       final themeMode =
-          spUserProfileControler.isDarkMode.value
-              ? ThemeMode.dark
-              : ThemeMode.light;
+          profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
 
       return Scaffold(
         backgroundColor:
@@ -96,7 +94,7 @@ class EventHomeScreen extends StatelessWidget {
 
                     SizedBox(height: 40),
                     _buildTitle(
-                      'Additional Services',
+                      'Additional Services!',
                       themeMode,
                       onTap: () {
                         Get.to(EventServicesScreen());

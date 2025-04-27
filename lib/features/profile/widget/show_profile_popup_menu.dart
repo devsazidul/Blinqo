@@ -3,7 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,7 +22,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Navigator.pushNamed(context, SpEditProfilePage.name);
+          // Navigator.pushNamed(context, EditProfilePage.name);
         },
       ),
       _buildPopupMenuItem(
@@ -39,7 +38,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "settings",
         iconPath: IconPath.settings,
         onTap: () {
-          Navigator.pushNamed(context, SpProfilePage.name);
+          // Navigator.pushNamed(context, SpProfilePage.name);
         },
         addDivider: false,
       ),
