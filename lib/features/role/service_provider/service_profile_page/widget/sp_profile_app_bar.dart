@@ -1,8 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,10 +14,12 @@ class SpProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.title,
     this.isMoreVertIcon = true,
+    this.isBackButton = true,
     this.onPressed,
   });
 
   final String? title;
+  final bool isBackButton;
   final bool isMoreVertIcon;
   final void Function()? onPressed;
 
@@ -27,26 +29,29 @@ class SpProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: AppColors.backgroundColor,
       forceMaterialTransparency: true,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 20.0),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: CircleAvatar(
-            backgroundColor:
-                isDarkMode
-                    ? Color(0xFFD9D9D9).withAlpha(40)
-                    : const Color(0xFFD9D9D9),
-            child: Image.asset(
-              IconPath.arrowLeftAlt,
-              width: 16,
-              height: 12,
-              color: isDarkMode ? Colors.white : AppColors.textColor,
-            ),
-          ),
-        ),
-      ),
+      leading:
+          isBackButton
+              ? Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor:
+                        isDarkMode
+                            ? Color(0xFFD9D9D9).withAlpha(40)
+                            : const Color(0xFFD9D9D9),
+                    child: Image.asset(
+                      IconPath.arrowLeftAlt,
+                      width: 16,
+                      height: 12,
+                      color: isDarkMode ? Colors.white : AppColors.textColor,
+                    ),
+                  ),
+                ),
+              )
+              : null,
 
       title: Text(
         title ?? '',

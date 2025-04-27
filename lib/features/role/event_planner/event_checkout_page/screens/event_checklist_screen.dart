@@ -2,14 +2,13 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/create_checklist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart'
-    show SpProfileController;
 
 class EventChecklistScreen extends StatelessWidget {
   const EventChecklistScreen({super.key});
@@ -18,7 +17,7 @@ class EventChecklistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print("hello");
     // final ChecklistController controller = Get.put(ChecklistController());
-    final spProfileController = Get.find<SpProfileController>();
+    final profileController = Get.find<ProfileController>();
 
     double screenHeight =
         MediaQuery.of(context).size.height; // Get screen height
@@ -26,9 +25,7 @@ class EventChecklistScreen extends StatelessWidget {
 
     return Obx(() {
       final themeMode =
-          spProfileController.isDarkMode.value
-              ? ThemeMode.dark
-              : ThemeMode.light;
+          profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
 
       return Scaffold(
         backgroundColor:
