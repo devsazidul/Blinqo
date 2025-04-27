@@ -1,10 +1,12 @@
-import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/screen/profile_screen.dart';
+import 'package:blinqo/features/profile/widget/coustm_appbar.dart';
+import 'package:blinqo/features/profile/widget/coustm_elevated_button.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/widgets/v_profile_app_bar.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/widgets/v_profile_edit_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../widget/profile_edit_text_form_field.dart';
 
 class EditProfilePage extends StatelessWidget {
   static const String name = '/edit_profile_page';
@@ -20,7 +22,12 @@ class EditProfilePage extends StatelessWidget {
           isDarkMode
               ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
-      appBar: VProfileAppBar(title: 'Edit Profile'),
+      appBar: CoustmAppbar(
+        title: 'Edit Profile',
+        onPressed: () {
+          Get.to(() => const MainProfileScreen());
+        },
+      ),
       body: SingleChildScrollView(
         child: ColoredBox(
           color:
@@ -41,25 +48,40 @@ class EditProfilePage extends StatelessWidget {
                       // first name text
 
                       /// First Name
-                      VProfileEditTextFormField(label: 'First Name'),
+                      ProfileEditTextFormField(
+                        label: 'First Name',
+                        hintText: "Adam",
+                      ),
 
                       /// Last Name
-                      VProfileEditTextFormField(label: 'Last Name'),
+                      ProfileEditTextFormField(
+                        label: 'Last Name',
+                        hintText: "Jonh",
+                      ),
 
                       /// Email
-                      VProfileEditTextFormField(label: 'Email'),
+                      ProfileEditTextFormField(
+                        label: 'Email',
+                        hintText: "abcdefg@gmail.com",
+                      ),
 
                       /// Country
-                      VProfileEditTextFormField(label: 'Country'),
+                      ProfileEditTextFormField(
+                        label: 'Country',
+                        hintText: "USA",
+                      ),
 
                       /// City
-                      VProfileEditTextFormField(label: 'City'),
+                      ProfileEditTextFormField(
+                        label: 'City',
+                        hintText: "New York",
+                      ),
                     ],
                   ),
                 ),
 
                 SizedBox(height: 40),
-                CustomContinueButton(onTap: () {}, title: 'Save & Change'),
+                EditCustomContinueButton(onTap: () {}, title: 'Save & Change'),
               ],
             ),
           ),
