@@ -27,7 +27,6 @@ class EventHomeScreen extends StatelessWidget {
     );
 
     final ProfileController profileController = Get.find<ProfileController>();
- 
     return Obx(() {
       // Get the current theme mode (light or dark)
       final themeMode =
@@ -93,7 +92,7 @@ class EventHomeScreen extends StatelessWidget {
 
                     SizedBox(height: 40),
                     _buildTitle(
-                      'Additional Services',
+                      'Additional Services!',
                       themeMode,
                       onTap: () {
                         Get.to(EventServicesScreen());

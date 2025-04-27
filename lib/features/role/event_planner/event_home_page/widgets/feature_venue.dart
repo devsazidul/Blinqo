@@ -12,10 +12,12 @@ import '../../event_compare/screen/add_compare.dart';
 class FeatureVenues extends StatelessWidget {
   final bool hasButton;
   final bool? isColorChinge;
+  final int? index;
   const FeatureVenues({
     super.key,
     this.hasButton = true,
     this.isColorChinge = false,
+    this.index,
   });
 
   @override
@@ -48,14 +50,7 @@ class FeatureVenues extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GestureDetector(
-              onTap: () {
-                // Get.to(EpVenueDetails());
-
-                debugPrint("hello flutter devolaper");
-              },
-              child: _venueImageSection(themeMode),
-            ),
+            _venueImageSection(themeMode),
             SizedBox(height: 12),
             Row(
               children: [
@@ -163,7 +158,7 @@ class FeatureVenues extends StatelessWidget {
             decoration: BoxDecoration(
               color:
                   themeMode == ThemeMode.dark
-                      ? Color(0xffEBEBEB).withOpacity(0.50)
+                      ? Color(0xffEBEBEB).withValues(alpha: 50)
                       : AppColors.primary,
               borderRadius: BorderRadius.circular(25),
             ),
@@ -223,7 +218,9 @@ class FeatureVenues extends StatelessWidget {
         ),
         SizedBox(width: 22),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(EpVenueDetails());
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor:
                 isColorChinge == true

@@ -24,7 +24,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Navigator.pushNamed(context, SpEditProfilePage.name);
+          // Navigator.pushNamed(context, EditProfilePage.name);
         },
       ),
       _buildPopupMenuItem(
@@ -40,7 +40,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "settings",
         iconPath: IconPath.settings,
         onTap: () {
-          Navigator.pushNamed(context, SpProfilePage.name);
+          // Navigator.pushNamed(context, SpProfilePage.name);
         },
         addDivider: false,
       ),

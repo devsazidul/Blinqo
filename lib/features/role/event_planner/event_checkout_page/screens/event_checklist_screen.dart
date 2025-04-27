@@ -15,13 +15,15 @@ class EventChecklistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("hello");
+    // print("hello");
     // final ChecklistController controller = Get.put(ChecklistController());
     final profileController = Get.find<ProfileController>();
 
     double screenHeight =
         MediaQuery.of(context).size.height; // Get screen height
     double screenWidth = MediaQuery.of(context).size.width; // Get screen width
+
+    Get.put(ChecklistController());
 
     return Obx(() {
       final themeMode =
@@ -48,6 +50,10 @@ class EventChecklistScreen extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: screenWidth > 600 ? 20 : 16,
                   fontWeight: FontWeight.w600,
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.borderColor2
+                          : AppColors.textColor,
                 ),
               ),
               SizedBox(height: screenHeight * 0.010),
@@ -56,7 +62,10 @@ class EventChecklistScreen extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xff767676),
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.borderColor2
+                          : AppColors.subTextColor,
                 ),
               ),
               SizedBox(height: screenHeight * 0.04),
@@ -73,7 +82,13 @@ class EventChecklistScreen extends StatelessWidget {
                     horizontal: screenWidth > 600 ? 20 : 12,
                   ),
                   fixedSize: Size(screenWidth * 0.4, 44),
-                  side: BorderSide(color: AppColors.iconColor, width: 1.5),
+                  side: BorderSide(
+                    color:
+                        themeMode == ThemeMode.dark
+                            ? AppColors.buttonColor
+                            : AppColors.iconColor,
+                    width: 1.5,
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -83,14 +98,20 @@ class EventChecklistScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.iconColor,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.buttonColor
+                                : AppColors.iconColor,
                       ),
                     ),
                     const SizedBox(width: 10),
                     Icon(
                       Icons.add_circle_outline_outlined,
                       size: 24,
-                      color: AppColors.iconColor,
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? AppColors.buttonColor
+                              : AppColors.iconColor,
                     ),
                   ],
                 ),
@@ -131,395 +152,126 @@ class EventChecklistScreen extends StatelessWidget {
       ),
       centerTitle: true,
       actions: [
-        PopupMenuButton<String>(
-          color: AppColors.primary,
-          onSelected: (value) {
-            if (value == 'Delete') {
-              controller.checklistItems.clear();
-              controller.updateFilteredList();
-            } else if (value == 'Mark As Completed') {
-              for (var item in controller.checklistItems) {
-                item.isCompleted = true;
+        if (controller.checklistItems.isNotEmpty) // Null condition
+          PopupMenuButton<String>(
+            color:
+                themeMode == ThemeMode.dark
+                    ? Colors.grey[800] // Contrasting background for dark mode
+                    : AppColors.primary ??
+                        Colors.blue, // Fallback for light mode
+            onSelected: (value) {
+              if (value == 'Delete') {
+                controller.checklistItems.clear();
+                controller.updateFilteredList();
+              } else if (value == 'Mark As Completed') {
+                for (var item in controller.checklistItems) {
+                  item.isCompleted = true;
+                }
+                controller.checklistItems.refresh();
+                controller.updateFilteredList();
+              } else if (value == 'Mark As Urgent') {
+                for (var item in controller.checklistItems) {
+                  item.isUrgent = true;
+                }
+                controller.checklistItems.refresh();
+                controller.updateFilteredList();
+              } else if (value == 'Edit') {
+                if (controller.checklistItems.isNotEmpty) {
+                  controller.editItem(0);
+                }
               }
-              controller.checklistItems.refresh();
-              controller.updateFilteredList();
-            } else if (value == 'Mark As Urgent') {
-              for (var item in controller.checklistItems) {
-                item.isUrgent = true;
-              }
-              controller.checklistItems.refresh();
-              controller.updateFilteredList();
-            } else if (value == 'Edit') {
-              if (controller.checklistItems.isNotEmpty) {
-                controller.editItem(0);
-              }
-            }
-          },
-          itemBuilder:
-              (BuildContext context) => <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                  value: 'Delete',
-                  child: Center(
-                    child: Text(
-                      'Delete',
-                      style: getTextStyle(
-                        color: AppColors.dopdownTextColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+            },
+            itemBuilder:
+                (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Delete',
+                    child: Center(
+                      child: Text(
+                        'Delete',
+                        style: getTextStyle(
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Colors
+                                      .white // Visible in dark mode
+                                  : AppColors.dopdownTextColor ?? Colors.black,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                PopupMenuDivider(),
-                PopupMenuItem<String>(
-                  value: 'Mark As Completed',
-                  child: Center(
-                    child: Text(
-                      'Mark As Completed',
-                      style: getTextStyle(
-                        color: AppColors.dopdownTextColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+                  const PopupMenuDivider(),
+                  PopupMenuItem<String>(
+                    value: 'Mark As Completed',
+                    child: Center(
+                      child: Text(
+                        'Mark As Completed',
+                        style: getTextStyle(
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Colors.white
+                                  : AppColors.dopdownTextColor ?? Colors.black,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                PopupMenuDivider(),
-                PopupMenuItem<String>(
-                  value: 'Mark As Urgent',
-                  child: Center(
-                    child: Text(
-                      'Mark As Urgent',
-                      style: getTextStyle(
-                        color: AppColors.dopdownTextColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+                  const PopupMenuDivider(),
+                  PopupMenuItem<String>(
+                    value: 'Mark As Urgent',
+                    child: Center(
+                      child: Text(
+                        'Mark As Urgent',
+                        style: getTextStyle(
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Colors.white
+                                  : AppColors.dopdownTextColor ?? Colors.black,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                PopupMenuDivider(),
-                PopupMenuItem<String>(
-                  value: 'Edit',
-                  child: Center(
-                    child: Text(
-                      'Edit',
-                      style: getTextStyle(
-                        color: AppColors.dopdownTextColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+                  const PopupMenuDivider(),
+                  PopupMenuItem<String>(
+                    value: 'Edit',
+                    child: Center(
+                      child: Text(
+                        'Edit',
+                        style: getTextStyle(
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Colors.white
+                                  : AppColors.dopdownTextColor ?? Colors.black,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-          icon: const Icon(Icons.more_vert, color: Colors.black),
-        ),
+                ],
+            icon: Icon(
+              Icons.more_vert,
+              color:
+                  themeMode == ThemeMode.dark
+                      ? Colors
+                          .white // Visible in dark mode
+                      : Colors.black, // Visible in light mode
+              size: 24, // Larger icon for visibility
+            ),
+          ),
       ],
       title: Text(
         'Checklist',
         style: getTextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color: AppColors.textColor,
+          color:
+              themeMode == ThemeMode.dark ? Colors.white : AppColors.textColor,
         ),
       ),
     );
   }
 }
-
-
-
-// body: Obx(() {
-        //   return Column(
-        //     children: [
-        //       if (controller.checklistItems.isNotEmpty) ...[
-        //         Row(
-        //           children: [
-        //             Expanded(
-        //               child: DropdownButtonFormField<String>(
-        //                 autofocus: true,
-        //                 dropdownColor: AppColors.backgroundColor,
-        //                 decoration: InputDecoration(
-        //                   border: OutlineInputBorder(
-        //                     borderRadius: BorderRadius.circular(8),
-        //                     borderSide: const BorderSide(
-        //                       color: AppColors.buttonColor2,
-        //                     ),
-        //                   ),
-        //                   contentPadding: const EdgeInsets.symmetric(
-        //                     horizontal: 12,
-        //                     vertical: 8,
-        //                   ),
-        //                 ),
-        //                 value:
-        //                     controller.filterType.value, // Bind to filterType
-        //                 items:
-        //                     ['ALL Task', 'Urgent!', 'Completed']
-        //                         .map(
-        //                           (label) => DropdownMenuItem(
-        //                             value: label,
-        //                             child: Text(
-        //                               label,
-        //                               style: getTextStyle(
-        //                                 fontSize: 14,
-        //                                 fontWeight: FontWeight.w400,
-        //                                 color: AppColors.textColor,
-        //                               ),
-        //                             ),
-        //                           ),
-        //                         )
-        //                         .toList(),
-        //                 onChanged: (value) {
-        //                   if (value != null) {
-        //                     controller.filterType.value =
-        //                         value; // Update filter type
-        //                   }
-        //                 },
-        //               ),
-        //             ),
-
-        //             const SizedBox(width: 16), // Space between dropdowns
-
-        //             Expanded(
-        //               child: DropdownButtonFormField<String>(
-        //                 autofocus: true,
-        //                 dropdownColor: AppColors.backgroundColor,
-        //                 decoration: InputDecoration(
-        //                   border: OutlineInputBorder(
-        //                     borderRadius: BorderRadius.circular(8),
-        //                     borderSide: const BorderSide(
-        //                       color: AppColors.buttonColor2,
-        //                     ),
-        //                   ),
-        //                   contentPadding: const EdgeInsets.symmetric(
-        //                     horizontal: 12,
-        //                     vertical: 8,
-        //                   ),
-        //                 ),
-        //                 value: controller.sortType.value, // Bind to sortType
-        //                 items:
-        //                     ['By Date', 'By Venue']
-        //                         .map(
-        //                           (label) => DropdownMenuItem(
-        //                             value: label,
-        //                             child: Text(
-        //                               label,
-        //                               style: getTextStyle(
-        //                                 fontSize: 14,
-        //                                 fontWeight: FontWeight.w400,
-        //                                 color: AppColors.textColor,
-        //                               ),
-        //                             ),
-        //                           ),
-        //                         )
-        //                         .toList(),
-        //                 onChanged: (value) {
-        //                   if (value != null) {
-        //                     controller.sortType.value = value;
-        //                   }
-        //                 },
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //         // const SizedBox(height: 16),
-        //       ],
-        //       controller.filteredChecklistItems.isEmpty
-        //           ?
-
-        //           Expanded(
-        //             flex: 2,
-        //             child: Center(
-        //               child: Column(
-        //                 mainAxisAlignment: MainAxisAlignment.center,
-        //                 children: [
-        //                   SvgPicture.asset(ImagePath.nochecklist, width: 100),
-        //                   const SizedBox(height: 20),
-        //                   Text(
-        //                     'Noting Found!',
-        //                     style: getTextStyle(
-        //                       fontSize: 16,
-        //                       fontWeight: FontWeight.w600,
-        //                     ),
-        //                   ),
-        //                   const SizedBox(height: 4),
-        //                   Text(
-        //                     "You didn't added any task yes",
-        //                     style: getTextStyle(
-        //                       fontSize: 12,
-        //                       fontWeight: FontWeight.w400,
-        //                       color: const Color(0xff767676),
-        //                     ),
-        //                   ),
-        //                   const SizedBox(height: 40),
-
-        //                   OutlinedButton(
-        //                     onPressed: () {
-        //                       Get.to(const CreateChecklistScreen());
-        //                     },
-        //                     style: OutlinedButton.styleFrom(
-        //                       shape: RoundedRectangleBorder(
-        //                         borderRadius: BorderRadius.circular(25),
-        //                       ),
-        //                       padding: const EdgeInsets.symmetric(
-        //                         vertical: 9,
-        //                         horizontal: 12,
-        //                       ),
-        //                       fixedSize: const Size(125, 44),
-        //                       side: BorderSide(
-        //                         color: AppColors.iconColor,
-        //                         width: 1.5,
-        //                       ),
-        //                     ),
-        //                     child: Row(
-        //                       children: [
-        //                         Text(
-        //                           'Add Task',
-        //                           style: getTextStyle(
-        //                             fontSize: 16,
-        //                             fontWeight: FontWeight.w400,
-        //                             color: AppColors.iconColor,
-        //                           ),
-        //                         ),
-        //                         const SizedBox(width: 10),
-        //                         Icon(
-        //                           Icons.add_circle_outline_outlined,
-        //                           size: 24,
-        //                           color: AppColors.iconColor,
-        //                         ),
-        //                       ],
-        //                     ),
-        //                   ),
-        //                 ],
-        //               ),
-        //             ),
-        //           )
-
-        //           :
-
-        //            Expanded(
-        //             child: Column(
-        //               children: [
-        //                 Expanded(
-        //                   flex: 3,
-        //                   child: ListView.builder(
-        //                     itemCount: 20, // Number of items in the list
-        //                     itemBuilder: (context, index) {
-        //                       double screenWidth =
-        //                           MediaQuery.of(
-        //                             context,
-        //                           ).size.width; // Get screen width
-
-        //                       // Adjust font size based on screen size
-        //                       double titleFontSize =
-        //                           screenWidth > 600
-        //                               ? 18
-        //                               : 16; // Larger font for larger screens
-        //                       double subTitleFontSize =
-        //                           screenWidth > 600
-        //                               ? 14
-        //                               : 12; // Larger font for larger screens
-
-        //                       return Padding(
-        //                         padding: const EdgeInsets.only(bottom: 12.0),
-        //                         child: Container(
-        //                           height:
-        //                               screenHeight *
-        //                               0.11, // Height based on screen size
-        //                           decoration: BoxDecoration(
-        //                             borderRadius: BorderRadius.circular(8.0),
-        //                             color:
-        //                                 AppColors
-        //                                     .backgroundColor, // Container color
-        //                           ),
-        //                           child: Row(
-        //                             mainAxisAlignment:
-        //                                 MainAxisAlignment
-        //                                     .spaceBetween, // Space out children
-        //                             children: [
-        //                               Row(
-        //                                 children: [
-        //                                   Obx(() {
-        //                                     return Align(
-        //                                       alignment: Alignment.topLeft,
-        //                                       child: Checkbox(
-        //                                         side: BorderSide(
-        //                                           color: AppColors.buttonColor2,
-        //                                         ),
-        //                                         value:
-        //                                             controller
-        //                                                 .selectedIndex
-        //                                                 .value ==
-        //                                             index, // Check if the current index is selected
-        //                                         onChanged: (bool? value) {
-        //                                           if (value != null) {
-        //                                             controller.toggleCheckbox(
-        //                                               index,
-        //                                               value,
-        //                                             ); // Update the selected index
-        //                                           }
-        //                                         },
-        //                                       ),
-        //                                     );
-        //                                   }),
-        //                                   Padding(
-        //                                     padding: const EdgeInsets.only(
-        //                                       top: 6.0,
-        //                                     ),
-        //                                     child: Column(
-        //                                       crossAxisAlignment:
-        //                                           CrossAxisAlignment.start,
-        //                                       children: [
-        //                                         Text(
-        //                                           'Venue booking',
-        //                                           style: getTextStyle(
-        //                                             fontSize:
-        //                                                 titleFontSize, // Adjusted font size
-        //                                             color:
-        //                                                 AppColors.buttonColor2,
-        //                                             fontWeight: FontWeight.w400,
-        //                                           ),
-        //                                         ),
-        //                                         Text(
-        //                                           'The Grand Hall',
-        //                                           style: getTextStyle(
-        //                                             fontSize:
-        //                                                 subTitleFontSize, // Adjusted font size
-        //                                             color:
-        //                                                 AppColors.subTitleColor,
-        //                                             fontWeight: FontWeight.w500,
-        //                                           ),
-        //                                         ),
-        //                                         Text(
-        //                                           '20 Mar 2025',
-        //                                           style: getTextStyle(
-        //                                             fontSize:
-        //                                                 subTitleFontSize, // Adjusted font size
-        //                                             color:
-        //                                                 AppColors.subTitleColor,
-        //                                             fontWeight: FontWeight.w500,
-        //                                           ),
-        //                                         ),
-        //                                       ],
-        //                                     ),
-        //                                   ),
-        //                                 ],
-        //                               ),
-        //                             ],
-        //                           ),
-        //                         ),
-        //                       );
-        //                     },
-        //                   ),
-        //                 ),
-
-        //                 ChecklistAddTackButton(screenHeight: screenHeight),
-
-        //                 SizedBox(height: 20),
-        //               ],
-        //             ),
-        //           ),
-        //     ],
-        //   );
-        // }),

@@ -72,7 +72,7 @@ class StartBookingDate extends StatelessWidget {
                         color:
                             themeMode == ThemeMode.dark
                                 ? AppColors.borderColor2
-                                : AppColors.dopdownTextColor,
+                                : AppColors.textColor,
                       ),
                     ),
                     Obx(

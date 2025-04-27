@@ -9,9 +9,11 @@ class ProfileEditTextFormField extends StatelessWidget {
     super.key,
     required this.label,
     this.controller,
+    this.hintText,
   });
 
   final String label;
+  final String? hintText;
   final TextEditingController? controller;
 
   @override
@@ -35,13 +37,15 @@ class ProfileEditTextFormField extends StatelessWidget {
           color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
         ),
         decoration: InputDecoration(
+          hintText: hintText,
           labelText: label,
           contentPadding: EdgeInsets.zero,
+
           // floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: getTextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: isDarkMode ? AppColors.hintTextColor : AppColors.textColor,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textColor,
           ),
           filled: true,
           fillColor: isDarkMode ? Color(0xff32383D) : Colors.white,
