@@ -30,7 +30,7 @@ class NotificationService {
     await _setupMessageHandlers();
 
     final token = await _messaging.getToken();
-    print("FCM token: $token");
+    debugPrint("FCM token: $token");
   }
 
   Future<void> _requestPermission() async {
@@ -89,7 +89,7 @@ class NotificationService {
         // Handle notification tap
         final payload = details.payload;
         // navigate to chat screen
-        print(payload);
+        debugPrint(payload);
         Get.to(() => const NotificationScreen());
       },
     );
@@ -129,8 +129,8 @@ class NotificationService {
     // Foreground message
     FirebaseMessaging.onMessage.listen((message) {
       print(message.data);
-      print(message.notification?.title);
-      print(message.notification?.body);
+      debugPrint(message.notification?.title);
+      debugPrint(message.notification?.body);
       showNotification(message);
       // if (message.data['type'] == 'notification') {
       //   // open chat screen
@@ -150,11 +150,11 @@ class NotificationService {
 
   Future<void> _handleBackgroundMessage(RemoteMessage message) async {
     print(message.data);
-    print(message.notification?.title);
-    print(message.notification?.body);
+    debugPrint(message.notification?.title);
+    debugPrint(message.notification?.body);
     if (message.data['type'] == 'chat') {
       // open chat screen
-      print(message.data);
+      (message.data);
     }
   }
 }

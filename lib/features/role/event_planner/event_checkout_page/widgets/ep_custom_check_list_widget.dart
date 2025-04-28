@@ -4,15 +4,13 @@ import 'package:flutter/material.dart';
 class EpCustomCheckListWidget extends StatelessWidget {
   final ChecklistModel item; // 🔥 Correct model
 
-  const EpCustomCheckListWidget({Key? key, required this.item}) : super(key: key);
+  const EpCustomCheckListWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
         child: Row(
@@ -51,9 +49,7 @@ class EpCustomCheckListWidget extends StatelessWidget {
               ),
             ),
             Text(
-              item.taskTime != null
-                  ? item.taskTime!.format(context)
-                  : '',
+              item.taskTime != null ? item.taskTime!.format(context) : '',
               style: const TextStyle(color: Colors.grey),
             ),
           ],

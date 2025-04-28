@@ -13,7 +13,6 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_text_or_button.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_textfrom.dart';
 import 'package:blinqo/features/role/event_planner/home/wigate/custom_appbar.dart';
-import 'package:blinqo/routes/app_routes.dart' show AppRoute;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:step_indicator_package/step_indicator.dart';
@@ -79,12 +78,14 @@ class StartBooking extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 StepIndicator(
-                  activeColor: themeMode == ThemeMode.dark
-                      ? Color(0xffD4AF37)
-                      : Color(0xff003285),
-                  activeLineColor: themeMode == ThemeMode.dark
-                      ? Color(0xffD4AF37)
-                      : Color(0xff003285),
+                  activeColor:
+                      themeMode == ThemeMode.dark
+                          ? Color(0xffD4AF37)
+                          : Color(0xff003285),
+                  activeLineColor:
+                      themeMode == ThemeMode.dark
+                          ? Color(0xffD4AF37)
+                          : Color(0xff003285),
                   allowCircleTap: false,
                   circleRadius: 18,
                   paddingHorizontal: 60,
@@ -140,7 +141,7 @@ class StartBooking extends StatelessWidget {
                 StartBookingButton(
                   onTapContinue: () {
                     //Get.to(() => const SearchStartBooking());
-                    Navigator.pushNamed(context,  SearchStartBooking.routeName);
+                    Navigator.pushNamed(context, SearchStartBooking.routeName);
                     //Get.toNamed(AppRoute.getsearchStartBooking());
                   },
                   screenHeight: screenHeight,

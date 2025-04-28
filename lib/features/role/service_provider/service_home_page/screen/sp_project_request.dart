@@ -6,7 +6,6 @@ import 'package:blinqo/features/role/service_provider/service_home_page/widget/p
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class SpProjectRequest extends StatelessWidget {
   SpProjectRequest({super.key});

@@ -1,11 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/widgets/stark_booking_additional_services.dart';
-import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class StartBookingButton extends StatelessWidget {
   const StartBookingButton({
