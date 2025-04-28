@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final femaleColorController = Get.find<PickColorController>();
+    final bool isFemale = femaleColorController.isFemale.value;
     // Get the controller instance using Get.find()
     final ForgetPasswordController forgetPasswordController = Get.put(
       ForgetPasswordController(),
@@ -207,7 +210,10 @@ class ForgetPasswordScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.buttonColor2,
+                    backgroundColor:
+                        isFemale
+                            ? femaleColorController.selectedColor
+                            : AppColors.buttonColor2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

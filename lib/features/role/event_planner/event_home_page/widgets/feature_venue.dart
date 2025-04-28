@@ -3,6 +3,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart'
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,11 +14,17 @@ class FeatureVenues extends StatelessWidget {
   final bool hasButton;
   final bool? isColorChinge;
   final int? index;
+
+  final bool? isFavorited;
+
+  final VoidCallback? onFavoriteToggle;
   const FeatureVenues({
     super.key,
     this.hasButton = true,
     this.isColorChinge = false,
     this.index,
+    this.onFavoriteToggle,
+    this.isFavorited,
   });
 
   @override
@@ -26,8 +33,9 @@ class FeatureVenues extends StatelessWidget {
     double cardWidth = screenWidth * 0.7;
     double buttonFontSize = screenWidth <= 360 ? 14 : 16;
 
-    final SpProfileController spUserProfileControler =
-        Get.find<SpProfileController>();
+    final ProfileController spUserProfileControler =
+        Get.find<ProfileController>();
+
     return Obx(() {
       final themeMode =
           spUserProfileControler.isDarkMode.value
@@ -38,10 +46,8 @@ class FeatureVenues extends StatelessWidget {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           color:
-              isColorChinge == true
-                  ? themeMode == ThemeMode.dark
-                      ? Color(0xff32383D)
-                      : AppColors.primary
+              themeMode == ThemeMode.dark
+                  ? Color(0xff32383D)
                   : AppColors.primary,
 
           borderRadius: BorderRadius.circular(12),
@@ -50,7 +56,7 @@ class FeatureVenues extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _venueImageSection(themeMode),
+            _venueImageSection(themeMode, isFavorited),
             SizedBox(height: 12),
             Row(
               children: [
@@ -61,19 +67,20 @@ class FeatureVenues extends StatelessWidget {
                   child: Text(
                     'The Grand Hall',
                     style: getTextStyle(
-                      fontSize: 16,
+                      fontSize: buttonFontSize,
                       fontWeight: FontWeight.w600,
                       color:
-                          isColorChinge == true
-                              ? themeMode == ThemeMode.dark
-                                  ? AppColors.primary
-                                  : Colors.black
+                          themeMode == ThemeMode.dark
+                              ? AppColors.borderColor2
                               : AppColors.textColor,
                     ),
                   ),
                 ),
                 SizedBox(width: 4.0),
-                Image.asset(IconPath.verifiedlogo, height: 16, width: 16),
+
+                index == 0 || index == 1
+                    ? Image.asset(IconPath.verifiedlogo, height: 16, width: 16)
+                    : SizedBox.shrink(),
               ],
             ),
             SizedBox(height: 4),
@@ -82,6 +89,9 @@ class FeatureVenues extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Get.to(AddCompare());
+                // Get.put(
+                //   EpBottomNavController(),
+                // ).changeScreenWidget(AddCompare(), 0);
               },
               child: Text(
                 'Add to Compare',
@@ -89,10 +99,8 @@ class FeatureVenues extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color:
-                      isColorChinge == true
-                          ? themeMode == ThemeMode.dark
-                              ? AppColors.secondary
-                              : AppColors.iconColor
+                      themeMode == ThemeMode.dark
+                          ? AppColors.secondary
                           : AppColors.iconColor,
                 ),
               ),
@@ -106,15 +114,18 @@ class FeatureVenues extends StatelessWidget {
     });
   }
 
-  Widget _venueImageSection(ThemeMode themeMode) {
+  Widget _venueImageSection(ThemeMode themeMode, final bool? isFavorited) {
     return Stack(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            ImagePath.venuesHall,
-            width: double.infinity,
-            fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {},
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              ImagePath.venuesHall,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         Positioned(
@@ -125,7 +136,7 @@ class FeatureVenues extends StatelessWidget {
             decoration: BoxDecoration(
               color:
                   themeMode == ThemeMode.dark
-                      ? Color(0xffEBEBEB).withOpacity(0.50)
+                      ? Color(0xffB0C0D0)
                       : AppColors.primary,
               borderRadius: BorderRadius.circular(8),
             ),
@@ -136,6 +147,7 @@ class FeatureVenues extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
+                    color: Color(0xff32383D),
                   ),
                 ),
                 SizedBox(width: 4),
@@ -154,17 +166,20 @@ class FeatureVenues extends StatelessWidget {
         Positioned(
           top: 8,
           right: 8,
-          child: Container(
-            decoration: BoxDecoration(
-              color:
-                  themeMode == ThemeMode.dark
-                      ? Color(0xffEBEBEB).withValues(alpha: 50)
-                      : AppColors.primary,
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              child: Icon(Icons.favorite_border, size: 18),
+          child: GestureDetector(
+            onTap: onFavoriteToggle,
+            child: Container(
+              decoration: BoxDecoration(
+                color:
+                    themeMode == ThemeMode.dark
+                        ? Color(0xffB0C0D0)
+                        : AppColors.primary,
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(4),
+                child: Icon(Icons.favorite, size: 18),
+              ),
             ),
           ),
         ),

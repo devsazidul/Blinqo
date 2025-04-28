@@ -6,6 +6,7 @@ import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_view_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
@@ -205,7 +206,7 @@ class AppRoute {
     GetPage(name: spPaymentOptionCard, page: () => SpPaymentOptionCard()),
     GetPage(name: eventHomeScreen, page: () => EventHomeScreen()),
     GetPage(name: eventServicesScreen, page: () => EventServicesScreen()),
-    // GetPage(name: featuredVenuesScreen, page: () => FeaturedVenuesScreen()),
+    GetPage(name: featuredVenuesScreen, page: () => FeaturedVenuesScreen()),
     GetPage(name: venuesNearScreen, page: () => VenuesNearScreen()),
     GetPage(name: spProjectRequest, page: () => SpProjectRequest()),
     GetPage(name: spUpcomingProject, page: () => SpUpcomingProject()),

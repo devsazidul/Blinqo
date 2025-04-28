@@ -10,6 +10,8 @@ import 'package:blinqo/features/role/event_planner/payment_method/screen/final_r
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
+import 'featured_venues_screen.dart';
+
 class EventHomeNavigator extends StatelessWidget {
   const EventHomeNavigator({super.key});
 
@@ -30,18 +32,9 @@ class EventHomeNavigator extends StatelessWidget {
         }
         else if (settings.name == AppRoute.getfilterViewScreen()) {
           screens = FilterViewScreen();
-        }
-        else if (settings.name == AppRoute.geteventCongratulationScreen()) {
-          screens = EventCongratulationScreen();
-        }
-        else if (settings.name == AppRoute.getfinalReviewBookingDatieals()) {
-          screens = FinalReviewBookingDatieals();
-        }
-        else if (settings.name == AppRoute.geteventPaymentOption()) {
-          screens =EvenPaymentOption();
-        }
-
-        else {
+        } else if (settings.name == AppRoute.getfeaturedVenuesScreen()) {
+          screens = FeaturedVenuesScreen();
+        } else {
           screens = EventHomeScreen();
         }
         return MaterialPageRoute(builder: (context) => screens);

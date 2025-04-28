@@ -1,12 +1,13 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PaymentTransactionCard extends StatelessWidget {
-  final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
-   PaymentTransactionCard({super.key});
+  final bool isDarkMode = Get.put(ProfileController()).isDarkMode.value;
+  PaymentTransactionCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class PaymentTransactionCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color:isDarkMode ? Color(0xff32383D) : Colors.white,
+        color: isDarkMode ? Color(0xff32383D) : Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -25,10 +26,16 @@ class PaymentTransactionCard extends StatelessWidget {
             width: 48,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+              color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Image.asset(IconPath.cardimage),
+            child: Image.asset(
+              IconPath.cardimage,
+              color:
+                  isDarkMode
+                      ? AppColors.textFrieldDarkColor
+                      : AppColors.primary,
+            ),
           ),
           const SizedBox(width: 14),
           Column(
@@ -39,7 +46,7 @@ class PaymentTransactionCard extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                  color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                 ),
               ),
               Text(
@@ -47,7 +54,7 @@ class PaymentTransactionCard extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
-                  color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                  color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                 ),
               ),
               Text(
@@ -69,7 +76,7 @@ class PaymentTransactionCard extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                  color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                 ),
               ),
               Text(

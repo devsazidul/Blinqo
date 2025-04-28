@@ -12,6 +12,7 @@ class VenuesNearScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     debugPrint('screenWidth: $screenWidth');
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -51,7 +52,7 @@ class VenuesNearScreen extends StatelessWidget {
             childAspectRatio: _buildChildAspectRatio(screenWidth),
           ),
           itemBuilder: (context, index) {
-            return FeatureVenues(hasButton: false);
+            return FeatureVenues(hasButton: false, index: index);
           },
         ),
       ),
