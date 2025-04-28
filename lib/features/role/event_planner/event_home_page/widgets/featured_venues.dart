@@ -4,37 +4,33 @@ import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/controllers/featured_venues_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../event_compare/screen/add_compare.dart';
 
-class FeatureVenues extends StatelessWidget {
+class FeaturedVenuesCard extends StatelessWidget {
   final bool hasButton;
-  final bool? isColorChinge;
-  final int index;
+
+  final int? index;
 
   final bool? isFavorited;
-  final bool isVn;
 
   final VoidCallback? onFavoriteToggle;
-  const FeatureVenues({
+  const FeaturedVenuesCard({
     super.key,
     this.hasButton = true,
-    this.isColorChinge = false,
-    required this.index,
+
+    this.index,
     this.onFavoriteToggle,
     this.isFavorited,
-    this.isVn = false,
   });
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double cardWidth = screenWidth * 0.7;
-    double buttonFontSize = screenWidth <= 360 ? 14 : 16;
+    double buttonFontSize = screenWidth <= 360 ? 12 : 14;
 
     final ProfileController spUserProfileControler =
         Get.find<ProfileController>();
@@ -59,24 +55,19 @@ class FeatureVenues extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _venueImageSection(themeMode, isFavorited, index),
+            _venueImageSection(themeMode),
             SizedBox(height: 12),
             Row(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.to(EpVenueDetails());
-                  },
-                  child: Text(
-                    'The Grand Hall',
-                    style: getTextStyle(
-                      fontSize: buttonFontSize,
-                      fontWeight: FontWeight.w600,
-                      color:
-                          themeMode == ThemeMode.dark
-                              ? AppColors.borderColor2
-                              : AppColors.textColor,
-                    ),
+                Text(
+                  'The Grand Hall',
+                  style: getTextStyle(
+                    fontSize: buttonFontSize,
+                    fontWeight: FontWeight.w600,
+                    color:
+                        themeMode == ThemeMode.dark
+                            ? AppColors.borderColor2
+                            : AppColors.textColor,
                   ),
                 ),
                 SizedBox(width: 4.0),
@@ -92,9 +83,6 @@ class FeatureVenues extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Get.to(AddCompare());
-                // Get.put(
-                //   EpBottomNavController(),
-                // ).changeScreenWidget(AddCompare(), 0);
               },
               child: Text(
                 'Add to Compare',
@@ -108,28 +96,27 @@ class FeatureVenues extends StatelessWidget {
                 ),
               ),
             ),
-            hasButton
-                ? _venueBottomRow(buttonFontSize, themeMode, isColorChinge)
-                : SizedBox(),
+            hasButton ? _venueBottomRow(buttonFontSize, themeMode) : SizedBox(),
           ],
         ),
       );
     });
   }
 
-  Widget _venueImageSection(
-    ThemeMode themeMode,
-    final bool? isFavorited,
-    int? index,
-  ) {
+  Widget _venueImageSection(ThemeMode themeMode) {
     return Stack(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            ImagePath.venuesHall,
-            width: double.infinity,
-            fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {
+            Get.to(EpVenueDetails());
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              ImagePath.venuesHall,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         Positioned(
@@ -171,13 +158,7 @@ class FeatureVenues extends StatelessWidget {
           top: 8,
           right: 8,
           child: GestureDetector(
-            onTap: () {
-              if (isVn) {
-                Get.put(FeaturedVenuesController()).toggleFavouritevn(index!);
-              } else {
-                Get.put(FeaturedVenuesController()).toggleFavourite(index!);
-              }
-            },
+            onTap: onFavoriteToggle,
             child: Container(
               decoration: BoxDecoration(
                 color:
@@ -188,30 +169,11 @@ class FeatureVenues extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.all(4),
-                child: Obx(() {
-                  return isVn
-                      ? Icon(
-                        Get.put(
-                              FeaturedVenuesController(),
-                            ).vnIsFavorite[index ?? 0]
-                            ? Icons.favorite
-                            : Icons.favorite_outline,
-                        size: 18,
-                      )
-                      : Icon(
-                        Get.put(
-                              FeaturedVenuesController(),
-                            ).fvIsFavorite[index ?? 0]
-                            ? Icons.favorite
-                            : Icons.favorite_outline,
-                        size: 18,
-                      );
-                }),
+                child: Icon(Icons.favorite, size: 18),
               ),
             ),
           ),
         ),
-
         Positioned(
           bottom: 8,
           right: 8,
@@ -234,11 +196,7 @@ class FeatureVenues extends StatelessWidget {
     );
   }
 
-  Widget _venueBottomRow(
-    double buttonFontSize,
-    ThemeMode themeMode,
-    bool? isColorChinge,
-  ) {
+  Widget _venueBottomRow(double buttonFontSize, ThemeMode themeMode) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -267,11 +225,10 @@ class FeatureVenues extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             backgroundColor:
-                isColorChinge == true
-                    ? themeMode == ThemeMode.dark
-                        ? AppColors.buttonColor
-                        : AppColors.buttonColor2
+                themeMode == ThemeMode.dark
+                    ? AppColors.buttonColor
                     : AppColors.buttonColor2,
+
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -289,4 +246,17 @@ class FeatureVenues extends StatelessWidget {
       ],
     );
   }
+}
+
+class FavoriteController extends GetxController {
+  // Reactive map to store favorite state for each venue by index
+  var favoriteStates = <int, bool>{}.obs;
+
+  // Toggle favorite state for a given venue index
+  void toggleFavorite(int index) {
+    favoriteStates[index] = !(favoriteStates[index] ?? false);
+  }
+
+  // Check if a venue is favorited
+  bool isFavorited(int index) => favoriteStates[index] ?? false;
 }

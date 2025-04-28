@@ -8,7 +8,9 @@ import '../screens/ep_event_service_details.dart';
 class EventServiceCard extends StatelessWidget {
   final Service service;
 
-  const EventServiceCard({super.key, required this.service});
+  final ThemeMode? themeMode;
+
+  const EventServiceCard({super.key, required this.service, this.themeMode});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,10 @@ class EventServiceCard extends StatelessWidget {
           Text(
             service.label,
             style: getTextStyle(
-              color: AppColors.textColor,
+              color:
+                  themeMode == ThemeMode.dark
+                      ? AppColors.backgroundColor
+                      : AppColors.textColor,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
