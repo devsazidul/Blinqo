@@ -7,6 +7,7 @@ import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../event_compare/screen/add_compare.dart';
 
 class FeatureVenues extends StatelessWidget {
@@ -88,6 +89,9 @@ class FeatureVenues extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Get.to(AddCompare());
+                // Get.put(
+                //   EpBottomNavController(),
+                // ).changeScreenWidget(AddCompare(), 0);
               },
               child: Text(
                 'Add to Compare',
