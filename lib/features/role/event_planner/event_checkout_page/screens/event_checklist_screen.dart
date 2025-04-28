@@ -157,8 +157,7 @@ class EventChecklistScreen extends StatelessWidget {
             color:
                 themeMode == ThemeMode.dark
                     ? Colors.grey[800] // Contrasting background for dark mode
-                    : AppColors.primary ??
-                        Colors.blue, // Fallback for light mode
+                    : AppColors.primary,
             onSelected: (value) {
               if (value == 'Delete') {
                 controller.checklistItems.clear();
@@ -193,7 +192,7 @@ class EventChecklistScreen extends StatelessWidget {
                               themeMode == ThemeMode.dark
                                   ? Colors
                                       .white // Visible in dark mode
-                                  : AppColors.dopdownTextColor ?? Colors.black,
+                                  : AppColors.dopdownTextColor,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),
