@@ -1,3 +1,5 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -97,73 +99,162 @@ class EpEventServiceDetailsController extends GetxController {
 
   void filterProviders() {
     final query = searchQuery.value.toLowerCase();
-    if (query.isEmpty) {
-      serviceProviders.assignAll(allServiceProviders);
-    } else {
-      final filtered =
-          allServiceProviders.where((provider) {
-            final name = provider['name'].toString().toLowerCase();
-            return name.contains(query);
-          }).toList();
-      serviceProviders.assignAll(filtered);
-    }
+
+    var filtered =
+        allServiceProviders.where((provider) {
+          final name = provider['name'].toString().toLowerCase();
+          final matchesSearchQuery = name.contains(query);
+
+          final matchesLocation =
+              selectedLocation.value.isEmpty ||
+              provider['location'].toString().toLowerCase().contains(
+                selectedLocation.value.toLowerCase(),
+              );
+
+          final matchesArea =
+              selectedArea.value.isEmpty ||
+              provider['location'].toString().toLowerCase().contains(
+                selectedArea.value.toLowerCase(),
+              );
+
+          final matchesRating = provider['rating'] >= rating.value;
+
+          return matchesSearchQuery &&
+              matchesLocation &&
+              matchesArea &&
+              matchesRating;
+        }).toList();
+
+    serviceProviders.assignAll(filtered);
   }
 
   void showFilterDialog(BuildContext context) {
     Get.dialog(
       AlertDialog(
-        title: Text('Filter Service Providers'),
+        backgroundColor: AppColors.backgroundColor,
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Location & Area'),
+              Row(
+                children: [
+                  Image.asset(IconPath.eplocation, width: 18, height: 20),
+                  SizedBox(width: 10),
+                  Text(
+                    'Location',
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.textColor,
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
+                  Flexible(
                     child: Obx(
-                      () => DropdownButton<String>(
-                        value:
-                            selectedLocation.value.isEmpty
-                                ? null
-                                : selectedLocation.value,
-                        hint: Text('Select Location'),
-                        onChanged: (value) {
-                          selectedLocation.value = value!;
-                        },
-                        items:
-                            locations.map((location) {
-                              return DropdownMenuItem<String>(
-                                value: location,
-                                child: Text(location),
-                              );
-                            }).toList(),
+                      () => Container(
+                        padding: EdgeInsets.all(10),
+                        width: 155,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(blurRadius: 3, color: Colors.black12),
+                          ],
+                        ),
+                        child: DropdownButton<String>(
+                          value:
+                              selectedLocation.value.isEmpty
+                                  ? null
+                                  : selectedLocation.value,
+                          hint: Text(
+                            'City',
+                            style: getTextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.subTextColor,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
+                          onChanged: (value) {
+                            selectedLocation.value = value!;
+                          },
+                          items:
+                              locations.map((location) {
+                                return DropdownMenuItem<String>(
+                                  value: location,
+                                  child: Text(
+                                    location,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                );
+                              }).toList(),
+                          isExpanded: true,
+                          icon: Image.asset(
+                            IconPath.backButton,
+                            width: 16,
+                            height: 16,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
-
-                  Expanded(
+                  SizedBox(width: 8),
+                  Flexible(
                     child: Obx(
-                      () => DropdownButton<String>(
-                        value:
-                            selectedArea.value.isEmpty
-                                ? null
-                                : selectedArea.value,
-                        hint: Text('Select Area'),
-                        onChanged: (value) {
-                          selectedArea.value = value!;
-                        },
-                        items:
-                            areas.map((area) {
-                              return DropdownMenuItem<String>(
-                                value: area,
-                                child: Text(area),
-                              );
-                            }).toList(),
+                      () => Container(
+                        padding: EdgeInsets.all(10),
+                        width: 155,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(blurRadius: 3, color: Colors.black12),
+                          ],
+                        ),
+                        child: DropdownButton<String>(
+                          value:
+                              selectedArea.value.isEmpty
+                                  ? null
+                                  : selectedArea.value,
+                          hint: Text(
+                            'Area',
+                            style: getTextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.subTextColor,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
+                          onChanged: (value) {
+                            selectedArea.value = value!;
+                          },
+                          items:
+                              areas.map((area) {
+                                return DropdownMenuItem<String>(
+                                  value: area,
+                                  child: Text(
+                                    area,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                );
+                              }).toList(),
+                          isExpanded: true,
+                          icon: Image.asset(
+                            IconPath.backButton,
+                            width: 16,
+                            height: 16,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -171,20 +262,73 @@ class EpEventServiceDetailsController extends GetxController {
               ),
               SizedBox(height: 20),
 
-              // Ratings & Reviews Slider
-              Text('Ratings & Reviews'),
+              Row(
+                children: [
+                  Image.asset(IconPath.eprating, width: 18, height: 20),
+                  SizedBox(width: 10),
+                  Text(
+                    'Ratings & Reviews',
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.textColor,
+                    ),
+                  ),
+                ],
+              ),
               Obx(
                 () => Row(
                   children: [
-                    Text('${rating.value.toStringAsFixed(1)}'),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      width: 60,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                        color: AppColors.primary,
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            IconPath.ratingstart2,
+                            width: 14,
+                            height: 14,
+                          ),
+                          SizedBox(width: 10),
+                          Center(
+                            child: Text(
+                              rating.value.toStringAsFixed(1),
+                              style: getTextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: AppColors.textColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Expanded(
-                      child: Slider(
-                        min: 1.0,
-                        max: 5.0,
-                        value: rating.value,
-                        onChanged: (value) {
-                          rating.value = value;
-                        },
+                      child: SliderTheme(
+                        data: SliderThemeData(
+                          activeTrackColor: AppColors.buttonColor2,
+                          inactiveTrackColor: Color(0xffE0E0E0),
+                          thumbColor: AppColors.buttonColor2,
+                          overlayColor: Colors.blue.withOpacity(0.2),
+                          trackHeight: 4.0,
+                          thumbShape: RoundSliderThumbShape(
+                            enabledThumbRadius: 10,
+                          ),
+                        ),
+                        child: Slider(
+                          min: 1.0,
+                          max: 5.0,
+                          value: rating.value,
+                          onChanged: (value) {
+                            rating.value = value;
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -194,20 +338,63 @@ class EpEventServiceDetailsController extends GetxController {
 
               // Apply and Cancel Buttons
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Get.back(); // Close the dialog
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
                     },
-                    child: Text('Cancel'),
+                    child: Container(
+                      height: 48,
+                      width: 105,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: AppColors.buttonColor2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.transparent,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Cancel",
+                          style: getTextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textColor,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      filterProviders();
-                      Get.back(); // Close the dialog after applying filter
+                  SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {
+                      String selectedFilters =
+                          "Location: ${selectedLocation.value}, Area: ${selectedArea.value}, Rating: ${rating.value.toStringAsFixed(1)}";
+                      searchQuery.value = selectedFilters;
+                      filterProviders(); // Apply filters
+                      Get.back();
                     },
-                    child: Text('Apply'),
+                    child: Container(
+                      height: 48,
+                      width: 105,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                        color: AppColors.buttonColor2,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Apply",
+                          style: getTextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
