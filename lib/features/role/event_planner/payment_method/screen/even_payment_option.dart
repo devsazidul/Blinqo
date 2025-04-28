@@ -5,7 +5,7 @@ import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../controller/event_payment_controller.dart'; // Adjust the import path
 import '../services/event_strip_service.dart';
 import '../widget/event_payment_card.dart';
 
@@ -15,9 +15,11 @@ class EvenPaymentOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
+    Get.put(EventPaymentController()); // Initialize the controller
+
     return Scaffold(
       backgroundColor:
-          isDarkMode ? AppColors.darkBackgroundColor : Color(0xffF4F4F4),
+      isDarkMode ? AppColors.darkBackgroundColor : Color(0xffF4F4F4),
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         forceMaterialTransparency: true,
@@ -38,7 +40,6 @@ class EvenPaymentOption extends StatelessWidget {
             ),
           ),
         ),
-
         title: Text(
           'Payment Option',
           style: getTextStyle(
@@ -53,40 +54,42 @@ class EvenPaymentOption extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
-            spacing: 12,
             children: [
               SizedBox(height: 40),
               EventPaymentCard(
                 imagePath: IconPath.mastercard,
                 cardName: 'MasterCard',
                 isDarkMode: isDarkMode,
+                index: 0, // Pass index
               ),
               EventPaymentCard(
                 imagePath: IconPath.debitcard,
                 cardName: 'Debit Card',
                 isDarkMode: isDarkMode,
+                index: 1,
               ),
               EventPaymentCard(
                 imagePath: IconPath.cardvisa,
                 cardName: 'Visa',
                 isDarkMode: isDarkMode,
+                index: 2,
               ),
               EventPaymentCard(
                 imagePath: IconPath.paypalcard,
                 cardName: 'PayPal',
                 isDarkMode: isDarkMode,
+                index: 3,
               ),
               EventPaymentCard(
                 imagePath: IconPath.klarna,
                 cardName: 'Klarna',
                 isDarkMode: isDarkMode,
+                index: 4,
               ),
               SizedBox(height: 36),
-
-              // This is the button to add a new payment method
               GestureDetector(
                 onTap: () {
-                  EventStripService.instance.makePayment();
+                  EventStripService.instance.makePayment(context);
                 },
                 child: Container(
                   width: double.infinity,
@@ -111,8 +114,7 @@ class EvenPaymentOption extends StatelessWidget {
                   ),
                 ),
               ),
-
-              SizedBox(height: 30),
+              SizedBox(height: Get.height * 0.15),
             ],
           ),
         ),

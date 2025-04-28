@@ -1,4 +1,5 @@
 import 'package:blinqo/features/role/venue_owner/payment_page/public_private_key/public_private_stripe_key.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +16,7 @@ class EventStripService {
   EventStripService._();
   static final EventStripService instance = EventStripService._();
 
-  Future<void> makePayment() async {
+  Future<void> makePayment(BuildContext context) async {
     try {
       // Step 1: Create Payment Intent
       String? paymentClientSecret = await _createPaymentIntent(100, "USD");
@@ -42,11 +43,12 @@ class EventStripService {
 
       // Step 4: Navigate to ThankYouPage on success using GetX
       logger.i("Payment successful");
-      Get.to(
-        () => const EventCongratulationScreen(),
-        transition: Transition.rightToLeft,
-        duration: const Duration(milliseconds: 500),
-      );
+      // Get.to(
+      //   () => const EventCongratulationScreen(),
+      //   transition: Transition.rightToLeft,
+      //   duration: const Duration(milliseconds: 500),
+      // );
+      Navigator.pushNamed(context, EventCongratulationScreen.routeName);
     } catch (e) {
       // Show snackbar on failure using GetX
       Get.snackbar(

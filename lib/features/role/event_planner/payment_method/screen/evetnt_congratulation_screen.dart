@@ -12,6 +12,7 @@ import 'final_review_booking_datieals.dart';
 //     controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
 
 class EventCongratulationScreen extends StatelessWidget {
+  static const String routeName = '/event_congratulation_screen';
   const EventCongratulationScreen({super.key});
 
   @override
@@ -46,10 +47,10 @@ class EventCongratulationScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: Image.asset(
                     themeMode == ThemeMode.dark
-                        ? GifPath.epSuccessDark
-                        : GifPath.epSuccessLight,
+                        ? GifPath.successdark
+                        : GifPath.successlight,
                     width: MediaQuery.of(context).size.width,
-                    height: 325,
+                    height: MediaQuery.of(context).size.height * 0.35,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -95,7 +96,7 @@ class EventCongratulationScreen extends StatelessWidget {
             SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
-                Get.to(FinalReviewBookingDatieals());
+                Navigator.pushNamed(context, FinalReviewBookingDatieals.routeName);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xff003366), // Background color

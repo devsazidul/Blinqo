@@ -2,6 +2,8 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
+import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/booking_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -151,30 +153,35 @@ class BookingContainerCard extends StatelessWidget {
               ),
               SizedBox(height: sizedBoxHeight), // Dynamic SizedBox height
 
-              Row(
-                children: [
-                  Text(
-                    "Booking Details",
-                    style: getTextStyle(
-                      fontSize: subFontSize,
+              InkWell(
+                onTap: () {
+                  Get.to(ReviewBookingDetails());
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      "Booking Details",
+                      style: getTextStyle(
+                        fontSize: subFontSize,
+                        color:
+                            isDarkMode
+                                ? AppColors.buttonColor
+                                : AppColors.buttonColor2,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(width: sizedBoxWidth), // Dynamic SizedBox width
+                    Image.asset(
+                      IconPath.rightarrow,
+                      width: 16,
+                      height: 16,
                       color:
                           isDarkMode
                               ? AppColors.buttonColor
                               : AppColors.buttonColor2,
-                      fontWeight: FontWeight.w500,
                     ),
-                  ),
-                  SizedBox(width: sizedBoxWidth), // Dynamic SizedBox width
-                  Image.asset(
-                    IconPath.rightarrow,
-                    width: 16,
-                    height: 16,
-                    color:
-                        isDarkMode
-                            ? AppColors.buttonColor
-                            : AppColors.buttonColor2,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

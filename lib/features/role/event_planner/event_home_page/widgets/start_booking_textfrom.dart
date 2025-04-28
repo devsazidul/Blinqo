@@ -36,6 +36,7 @@ class StartBookingTextFrom extends StatelessWidget {
         ),
         SizedBox(height: screenHeight * 0.01),
         AuthCustomTextField(
+          borderRadius: 4,
           controller: bookingController.eventNameController,
           onChanged: (value) {},
           text: 'Event Name',
@@ -61,6 +62,7 @@ class StartBookingTextFrom extends StatelessWidget {
         ),
         SizedBox(height: screenHeight * 0.01),
         AuthCustomTextField(
+          borderRadius: 4,
           controller: bookingController.eventPlannerNameController,
           onChanged: (value) {},
           text: 'type event planner name',

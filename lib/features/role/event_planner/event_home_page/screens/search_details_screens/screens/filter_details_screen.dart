@@ -198,35 +198,60 @@ class FilterDetailsScreen extends StatelessWidget {
                 ],
               ),
               RatingsReviews(searchDetailsController: searchDetailsController),
-              Row(
-                children: [
-                  Obx(
-                    () => Radio(
-                      value: 0,
-                      groupValue: searchDetailsController.selectedTab.value,
-                      onChanged: (int? value) {
-                        if (value != null) {
-                          searchDetailsController.toggleTab(value);
-                        }
-                      },
-                      activeColor:
-                          isDarkMode
-                              ? AppColors.buttonColor
-                              : AppColors.buttonColor2,
-                    ),
+              Obx(
+                () => InkWell(
+                  onTap: () {
+                    searchDetailsController.toggleTab(0);
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 14,
+                        height: 14,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color:
+                                searchDetailsController.selectedTab.value == 0
+                                    ? (isDarkMode
+                                        ? AppColors.buttonColor
+                                        : AppColors.buttonColor2)
+                                    : Colors.grey,
+                            width: 2,
+                          ),
+                        ),
+                        child:
+                            searchDetailsController.selectedTab.value == 0
+                                ? Center(
+                                  child: Container(
+                                    width: 12,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color:
+                                          isDarkMode
+                                              ? AppColors.buttonColor
+                                              : AppColors.buttonColor2,
+                                    ),
+                                  ),
+                                )
+                                : null,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Verified',
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color:
+                              isDarkMode
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Verified',
-                    style: getTextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color:
-                          isDarkMode
-                              ? AppColors.borderColor2
-                              : AppColors.textColor,
-                    ),
-                  ),
-                ],
+                ),
               ),
               ToggleButton(),
               SizedBox(height: 58),

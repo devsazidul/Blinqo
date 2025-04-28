@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,8 @@ class OTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final femaleColorController = Get.find<PickColorController>();
+    final bool isFemale = femaleColorController.isFemale.value;
     return Scaffold(
       backgroundColor: AppColors.loginBg,
       body: SafeArea(
@@ -64,7 +67,10 @@ class OTPScreen extends StatelessWidget {
                     Text(
                       isSelect == 0 ? '****abc@gmal.com' : ' 0724****',
                       style: getTextStyle(
-                        color: AppColors.buttonColor2,
+                        color:
+                            isFemale
+                                ? femaleColorController.selectedColor
+                                : AppColors.buttonColor2,
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),
@@ -88,9 +94,14 @@ class OTPScreen extends StatelessWidget {
                   () => CustomButton(
                     title: 'Continue',
                     textColor:
-                        otpController.isFormValid.value
+                        otpController.isFormValid.value && isFemale
                             ? AppColors.primary
+                            : otpController.isFormValid.value && !isFemale
+                            ? AppColors.primary
+                            : !otpController.isFormValid.value && isFemale
+                            ? Color(0xFFEBA8B5)
                             : AppColors.buttonColor2,
+
                     onPress:
                         otpController.isFormValid.value
                             ? () {
@@ -98,11 +109,19 @@ class OTPScreen extends StatelessWidget {
                             }
                             : null,
                     backgroundColor:
-                        otpController.isFormValid.value
+                        otpController.isFormValid.value && isFemale
+                            ? femaleColorController.selectedColor
+                            : otpController.isFormValid.value && !isFemale
                             ? AppColors.buttonColor2
+                            : !otpController.isFormValid.value && isFemale
+                            ? femaleColorController.selectedColor.withValues(
+                              alpha: 0.1,
+                            )
                             : AppColors.buttonColor2.withValues(alpha: 0.1),
                     borderColor:
-                        otpController.isFormValid.value
+                        isFemale
+                            ? Colors.transparent
+                            : otpController.isFormValid.value
                             ? AppColors.buttonColor2
                             : AppColors.buttonColor2.withValues(alpha: 0.1),
                   ),

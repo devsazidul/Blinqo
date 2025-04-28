@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
 class EventPaymentController extends GetxController {
-  RxBool isSelected = false.obs;
+  RxInt selectedIndex = (-1).obs; // -1 means no selection initially
 
-  void toggleSelection() {
-    isSelected.value = !isSelected.value;
+  void selectPaymentOption(int index) {
+    selectedIndex.value = index; // Update the selected index
   }
 }

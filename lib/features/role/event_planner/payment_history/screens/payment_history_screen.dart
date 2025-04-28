@@ -1,22 +1,21 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/venue_owner/payment_page/widgets/v_payment_app_bar.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/payment_history/widget/payment_appbar.dart';
 import 'package:blinqo/features/role/venue_owner/venue_payment_history/widgets/payment_transaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class PaymentHistoryScreen extends StatelessWidget {
-  const PaymentHistoryScreen({super.key});
+class EvenPaymentHistoryScreen extends StatelessWidget {
+  const EvenPaymentHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode = Get.put(ProfileController()).isDarkMode.value;
     return Scaffold(
       backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xffF4F4F4),
-      appBar: VPaymentAppBar(title: 'Payment History'),
+      appBar: PaymentAppBar(title: 'Payment History'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -41,7 +40,7 @@ class PaymentHistoryScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildPosition(
-                        title: 'Total Payment',
+                        title: 'Total Revenue',
                         value: 1500,
                         fontSize: 32,
                       ),
@@ -73,11 +72,11 @@ class PaymentHistoryScreen extends StatelessWidget {
 
                   Row(
                     children: [
-                      _buildPosition(title: 'Total Payment', value: 3000),
+                      _buildPosition(title: 'This Month', value: 3000),
                       Spacer(),
                       _buildPosition(
-                        title: 'Withdraw Balance',
-                        value: 4000,
+                        title: 'Withdrawable Balance',
+                        value: 3000,
                         crossAxisAlignment: CrossAxisAlignment.center,
                       ),
                     ],

@@ -1,9 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:step_indicator_package/step_indicator.dart';
 
 import '../../../../../core/utils/constants/colors.dart';
 import '../../event_home_page/sharch_start_booking/widget/revies_card.dart';
@@ -12,10 +15,17 @@ import '../widget/ever_review_booking_details_section.dart';
 import '../widget/reviews_text.dart';
 
 class ReviewBooking extends StatelessWidget {
+  static const String routeName = '/reviewBooking';
   const ReviewBooking({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final stepController = StepIndicatorController(maxSteps: 3);
+    Future.delayed(Duration(milliseconds: 300), () {
+      stepController.setStep(1);
+    });
+
     // Get screen width and height for responsive design
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -34,7 +44,6 @@ class ReviewBooking extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: screenHeight * 0.02),
               ShearchStartBookingPage(),
 
               Padding(
@@ -45,20 +54,33 @@ class ReviewBooking extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.02),
                     ReviesCard(themeMode: themeMode),
                     SizedBox(height: screenHeight * 0.02),
-                    SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.all(10),
-                            child: Text("Ac"),
-                          );
-                        },
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Booking Timeline',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffD4AF37)
+                              : Color(0xff003285),
+                        ),
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.02),
-
+                    SizedBox(height: 20),
+                    StepIndicator(
+                      controller:  stepController,
+                      activeColor: themeMode == ThemeMode.dark
+                          ? Color(0xffD4AF37)
+                          : Color(0xff003285),
+                      activeLineColor: themeMode == ThemeMode.dark
+                          ? Color(0xffD4AF37)
+                          : Color(0xff003285),
+                      circleRadius: 18,
+                      paddingHorizontal: 60,
+                      showNavigationButtons: false,
+                    ),
                     Center(
                       child: Text(
                         "Jhon's Birthday",
@@ -186,7 +208,7 @@ class ReviewBooking extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          "proceed to payment",
+                          "Proceed to payment",
                           style: getTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -205,6 +227,7 @@ class ReviewBooking extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 14),
                           elevation: 0,
                           backgroundColor:
                               themeMode == ThemeMode.dark
@@ -236,7 +259,7 @@ class ReviewBooking extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.1),
+                    SizedBox(height: screenHeight * 0.15),
                   ],
                 ),
               ),

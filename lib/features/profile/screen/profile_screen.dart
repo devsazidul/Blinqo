@@ -4,11 +4,13 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
-import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
 import 'package:blinqo/features/role/event_planner/payment_history/screens/payment_history_screen.dart';
+import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 
 class MainProfileScreen extends StatelessWidget {
   const MainProfileScreen({super.key});
@@ -26,6 +28,9 @@ class MainProfileScreen extends StatelessWidget {
 
           appBar: CustomAppBarWidget(
             title: "Profile",
+            onPressed: () {
+              Get.offAll(EventBottomNavBar());
+            },
             actions: [
               IconButton(
                 icon: Image.asset(
@@ -220,7 +225,7 @@ class MainProfileScreen extends StatelessWidget {
           title: "Payment Historty",
           iconPath: IconPath.paymentHistory,
           onTap: () {
-            Get.to(PaymentHistoryScreen());
+            Get.to(EvenPaymentHistoryScreen());
           },
         ),
         _buildSettingsTile(
@@ -228,7 +233,7 @@ class MainProfileScreen extends StatelessWidget {
           title: "Switch Role",
           iconPath: IconPath.switchRole,
           onTap: () {
-            Get.to(InvitationCardScreen());
+            Get.offAll(() => const RoleScreen());
           },
         ),
         //* Colors

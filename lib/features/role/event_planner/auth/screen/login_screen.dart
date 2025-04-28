@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/login_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
@@ -17,6 +18,10 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final PickColorController femaleColorController = Get.put(
+      PickColorController(),
+    );
+    final bool isFemale = femaleColorController.isFemale.value;
     return Scaffold(
       backgroundColor: AppColors.loginBg,
       appBar: AppBar(
@@ -102,18 +107,30 @@ class LogInScreen extends StatelessWidget {
                   () => CustomButton(
                     title: 'Log In',
                     textColor:
-                        loginController.isFromValid.value
+                        loginController.isFromValid.value && isFemale
                             ? AppColors.primary
+                            : loginController.isFromValid.value && !isFemale
+                            ? AppColors.primary
+                            : !loginController.isFromValid.value && isFemale
+                            ? Color(0xFFEBA8B5)
                             : AppColors.buttonColor2,
                     onPress: () {
                       Get.to((EventBottomNavBar()));
                     },
                     backgroundColor:
-                        loginController.isFromValid.value
+                        loginController.isFromValid.value && isFemale
+                            ? femaleColorController.selectedColor
+                            : loginController.isFromValid.value && !isFemale
                             ? AppColors.buttonColor2
+                            : !loginController.isFromValid.value && isFemale
+                            ? femaleColorController.selectedColor.withValues(
+                              alpha: 0.1,
+                            )
                             : AppColors.buttonColor2.withValues(alpha: 0.1),
                     borderColor:
-                        loginController.isFromValid.value
+                        isFemale
+                            ? Colors.transparent
+                            : loginController.isFromValid.value
                             ? AppColors.buttonColor2
                             : AppColors.buttonColor2.withValues(alpha: 0.1),
                   ),
@@ -156,7 +173,10 @@ class LogInScreen extends StatelessWidget {
                       child: Text(
                         "Sign Up",
                         style: getTextStyle(
-                          color: AppColors.buttonColor2,
+                          color:
+                              isFemale
+                                  ? femaleColorController.selectedColor
+                                  : AppColors.buttonColor2,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),

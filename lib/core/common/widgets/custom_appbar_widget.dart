@@ -35,14 +35,12 @@ class CustomAppBarWidget extends StatelessWidget
           leading: Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: onPressed,
               child: CircleAvatar(
                 backgroundColor:
                     isDarkMode
-                        ? Color(0xFFD9D9D9).withAlpha(40)
-                        : const Color(0xFFD9D9D9),
+                        ? Color(0xFFD9D9D9).withValues( alpha: 0.4)
+                        : const Color(0xFFD9D9D9).withValues( alpha: 0.4),
                 child: Image.asset(
                   IconPath.arrowLeftAlt,
                   width: 16,

@@ -249,14 +249,13 @@ class EpVenueDetails extends StatelessWidget {
                           bottom: 10,
                           right: 10,
                           child: FloatingActionButton(
-                            onPressed: () {
-                              if (profileController.mapController != null) {
-                                profileController.mapController!.animateCamera(
-                                  CameraUpdate.newLatLng(
-                                    profileController.center,
-                                  ),
-                                );
-                              }
+                            onPressed: () async {
+                              await profileController.mapController
+                                  .animateCamera(
+                                    CameraUpdate.newLatLng(
+                                      profileController.center,
+                                    ),
+                                  );
                             },
                             backgroundColor: Colors.white,
                             mini: true,

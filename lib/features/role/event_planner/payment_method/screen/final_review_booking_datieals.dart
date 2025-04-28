@@ -2,22 +2,29 @@ import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/utils/styles.dart';
+import 'package:blinqo/features/role/event_planner/invitation/screens/guest_list_screen.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
+import 'package:blinqo/features/role/event_planner/review_booking/widget/reviews_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:step_indicator_package/step_indicator.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
 import '../../event_home_page/sharch_start_booking/widget/revies_card.dart';
-import '../../payment_method/screen/evetnt_congratulation_screen.dart';
 import '../../review_booking/widget/ever_review_booking_details_section.dart';
-import '../../review_booking/widget/reviews_text.dart';
 
 class FinalReviewBookingDatieals extends StatelessWidget {
+  static const String routeName = '/final_review_booking_datieals';
+
   const FinalReviewBookingDatieals({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final stepController = StepIndicatorController(maxSteps: 3);
+    Future.delayed(Duration(milliseconds: 300), () {
+      stepController.setStep(2);
+    });
     // Get screen width and height for responsive design
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -40,11 +47,16 @@ class FinalReviewBookingDatieals extends StatelessWidget {
                 children: [
                   Image.asset(
                     'assets/images/bookingDetails.jpg',
-                    height: 326,
+                    height: screenHeight * 0.4,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
-                  CustomAppBarWidget(title: "Booking Details"),
+                  CustomAppBarWidget(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    title: "Booking Details",
+                  ),
                 ],
               ),
               // SizedBox(height: screenHeight * 0.02),
@@ -54,10 +66,39 @@ class FinalReviewBookingDatieals extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: screenHeight * 0.02),
-                    ReviesCard(themeMode: themeMode),
+                    ReviesCard(isPriceVisible: false, themeMode: themeMode),
 
                     SizedBox(height: screenHeight * 0.02),
-
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Booking Timeline',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Color(0xffD4AF37)
+                                  : Color(0xff003285),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    StepIndicator(
+                      controller: stepController,
+                      activeColor:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffD4AF37)
+                              : Color(0xff003285),
+                      activeLineColor:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffD4AF37)
+                              : Color(0xff003285),
+                      allowCircleTap: false,
+                      circleRadius: 18,
+                      paddingHorizontal: 60,
+                      showNavigationButtons: false,
+                    ),
                     Center(
                       child: Text(
                         "Jhon's Birthday",
@@ -220,7 +261,10 @@ class FinalReviewBookingDatieals extends StatelessWidget {
 
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(InvitationCardScreen());
+                          Navigator.pushNamed(
+                            context,
+                            InvitationCardScreen.routeName,
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
@@ -248,7 +292,10 @@ class FinalReviewBookingDatieals extends StatelessWidget {
 
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.to(EventCongratulationScreen());
+                          Navigator.pushNamed(
+                            context,
+                            GuestListScreen.routeName,
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
@@ -263,7 +310,7 @@ class FinalReviewBookingDatieals extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          "Invite Guest",
+                          "Guest List",
                           style: getTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -275,7 +322,7 @@ class FinalReviewBookingDatieals extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.01),
+                    SizedBox(height: screenHeight * 0.15),
                   ],
                 ),
               ),

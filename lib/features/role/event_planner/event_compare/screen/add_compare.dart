@@ -1,359 +1,186 @@
-import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/bottom_nav_bar/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../core/utils/constants/icon_path.dart';
-import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 
 class AddCompare extends StatelessWidget {
-  const AddCompare({super.key});
-
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    final SpProfileController spUserProfileControler =
-        Get.find<SpProfileController>();
-    double fontSize = screenWidth > 600 ? 15 : 13;
-    double paddingValue = screenWidth > 600 ? 16.0 : 8.0;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final ProfileController profileController = Get.find<ProfileController>();
+    final themeMode =
+        profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
 
-    return Obx(() {
-      final themeMode =
-          spUserProfileControler.isDarkMode.value
-              ? ThemeMode.dark
-              : ThemeMode.light;
-
-      return Scaffold(
-        backgroundColor:
-            themeMode == ThemeMode.dark
-                ? Colors.black
-                : AppColors.backgroundColor,
-        appBar: AppBar(
-          backgroundColor: AppColors.backgroundColor,
-          forceMaterialTransparency: true,
-          leading: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: CircleAvatar(
-              backgroundColor:
-                  themeMode == ThemeMode.dark
-                      ? AppColors.primary.withValues(alpha: 0.1)
-                      : AppColors.textColor.withValues(alpha: 0.15),
-              child: IconButton(
-                padding: EdgeInsets.all(0),
-                icon: Icon(
-                  Icons.arrow_back,
-                  color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.primary
-                          : AppColors.textColor,
-                ),
-
-                onPressed: () => Get.back(),
-              ),
-            ),
-          ),
-          title: Text(
-            'Compare',
-            style: getTextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color:
-                  themeMode == ThemeMode.dark
-                      ? AppColors.backgroundColor
-                      : AppColors.textColor,
-            ),
-          ),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(paddingValue),
-            child: Table(
-              border: TableBorder.all(color: Colors.blueGrey, width: 1.5),
-              children: [
-                TableRow(
-                  children: [
-                    _buildEmptyCell(),
-                    _buildHeaderCell(
-                      fontSize: fontSize,
-                      text: "Grand Elegance Hall",
-                    ),
-
-                    _buildHeaderCell(
-                      fontSize: fontSize,
-                      text: "Grand Elegance Hall",
-                    ),
-                  ],
-                ),
-
-                TableRow(
-                  children: [
-                    _buildEmptyCell(),
-                    _buildHeaderCell(fontSize: 16.0, isImageShow: true),
-
-                    _buildHeaderCell(fontSize: 16.0, isImageShow: true),
-                  ],
-                ),
-
-                TableRow(
-                  children: [
-                    _buildCell(
-                      'Location',
-                      fontSize,
-                      isColorChinged: true,
-                      themeMode: themeMode,
-                    ),
-                    _buildCellWithIcon(
-                      Icons.location_on,
-                      'Downtown City Center',
-                      fontSize,
-                      themeMode: themeMode,
-                    ),
-                    _buildCellWithIcon(
-                      Icons.location_on,
-                      'Suburban Riverfront',
-                      fontSize,
-                      themeMode: themeMode,
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    _buildCell(
-                      'Capacity',
-                      fontSize,
-                      isColorChinged: true,
-                      themeMode: themeMode,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      'Upto 300 Guests',
-                      fontSize,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      'Upto 200 Guests',
-                      fontSize,
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    _buildCell(
-                      'Pricing & Packages',
-                      fontSize,
-                      isColorChinged: true,
-                      themeMode: themeMode,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      '\$5,000 for 8 hours',
-                      fontSize,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      '\$3,500 for 6 hours',
-                      fontSize,
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    _buildCell(
-                      'Catering Options',
-                      fontSize,
-                      isColorChinged: true,
-                      themeMode: themeMode,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      'In-house catering with customizable menus',
-                      fontSize,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      'External catering allowed',
-                      fontSize,
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    _buildCell(
-                      'Parking Space',
-                      fontSize,
-                      isColorChinged: true,
-                      themeMode: themeMode,
-                    ),
-                    _buildCell(themeMode: themeMode, '100 car slots', fontSize),
-                    _buildCell(themeMode: themeMode, '50 car slots', fontSize),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    _buildCell(
-                      'Review',
-                      fontSize,
-                      isColorChinged: true,
-                      themeMode: themeMode,
-                    ),
-                    _buildCell(themeMode: themeMode, '4.5/5', fontSize),
-                    _buildCell(themeMode: themeMode, '4.7/5', fontSize),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    _buildCell(
-                      'Availability',
-                      fontSize,
-                      isColorChinged: true,
-                      themeMode: themeMode,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      'Open on weekends',
-                      fontSize,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      'Flexible weekdays and weekends',
-                      fontSize,
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    _buildCell(
-                      'Extra Services',
-                      fontSize,
-                      isColorChinged: true,
-                      themeMode: themeMode,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      'Event planning support and preferred vendor list',
-                      fontSize,
-                    ),
-                    _buildCell(
-                      themeMode: themeMode,
-                      'On-site event coordination and floral design options',
-                      fontSize,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    });
-  }
-
-  Widget _buildHeaderCell({
-    required double fontSize,
-    String? text,
-
-    bool? isImageShow,
-  }) {
-    return Container(
-      color:
-          isImageShow == true
-              ? AppColors.appBarIcolor
+    return Scaffold(
+      backgroundColor:
+          themeMode == ThemeMode.dark
+              ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
-      padding: EdgeInsets.all(12.0),
-      child:
-          isImageShow == true
-              ? Padding(
-                padding: const EdgeInsets.all(27.0),
-                child: Image.asset(
-                  IconPath.imagePath,
-                  width: 5,
-                  color: Colors.grey,
-                ),
-              )
-              : Align(
-                alignment: Alignment.center,
-                child: Text(
-                  text ?? "",
-                  textAlign: TextAlign.center,
+      appBar: CustomAppBarWidget(title: 'Compare', onPressed: () => Get.back()),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              // Horizontal ScrollView for the Table
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: screenHeight),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 25,
+                      ),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Table(
+                          border: TableBorder.all(color: Colors.grey.shade700),
+                          columnWidths: const {
+                            0: FixedColumnWidth(153.0),
+                            1: FixedColumnWidth(153.0),
+                            2: FixedColumnWidth(153.0),
+                          },
 
-                  style: getTextStyle(
-                    color: AppColors.buttonColor2,
-                    fontWeight: FontWeight.bold,
-                    fontSize: fontSize,
+                          defaultVerticalAlignment:
+                              TableCellVerticalAlignment.middle,
+                          children: [
+                            _buildTableRow([
+                              '',
+                              'Grand Elegance Hall',
+                              'Grand Elite Hall',
+                            ], isHeader: true),
+
+                            // generate unsplash images url list
+                            _buildTableRow([
+                              '',
+                              'https://plus.unsplash.com/premium_photo-1664530452358-d50d2d4a98d1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8d2VkZGluZyUyMHZhbnVlJTIwaGFsbHxlbnwwfHwwfHx8MA%3D%3D',
+                              'https://plus.unsplash.com/premium_photo-1664530452329-42682d3a73a7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2VkZGluZyUyMHZhbnVlJTIwaGFsbHxlbnwwfHwwfHx8MA%3D%3D',
+                            ], isImageShow: true),
+                            _buildTableRow([
+                              'Location',
+                              'Downtown City Center',
+                              'Suburban Riverside',
+                            ], isIcon: true),
+                            _buildTableRow([
+                              'Capacity',
+                              'Up to 300 Guests',
+                              'Up to 200 Guests',
+                            ]),
+                            _buildTableRow([
+                              'Pricing & Packages',
+                              '\$5,000 for 8 hours',
+                              '\$3,500 for 6 hours',
+                            ]),
+                            _buildTableRow([
+                              'Catering Options',
+                              'In-house catering with customizable menus',
+                              'External catering allowed',
+                            ]),
+                            _buildTableRow([
+                              'Parking Space',
+                              '100 car slots',
+                              '50 car slots',
+                            ]),
+                            _buildTableRow(['Review', '4.5/5', '4.7/5']),
+                            _buildTableRow([
+                              'Availability',
+                              'Open on weekends',
+                              'Flexible weekdays and weekends',
+                            ]),
+                            _buildTableRow([
+                              'Extra Services',
+                              'Event planning support and preferred vendor list',
+                              'On-site coordination and floral decor options',
+                            ]),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-    );
-  }
 
-  Widget _buildCell(
-    String text,
-    double fontSize, {
-    bool? isColorChinged,
-    ThemeMode? themeMode,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(5.0),
-      child: Text(
-        text,
-        textAlign: TextAlign.start,
-        style: getTextStyle(
-          color:
-              isColorChinged == true
-                  ? AppColors.buttonColor2
-                  : AppColors.textColor,
-          fontSize: fontSize,
-          fontWeight:
-              isColorChinged == true ? FontWeight.w600 : FontWeight.normal,
-        ),
-      ),
-    );
-  }
+              SizedBox(height: 50),
+            ],
+          ),
 
-  Widget _buildCellWithIcon(
-    IconData icon,
-    String text,
-    double fontSize, {
-    ThemeMode? themeMode,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.start, // Start alignment for the row
-        children: [
-          Image.asset(
-            IconPath.locationOnPath,
-            color: AppColors.locationIconColor,
-            width: 10,
-          ),
-          SizedBox(width: 8),
-          Flexible(
-            child: Text(
-              text,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                color:
-                    themeMode == ThemeMode.dark
-                        ? AppColors.backgroundColor
-                        : Colors.black87,
-                fontSize: fontSize,
-              ),
-            ),
-          ),
+          Positioned(bottom: 0, left: 0, right: 0, child: EpBottomNavBar()),
         ],
       ),
     );
   }
 
-  // Helper function to build empty cell for spacing
-  Widget _buildEmptyCell() {
-    return Container(
-      color: Colors.blueGrey[50], // Light background for the empty cell
-      child: SizedBox(
-        width: 1, // Empty cell with no content
-      ),
+  TableRow _buildTableRow(
+    List<String> cells, {
+    bool isHeader = false,
+    bool isIcon = false,
+    bool isImageShow = false,
+  }) {
+    bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
+    final femaleColorController = Get.put(PickColorController());
+    final bool isFemale = femaleColorController.isFemale.value;
+    return TableRow(
+      children:
+          cells.map((cell) {
+            return isImageShow
+                ? cell == ""
+                    ? SizedBox()
+                    : Image.network(cell)
+                : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (isIcon && cells.indexOf(cell) == 1 ||
+                            isIcon && cells.indexOf(cell) == 2)
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 2.0,
+                              right: 4.0,
+                            ),
+                            child: Icon(
+                              Icons.location_on_outlined,
+                              color: Color(0xFF8A8A8A),
+                              size: 16,
+                            ),
+                          ),
+                        Expanded(
+                          child: Text(
+                            cell,
+                            style: TextStyle(
+                              color:
+                                  isDarkMode
+                                      ? Colors.white
+                                      : (isHeader && isFemale) ||
+                                          (cells.indexOf(cell) == 0 && isFemale)
+                                      ? femaleColorController.selectedColor
+                                      : Colors.black,
+
+                              // isDarkMode
+                              //     ? Color(0xFF003336)
+                              //     : AppColors.backgroundColor,
+                              fontWeight:
+                                  isHeader
+                                      ? FontWeight.w600
+                                      : cells.indexOf(cell) == 0
+                                      ? FontWeight.w600
+                                      : FontWeight.normal,
+                              fontSize: 14.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+          }).toList(),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:step_indicator_package/step_indicator.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
 import '../../event_home_page/sharch_start_booking/widget/revies_card.dart';
@@ -17,25 +18,34 @@ class ReviewBookingDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stepController = StepIndicatorController(maxSteps: 3);
+    Future.delayed(Duration(milliseconds: 300), () {
+      stepController.setStep(2);
+    });
     // Get screen width and height for responsive design
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
     final controller = Get.find<ProfileController>();
     return Obx(() {
       final themeMode =
-          controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+      controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
 
       return Scaffold(
         backgroundColor:
-            themeMode == ThemeMode.dark
-                ? AppColors.darkBackgroundColor
-                : AppColors.buttonBuckdownColor2,
+        themeMode == ThemeMode.dark
+            ? AppColors.darkBackgroundColor
+            : AppColors.buttonBuckdownColor2,
 
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: screenHeight * 0.02),
               ShearchStartBookingPage(),
 
               Padding(
@@ -47,14 +57,43 @@ class ReviewBookingDetails extends StatelessWidget {
                     ReviesCard(themeMode: themeMode),
 
                     SizedBox(height: screenHeight * 0.02),
-
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Booking Timeline',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffD4AF37)
+                              : Color(0xff003285),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    StepIndicator(
+                      controller: stepController,
+                      activeColor: themeMode == ThemeMode.dark
+                          ? Color(0xffD4AF37)
+                          : Color(0xff003285),
+                      activeLineColor: themeMode == ThemeMode.dark
+                          ? Color(0xffD4AF37)
+                          : Color(0xff003285),
+                      circleRadius: 18,
+                      paddingHorizontal: 60,
+                      showNavigationButtons: false,
+                    ),
                     Center(
                       child: Text(
                         "Jhon's Birthday",
                         style: getTextStyle(
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff003285),
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w600,
+                            color:
+                            themeMode == ThemeMode.dark
+                                ? Color(0xffD4AF37)
+                                : Color(0xff003285),
                         ),
                       ),
                     ),
@@ -68,9 +107,9 @@ class ReviewBookingDetails extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         color:
-                            themeMode == ThemeMode.dark
-                                ? Color(0xff32383D)
-                                : AppColors.primary,
+                        themeMode == ThemeMode.dark
+                            ? Color(0xff32383D)
+                            : AppColors.primary,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
@@ -84,9 +123,9 @@ class ReviewBookingDetails extends StatelessWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color:
-                                    themeMode == ThemeMode.dark
-                                        ? AppColors.buttonColor
-                                        : AppColors.buttonColor2,
+                                themeMode == ThemeMode.dark
+                                    ? AppColors.buttonColor
+                                    : AppColors.buttonColor2,
                               ),
                             ),
                             SizedBox(height: screenHeight * 0.02),
@@ -152,9 +191,9 @@ class ReviewBookingDetails extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         color:
-                            themeMode == ThemeMode.dark
-                                ? Color(0xff32383D)
-                                : AppColors.primary,
+                        themeMode == ThemeMode.dark
+                            ? Color(0xff32383D)
+                            : AppColors.primary,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
@@ -168,9 +207,9 @@ class ReviewBookingDetails extends StatelessWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color:
-                                    themeMode == ThemeMode.dark
-                                        ? AppColors.buttonColor
-                                        : AppColors.buttonColor2,
+                                themeMode == ThemeMode.dark
+                                    ? AppColors.buttonColor
+                                    : AppColors.buttonColor2,
                               ),
                             ),
                             SizedBox(height: screenHeight * 0.02),
@@ -214,9 +253,10 @@ class ReviewBookingDetails extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 14),
                           elevation: 0,
                           backgroundColor:
-                              AppColors.buttonColor2, // Your custom color
+                          AppColors.buttonColor2, // Your custom color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                               12.r,
@@ -224,7 +264,7 @@ class ReviewBookingDetails extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          "proceed to payment",
+                          "Proceed to payment",
                           style: getTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -242,18 +282,19 @@ class ReviewBookingDetails extends StatelessWidget {
                           Get.to(EventCongratulationScreen());
                         },
                         style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 14),
                           elevation: 0,
                           backgroundColor:
-                              themeMode == ThemeMode.dark
-                                  ? AppColors.darkBackgroundColor
-                                  : AppColors
-                                      .backgroundColor, // Your custom color
+                          themeMode == ThemeMode.dark
+                              ? AppColors.darkBackgroundColor
+                              : AppColors
+                              .backgroundColor, // Your custom color
                           shape: RoundedRectangleBorder(
                             side: BorderSide(
                               color:
-                                  themeMode == ThemeMode.dark
-                                      ? AppColors.darkBackgroundColor
-                                      : AppColors.buttonColor2,
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.darkBackgroundColor
+                                  : AppColors.buttonColor2,
                             ),
                             borderRadius: BorderRadius.circular(
                               12.r,
@@ -266,14 +307,14 @@ class ReviewBookingDetails extends StatelessWidget {
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                             color:
-                                themeMode == ThemeMode.dark
-                                    ? AppColors.primary
-                                    : AppColors.buttonColor2,
+                            themeMode == ThemeMode.dark
+                                ? AppColors.primary
+                                : AppColors.buttonColor2,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.1),
+                    SizedBox(height: screenHeight * 0.15),
                   ],
                 ),
               ),

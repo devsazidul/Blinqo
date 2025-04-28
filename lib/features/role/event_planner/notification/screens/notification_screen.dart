@@ -12,7 +12,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
-    final List<int> ids = [3, 5, 9];
+    final List<int> ids = [3, 4, 5, 9];
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -31,7 +31,13 @@ class NotificationScreen extends StatelessWidget {
         itemCount: 15,
         itemBuilder: (context, index) {
           return ListTile(
-            tileColor: ids.contains(index) ? Color(0xffDEEAFF) : null,
+            contentPadding: EdgeInsets.symmetric(horizontal: 20),
+            tileColor:
+                ids.contains(index)
+                    ? Color(0xffDEEAFF)
+                    : isDarkMode
+                    ? Color(0xff32383D)
+                    : null,
             leading: CircleAvatar(
               radius: 22,
               // image form unsplash
@@ -44,7 +50,10 @@ class NotificationScreen extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Color(0xff333333),
+                color:
+                    !ids.contains(index) && isDarkMode
+                        ? Color(0xffEBEBEB)
+                        : Color(0xff333333),
               ),
             ),
             subtitle: Text(

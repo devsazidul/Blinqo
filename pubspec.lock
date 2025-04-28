@@ -1274,6 +1274,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.1"
+  step_indicator_package:
+    dependency: "direct main"
+    description:
+      name: step_indicator_package
+      sha256: "403361746c3bf4f35f73beaec608dd5253ccb945ee243c7bf0f9e4ca1daddb63"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   stream_channel:
     dependency: transitive
     description:
