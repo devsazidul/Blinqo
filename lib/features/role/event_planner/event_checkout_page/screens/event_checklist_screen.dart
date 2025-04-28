@@ -46,7 +46,7 @@ class EventChecklistScreen extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.010),
               Text(
-                'Noting Found!',
+                'Nothing Found!',
                 style: getTextStyle(
                   fontSize: screenWidth > 600 ? 20 : 16,
                   fontWeight: FontWeight.w600,

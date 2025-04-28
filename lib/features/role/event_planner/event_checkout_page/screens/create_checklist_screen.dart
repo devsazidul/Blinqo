@@ -3,6 +3,9 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_checkout_page/model/checklist_model.dart';
+import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/check_venue.dart';
+import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/controllers/checkvenue_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -288,9 +291,30 @@ class CreateChecklistScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed:
                           isEnabled
-                              ? () {
-                                controller.saveChecklist();
-                              }
+                              ? (){
+     controller.checklistItems.add(
+  ChecklistModel(
+    eventName: controller.eventName.value,
+    taskName: controller.taskName.value,
+    taskDate: controller.selectedDate.value,
+    taskTime: controller.selectedTime.value,
+    venue: controller.eventName.value, // 🔥 eventName as venue
+    isCompleted: false,
+    isUrgent: false,
+  ),
+);
+
+        // Optional: Clear fields after saving
+        controller.clearFields();
+
+        // Navigate to CheckVenue page
+        Get.to(() => CheckVenue(
+          eventName: controller.eventName.value,
+          taskName: controller.taskName.value,
+          selectedDate: controller.getFormattedDate(),
+          selectedTime: controller.getFormattedTime(context),
+        ));
+      }
                               : null,
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
