@@ -97,6 +97,13 @@ class EpEventServiceDetails extends StatelessWidget {
                     onChanged: (value) {
                       epServiceDetailsController.searchQuery.value = value;
                     },
+                    style: getTextStyle(
+                      fontSize: 16,
+                      color:
+                          isDarkMode
+                              ? AppColors.primary
+                              : AppColors.subTextColor2,
+                    ),
                     decoration: InputDecoration(
                       hintText: "Search Service Provider.......",
                       hintStyle: getTextStyle(
