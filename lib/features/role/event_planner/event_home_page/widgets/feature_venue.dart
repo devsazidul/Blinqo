@@ -8,7 +8,6 @@ import 'package:blinqo/features/role/event_planner/event_home_page/controllers/f
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../event_compare/screen/add_compare.dart';
 
 class FeatureVenues extends StatelessWidget {

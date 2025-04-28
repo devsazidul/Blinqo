@@ -5,13 +5,11 @@ import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/revies_card.dart'
     show ReviesCard;
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
-import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:step_indicator_package/step_indicator.dart';
-import '../../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../../home/controller/booking_controller.dart';
 import '../../widgets/enent_type_dopdown_button.dart';
 import '../../widgets/stark_booking_additional_services.dart';
@@ -79,22 +77,23 @@ class SearchStartBooking extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color:themeMode == ThemeMode.dark
-                              ? Color(0xffD4AF37)
-                              : Color(0xff003285),
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Color(0xffD4AF37)
+                                  : Color(0xff003285),
                         ),
                       ),
                     ),
                     SizedBox(height: 20),
                     StepIndicator(
                       activeColor:
-                      themeMode == ThemeMode.dark
-                          ? Color(0xffD4AF37)
-                          : Color(0xff003285),
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffD4AF37)
+                              : Color(0xff003285),
                       activeLineColor:
-                      themeMode == ThemeMode.dark
-                          ? Color(0xffD4AF37)
-                          : Color(0xff003285),
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffD4AF37)
+                              : Color(0xff003285),
                       circleRadius: 18,
                       paddingHorizontal: 60,
                       showNavigationButtons: false,
@@ -294,8 +293,8 @@ class SearchStartBooking extends StatelessWidget {
 
                     SizedBox(height: screenHeight * 0.05),
                     StartBookingButton(
-                      onTapContinue: (){
-                        Navigator.pushNamed(context, ReviewBooking.routeName );
+                      onTapContinue: () {
+                        Navigator.pushNamed(context, ReviewBooking.routeName);
                       },
                       screenHeight: screenHeight,
                       themeMode: themeMode,

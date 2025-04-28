@@ -96,7 +96,7 @@ class CustomTotalRevenueCard extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    "\$${thisMonth}",
+                    "\$$thisMonth",
                     style: getTextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
@@ -118,7 +118,7 @@ class CustomTotalRevenueCard extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    "\$${withdrawableBalance}",
+                    "\$$withdrawableBalance",
                     style: getTextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,

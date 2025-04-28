@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:permission_handler/permission_handler.dart';
-
-class  TeamControllerGetx extends GetxController {
-   final teamList = <Map<String, String>>[].obs;
-     var searchQuery = ''.obs;
-      List<Map<String, String>> get filteredTeamList {
+class TeamControllerGetx extends GetxController {
+  final teamList = <Map<String, String>>[].obs;
+  var searchQuery = ''.obs;
+  List<Map<String, String>> get filteredTeamList {
     if (searchQuery.value.trim().isEmpty) return teamList;
     final q = searchQuery.value.toLowerCase();
-    final matched = teamList.where((m) {
-      final fullName = '${m['firstName']} ${m['lastName']}'.toLowerCase();
-      return fullName.contains(q);
-    }).toList();
-    final unmatched = teamList.where((m) {
-      final fullName = '${m['firstName']} ${m['lastName']}'.toLowerCase();
-      return !fullName.contains(q);
-    }).toList();
+    final matched =
+        teamList.where((m) {
+          final fullName = '${m['firstName']} ${m['lastName']}'.toLowerCase();
+          return fullName.contains(q);
+        }).toList();
+    final unmatched =
+        teamList.where((m) {
+          final fullName = '${m['firstName']} ${m['lastName']}'.toLowerCase();
+          return !fullName.contains(q);
+        }).toList();
     return [...matched, ...unmatched];
   }
 
@@ -25,33 +25,40 @@ class  TeamControllerGetx extends GetxController {
     searchQuery.value = val;
   }
 
-  void addTeamMember({required String firstName, required String lastName, required String role}) {
-  teamList.add({
-    'firstName': firstName,
-    'lastName': lastName,
-    'role': role,
-  });
-}
-void updateTeamMember(int index, String firstName, String lastName, String role) {
-  teamList[index] = {
-    'firstName': firstName,
-    'lastName': lastName,
-    'role': role,
-  };
-  update(); // GetX UI রিফ্রেশ করবে
-}
-void addTeamMembercontact(Map<String, String> member) {
-  teamList.add(member);  // টিম লিস্টে নতুন মেম্বার যোগ
-  updateSearch('');      // সার্চ রিফ্রেশ
-}
+  void addTeamMember({
+    required String firstName,
+    required String lastName,
+    required String role,
+  }) {
+    teamList.add({'firstName': firstName, 'lastName': lastName, 'role': role});
+  }
+
+  void updateTeamMember(
+    int index,
+    String firstName,
+    String lastName,
+    String role,
+  ) {
+    teamList[index] = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'role': role,
+    };
+    update(); // GetX UI রিফ্রেশ করবে
+  }
+
+  void addTeamMembercontact(Map<String, String> member) {
+    teamList.add(member); // টিম লিস্টে নতুন মেম্বার যোগ
+    updateSearch(''); // সার্চ রিফ্রেশ
+  }
 
   void clearTeam() {
     teamList.clear();
   }
+
   var selectedIndex = 0.obs;
   var selectedDate = DateTime.now().obs;
   var containerList = <Map<String, String>>[].obs;
-
 
   void changeTab(int index) {
     selectedIndex.value = index;
@@ -73,6 +80,7 @@ void addTeamMembercontact(Map<String, String> member) {
     super.onInit();
     loadTestData(); // Auto-load test data
   }
+
   Rx<TimeOfDay?> startTime = Rx<TimeOfDay?>(null);
   Rx<TimeOfDay?> endTime = Rx<TimeOfDay?>(null);
 
@@ -108,5 +116,4 @@ void addTeamMembercontact(Map<String, String> member) {
       }
     }
   }
-
 }

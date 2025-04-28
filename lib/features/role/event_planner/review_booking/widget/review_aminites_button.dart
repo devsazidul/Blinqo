@@ -1,15 +1,11 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:flutter/material.dart';
 
 class AmenityButton extends StatelessWidget {
   final String icon;
   final String label;
 
-  const AmenityButton({super.key,
-    required this.icon,
-    required this.label,
-  });
+  const AmenityButton({super.key, required this.icon, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +20,12 @@ class AmenityButton extends StatelessWidget {
             blurRadius: 3,
             offset: Offset(0, 3),
           ),
-        ]
+        ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(icon , width: 16, height: 16),
+          Image.asset(icon, width: 16, height: 16),
           SizedBox(width: 6),
           Text(
             label,

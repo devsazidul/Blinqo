@@ -209,7 +209,7 @@ class EventChecklistScreen extends StatelessWidget {
                           color:
                               themeMode == ThemeMode.dark
                                   ? Colors.white
-                                  : AppColors.dopdownTextColor ?? Colors.black,
+                                  : AppColors.dopdownTextColor,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),
@@ -226,7 +226,7 @@ class EventChecklistScreen extends StatelessWidget {
                           color:
                               themeMode == ThemeMode.dark
                                   ? Colors.white
-                                  : AppColors.dopdownTextColor ?? Colors.black,
+                                  : AppColors.dopdownTextColor,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),
@@ -243,7 +243,7 @@ class EventChecklistScreen extends StatelessWidget {
                           color:
                               themeMode == ThemeMode.dark
                                   ? Colors.white
-                                  : AppColors.dopdownTextColor ?? Colors.black,
+                                  : AppColors.dopdownTextColor,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),

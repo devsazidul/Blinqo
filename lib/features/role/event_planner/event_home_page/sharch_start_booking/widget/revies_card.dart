@@ -7,7 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ReviesCard extends StatelessWidget {
   final ThemeMode themeMode;
   final bool isPriceVisible;
-  const ReviesCard({super.key, required this.themeMode, this.isPriceVisible=true});
+  const ReviesCard({
+    super.key,
+    required this.themeMode,
+    this.isPriceVisible = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +20,9 @@ class ReviesCard extends StatelessWidget {
 
     // Define scaling factors based on screen width
     final titleFontSize = screenWidth < 400 ? 20.0 : 24.0;
-    final priceFontSize = screenWidth < 400 ? 14.0 : 16.0;
     final ratingFontSize = screenWidth < 400 ? 12.0 : 14.0;
     final reviewsFontSize = screenWidth < 400 ? 10.0 : 12.0;
     final locationFontSize = screenWidth < 400 ? 12.0 : 14.0;
-
-    // Adjust padding based on screen size
-    final horizontalPadding = screenWidth < 400 ? 20.0 : 22.0;
-    final verticalPadding = screenWidth < 400 ? 14.0 : 16.0;
 
     return Column(
       children: [
@@ -52,27 +51,27 @@ class ReviesCard extends StatelessWidget {
               ),
             ),
 
-           // isPriceVisible? Container(
-           //    padding: EdgeInsets.symmetric(
-           //      horizontal: horizontalPadding,
-           //      vertical: verticalPadding,
-           //    ),
-           //    decoration: BoxDecoration(
-           //      color: Color(0x1A003366),
-           //      borderRadius: BorderRadius.circular(12.r),
-           //    ),
-           //    child: Text(
-           //      "\$ Set Price",
-           //      style: getTextStyle(
-           //        fontSize: priceFontSize.sp,
-           //        fontWeight: FontWeight.w500,
-           //        color:
-           //            themeMode == ThemeMode.dark
-           //                ? AppColors.buttonColor
-           //                : AppColors.buttonColor2,
-           //      ),
-           //    ),
-           //  ):Container(),
+            // isPriceVisible? Container(
+            //    padding: EdgeInsets.symmetric(
+            //      horizontal: horizontalPadding,
+            //      vertical: verticalPadding,
+            //    ),
+            //    decoration: BoxDecoration(
+            //      color: Color(0x1A003366),
+            //      borderRadius: BorderRadius.circular(12.r),
+            //    ),
+            //    child: Text(
+            //      "\$ Set Price",
+            //      style: getTextStyle(
+            //        fontSize: priceFontSize.sp,
+            //        fontWeight: FontWeight.w500,
+            //        color:
+            //            themeMode == ThemeMode.dark
+            //                ? AppColors.buttonColor
+            //                : AppColors.buttonColor2,
+            //      ),
+            //    ),
+            //  ):Container(),
           ],
         ),
         SizedBox(height: 15.0.h), // Use .h for responsive height

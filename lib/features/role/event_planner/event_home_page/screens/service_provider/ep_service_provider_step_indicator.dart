@@ -30,7 +30,6 @@ class EpServiceProviderStepIndicator extends StatelessWidget {
               if (index.isEven) {
                 int stepIndex = index ~/ 2;
                 bool isCompleted = stepIndex < current;
-                bool isCurrent = stepIndex == current;
 
                 return Column(
                   children: [
