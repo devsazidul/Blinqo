@@ -3,15 +3,15 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/ep_chat_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_service_provider_controller/ep_custom_calender.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_service_provider_controller/ep_service_provider_booking_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_porovider_booking_screen2.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_step_indicator.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart'
     as eventPlanner;
-import 'package:blinqo/features/role/service_provider/service_booking_page/widget/sp_custom_calender.dart';
-import 'package:blinqo/features/role/service_provider/service_booking_page/widget/sp_status_label.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/ep_status_label.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:step_indicator_package/step_indicator.dart';
 
 class EpServiceProviderBookingScreen1 extends StatelessWidget {
   final EpServiceProviderBookingController controller = Get.put(
@@ -61,6 +61,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = profileController.isDarkMode.value;
+    final myController = StepIndicatorController(maxSteps: 3);
+    Future.delayed(Duration(milliseconds: 400), () {
+      myController.setStep(0);
+    });
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -76,12 +80,15 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
             },
             child: CircleAvatar(
               radius: 20,
-              backgroundColor: AppColors.appBarIcolor,
+              backgroundColor:
+                  isDarkMode
+                      ? AppColors.primary.withValues(alpha: .10)
+                      : AppColors.appBarIcolor,
               child: Image.asset(
                 IconPath.arrowleft,
                 width: 20,
                 height: 20,
-                color: AppColors.textColor,
+                color: isDarkMode ? AppColors.primary : AppColors.textColor,
               ),
             ),
           ),
@@ -91,7 +98,7 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: AppColors.textColor,
+            color: isDarkMode ? AppColors.primary : AppColors.textColor,
           ),
         ),
         centerTitle: true,
@@ -117,10 +124,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               'Ronald Richards',
-              style: TextStyle(
+              style: getTextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF003285),
+                color: isDarkMode ? AppColors.primary : AppColors.buttonColor2,
               ),
             ),
             SizedBox(height: 5),
@@ -132,29 +139,65 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                   width: 16,
                   height: 16,
                   fit: BoxFit.cover,
+                  color:
+                      isDarkMode ? AppColors.primary : AppColors.subTextColor,
                 ),
                 SizedBox(width: 10),
-                const Text('Radio Colony, Savar'),
+                Text(
+                  'Radio Colony, Savar',
+                  style: getTextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                  ),
+                ),
               ],
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('4.5'),
+                Text(
+                  '4.5',
+                  style: getTextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                  ),
+                ),
                 SizedBox(width: 4),
-                Image.asset(IconPath.ratinglogo, width: 11, height: 12),
+                Image.asset(
+                  IconPath.ratinglogo,
+                  width: 11,
+                  height: 12,
+                  color:
+                      isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                ),
                 SizedBox(width: 30),
-                const Text('Project - 10'),
+                Text(
+                  'Project - 10',
+                  style: getTextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                  ),
+                ),
               ],
             ),
 
-            const SizedBox(height: 15),
+            SizedBox(height: 15),
 
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Color(0xFF003366),
-                backgroundColor: Color(0xFFE6EBF0),
+                foregroundColor:
+                    isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+                backgroundColor:
+                    isDarkMode
+                        ? AppColors.buttonColor.withValues(alpha: .10)
+                        : AppColors.chatBackground,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -165,40 +208,72 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(IconPath.messageicon, width: 20, height: 20),
+                  Image.asset(
+                    IconPath.messageicon,
+                    width: 20,
+                    height: 20,
+                    color:
+                        isDarkMode
+                            ? AppColors.buttonColor
+                            : AppColors.buttonColor2,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     "Message",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    style: getTextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color:
+                          isDarkMode
+                              ? AppColors.buttonColor
+                              : AppColors.buttonColor2,
+                    ),
                   ),
                 ],
               ),
             ),
 
             SizedBox(height: 20),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [EpServiceProviderStepIndicator()],
+            Text(
+              "Booking Timeline",
+              style: getTextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color:
+                    isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+              ),
             ),
+            SizedBox(height: 20),
+            StepIndicator(
+              controller: myController,
+              allowCircleTap: false,
+              circleRadius: 18,
+              paddingHorizontal: 60,
+              showNavigationButtons: false,
+              activeLineColor:
+                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+              activeColor:
+                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+            ),
+
             SizedBox(height: 20),
             Text(
               "Availability",
               style: getTextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: AppColors.textColor,
+                color: isDarkMode ? AppColors.primary : AppColors.textColor,
               ),
             ),
             SizedBox(height: 16),
-            SpCustomCalender(
+            EpCustomCalender(
               selectedDatesNotifier: eventPlanner.selectedDatesNotifier,
             ),
             SizedBox(height: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SpStatusLabel(
+                EpStatusLabel(
                   color:
                       isDarkMode
                           ? AppColors.darkCalendarColor
@@ -206,7 +281,7 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                   label: 'Booked',
                 ),
                 SizedBox(height: 8),
-                SpStatusLabel(
+                EpStatusLabel(
                   color:
                       isDarkMode
                           ? AppColors.darkCalendarColor2
@@ -236,7 +311,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: AppColors.textColor,
+                            color:
+                                isDarkMode
+                                    ? AppColors.primary
+                                    : AppColors.subTextColor,
                           ),
                         ),
                         Text(
@@ -294,6 +372,7 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
+                  controller.currentStep.value = 2;
                   Get.to(() => EpServicePoroviderBookingScreen2());
                 },
                 style: ElevatedButton.styleFrom(
@@ -318,6 +397,7 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
   }
 
   Widget _buildFormFields(BuildContext context) {
+    bool isDarkMode = profileController.isDarkMode.value;
     return Column(
       children: [
         _buildTextField('Event Name', controller.eventName),
@@ -333,7 +413,8 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: AppColors.dopdownTextColor,
+              color:
+                  isDarkMode ? AppColors.primary : AppColors.dopdownTextColor,
             ),
           ),
         ),
@@ -342,7 +423,7 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
         Obx(
           () => Container(
             decoration: BoxDecoration(
-              color: Color(0x26979797),
+              color: isDarkMode ? Color(0x26979797) : Color(0x26979797),
               borderRadius: BorderRadius.circular(4),
             ),
             child: ListTile(
@@ -352,8 +433,22 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                 width: 24,
                 height: 24,
                 fit: BoxFit.cover,
+                color:
+                    isDarkMode
+                        ? AppColors.buttonColor
+                        : AppColors.dopdownTextColor,
               ),
-              title: Text("Selecte a day"),
+              title: Text(
+                "Selecte a day",
+                style: getTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color:
+                      isDarkMode
+                          ? AppColors.subTextColor2
+                          : AppColors.dopdownTextColor,
+                ),
+              ),
               subtitle: Text(
                 controller.selectedDate.value == null
                     ? 'Select Date'
@@ -363,7 +458,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
-                  color: AppColors.dopdownTextColor,
+                  color:
+                      isDarkMode
+                          ? AppColors.buttonColor
+                          : AppColors.dopdownTextColor,
                 ),
               ),
               trailing: Image.asset(
@@ -371,6 +469,8 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                 width: 24,
                 height: 24,
                 fit: BoxFit.cover,
+                color:
+                    isDarkMode ? AppColors.primary : AppColors.dopdownTextColor,
               ),
               onTap: () => _selectDate(context),
             ),
@@ -384,7 +484,8 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: AppColors.dopdownTextColor,
+              color:
+                  isDarkMode ? AppColors.primary : AppColors.dopdownTextColor,
             ),
           ),
         ),
@@ -412,6 +513,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                         width: 18,
                         height: 18,
                         fit: BoxFit.cover,
+                        color:
+                            isDarkMode
+                                ? AppColors.buttonColor
+                                : AppColors.dopdownTextColor,
                       ),
                       Column(
                         children: [
@@ -420,7 +525,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
-                              color: AppColors.textColor,
+                              color:
+                                  isDarkMode
+                                      ? AppColors.primary
+                                      : AppColors.textColor,
                             ),
                           ),
                           Text(
@@ -428,7 +536,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: AppColors.buttonColor2,
+                              color:
+                                  isDarkMode
+                                      ? AppColors.buttonColor
+                                      : AppColors.buttonColor2,
                             ),
                           ),
                         ],
@@ -438,6 +549,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                         width: 24,
                         height: 24,
                         fit: BoxFit.cover,
+                        color:
+                            isDarkMode
+                                ? AppColors.primary
+                                : AppColors.buttonColor2,
                       ),
                     ],
                   ),
@@ -465,6 +580,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                           width: 18,
                           height: 18,
                           fit: BoxFit.cover,
+                          color:
+                              isDarkMode
+                                  ? AppColors.buttonColor
+                                  : AppColors.dopdownTextColor,
                         ),
                         Column(
                           children: [
@@ -473,7 +592,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
-                                color: AppColors.textColor,
+                                color:
+                                    isDarkMode
+                                        ? AppColors.primary
+                                        : AppColors.textColor,
                               ),
                             ),
                             Text(
@@ -481,7 +603,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: AppColors.buttonColor2,
+                                color:
+                                    isDarkMode
+                                        ? AppColors.buttonColor
+                                        : AppColors.buttonColor2,
                               ),
                             ),
                           ],
@@ -491,6 +616,10 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                           width: 24,
                           height: 24,
                           fit: BoxFit.cover,
+                          color:
+                              isDarkMode
+                                  ? AppColors.primary
+                                  : AppColors.buttonColor2,
                         ),
                       ],
                     ),
@@ -514,7 +643,8 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: AppColors.dopdownTextColor,
+              color:
+                  isDarkMode ? AppColors.primary : AppColors.dopdownTextColor,
             ),
           ),
         ),
@@ -536,6 +666,9 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                 controller.eventType.value = newValue!;
               },
               isExpanded: true,
+
+              dropdownColor:
+                  isDarkMode ? AppColors.textColor : AppColors.backgroundColor,
               items:
                   <String>[
                     'Birthday',
@@ -544,7 +677,17 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(
+                        value,
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color:
+                              isDarkMode
+                                  ? AppColors.primary
+                                  : AppColors.textColor,
+                        ),
+                      ),
                     );
                   }).toList(),
             ),
@@ -555,6 +698,7 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
   }
 
   Widget _buildTextField(String label, RxString controller) {
+    bool isDarkMode = profileController.isDarkMode.value;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -565,12 +709,19 @@ class EpServiceProviderBookingScreen1 extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: AppColors.dopdownTextColor,
+              color:
+                  isDarkMode ? AppColors.primary : AppColors.dopdownTextColor,
             ),
           ),
           SizedBox(height: 8),
           TextField(
             onChanged: (value) => controller.value = value,
+            style: getTextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color:
+                  isDarkMode ? AppColors.primary : AppColors.dopdownTextColor,
+            ),
             decoration: InputDecoration(
               hintText: label,
               border: OutlineInputBorder(

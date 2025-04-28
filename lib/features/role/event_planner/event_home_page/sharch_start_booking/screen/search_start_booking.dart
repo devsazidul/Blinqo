@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:step_indicator_package/step_indicator_package.dart';
+import 'package:step_indicator_package/step_indicator.dart';
 import '../../../../service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import '../../../home/controller/booking_controller.dart';
 import '../../widgets/enent_type_dopdown_button.dart';
