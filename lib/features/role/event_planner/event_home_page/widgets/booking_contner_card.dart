@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/booking_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -154,7 +155,7 @@ class BookingContainerCard extends StatelessWidget {
 
               InkWell(
                 onTap: () {
-                 Get.to(BookingDetailsPage());
+                  Get.to(ReviewBookingDetails());
                 },
                 child: Row(
                   children: [

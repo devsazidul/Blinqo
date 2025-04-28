@@ -31,29 +31,7 @@ class BookingList extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         forceMaterialTransparency: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20.0 * screenWidthFactor),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: CircleAvatar(
-              backgroundColor:
-                  isDarkMode
-                      ? Colors.white.withValues(alpha: 0.1)
-                      : Color(0xff000000).withValues(alpha: 0.15),
-              child: Image.asset(
-                IconPath.arrowLeftAlt,
-                width: 16 * screenWidthFactor,
-                height: 12 * screenHeightFactor,
-                color:
-                    isDarkMode
-                        ? AppColors.primary
-                        : AppColors.appBarArrowIconColor,
-              ),
-            ),
-          ),
-        ),
+
         title: Text(
           'Booking',
           style: getTextStyle(

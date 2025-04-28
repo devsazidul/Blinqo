@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReviesCard extends StatelessWidget {
   final ThemeMode themeMode;
-  const ReviesCard({super.key, required this.themeMode});
+  final bool isPriceVisible;
+  const ReviesCard({super.key, required this.themeMode, this.isPriceVisible=true});
 
   @override
   Widget build(BuildContext context) {
@@ -51,27 +52,27 @@ class ReviesCard extends StatelessWidget {
               ),
             ),
 
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: horizontalPadding,
-                vertical: verticalPadding,
-              ),
-              decoration: BoxDecoration(
-                color: Color(0x1A003366),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Text(
-                "\$ Set Price",
-                style: getTextStyle(
-                  fontSize: priceFontSize.sp,
-                  fontWeight: FontWeight.w500,
-                  color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.buttonColor
-                          : AppColors.buttonColor2,
-                ),
-              ),
-            ),
+           // isPriceVisible? Container(
+           //    padding: EdgeInsets.symmetric(
+           //      horizontal: horizontalPadding,
+           //      vertical: verticalPadding,
+           //    ),
+           //    decoration: BoxDecoration(
+           //      color: Color(0x1A003366),
+           //      borderRadius: BorderRadius.circular(12.r),
+           //    ),
+           //    child: Text(
+           //      "\$ Set Price",
+           //      style: getTextStyle(
+           //        fontSize: priceFontSize.sp,
+           //        fontWeight: FontWeight.w500,
+           //        color:
+           //            themeMode == ThemeMode.dark
+           //                ? AppColors.buttonColor
+           //                : AppColors.buttonColor2,
+           //      ),
+           //    ),
+           //  ):Container(),
           ],
         ),
         SizedBox(height: 15.0.h), // Use .h for responsive height

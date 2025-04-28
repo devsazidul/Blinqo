@@ -22,11 +22,10 @@ class EventBottomNavBar extends StatelessWidget {
     final List<Widget> pages = [
       EventHomeNavigator(),
       EventChecklistScreen(),
-      // BookingList(),
       BookingNavigator(),
       EpChatScreen(),
       ProfileNavigator(),
-      SpProfilePage(),
+
     ];
     double screenWidth = MediaQuery.of(context).size.width;
     double iconSize = screenWidth < 700 ? 60 : 70;

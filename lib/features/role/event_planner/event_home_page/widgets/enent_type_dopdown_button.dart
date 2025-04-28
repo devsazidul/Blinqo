@@ -48,7 +48,7 @@ class EventTypeDopdownButton extends StatelessWidget {
         // Dropdown for selecting event type with no icon, only text
         SizedBox(
           height: 52,
-          width: 343,
+          width: double.infinity,
           child: DropdownButtonFormField<String>(
             dropdownColor:
                 themeMode == ThemeMode.dark
@@ -66,7 +66,7 @@ class EventTypeDopdownButton extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4.r),
+                borderRadius: BorderRadius.circular(4),
                 borderSide: BorderSide(
                   color: AppColors.dopdownTextColor,
                   width: 1,

@@ -39,8 +39,8 @@ class CustomAppBarWidget extends StatelessWidget
               child: CircleAvatar(
                 backgroundColor:
                     isDarkMode
-                        ? Color(0xFFD9D9D9).withAlpha(40)
-                        : const Color(0xFFD9D9D9),
+                        ? Color(0xFFD9D9D9).withValues( alpha: 0.4)
+                        : const Color(0xFFD9D9D9).withValues( alpha: 0.4),
                 child: Image.asset(
                   IconPath.arrowLeftAlt,
                   width: 16,

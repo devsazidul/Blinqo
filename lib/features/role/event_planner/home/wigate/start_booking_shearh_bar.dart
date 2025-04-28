@@ -1,6 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class StartBookingShearshBar extends StatelessWidget {
   const StartBookingShearshBar({
@@ -18,6 +20,7 @@ class StartBookingShearshBar extends StatelessWidget {
   final void Function()? onTap;
 
   final void Function(String)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,16 +43,9 @@ class StartBookingShearshBar extends StatelessWidget {
                     fontSize: 14,
                   ),
                   filled: true,
-                  suffixIcon: Icon(
-                    Icons.mic_none,
-                    color:
-                        themeMode == ThemeMode.dark
-                            ? AppColors.buttonColor
-                            : AppColors.buttonColor2,
-                  ),
                   fillColor:
                       themeMode == ThemeMode.dark
-                          ? AppColors.iconBackground
+                          ? Color(0xff32383D)
                           : AppColors.primary,
 
                   border: OutlineInputBorder(
@@ -70,13 +66,18 @@ class StartBookingShearshBar extends StatelessWidget {
             SizedBox(width: screenWidth * 0.02),
 
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.to(FilterDetailsScreen());
+              },
               child: Container(
-                height: screenHeight * 0.08,
+                height: screenHeight * 0.07,
                 width: screenHeight * 0.07,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: AppColors.iconBackground,
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? Color(0xff32383D)
+                          : AppColors.iconBackground,
                 ),
                 child: Icon(
                   Icons.tune,
