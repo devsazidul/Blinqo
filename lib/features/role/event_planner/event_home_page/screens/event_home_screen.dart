@@ -4,7 +4,6 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/eventCard.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
@@ -28,7 +27,6 @@ class EventHomeScreen extends StatelessWidget {
 
     final ProfileController profileController = Get.find<ProfileController>();
     return Obx(() {
-      // Get the current theme mode (light or dark)
       final themeMode =
           profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
 
@@ -90,7 +88,10 @@ class EventHomeScreen extends StatelessWidget {
                       'Venues Near You',
                       themeMode,
                       onTap: () {
-                        Get.to(VenuesNearScreen());
+                        Navigator.pushNamed(
+                          context,
+                          AppRoute.getvenuesNearScreen(),
+                        );
                       },
                     ),
                     _buildVenueNearYouList(context),
@@ -103,7 +104,7 @@ class EventHomeScreen extends StatelessWidget {
                         Get.to(EventServicesScreen());
                       },
                     ),
-                    _eventServicesList(context),
+                    _eventServicesList(context, themeMode),
                     SizedBox(height: 20),
                   ],
                 );
@@ -210,7 +211,11 @@ class EventHomeScreen extends StatelessWidget {
         children: List.generate(5, (index) {
           return Padding(
             padding: EdgeInsets.only(right: 16),
-            child: FeatureVenues(isColorChinge: false),
+            child: FeatureVenues(
+              isColorChinge: false,
+              index: index,
+              isVn: true,
+            ),
           );
         }),
       ),
@@ -218,7 +223,7 @@ class EventHomeScreen extends StatelessWidget {
   }
 
   // Event Services
-  Widget _eventServicesList(BuildContext context) {
+  Widget _eventServicesList(BuildContext context, ThemeMode themeMode) {
     final List<Service> services = [
       Service(imagePath: IconPath.epphotograph, label: 'Photography'),
       Service(imagePath: IconPath.epvideography, label: 'Videography'),
@@ -236,7 +241,7 @@ class EventHomeScreen extends StatelessWidget {
         separatorBuilder: (context, index) => SizedBox(width: 16),
         itemBuilder: (context, index) {
           final service = services[index];
-          return EventServiceCard(service: service);
+          return EventServiceCard(service: service, themeMode: themeMode);
         },
       ),
     );

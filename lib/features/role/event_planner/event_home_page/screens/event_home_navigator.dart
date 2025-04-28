@@ -7,6 +7,7 @@ import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import 'featured_venues_screen.dart';
+import 'venues_near_screen.dart';
 
 class EventHomeNavigator extends StatelessWidget {
   const EventHomeNavigator({super.key});
@@ -26,6 +27,8 @@ class EventHomeNavigator extends StatelessWidget {
           screens = FilterViewScreen();
         } else if (settings.name == AppRoute.getfeaturedVenuesScreen()) {
           screens = FeaturedVenuesScreen();
+        } else if (settings.name == AppRoute.getvenuesNearScreen()) {
+          screens = VenuesNearScreen();
         } else {
           screens = EventHomeScreen();
         }
