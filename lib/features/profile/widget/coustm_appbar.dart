@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,9 @@ import 'package:get/get.dart';
 class CoustmAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(56);
+  final ProfileController themeController = Get.put(ProfileController());
 
-  const CoustmAppbar({
+  CoustmAppbar({
     super.key,
     this.title,
     this.isMoreVertIcon = true,
@@ -23,8 +25,8 @@ class CoustmAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    bool isDarkMode = themeController.isDarkMode.value;
+
     return AppBar(
       backgroundColor: AppColors.backgroundColor,
       forceMaterialTransparency: true,

@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/controller/ep_venuw_details_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_venue_details_custom_review_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,21 @@ class EpAllReviews extends StatelessWidget {
   final EpVenuwDetailsController epVenuwDetailsController = Get.put(
     EpVenuwDetailsController(),
   );
+  final ProfileController themeController = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = themeController.isDarkMode.value;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       appBar: AppBar(
+        backgroundColor:
+            isDarkMode
+                ? AppColors.darkBackgroundColor
+                : AppColors.backgroundColor,
         forceMaterialTransparency: true,
         leading: GestureDetector(
           onTap: () {
@@ -25,12 +36,15 @@ class EpAllReviews extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20.0),
             child: CircleAvatar(
               radius: 20,
-              backgroundColor: AppColors.textColor.withValues(alpha: .10),
+              backgroundColor:
+                  isDarkMode
+                      ? AppColors.primary.withValues(alpha: 0.1)
+                      : AppColors.textColor.withValues(alpha: 0.15),
               child: Image.asset(
                 IconPath.arrowleft,
                 width: 16,
                 height: 12,
-                color: AppColors.textColor,
+                color: isDarkMode ? AppColors.primary : AppColors.textColor,
               ),
             ),
           ),
@@ -41,7 +55,7 @@ class EpAllReviews extends StatelessWidget {
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
-            color: AppColors.textColor,
+            color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
           ),
         ),
       ),

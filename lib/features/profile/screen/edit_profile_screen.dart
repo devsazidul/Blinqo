@@ -1,22 +1,21 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/profile/widget/coustm_appbar.dart';
 import 'package:blinqo/features/profile/widget/coustm_elevated_button.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../widget/profile_edit_text_form_field.dart';
 
 class EditProfilePage extends StatelessWidget {
   static const String name = '/edit_profile_page';
+  final ProfileController themeController = Get.put(ProfileController());
 
-  const EditProfilePage({super.key});
+  EditProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    bool isDarkMode = themeController.isDarkMode.value;
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -25,7 +24,7 @@ class EditProfilePage extends StatelessWidget {
       appBar: CoustmAppbar(
         title: 'Edit Profile',
         onPressed: () {
-          Get.to(() => const MainProfileScreen());
+          // Get.to(() => const MainProfileScreen());
         },
       ),
       body: SingleChildScrollView(
@@ -45,33 +44,22 @@ class EditProfilePage extends StatelessWidget {
                   child: Column(
                     spacing: 8,
                     children: [
-                      // first name text
-
-                      /// First Name
                       ProfileEditTextFormField(
                         label: 'First Name',
                         hintText: "Adam",
                       ),
-
-                      /// Last Name
                       ProfileEditTextFormField(
                         label: 'Last Name',
                         hintText: "Jonh",
                       ),
-
-                      /// Email
                       ProfileEditTextFormField(
                         label: 'Email',
                         hintText: "abcdefg@gmail.com",
                       ),
-
-                      /// Country
                       ProfileEditTextFormField(
                         label: 'Country',
                         hintText: "USA",
                       ),
-
-                      /// City
                       ProfileEditTextFormField(
                         label: 'City',
                         hintText: "New York",
@@ -81,7 +69,12 @@ class EditProfilePage extends StatelessWidget {
                 ),
 
                 SizedBox(height: 40),
-                EditCustomContinueButton(onTap: () {}, title: 'Save & Change'),
+                EditCustomContinueButton(
+                  onTap: () {
+                    Get.to(MainProfileScreen());
+                  },
+                  title: 'Save & Change',
+                ),
               ],
             ),
           ),

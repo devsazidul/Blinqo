@@ -31,19 +31,19 @@ class MainProfileScreen extends StatelessWidget {
             onPressed: () {
               Get.offAll(EventBottomNavBar());
             },
-            actions: [
-              IconButton(
-                icon: Image.asset(
-                  IconPath.moreVert,
-                  width: 24,
-                  height: 24,
-                  color: isDarkMode ? Colors.white : AppColors.textColor,
-                ),
-                onPressed: () {
-                  showPopupMenu(context);
-                },
-              ),
-            ],
+            // actions: [
+            //   IconButton(
+            //     icon: Image.asset(
+            //       IconPath.moreVert,
+            //       width: 24,
+            //       height: 24,
+            //       color: isDarkMode ? Colors.white : AppColors.textColor,
+            //     ),
+            //     onPressed: () {
+            //       showPopupMenu(context);
+            //     },
+            //   ),
+            // ],
           ),
           body: ColoredBox(
             color:

@@ -199,13 +199,13 @@ class FilterDetailsScreen extends StatelessWidget {
               ),
               RatingsReviews(searchDetailsController: searchDetailsController),
               Obx(
-                () => InkWell(
-                  onTap: () {
-                    searchDetailsController.toggleTab(0);
-                  },
-                  child: Row(
-                    children: [
-                      Container(
+                () => Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        searchDetailsController.toggleTab(0);
+                      },
+                      child: Container(
                         width: 14,
                         height: 14,
                         decoration: BoxDecoration(
@@ -237,20 +237,20 @@ class FilterDetailsScreen extends StatelessWidget {
                                 )
                                 : null,
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Verified',
-                        style: getTextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color:
-                              isDarkMode
-                                  ? AppColors.borderColor2
-                                  : AppColors.textColor,
-                        ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Verified',
+                      style: getTextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color:
+                            isDarkMode
+                                ? AppColors.borderColor2
+                                : AppColors.textColor,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               ToggleButton(),

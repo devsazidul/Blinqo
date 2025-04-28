@@ -39,13 +39,7 @@ class SearchBerSection extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
               filled: true,
-              suffixIcon: Icon(
-                Icons.mic_none,
-                color:
-                    themeMode == ThemeMode.dark
-                        ? AppColors.secondary
-                        : AppColors.buttonColor2,
-              ),
+
               fillColor:
                   themeMode == ThemeMode.dark
                       ? AppColors.textFrieldDarkColor

@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileEditTextFormField extends StatelessWidget {
-  const ProfileEditTextFormField({
+  final ProfileController themeController = Get.put(ProfileController());
+
+  ProfileEditTextFormField({
     super.key,
     required this.label,
     this.controller,
@@ -18,7 +20,7 @@ class ProfileEditTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
+    bool isDarkMode = themeController.isDarkMode.value;
     return Container(
       padding: EdgeInsets.only(top: 9.5, bottom: 2, left: 8, right: 8),
       decoration: BoxDecoration(
@@ -40,12 +42,15 @@ class ProfileEditTextFormField extends StatelessWidget {
           hintText: hintText,
           labelText: label,
           contentPadding: EdgeInsets.zero,
-
-          // floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintStyle: getTextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+          ),
           labelStyle: getTextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppColors.textColor,
+            color: isDarkMode ? AppColors.hintTextColor : AppColors.textColor,
           ),
           filled: true,
           fillColor: isDarkMode ? Color(0xff32383D) : Colors.white,
