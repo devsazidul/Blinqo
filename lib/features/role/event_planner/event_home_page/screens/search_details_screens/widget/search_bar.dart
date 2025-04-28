@@ -40,11 +40,7 @@ class SearchBer extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
               filled: true,
-              suffixIcon: Icon(
-                Icons.mic_none,
-                color:
-                    isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
-              ),
+
               fillColor:
                   isDarkMode ? AppColors.cardDarkColor : AppColors.primary,
 

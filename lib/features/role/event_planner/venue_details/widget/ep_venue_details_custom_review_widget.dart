@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
+  final ProfileController themeController = Get.put(ProfileController());
+
   final String userName;
   final String userIcon;
   final String reviewDate;
@@ -20,10 +22,9 @@ class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
     required this.rating,
     super.key,
   });
-  final controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = controller.isDarkMode.value;
+    bool isDarkMode = themeController.isDarkMode.value;
     return Column(
       children: [
         Row(
@@ -69,7 +70,8 @@ class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                color:
+                    isDarkMode ? AppColors.smallText : AppColors.subTextColor,
               ),
             ),
           ],
@@ -82,7 +84,8 @@ class EpVenueDetailsCustomReviewsWidget extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: isDarkMode ? AppColors.primary : AppColors.subTextColor,
+              color:
+                  isDarkMode ? AppColors.hintTextColor : AppColors.subTextColor,
             ),
           ),
         ),

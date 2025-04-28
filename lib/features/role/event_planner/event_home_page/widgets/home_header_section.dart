@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/event_planner/notification/screens/notification_screen.dart';
+import 'package:blinqo/features/role/event_planner/payment_history/screens/payment_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -75,12 +76,17 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
                 padding: EdgeInsets.all(10),
               ),
               onPressed: () {},
-              child: Text(
-                'Go Pro',
-                style: getTextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(EvenPaymentHistoryScreen());
+                },
+                child: Text(
+                  'Go Pro',
+                  style: getTextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),

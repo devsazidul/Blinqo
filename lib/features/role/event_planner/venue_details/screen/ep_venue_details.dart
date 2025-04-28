@@ -3,6 +3,7 @@ import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/start_booking.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/controller/ep_venuw_details_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_all_reviews.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_vanue_details_custom_text_widget.dart';
@@ -330,7 +331,12 @@ class EpVenueDetails extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 20),
-                  CustomButton(title: "Book Now", onPress: () {}),
+                  CustomButton(
+                    title: "Book Now",
+                    onPress: () {
+                      Get.to(StartBooking());
+                    },
+                  ),
                   SizedBox(height: 40),
                 ],
               ),
