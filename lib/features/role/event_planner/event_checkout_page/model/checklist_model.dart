@@ -7,7 +7,7 @@ class ChecklistModel {
   DateTime? taskDate; // Date of the task (optional)
   TimeOfDay? taskTime; // Time of the task (optional)
   String? venue; // Venue of the task (optional)
-  bool isCompleted; // Whether the task is completed (for the checkbox)
+  bool isCompleted=false; // Whether the task is completed (for the checkbox)
   bool isUrgent; // Whether the task is marked as urgent
 
   ChecklistModel({

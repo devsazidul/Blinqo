@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ChecklistController extends GetxController {
+  
   var isTaskFormVisible = false.obs;
-
+var savedItems = <ChecklistModel>[].obs;
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay(hour: 0, minute: 0).obs;
   var eventName = ''.obs;
@@ -90,34 +91,7 @@ class ChecklistController extends GetxController {
   }
 
   // Method to save the checklist item
-  void saveChecklist() {
-    // Create a new ChecklistModel instance with the current form data
-    final checklistItem = ChecklistModel(
-      eventName: eventName.value,
-      taskName: isTaskFormVisible.value ? taskName.value : null,
-      taskDate: isTaskFormVisible.value ? selectedDate.value : null,
-      taskTime: isTaskFormVisible.value ? selectedTime.value : null,
-      venue: isTaskFormVisible.value ? venue.value : null,
-    );
 
-    // Add the item to the checklistItems list (in-memory storage)
-    checklistItems.add(checklistItem);
-
-    // Clear the form fields
-    clearFields();
-
-    // Show a success notification using Get.snackbar
-    Get.snackbar(
-      'Success',
-      'Checklist item added successfully!',
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-      duration: const Duration(seconds: 2),
-    );
-
-    // No navigation to EventChecklistScreen; user stays on CreateChecklistScreen
-  }
 
   // Method to clear all form fields after saving
   void clearFields() {
