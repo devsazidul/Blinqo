@@ -16,6 +16,13 @@ class AmenitiesCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xffFBF7EB),
         borderRadius: BorderRadius.circular(34.r),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xff000000).withValues(alpha: .1),
+            blurRadius: 10,
+            offset: Offset(0, 3),
+          ),
+        ]
       ),
 
       // height: 15,

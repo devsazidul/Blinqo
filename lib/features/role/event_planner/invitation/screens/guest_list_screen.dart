@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GuestListScreen extends StatelessWidget {
+  static const String routeName = '/guest_list_screen';
   const GuestListScreen({super.key});
 
   @override
@@ -20,6 +21,7 @@ class GuestListScreen extends StatelessWidget {
               ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
       appBar: CustomAppBarWidget(
+        onPressed: () => Get.back(),
         title: 'Guest List',
         actions: [
           IconButton(

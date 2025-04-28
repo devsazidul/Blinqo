@@ -89,7 +89,7 @@ class EvenPaymentOption extends StatelessWidget {
               SizedBox(height: 36),
               GestureDetector(
                 onTap: () {
-                  EventStripService.instance.makePayment();
+                  EventStripService.instance.makePayment(context);
                 },
                 child: Container(
                   width: double.infinity,
@@ -114,7 +114,7 @@ class EvenPaymentOption extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: Get.height * 0.15),
             ],
           ),
         ),

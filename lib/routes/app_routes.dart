@@ -11,9 +11,12 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/searc
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_view_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart';
 import 'package:blinqo/features/role/event_planner/home/start_booking.dart';
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/even_payment_option.dart';
+import 'package:blinqo/features/role/event_planner/payment_method/screen/evetnt_congratulation_screen.dart';
+import 'package:blinqo/features/role/event_planner/payment_method/screen/final_review_booking_datieals.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
@@ -104,6 +107,15 @@ class AppRoute {
   static String reviewBookingDetails = '/reviewBookingDetails';
   static String eventPaymentOption = '/eventPaymentOption';
   static String profileEdit = '/edit_profile_page';
+  static String eventCongratulationScreen = '/eventCongratulationScreen';
+  static String finalReviewBookingDatieals = '/finalReviewBookingDatieals';
+  static String evenPaymentOption = '/evenPaymentOption';
+  static String searchStartBooking = '/searchStartBooking';
+
+
+
+
+
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -153,6 +165,13 @@ class AppRoute {
   static String getReviewBookingDetails() => reviewBookingDetails;
   static String geteventPaymentOption() => eventPaymentOption;
   static String getprofileEdit() => profileEdit;
+  static String geteventCongratulationScreen() => eventCongratulationScreen;
+  static String getfinalReviewBookingDatieals() => finalReviewBookingDatieals;
+  static String getevenPaymentOption() => evenPaymentOption;
+  static String getsearchStartBooking() => searchStartBooking;
+
+
+
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -213,5 +232,9 @@ class AppRoute {
     GetPage(name: reviewBooking, page: () => ReviewBooking()),
     GetPage(name: reviewBookingDetails, page: () => ReviewBookingDetails()),
     GetPage(name: eventPaymentOption, page: () => EvenPaymentOption()),
+    GetPage(name: eventCongratulationScreen, page: () => EventCongratulationScreen()),
+    GetPage(name: finalReviewBookingDatieals, page: () => FinalReviewBookingDatieals()),
+    GetPage(name: evenPaymentOption, page: () => EvenPaymentOption()),
+    GetPage(name: searchStartBooking, page: () => SearchStartBooking()),
   ];
 }

@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InvitationCardScreen extends StatelessWidget {
+    static const String routeName = '/invitation_card_screen';
   const InvitationCardScreen({super.key});
 
   @override
@@ -24,6 +25,7 @@ class InvitationCardScreen extends StatelessWidget {
               ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
       appBar: CustomAppBarWidget(
+        onPressed: () => Get.back(),
         title: 'Invitation Card',
         actions: [
           IconButton(
@@ -133,42 +135,6 @@ class InvitationCardScreen extends StatelessWidget {
                 onPressed: () {
                   _showBlurredDialog(context);
 
-                  // Get.dialog(
-                  //   barrierColor: Colors.transparent.withValues(),
-                  //   Dialog(
-                  //     insetPadding: EdgeInsets.zero,
-                  //     backgroundColor: Colors.white,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(14),
-                  //     ),
-                  //     child: Column(
-                  //       mainAxisSize: MainAxisSize.min,
-                  //       children: [
-                  //         SizedBox(height: 16),
-                  //         Image.network(
-                  //           "https://s3-alpha-sig.figma.com/img/745a/740e/1df6209b7348876fd5caeabc40134c47?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Kl6FEco0-0babaW9dSJlR351yRCs~-DCTDh6kDGDv0-W4NIbacvenGkmS910qSQaLflRDdLIvgQ2h9Oux6eRHsh7EN9v6xP9hjm1A9TUi2Bmd5hHVpuAR7Vs6eUXDyzvWpEO~KFXwAdSGom2yDYpEIB9r4hw~U~LeovHvv55NiSh8kxtgnH1tJAv~0SkcQIAkvp~YJ1RNKbSJ~fbnFXCsRso5tHWCUvDZaBd1MlPSlNfiMlNoMc7lfYDR-miCTZtEFyRPJndDIV~eJyVtVosGUnUXqCP2P6mqc0lCHVPBVEHyut-71ln46-Yky0YqAXv926swZEfkZvzoqqjcvQYPQ__",
-                  //           width: 217,
-                  //           height: 217,
-                  //         ),
-                  //         SizedBox(height: 32),
-                  //         SizedBox(
-                  //           width: 136,
-                  //           child: EpCustomButton(
-                  //             child: Row(
-                  //               mainAxisAlignment: MainAxisAlignment.center,
-                  //               spacing: 16,
-                  //               children: [
-                  //                 Text("Share"),
-                  //                 Icon(Icons.share_outlined),
-                  //               ],
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         SizedBox(height: 32),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -180,6 +146,7 @@ class InvitationCardScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: Get.height * 0.12),
           ],
         ),
       ),

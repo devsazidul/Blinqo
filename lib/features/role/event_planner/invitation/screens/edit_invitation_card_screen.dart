@@ -7,6 +7,7 @@ import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/widget/f_custom_button.dart';
 import 'package:blinqo/features/profile/widget/f_label_text.dart';
 import 'package:blinqo/features/role/event_planner/invitation/controller/edit_invitation_card_controller.dart';
+import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
 import 'package:blinqo/features/role/event_planner/invitation/widgets/invitation_card_text_form_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,10 @@ class EditInvitationCardScreen extends StatelessWidget {
           Get.find<ProfileController>().isDarkMode.value
               ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
-      appBar: CustomAppBarWidget(title: "Edit Invitation Card"),
+      appBar: CustomAppBarWidget(
+        onPressed: () => Get.back(),
+        title: "Edit Invitation Card",
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -122,8 +126,11 @@ class EditInvitationCardScreen extends StatelessWidget {
                 }),
               ),
 
-              SizedBox(height: AppHelperFunctions.screenHeight() - 794),
-              FCustomButton(child: Text("Save & Change")),
+              SizedBox(height: 20),
+              FCustomButton( onPressed: () {
+                Get.off(() => InvitationCardScreen());
+              },
+                  child: Text("Save & Change")),
               SizedBox(height: 20),
 
               // Row(
