@@ -113,4 +113,13 @@ class SearchDetailsController extends GetxController {
     clear.value = false;
     update();
   }
+
+  var favoriteList = <int, bool>{}.obs;
+  void toggleFavorite(int id) {
+    favoriteList[id] = !(favoriteList[id] ?? false);
+  }
+
+  bool isFavorite(int id) {
+    return favoriteList[id] ?? false;
+  }
 }
