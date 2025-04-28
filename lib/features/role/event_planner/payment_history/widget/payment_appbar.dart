@@ -1,8 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,8 +20,7 @@ class PaymentAppBar extends StatelessWidget implements PreferredSize {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode = Get.put(ProfileController()).isDarkMode.value;
     return AppBar(
       backgroundColor: AppColors.backgroundColor,
       forceMaterialTransparency: true,
@@ -52,7 +51,7 @@ class PaymentAppBar extends StatelessWidget implements PreferredSize {
         style: getTextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w600,
-          color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+          color: isDarkMode ? Colors.white : AppColors.textColor,
         ),
       ),
       actions: [
