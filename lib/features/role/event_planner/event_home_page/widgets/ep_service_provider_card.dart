@@ -15,6 +15,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = controller.isDarkMode.value;
+
     return Card(
       color: isDarkMode ? AppColors.textFrieldDarkColor : AppColors.primary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -45,8 +46,9 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                     children: [
                       Text(
                         provider['name'] as String,
+
                         style: getTextStyle(
-                          fontSize: 16,
+                          fontSize: 15,
                           fontWeight: FontWeight.w400,
                           color:
                               isDarkMode
@@ -58,8 +60,8 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                       if (provider['verified'] == true)
                         Image.asset(
                           IconPath.eventserviceverificaitonlogo,
-                          width: 16,
-                          height: 16,
+                          width: 14,
+                          height: 14,
                         ),
                     ],
                   ),
