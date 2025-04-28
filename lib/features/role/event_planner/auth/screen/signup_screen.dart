@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/signup_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
@@ -14,6 +15,8 @@ class SignUpScreen extends StatelessWidget {
   SignUpController singupController = Get.find<SignUpController>();
   @override
   Widget build(BuildContext context) {
+    final femaleColorController = Get.find<PickColorController>();
+    final bool isFemale = femaleColorController.isFemale.value;
     return Scaffold(
       backgroundColor: AppColors.loginBg,
       appBar: AppBar(
@@ -137,7 +140,10 @@ class SignUpScreen extends StatelessWidget {
                       singupController.isPasswordVisible.value
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
-                      color: AppColors.buttonColor2,
+                      color:
+                          isFemale
+                              ? femaleColorController.selectedColor
+                              : AppColors.buttonColor2,
                     ),
                     onPressed: singupController.togglePasswordVisibility,
                   ),
@@ -175,7 +181,10 @@ class SignUpScreen extends StatelessWidget {
                       singupController.isPasswordVisible1.value
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
-                      color: AppColors.buttonColor2,
+                      color:
+                          isFemale
+                              ? femaleColorController.selectedColor
+                              : AppColors.buttonColor2,
                     ),
                     onPressed: singupController.togglePasswordVisibility1,
                   ),
@@ -195,8 +204,12 @@ class SignUpScreen extends StatelessWidget {
                 () => CustomButton(
                   title: 'Sign Up',
                   textColor:
-                      singupController.isFromValid.value
-                          ? Colors.white
+                      singupController.isFromValid.value && isFemale
+                          ? AppColors.primary
+                          : singupController.isFromValid.value && !isFemale
+                          ? AppColors.primary
+                          : !singupController.isFromValid.value && isFemale
+                          ? Color(0xFFEBA8B5)
                           : AppColors.buttonColor2,
                   onPress:
                       singupController.isFromValid.value
@@ -205,11 +218,19 @@ class SignUpScreen extends StatelessWidget {
                           }
                           : null,
                   backgroundColor:
-                      singupController.isFromValid.value
+                      singupController.isFromValid.value && isFemale
+                          ? femaleColorController.selectedColor
+                          : singupController.isFromValid.value && !isFemale
                           ? AppColors.buttonColor2
+                          : !singupController.isFromValid.value && isFemale
+                          ? femaleColorController.selectedColor.withValues(
+                            alpha: 0.1,
+                          )
                           : AppColors.buttonColor2.withValues(alpha: 0.1),
                   borderColor:
-                      singupController.isFromValid.value
+                      isFemale
+                          ? Colors.transparent
+                          : singupController.isFromValid.value
                           ? AppColors.buttonColor2
                           : AppColors.buttonColor2.withValues(alpha: 0.1),
                 ),
@@ -219,7 +240,7 @@ class SignUpScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don not have an account?",
+                    "Already have an account?",
                     style: getTextStyle(
                       color: AppColors.textColor,
                       fontSize: 14,
@@ -234,7 +255,10 @@ class SignUpScreen extends StatelessWidget {
                     child: Text(
                       "Sign In",
                       style: getTextStyle(
-                        color: AppColors.buttonColor2,
+                        color:
+                            isFemale
+                                ? femaleColorController.selectedColor
+                                : AppColors.buttonColor2,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

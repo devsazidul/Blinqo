@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/change_password_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,9 @@ class ChangePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final femaleColorController = Get.find<PickColorController>();
+    final bool isFemale = femaleColorController.isFemale.value;
+
     final ChangePasswordController changePasswordController =
         Get.find<ChangePasswordController>();
 
@@ -111,6 +115,14 @@ class ChangePasswordScreen extends StatelessWidget {
                 SizedBox(height: 68),
                 CustomButton(
                   title: 'Changed',
+                  backgroundColor:
+                      isFemale
+                          ? femaleColorController.selectedColor
+                          : AppColors.buttonColor2,
+                  borderColor:
+                      isFemale
+                          ? femaleColorController.selectedColor
+                          : AppColors.buttonColor2,
                   textColor: AppColors.primary,
                   onPress: () {
                     Get.off(() => LogInScreen());
