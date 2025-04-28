@@ -22,6 +22,8 @@ class EpServiceProviderProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final EpSpReviewController controller = Get.put(EpSpReviewController());
     final ProfileController profileController = Get.find<ProfileController>();
+    double screenHeight = MediaQuery.of(context).size.height;
+    double mediafontsized = (screenHeight < 700) ? 13 : 16;
     return Scaffold(
       body: Obx(() {
         return ColoredBox(
@@ -67,7 +69,7 @@ class EpServiceProviderProfile extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      spacing: 10,
+                                      spacing: 8,
                                       children: [
                                         Image.asset(
                                           IconPath.messageicon,
@@ -81,6 +83,8 @@ class EpServiceProviderProfile extends StatelessWidget {
                                         Text(
                                           "Message",
                                           style: getTextStyle(
+                                            fontSize: mediafontsized,
+                                            fontWeight: FontWeight.w500,
                                             color:
                                                 profileController
                                                         .isDarkMode
@@ -102,10 +106,7 @@ class EpServiceProviderProfile extends StatelessWidget {
                                           : AppColors.buttonColor2,
                                   child: GestureDetector(
                                     onTap: () {
-                                      Get.to(
-                                        EpServiceProviderBookingScreen1(),
-                                        // EpPaymentOption()
-                                      );
+                                      Get.to(EpServiceProviderBookingScreen1());
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -123,7 +124,7 @@ class EpServiceProviderProfile extends StatelessWidget {
                                         Text(
                                           "Hire",
                                           style: getTextStyle(
-                                            fontSize: 16,
+                                            fontSize: mediafontsized,
                                             fontWeight: FontWeight.w500,
                                             color: AppColors.primary,
                                           ),

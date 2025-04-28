@@ -10,8 +10,25 @@ class EpServiceProviderBookingController extends GetxController {
   RxString eventPlannerName = ''.obs;
   RxString venue = ''.obs;
   RxString location = ''.obs;
-  Rx<TimeOfDay> startTime = TimeOfDay(hour: 0, minute: 0).obs;
-  Rx<TimeOfDay> endTime = TimeOfDay(hour: 0, minute: 0).obs;
+  RxString time = ''.obs;
+  Rx<DateTime?> eventDate = Rx<DateTime?>(null);
   RxString numberOfGuests = ''.obs;
   RxString eventType = 'Birthday'.obs;
+  RxString organizerName = ''.obs;
+
+  Rx<TimeOfDay> startTime = TimeOfDay(hour: 0, minute: 0).obs;
+  Rx<TimeOfDay> endTime = TimeOfDay(hour: 0, minute: 0).obs;
+  RxString enteredPrice = ''.obs;
+  var showPriceDetails = false.obs;
+
+  void setPrice(String price) {
+    if (price.isNotEmpty && double.tryParse(price) != null) {
+      enteredPrice.value = price;
+      priceSet.value = true;
+      showPriceDetails.value = true;
+    } else {
+      priceSet.value = false;
+      showPriceDetails.value = false;
+    }
+  }
 }

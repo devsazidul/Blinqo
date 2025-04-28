@@ -1,12 +1,13 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_service_provider_controller/ep_service_provider_booking_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_paymant_screen/ep_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen3.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_step_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:step_indicator_package/step_indicator.dart';
 
 class EpServicePoroviderBookingScreen2 extends StatelessWidget {
   final EpServiceProviderBookingController controller = Get.put(
@@ -14,11 +15,23 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
   );
 
   EpServicePoroviderBookingScreen2({super.key});
-
+  final profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = profileController.isDarkMode.value;
+    final myController = StepIndicatorController(maxSteps: 3);
+    Future.delayed(Duration(milliseconds: 400), () {
+      myController.setStep(1);
+    });
+
+    final double totalCost = 8000;
+    final double payableAmount = 800;
+    final double dueAmount = 7200;
     return Scaffold(
-      backgroundColor: Color(0xFFF4F4F4),
+      backgroundColor:
+          isDarkMode
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       appBar: AppBar(
         forceMaterialTransparency: true,
         leading: Padding(
@@ -29,12 +42,15 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
             },
             child: CircleAvatar(
               radius: 20,
-              backgroundColor: AppColors.appBarIcolor,
+              backgroundColor:
+                  isDarkMode
+                      ? AppColors.primary.withValues(alpha: .10)
+                      : AppColors.appBarIcolor,
               child: Image.asset(
                 IconPath.arrowleft,
                 width: 20,
                 height: 20,
-                color: AppColors.textColor,
+                color: isDarkMode ? AppColors.primary : AppColors.textColor,
               ),
             ),
           ),
@@ -44,7 +60,7 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: AppColors.textColor,
+            color: isDarkMode ? AppColors.primary : AppColors.textColor,
           ),
         ),
         centerTitle: true,
@@ -69,10 +85,10 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               'Ronald Richards',
-              style: TextStyle(
+              style: getTextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF003285),
+                color: isDarkMode ? AppColors.primary : AppColors.buttonColor2,
               ),
             ),
             SizedBox(height: 5),
@@ -84,35 +100,69 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
                   width: 16,
                   height: 16,
                   fit: BoxFit.cover,
+                  color:
+                      isDarkMode ? AppColors.primary : AppColors.subTextColor,
                 ),
                 SizedBox(width: 10),
-                Text('Radio Colony, Savar'),
+                Text(
+                  'Radio Colony, Savar',
+                  style: getTextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color:
+                        isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('4.5'),
+                Text(
+                  '4.5',
+                  style: getTextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                  ),
+                ),
                 SizedBox(width: 4),
-                Image.asset(IconPath.ratinglogo, width: 11, height: 12),
+                Image.asset(
+                  IconPath.ratinglogo,
+                  width: 11,
+                  height: 12,
+                  color:
+                      isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                ),
                 SizedBox(width: 30),
-                Text('Project - 10'),
+                Text(
+                  'Project - 10',
+                  style: getTextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        isDarkMode ? AppColors.primary : AppColors.subTextColor,
+                  ),
+                ),
               ],
             ),
-
-            SizedBox(height: 15),
 
             SizedBox(height: 15),
             ElevatedButton.icon(
               onPressed: () {
                 Get.to(() => EpServiceProviderBookingScreen3());
               },
-              icon: Icon(Icons.attach_money),
-              label: Text('Set Price'),
+
+              label: Text('\$ Set Price'),
               style: ElevatedButton.styleFrom(
-                foregroundColor: Color(0xFF003366),
-                backgroundColor: Color(0xFFE6EBF0),
+                foregroundColor:
+                    isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+                backgroundColor:
+                    isDarkMode
+                        ? AppColors.buttonColor.withValues(alpha: .10)
+                        : AppColors.chatBackground,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -121,29 +171,35 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               'Booking Timeline',
-              style: TextStyle(
+              style: getTextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
-                color: Color(0xFF003285),
+                color:
+                    isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
               ),
             ),
             SizedBox(height: 12),
-
-            // STEP INDICATOR
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [EpServiceProviderStepIndicator()],
+            StepIndicator(
+              controller: myController,
+              allowCircleTap: false,
+              circleRadius: 18,
+              paddingHorizontal: 60,
+              showNavigationButtons: false,
+              activeLineColor:
+                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+              activeColor:
+                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
             ),
-            const Divider(height: 30),
-            const Align(
+            Align(
               alignment: Alignment.centerLeft,
               child: Center(
                 child: Text(
-                  "Jhon's Birthday",
-                  style: TextStyle(
+                  controller.eventName.value,
+                  style: getTextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF003285),
+                    color:
+                        isDarkMode ? AppColors.primary : AppColors.buttonColor2,
                   ),
                 ),
               ),
@@ -152,45 +208,132 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color:
+                    isDarkMode
+                        ? AppColors.textFrieldDarkColor
+                        : AppColors.primary,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 10),
-                  EventInfoTile(title: 'Organizer', value: 'John Doe Events'),
-                  EventInfoTile(title: 'Venue', value: 'The Garden Hall'),
-                  EventInfoTile(title: 'Location', value: 'New York'),
-                  EventInfoTile(title: 'Date', value: '15/03/2025'),
-                  EventInfoTile(title: 'Time', value: '10:00am–4:00pm'),
-                  EventInfoTile(title: 'Guest', value: '100'),
-                  EventInfoTile(title: 'Event Type', value: 'Birthday'),
-                  //EventInfoTile(title: 'Price', value: '\$1200'),
+                  EventInfoTile(
+                    title: 'Organizer',
+                    value: controller.eventPlannerName.value,
+                  ),
+                  EventInfoTile(title: 'Venue', value: controller.venue.value),
+                  EventInfoTile(
+                    title: 'Location',
+                    value: controller.location.value,
+                  ),
+                  EventInfoTile(
+                    title: 'Date',
+                    value: controller.selectedDate.value?.toString() ?? 'N/A',
+                  ),
+                  EventInfoTile(
+                    title: 'Time',
+                    value:
+                        '${controller.startTime.value.format(context)} - ${controller.endTime.value.format(context)}',
+                  ),
+                  EventInfoTile(
+                    title: 'Guest',
+                    value: controller.numberOfGuests.value,
+                  ),
+                  EventInfoTile(
+                    title: 'Event Type',
+                    value: controller.eventType.value,
+                  ),
                 ],
               ),
             ),
+            SizedBox(height: 20),
+            Obx(() {
+              return controller.showPriceDetails.value
+                  ? Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color:
+                              isDarkMode
+                                  ? AppColors.textFrieldDarkColor
+                                  : AppColors.primary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Price Details',
+                              style: getTextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color:
+                                    isDarkMode
+                                        ? AppColors.buttonColor
+                                        : AppColors.buttonColor2,
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            EventInfoTile(
+                              title: 'Total Cost',
+                              value: '\$$totalCost',
+                            ),
+                            SizedBox(height: 10),
+                            EventInfoTile(
+                              title: 'Payable Amount',
+                              value: '\$$payableAmount (10%)',
+                            ),
+                            SizedBox(height: 10),
+                            EventInfoTile(title: 'Due', value: '\$$dueAmount'),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  )
+                  : SizedBox();
+            }),
 
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(EpPaymentOption());
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFE6EBF0),
-                foregroundColor: Colors.blue,
-                minimumSize: const Size.fromHeight(50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+            SizedBox(height: 20),
+            Obx(() {
+              return ElevatedButton(
+                onPressed: () {
+                  if (controller.showPriceDetails.value) {
+                    Get.to(EpPaymentOption());
+                  } else {
+                    controller.priceSet.value = true;
+                    controller.showPriceDetails.value = true;
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      controller.priceSet.value
+                          ? AppColors.buttonColor2
+                          : Color(0xFFE6EBF0),
+                  foregroundColor:
+                      controller.priceSet.value ? Colors.white : Colors.blue,
+                  minimumSize: const Size.fromHeight(50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-              ),
+                child: Obx(() {
+                  return Text(
+                    'Proceed to Payment',
+                    style: getTextStyle(
+                      color:
+                          controller.priceSet.value
+                              ? AppColors.primary
+                              : Color(0xFF8AA1B9),
+                    ),
+                  );
+                }),
+              );
+            }),
 
-              child: const Text(
-                'proceed to payment',
-                style: TextStyle(color: Color(0xFF8AA1B9)),
-              ),
-            ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30),
           ],
         ),
       ),
@@ -202,10 +345,12 @@ class EventInfoTile extends StatelessWidget {
   final String title;
   final String value;
 
-  const EventInfoTile({super.key, required this.title, required this.value});
+  EventInfoTile({super.key, required this.title, required this.value});
+  final profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = profileController.isDarkMode.value;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -213,16 +358,16 @@ class EventInfoTile extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: Color(0xFF767676),
+            style: getTextStyle(
+              color: AppColors.subTextColor,
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
           ),
           Text(
             value,
-            style: const TextStyle(
-              color: Color(0xFF333333),
+            style: getTextStyle(
+              color: isDarkMode ? AppColors.primary : AppColors.textColor,
               fontSize: 16,
               fontWeight: FontWeight.w400,
             ),

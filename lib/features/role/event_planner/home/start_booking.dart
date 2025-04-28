@@ -14,10 +14,10 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start
 import 'package:blinqo/features/role/event_planner/home/wigate/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:step_indicator_package/step_indicator.dart';
 
 import 'controller/booking_controller.dart';
 import 'wigate/start_booking_shearh_bar.dart';
-import 'package:step_indicator_package/step_indicator_package.dart';
 
 class StartBooking extends StatelessWidget {
   const StartBooking({super.key});
