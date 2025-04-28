@@ -4,7 +4,6 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/eventCard.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
@@ -12,6 +11,7 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/featu
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/home_header_section.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/search_ber.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/upcomming_events.dart';
+import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -57,7 +57,12 @@ class EventHomeScreen extends StatelessWidget {
                       'Featured Venues',
                       themeMode,
                       onTap: () {
-                        Get.to(FeaturedVenuesScreen());
+                        // Get.to(FeaturedVenuesScreen());
+
+                        Navigator.pushNamed(
+                          context,
+                          AppRoute.getfeaturedVenuesScreen(),
+                        );
                       },
                     ),
                     SizedBox(height: 8),
@@ -155,7 +160,6 @@ class EventHomeScreen extends StatelessWidget {
     );
   }
 
-  // Feature Venues
   Widget _featureVenuesList(BuildContext context, ThemeMode themeMode) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -163,7 +167,7 @@ class EventHomeScreen extends StatelessWidget {
         children: List.generate(5, (index) {
           return Padding(
             padding: EdgeInsets.only(right: 16),
-            child: FeatureVenues(isColorChinge: true),
+            child: FeatureVenues(isColorChinge: true, index: index),
           );
         }),
       ),

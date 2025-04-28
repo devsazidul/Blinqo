@@ -225,7 +225,7 @@ class MainProfileScreen extends StatelessWidget {
           title: "Payment Historty",
           iconPath: IconPath.paymentHistory,
           onTap: () {
-            Get.to(PaymentHistoryScreen());
+            Get.to(EvenPaymentHistoryScreen());
           },
         ),
         _buildSettingsTile(
