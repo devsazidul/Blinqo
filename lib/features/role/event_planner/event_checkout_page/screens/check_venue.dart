@@ -28,8 +28,6 @@ class CheckVenue extends StatelessWidget {
     final checklistController = Get.find<ChecklistController>();
     Rx<String> dropdownValue = 'All Task'.obs;
     Rx<String> dropdown = 'By Date'.obs;
-    final ChecklistController controller = Get.put(ChecklistController());
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: PreferredSize(
@@ -169,17 +167,17 @@ class CheckVenue extends StatelessWidget {
                   ],
                 ),
               ),
-       Obx(
-  () => ListView.builder(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemCount: checklistController.checklistItems.length,
-    itemBuilder: (context, index) {
-      final item = checklistController.checklistItems[index];
-      return EpCustomCheckListWidget(item: item);
-    },
-  ),
-),
+              Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: checklistController.checklistItems.length,
+                  itemBuilder: (context, index) {
+                    final item = checklistController.checklistItems[index];
+                    return EpCustomCheckListWidget(item: item, index: index);
+                  },
+                ),
+              ),
             ],
           ),
         ),
