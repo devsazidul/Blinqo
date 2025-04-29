@@ -2,32 +2,34 @@ import 'package:blinqo/core/common/styles/global_text_style.dart'
     show getTextStyle;
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/controllers/featured_venues_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../event_compare/screen/add_compare.dart';
 
 class FeatureVenues extends StatelessWidget {
-  final bool hasButton;
-  final bool? isColorChinge;
   final int index;
+  final String hallName;
+  final String location;
+  final int guestCapacity;
+  final String imagePath;
+  final double rating;
+  final bool hasButton;
 
-  final bool? isFavorited;
-  final bool isVn;
-
-  final VoidCallback? onFavoriteToggle;
-  const FeatureVenues({
+  FeatureVenues({
     super.key,
     this.hasButton = true,
-    this.isColorChinge = false,
     required this.index,
-    this.onFavoriteToggle,
-    this.isFavorited,
-    this.isVn = false,
+    required this.hallName,
+    required this.location,
+    required this.guestCapacity,
+    required this.imagePath,
+    required this.rating,
   });
+  final UpcomingEventsController controller = Get.put(
+    UpcomingEventsController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -51,49 +53,51 @@ class FeatureVenues extends StatelessWidget {
               themeMode == ThemeMode.dark
                   ? Color(0xff32383D)
                   : AppColors.primary,
-
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _venueImageSection(themeMode, isFavorited, index),
+            _venueImageSection(themeMode),
             SizedBox(height: 12),
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.to(EpVenueDetails());
-                  },
-                  child: Text(
-                    'The Grand Hall',
-                    style: getTextStyle(
-                      fontSize: buttonFontSize,
-                      fontWeight: FontWeight.w600,
-                      color:
-                          themeMode == ThemeMode.dark
-                              ? AppColors.borderColor2
-                              : AppColors.textColor,
+            FittedBox(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(EpVenueDetails());
+                    },
+                    child: Text(
+                      hallName, // Dynamically pass hall name
+                      style: getTextStyle(
+                        fontSize: buttonFontSize,
+                        fontWeight: FontWeight.w600,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.borderColor2
+                                : AppColors.textColor,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 4.0),
-
-                index == 0 || index == 1
-                    ? Image.asset(IconPath.verifiedlogo, height: 16, width: 16)
-                    : SizedBox.shrink(),
-              ],
+                  SizedBox(width: 4.0),
+                  index == 0 || index == 1
+                      ? Image.asset(
+                        IconPath.verifiedlogo,
+                        height: 16,
+                        width: 16,
+                      )
+                      : SizedBox.shrink(),
+                ],
+              ),
             ),
             SizedBox(height: 4),
-            _venueLocationRow(),
+            _venueLocationRow(location),
+            // Dynamically pass location
             SizedBox(height: 4),
             GestureDetector(
               onTap: () {
-                Get.to(AddCompare());
-                // Get.put(
-                //   EpBottomNavController(),
-                // ).changeScreenWidget(AddCompare(), 0);
+                controller.toggleContainerVisibility();
               },
               child: Text(
                 'Add to Compare',
@@ -108,25 +112,21 @@ class FeatureVenues extends StatelessWidget {
               ),
             ),
             hasButton
-                ? _venueBottomRow(buttonFontSize, themeMode, isColorChinge)
-                : SizedBox(),
+                ? _venueBottomRow(buttonFontSize, themeMode)
+                : Container(),
           ],
         ),
       );
     });
   }
 
-  Widget _venueImageSection(
-    ThemeMode themeMode,
-    final bool? isFavorited,
-    int? index,
-  ) {
+  Widget _venueImageSection(ThemeMode themeMode) {
     return Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Image.asset(
-            ImagePath.venuesHall,
+            imagePath, // Dynamically use image path
             width: double.infinity,
             fit: BoxFit.cover,
           ),
@@ -146,7 +146,7 @@ class FeatureVenues extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  '4.5',
+                  rating.toString(), // Dynamically pass rating
                   style: getTextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -166,78 +166,24 @@ class FeatureVenues extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          top: 8,
-          right: 8,
-          child: GestureDetector(
-            onTap: () {
-              if (isVn) {
-                Get.put(FeaturedVenuesController()).toggleFavouritevn(index!);
-              } else {
-                Get.put(FeaturedVenuesController()).toggleFavourite(index!);
-              }
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color:
-                    themeMode == ThemeMode.dark
-                        ? Color(0xffB0C0D0)
-                        : AppColors.primary,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(4),
-                child: Obx(() {
-                  return isVn
-                      ? Icon(
-                        Get.put(
-                              FeaturedVenuesController(),
-                            ).vnIsFavorite[index ?? 0]
-                            ? Icons.favorite
-                            : Icons.favorite_outline,
-                        size: 18,
-                      )
-                      : Icon(
-                        Get.put(
-                              FeaturedVenuesController(),
-                            ).fvIsFavorite[index ?? 0]
-                            ? Icons.favorite
-                            : Icons.favorite_outline,
-                        size: 18,
-                      );
-                }),
-              ),
-            ),
-          ),
-        ),
-
-        Positioned(
-          bottom: 8,
-          right: 8,
-          child: Icon(Icons.threesixty, size: 24, color: Colors.white),
-        ),
       ],
     );
   }
 
-  Widget _venueLocationRow() {
+  Widget _venueLocationRow(String location) {
     return Row(
       children: [
         Icon(Icons.location_on_rounded, color: Color(0xff8A8A8A), size: 16),
         SizedBox(width: 4),
         Text(
-          'New York',
+          location, // Dynamically pass location
           style: getTextStyle(color: Color(0xff8A8A8A), fontSize: 12),
         ),
       ],
     );
   }
 
-  Widget _venueBottomRow(
-    double buttonFontSize,
-    ThemeMode themeMode,
-    bool? isColorChinge,
-  ) {
+  Widget _venueBottomRow(double buttonFontSize, ThemeMode themeMode) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,7 +196,7 @@ class FeatureVenues extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(4),
             child: Text(
-              '300 Guests',
+              '$guestCapacity Guests', // Dynamically pass guest capacity
               style: getTextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
@@ -265,12 +211,7 @@ class FeatureVenues extends StatelessWidget {
             Get.to(EpVenueDetails());
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor:
-                isColorChinge == true
-                    ? themeMode == ThemeMode.dark
-                        ? AppColors.buttonColor
-                        : AppColors.buttonColor2
-                    : AppColors.buttonColor2,
+            backgroundColor: AppColors.buttonColor2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),

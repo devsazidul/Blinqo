@@ -1,20 +1,20 @@
+import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:get/get.dart';
 
 class UpcomingEventsController extends GetxController {
   // Reactive list of events
   var upcomingEvents = <Map<String, dynamic>>[].obs;
+  var isContainerVisible = false.obs;
+  var vnIsFavorite = <bool>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchUpcomingEvents(); // Fetch data when the controller initializes
+    fetchUpcomingEvents();
   }
 
-  // Simulate fetching data from an API
   void fetchUpcomingEvents() async {
-
-    // Replace this with an actual API call
-    await Future.delayed(Duration(seconds: 2)); // Simulate network delay
+    await Future.delayed(Duration(seconds: 2));
     upcomingEvents.assignAll([
       {
         'title': 'The Community Block Party',
@@ -38,5 +38,48 @@ class UpcomingEventsController extends GetxController {
         'status': 'In Progress',
       },
     ]);
+  }
+
+  final List<Map<String, dynamic>> venues = [
+    {
+      "name": 'The Grand Hall',
+      "location": 'New York',
+      "rating": 4.5,
+      "guestCapacity": 300,
+      "imagePath": ImagePath.myvenue1,
+    },
+    {
+      "name": 'Central Park Venue',
+      "location": 'Los Angeles',
+      "rating": 4.0,
+      "guestCapacity": 200,
+      "imagePath": ImagePath.myvenue2,
+    },
+    {
+      "name": 'Ocean View Hall',
+      "location": 'San Francisco',
+      "rating": 4.3,
+      "guestCapacity": 150,
+      "imagePath": ImagePath.filter,
+    },
+    {
+      "name": 'Central Park Venue',
+      "location": 'Los Angeles',
+      "rating": 4.0,
+      "guestCapacity": 200,
+      "imagePath": ImagePath.myvenue2,
+    },
+  ];
+
+  void toggleContainerVisibility() {
+    isContainerVisible.value = !isContainerVisible.value;
+  }
+
+  void removeEvent(int index) {
+    upcomingEvents.removeAt(index);
+  }
+
+  void removeVenue(int index) {
+    venues.removeAt(index);
   }
 }

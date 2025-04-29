@@ -284,7 +284,6 @@ class EpEventServiceDetailsController extends GetxController {
                       width: 60,
                       height: 28,
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1),
                         borderRadius: BorderRadius.circular(8),
                         color: AppColors.primary,
                       ),
@@ -335,8 +334,6 @@ class EpEventServiceDetailsController extends GetxController {
                 ),
               ),
               SizedBox(height: 20),
-
-              // Apply and Cancel Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -7,6 +7,7 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_pa
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen3.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:step_indicator_package/step_indicator.dart';
 
 class EpServicePoroviderBookingScreen2 extends StatelessWidget {
@@ -107,8 +108,8 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
                 Text(
                   'Radio Colony, Savar',
                   style: getTextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
                     color:
                         isDarkMode ? AppColors.primary : AppColors.subTextColor,
                   ),
@@ -229,7 +230,12 @@ class EpServicePoroviderBookingScreen2 extends StatelessWidget {
                   ),
                   EventInfoTile(
                     title: 'Date',
-                    value: controller.selectedDate.value?.toString() ?? 'N/A',
+                    value:
+                        controller.selectedDate.value != null
+                            ? DateFormat(
+                              'yyyy-MM-dd',
+                            ).format(controller.selectedDate.value!)
+                            : 'N/A',
                   ),
                   EventInfoTile(
                     title: 'Time',
