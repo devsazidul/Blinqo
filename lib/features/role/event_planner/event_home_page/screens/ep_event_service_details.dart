@@ -32,8 +32,10 @@ class EpEventServiceDetails extends StatelessWidget {
           elevation: 0,
           flexibleSpace: Stack(
             children: [
-              Positioned.fill(
-                child: Image.asset(service.imagePath, fit: BoxFit.cover),
+              Image.asset(
+                service.imagePath,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
               Positioned.fill(
                 child: Container(
@@ -48,7 +50,7 @@ class EpEventServiceDetails extends StatelessWidget {
                     Get.back();
                   },
                   child: CircleAvatar(
-                    backgroundColor: AppColors.primary.withValues(alpha: 0.4),
+                    backgroundColor: AppColors.primary.withValues(alpha: 0.10),
                     child: Image.asset(
                       IconPath.arrowleftwhite,
                       width: 22,

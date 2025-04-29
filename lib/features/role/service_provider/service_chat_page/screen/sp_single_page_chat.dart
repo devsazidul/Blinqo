@@ -179,7 +179,7 @@ class SpSinglePageChat extends StatelessWidget {
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
                                       constraints: BoxConstraints(
-                                        maxWidth: 250,
+                                        maxWidth: Get.width * 0.6,
                                       ),
                                       decoration: BoxDecoration(
                                         color:

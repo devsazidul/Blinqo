@@ -41,15 +41,22 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
                 ),
               ),
               Spacer(),
+
+              // ///////////////////
               GestureDetector(
                 onTap: () {
-                  showPopupMenu(context);
+                  // showPopupMenu(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.white.withAlpha(100),
-                    child: Icon(Icons.more_vert, color: Colors.white),
+                    child: Image.asset(
+                      IconPath.favorite,
+                      fit: BoxFit.cover,
+                      width: 24,
+                      height: 24,
+                    ),
                   ),
                 ),
               ),

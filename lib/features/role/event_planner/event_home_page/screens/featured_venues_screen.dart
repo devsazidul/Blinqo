@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,9 @@ class FeaturedVenuesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
+    // Fetch the controllers
     final ProfileController profileController = Get.find<ProfileController>();
+    UpcomingEventsController controller = Get.put(UpcomingEventsController());
 
     return Obx(() {
       final themeMode =
@@ -43,7 +46,6 @@ class FeaturedVenuesScreen extends StatelessWidget {
                             ? AppColors.primary
                             : AppColors.textColor,
                   ),
-
                   onPressed: () => Get.back(),
                 ),
               ),
@@ -66,7 +68,7 @@ class FeaturedVenuesScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: GridView.builder(
             shrinkWrap: true,
-            itemCount: 10,
+            itemCount: controller.venues.length, // Use controller.venues
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
@@ -74,7 +76,20 @@ class FeaturedVenuesScreen extends StatelessWidget {
               childAspectRatio: _buildChildAspectRatio(screenWidth),
             ),
             itemBuilder: (context, index) {
-              return FeatureVenues(hasButton: false, index: index);
+              var venue =
+                  controller
+                      .venues[index]; // Access the venues list from the controller
+              return FeatureVenues(
+                hasButton: false,
+                index: index,
+                hallName: venue['name'], // Pass the hall name dynamically
+                location: venue['location'], // Pass the location dynamically
+                guestCapacity:
+                    venue['guestCapacity'], // Pass the guest capacity dynamically
+                imagePath:
+                    venue['imagePath'], // Pass the image path dynamically
+                rating: venue['rating'], // Pass the rating dynamically
+              );
             },
           ),
         ),
