@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
+import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_create_group_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/group_profile.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/image_view.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/image_picker.dart';
@@ -27,7 +28,7 @@ class ChatDetails extends StatelessWidget {
     return Scaffold(
       backgroundColor:
           isDarkMode ? AppColors.darkBackgroundColor : AppColors.chatBackground,
-      appBar: coustomAppBar(user, isDarkMode),
+      appBar: customAppBar(user, isDarkMode),
       body: Column(
         children: [
           Expanded(
@@ -44,7 +45,10 @@ class ChatDetails extends StatelessWidget {
     );
   }
 
-  AppBar coustomAppBar(User? user, bool isDarkMode) {
+  AppBar customAppBar(User? user, bool isDarkMode) {
+    final EpCreateGroupController epCreateGroupController = Get.put(
+      EpCreateGroupController(),
+    );
     return AppBar(
       automaticallyImplyLeading: false,
       shape: RoundedRectangleBorder(
@@ -86,17 +90,23 @@ class ChatDetails extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.to(GroupProfile(chatId: chatId));
+                  if (epCreateGroupController.groupUsers.containsKey(chatId)) {
+                    Get.to(GroupProfile(chatId: chatId));
+                  }
                 },
                 child: CircleAvatar(
                   radius: 20,
-                  backgroundImage: NetworkImage(user?.avatar ?? ''),
+                  backgroundImage: NetworkImage(
+                    user?.avatar ?? 'https://via.placeholder.com/150',
+                  ),
                 ),
               ),
               SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => GroupProfile(chatId: chatId));
+                  if (epCreateGroupController.groupUsers.containsKey(chatId)) {
+                    Get.to(GroupProfile(chatId: chatId));
+                  }
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

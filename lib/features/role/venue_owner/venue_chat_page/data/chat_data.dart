@@ -60,12 +60,6 @@ class ChatData {
     ),
     User(
       id: "8",
-      name: "Emma Martinez",
-      avatar: "https://avatars.githubusercontent.com/u/80408775?v=4",
-      isOnline: true,
-    ),
-    User(
-      id: "9",
       name: "Ava Taylor",
       avatar:
           "https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",

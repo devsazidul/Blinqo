@@ -24,14 +24,17 @@ class FCustomButton extends StatelessWidget {
     final profileController = Get.find<ProfileController>();
     return GetBuilder<PickColorController>(
       builder: (controller) {
+        bool isFemale = controller.isFemale.value;
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
             elevation: 0,
             backgroundColor:
                 backgroundColor ??
-                (profileController.isDarkMode.value == false
+                (profileController.isDarkMode.value == true
+                    ? Color(0xff003366)
+                    : isFemale
                     ? controller.selectedColor
-                    : Color(0xff003366)),
+                    : backgroundColor ?? Color(0xff003366)),
 
             foregroundColor: foregroundColor ?? Colors.white,
 
