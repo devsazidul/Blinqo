@@ -17,6 +17,6 @@ class ChecklistModel {
     this.taskTime,
     this.venue,
     this.isCompleted = false, // Default to not completed
-    this.isUrgent = false, // Default to not urgent
+    this.isUrgent = false, // Default to not urgent//
   });
 }

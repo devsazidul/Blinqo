@@ -12,7 +12,8 @@ class CreateChecklistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ChecklistController controller = Get.put(ChecklistController());
+final ChecklistController controller = Get.find<ChecklistController>();
+
     return Obx(() {
       return Scaffold(
         backgroundColor: AppColors.backgroundColor,

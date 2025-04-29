@@ -120,17 +120,18 @@ class CheckVenue extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 32),
-              Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: checklistController.checklistItems.length,
-                  itemBuilder: (context, index) {
-                    final item = checklistController.checklistItems[index];
-                    return EpCustomCheckListWidget(item: item);
-                  },
-                ),
-              ),
+       Obx(
+  () => ListView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: checklistController.checklistItems.length,
+    itemBuilder: (context, index) {
+      final item = checklistController.checklistItems[index];
+      return EpCustomCheckListWidget(item: item);
+    },
+  ),
+),
+
             ],
           ),
         ),
