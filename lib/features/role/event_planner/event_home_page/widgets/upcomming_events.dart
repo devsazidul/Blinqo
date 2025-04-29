@@ -10,6 +10,7 @@ class UpcommingEvents extends StatelessWidget {
   final String date;
   final String location;
   final String status;
+  final int index;
 
   const UpcommingEvents({
     super.key,
@@ -19,6 +20,7 @@ class UpcommingEvents extends StatelessWidget {
     required this.date,
     required this.location,
     required this.status,
+    required this.index,
   });
 
   @override
@@ -73,11 +75,13 @@ class UpcommingEvents extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 4),
-                        Icon(
-                          Icons.verified,
-                          color: Colors.blueAccent,
-                          size: 16,
-                        ),
+                        index == 0
+                            ? Icon(
+                              Icons.verified,
+                              color: Colors.blueAccent,
+                              size: 16,
+                            )
+                            : SizedBox.shrink(),
                       ],
                     ),
                   ],

@@ -141,8 +141,9 @@ class StartBooking extends StatelessWidget {
                 StartBookingButton(
                   onTapContinue: () {
                     //Get.to(() => const SearchStartBooking());
-                    Navigator.pushNamed(context, SearchStartBooking.routeName);
+                    //Navigator.pushNamed(context, SearchStartBooking.routeName);
                     //Get.toNamed(AppRoute.getsearchStartBooking());
+                    Get.to(SearchStartBooking());
                   },
                   screenHeight: screenHeight,
                   themeMode: themeMode,

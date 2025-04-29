@@ -1,8 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_paymant_screen/ep_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/notification/screens/notification_screen.dart';
-import 'package:blinqo/features/role/event_planner/payment_history/screens/payment_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,7 +45,7 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
                         size: 16,
                         color: Color(0xFFA1A1A1),
                       ),
-                      SizedBox(width: 4),
+                      // SizedBox(width: 2),
                       Expanded(
                         child: Wrap(
                           children: [
@@ -53,8 +53,8 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
                               '45th Street, Los Angeles, USA',
                               // overflow: TextOverflow.,
                               style: getTextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 10,
                                 color: Color(0xFFA1A1A1),
                               ),
                             ),
@@ -78,7 +78,7 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {},
               child: GestureDetector(
                 onTap: () {
-                  Get.to(EvenPaymentHistoryScreen());
+                  Get.to(EpPaymentOption());
                 },
                 child: Text(
                   'Go Pro',
