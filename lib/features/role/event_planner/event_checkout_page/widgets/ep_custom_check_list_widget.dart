@@ -8,8 +8,9 @@ import 'package:get/get.dart';
 class EpCustomCheckListWidget extends StatelessWidget {
   final ChecklistModel item;
   final int index;
+  final ThemeMode themeMode;
 
-  EpCustomCheckListWidget({super.key, required this.item, required this.index});
+  EpCustomCheckListWidget({super.key, required this.item, required this.index, required this.themeMode});
   final ChecklistController checklistController = Get.put(
     ChecklistController(),
   );
@@ -18,7 +19,7 @@ class EpCustomCheckListWidget extends StatelessWidget {
     return Obx(
       () => Card(
         elevation: 0,
-        color: AppColors.primary,
+        color: themeMode == ThemeMode.dark? Color(0xff32383D): AppColors.primary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
 
         child: Padding(
@@ -30,7 +31,7 @@ class EpCustomCheckListWidget extends StatelessWidget {
                 onChanged: (value) {
                   checklistController.toggleSelection(index);
                 },
-                side: BorderSide(color: AppColors.buttonColor2, width: 2.0),
+                side: BorderSide(color: themeMode == ThemeMode.dark ? AppColors.borderColor2: AppColors.buttonColor2, width: 2.0),
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -42,13 +43,13 @@ class EpCustomCheckListWidget extends StatelessWidget {
                       style: getTextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
-                        color: AppColors.buttonColor2,
+                        color: themeMode == ThemeMode.dark ? AppColors.borderColor2: AppColors.buttonColor2,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       item.venue ?? '',
-                      style: getTextStyle(color: Color(0xff999999)),
+                      style: getTextStyle(color: themeMode == ThemeMode.dark ? AppColors.borderColor2: Color(0xff999999)),
                     ),
                     const SizedBox(height: 2),
 

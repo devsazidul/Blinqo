@@ -9,8 +9,7 @@ AppBar buildCheckVenueAppBar() {
   bool isDarkMode = themeController.isDarkMode.value;
 
   return AppBar(
-    backgroundColor:
-        isDarkMode ? AppColors.darkBackgroundColor : AppColors.backgroundColor,
+  
     scrolledUnderElevation: 0,
     leading: Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),

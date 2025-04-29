@@ -10,8 +10,9 @@ import 'package:get/get.dart';
 class ChecklistAppbar extends StatelessWidget {
   final ProfileController themeController = Get.put(ProfileController());
   final ChecklistController controller = Get.find<ChecklistController>();
+ final ThemeMode themeMode;
 
-  ChecklistAppbar({super.key});
+  ChecklistAppbar({super.key, required this.themeMode});
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +150,7 @@ class ChecklistAppbar extends StatelessWidget {
         style: getTextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color: isDarkMode ? Colors.white : AppColors.textColor,
+          color: themeMode == ThemeMode.dark ? Colors.white : AppColors.textColor,
         ),
       ),
     );
