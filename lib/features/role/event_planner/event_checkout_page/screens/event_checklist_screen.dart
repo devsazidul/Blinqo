@@ -1,12 +1,11 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/build_checkappbar.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/create_checklist_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -19,9 +18,8 @@ class EventChecklistScreen extends StatelessWidget {
     // final ChecklistController controller = Get.put(ChecklistController());
     final profileController = Get.find<ProfileController>();
 
-    double screenHeight =
-        MediaQuery.of(context).size.height; // Get screen height
-    double screenWidth = MediaQuery.of(context).size.width; // Get screen width
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     Get.put(ChecklistController());
 
@@ -34,7 +32,7 @@ class EventChecklistScreen extends StatelessWidget {
             themeMode == ThemeMode.dark
                 ? AppColors.darkBackgroundColor
                 : AppColors.borderColor2,
-        appBar: _buildAppBar(themeMode),
+        appBar: buildCheckVenueAppBar(),
 
         body: Center(
           child: Column(
@@ -121,156 +119,5 @@ class EventChecklistScreen extends StatelessWidget {
         ),
       );
     });
-  }
-
-  AppBar _buildAppBar(ThemeMode themeMode) {
-    final ChecklistController controller = Get.find<ChecklistController>();
-
-    return AppBar(
-      backgroundColor: AppColors.backgroundColor,
-      forceMaterialTransparency: true,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 20.0),
-        child: GestureDetector(
-          onTap: () {},
-          child: CircleAvatar(
-            backgroundColor:
-                themeMode == ThemeMode.dark
-                    ? Color(0xFFD9D9D9).withAlpha(40)
-                    : const Color(0xFFD9D9D9),
-            child: Image.asset(
-              IconPath.arrowLeftAlt,
-              width: 16,
-              height: 12,
-              color:
-                  themeMode == ThemeMode.dark
-                      ? Colors.white
-                      : AppColors.textColor,
-            ),
-          ),
-        ),
-      ),
-      centerTitle: true,
-      actions: [
-        if (controller.checklistItems.isNotEmpty) // Null condition
-          PopupMenuButton<String>(
-            color:
-                themeMode == ThemeMode.dark
-                    ? Colors.grey[800] // Contrasting background for dark mode
-                    : AppColors.primary,
-            onSelected: (value) {
-              if (value == 'Delete') {
-                controller.checklistItems.clear();
-                controller.updateFilteredList();
-              } else if (value == 'Mark As Completed') {
-                for (var item in controller.checklistItems) {
-                  item.isCompleted = true;
-                }
-                controller.checklistItems.refresh();
-                controller.updateFilteredList();
-              } else if (value == 'Mark As Urgent') {
-                for (var item in controller.checklistItems) {
-                  item.isUrgent = true;
-                }
-                controller.checklistItems.refresh();
-                controller.updateFilteredList();
-              } else if (value == 'Edit') {
-                if (controller.checklistItems.isNotEmpty) {
-                  controller.editItem(0);
-                }
-              }
-            },
-            itemBuilder:
-                (BuildContext context) => <PopupMenuEntry<String>>[
-                  PopupMenuItem<String>(
-                    value: 'Delete',
-                    child: Center(
-                      child: Text(
-                        'Delete',
-                        style: getTextStyle(
-                          color:
-                              themeMode == ThemeMode.dark
-                                  ? Colors
-                                      .white // Visible in dark mode
-                                  : AppColors.dopdownTextColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const PopupMenuDivider(),
-                  PopupMenuItem<String>(
-                    value: 'Mark As Completed',
-                    child: Center(
-                      child: Text(
-                        'Mark As Completed',
-                        style: getTextStyle(
-                          color:
-                              themeMode == ThemeMode.dark
-                                  ? Colors.white
-                                  : AppColors.dopdownTextColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const PopupMenuDivider(),
-                  PopupMenuItem<String>(
-                    value: 'Mark As Urgent',
-                    child: Center(
-                      child: Text(
-                        'Mark As Urgent',
-                        style: getTextStyle(
-                          color:
-                              themeMode == ThemeMode.dark
-                                  ? Colors.white
-                                  : AppColors.dopdownTextColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const PopupMenuDivider(),
-                  PopupMenuItem<String>(
-                    value: 'Edit',
-                    child: Center(
-                      child: Text(
-                        'Edit',
-                        style: getTextStyle(
-                          color:
-                              themeMode == ThemeMode.dark
-                                  ? Colors.white
-                                  : AppColors.dopdownTextColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-            icon: Icon(
-              Icons.more_vert,
-              color:
-                  themeMode == ThemeMode.dark
-                      ? Colors
-                          .white // Visible in dark mode
-                      : Colors.black, // Visible in light mode
-              size: 24, // Larger icon for visibility
-            ),
-          ),
-      ],
-      title: Text(
-        'Checklist',
-        style: getTextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color:
-              themeMode == ThemeMode.dark ? Colors.white : AppColors.textColor,
-        ),
-      ),
-    );
   }
 }
