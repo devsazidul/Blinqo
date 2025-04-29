@@ -20,7 +20,7 @@ class AuthCustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.onChanged,
-    this.borderRadius=12
+    this.borderRadius = 12,
   });
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,10 @@ class AuthCustomTextField extends StatelessWidget {
       onTap: onTap,
       onChanged: onChanged,
       obscureText: obscureText!,
+
       style: getTextStyle(
-        fontSize: 12,
-        color: obscureText! ? Color(0xFF0047AB) : Color(0xFF1F1F1F),
+        fontSize: 14,
+        color: Colors.grey,
         fontWeight: obscureText! ? FontWeight.bold : FontWeight.w400,
       ),
       validator: validator,
@@ -45,23 +46,23 @@ class AuthCustomTextField extends StatelessWidget {
           fontWeight: FontWeight.w400,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius??12),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12),
           borderSide: BorderSide(width: 1, color: Color(0xFF78828A)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius??12),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12),
           borderSide: BorderSide(width: 1, color: Color(0xFF78828A)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius??12),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12),
           borderSide: BorderSide(width: 1, color: Color(0xFF78828A)),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius??12),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12),
           borderSide: BorderSide(width: 1, color: Color(0xFFE53935)),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius??12),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12),
           borderSide: BorderSide(width: 1, color: Color(0xFFE53935)),
         ),
         errorStyle: getTextStyle(color: Color(0xFFE53935), fontSize: 12),

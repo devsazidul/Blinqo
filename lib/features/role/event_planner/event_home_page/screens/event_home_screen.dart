@@ -36,80 +36,78 @@ class EventHomeScreen extends StatelessWidget {
                 ? Colors.black
                 : AppColors.backgroundColor,
         appBar: HomeHeaderSection(themeMode: themeMode),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Obx(() {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 32),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Obx(() {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 32),
 
-                    SearchBerSection(themeMode: themeMode),
-                    SizedBox(height: 20),
-                    EventCard(),
-                    SizedBox(height: 40),
+                  SearchBerSection(themeMode: themeMode),
+                  SizedBox(height: 20),
+                  EventCard(),
+                  SizedBox(height: 40),
 
-                    _buildTitle(
-                      'Featured Venues',
-                      themeMode,
-                      onTap: () {
-                        // Get.to(FeaturedVenuesScreen());
+                  _buildTitle(
+                    'Featured Venues',
+                    themeMode,
+                    onTap: () {
+                      // Get.to(FeaturedVenuesScreen());
 
-                        Navigator.pushNamed(
-                          context,
-                          AppRoute.getfeaturedVenuesScreen(),
-                        );
-                      },
+                      Navigator.pushNamed(
+                        context,
+                        AppRoute.getfeaturedVenuesScreen(),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 8),
+                  _featureVenuesList(context, themeMode),
+                  SizedBox(height: 40),
+
+                  // Upcoming Events
+                  Text(
+                    'Upcoming Events',
+                    style: getTextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? AppColors.backgroundColor
+                              : Colors.black,
                     ),
-                    SizedBox(height: 8),
-                    _featureVenuesList(context, themeMode),
-                    SizedBox(height: 40),
+                  ),
+                  SizedBox(height: 20),
+                  _buildUpComingEventList(controller, themeMode),
 
-                    // Upcoming Events
-                    Text(
-                      'Upcoming Events',
-                      style: getTextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
+                  SizedBox(height: 40),
+                  _buildTitle(
+                    'Venues Near You',
+                    themeMode,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoute.getvenuesNearScreen(),
+                      );
+                    },
+                  ),
+                  _buildVenueNearYouList(context),
 
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.backgroundColor
-                                : Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    _buildUpComingEventList(controller, themeMode),
-
-                    SizedBox(height: 40),
-                    _buildTitle(
-                      'Venues Near You',
-                      themeMode,
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoute.getvenuesNearScreen(),
-                        );
-                      },
-                    ),
-                    _buildVenueNearYouList(context),
-
-                    SizedBox(height: 40),
-                    _buildTitle(
-                      'Additional Services',
-                      themeMode,
-                      onTap: () {
-                        Get.to(EventServicesScreen());
-                      },
-                    ),
-                    _eventServicesList(context, themeMode),
-                    SizedBox(height: 20),
-                  ],
-                );
-              }),
-            ),
+                  SizedBox(height: 40),
+                  _buildTitle(
+                    'Additional Services',
+                    themeMode,
+                    onTap: () {
+                      Get.to(EventServicesScreen());
+                    },
+                  ),
+                  _eventServicesList(context, themeMode),
+                  SizedBox(height: 20),
+                ],
+              );
+            }),
           ),
         ),
       );
@@ -234,7 +232,7 @@ class EventHomeScreen extends StatelessWidget {
     ];
 
     return SizedBox(
-      height: 160, 
+      height: 160,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: services.length,

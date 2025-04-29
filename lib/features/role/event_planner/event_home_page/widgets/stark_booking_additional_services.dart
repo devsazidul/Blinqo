@@ -15,8 +15,8 @@ class StarkBookingAdditionalServices extends StatelessWidget {
 
   void _showSelectedServiceDialog(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final dialogWidth = screenWidth * 0.9; // 90% of screen width
-    final dialogHeight = screenWidth * 0.7; // Responsive height based on width
+    final dialogWidth = screenWidth * 0.9;
+    final dialogHeight = screenWidth * 0.7;
 
     showDialog(
       context: context,
