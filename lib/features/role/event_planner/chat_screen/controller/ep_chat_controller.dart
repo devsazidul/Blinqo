@@ -1,10 +1,11 @@
+import 'dart:io';
+
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/data/chat_data.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
