@@ -169,6 +169,17 @@ class CheckVenue extends StatelessWidget {
                   ],
                 ),
               ),
+       Obx(
+  () => ListView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: checklistController.checklistItems.length,
+    itemBuilder: (context, index) {
+      final item = checklistController.checklistItems[index];
+      return EpCustomCheckListWidget(item: item);
+    },
+  ),
+),
             ],
           ),
         ),

@@ -13,7 +13,6 @@ class CreateChecklistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChecklistController controller = Get.put(ChecklistController());
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: buildCheckVenueAppBar(),
