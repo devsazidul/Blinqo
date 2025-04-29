@@ -324,7 +324,7 @@ SizedBox(
       backgroundColor: themeMode == ThemeMode.dark 
       ? (isEnabled 
           ?  AppColors.buttonColor2
-          :  AppColors.buttonColor2) : (isEnabled?AppColors.buttonColor2:AppColors.buttonColor),
+          :  AppColors.chatBackground) : (isEnabled?AppColors.buttonColor2:AppColors.chatBackground),
       foregroundColor: isEnabled
           ? AppColors.buttonColor2// Enabled text color
           : Colors.red, // Disabled text
