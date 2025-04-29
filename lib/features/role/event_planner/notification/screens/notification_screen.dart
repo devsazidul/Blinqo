@@ -19,6 +19,9 @@ class NotificationScreen extends StatelessWidget {
               ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
       appBar: CustomAppBarWidget(
+        onPressed: () {
+          Get.back();
+        },
         title: "Notification",
         actions: [
           IconButton(

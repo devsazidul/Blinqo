@@ -47,7 +47,9 @@ class FilterDetailsScreen extends StatelessWidget {
                 color: isDarkMode ? AppColors.primary : AppColors.textColor,
               ),
 
-              onPressed: () => Get.back(),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ),
         ),
