@@ -51,8 +51,10 @@ class EventPaymentCard extends StatelessWidget {
           Spacer(),
           // Checkbox
           Obx(
-                () => Checkbox(
-              value: controller.selectedIndex.value == index, // Check if this card is selected
+            () => Checkbox(
+              value:
+                  controller.selectedIndex.value ==
+                  index, // Check if this card is selected
               onChanged: (bool? value) {
                 if (value == true) {
                   controller.selectPaymentOption(index); // Select this card

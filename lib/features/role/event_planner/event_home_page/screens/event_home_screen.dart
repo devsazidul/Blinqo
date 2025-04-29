@@ -196,6 +196,7 @@ class EventHomeScreen extends StatelessWidget {
               date: event['date'],
               location: event['location'],
               status: event['status'],
+              index: index,
             ),
           );
         },

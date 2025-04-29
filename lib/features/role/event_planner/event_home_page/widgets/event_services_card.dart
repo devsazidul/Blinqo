@@ -24,6 +24,8 @@ class EventServiceCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.asset(
+              cacheHeight: 400,
+              cacheWidth: 300,
               service.imagePath,
               width: 116,
               height: 85,

@@ -294,7 +294,8 @@ class SearchStartBooking extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.05),
                     StartBookingButton(
                       onTapContinue: () {
-                        Navigator.pushNamed(context, ReviewBooking.routeName);
+                        //Navigator.pushNamed(context, ReviewBooking.routeName);
+                        Get.to(ReviewBooking());
                       },
                       screenHeight: screenHeight,
                       themeMode: themeMode,

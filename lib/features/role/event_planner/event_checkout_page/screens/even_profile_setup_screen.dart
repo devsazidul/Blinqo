@@ -6,6 +6,7 @@ import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_b
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../payment_method/screen/even_payment_option.dart';
 import 'controllers/even_profile_controller.dart';
 import 'profile_setup_widget/avater_profile_setup_screen.dart';
 import 'profile_setup_widget/even_planner_gender.dart';
@@ -55,7 +56,11 @@ class EvenProfileSetupScreen extends StatelessWidget {
                   ),
 
                   SizedBox(height: 40),
-                  UpgradeToProcard(onTap: () {}),
+                  UpgradeToProcard(
+                    onTap: () {
+                      Get.to(EvenPaymentOption());
+                    },
+                  ),
                   SizedBox(height: 40),
                   ProfileSetupButton(
                     onTap: () {
