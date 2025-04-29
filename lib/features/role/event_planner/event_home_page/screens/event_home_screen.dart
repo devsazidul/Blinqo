@@ -11,6 +11,7 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/home_header_section.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/search_ber.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/widgets/upcomming_events.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,11 +84,7 @@ class EventHomeScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 20),
-                      _buildFeatureVenuesList(
-                        controller,
-                        themeMode,
-                        controller,
-                      ),
+                      _buildUpComingEventList(controller, themeMode),
 
                       SizedBox(height: 40),
                       _buildTitle(
@@ -330,29 +327,30 @@ class EventHomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureVenuesList(
-    context,
-    ThemeMode themeMode,
+  // Upcoming Events
+  Widget _buildUpComingEventList(
     UpcomingEventsController controller,
+    ThemeMode themeMode,
   ) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(controller.venues.length, (index) {
-          var venue = controller.venues[index];
-
+    return Column(
+      children: List.generate(
+        controller.upcomingEvents.length > 3
+            ? 3
+            : controller.upcomingEvents.length,
+        (index) {
+          var event = controller.upcomingEvents[index];
           return Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: FeatureVenues(
-              index: index,
-              hallName: venue['name'],
-              location: venue['location'],
-              guestCapacity: venue['guestCapacity'],
-              imagePath: venue['imagePath'],
-              rating: venue['rating'],
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: UpcommingEvents(
+              themeMode: themeMode,
+              title: event['title'],
+              venue: event['venue'],
+              date: event['date'],
+              location: event['location'],
+              status: event['status'],
             ),
           );
-        }),
+        },
       ),
     );
   }
