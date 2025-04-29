@@ -1,22 +1,31 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 AppBar buildCheckVenueAppBar() {
+  final ProfileController themeController = Get.put(ProfileController());
+  bool isDarkMode = themeController.isDarkMode.value;
+
   return AppBar(
-    backgroundColor: AppColors.backgroundColor,
-    forceMaterialTransparency: true,
+  
+    scrolledUnderElevation: 0,
     leading: Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 8.0),
-      child: GestureDetector(
-        onTap: () {
-          Get.back();
-        },
-        child: CircleAvatar(
-          backgroundColor: const Color(0xFFD9D9D9),
-          child: Image.asset(IconPath.arrowLeftAlt, width: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: CircleAvatar(
+        backgroundColor:
+            isDarkMode
+                ? AppColors.primary.withValues(alpha: 0.1)
+                : AppColors.textColor.withValues(alpha: 0.15),
+        child: IconButton(
+          padding: EdgeInsets.all(0),
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDarkMode ? AppColors.primary : AppColors.textColor,
+          ),
+
+          onPressed: () => Get.back(),
         ),
       ),
     ),
@@ -25,7 +34,7 @@ AppBar buildCheckVenueAppBar() {
       style: getTextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
-        color: AppColors.textColor,
+        color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
       ),
     ),
     centerTitle: true,

@@ -21,7 +21,6 @@ class EventServicesScreen extends StatelessWidget {
       Service(imagePath: IconPath.epentertainment, label: 'Entertainment'),
       Service(imagePath: IconPath.epgame, label: 'Game'),
     ];
-    debugPrint('screenWidth: $screenWidth');
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -50,26 +49,24 @@ class EventServicesScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // SizedBox(height: 20),
-            Expanded(
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 1,
-                  crossAxisSpacing: 1,
-                  childAspectRatio: 1,
-                ),
-                itemCount: 6,
-                itemBuilder: (context, index) {
-                  return EventServiceCard(service: services[index]);
-                },
+            GridView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: .20,
+                crossAxisSpacing: 1,
+                childAspectRatio: 1,
               ),
+              itemCount: services.length,
+              itemBuilder: (context, index) {
+                return EventServiceCard(service: services[index]);
+              },
             ),
           ],
         ),

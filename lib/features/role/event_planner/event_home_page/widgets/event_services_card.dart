@@ -1,7 +1,7 @@
-import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../screens/ep_event_service_details.dart';
 
@@ -22,22 +22,22 @@ class EventServiceCard extends StatelessWidget {
       child: Column(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
             child: Image.asset(
               service.imagePath,
-              width: 116,
-              height: 85,
+              width: 168,
+              height: 123,
               fit: BoxFit.cover,
             ),
           ),
           Text(
             service.label,
-            style: getTextStyle(
+            style: GoogleFonts.poppins(
               color:
                   themeMode == ThemeMode.dark
                       ? AppColors.backgroundColor
                       : AppColors.textColor,
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
           ),

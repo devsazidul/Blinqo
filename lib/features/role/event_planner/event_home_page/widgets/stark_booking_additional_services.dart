@@ -15,8 +15,8 @@ class StarkBookingAdditionalServices extends StatelessWidget {
 
   void _showSelectedServiceDialog(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final dialogWidth = screenWidth * 0.9; // 90% of screen width
-    final dialogHeight = screenWidth * 0.7; // Responsive height based on width
+    final dialogWidth = screenWidth * 0.9;
+    final dialogHeight = screenWidth * 0.7;
 
     showDialog(
       context: context,
@@ -117,11 +117,11 @@ class StarkBookingAdditionalServices extends StatelessWidget {
             'Additional Services',
             style: getTextStyle(
               fontSize: 20,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               color:
                   themeMode == ThemeMode.dark
                       ? AppColors.borderColor2
-                      : AppColors.buttonColor2,
+                      : Color(0xff333333),
             ),
           ),
         ),
@@ -140,7 +140,7 @@ class StarkBookingAdditionalServices extends StatelessWidget {
                       vertical: isSmallScreen ? 3.0 : 4.0,
                     ),
                     width: isSmallScreen ? screenWidth * 0.35 : 121.0,
-                    height: isSmallScreen ? 36.0 : 40.0,
+                    height: isSmallScreen ? 36.0 : 50.0,
                     decoration: BoxDecoration(
                       color: AppColors.buttonColor3,
                       borderRadius: BorderRadius.circular(40.0),

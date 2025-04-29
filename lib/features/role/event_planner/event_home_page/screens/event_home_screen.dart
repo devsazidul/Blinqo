@@ -38,6 +38,7 @@ class EventHomeScreen extends StatelessWidget {
                 ? Colors.black
                 : AppColors.backgroundColor,
         appBar: HomeHeaderSection(themeMode: themeMode),
+
         body: SafeArea(
           child: Stack(
             children: [
@@ -249,6 +250,7 @@ class EventHomeScreen extends StatelessWidget {
                     : Container();
               }),
             ],
+
           ),
         ),
       );
@@ -395,11 +397,11 @@ class EventHomeScreen extends StatelessWidget {
     ];
 
     return SizedBox(
-      height: 120,
+      height: 160,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: services.length,
-        separatorBuilder: (context, index) => SizedBox(width: 16),
+        separatorBuilder: (context, index) => SizedBox(width: 8),
         itemBuilder: (context, index) {
           final service = services[index];
           return EventServiceCard(service: service, themeMode: themeMode);

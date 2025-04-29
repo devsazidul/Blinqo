@@ -5,9 +5,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ChecklistController extends GetxController {
-  
   var isTaskFormVisible = false.obs;
-var savedItems = <ChecklistModel>[].obs;
+  var savedItems = <ChecklistModel>[].obs;
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay(hour: 0, minute: 0).obs;
   var eventName = ''.obs;
@@ -15,8 +14,6 @@ var savedItems = <ChecklistModel>[].obs;
   var venue = ''.obs;
   var isDateSelected = false.obs;
   var isTimeSelected = false.obs;
-
-  var checklistItems = <ChecklistModel>[].obs;
 
   var filterType = 'ALL Task'.obs;
   var sortType = 'By Date'.obs;
@@ -91,7 +88,6 @@ var savedItems = <ChecklistModel>[].obs;
   }
 
   // Method to save the checklist item
-
 
   // Method to clear all form fields after saving
   void clearFields() {
@@ -176,19 +172,32 @@ var savedItems = <ChecklistModel>[].obs;
       });
     }
 
-    // Update the filteredChecklistItems
     filteredChecklistItems.assignAll(filteredList);
   }
 
-  // Track the index of the selected checkbox
-  var selectedIndex = (-1).obs; // -1 means no checkbox is selected initially
+  var checklistItems = <ChecklistModel>[].obs;
 
-  // Function to toggle checkbox state
-  void toggleCheckbox(int index, bool value) {
-    if (value) {
-      selectedIndex.value = index; // Set selected index when checked
+  var favoriteList = <int, bool>{}.obs;
+  void toggleFavorite(int id) {
+    favoriteList[id] = !(favoriteList[id] ?? false);
+  }
+
+  bool isFavorite(int id) {
+    return favoriteList[id] ?? false;
+  }
+
+  var selectedItems = <int>[].obs; // Track selected indices
+
+  void toggleSelection(int index) {
+    if (selectedItems.contains(index)) {
+      selectedItems.remove(index);
     } else {
-      selectedIndex.value = -1; // Reset when unchecked
+      selectedItems.add(index);
     }
+    update();
+  }
+
+  bool isSelected(int index) {
+    return selectedItems.contains(index);
   }
 }

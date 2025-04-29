@@ -1,54 +1,50 @@
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 
-class CheckVenueController extends GetxController {
-  // For first dropdown (All Task / Argent)
-  var isDroppeddownOpen = false.obs;
-  var selectedTask = 'All Task'.obs;
+// class CheckVenueController extends GetxController {
+//   var isDroppeddownOpen = false.obs;
+//   var selectedTask = 'All Task'.obs;
 
-  // For second dropdown (By Date)
-  var isDateDropdownOpen = false.obs;
-  var selectedDate = 'By Date'.obs;
-   RxBool isChecked = false.obs;
+//   var isDateDropdownOpen = false.obs;
+//   var selectedDate = 'By Date'.obs;
+//   RxBool isChecked = false.obs;
 
-  // Add logic to toggle the checkbox value if needed
-  void toggleCheckbox(bool? value) {
-    isChecked.value = value ?? false;
-  }
-  
+//   void toggleCheckbox(bool? value) {
+//     isChecked.value = value ?? false;
+//   }
 
+//   void toggleDropdown() {
+//     isDroppeddownOpen.value = !isDroppeddownOpen.value;
+//   }
 
-  void toggleDropdown() {
-    isDroppeddownOpen.value = !isDroppeddownOpen.value;
-  }
+//   void selectTask(String task) {
+//     selectedTask.value = task;
+//     isDroppeddownOpen.value = false;
+//   }
 
-  void selectTask(String task) {
-    selectedTask.value = task;
-    isDroppeddownOpen.value = false;
-  }
+//   void toggleDateDropdown() {
+//     isDateDropdownOpen.value = !isDateDropdownOpen.value;
+//   }
 
-  void toggleDateDropdown() {
-    isDateDropdownOpen.value = !isDateDropdownOpen.value;
-  }
+//   void selectDate(String date) {
+//     selectedDate.value = date;
+//     isDateDropdownOpen.value = false;
+//   }
 
-  void selectDate(String date) {
-    selectedDate.value = date;
-    isDateDropdownOpen.value = false;
-  }
- var checklistItems = <CheckListItem>[].obs;
+//   var checklistItems = <CheckListItem>[].obs;
+// }
 
-}
-  class CheckListItem {
-    String title;
-    String location;
-    String date;
-    String time;
-    RxBool isChecked;
-  
-    CheckListItem({
-      required this.title,
-      required this.location,
-      required this.date,
-      required this.time,
-      required this.isChecked,
-    });
-  }
+// class CheckListItem {
+//   String title;
+//   String location;
+//   String date;
+//   String time;
+//   RxBool isChecked;
+
+//   CheckListItem({
+//     required this.title,
+//     required this.location,
+//     required this.date,
+//     required this.time,
+//     required this.isChecked,
+//   });
+// }
