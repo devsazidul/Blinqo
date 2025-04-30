@@ -17,15 +17,16 @@ class CustomCircleAvater extends StatelessWidget {
     required this.isSelected,
   });
   final controller = Get.put(SpProfileController());
+  final profileController = Get.put(ProfileSetupController());
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double circleavatarradius = (screenHeight < 700) ? 50 : 58;
-    final profileController = Get.find<ProfileSetupController>();
 
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+      final isSelected = profileController.selectedEvents.contains(text);
       return GestureDetector(
         onTap: () {
           profileController.toggleEventSelection(text);
