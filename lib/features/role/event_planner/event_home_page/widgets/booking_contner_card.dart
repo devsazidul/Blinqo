@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class BookingContainerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
+    final PickColorController pickColorController = Get.find();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -165,6 +167,8 @@ class BookingContainerCard extends StatelessWidget {
                         color:
                             isDarkMode
                                 ? AppColors.buttonColor
+                                : pickColorController.isFemale.value
+                                ? pickColorController.selectedColor
                                 : AppColors.buttonColor2,
                         fontWeight: FontWeight.w500,
                       ),
@@ -177,6 +181,8 @@ class BookingContainerCard extends StatelessWidget {
                       color:
                           isDarkMode
                               ? AppColors.buttonColor
+                              : pickColorController.isFemale.value
+                              ? pickColorController.selectedColor
                               : AppColors.buttonColor2,
                     ),
                   ],

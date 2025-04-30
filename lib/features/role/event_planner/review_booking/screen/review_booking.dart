@@ -1,7 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
-
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,8 +19,8 @@ class ReviewBooking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final stepController = StepIndicatorController(maxSteps: 3);
+    final PickColorController pickColorController = Get.find();
     Future.delayed(Duration(milliseconds: 300), () {
       stepController.setStep(1);
     });
@@ -62,21 +61,29 @@ class ReviewBooking extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color:
-                          themeMode == ThemeMode.dark
-                              ? Color(0xffD4AF37)
-                              : Color(0xff003285),
+                              themeMode == ThemeMode.dark
+                                  ? Color(0xffD4AF37)
+                                  : pickColorController.isFemale.value
+                                  ? pickColorController.selectColor
+                                  : Color(0xff003285),
                         ),
                       ),
                     ),
                     SizedBox(height: 20),
                     StepIndicator(
-                      controller:  stepController,
-                      activeColor: themeMode == ThemeMode.dark
-                          ? Color(0xffD4AF37)
-                          : Color(0xff003285),
-                      activeLineColor: themeMode == ThemeMode.dark
-                          ? Color(0xffD4AF37)
-                          : Color(0xff003285),
+                      controller: stepController,
+                      activeColor:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffD4AF37)
+                              : pickColorController.isFemale.value
+                              ? pickColorController.selectColor
+                              : Color(0xff003285),
+                      activeLineColor:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xffD4AF37)
+                              : pickColorController.isFemale.value
+                              ? pickColorController.selectColor
+                              : Color(0xff003285),
                       circleRadius: 18,
                       paddingHorizontal: 60,
                       showNavigationButtons: false,
@@ -200,6 +207,9 @@ class ReviewBooking extends StatelessWidget {
                           backgroundColor:
                               themeMode == ThemeMode.dark
                                   ? Color(0xff003366)
+                                  : pickColorController.isFemale.value
+                                  ? pickColorController.selectedColor
+                                      .withValues(alpha: 0.1)
                                   : Color(0xffE6EBF0), // Your custom color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
@@ -239,6 +249,8 @@ class ReviewBooking extends StatelessWidget {
                               color:
                                   themeMode == ThemeMode.dark
                                       ? AppColors.darkBackgroundColor
+                                      : pickColorController.isFemale.value
+                                      ? pickColorController.selectedColor
                                       : AppColors.buttonColor2,
                             ),
                             borderRadius: BorderRadius.circular(
@@ -254,6 +266,8 @@ class ReviewBooking extends StatelessWidget {
                             color:
                                 themeMode == ThemeMode.dark
                                     ? AppColors.primary
+                                    : pickColorController.isFemale.value
+                                    ? pickColorController.selectedColor
                                     : AppColors.buttonColor2,
                           ),
                         ),

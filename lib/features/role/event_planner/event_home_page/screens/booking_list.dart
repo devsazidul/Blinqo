@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class BookingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
+    final PickColorController pickColorController = Get.find();
     // Get the screen size using MediaQuery
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -52,6 +54,7 @@ class BookingList extends StatelessWidget {
               BookingEmtry(
                 screenWidthFactor: screenWidthFactor,
                 screenHeightFactor: screenHeightFactor,
+                pickColorController: pickColorController,
               ),
 
               // booking list
@@ -63,6 +66,8 @@ class BookingList extends StatelessWidget {
                   color:
                       isDarkMode
                           ? AppColors.borderColor2
+                          : pickColorController.isFemale.value
+                          ? pickColorController.selectedColor
                           : AppColors.buttonColor2,
                 ),
               ),

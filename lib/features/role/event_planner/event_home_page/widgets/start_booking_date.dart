@@ -1,4 +1,5 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,10 +12,12 @@ class StartBookingDate extends StatelessWidget {
     super.key,
     required this.bookingController,
     required this.themeMode,
+    this.pickColorController,
   });
 
   final BookingController bookingController;
   final ThemeMode themeMode;
+  final PickColorController? pickColorController;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,6 +31,9 @@ class StartBookingDate extends StatelessWidget {
             color:
                 themeMode == ThemeMode.dark
                     ? AppColors.borderColor2
+                    : pickColorController?.isFemale.value ?? false
+                    ? pickColorController?.selectedColor ??
+                        AppColors.dopdownTextColor
                     : AppColors.dopdownTextColor,
           ),
         ),
@@ -59,6 +65,9 @@ class StartBookingDate extends StatelessWidget {
                   color:
                       themeMode == ThemeMode.dark
                           ? AppColors.buttonColor
+                          : pickColorController?.isFemale.value ?? false
+                          ? pickColorController?.selectedColor ??
+                              AppColors.iconColor
                           : AppColors.iconColor,
                 ),
                 SizedBox(width: 4),
@@ -84,6 +93,9 @@ class StartBookingDate extends StatelessWidget {
                           color:
                               themeMode == ThemeMode.dark
                                   ? AppColors.buttonColor
+                                  : pickColorController?.isFemale.value ?? false
+                                  ? pickColorController?.selectedColor ??
+                                      Color(0xFF003285)
                                   : Color(0xFF003285),
                         ),
                       ),

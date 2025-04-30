@@ -1,10 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../controller/event_payment_controller.dart'; // Adjust the import path
 import '../services/event_strip_service.dart';
 import '../widget/event_payment_card.dart';
@@ -14,12 +16,13 @@ class EvenPaymentOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PickColorController pickColorController = Get.find();
     bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
     Get.put(EventPaymentController()); // Initialize the controller
 
     return Scaffold(
       backgroundColor:
-      isDarkMode ? AppColors.darkBackgroundColor : Color(0xffF4F4F4),
+          isDarkMode ? AppColors.darkBackgroundColor : Color(0xffF4F4F4),
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         forceMaterialTransparency: true,
@@ -95,7 +98,10 @@ class EvenPaymentOption extends StatelessWidget {
                   width: double.infinity,
                   height: 56,
                   decoration: BoxDecoration(
-                    color: Color(0xff003366),
+                    color:
+                        isDarkMode && !pickColorController.isFemale.value
+                            ? Color(0xff003366)
+                            : pickColorController.selectedColor,
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(
                       color: ThemeStyle.darkLight1(isDarkMode),

@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,8 +13,8 @@ class StartBookingDecorationCard extends StatelessWidget {
     required this.text,
     required this.text2,
     required this.themeMode,
-
     this.onTap,
+    this.pickColorController,
   });
 
   final double screenHeight;
@@ -21,6 +22,7 @@ class StartBookingDecorationCard extends StatelessWidget {
   final void Function()? onTap;
   final String text;
   final String text2;
+  final PickColorController? pickColorController;
 
   final ThemeMode themeMode;
 
@@ -38,6 +40,9 @@ class StartBookingDecorationCard extends StatelessWidget {
             color:
                 themeMode == ThemeMode.dark
                     ? AppColors.borderColor2
+                    : pickColorController?.isFemale.value ?? false
+                    ? pickColorController?.selectedColor ??
+                        AppColors.buttonColor2
                     : AppColors.buttonColor2,
           ),
         ),

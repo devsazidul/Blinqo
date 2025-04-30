@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,7 @@ class StarkBookingAdditionalServices extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final dialogWidth = screenWidth * 0.9;
     final dialogHeight = screenWidth * 0.7;
+    final pickColorController = Get.find<PickColorController>();
 
     showDialog(
       context: context,
@@ -105,6 +107,7 @@ class StarkBookingAdditionalServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PickColorController pickColorController = Get.find();
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmallScreen = screenWidth < 400;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -164,6 +167,8 @@ class StarkBookingAdditionalServices extends StatelessWidget {
                                 color:
                                     themeMode == ThemeMode.dark
                                         ? AppColors.buttonColor
+                                        : pickColorController.isFemale.value
+                                        ? pickColorController.selectedColor
                                         : AppColors.buttonColor2,
                               ),
                               overflow: TextOverflow.ellipsis,
@@ -180,6 +185,10 @@ class StarkBookingAdditionalServices extends StatelessWidget {
                               color:
                                   themeMode == ThemeMode.dark
                                       ? AppColors.buttonColor
+                                      : pickColorController?.isFemale.value ??
+                                          false
+                                      ? pickColorController?.selectedColor ??
+                                          AppColors.buttonColor2
                                       : AppColors.buttonColor2,
                             ),
                           ),
@@ -227,6 +236,8 @@ class StarkBookingAdditionalServices extends StatelessWidget {
                       color:
                           themeMode == ThemeMode.dark
                               ? AppColors.buttonColor
+                              : pickColorController.isFemale.value
+                              ? pickColorController.selectedColor
                               : AppColors.buttonColor2,
                     ),
                   ),
@@ -238,6 +249,8 @@ class StarkBookingAdditionalServices extends StatelessWidget {
                     color:
                         themeMode == ThemeMode.dark
                             ? AppColors.buttonColor
+                            : pickColorController.isFemale.value
+                            ? pickColorController.selectedColor
                             : AppColors.buttonColor2,
                   ),
                 ],

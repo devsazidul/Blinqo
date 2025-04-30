@@ -1,7 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../controller/event_payment_controller.dart';
 
 class EventPaymentCard extends StatelessWidget {
@@ -20,6 +22,7 @@ class EventPaymentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PickColorController pickColorController = Get.find();
     // Get the controller (use Get.find since it's already initialized in the parent widget)
     final EventPaymentController controller = Get.put(EventPaymentController());
 
@@ -60,7 +63,10 @@ class EventPaymentCard extends StatelessWidget {
                   controller.selectPaymentOption(index); // Select this card
                 }
               },
-              activeColor: ThemeStyle.goldToBlack(isDarkMode),
+              activeColor:
+                  isDarkMode && !pickColorController.isFemale.value
+                      ? ThemeStyle.goldToBlack(isDarkMode)
+                      : pickColorController.selectedColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),

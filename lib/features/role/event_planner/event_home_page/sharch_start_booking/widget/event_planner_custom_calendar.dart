@@ -1,8 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
-
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../core/utils/constants/colors.dart'; // Import for date formatting
@@ -11,6 +10,8 @@ class EventPlannerCustomCalendar extends StatelessWidget {
   final ValueNotifier<List<DateTime>> selectedDatesNotifier;
   final double height;
   final ThemeMode themeMode;
+  final Color selectedColor;
+  final Color bookedColor;
 
   const EventPlannerCustomCalendar({
     super.key,
@@ -18,6 +19,8 @@ class EventPlannerCustomCalendar extends StatelessWidget {
 
     this.height = 320,
     required this.themeMode,
+    this.selectedColor = const Color(0xffF0C020),
+    this.bookedColor = const Color(0xffC0C0C0),
   });
 
   @override
@@ -83,15 +86,9 @@ class EventPlannerCustomCalendar extends StatelessWidget {
                 markedDateShowIcon: true,
                 markedDateIconBuilder: (event) {
                   if (selectedDates.indexOf(event.date) == 0) {
-                    return _buildCircle(
-                      event.date.day,
-                      const Color(0xffF0C020),
-                    );
+                    return _buildCircle(event.date.day, selectedColor);
                   } else {
-                    return _buildCircle(
-                      event.date.day,
-                      const Color(0xffC0C0C0),
-                    );
+                    return _buildCircle(event.date.day, bookedColor);
                   }
                 },
                 todayBorderColor: Colors.transparent,

@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,11 +12,13 @@ class EventTypeDopdownButton extends StatelessWidget {
     required this.screenHeight,
     required this.bookingController,
     required this.themeMode,
+    this.pickColorController,
   });
 
   final double screenHeight;
   final BookingController bookingController;
   final ThemeMode themeMode;
+  final PickColorController? pickColorController;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,9 @@ class EventTypeDopdownButton extends StatelessWidget {
             color:
                 themeMode == ThemeMode.dark
                     ? AppColors.borderColor2
+                    : pickColorController?.isFemale.value ?? false
+                    ? pickColorController?.selectedColor ??
+                        AppColors.dopdownTextColor
                     : AppColors.dopdownTextColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w400,
