@@ -176,6 +176,8 @@ class ProfileSetupController extends GetxController {
     } else {
       selectedEvents.add(event);
     }
+    debugPrint('Selected events: $selectedEvents');
+    update();
   }
 
   // google map

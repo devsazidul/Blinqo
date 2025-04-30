@@ -164,4 +164,5 @@ class IconPath {
   static const String epserviceclock = 'assets/icons/epserviceclock.png';
   static const String favorite = 'assets/icons/favorite.png';
   static const String closesmallicon = 'assets/icons/closesmallicon.png';
+  static const String eventselected = 'assets/icons/eventselected.png';
 }
