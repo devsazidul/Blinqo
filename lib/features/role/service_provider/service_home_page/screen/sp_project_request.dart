@@ -33,8 +33,8 @@ class SpProjectRequest extends StatelessWidget {
                 radius: 20,
                 backgroundColor:
                     themeMode == ThemeMode.dark
-                        ? AppColors.textColor
-                        : AppColors.primary,
+                        ? AppColors.primary.withValues(alpha: .10)
+                        : AppColors.textColor.withValues(alpha: .10),
                 child: Image.asset(
                   IconPath.arrowleft,
                   width: 16,

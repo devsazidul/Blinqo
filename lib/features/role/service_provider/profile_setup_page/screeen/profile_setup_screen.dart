@@ -502,7 +502,7 @@ class ProfileSetupScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Upload (Max 10 Photos)",
+                      "Upload Cover Photos",
                       style: getTextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -515,7 +515,8 @@ class ProfileSetupScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   GestureDetector(
-                    onTap: profileController.tenpickImage,
+                    onTap:
+                        profileController.pickCoverImage, // Trigger image pick
                     child: Obx(() {
                       return DottedBorder(
                         borderType: BorderType.RRect,
@@ -534,7 +535,7 @@ class ProfileSetupScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child:
-                              profileController.tenImageUpload.isEmpty
+                              profileController.coverImage.value == null
                                   ? Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 12,
@@ -553,7 +554,7 @@ class ProfileSetupScreen extends StatelessWidget {
                                         ),
                                         SizedBox(height: 8),
                                         Text(
-                                          'Select File',
+                                          'Select Cover Image',
                                           style: getTextStyle(
                                             color: AppColors.buttonColor2,
                                             fontSize: 16,
@@ -572,32 +573,23 @@ class ProfileSetupScreen extends StatelessWidget {
                                       ],
                                     ),
                                   )
-                                  : PageView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        profileController.tenImageUpload.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: EdgeInsets.all(4),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
-                                          child: Image.file(
-                                            profileController
-                                                .tenImageUpload[index],
-                                            width: 80,
-                                            height: 80,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                  : Padding(
+                                    padding: EdgeInsets.all(4),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.file(
+                                        profileController.coverImage.value!,
+                                        width: double.infinity,
+                                        height: 106,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                         ),
                       );
                     }),
                   ),
+
                   SizedBox(height: 40),
                   UpgradeToProcard(onTap: () {}),
                   SizedBox(height: 40),

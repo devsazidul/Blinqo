@@ -1,6 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 
 class UpgradeToProcard extends StatelessWidget {
   final VoidCallback onTap;
@@ -44,19 +47,24 @@ class UpgradeToProcard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 12),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              decoration: BoxDecoration(
-                color: AppColors.buttonColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                'Upgrade Now',
-                style: getTextStyle(
-                  color: AppColors.primary,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  lineHeight: 2,
+            GestureDetector(
+              onTap: () {
+                Get.to(SpPaymentOption());
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: AppColors.buttonColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  'Upgrade Now',
+                  style: getTextStyle(
+                    color: AppColors.primary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    lineHeight: 2,
+                  ),
                 ),
               ),
             ),

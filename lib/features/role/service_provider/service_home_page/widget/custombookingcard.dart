@@ -84,7 +84,7 @@ class CustomBookingCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      date,
+                      "Date: ${date}",
                       style: getTextStyle(
                         fontSize: 14,
                         color: AppColors.buttonColor,

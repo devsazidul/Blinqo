@@ -61,9 +61,24 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
           right: 0,
           child: Column(
             children: [
-              CircleAvatar(
-                radius: 50,
-                child: Image.asset(IconPath.profile01, fit: BoxFit.cover),
+              Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.bottomRight,
+                children: [
+                  CircleAvatar(
+                    radius: 45,
+                    child: Image.asset(IconPath.profile01, fit: BoxFit.cover),
+                  ),
+                  Positioned(
+                    right: 10,
+                    bottom: 0,
+                    child: Image.asset(
+                      IconPath.verifiedlogo,
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

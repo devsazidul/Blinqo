@@ -105,32 +105,26 @@ class ProfileSetupController extends GetxController {
   }
 
   // 10 image for upload
-  var tenImageUpload = RxList<File>([]);
+  var coverImage = Rx<File?>(null); // To hold the selected cover image
 
-  Future<void> tenpickImage() async {
-    if (tenImageUpload.length >= 10) {
-      Get.snackbar('Limit Reached', 'You can only upload up to 10 images');
-      return;
-    }
-
-    await requestPermissions();
+  Future<void> pickCoverImage() async {
+    await coverrequestPermissions();
 
     final ImagePicker picker = ImagePicker();
-
-    final ImageSource? source = await tenImageshowPickrOption();
+    final ImageSource? source = await covershowImagePickerOptions();
 
     if (source != null) {
       final XFile? pickedFile = await picker.pickImage(source: source);
 
       if (pickedFile != null) {
-        tenImageUpload.add(File(pickedFile.path));
+        coverImage.value = File(pickedFile.path);
       } else {
         debugPrint("No image selected");
       }
     }
   }
 
-  Future<void> tenImagerequestPermissions() async {
+  Future<void> coverrequestPermissions() async {
     PermissionStatus cameraStatus = await Permission.camera.request();
     PermissionStatus storageStatus = await Permission.storage.request();
 
@@ -141,7 +135,7 @@ class ProfileSetupController extends GetxController {
     }
   }
 
-  Future<ImageSource?> tenImageshowPickrOption() async {
+  Future<ImageSource?> covershowImagePickerOptions() async {
     return await Get.bottomSheet(
       Container(
         padding: EdgeInsets.all(20),
@@ -151,7 +145,13 @@ class ProfileSetupController extends GetxController {
           children: [
             Text("Choose Image Source", style: TextStyle(fontSize: 20)),
             SizedBox(height: 20),
-
+            ListTile(
+              leading: Icon(Icons.camera_alt),
+              title: Text("Camera"),
+              onTap: () {
+                Get.back(result: ImageSource.camera);
+              },
+            ),
             ListTile(
               leading: Icon(Icons.image),
               title: Text("Gallery"),
