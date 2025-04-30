@@ -284,7 +284,7 @@ class VenueDetailsScreen extends StatelessWidget {
                       const Icon(
                         Icons.location_on_outlined,
                         size: 20,
-                        color: Color(0xffD4AF37),
+                        color: Color(0xff003366),
                       ),
                       const SizedBox(width: 5),
                       Text(

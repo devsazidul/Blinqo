@@ -90,16 +90,21 @@ class OverviewScreen extends StatelessWidget {
                     color: Color(0xff003366),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Center(
-                    child: Text(
-                      'Add Venue  +',
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                       Text(
+                      'Add Venue  ',
                       style: getTextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Colors.white,
                       ),
                     ),
-                  ),
+                    SizedBox(width: 15,),
+                    Icon(Icons.add,size: 20,color: Color(0xffF4F4F4),)
+                    ],
+                  )
                 ),
               ),
               SizedBox(height: 40),

@@ -12,7 +12,7 @@ class CustomCalendar extends StatelessWidget {
   const CustomCalendar({
     super.key,
     required this.selectedDatesNotifier,
-    this.height = 320,
+    this.height = 370,
   });
 
   @override
@@ -30,7 +30,7 @@ class CustomCalendar extends StatelessWidget {
           headerTextStyle: getTextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
-            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff615E83),
           ),
           onDayPressed: (date, events) {
             if (selectedDates.isEmpty) {

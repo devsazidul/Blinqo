@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
@@ -9,6 +11,7 @@ import 'package:blinqo/features/role/venue_owner/profile_page/widgets/venue_setu
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/google_map_venue_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class VenueSetupScreen extends StatelessWidget {
   static const String name = '/venue-setup-screen';
@@ -177,45 +180,72 @@ class VenueSetupScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16),
-                    Stack(
-                      children: [
-                        Image.asset(
-                          ImagePath.seatingArrangement,
-                          width: width * 0.9,
-                          height: height * 0.3,
-                          fit: BoxFit.cover,
-                        ),
-                        // liner gradient
-                        Container(
-                          width: width * 0.9,
-                          height: height * 0.3,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0x00000000),
-                                Color(0x00000000),
-                                Color(0xFF161616),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 20,
-                          right: 20,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xffD4AF37),
-                            radius: 16,
-                            child: Icon(
-                              Icons.mode_edit_outline_outlined,
-                              size: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+             Stack(
+  children: [
+    Obx(() {
+      // Check if a selected image exists, if not, use the default asset image
+      if (Get.find<VenueOwnerProfileController>().seledtedImages.value != null) {
+        // If an image is selected, show it using Image.file
+        return Image.file(
+          Get.find<VenueOwnerProfileController>().seledtedImages.value!,
+          width: width * 0.9,
+          height: height * 0.3,
+          fit: BoxFit.cover,
+        );
+      } else {
+        // If no image is selected, use Image.asset for the default image
+        return Image.asset(
+          ImagePath.seatingArrangement, // The asset path for the default image
+          width: width * 0.9,
+          height: height * 0.3,
+          fit: BoxFit.cover,
+        );
+      }
+    }),
+    // Liner gradient
+    Container(
+      width: width * 0.9,
+      height: height * 0.3,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0x00000000),
+            Color(0x00000000),
+            Color(0xFF161616),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+    ),
+    Positioned(
+      bottom: 20,
+      right: 20,
+      child: InkWell(
+        onTap: () async {
+          // Open the gallery to pick an image
+          final ImagePicker _picker = ImagePicker();
+          final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+          if (image != null) {
+            // Update the selected image in the controller
+            Get.find<VenueOwnerProfileController>().seledtedImages.value = File(image.path);
+          }
+        },
+        child: CircleAvatar(
+          backgroundColor: Color(0xffD4AF37),
+          radius: 16,
+          child: Icon(
+            Icons.mode_edit_outline_outlined,
+            size: 18,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    ),
+  ],
+),
+
 
                     SizedBox(height: 48),
                     // Continue button
