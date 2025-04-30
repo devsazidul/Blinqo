@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/checklist_appbar.dart';
@@ -28,15 +29,20 @@ class CheckVenue extends StatelessWidget {
   Widget build(BuildContext context) {
     final checklistController = Get.find<ChecklistController>();
     final profileController = Get.find<ProfileController>();
-         final themeMode =
-          profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+    final femaleColorController = Get.put(PickColorController());
+    final bool isFemale = femaleColorController.isFemale.value;
+    final themeMode =
+        profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
     Rx<String> dropdownValue = 'All Task'.obs;
     Rx<String> dropdown = 'By Date'.obs;
     return Scaffold(
-      backgroundColor: themeMode == ThemeMode.dark? AppColors.darkBackgroundColor: AppColors.backgroundColor,
+      backgroundColor:
+          themeMode == ThemeMode.dark
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 80),
-        child: ChecklistAppbar(themeMode: themeMode,),
+        child: ChecklistAppbar(themeMode: themeMode),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -51,21 +57,50 @@ class CheckVenue extends StatelessWidget {
                     height: 36,
                     width: 150,
                     decoration: BoxDecoration(
-                      color: themeMode == ThemeMode.dark ? Color(0xff32383D) :Color(0xffE6EBF0),
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xff32383D)
+                              : isFemale
+                              ? femaleColorController.selectedColor.withValues(
+                                alpha: 0.1,
+                              )
+                              : Color(0xffE6EBF0),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(width: 1, color: themeMode == ThemeMode.dark ? AppColors.darkBackgroundColor: Color(0xff003366)),
+                      border: Border.all(
+                        width: 1,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.darkBackgroundColor
+                                : isFemale
+                                ? Colors.transparent
+                                : Color(0xff003366),
+                      ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton<String>(
-                         dropdownColor: themeMode == ThemeMode.dark ? Color(0xff32383D) :Color(0xffE6EBF0),
-                        style: TextStyle(color: themeMode == ThemeMode.dark ? AppColors.borderColor2: AppColors.textColor),
-                        underline: Container(color: Colors.white,),
+                        dropdownColor:
+                            themeMode == ThemeMode.dark
+                                ? Color(0xff32383D)
+                                : isFemale
+                                ? AppColors.primary
+                                : Color(0xffE6EBF0),
+                        style: TextStyle(
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
+                        ),
+                        underline: Container(color: Colors.white),
                         value: dropdownValue.value,
                         icon: Image.asset(
                           IconPath.dropdown,
                           height: 7,
                           width: 11,
+                          color:
+                              isFemale
+                                  ? femaleColorController.selectedColor
+                                  : AppColors.cardDarkColor,
                         ),
                         isExpanded: true,
                         onChanged: (String? newValue) {
@@ -91,22 +126,51 @@ class CheckVenue extends StatelessWidget {
                     height: 36,
                     width: 150,
                     decoration: BoxDecoration(
-                  color: themeMode == ThemeMode.dark ? Color(0xff32383D) :Color(0xffE6EBF0),
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? Color(0xff32383D)
+                              : isFemale
+                              ? femaleColorController.selectedColor.withValues(
+                                alpha: 0.1,
+                              )
+                              : Color(0xffE6EBF0),
                       borderRadius: BorderRadius.circular(8),
-                     border: Border.all(width: 1, color: themeMode == ThemeMode.dark ? AppColors.darkBackgroundColor: Color(0xff003366)),
+                      border: Border.all(
+                        width: 1,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.darkBackgroundColor
+                                : isFemale
+                                ? Colors.transparent
+                                : Color(0xff003366),
+                      ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton<String>(
-                                                 dropdownColor: themeMode == ThemeMode.dark ? Color(0xff32383D) :Color(0xffE6EBF0),
+                        dropdownColor:
+                            themeMode == ThemeMode.dark
+                                ? Color(0xff32383D)
+                                : isFemale
+                                ? AppColors.primary
+                                : Color(0xffE6EBF0),
 
-                       style: TextStyle(color: themeMode == ThemeMode.dark ? AppColors.borderColor2: AppColors.textColor),
-                        underline: Container(color: Colors.white,),
+                        style: TextStyle(
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
+                        ),
+                        underline: Container(color: Colors.white),
                         value: dropdown.value,
                         icon: Image.asset(
                           IconPath.dropdown,
                           height: 7,
                           width: 11,
+                          color:
+                              isFemale
+                                  ? femaleColorController.selectedColor
+                                  : AppColors.cardDarkColor,
                         ),
                         isExpanded: true,
                         onChanged: (String? newValue) {
@@ -135,9 +199,12 @@ class CheckVenue extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: checklistController.checklistItems.length,
                   itemBuilder: (context, index) {
-                    final dataitme = checklistController.checklistItems[index];
+                    final reverseIndex =
+                        checklistController.checklistItems.length - 1 - index;
+                    final dataItem =
+                        checklistController.checklistItems[reverseIndex];
                     return EpCustomCheckListWidget(
-                      item: dataitme,
+                      item: dataItem,
                       index: index,
                       themeMode: themeMode,
                     );
@@ -158,7 +225,15 @@ class CheckVenue extends StatelessWidget {
                     horizontal: 12,
                   ),
                   fixedSize: const Size(125, 44),
-                  side: BorderSide(color: themeMode == ThemeMode.dark ? AppColors.buttonColor: AppColors.iconColor, width: 1.5),
+                  side: BorderSide(
+                    color:
+                        themeMode == ThemeMode.dark
+                            ? AppColors.buttonColor
+                            : isFemale
+                            ? femaleColorController.selectedColor
+                            : AppColors.iconColor,
+                    width: 1.5,
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -167,14 +242,24 @@ class CheckVenue extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                 color: themeMode == ThemeMode.dark ? AppColors.buttonColor: AppColors.iconColor,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? AppColors.buttonColor
+                                : isFemale
+                                ? femaleColorController.selectedColor
+                                : AppColors.iconColor,
                       ),
                     ),
                     const SizedBox(width: 10),
                     Icon(
                       Icons.add_circle_outline_outlined,
                       size: 24,
-                    color: themeMode == ThemeMode.dark ? AppColors.buttonColor: AppColors.iconColor,
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? AppColors.buttonColor
+                              : isFemale
+                              ? femaleColorController.selectedColor
+                              : AppColors.iconColor,
                     ),
                   ],
                 ),

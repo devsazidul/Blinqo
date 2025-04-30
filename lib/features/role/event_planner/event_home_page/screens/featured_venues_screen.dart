@@ -15,7 +15,9 @@ class FeaturedVenuesScreen extends StatelessWidget {
 
     // Fetch the controllers
     final ProfileController profileController = Get.find<ProfileController>();
-    UpcomingEventsController controller = Get.put(UpcomingEventsController());
+    final UpcomingEventsController controller = Get.put(
+      UpcomingEventsController(),
+    );
 
     return Obx(() {
       final themeMode =

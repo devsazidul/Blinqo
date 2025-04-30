@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart'
     show getTextStyle;
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
@@ -36,7 +37,10 @@ class FeatureVenues extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double cardWidth = screenWidth * 0.7;
     double buttonFontSize = screenWidth <= 360 ? 14 : 16;
-
+    final PickColorController femaleColorController = Get.put(
+      PickColorController(),
+    );
+    final bool isFemale = femaleColorController.isFemale.value;
     final ProfileController spUserProfileControler =
         Get.find<ProfileController>();
 
@@ -107,12 +111,19 @@ class FeatureVenues extends StatelessWidget {
                   color:
                       themeMode == ThemeMode.dark
                           ? AppColors.secondary
+                          : isFemale
+                          ? femaleColorController.selectedColor
                           : AppColors.iconColor,
                 ),
               ),
             ),
             hasButton
-                ? _venueBottomRow(buttonFontSize, themeMode)
+                ? _venueBottomRow(
+                  buttonFontSize,
+                  themeMode,
+                  isFemale,
+                  femaleColorController,
+                )
                 : Container(),
           ],
         ),
@@ -183,7 +194,12 @@ class FeatureVenues extends StatelessWidget {
     );
   }
 
-  Widget _venueBottomRow(double buttonFontSize, ThemeMode themeMode) {
+  Widget _venueBottomRow(
+    double buttonFontSize,
+    ThemeMode themeMode,
+    bool isFemale,
+    PickColorController femaleColorController,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -211,7 +227,12 @@ class FeatureVenues extends StatelessWidget {
             Get.to(EpVenueDetails());
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.buttonColor2,
+            backgroundColor:
+                themeMode == ThemeMode.dark
+                    ? AppColors.buttonColor
+                    : isFemale
+                    ? femaleColorController.selectedColor
+                    : AppColors.buttonColor2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),

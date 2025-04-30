@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_paymant_screen/ep_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/notification/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,14 @@ import 'package:get/get.dart';
 
 class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
   final ThemeMode themeMode;
-  const HomeHeaderSection({super.key, required this.themeMode});
+  final bool isFemale;
+  final PickColorController femaleColorController;
+  const HomeHeaderSection({
+    super.key,
+    required this.themeMode,
+    required this.isFemale,
+    required this.femaleColorController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +106,12 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
               child: Icon(
                 Icons.notifications,
                 size: 24,
-                color: AppColors.iconColor,
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.buttonColor
+                        : isFemale
+                        ? femaleColorController.selectedColor
+                        : AppColors.iconColor,
               ),
             ),
           ],
