@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,15 @@ import 'package:get/get.dart';
 class RecentlyViewed extends StatelessWidget {
   final ProfileController themeController = Get.put(ProfileController());
   RecentlyViewed({super.key});
+  final PickColorController femaleColorController = Get.put(
+    PickColorController(),
+  );
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = themeController.isDarkMode.value;
+    final bool isDarkMode = themeController.isDarkMode.value;
+    final bool isFemale = femaleColorController.isFemale.value;
+
     return ListView.builder(
       physics: ScrollPhysics(),
       shrinkWrap: true,
@@ -87,6 +93,9 @@ class RecentlyViewed extends StatelessWidget {
                           backgroundColor:
                               isDarkMode
                                   ? AppColors.buttonColor.withValues(alpha: 0.1)
+                                  : isFemale
+                                  ? femaleColorController.selectedColor
+                                      .withValues(alpha: 0.1)
                                   : AppColors.appBarIcolor.withValues(
                                     alpha: 0.1,
                                   ),
@@ -96,6 +105,8 @@ class RecentlyViewed extends StatelessWidget {
                             color:
                                 isDarkMode
                                     ? AppColors.buttonColor
+                                    : isFemale
+                                    ? femaleColorController.selectedColor
                                     : AppColors.iconColor,
                           ),
                         ),

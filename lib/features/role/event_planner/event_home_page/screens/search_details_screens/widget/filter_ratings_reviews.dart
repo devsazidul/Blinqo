@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,15 @@ import 'package:get/get.dart';
 class RatingsReviews extends StatelessWidget {
   final ProfileController themeController = Get.put(ProfileController());
   RatingsReviews({super.key, required this.searchDetailsController});
-
+  final PickColorController femaleColorController = Get.put(
+    PickColorController(),
+  );
   final SearchDetailsController searchDetailsController;
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = themeController.isDarkMode.value;
+    final bool isDarkMode = themeController.isDarkMode.value;
+    final bool isFemale = femaleColorController.isFemale.value;
     return Padding(
       padding: EdgeInsets.only(left: 30),
       child: Row(
@@ -48,7 +52,11 @@ class RatingsReviews extends StatelessWidget {
               max: 100,
               thumbColor: AppColors.thumbColor,
               activeColor:
-                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+                  isDarkMode
+                      ? AppColors.buttonColor
+                      : isFemale
+                      ? femaleColorController.selectedColor
+                      : AppColors.buttonColor2,
               value: searchDetailsController.sliderValue.value,
               divisions: 10,
               onChanged: (double value) {

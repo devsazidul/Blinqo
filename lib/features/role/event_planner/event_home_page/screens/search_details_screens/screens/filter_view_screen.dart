@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_compare/screen/add_compare.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
@@ -16,12 +17,15 @@ class FilterViewScreen extends StatelessWidget {
   final SearchDetailsController searchDetailsController = Get.put(
     SearchDetailsController(),
   );
-
+  final PickColorController femaleColorController = Get.put(
+    PickColorController(),
+  );
   FilterViewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = themeController.isDarkMode.value;
+    final bool isDarkMode = themeController.isDarkMode.value;
+    final bool isFemale = femaleColorController.isFemale.value;
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -236,6 +240,9 @@ class FilterViewScreen extends StatelessWidget {
                                           color:
                                               isDarkMode
                                                   ? AppColors.buttonColor
+                                                  : isFemale
+                                                  ? femaleColorController
+                                                      .selectedColor
                                                   : AppColors.buttonColor2,
                                         ),
                                       ),

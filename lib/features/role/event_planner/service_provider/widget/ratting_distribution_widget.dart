@@ -1,14 +1,22 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/controller/review_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpSpRattingDistributionWidget extends StatelessWidget {
-  const EpSpRattingDistributionWidget({super.key, required this.controller});
+  const EpSpRattingDistributionWidget({
+    super.key,
+    required this.controller,
+    required this.isFemale,
+    required this.femaleColorController,
+  });
 
   final EpSpReviewController controller;
+  final bool isFemale;
+  final PickColorController femaleColorController;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +61,8 @@ class EpSpRattingDistributionWidget extends StatelessWidget {
                     color:
                         isDarkMode
                             ? AppColors.borderColor2
+                            : isFemale
+                            ? femaleColorController.selectedColor
                             : AppColors.textColor,
                   ),
                 ),

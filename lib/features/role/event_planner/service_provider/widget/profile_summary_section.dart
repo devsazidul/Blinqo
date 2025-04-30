@@ -1,15 +1,25 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EpSpProfileSummarySection extends StatelessWidget {
-  const EpSpProfileSummarySection({super.key, required this.isDarkMode});
+  const EpSpProfileSummarySection({
+    super.key,
+    required this.isDarkMode,
+    required this.isFemale,
+    required this.femaleColorController,
+  });
   final bool isDarkMode;
+  final bool isFemale;
+  final PickColorController femaleColorController;
 
   @override
   Widget build(BuildContext context) {
-    // final bool isDarkMode = Get.put(ProfileController()).isDarkMode.value;
+    final bool isDarkMode = Get.put(ProfileController()).isDarkMode.value;
     return Column(
       children: [
         /// name
@@ -32,7 +42,11 @@ class EpSpProfileSummarySection extends StatelessWidget {
               height: 16,
               width: 16,
               color:
-                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+                  isDarkMode
+                      ? AppColors.buttonColor
+                      : isFemale
+                      ? femaleColorController.selectedColor
+                      : AppColors.buttonColor2,
             ),
             SizedBox(width: 4),
             Text(
@@ -57,7 +71,11 @@ class EpSpProfileSummarySection extends StatelessWidget {
               height: 16,
               width: 16,
               color:
-                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
+                  isDarkMode
+                      ? AppColors.buttonColor
+                      : isFemale
+                      ? femaleColorController.selectedColor
+                      : AppColors.buttonColor2,
             ),
             SizedBox(width: 4),
             Text(

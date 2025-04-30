@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/controller/review_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/widget/rating_summary.dart';
@@ -10,9 +11,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpSpReviewsTabViewWidget extends StatelessWidget {
-  const EpSpReviewsTabViewWidget({super.key, required this.controller});
+  const EpSpReviewsTabViewWidget({
+    super.key,
+    required this.controller,
+    required this.isFemale,
+    required this.femaleColorController,
+  });
 
   final EpSpReviewController controller;
+  final bool isFemale;
+  final PickColorController femaleColorController;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,11 @@ class EpSpReviewsTabViewWidget extends StatelessWidget {
           SizedBox(height: 16),
 
           /// Rating Distribution
-          EpSpRattingDistributionWidget(controller: controller),
+          EpSpRattingDistributionWidget(
+            controller: controller,
+            isFemale: isFemale,
+            femaleColorController: femaleColorController,
+          ),
           SizedBox(height: 16),
 
           /// Leave a Review Text Field

@@ -17,7 +17,8 @@ class SearchDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = themeController.isDarkMode.value;
+    final bool isDarkMode = themeController.isDarkMode.value;
+
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -107,7 +108,7 @@ class SearchDetailsScreen extends StatelessWidget {
                     )
                     : SizedBox(),
                 SizedBox(height: 20),
-    
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

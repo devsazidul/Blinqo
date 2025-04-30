@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/utils/date_utils.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ class MessagePicker extends StatelessWidget {
   final bool isCurrentUser;
   final Function(String)? onImageTap;
   final Function(String)? onAudioTap;
+  final bool isFemale;
+  final PickColorController femaleColorController;
 
   const MessagePicker({
     super.key,
@@ -17,6 +20,8 @@ class MessagePicker extends StatelessWidget {
     required this.isCurrentUser,
     this.onImageTap,
     this.onAudioTap,
+    required this.isFemale,
+    required this.femaleColorController,
   });
 
   @override
@@ -29,8 +34,16 @@ class MessagePicker extends StatelessWidget {
           maxWidth: MediaQuery.of(context).size.width * 0.8,
         ),
         decoration: BoxDecoration(
+          // color:
+          //     isCurrentUser
+          //         ? AppColors.buttonColor2
+          //         : isFemale
+          //         ? femaleColorController.selectedColor
+          //         : AppColors.buttonColor2,
           color:
-              isCurrentUser ? AppColors.buttonColor2 : const Color(0xFFF2F3F5),
+              isFemale
+                  ? femaleColorController.selectedColor
+                  : AppColors.buttonColor2,
           borderRadius: BorderRadius.circular(16).copyWith(
             bottomRight:
                 isCurrentUser
@@ -53,7 +66,7 @@ class MessagePicker extends StatelessWidget {
                 ChatDateUtils.formatTime(message.timestamp.toInt()),
                 style: getTextStyle(
                   fontSize: 12,
-                  color: isCurrentUser ? Colors.white : Colors.black,
+                  color: isCurrentUser ? Colors.white : Colors.white,
                 ),
               ),
             ),
@@ -198,7 +211,7 @@ class MessagePicker extends StatelessWidget {
             message.text,
             style: getTextStyle(
               fontSize: 16,
-              color: isCurrentUser ? Colors.white : Colors.black,
+              color: isCurrentUser ? Colors.white : Colors.white,
               fontWeight: FontWeight.w400,
             ),
           ),
