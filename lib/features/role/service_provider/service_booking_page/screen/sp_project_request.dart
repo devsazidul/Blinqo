@@ -5,6 +5,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/controller/sp_project_requestcontroller.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/accept_decline_button.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/custom_p_request_row.dart';
+import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_chat_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,8 +38,8 @@ class SpProjectRequest extends StatelessWidget {
                 radius: 20,
                 backgroundColor:
                     themeMode == ThemeMode.dark
-                        ? AppColors.textColor
-                        : AppColors.primary,
+                        ? AppColors.primary.withValues(alpha: .10)
+                        : AppColors.textColor.withValues(alpha: .10),
                 child: Image.asset(
                   IconPath.arrowleft,
                   width: 16,
@@ -128,44 +129,49 @@ class SpProjectRequest extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 24),
-                Container(
-                  width: 148,
-                  decoration: BoxDecoration(
-                    color:
-                        themeMode == ThemeMode.dark
-                            ? AppColors.buttonColor.withValues(alpha: 0.10)
-                            : AppColors.buttonColor2.withValues(alpha: 0.10),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 16.0,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(SpChatPage());
+                  },
+                  child: Container(
+                    width: 148,
+                    decoration: BoxDecoration(
+                      color:
+                          themeMode == ThemeMode.dark
+                              ? AppColors.buttonColor.withValues(alpha: 0.10)
+                              : AppColors.buttonColor2.withValues(alpha: 0.10),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          IconPath.messageicon,
-                          width: 16,
-                          height: 16,
-                          color:
-                              themeMode == ThemeMode.dark
-                                  ? AppColors.buttonColor
-                                  : AppColors.buttonColor2,
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          "Message",
-                          style: getTextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 16.0,
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            IconPath.messageicon,
+                            width: 16,
+                            height: 16,
                             color:
                                 themeMode == ThemeMode.dark
                                     ? AppColors.buttonColor
                                     : AppColors.buttonColor2,
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 5),
+                          Text(
+                            "Message",
+                            style: getTextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color:
+                                  themeMode == ThemeMode.dark
+                                      ? AppColors.buttonColor
+                                      : AppColors.buttonColor2,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -328,7 +334,7 @@ class SpProjectRequest extends StatelessWidget {
                     );
                   } else {
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AcceptDeclineButton(
                           text: 'Decline',
@@ -346,6 +352,7 @@ class SpProjectRequest extends StatelessWidget {
                           fontSize: 16,
                           onTap: () {},
                         ),
+                        SizedBox(width: 10),
                         AcceptDeclineButton(
                           text: 'Accept',
                           width: 148,
