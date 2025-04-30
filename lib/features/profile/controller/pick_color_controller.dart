@@ -18,7 +18,7 @@ class PickColorController extends GetxController {
 
   Color _selectColor = Color(0xFFFF2D55);
   Color _selectedColor = Color(0xFFFF2D55);
-  Rx<bool> _isFemale = false.obs;
+  final Rx<bool> _isFemale = true.obs;
 
   Color get selectColor => _selectColor;
   Color get selectedColor => _selectedColor;

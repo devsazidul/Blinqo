@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/payment_history/screens/payment_history_screen.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
@@ -236,14 +237,16 @@ class MainProfileScreen extends StatelessWidget {
           },
         ),
         //* Colors
-        // _buildSettingsTile(
-        //   controller: controller,
-        //   title: "Colors",
-        //   iconPath: IconPath.colorsIcon,
-        //   onTap: () {
-        //     Navigator.pushNamed(context, AppRoute.getPickColorScreen());
-        //   },
-        // ),
+        if (Get.put(PickColorController()).isFemale.value == true &&
+            controller.isDarkMode.value == false)
+          _buildSettingsTile(
+            controller: controller,
+            title: "Colors",
+            iconPath: IconPath.colorsIcon,
+            onTap: () {
+              Navigator.pushNamed(context, AppRoute.getPickColorScreen());
+            },
+          ),
         ListTile(
           minTileHeight: 60,
           contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
