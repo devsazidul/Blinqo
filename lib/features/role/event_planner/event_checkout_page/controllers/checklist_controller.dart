@@ -177,15 +177,6 @@ class ChecklistController extends GetxController {
 
   var checklistItems = <ChecklistModel>[].obs;
 
-  var favoriteList = <int, bool>{}.obs;
-  void toggleFavorite(int id) {
-    favoriteList[id] = !(favoriteList[id] ?? false);
-  }
-
-  bool isFavorite(int id) {
-    return favoriteList[id] ?? false;
-  }
-
   var selectedItems = <int>[].obs; // Track selected indices
 
   void toggleSelection(int index) {

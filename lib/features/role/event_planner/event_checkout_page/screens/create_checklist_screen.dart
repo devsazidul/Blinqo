@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/model/checklist_model.dart';
@@ -13,15 +14,18 @@ class CreateChecklistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      final profileController = Get.find<ProfileController>();
+    final profileController = Get.find<ProfileController>();
     final ChecklistController controller = Get.put(ChecklistController());
-     final themeMode =
-          profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+    final themeMode =
+        profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+
+    final femaleColorController = Get.put(PickColorController());
+    final bool isFemale = femaleColorController.isFemale.value;
     return Scaffold(
-       backgroundColor:
-            themeMode == ThemeMode.dark
-                ? AppColors.darkBackgroundColor
-                : AppColors.borderColor2,
+      backgroundColor:
+          themeMode == ThemeMode.dark
+              ? AppColors.darkBackgroundColor
+              : AppColors.borderColor2,
       appBar: buildCheckVenueAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -34,7 +38,12 @@ class CreateChecklistScreen extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: themeMode==ThemeMode.dark?Color(0xffD4AF37):Color(0xff003285),
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? Color(0xffD4AF37)
+                          : isFemale
+                          ? femaleColorController.selectedColor
+                          : Color(0xff003285),
                 ),
               ),
               const SizedBox(height: 6),
@@ -44,7 +53,8 @@ class CreateChecklistScreen extends StatelessWidget {
                   controller.eventName.value = value;
                 },
                 style: getTextStyle(
-                 color: themeMode==ThemeMode.dark?Colors.white:Colors.black,
+                  color:
+                      themeMode == ThemeMode.dark ? Colors.white : Colors.black,
                 ),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -58,7 +68,10 @@ class CreateChecklistScreen extends StatelessWidget {
                   hintStyle: getTextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: themeMode==ThemeMode.dark?Color(0xff868686):AppColors.textColor,
+                    color:
+                        themeMode == ThemeMode.dark
+                            ? Color(0xff868686)
+                            : AppColors.textColor,
                   ),
                 ),
               ),
@@ -82,7 +95,12 @@ class CreateChecklistScreen extends StatelessWidget {
                           ),
                           fixedSize: const Size(125, 44),
                           side: BorderSide(
-                            color: themeMode==ThemeMode.dark?Color(0xffD4AF37):AppColors.iconColor ,
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? Color(0xffD4AF37)
+                                    : isFemale
+                                    ? femaleColorController.selectedColor
+                                    : AppColors.iconColor,
                             width: 1.5,
                           ),
                         ),
@@ -93,14 +111,24 @@ class CreateChecklistScreen extends StatelessWidget {
                               style: getTextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color:themeMode==ThemeMode.dark?Color(0xffD4AF37):AppColors.iconColor ,
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? Color(0xffD4AF37)
+                                        : isFemale
+                                        ? femaleColorController.selectedColor
+                                        : AppColors.iconColor,
                               ),
                             ),
                             const SizedBox(width: 10),
                             Icon(
                               Icons.add_circle_outline_outlined,
                               size: 24,
-                              color:themeMode==ThemeMode.dark?Color(0xffD4AF37):AppColors.iconColor ,
+                              color:
+                                  themeMode == ThemeMode.dark
+                                      ? Color(0xffD4AF37)
+                                      : isFemale
+                                      ? femaleColorController.selectedColor
+                                      : AppColors.iconColor,
                             ),
                           ],
                         ),
@@ -112,7 +140,12 @@ class CreateChecklistScreen extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: themeMode==ThemeMode.dark?Color(0xffEBEBEB):Color(0xFF003285),
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Color(0xffEBEBEB)
+                                  : isFemale
+                                  ? femaleColorController.selectedColor
+                                  : Color(0xFF003285),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -121,7 +154,12 @@ class CreateChecklistScreen extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: themeMode==ThemeMode.dark?Color(0xffD4AF37):const Color(0xFF003285),
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Color(0xffD4AF37)
+                                  : isFemale
+                                  ? femaleColorController.selectedColor
+                                  : const Color(0xFF003285),
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -130,8 +168,11 @@ class CreateChecklistScreen extends StatelessWidget {
                           controller.taskName.value = value;
                         },
                         style: getTextStyle(
-                 color: themeMode==ThemeMode.dark?Colors.white:Colors.black,
-                ),
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                        ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
@@ -140,15 +181,17 @@ class CreateChecklistScreen extends StatelessWidget {
                               width: 1,
                             ),
                           ),
-                          
+
                           hintText: 'Task Name',
                           hintStyle: getTextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color:themeMode==ThemeMode.dark?Color(0xff868686):AppColors.textColor,
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? Color(0xff868686)
+                                    : AppColors.textColor,
                           ),
                         ),
-                        
                       ),
                       const SizedBox(height: 12),
                       // Set Date
@@ -157,7 +200,12 @@ class CreateChecklistScreen extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: themeMode==ThemeMode.dark?Color(0xffD4AF37):const Color(0xFF003285),
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Color(0xffD4AF37)
+                                  : isFemale
+                                  ? femaleColorController.selectedColor
+                                  : const Color(0xFF003285),
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -170,17 +218,28 @@ class CreateChecklistScreen extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color:themeMode==ThemeMode.dark?Color(0xff32383D):Color(0xFFE6E6E6),
+                              color:
+                                  themeMode == ThemeMode.dark
+                                      ? Color(0xff32383D)
+                                      : Color(0xFFE6E6E6),
                               width: 1,
                             ),
-                            color: themeMode==ThemeMode.dark?Color(0xff32383D):Color(0xFFE6E6E6),
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? Color(0xff32383D)
+                                    : Color(0xFFE6E6E6),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Row(
                             children: [
                               Icon(
                                 Icons.calendar_month,
-                                color:themeMode==ThemeMode.dark?Color(0xffD4AF37):AppColors.iconColor,
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? Color(0xffD4AF37)
+                                        : isFemale
+                                        ? femaleColorController.selectedColor
+                                        : AppColors.iconColor,
                               ),
                               SizedBox(width: 4),
                               Column(
@@ -190,7 +249,10 @@ class CreateChecklistScreen extends StatelessWidget {
                                     style: getTextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: themeMode==ThemeMode.dark?Color(0xffEBEBEB):Color(0xff333333)
+                                      color:
+                                          themeMode == ThemeMode.dark
+                                              ? Color(0xffEBEBEB)
+                                              : Color(0xff333333),
                                     ),
                                   ),
                                   Obx(
@@ -199,7 +261,13 @@ class CreateChecklistScreen extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
-                                        color: themeMode==ThemeMode.dark?Color(0xffD4AF37):AppColors.iconColor,
+                                        color:
+                                            themeMode == ThemeMode.dark
+                                                ? Color(0xffD4AF37)
+                                                : isFemale
+                                                ? femaleColorController
+                                                    .selectedColor
+                                                : AppColors.iconColor,
                                       ),
                                     ),
                                   ),
@@ -211,7 +279,10 @@ class CreateChecklistScreen extends StatelessWidget {
                                 angle: 256,
                                 child: Icon(
                                   Icons.arrow_back_ios_new,
-                                  color:themeMode==ThemeMode.dark?Color(0xffEBEBEB):Color(0xff333333),
+                                  color:
+                                      themeMode == ThemeMode.dark
+                                          ? Color(0xffEBEBEB)
+                                          : Color(0xff333333),
                                 ),
                               ),
                             ],
@@ -225,7 +296,12 @@ class CreateChecklistScreen extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: themeMode==ThemeMode.dark?Color(0xffD4AF37):const Color(0xFF003285),
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? Color(0xffD4AF37)
+                                  : isFemale
+                                  ? femaleColorController.selectedColor
+                                  : const Color(0xFF003285),
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -238,10 +314,16 @@ class CreateChecklistScreen extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: themeMode==ThemeMode.dark?Color(0xff32383D):Color(0xFFE6E6E6),
+                              color:
+                                  themeMode == ThemeMode.dark
+                                      ? Color(0xff32383D)
+                                      : Color(0xFFE6E6E6),
                               width: 1,
                             ),
-                            color: themeMode==ThemeMode.dark?Color(0xff32383D):Color(0xFFE6E6E6),
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? Color(0xff32383D)
+                                    : Color(0xFFE6E6E6),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Row(
@@ -249,7 +331,12 @@ class CreateChecklistScreen extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.access_time,
-                                color: themeMode==ThemeMode.dark?Color(0xffD4AF37):AppColors.iconColor,
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? Color(0xffD4AF37)
+                                        : isFemale
+                                        ? femaleColorController.selectedColor
+                                        : AppColors.iconColor,
                               ),
                               SizedBox(width: 4),
                               Column(
@@ -259,7 +346,10 @@ class CreateChecklistScreen extends StatelessWidget {
                                     style: getTextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                     color:  themeMode==ThemeMode.dark?Color(0xffEBEBEB):Color(0xff333333)
+                                      color:
+                                          themeMode == ThemeMode.dark
+                                              ? Color(0xffEBEBEB)
+                                              : Color(0xff333333),
                                     ),
                                   ),
                                   Obx(
@@ -268,18 +358,27 @@ class CreateChecklistScreen extends StatelessWidget {
                                       style: getTextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
-                                        color: themeMode==ThemeMode.dark?Color(0xffD4AF37):const Color(0xFF003285),
+                                        color:
+                                            themeMode == ThemeMode.dark
+                                                ? Color(0xffD4AF37)
+                                                : isFemale
+                                                ? femaleColorController
+                                                    .selectedColor
+                                                : const Color(0xFF003285),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                            Spacer(),
+                              Spacer(),
                               Transform.rotate(
                                 angle: 256,
-                                child:  Icon(
+                                child: Icon(
                                   Icons.arrow_back_ios_new,
-                                color:themeMode==ThemeMode.dark?Color(0xffEBEBEB):Color(0xff333333),
+                                  color:
+                                      themeMode == ThemeMode.dark
+                                          ? Color(0xffEBEBEB)
+                                          : Color(0xff333333),
                                 ),
                               ),
                             ],
@@ -292,132 +391,78 @@ class CreateChecklistScreen extends StatelessWidget {
               }),
               SizedBox(height: 40),
               Obx(() {
-  final isEnabled = controller.areFieldsFilled();
-  return
-SizedBox(
-  width: double.infinity,
-  child: ElevatedButton(
-    onPressed:  () {
-            controller.checklistItems.add(
-              ChecklistModel(
-                eventName: controller.eventName.value,
-                taskName: controller.taskName.value,
-                taskDate: controller.selectedDate.value,
-                taskTime: controller.selectedTime.value,
-                venue: controller.eventName.value,
-                isCompleted: false,
-                isUrgent: false,
-              ),
-            );
-            controller.clearFields();
-            Get.to(
-              () => CheckVenue(
-                eventName: controller.eventName.value,
-                taskName: controller.taskName.value,
-                selectedDate: controller.getFormattedDate(),
-                selectedTime: controller.getFormattedTime(context),
-              ),
-            );
-          }
-     ,
-    style: ElevatedButton.styleFrom(
-      backgroundColor: themeMode == ThemeMode.dark 
-      ? (isEnabled 
-          ?  AppColors.buttonColor2
-          :  AppColors.chatBackground) : (isEnabled?AppColors.buttonColor2:AppColors.chatBackground),
-      foregroundColor: isEnabled
-          ? AppColors.buttonColor2// Enabled text color
-          : Colors.red, // Disabled text
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        // side: BorderSide(color: themeMode == ThemeMode.dark && isEnabled ? Color(0xFF003366) : Colors.white),
-        borderRadius: BorderRadius.circular(12),
-      ),
-    ),
-    child:  Padding(
-      padding: EdgeInsets.symmetric(vertical: 12.0),
-      child: Text(
-        'Save',
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color:  themeMode == ThemeMode.dark 
-      ? (isEnabled 
-          ?  AppColors.primary
-          : AppColors.borderColor) : (isEnabled?AppColors.primary:AppColors.borderColor),
-        ),
-      ),
-    ),
-  ),
-);
- 
- //  SizedBox(
-  //   width: double.infinity,
-  //   child: ElevatedButton(
-  //     onPressed: isEnabled
-  //         ? () {
-  //             controller.checklistItems.add(
-  //               ChecklistModel(
-  //                 eventName: controller.eventName.value,
-  //                 taskName: controller.taskName.value,
-  //                 taskDate: controller.selectedDate.value,
-  //                 taskTime: controller.selectedTime.value,
-  //                 venue: controller.eventName.value,
-  //                 isCompleted: false,
-  //                 isUrgent: false,
-  //               ),
-  //             );
-  //             controller.clearFields();
-  //             Get.to(
-  //               () => CheckVenue(
-  //                 eventName: controller.eventName.value,
-  //                 taskName: controller.taskName.value,
-  //                 selectedDate: controller.getFormattedDate(),
-  //                 selectedTime: controller.getFormattedTime(context),
-  //               ),
-  //             );
-  //           }
-  //         : null,
-  //     style: ElevatedButton.styleFrom(
-  //       backgroundColor: isEnabled
-  //           ? themeMode == ThemeMode.dark
-  //               ? Color(0xff003366)
-  //               : Color(0xff003366)
-  //           : themeMode == ThemeMode.dark
-  //               ? Colors.grey[700] // Dark mode disabled background color
-  //               : Color(0xffE6EBF0), // Light mode disabled background color
-  //       elevation: 0,
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(12),
-  //       ),
-  //     ),
-  //     child: Padding(
-  //       padding: const EdgeInsets.symmetric(vertical: 12.0),
-  //       child: Text(
-  //         'Save',
-  //         style: getTextStyle(
-  //           fontSize: 16,
-  //           fontWeight: FontWeight.w500,
-  //           color: isEnabled
-  //               ? themeMode == ThemeMode.dark 
-  //                   ? Color(0xffFFFFFF)
-  //                   : Colors.white
-  //               : themeMode == ThemeMode.dark
-  //                   ? Color(0xff8AA1B9) // Dark mode disabled text color
-  //                   : Color(0xff8AA1B9), // Light mode disabled text color
-  //         ),
-  //       ),
-  //     ),
-  //   ),
-  // );
+                final isEnabled = controller.areFieldsFilled();
+                return SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      controller.checklistItems.add(
+                        ChecklistModel(
+                          eventName: controller.eventName.value,
+                          taskName: controller.taskName.value,
+                          taskDate: controller.selectedDate.value,
+                          taskTime: controller.selectedTime.value,
+                          venue: controller.eventName.value,
+                          isCompleted: false,
+                          isUrgent: false,
+                        ),
+                      );
+                      controller.clearFields();
+                      Get.to(
+                        () => CheckVenue(
+                          eventName: controller.eventName.value,
+                          taskName: controller.taskName.value,
+                          selectedDate: controller.getFormattedDate(),
+                          selectedTime: controller.getFormattedTime(context),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          themeMode == ThemeMode.dark
+                              ? (isEnabled
+                                  ? AppColors.buttonColor2
+                                  : AppColors.chatBackground)
+                              : (isEnabled && isFemale
+                                  ? femaleColorController.selectedColor
+                                  : isEnabled && !isFemale
+                                  ? AppColors.buttonColor2
+                                  : AppColors.chatBackground),
 
-
-
-
-}),
-
+                      foregroundColor:
+                          isEnabled
+                              ? AppColors
+                                  .buttonColor2 // Enabled text color
+                              : Colors.red, // Disabled text
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        // side: BorderSide(color: themeMode == ThemeMode.dark && isEnabled ? Color(0xFF003366) : Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? (isEnabled
+                                      ? AppColors.primary
+                                      : AppColors.borderColor)
+                                  : (isEnabled
+                                      ? AppColors.primary
+                                      : AppColors.borderColor),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
             ],
-          ), 
+          ),
         ),
       ),
     );

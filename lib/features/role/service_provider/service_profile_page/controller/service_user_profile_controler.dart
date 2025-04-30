@@ -10,7 +10,7 @@ class SpProfileController extends GetxController {
   //
   var isDarkMode = false.obs;
   var showNotifications = true.obs;
-  
+
   var profileImage = Rx<File?>(null);
 
   Future<void> pickImage() async {

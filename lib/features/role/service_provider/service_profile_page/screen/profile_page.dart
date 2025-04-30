@@ -57,7 +57,7 @@ class SpProfilePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       spacing: 10,
       children: [
-        /// Avater image
+        /// Avatar image
         Obx(() {
           return Stack(
             alignment: Alignment.bottomRight,
@@ -87,7 +87,7 @@ class SpProfilePage extends StatelessWidget {
                 right: 0,
                 child: GestureDetector(
                   onTap: () {
-                    controller.pickImage();
+                    controller.pickImage(); // Call the image picking function
                   },
                   child: CircleAvatar(
                     radius: 18,
@@ -104,7 +104,7 @@ class SpProfilePage extends StatelessWidget {
           );
         }),
 
-        /// Avater name
+        /// Avatar name
         Text(
           'Ronald Richards',
           style: getTextStyle(
@@ -116,7 +116,7 @@ class SpProfilePage extends StatelessWidget {
                     : Color(0xFF003285),
           ),
         ),
-        // location
+        // Location
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -141,7 +141,7 @@ class SpProfilePage extends StatelessWidget {
             ),
           ],
         ),
-        // project
+        // Project
         Text(
           'Project-10',
           style: getTextStyle(

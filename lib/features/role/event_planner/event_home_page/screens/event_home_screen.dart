@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_compare/screen/add_compare.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
@@ -25,7 +26,8 @@ class EventHomeScreen extends StatelessWidget {
     final UpcomingEventsController controller = Get.put(
       UpcomingEventsController(),
     );
-
+    final femaleColorController = Get.put(PickColorController());
+    final bool isFemale = femaleColorController.isFemale.value;
     final ProfileController profileController = Get.find<ProfileController>();
     return Obx(() {
       final themeMode =
@@ -36,7 +38,11 @@ class EventHomeScreen extends StatelessWidget {
             themeMode == ThemeMode.dark
                 ? Colors.black
                 : AppColors.backgroundColor,
-        appBar: HomeHeaderSection(themeMode: themeMode),
+        appBar: HomeHeaderSection(
+          themeMode: themeMode,
+          isFemale: isFemale,
+          femaleColorController: femaleColorController,
+        ),
 
         body: SafeArea(
           child: Stack(
@@ -97,7 +103,12 @@ class EventHomeScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      _buildVenueNearYouList(context, controller),
+                      _buildVenueNearYouList(
+                        context,
+                        controller,
+                        isFemale,
+                        femaleColorController,
+                      ),
 
                       SizedBox(height: 40),
                       _buildTitle(
@@ -360,6 +371,9 @@ class EventHomeScreen extends StatelessWidget {
   Widget _buildVenueNearYouList(
     BuildContext context,
     UpcomingEventsController controller,
+
+    final bool isFemale,
+    final PickColorController femaleColorController,
   ) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,

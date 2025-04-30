@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/build_checkappbar.dart';
@@ -17,7 +18,8 @@ class EventChecklistScreen extends StatelessWidget {
     // print("hello");
     // final ChecklistController controller = Get.put(ChecklistController());
     final profileController = Get.find<ProfileController>();
-
+    final femaleColorController = Get.find<PickColorController>();
+    final bool isFemale = femaleColorController.isFemale.value;
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -69,7 +71,7 @@ class EventChecklistScreen extends StatelessWidget {
               SizedBox(height: screenHeight * 0.04),
               OutlinedButton(
                 onPressed: () {
-                  Get.to(const CreateChecklistScreen());
+                  Get.offAll(const CreateChecklistScreen());
                 },
                 style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -84,6 +86,8 @@ class EventChecklistScreen extends StatelessWidget {
                     color:
                         themeMode == ThemeMode.dark
                             ? AppColors.buttonColor
+                            : isFemale
+                            ? femaleColorController.selectedColor
                             : AppColors.iconColor,
                     width: 1.5,
                   ),
@@ -99,6 +103,8 @@ class EventChecklistScreen extends StatelessWidget {
                         color:
                             themeMode == ThemeMode.dark
                                 ? AppColors.buttonColor
+                                : isFemale
+                                ? femaleColorController.selectedColor
                                 : AppColors.iconColor,
                       ),
                     ),
@@ -109,6 +115,8 @@ class EventChecklistScreen extends StatelessWidget {
                       color:
                           themeMode == ThemeMode.dark
                               ? AppColors.buttonColor
+                              : isFemale
+                              ? femaleColorController.selectedColor
                               : AppColors.iconColor,
                     ),
                   ],
