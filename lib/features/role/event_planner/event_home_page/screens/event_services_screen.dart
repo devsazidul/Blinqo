@@ -10,7 +10,7 @@ class EventServicesScreen extends StatelessWidget {
   EventServicesScreen({super.key});
   final ProfileController themeController = Get.put(ProfileController());
 
-  @override
+  @override   
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     final List<Service> services = [
@@ -74,14 +74,5 @@ class EventServicesScreen extends StatelessWidget {
     );
   }
 
-  // _buildChildAspectRatio(double screenWidth) {
-  //   if (screenWidth <= 360) {
-  //     return 0.86;
-  //   }
-  //   if (screenWidth >= 360 && screenWidth < 448) {
-  //     return 0.96;
-  //   } else {
-  //     return 1.1;
-  //   }
-  // }
+ 
 }

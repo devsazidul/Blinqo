@@ -50,7 +50,7 @@ class VenueProfileScreen extends StatelessWidget {
                     Center(
                       child: Obx(
                         () => CircleAvatar(
-                          radius: 50,
+                          radius: 80,
                           backgroundColor: Color(0xffD9D9D9),
                           backgroundImage:
                               controller.profileImage.value != null
@@ -60,7 +60,7 @@ class VenueProfileScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      top: 70,
+                      top: 120,
                       left: 200,
                       child: GestureDetector(
                         onTap: () {

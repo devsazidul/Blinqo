@@ -31,7 +31,7 @@ class Schedule extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 26),
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: const CustomDatePicker(),
               ),

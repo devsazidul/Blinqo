@@ -72,21 +72,25 @@ class CustomDatePicker extends StatelessWidget {
             ),
           ),
         ),
+        // ignore: deprecated_member_use
         activeDayNumStyle: getTextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
           color: isDarkMode ? Color(0xffEBEBEB) : AppColors.primary,
         ),
+        // ignore: deprecated_member_use
         inactiveDayNumStyle: getTextStyle(
           fontSize: 12,
           color: isDarkMode ? Color(0xffEBEBEB) : AppColors.textColor,
           fontWeight: FontWeight.w500,
         ),
+        // ignore: deprecated_member_use
         activeDayStrStyle: getTextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
           color: AppColors.primary,
         ),
+        // ignore: deprecated_member_use
         inactiveDayStrStyle: getTextStyle(
           fontSize: 12,
           color: isDarkMode ? Color(0xffEBEBEB) : AppColors.textColor,

@@ -66,8 +66,12 @@ var startTime = Rx<TimeOfDay?>(null);
  
   var selectedEmployees = <Employee>[].obs;
 
-  // Function to set selected employees
   void setSelectedEmployees(List<Employee> employees) {
     selectedEmployees.assignAll(employees);
+  }
+
+  // New method to remove an employee
+  void removeEmployee(Employee employee) {
+    selectedEmployees.remove(employee);
   }
 }

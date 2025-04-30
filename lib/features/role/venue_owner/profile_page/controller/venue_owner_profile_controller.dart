@@ -9,6 +9,8 @@ import 'package:permission_handler/permission_handler.dart';
 class VenueOwnerProfileController extends GetxController {
   RxBool isDarkMode = false.obs;
   var showNotifications = true.obs;
+    var selectedImage = Rx<File?>(null);
+    var seledtedImages = Rx<File?>(null);
   var profileImage = Rx<File?>(null);
 
   @override

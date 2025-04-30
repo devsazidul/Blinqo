@@ -1,5 +1,4 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
 
 class EpSpProfileCoverImageAndAvatar extends StatelessWidget {

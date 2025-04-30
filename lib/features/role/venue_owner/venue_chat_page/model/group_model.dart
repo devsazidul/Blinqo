@@ -25,25 +25,17 @@ class GroupMessage extends Message {
   final String groupId;
 
   GroupMessage({
-    required String id,
-    required String senderId,
+    required super.id,
+    required super.senderId,
     required this.groupId,
-    required String text,
-    required int timestamp,
-    required bool isRead,
-    required MessageType type,
-    String? mediaUrl,
-    String? audioDuration,
+    required super.text,
+    required super.timestamp,
+    required super.isRead,
+    required super.type,
+    super.mediaUrl,
+    super.audioDuration,
   }) : super(
-    id: id,
-    senderId: senderId,
-    receiverId: groupId, // Using groupId as receiverId for consistency
-    text: text,
-    timestamp: timestamp,
-    isRead: isRead,
-    type: type,
-    mediaUrl: mediaUrl,
-    audioDuration: audioDuration,
+    receiverId: groupId,
   );
 }
 

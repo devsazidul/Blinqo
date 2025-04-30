@@ -18,9 +18,13 @@ class NewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final Size screenSize = MediaQuery.of(context).size;
+    final double screenHeight = screenSize.height;
+    print(screenHeight);
     final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;///
     return SizedBox(
-      height: 400,
+      height: screenHeight<620 ?screenHeight*0.550:screenHeight*0.420,
+     
       child:
       controller.reviews.isEmpty
           ? Center(
@@ -52,7 +56,7 @@ class NewWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           var reviews = controller.reviews[index];
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 12),
+            padding: EdgeInsets.symmetric(vertical: 8),
             child: Container(
              
               decoration: BoxDecoration(
