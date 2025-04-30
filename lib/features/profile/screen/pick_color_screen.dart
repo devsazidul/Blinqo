@@ -2,9 +2,7 @@ import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
-import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/widget/f_custom_button.dart';
-import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,31 +12,15 @@ class PickColorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Get.find<ProfileController>().isDarkMode.value
-              ? AppColors.darkBackgroundColor
-              : AppColors.backgroundColor,
+      backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppBarWidget(
-        title: "Pick a Color!",
-        actions: [
-          IconButton(
-            icon: Image.asset(
-              IconPath.moreVert,
-              width: 24,
-              height: 24,
-              color: AppColors.textColor,
-            ),
-            onPressed: () {
-              showPopupMenu(context);
-            },
-          ),
-        ],
+        title: "Pick a Color",
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       body: ColoredBox(
-        color:
-            Get.find<ProfileController>().isDarkMode.value
-                ? AppColors.darkBackgroundColor
-                : AppColors.backgroundColor,
+        color: AppColors.backgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: GetBuilder<PickColorController>(
@@ -47,7 +29,7 @@ class PickColorScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    height: 150,
+                    height: 160,
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 5, // Number of columns
