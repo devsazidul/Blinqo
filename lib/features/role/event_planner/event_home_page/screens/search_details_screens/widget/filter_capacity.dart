@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,14 @@ class Capacity extends StatelessWidget {
   Capacity({super.key, required this.searchDetailsController});
   final ProfileController themeController = Get.put(ProfileController());
   final SearchDetailsController searchDetailsController;
+  final PickColorController femaleColorController = Get.put(
+    PickColorController(),
+  );
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = themeController.isDarkMode.value;
+    final bool isDarkMode = themeController.isDarkMode.value;
+    final bool isFemale = femaleColorController.isFemale.value;
     return Column(
       children: [
         Obx(
@@ -40,6 +45,8 @@ class Capacity extends StatelessWidget {
                   activeColor:
                       isDarkMode
                           ? AppColors.buttonColor
+                          : isFemale
+                          ? femaleColorController.selectedColor
                           : AppColors.buttonColor2,
                   inactiveColor: AppColors.appBarIcolor,
                   onChanged: (RangeValues values) {
@@ -57,7 +64,12 @@ class Capacity extends StatelessWidget {
             Image.asset(
               IconPath.group,
               width: 24,
-              color: isDarkMode ? AppColors.buttonColor : AppColors.iconColor,
+              color:
+                  isDarkMode
+                      ? AppColors.buttonColor
+                      : isFemale
+                      ? femaleColorController.selectedColor
+                      : AppColors.iconColor,
             ),
             SizedBox(width: 8),
             Text(
@@ -94,6 +106,8 @@ class Capacity extends StatelessWidget {
                   activeColor:
                       isDarkMode
                           ? AppColors.buttonColor
+                          : isFemale
+                          ? femaleColorController.selectedColor
                           : AppColors.buttonColor2,
                   inactiveColor: AppColors.appBarIcolor,
                   onChanged: (RangeValues values) {

@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/widget/f_custom_button.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen1.dart';
@@ -14,14 +15,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpServiceProviderProfile extends StatelessWidget {
+  final PickColorController femaleColorController = Get.put(
+    PickColorController(),
+  );
   static const String name = '/event-planner/service-provider-profile';
 
-  const EpServiceProviderProfile({super.key});
+  EpServiceProviderProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
     final EpSpReviewController controller = Get.put(EpSpReviewController());
     final ProfileController profileController = Get.find<ProfileController>();
+    final bool isFemale = femaleColorController.isFemale.value;
     double screenHeight = MediaQuery.of(context).size.height;
     double mediafontsized = (screenHeight < 700) ? 13 : 16;
     return Scaffold(
@@ -47,6 +52,8 @@ class EpServiceProviderProfile extends StatelessWidget {
                         SizedBox(height: 12),
                         EpSpProfileSummarySection(
                           isDarkMode: profileController.isDarkMode.value,
+                          isFemale: isFemale,
+                          femaleColorController: femaleColorController,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 45.0),
@@ -78,6 +85,9 @@ class EpServiceProviderProfile extends StatelessWidget {
                                           color:
                                               profileController.isDarkMode.value
                                                   ? AppColors.buttonColor
+                                                  : isFemale
+                                                  ? femaleColorController
+                                                      .selectedColor
                                                   : AppColors.buttonColor2,
                                         ),
                                         Text(
@@ -90,6 +100,9 @@ class EpServiceProviderProfile extends StatelessWidget {
                                                         .isDarkMode
                                                         .value
                                                     ? AppColors.buttonColor
+                                                    : isFemale
+                                                    ? femaleColorController
+                                                        .selectedColor
                                                     : AppColors.buttonColor2,
                                           ),
                                         ),
@@ -103,6 +116,8 @@ class EpServiceProviderProfile extends StatelessWidget {
                                   backgroundColor:
                                       profileController.isDarkMode.value
                                           ? AppColors.buttonColor
+                                          : isFemale
+                                          ? femaleColorController.selectedColor
                                           : AppColors.buttonColor2,
                                   child: GestureDetector(
                                     onTap: () {
@@ -158,7 +173,11 @@ class EpServiceProviderProfile extends StatelessWidget {
                     EpSpWorksTabViewWidget(),
 
                     /// Reviews Tab
-                    EpSpReviewsTabViewWidget(controller: controller),
+                    EpSpReviewsTabViewWidget(
+                      controller: controller,
+                      isFemale: isFemale,
+                      femaleColorController: femaleColorController,
+                    ),
                   ],
                 ),
               ),

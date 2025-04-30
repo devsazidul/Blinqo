@@ -1,5 +1,6 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
   const EpSpProfileCoverImageAndAvatar({super.key});
@@ -10,7 +11,6 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
       children: [
         SizedBox(height: 270, width: double.infinity),
 
-        /// Cover image
         Image.asset(
           "assets/images/profile_cover_image.jpeg",
           height: 220,
@@ -18,7 +18,6 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
           fit: BoxFit.cover,
         ),
 
-        /// Three-dot menu and back button
         Positioned(
           top: 50,
           left: 0,
@@ -26,7 +25,9 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
           child: Row(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.back();
+                },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: CircleAvatar(
@@ -40,8 +41,6 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
                 ),
               ),
               Spacer(),
-
-              // ///////////////////
               GestureDetector(
                 onTap: () {
                   // showPopupMenu(context);

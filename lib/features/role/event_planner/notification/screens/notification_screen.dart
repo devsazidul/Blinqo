@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,8 +12,12 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PickColorController femaleColorController = Get.put(
+      PickColorController(),
+    );
     final bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
     final List<int> ids = [3, 4, 5, 9];
+    final bool isFemale = femaleColorController.isFemale.value;
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -37,13 +42,14 @@ class NotificationScreen extends StatelessWidget {
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             tileColor:
                 ids.contains(index)
-                    ? Color(0xffDEEAFF)
-                    : isDarkMode
-                    ? Color(0xff32383D)
+                    ? (isDarkMode
+                        ? Color(0xff32383D)
+                        : isFemale
+                        ? (femaleColorController.selectedColor)
+                        : Color(0xffDEEAFF))
                     : null,
             leading: CircleAvatar(
               radius: 22,
-              // image form unsplash
               backgroundImage: NetworkImage(
                 "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
               ),
