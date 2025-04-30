@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/event_planner_custom_calendar.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/revies_card.dart'
@@ -10,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:step_indicator_package/step_indicator.dart';
+
 import '../../../home/controller/booking_controller.dart';
 import '../../widgets/enent_type_dopdown_button.dart';
 import '../../widgets/stark_booking_additional_services.dart';
@@ -35,6 +37,7 @@ class SearchStartBooking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PickColorController pickColorController = Get.find();
     // Get screen width and height for responsive design
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -80,6 +83,8 @@ class SearchStartBooking extends StatelessWidget {
                           color:
                               themeMode == ThemeMode.dark
                                   ? Color(0xffD4AF37)
+                                  : pickColorController.isFemale.value
+                                  ? pickColorController.selectedColor
                                   : Color(0xff003285),
                         ),
                       ),
@@ -89,10 +94,14 @@ class SearchStartBooking extends StatelessWidget {
                       activeColor:
                           themeMode == ThemeMode.dark
                               ? Color(0xffD4AF37)
+                              : pickColorController.isFemale.value
+                              ? pickColorController.selectedColor
                               : Color(0xff003285),
                       activeLineColor:
                           themeMode == ThemeMode.dark
                               ? Color(0xffD4AF37)
+                              : pickColorController.isFemale.value
+                              ? pickColorController.selectedColor
                               : Color(0xff003285),
                       circleRadius: 18,
                       paddingHorizontal: 60,
@@ -103,24 +112,28 @@ class SearchStartBooking extends StatelessWidget {
                       screenHeight: screenHeight,
                       bookingController: bookingController,
                       themeMode: themeMode,
+                      pickColorController: pickColorController,
                     ),
                     //
                     SizedBox(height: screenHeight * 0.02),
                     StartBookingDate(
                       bookingController: bookingController,
                       themeMode: themeMode,
+                      pickColorController: pickColorController,
                     ),
 
                     SizedBox(height: screenHeight * 0.02),
                     StarkBookingSetStartTimeOrEndTime(
                       bookingController: bookingController,
                       themeMode: themeMode,
+                      pickColorController: pickColorController,
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     StartBookingNumberOfGuests(
                       screenHeight: screenHeight,
                       bookingController: bookingController,
                       themeMode: themeMode,
+                      pickColorController: pickColorController,
                     ),
                     SizedBox(height: screenHeight * 0.02),
 
@@ -128,6 +141,7 @@ class SearchStartBooking extends StatelessWidget {
                       bookingController: bookingController,
                       screenHeight: screenHeight,
                       themeMode: themeMode,
+                      pickColorController: pickColorController,
                     ),
                     SizedBox(height: screenHeight * 0.02),
 
@@ -163,6 +177,11 @@ class SearchStartBooking extends StatelessWidget {
                         height: Get.height * 0.44,
                         selectedDatesNotifier: selectedDatesNotifier,
                         themeMode: themeMode,
+                        selectedColor:
+                            themeMode == ThemeMode.dark ||
+                                    !pickColorController.isFemale.value
+                                ? const Color(0xffF0C020)
+                                : pickColorController.selectedColor,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -177,7 +196,11 @@ class SearchStartBooking extends StatelessWidget {
                         SizedBox(height: 8),
                         EventStatusLabel(
                           themeMode: themeMode,
-                          color: Color(0xffF0C020),
+                          color:
+                              themeMode == ThemeMode.dark ||
+                                      !pickColorController.isFemale.value
+                                  ? Color(0xffF0C020)
+                                  : pickColorController.selectedColor,
                           label: 'Selected',
                         ),
                       ],
@@ -237,7 +260,14 @@ class SearchStartBooking extends StatelessWidget {
                                     style: getTextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w700,
-                                      color: AppColors.reviesStarColor,
+                                      color:
+                                          themeMode == ThemeMode.dark ||
+                                                  !pickColorController
+                                                      .isFemale
+                                                      .value
+                                              ? AppColors.reviesStarColor
+                                              : pickColorController
+                                                  .selectedColor,
                                     ),
                                   ),
                                 ],
@@ -264,7 +294,14 @@ class SearchStartBooking extends StatelessWidget {
                                     style: getTextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w700,
-                                      color: AppColors.reviesStarColor,
+                                      color:
+                                          themeMode == ThemeMode.dark ||
+                                                  !pickColorController
+                                                      .isFemale
+                                                      .value
+                                              ? AppColors.reviesStarColor
+                                              : pickColorController
+                                                  .selectedColor,
                                     ),
                                   ),
                                 ],
@@ -285,6 +322,7 @@ class SearchStartBooking extends StatelessWidget {
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,
                       themeMode: themeMode,
+                      pickColorController: pickColorController,
                     ),
 
                     SizedBox(height: screenHeight * 0.02),

@@ -1,7 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ReviewsText extends StatelessWidget {
   final String label;
@@ -19,6 +21,7 @@ class ReviewsText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PickColorController pickColorController = Get.find();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -37,11 +40,13 @@ class ReviewsText extends StatelessWidget {
             fontSize: 12.sp,
             fontWeight: FontWeight.w400,
             color:
-                themeMode == ThemeMode.dark && isColorChinge
-                    ? Color(0xffD4AF37)
-                    : themeMode == ThemeMode.dark && !isColorChinge
-                    ? Color(0xffebebeb)
-                    : AppColors.subTextColor,
+                themeMode == ThemeMode.dark
+                    ? (isColorChinge ? Color(0xffD4AF37) : Color(0xffebebeb))
+                    : (!isColorChinge
+                        ? Color(0xff333333)
+                        : (pickColorController.isFemale.value
+                            ? pickColorController.selectedColor
+                            : Color(0xff003366))),
           ),
         ),
       ],

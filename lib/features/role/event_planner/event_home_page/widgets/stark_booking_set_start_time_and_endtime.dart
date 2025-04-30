@@ -1,3 +1,4 @@
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,10 +11,12 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
     super.key,
     required this.bookingController,
     required this.themeMode,
+    this.pickColorController,
   });
 
   final BookingController bookingController;
   final ThemeMode themeMode;
+  final PickColorController? pickColorController;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,9 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                 color:
                     themeMode == ThemeMode.dark
                         ? AppColors.borderColor2
+                        : pickColorController?.isFemale.value ?? false
+                        ? pickColorController?.selectedColor ??
+                            AppColors.dopdownTextColor
                         : AppColors.dopdownTextColor,
               ),
             ),
@@ -68,6 +74,9 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                         color:
                             themeMode == ThemeMode.dark
                                 ? AppColors.buttonColor
+                                : pickColorController?.isFemale.value ?? false
+                                ? pickColorController?.selectedColor ??
+                                    AppColors.iconColor
                                 : AppColors.iconColor,
                       ),
                       SizedBox(width: 4),
@@ -94,6 +103,10 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                                 color:
                                     themeMode == ThemeMode.dark
                                         ? AppColors.buttonColor
+                                        : pickColorController?.isFemale.value ??
+                                            false
+                                        ? pickColorController?.selectedColor ??
+                                            AppColors.iconColor
                                         : AppColors.iconColor,
                               ),
                             ),
@@ -156,6 +169,9 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                         color:
                             themeMode == ThemeMode.dark
                                 ? AppColors.buttonColor
+                                : pickColorController?.isFemale.value ?? false
+                                ? pickColorController?.selectedColor ??
+                                    AppColors.iconColor
                                 : AppColors.iconColor,
                       ),
                       SizedBox(width: 4),
@@ -182,6 +198,10 @@ class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
                                 color:
                                     themeMode == ThemeMode.dark
                                         ? AppColors.buttonColor
+                                        : pickColorController?.isFemale.value ??
+                                            false
+                                        ? pickColorController?.selectedColor ??
+                                            AppColors.iconColor
                                         : AppColors.iconColor,
                               ),
                             ),

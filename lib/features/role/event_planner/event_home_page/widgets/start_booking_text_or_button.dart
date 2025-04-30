@@ -1,4 +1,6 @@
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
+
 import 'start_booking_decoration_card.dart';
 
 class StartBookingTextOrButton extends StatelessWidget {
@@ -7,10 +9,12 @@ class StartBookingTextOrButton extends StatelessWidget {
     required this.screenHeight,
     required this.screenWidth,
     required this.themeMode,
+    this.pickColorController,
   });
 
   final double screenHeight;
   final double screenWidth;
+  final PickColorController? pickColorController;
 
   final ThemeMode themeMode;
 
@@ -27,6 +31,7 @@ class StartBookingTextOrButton extends StatelessWidget {
             // print("Short by Table Shape");
           },
           themeMode: themeMode,
+          pickColorController: pickColorController,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -36,6 +41,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenWidth: screenWidth,
           onTap: () {},
           themeMode: themeMode,
+          pickColorController: pickColorController,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -45,6 +51,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenWidth: screenWidth,
           onTap: () {},
           themeMode: themeMode,
+          pickColorController: pickColorController,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -54,6 +61,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenWidth: screenWidth,
           onTap: () {},
           themeMode: themeMode,
+          pickColorController: pickColorController,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -63,6 +71,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenWidth: screenWidth,
           onTap: () {},
           themeMode: themeMode,
+          pickColorController: pickColorController,
         ),
         SizedBox(height: screenHeight * 0.02),
         StartBookingDecorationCard(
@@ -72,6 +81,7 @@ class StartBookingTextOrButton extends StatelessWidget {
           screenWidth: screenWidth,
           onTap: () {},
           themeMode: themeMode,
+          pickColorController: pickColorController,
         ),
         SizedBox(height: screenHeight * 0.02),
       ],

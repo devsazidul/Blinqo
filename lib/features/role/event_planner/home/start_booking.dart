@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart';
@@ -25,6 +26,7 @@ class StartBooking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PickColorController pickColorController = Get.find();
     // Get screen width and height for responsive design
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -72,6 +74,8 @@ class StartBooking extends StatelessWidget {
                       color:
                           themeMode == ThemeMode.dark
                               ? Color(0xffD4AF37)
+                              : pickColorController.isFemale.value
+                              ? pickColorController.selectedColor
                               : Color(0xff003285),
                     ),
                   ),
@@ -81,10 +85,14 @@ class StartBooking extends StatelessWidget {
                   activeColor:
                       themeMode == ThemeMode.dark
                           ? Color(0xffD4AF37)
+                          : pickColorController.isFemale.value
+                          ? pickColorController.selectedColor
                           : Color(0xff003285),
                   activeLineColor:
                       themeMode == ThemeMode.dark
                           ? Color(0xffD4AF37)
+                          : pickColorController.isFemale.value
+                          ? pickColorController.selectedColor
                           : Color(0xff003285),
                   allowCircleTap: false,
                   circleRadius: 18,
@@ -96,24 +104,28 @@ class StartBooking extends StatelessWidget {
                   screenHeight: screenHeight,
                   bookingController: bookingController,
                   themeMode: themeMode,
+                  pickColorController: pickColorController,
                 ),
 
                 SizedBox(height: screenHeight * 0.02),
                 StartBookingDate(
                   bookingController: bookingController,
                   themeMode: themeMode,
+                  pickColorController: pickColorController,
                 ),
 
                 SizedBox(height: screenHeight * 0.02),
                 StarkBookingSetStartTimeOrEndTime(
                   bookingController: bookingController,
                   themeMode: themeMode,
+                  pickColorController: pickColorController,
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 StartBookingNumberOfGuests(
                   screenHeight: screenHeight,
                   bookingController: bookingController,
                   themeMode: themeMode,
+                  pickColorController: pickColorController,
                 ),
                 SizedBox(height: screenHeight * 0.02),
 
@@ -121,6 +133,7 @@ class StartBooking extends StatelessWidget {
                   bookingController: bookingController,
                   screenHeight: screenHeight,
                   themeMode: themeMode,
+                  pickColorController: pickColorController,
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 StartBookingDecorationImage(
@@ -132,6 +145,7 @@ class StartBooking extends StatelessWidget {
                   screenHeight: screenHeight,
                   screenWidth: screenWidth,
                   themeMode: themeMode,
+                  pickColorController: pickColorController,
                 ),
 
                 SizedBox(height: screenHeight * 0.02),
@@ -145,6 +159,7 @@ class StartBooking extends StatelessWidget {
                     //Get.toNamed(AppRoute.getsearchStartBooking());
                     Get.to(SearchStartBooking());
                   },
+
                   screenHeight: screenHeight,
                   themeMode: themeMode,
                 ),
