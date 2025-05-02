@@ -49,7 +49,7 @@ class GetVerifiedScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 32),
                   CustomContinueButton(
-                    onTap: () {
+                    onPress: () {
                       debugPrint(
                         "Before: ${Get.find<SpHomeController>().isVerified.value}",
                       );

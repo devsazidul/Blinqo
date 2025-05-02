@@ -104,7 +104,7 @@ class EpPaymentOptionCard extends StatelessWidget {
             ),
             SizedBox(height: 48),
             CustomContinueButton(
-              onTap: () {
+              onPress: () {
                 Get.to(EpCongratulationsPage());
               },
               title: "Confirm & Pay",

@@ -382,7 +382,7 @@ class SpVerificationSubmission extends StatelessWidget {
                   ),
                   SizedBox(height: 112),
                   CustomContinueButton(
-                    onTap: () {
+                    onPress: () {
                       Get.to(SpPaymentOption());
                     },
                     title: "Get Verified",

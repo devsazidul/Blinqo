@@ -112,7 +112,7 @@ class SpPaymentOptionCard extends StatelessWidget {
               ),
               SizedBox(height: 48),
               CustomContinueButton(
-                onTap: () {
+                onPress: () {
                   Get.to(SpVerificationThanks());
                 },
                 title: "Confirm & Pay",

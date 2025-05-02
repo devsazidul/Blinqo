@@ -225,10 +225,26 @@ class SpForgetPassword extends StatelessWidget {
                     //       emailController.text;
                     //   forgetPasswordController.sendOtp(emailController.text);
                     // }
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => SpOtpSendScreen(),
+                    //   ),
+                    // );
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SpOtpSendScreen(),
+                        builder:
+                            (context) => SpOtpSendScreen(
+                              valueToSend:
+                                  focusedButtonIndex.value == 0
+                                      ? forgetPasswordController
+                                          .emailController
+                                          .text
+                                      : forgetPasswordController
+                                          .phoneController
+                                          .text,
+                            ),
                       ),
                     );
                   },

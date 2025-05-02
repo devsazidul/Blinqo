@@ -57,7 +57,7 @@ class SpVerificationThanks extends StatelessWidget {
                   ),
                   SizedBox(height: 40),
                   CustomContinueButton(
-                    onTap: () {
+                    onPress: () {
                       Get.to(SpCongratulationsPage());
                     },
                     title: "Back to Home",

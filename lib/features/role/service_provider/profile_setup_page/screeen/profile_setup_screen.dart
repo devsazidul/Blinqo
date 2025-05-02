@@ -594,7 +594,7 @@ class ProfileSetupScreen extends StatelessWidget {
                   UpgradeToProcard(onTap: () {}),
                   SizedBox(height: 40),
                   CustomContinueButton(
-                    onTap: () {
+                    onPress: () {
                       Get.to(GetVerifiedScreen());
                     },
                     title: "Continue",
