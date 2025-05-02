@@ -19,6 +19,11 @@ import 'package:blinqo/features/role/event_planner/payment_method/screen/evetnt_
 import 'package:blinqo/features/role/event_planner/payment_method/screen/final_review_booking_datieals.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_change_password.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_otp_send_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_signup_screen.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
@@ -111,11 +116,11 @@ class AppRoute {
   static String finalReviewBookingDatieals = '/finalReviewBookingDatieals';
   static String evenPaymentOption = '/evenPaymentOption';
   static String searchStartBooking = '/searchStartBooking';
-
-
-
-
-
+  static String spSignupScreen = '/spSignupScreen';
+  static String spLoginScreen = '/spLoginScreen';
+  static String spForgetPassword = '/spForgetPassword';
+  static String spFOtpSendScreen = '/spFOtpSendScreen';
+  static String spChangePassword = '/spChangePassword';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -169,9 +174,11 @@ class AppRoute {
   static String getfinalReviewBookingDatieals() => finalReviewBookingDatieals;
   static String getevenPaymentOption() => evenPaymentOption;
   static String getsearchStartBooking() => searchStartBooking;
-
-
-
+  static String getspSignupScreen() => spSignupScreen;
+  static String getspLoginScreen() => spLoginScreen;
+  static String getspForgetPassword() => spForgetPassword;
+  static String getspFOtpSendScreen() => spFOtpSendScreen;
+  static String getspChangePassword() => spChangePassword;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -232,9 +239,20 @@ class AppRoute {
     GetPage(name: reviewBooking, page: () => ReviewBooking()),
     GetPage(name: reviewBookingDetails, page: () => ReviewBookingDetails()),
     GetPage(name: eventPaymentOption, page: () => EvenPaymentOption()),
-    GetPage(name: eventCongratulationScreen, page: () => EventCongratulationScreen()),
-    GetPage(name: finalReviewBookingDatieals, page: () => FinalReviewBookingDatieals()),
+    GetPage(
+      name: eventCongratulationScreen,
+      page: () => EventCongratulationScreen(),
+    ),
+    GetPage(
+      name: finalReviewBookingDatieals,
+      page: () => FinalReviewBookingDatieals(),
+    ),
     GetPage(name: evenPaymentOption, page: () => EvenPaymentOption()),
     GetPage(name: searchStartBooking, page: () => SearchStartBooking()),
+    GetPage(name: spSignupScreen, page: () => SpSignupScreen()),
+    GetPage(name: spLoginScreen, page: () => SpLoginScreen()),
+    GetPage(name: spForgetPassword, page: () => SpForgetPassword()),
+    GetPage(name: spFOtpSendScreen, page: () => SpFOtpSendScreen()),
+    GetPage(name: spChangePassword, page: () => SpChangePassword()),
   ];
 }

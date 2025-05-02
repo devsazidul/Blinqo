@@ -52,7 +52,7 @@ class ServiceProviderProfile extends StatelessWidget {
                         SizedBox(
                           width: 148,
                           child: CustomContinueButton(
-                            onTap: () {
+                            onPress: () {
                               Navigator.pushNamed(
                                 context,
                                 SpShareWorkPage.name,

@@ -22,7 +22,7 @@ class SpLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -112,11 +112,32 @@ class SpLoginScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 32),
-                CustomContinueButton(
-                  onTap: () {
-                    Get.offAll(ProfileSetupScreen());
-                  },
-                  title: "Log In",
+
+                Obx(
+                  () => CustomContinueButton(
+                    title: 'Log In',
+                    textColor:
+                        loginController.isFromValid.value
+                            ? Colors.white
+                            : Color(0xFF003366),
+
+                    backgroundColor:
+                        loginController.isFromValid.value
+                            ? Color(0xFF003366)
+                            : Color(0xFF003366).withOpacity(0.1),
+                    borderColor:
+                        loginController.isFromValid.value
+                            ? Color(0xFF003366)
+                            : Color(0xFF003366).withOpacity(0.1),
+                    onPress: () {
+                      // loginController.isFromValid.value
+                      //     ? () {
+                      //       Get.offAll(ProfileSetupScreen());
+                      //     }
+                      //     : null;
+                      Get.offAll(ProfileSetupScreen());
+                    },
+                  ),
                 ),
                 SizedBox(height: 16),
                 Align(
@@ -219,7 +240,7 @@ class SpLoginScreen extends StatelessWidget {
                     SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRoute.vsignupscreen);
+                        Get.toNamed(AppRoute.spSignupScreen);
                       },
                       child: Text(
                         "Sign Up",

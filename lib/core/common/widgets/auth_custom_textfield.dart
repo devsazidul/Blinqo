@@ -1,4 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -32,7 +33,7 @@ class AuthCustomTextField extends StatelessWidget {
 
       style: getTextStyle(
         fontSize: 14,
-        color: Colors.grey,
+        color: AppColors.textColor,
         fontWeight: obscureText! ? FontWeight.bold : FontWeight.w400,
       ),
       validator: validator,

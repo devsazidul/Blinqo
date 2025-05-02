@@ -308,7 +308,7 @@ class SpShareWorkPage extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 CustomContinueButton(
-                  onTap: _shareWorkController.uploadToServer,
+                  onPress: _shareWorkController.uploadToServer,
                   title: isEditing ? "Update" : "Upload",
                 ),
                 SizedBox(height: 16),

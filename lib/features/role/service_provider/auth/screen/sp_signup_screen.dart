@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
-import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_signup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +17,7 @@ class SpSignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -192,7 +195,7 @@ class SpSignupScreen extends StatelessWidget {
               ),
               SizedBox(height: 32),
               Obx(
-                () => CustomButton(
+                () => CustomContinueButton(
                   title: 'Sign Up',
                   textColor:
                       singupController.isFromValid.value
@@ -201,7 +204,7 @@ class SpSignupScreen extends StatelessWidget {
                   onPress:
                       singupController.isFromValid.value
                           ? () {
-                            // singupController.signup();
+                            Get.to(ProfileSetupScreen());
                           }
                           : null,
                   backgroundColor:
@@ -236,7 +239,7 @@ class SpSignupScreen extends StatelessWidget {
                   SizedBox(width: 8),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(AppRoute.vloginscreen);
+                      Get.toNamed(AppRoute.spLoginScreen);
                     },
                     child: Text(
                       "Sign In",

@@ -11,11 +11,25 @@ class SpOtpSendScreen extends StatelessWidget {
   final SpForgetPasswordController spForgetPasswordController = Get.put(
     SpForgetPasswordController(),
   );
-
-  SpOtpSendScreen({super.key});
+  final String valueToSend;
+  SpOtpSendScreen({super.key, required this.valueToSend});
 
   @override
   Widget build(BuildContext context) {
+    String maskedValue = '';
+    if (valueToSend.contains('@')) {
+      // Process email
+      maskedValue =
+          valueToSend.length > 5
+              ? '${valueToSend.substring(0, 5)}@****.com'
+              : '${valueToSend.substring(0)}@****.com';
+    } else {
+      // Process phone
+      maskedValue =
+          valueToSend.length > 5
+              ? '${valueToSend.substring(0, 5)}****'
+              : '${valueToSend.substring(0)}****';
+    }
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -56,7 +70,8 @@ class SpOtpSendScreen extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: '0724****',
+                        text: maskedValue,
+                        // text: '0724****',
                         style: getTextStyle(
                           color: Color(0xFF003366),
                           fontSize: 16,
@@ -75,7 +90,7 @@ class SpOtpSendScreen extends StatelessWidget {
                   child: Text(
                     "Resend Code",
                     style: getTextStyle(
-                      color: Color(0xFFD4AF37),
+                      color: AppColors.buttonColor2,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),

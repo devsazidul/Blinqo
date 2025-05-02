@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-
 class SpChangePasswordController extends GetxController {
   final newPasswordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();

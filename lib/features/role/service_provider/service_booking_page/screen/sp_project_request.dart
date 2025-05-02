@@ -319,7 +319,7 @@ class SpProjectRequest extends StatelessWidget {
                             visible:
                                 spProjectRequestcontroller.isEditable.value,
                             child: CustomContinueButton(
-                              onTap: () {
+                              onPress: () {
                                 spProjectRequestcontroller.onSubmitTapped(
                                   spProjectRequestcontroller.enteredText.value,
                                 );

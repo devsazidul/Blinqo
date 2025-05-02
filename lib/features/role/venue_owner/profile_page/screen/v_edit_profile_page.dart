@@ -12,10 +12,10 @@ class VEditProfilePage extends StatelessWidget {
 
   const VEditProfilePage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -40,31 +40,32 @@ class VEditProfilePage extends StatelessWidget {
                     spacing: 8,
                     children: [
                       // first name text
-          
+
                       /// First Name
-                      VProfileEditTextFormField(
-                        label: 'First Name',
-                      ),
-          
+                      VProfileEditTextFormField(label: 'First Name'),
+
                       /// Last Name
                       VProfileEditTextFormField(label: 'Last Name'),
-          
+
                       /// Email
                       VProfileEditTextFormField(label: 'Email'),
-          
+
                       /// Country
                       VProfileEditTextFormField(label: 'Country'),
-          
+
                       /// City
                       VProfileEditTextFormField(label: 'City'),
                     ],
                   ),
                 ),
-          
+
                 SizedBox(height: 40),
-                CustomContinueButton(onTap: () {
-                  Get.back();
-                }, title: 'Save & Change'),
+                CustomContinueButton(
+                  onPress: () {
+                    Get.back();
+                  },
+                  title: 'Save & Change',
+                ),
               ],
             ),
           ),
