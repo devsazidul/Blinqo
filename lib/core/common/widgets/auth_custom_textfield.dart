@@ -12,6 +12,7 @@ class AuthCustomTextField extends StatelessWidget {
   String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
   final double? borderRadius;
+
   AuthCustomTextField({
     super.key,
     required this.controller,
@@ -26,11 +27,11 @@ class AuthCustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
       onTap: onTap,
       onChanged: onChanged,
       obscureText: obscureText!,
-
       style: getTextStyle(
         fontSize: 14,
         color: AppColors.textColor,
