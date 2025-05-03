@@ -2,7 +2,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:get/get.dart';
 
 class SpChatController extends GetxController {
-  final List<Map<String, String>> chats = [
+  final List<Map<String, dynamic>> chats = [
     {
       "name": "Floyd Miles",
       "message": "Lorem ipsum dolor sit ...",
@@ -18,11 +18,37 @@ class SpChatController extends GetxController {
       "isOnline": false.toString(),
     },
     {
+      "type": "group",
+      "groupName": "Design Team",
+      "message": "New design updates are ready!",
+      "time": "10:00",
+      "image": IconPath.chatlogo2,
+      "isOnline": false.toString(),
+      "participants": [
+        "John Doe",
+        "Alice Johnson",
+        "Robert Green",
+      ], // List of participants
+    },
+    {
       "name": "Oliver Smith",
       "message": "Sed do eiusmod tempor ...",
       "time": "9:03",
       "image": IconPath.chatlogo3,
       "isOnline": false.toString(),
+    },
+    {
+      "type": "group", // Group data
+      "groupName": "Design Team",
+      "message": "New design updates are ready!",
+      "time": "10:00",
+      "image": IconPath.chatlogo2,
+      "isOnline": false.toString(),
+      "participants": [
+        "John Doe",
+        "Alice Johnson",
+        "Robert Green",
+      ], // List of participants
     },
     {
       "name": "Isabella Johnson",
@@ -46,6 +72,19 @@ class SpChatController extends GetxController {
       "isOnline": true.toString(),
     },
     {
+      "type": "group", // Group data
+      "groupName": "Design Team",
+      "message": "New design updates are ready!",
+      "time": "10:00",
+      "image": IconPath.chatlogo2,
+      "isOnline": false.toString(),
+      "participants": [
+        "John Doe",
+        "Alice Johnson",
+        "Robert Green",
+      ], // List of participants
+    },
+    {
       "name": "Noah Garcia",
       "message": "In reprehenderit in voluptate ...",
       "time": "13:30",
@@ -65,6 +104,19 @@ class SpChatController extends GetxController {
       "time": "15:22",
       "image": IconPath.chatlogo9,
       "isOnline": false.toString(),
+    },
+    {
+      "type": "group", // Group data
+      "groupName": "Design Team",
+      "message": "New design updates are ready!",
+      "time": "10:00",
+      "image": IconPath.chatlogo2,
+      "isOnline": false.toString(),
+      "participants": [
+        "John Doe",
+        "Alice Johnson",
+        "Robert Green",
+      ], // List of participants
     },
     {
       "name": "Emma Martinez",

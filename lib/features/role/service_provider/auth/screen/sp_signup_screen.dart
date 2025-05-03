@@ -204,7 +204,8 @@ class SpSignupScreen extends StatelessWidget {
                   onPress:
                       singupController.isFromValid.value
                           ? () {
-                            Get.to(ProfileSetupScreen());
+                            singupController.signup();
+                            // Get.to(ProfileSetupScreen());
                           }
                           : null,
                   backgroundColor:

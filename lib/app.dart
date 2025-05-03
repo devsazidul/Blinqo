@@ -1,5 +1,6 @@
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,7 @@ class Blinqo extends StatelessWidget {
           final themeController = Get.find<ThemeController>();
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
+            builder: EasyLoading.init(),
             initialRoute: AppRoute.getsplashoScreen(),
             getPages: AppRoute.routes,
             initialBinding: ControllerBinder(),
