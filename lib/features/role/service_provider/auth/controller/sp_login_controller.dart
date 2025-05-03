@@ -1,9 +1,26 @@
+import 'package:blinqo/core/urls/endpoint.dart';
+import 'package:blinqo/features/role/service_provider/auth/model/user_model.dart';
+import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class SpLoginController extends GetxController {
-  TextEditingController passwordControler = TextEditingController();
+  bool _isLoading = false;
+  String _errorMessage = '';
+  bool _isSuccess = false;
+  UserModel? _user;
+
+  bool get isLoading => _isLoading;
+  String get errorMessage => _errorMessage;
+  bool get isSuccess => _isSuccess;
+  UserModel? get user => _user;
+
+  // form key
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+
   var isPasswordVisible = true.obs;
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
@@ -13,12 +30,12 @@ class SpLoginController extends GetxController {
   TextEditingController categoryController = TextEditingController();
 
   // Dummy userId for new category (replace with actual userId)
-  String userId = "user123";
+  // String userId = "user123";
 
   var isFromValid = false.obs;
   void validateFrom() {
     isFromValid.value =
-        emailController.text.isNotEmpty && passwordControler.text.isNotEmpty;
+        emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
   }
 
   // Password validation method
@@ -66,9 +83,44 @@ class SpLoginController extends GetxController {
   //   }
   // }
 
+  Future<bool> login() async {
+    EasyLoading.show(status: 'Logging in...');
+    _isLoading = true;
+    update();
+
+    Map<String, dynamic> requestBody = {
+      'email': emailController.text.trim(),
+      'password': passwordController.text.trim(),
+    };
+
+    final response = await Get.find<SpNetworkCaller>().postRequest(
+      Urls.login,
+      requestBody,
+    );
+
+    if (response.isSuccess) {
+      _isSuccess = true;
+      _errorMessage = '';
+      // print("Response: ${response.responseData}");
+      // print("Response: ${response.responseData['data']}");
+
+      _user = UserModel.fromJson(response.responseData['data']["user"]);
+      EasyLoading.showSuccess(response.responseData['message']);
+      // Get.offAll(() => BottomNavbar(), arguments: planName);
+    } else {
+      _isSuccess = false;
+      _errorMessage = response.errorMessage;
+      EasyLoading.showError(response.errorMessage);
+    }
+    EasyLoading.dismiss();
+    _isLoading = false;
+    update();
+    return _isSuccess;
+  }
+
   void clearFields() {
     emailController.clear();
-    passwordControler.clear();
+    passwordController.clear();
   }
 
   // Fetch categories from the API

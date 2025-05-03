@@ -4,5 +4,9 @@ class Urls {
   // static const String baseUrl = 'https://sports-app-dvka.onrender.com';
   // static const String baseUrl = 'https://sports-app-y7lq.onrender.com';
   static const String baseUrl = 'https://freepik.softvenceomega.com';
+
+  static const String login = '$baseUrl/auth/login';
   static const String register = '$baseUrl/auth/register';
+
+  static const String otpVerification = '$baseUrl/auth/verify-email';
 }

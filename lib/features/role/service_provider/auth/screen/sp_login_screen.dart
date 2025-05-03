@@ -10,7 +10,6 @@ import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_c
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,6 +39,7 @@ class SpLoginScreen extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           child: Form(
+            key: loginController.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -101,7 +101,7 @@ class SpLoginScreen extends StatelessWidget {
                   },
                   text: 'Enter your password',
 
-                  controller: loginController.passwordControler,
+                  controller: loginController.passwordController,
                   obscureText: loginController.isPasswordVisible.value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -129,13 +129,28 @@ class SpLoginScreen extends StatelessWidget {
                         loginController.isFromValid.value
                             ? Color(0xFF003366)
                             : Color(0xFF003366).withOpacity(0.1),
-                    onPress: () {
+                    onPress: () async {
+                      if (loginController.formKey.currentState!.validate()) {
+                        bool isSuccess = await loginController.login();
+                        if (isSuccess) {
+                          Get.offAll(
+                            ProfileSetupScreen(),
+                            predicate: (route) => false,
+                          );
+                        } else {
+                          Get.snackbar(
+                            'Error',
+                            loginController.errorMessage,
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        }
+                      }
                       // loginController.isFromValid.value
                       //     ? () {
                       //       Get.offAll(ProfileSetupScreen());
                       //     }
                       //     : null;
-                      Get.offAll(ProfileSetupScreen());
+                      // Get.offAll(ProfileSetupScreen());
                     },
                   ),
                 ),

@@ -236,7 +236,7 @@ class SpForgetPassword extends StatelessWidget {
                       MaterialPageRoute(
                         builder:
                             (context) => SpOtpSendScreen(
-                              valueToSend:
+                              email:
                                   focusedButtonIndex.value == 0
                                       ? forgetPasswordController
                                           .emailController

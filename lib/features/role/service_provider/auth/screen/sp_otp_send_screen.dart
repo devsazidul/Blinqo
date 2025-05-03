@@ -2,7 +2,8 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_forget_password_controller.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_change_password.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/sp_otp_verification_controller.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/widgets/v_cistom_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,24 +12,27 @@ class SpOtpSendScreen extends StatelessWidget {
   final SpForgetPasswordController spForgetPasswordController = Get.put(
     SpForgetPasswordController(),
   );
-  final String valueToSend;
-  SpOtpSendScreen({super.key, required this.valueToSend});
+  final String email;
+  SpOtpSendScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
+    final SpOtpVerificationController spOtpVerificationController = Get.put(
+      SpOtpVerificationController(),
+    );
     String maskedValue = '';
-    if (valueToSend.contains('@')) {
+    if (email.contains('@')) {
       // Process email
       maskedValue =
-          valueToSend.length > 5
-              ? '${valueToSend.substring(0, 5)}@****.com'
-              : '${valueToSend.substring(0)}@****.com';
+          email.length > 5
+              ? '${email.substring(0, 5)}@****.com'
+              : '${email.substring(0)}@****.com';
     } else {
       // Process phone
       maskedValue =
-          valueToSend.length > 5
-              ? '${valueToSend.substring(0, 5)}****'
-              : '${valueToSend.substring(0)}****';
+          email.length > 5
+              ? '${email.substring(0, 5)}****'
+              : '${email.substring(0)}****';
     }
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -53,7 +57,8 @@ class SpOtpSendScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 32),
                 SpCustomPinField(
-                  controller: spForgetPasswordController.pinController,
+                  // controller: spForgetPasswordController.pinController,
+                  controller: spOtpVerificationController.pinController.value,
                 ),
                 SizedBox(height: 20),
                 Text.rich(
@@ -101,22 +106,29 @@ class SpOtpSendScreen extends StatelessWidget {
                   () => CustomButton(
                     title: 'Continue',
                     textColor:
-                        spForgetPasswordController.isFormValid2.value
+                        spOtpVerificationController.isValidate.value
                             ? Colors.white
                             : Color(0xFF003366),
-                    onPress:
-                        spForgetPasswordController.isFormValid2.value
-                            ? () {
-                              Get.to(SpChangePassword());
-                            }
-                            : null,
+                    onPress: () {
+                      if (spOtpVerificationController.isValidate.value) {
+                        spOtpVerificationController.verifyOtp(email).then((
+                          isSuccess,
+                        ) {
+                          if (isSuccess) {
+                            Get.to(SpLoginScreen());
+                          }
+                        });
+                      }
+                    },
+
                     backgroundColor:
-                        spForgetPasswordController.isFormValid2.value
+                        spOtpVerificationController.isValidate.value
                             ? Color(0xFF003366)
                             // ignore: deprecated_member_use
                             : Color(0xFF003366).withOpacity(0.1),
                     borderColor:
-                        spForgetPasswordController.isFormValid2.value
+                        spOtpVerificationController.isValidate.value
+                            // spForgetPasswordController.isFormValid2.value
                             ? Color(0xFF003366)
                             // ignore: deprecated_member_use
                             : Color(0xFF003366).withOpacity(0.1),
