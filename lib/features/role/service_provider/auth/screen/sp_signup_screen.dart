@@ -5,15 +5,14 @@ import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_signup_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
-import 'package:blinqo/routes/app_routes.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_otp_send_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class SpSignupScreen extends StatelessWidget {
   SpSignupScreen({super.key});
-  SpSignupController singupController = Get.put(SpSignupController());
+  SpSignupController signUpController = Get.put(SpSignupController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,226 +33,239 @@ class SpSignupScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Text(
-                'Name',
-                style: getTextStyle(
-                  color: Color(0xFF333333),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
+          child: Form(
+            key: signUpController.formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                Text(
+                  'Name',
+                  style: getTextStyle(
+                    color: Color(0xFF333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
-              SizedBox(height: 8),
-              AuthCustomTextField(
-                text: 'Enter your Name',
-                onChanged: (value) {
-                  singupController.validateFrom();
-                },
-                controller: singupController.nameController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter Your Name';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Phone Number',
-                style: getTextStyle(
-                  color: Color(0xFF333333),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
+                SizedBox(height: 8),
+                AuthCustomTextField(
+                  text: 'Enter your Name',
+                  onChanged: (value) {
+                    signUpController.validateFrom();
+                  },
+                  controller: signUpController.nameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter Your Name';
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              SizedBox(height: 8),
-              AuthCustomTextField(
-                controller: singupController.phoneController1,
-                text: 'Enter your Phone Number',
-                onChanged: (value) {
-                  singupController.validateFrom();
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter Phone Number e.g:+8801234567891';
-                  }
-                  RegExp phoneRegex = RegExp(r'^\+8801[3-9][0-9]{8}$');
-                  if (!phoneRegex.hasMatch(value)) {
-                    return 'Invalid phone number format. Use +8801XXXXXXXXX';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Email',
-                style: getTextStyle(
-                  color: Color(0xFF333333),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
+                SizedBox(height: 16),
+                Text(
+                  'Phone Number',
+                  style: getTextStyle(
+                    color: Color(0xFF333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
-              SizedBox(height: 8),
-              AuthCustomTextField(
-                controller: singupController.emailController1,
-                text: 'Enter your Email',
-                onChanged: (value) {
-                  singupController.validateFrom();
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter a valid email address';
-                  }
+                SizedBox(height: 8),
+                AuthCustomTextField(
+                  controller: signUpController.phoneController1,
+                  text: 'Enter your Phone Number',
+                  onChanged: (value) {
+                    signUpController.validateFrom();
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter Phone Number e.g:+8801234567891';
+                    }
+                    RegExp phoneRegex = RegExp(r'^\+8801[3-9][0-9]{8}$');
+                    if (!phoneRegex.hasMatch(value)) {
+                      return 'Invalid phone number format. Use +8801XXXXXXXXX';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Email',
+                  style: getTextStyle(
+                    color: Color(0xFF333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: 8),
+                AuthCustomTextField(
+                  controller: signUpController.emailController1,
+                  text: 'Enter your Email',
+                  onChanged: (value) {
+                    signUpController.validateFrom();
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter a valid email address';
+                    }
 
-                  RegExp emailRegex = RegExp(
-                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                  );
-                  if (!emailRegex.hasMatch(value)) {
-                    return 'Invalid email format. Example: example@mail.com';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Password',
-                style: getTextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF333333),
-                ),
-              ),
-              SizedBox(height: 8),
-              Obx(
-                () => AuthCustomTextField(
-                  text: 'Enter your Password',
-                  onChanged: (value) {
-                    singupController.validateFrom();
-                  },
-                  controller: singupController.passwordController,
-                  obscureText: singupController.isPasswordVisible.value,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      singupController.isPasswordVisible.value
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color: Color(0xFF003366),
-                    ),
-                    onPressed: singupController.togglePasswordVisibility,
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password is required';
-                    }
-                    if (value.length < 8) {
-                      return 'Password must be at least 8 characters';
+                    RegExp emailRegex = RegExp(
+                      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                    );
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Invalid email format. Example: example@mail.com';
                     }
                     return null;
                   },
                 ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Retype Password',
-                style: getTextStyle(
-                  color: Color(0xFF333333),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(height: 8),
-              Obx(
-                () => AuthCustomTextField(
-                  controller: singupController.retypepasswordController,
-                  text: 'Enter your Password',
-                  onChanged: (value) {
-                    singupController.validateFrom();
-                  },
-                  obscureText: singupController.isPasswordVisible1.value,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      singupController.isPasswordVisible1.value
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color: Color(0xFF003366),
-                    ),
-                    onPressed: singupController.togglePasswordVisibility1,
+                SizedBox(height: 16),
+                Text(
+                  'Password',
+                  style: getTextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF333333),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please confirm your password';
-                    }
-                    if (value != singupController.passwordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
                 ),
-              ),
-              SizedBox(height: 32),
-              Obx(
-                () => CustomContinueButton(
-                  title: 'Sign Up',
-                  textColor:
-                      singupController.isFromValid.value
-                          ? Colors.white
-                          : Color(0xFF003366),
-                  onPress:
-                      singupController.isFromValid.value
-                          ? () {
-                            singupController.signup();
-                            // Get.to(ProfileSetupScreen());
-                          }
-                          : null,
-                  backgroundColor:
-                      singupController.isFromValid.value
-                          ? Color(0xFF003366)
-                          // ignore: deprecated_member_use
-                          : Color(0xFF003366).withOpacity(0.1),
-                  borderColor:
-                      singupController.isFromValid.value
-                          ? Color(0xFF003366)
-                          // ignore: deprecated_member_use
-                          : Color(0xFF003366).withOpacity(0.1),
-                ),
-              ),
-              SizedBox(height: 28),
-              SizedBox(height: 32),
-              if (Platform.isAndroid || Platform.isIOS) ...[],
-              SizedBox(height: 16),
-              if (Platform.isIOS) ...[],
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account?",
-                    style: getTextStyle(
-                      color: Color(0xFF333333),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppRoute.spLoginScreen);
+                SizedBox(height: 8),
+                Obx(
+                  () => AuthCustomTextField(
+                    text: 'Enter your Password',
+                    onChanged: (value) {
+                      signUpController.validateFrom();
                     },
-                    child: Text(
-                      "Sign In",
-                      style: getTextStyle(
+                    controller: signUpController.passwordController,
+                    obscureText: signUpController.isPasswordVisible.value,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        signUpController.isPasswordVisible.value
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
                         color: Color(0xFF003366),
+                      ),
+                      onPressed: signUpController.togglePasswordVisibility,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password is required';
+                      }
+                      if (value.length < 8) {
+                        return 'Password must be at least 8 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Retype Password',
+                  style: getTextStyle(
+                    color: Color(0xFF333333),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Obx(
+                  () => AuthCustomTextField(
+                    controller: signUpController.retypePasswordController,
+                    text: 'Enter your Password',
+                    onChanged: (value) {
+                      signUpController.validateFrom();
+                    },
+                    obscureText: signUpController.isPasswordVisible1.value,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        signUpController.isPasswordVisible1.value
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: Color(0xFF003366),
+                      ),
+                      onPressed: signUpController.togglePasswordVisibility1,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please confirm your password';
+                      }
+                      if (value != signUpController.passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 32),
+                Obx(
+                  () => CustomContinueButton(
+                    title: 'Sign Up',
+                    textColor:
+                        signUpController.isFromValid.value
+                            ? Colors.white
+                            : Color(0xFF003366),
+                    onPress: () {
+                      signUpController.validateFrom();
+                      if (signUpController.isFromValid.value) {
+                        signUpController.signUp().then((isSuccess) {
+                          if (isSuccess) {
+                            Get.to(
+                              SpOtpSendScreen(
+                                email: signUpController.emailController1.text,
+                              ),
+                            );
+                          }
+                        });
+                      }
+                    },
+
+                    backgroundColor:
+                        signUpController.isFromValid.value
+                            ? Color(0xFF003366)
+                            // ignore: deprecated_member_use
+                            : Color(0xFF003366).withOpacity(0.1),
+                    borderColor:
+                        signUpController.isFromValid.value
+                            ? Color(0xFF003366)
+                            // ignore: deprecated_member_use
+                            : Color(0xFF003366).withOpacity(0.1),
+                  ),
+                ),
+                SizedBox(height: 28),
+                SizedBox(height: 32),
+                if (Platform.isAndroid || Platform.isIOS) ...[],
+                SizedBox(height: 16),
+                if (Platform.isIOS) ...[],
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: getTextStyle(
+                        color: Color(0xFF333333),
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(SpOtpSendScreen(email: ""));
+                        // Get.toNamed(AppRoute.spLoginScreen);
+                      },
+                      child: Text(
+                        "Sign In",
+                        style: getTextStyle(
+                          color: Color(0xFF003366),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
