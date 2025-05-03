@@ -1,7 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
-import 'dart:io';
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
@@ -12,10 +8,6 @@ import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart'
-    show VanueOwnerBottomNavBar;
-
-// ignore: must_be_immutable
 class VLoginScreen extends StatelessWidget {
   VLoginScreen({super.key});
   VenueLoginController loginController = Get.put(VenueLoginController());
@@ -104,26 +96,25 @@ class VLoginScreen extends StatelessWidget {
                   );
                 }),
                 SizedBox(height: 32),
-                Obx(
-                  () => CustomButton(
+                Obx(() {
+                  return CustomButton(
                     title: 'Log In',
-                    textColor:
-                        loginController.isFromValid.value
-                            ? Colors.white
-                            : Color(0xFF003366),
-                    onPress: () {
-                      Get.to(VanueOwnerBottomNavBar());
+                    textColor: loginController.isFromValid.value
+                        ? Colors.white
+                        : Color(0xFF003366),
+                    onPress: () async {
+                      if (loginController.isFromValid.value) {
+                        await loginController.login();
+                      }
                     },
-                    backgroundColor:
-                        loginController.isFromValid.value
-                            ? Color(0xFF003366)
-                            : Color(0xFF003366).withOpacity(0.1),
-                    borderColor:
-                        loginController.isFromValid.value
-                            ? Color(0xFF003366)
-                            : Color(0xFF003366).withOpacity(0.1),
-                  ),
-                ),
+                    backgroundColor: loginController.isFromValid.value
+                        ? Color(0xFF003366)
+                        : Color(0xFF003366).withOpacity(0.1),
+                    borderColor: loginController.isFromValid.value
+                        ? Color(0xFF003366)
+                        : Color(0xFF003366).withOpacity(0.1),
+                  );
+                }),
                 SizedBox(height: 16),
                 Align(
                   alignment: Alignment.center,
@@ -147,70 +138,8 @@ class VLoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 36),
-                // CustomDivider(),
                 SizedBox(height: 32),
-                if (Platform.isAndroid || Platform.isIOS) ...[
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     //
-                  //   },
-                  //   child: Container(
-                  //     width: double.infinity,
-                  //     padding: EdgeInsets.symmetric(vertical: 8),
-                  //     decoration: BoxDecoration(
-                  //       color: Color(0XFF5384EE),
-                  //       borderRadius: BorderRadius.circular(4),
-                  //     ),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         Image.asset(IconPath.google, width: 24, height: 24),
-                  //         SizedBox(width: 12),
-                  //         Text(
-                  //           "Continue with Google",
-                  //           style: globalTextStyle(
-                  //             color: Colors.white,
-                  //             fontWeight: FontWeight.w600,
-                  //             fontSize: 16,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                ],
                 SizedBox(height: 16),
-                if (Platform.isIOS) ...[
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     //
-                  //   },
-                  //   child: Container(
-                  //     width: double.infinity,
-                  //     padding: EdgeInsets.symmetric(vertical: 8),
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.black,
-                  //       borderRadius: BorderRadius.circular(4),
-                  //     ),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         Image.asset(IconPath.apple, width: 24, height: 24),
-                  //         SizedBox(width: 12),
-                  //         Text(
-                  //           "Continue with Apple",
-                  //           style: globalTextStyle(
-                  //             color: Colors.white,
-                  //             fontWeight: FontWeight.w600,
-                  //             fontSize: 16,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-                SizedBox(height: MediaQuery.of(context).size.height * 0.14),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

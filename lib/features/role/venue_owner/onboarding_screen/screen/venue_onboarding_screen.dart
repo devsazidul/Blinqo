@@ -1,4 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/onboarding_screen/controller/v_onboring_screen_controller.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,7 @@ class VenueOnboardingScreen extends StatelessWidget {
                         if (controller.currentPage.value ==
                             controller.pages.length - 1) {
                           // Navigate to the home page
-                          Get.off(VanueOwnerBottomNavBar());
+                          Get.off(VLoginScreen());
                         } else {
                           controller.nextPage();
                         }
