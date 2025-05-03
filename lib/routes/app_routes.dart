@@ -198,7 +198,6 @@ class AppRoute {
     GetPage(name: vforgetpassword, page: () => VForgetPassword()),
     GetPage(name: vchangepassword, page: () => VChangePassword()),
     GetPage(name: votpsendscreen, page: () => VOptSendScreen()),
-    GetPage(name: vfotpsendscreen, page: () => VFOtpSendScreen()),
     GetPage(name: getVerifiedScreen, page: () => GetVerifiedScreen()),
     GetPage(name: getaddCard, page: () => AddcardScreen()),
     GetPage(
