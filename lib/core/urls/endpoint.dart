@@ -13,7 +13,8 @@ class Urls {
   static const String verifyResetCode = '$baseUrl/auth/verify-reset-code';
   static const String resetPassword = '$baseUrl/auth/reset-password';
   static const String passwordReset = '$baseUrl/auth/send-password-reset-code';
-  static const String verifyResetCode = '$baseUrl/auth/verify-reset-code';
-  static const String resetPassword = '$baseUrl/auth/reset-password';
-  static const String resendVerificationCode = '$baseUrl/auth/resend-verification-code';
+  static const String verifyResetCode1 = '$baseUrl/auth/verify-reset-code';
+  static const String resetPassword1 = '$baseUrl/auth/reset-password';
+  static const String resendVerificationCode =
+      '$baseUrl/auth/resend-verification-code';
 }
