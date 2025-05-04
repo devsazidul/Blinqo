@@ -42,7 +42,6 @@ import 'package:blinqo/features/role/service_provider/service_profile_page/scree
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
-import 'package:blinqo/features/role/venue_owner/authentication/screen/v_f_otp_send_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_send_screen.dart';

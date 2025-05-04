@@ -12,7 +12,7 @@ class AuthCustomTextField extends StatelessWidget {
   String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
   final double? borderRadius;
-
+  final TextInputType? keyboardType;
   AuthCustomTextField({
     super.key,
     required this.controller,
@@ -23,10 +23,12 @@ class AuthCustomTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.borderRadius = 12,
+    this.keyboardType,
   });
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
       onTap: onTap,

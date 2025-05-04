@@ -18,7 +18,6 @@ class StarkBookingAdditionalServices extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final dialogWidth = screenWidth * 0.9;
     final dialogHeight = screenWidth * 0.7;
-    final pickColorController = Get.find<PickColorController>();
 
     showDialog(
       context: context,
@@ -185,10 +184,8 @@ class StarkBookingAdditionalServices extends StatelessWidget {
                               color:
                                   themeMode == ThemeMode.dark
                                       ? AppColors.buttonColor
-                                      : pickColorController?.isFemale.value ??
-                                          false
-                                      ? pickColorController?.selectedColor ??
-                                          AppColors.buttonColor2
+                                      : pickColorController.isFemale.value
+                                      ? pickColorController.selectedColor
                                       : AppColors.buttonColor2,
                             ),
                           ),

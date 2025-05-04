@@ -7,11 +7,11 @@ class DropdownList extends StatelessWidget {
   final Function(String) onSelect;
 
   const DropdownList({
-    Key? key,
+    super.key,
     required this.width,
     required this.options,
     required this.onSelect,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +22,18 @@ class DropdownList extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        children: options
-            .map((option) => Column(
-                  children: [
-                    _buildDropdownItem(option, onSelect),
-                    if (option != options.last)
-                      const Divider(height: 1, color: Color(0xffEEEEEE)),
-                  ],
-                ))
-            .toList(),
+        children:
+            options
+                .map(
+                  (option) => Column(
+                    children: [
+                      _buildDropdownItem(option, onSelect),
+                      if (option != options.last)
+                        const Divider(height: 1, color: Color(0xffEEEEEE)),
+                    ],
+                  ),
+                )
+                .toList(),
       ),
     );
   }

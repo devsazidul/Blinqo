@@ -10,9 +10,8 @@ class EventServicesScreen extends StatelessWidget {
   EventServicesScreen({super.key});
   final ProfileController themeController = Get.put(ProfileController());
 
-  @override   
+  @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     final List<Service> services = [
       Service(imagePath: IconPath.epphotograph, label: 'Photography'),
       Service(imagePath: IconPath.epvideography, label: 'Videography'),
@@ -73,6 +72,4 @@ class EventServicesScreen extends StatelessWidget {
       ),
     );
   }
-
- 
 }

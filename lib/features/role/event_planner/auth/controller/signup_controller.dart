@@ -40,5 +40,6 @@ class SignUpController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
   // Properly dispose of controllers when the controller is disposed
 }
