@@ -1,6 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
+import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -16,7 +19,7 @@ class VenueOwnerProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Initialize isDarkMode based on current theme
+
     isDarkMode.value = Get.isDarkMode;
   }
 
@@ -127,5 +130,11 @@ class VenueOwnerProfileController extends GetxController {
 
   void toggleNotifications() {
     showNotifications.value = !showNotifications.value;
+  }
+  // logout
+  void logout() async{
+    await EvenAuthController.removeAuthToken();
+    Get.offAll(VLoginScreen());
+    EasyLoading.showSuccess('Logout Successfully');
   }
 }
