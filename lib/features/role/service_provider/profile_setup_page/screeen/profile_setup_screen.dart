@@ -3,8 +3,6 @@ import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/widget/customcircleavater.dart';
@@ -21,15 +19,8 @@ class ProfileSetupScreen extends StatelessWidget {
   );
   final controller = Get.put(SpProfileController());
 
-  void getToken() async {
-    // final SpAuthController authController = Get.put(SpAuthController());
-    print(await SpAuthController().getAccessToken());
-  }
-
   @override
   Widget build(BuildContext context) {
-    getToken();
-    print(Get.put(SpLoginController()).user?.email);
     profileController.initMarkers();
     return Obx(() {
       final themeMode =

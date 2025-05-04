@@ -2,13 +2,13 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/service_provider/auth/controller/sp_change_password_controller.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/change_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SpChangePassword extends StatelessWidget {
-  final String? email;
-  const SpChangePassword({super.key, this.email});
+class SpChangePasswordScreen extends StatelessWidget {
+  final String email;
+  const SpChangePasswordScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +40,15 @@ class SpChangePassword extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 18.0),
-                Text(
-                  'Enter Verification Code:',
-                  style: getTextStyle(
-                    color: Color(0xFF082B09),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                // SizedBox(height: 18.0),
+                // Text(
+                //   'Enter Verification Code:',
+                //   style: getTextStyle(
+                //     color: Color(0xFF082B09),
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.w400,
+                //   ),
+                // ),
                 SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -113,8 +113,8 @@ class SpChangePassword extends StatelessWidget {
                 CustomButton(
                   title: 'Change Password',
                   textColor: Colors.white,
-                  onPress: () {
-                    // controller.changePassword(email);
+                  onPress: () async {
+                    await controller.resetPassword(email);
                   },
                 ),
               ],

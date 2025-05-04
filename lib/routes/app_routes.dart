@@ -19,9 +19,9 @@ import 'package:blinqo/features/role/event_planner/payment_method/screen/evetnt_
 import 'package:blinqo/features/role/event_planner/payment_method/screen/final_review_booking_datieals.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_change_password.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_otp_send_screen.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/change_password_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_verify_otp_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_signup_screen.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
@@ -249,8 +249,15 @@ class AppRoute {
     GetPage(name: searchStartBooking, page: () => SearchStartBooking()),
     GetPage(name: spSignupScreen, page: () => SpSignupScreen()),
     GetPage(name: spLoginScreen, page: () => SpLoginScreen()),
-    GetPage(name: spForgetPassword, page: () => SpForgetPassword()),
-    GetPage(name: spFOtpSendScreen, page: () => SpFOtpSendScreen()),
-    GetPage(name: spChangePassword, page: () => SpChangePassword()),
+    GetPage(name: spForgetPassword, page: () => SpForgetPasswordScreen()),
+    GetPage(
+      name: spFOtpSendScreen,
+      page:
+          () => SpForgetPasswordVerifyOtpScreen(email: Get.arguments as String),
+    ),
+    GetPage(
+      name: spChangePassword,
+      page: () => SpChangePasswordScreen(email: Get.arguments as String),
+    ),
   ];
 }

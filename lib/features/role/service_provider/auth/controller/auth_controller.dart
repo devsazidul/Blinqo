@@ -1,37 +1,58 @@
+import 'dart:convert';
+
+import 'package:blinqo/features/role/service_provider/auth/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SpAuthController {
-  final String _accessTokenKey = 'accessToken';
+  static String? token;
+  static UserModel? userModel;
 
-  String? _accessToken;
-  String? get accessToken => _accessToken;
+  static const String _tokenKey = 'token';
+  static const String _userDataKey = 'user-data';
 
-  Future<void> saveAccessToken(String token) async {
-    _accessToken = token;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_accessTokenKey, token);
-    _accessToken = token;
+  // Save user information
+  static Future<void> saveUserInformation(
+    String accessToken,
+    UserModel user,
+  ) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(_tokenKey, accessToken);
+    sharedPreferences.setString(_userDataKey, jsonEncode(user.toJson()));
+
+    token = accessToken;
+    userModel = user;
   }
 
-  Future<String?> getAccessToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_accessTokenKey);
+  // Get user information
+  static Future<void> getUserInformation() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? accessToken = sharedPreferences.getString(_tokenKey);
+    String? savedUserModelString = sharedPreferences.getString(_userDataKey);
+    if (savedUserModelString != null) {
+      UserModel savedUserModel = UserModel.fromJson(
+        jsonDecode(savedUserModelString),
+      );
+      userModel = savedUserModel;
+    }
+
+    token = accessToken;
   }
 
-  Future<void> clearAccessToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_accessTokenKey);
-    _accessToken = null;
+  // Check if user already logged in
+  static Future<bool> checkIfUserLoggedIn() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? userAccessToken = sharedPreferences.getString(_tokenKey);
+    if (userAccessToken != null) {
+      await getUserInformation();
+      return true;
+    }
+    return false;
   }
 
-  Future<bool> isLoggedIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.containsKey(_accessTokenKey);
-  }
-
-  Future<void> logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_accessTokenKey);
-    _accessToken = null;
+  static Future<void> clearUserData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+    token = null;
+    userModel = null;
   }
 }

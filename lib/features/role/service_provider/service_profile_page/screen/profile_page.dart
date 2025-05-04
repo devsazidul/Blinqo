@@ -2,10 +2,13 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
+import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
 
 class SpProfilePage extends StatelessWidget {
@@ -234,7 +237,10 @@ class SpProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () {},
+          onTap: () async {
+            await SpAuthController.clearUserData();
+            Get.offAll(() => RoleScreen());
+          },
         ),
       ],
     );

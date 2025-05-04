@@ -1,5 +1,7 @@
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/onboarding_screen/screen/venue_onboarding_screen.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
@@ -30,7 +32,12 @@ class RoleController extends GetxController {
         }
         break;
       case 2:
-        Get.to(() => OnbordingScreen());
+        if (SpAuthController.token != null &&
+            SpAuthController.userModel!.roles.contains('SERVICE_PROVIDER')) {
+          Get.to(() => ProfileSetupScreen());
+        } else {
+          Get.to(() => OnbordingScreen());
+        }
         break;
       default:
         EasyLoading.showError('Please select a valid role to continue.');

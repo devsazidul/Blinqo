@@ -1,14 +1,14 @@
 class UserModel {
   final String id;
   final String email;
-  final List<String> role;
+  final List<String> roles;
   final bool isVerified;
   final String profileId;
 
   UserModel({
     required this.id,
     required this.email,
-    required this.role,
+    required this.roles,
     required this.isVerified,
     required this.profileId,
   });
@@ -17,7 +17,7 @@ class UserModel {
     return UserModel(
       id: json['id'] ?? '',
       email: json['email'] ?? '',
-      role: json['role'] != null ? List<String>.from(json['role']) : [],
+      roles: json['roles'] != null ? List<String>.from(json['roles']) : [],
       isVerified: json['isVerified'] ?? false,
       profileId: json['profileId'] ?? '',
     );
@@ -27,7 +27,7 @@ class UserModel {
     return {
       'id': id,
       'email': email,
-      'role': role,
+      'roles': roles,
       'isVerified': isVerified,
       'profileId': profileId,
     };
