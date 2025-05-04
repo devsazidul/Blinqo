@@ -8,4 +8,9 @@ class Urls {
   static const String register = '$baseUrl/auth/register';
   static const String otpVerification = '$baseUrl/auth/verify-email';
   static const String verifyEmail = '$baseUrl/auth/verify-email';
+  static const String sendPasswordResetCode =
+      '$baseUrl/auth/send-password-reset-code';
+
+  static const String verifyResetCode = '$baseUrl/auth/verify-reset-code';
+  static const String resetPassword = '$baseUrl/auth/reset-password';
 }

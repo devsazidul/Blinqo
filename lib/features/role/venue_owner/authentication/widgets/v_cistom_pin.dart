@@ -7,7 +7,9 @@ import '../controller/v_forget_password_controller.dart';
 // ignore: must_be_immutable
 class CustomPinField extends StatelessWidget {
   final TextEditingController controller;
-  final VForgetPasswordController vForgetPasswordController=Get.put(VForgetPasswordController());
+  final VForgetPasswordController vForgetPasswordController = Get.put(
+    VForgetPasswordController(),
+  );
 
   CustomPinField({super.key, required this.controller});
 
@@ -34,7 +36,6 @@ class CustomPinField extends StatelessWidget {
         shape: PinCodeFieldShape.box,
         borderRadius: BorderRadius.circular(10),
       ),
-
     );
   }
 }

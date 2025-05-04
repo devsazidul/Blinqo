@@ -4,14 +4,11 @@ import 'package:blinqo/features/role/event_planner/auth/controller/change_passwo
 import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/login_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/signup_controller.dart';
-import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/controller/bottom_nav_controller.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_edit_profile_controller.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:get/get.dart';
-
-import '../../features/role/service_provider/bottom_nav_bar/controller/bottom_nav_controller.dart';
-import '../../features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart'
-    show SpProfileController;
 
 class ControllerBinder extends Bindings {
   @override
@@ -20,7 +17,6 @@ class ControllerBinder extends Bindings {
     //       () => LogInController(),
     //   fenix: true,
     // );
-    Get.put(SpAuthController());
     Get.put(SpNetworkCaller());
     Get.put(PickColorController());
     Get.put(ProfileController());

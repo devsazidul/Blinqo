@@ -2,22 +2,21 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_forget_password_controller.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_otp_send_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
-class SpForgetPassword extends StatelessWidget {
-  SpForgetPassword({super.key});
-  final ValueNotifier<int> focusedButtonIndex = ValueNotifier<int>(0);
+class SpForgetPasswordScreen extends StatelessWidget {
+  const SpForgetPasswordScreen({super.key});
 
-  final SpForgetPasswordController forgetPasswordController = Get.put(
-    SpForgetPasswordController(),
-  );
-  var isLoading = false.obs;
+  // var isLoading = false.obs;
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<int> focusedButtonIndex = ValueNotifier<int>(0);
+    final SpForgetPasswordController forgetPasswordController = Get.put(
+      SpForgetPasswordController(),
+    );
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -163,10 +162,22 @@ class SpForgetPassword extends StatelessWidget {
                               ],
                             ),
                             SizedBox(height: 8),
-                            AuthCustomTextField(
-                              controller:
-                                  forgetPasswordController.emailController,
-                              text: "Enter your Email",
+                            Form(
+                              key: forgetPasswordController.formKey,
+                              child: AuthCustomTextField(
+                                controller:
+                                    forgetPasswordController.emailController,
+                                text: "Enter your Email",
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter your email";
+                                  }
+                                  if (!GetUtils.isEmail(value)) {
+                                    return "Please enter a valid email";
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -217,36 +228,11 @@ class SpForgetPassword extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () {
-                    // if (emailController.text.isEmpty) {
-                    //   EasyLoading.showError('Please enter your email');
-                    // } else {
-                    //   forgetPasswordController.emailController.value =
-                    //       emailController.text;
-                    //   forgetPasswordController.sendOtp(emailController.text);
-                    // }
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => SpOtpSendScreen(),
-                    //   ),
-                    // );
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) => SpOtpSendScreen(
-                              email:
-                                  focusedButtonIndex.value == 0
-                                      ? forgetPasswordController
-                                          .emailController
-                                          .text
-                                      : forgetPasswordController
-                                          .phoneController
-                                          .text,
-                            ),
-                      ),
-                    );
+                  onPressed: () async {
+                    if (forgetPasswordController.formKey.currentState!
+                        .validate()) {
+                      await forgetPasswordController.forgetPasswordOtpSend();
+                    }
                   },
                   child: Text("Send", style: TextStyle(color: Colors.white)),
                 ),

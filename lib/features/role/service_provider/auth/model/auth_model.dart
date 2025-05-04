@@ -1,7 +1,7 @@
 import 'package:blinqo/features/role/service_provider/auth/model/user_model.dart';
 
 class ResponseModel {
-  final SignUpModel? data;
+  final AuthModel? data;
   final int statusCode;
   final bool success;
   final String message;
@@ -15,7 +15,7 @@ class ResponseModel {
 
   factory ResponseModel.fromJson(Map<String, dynamic> json) {
     return ResponseModel(
-      data: json['data'] != null ? SignUpModel.fromJson(json['data']) : null,
+      data: json['data'] != null ? AuthModel.fromJson(json['data']) : null,
       statusCode: json['statusCode'] ?? 0,
       success: json['success'] ?? false,
       message: json['message'] ?? '',
@@ -32,14 +32,14 @@ class ResponseModel {
   }
 }
 
-class SignUpModel {
+class AuthModel {
   final String accessToken;
   final UserModel user;
 
-  SignUpModel({required this.accessToken, required this.user});
+  AuthModel({required this.accessToken, required this.user});
 
-  factory SignUpModel.fromJson(Map<String, dynamic> json) {
-    return SignUpModel(
+  factory AuthModel.fromJson(Map<String, dynamic> json) {
+    return AuthModel(
       accessToken: json['access_token'] ?? '',
       user: UserModel.fromJson(json['user']),
     );

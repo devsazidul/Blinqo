@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
 import 'package:blinqo/features/role_page/controller/role_controller.dart';
 import 'package:blinqo/features/role_page/widget/rolecustomcontainer.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,9 @@ class RoleScreen extends StatelessWidget {
               ),
               SizedBox(height: 48),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
+                  await SpAuthController.getUserInformation();
+
                   debugPrint(
                     "Selected Role Index: ${roleController.selectedIndex.value}",
                   );

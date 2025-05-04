@@ -7,19 +7,27 @@ import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_controller.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class SpLoginScreen extends StatelessWidget {
-  SpLoginScreen({super.key});
-  SpLoginController loginController = Get.put(SpLoginController());
+  const SpLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SpLoginController loginController = Get.put(SpLoginController());
+    // print(
+    //   "User: ------------------------------------> ${SpAuthController.userModel?.toJson()}",
+    // );
+    // print(
+    //   "Token: ------------------------------------> ${SpAuthController.token}",
+    // );
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -43,15 +51,6 @@ class SpLoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                // Text(
-                //   'Log In',
-                //   style: globalTextStyle(
-                //     color: Color(0xFF082B09),
-                //     fontSize: 24,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
                 SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -137,20 +136,9 @@ class SpLoginScreen extends StatelessWidget {
                             ProfileSetupScreen(),
                             predicate: (route) => false,
                           );
-                        } else {
-                          Get.snackbar(
-                            'Error',
-                            loginController.errorMessage,
-                            snackPosition: SnackPosition.BOTTOM,
-                          );
                         }
+                        EasyLoading.dismiss();
                       }
-                      // loginController.isFromValid.value
-                      //     ? () {
-                      //       Get.offAll(ProfileSetupScreen());
-                      //     }
-                      //     : null;
-                      // Get.offAll(ProfileSetupScreen());
                     },
                   ),
                 ),
@@ -162,7 +150,7 @@ class SpLoginScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SpForgetPassword(),
+                          builder: (context) => SpForgetPasswordScreen(),
                         ),
                       );
                     },
