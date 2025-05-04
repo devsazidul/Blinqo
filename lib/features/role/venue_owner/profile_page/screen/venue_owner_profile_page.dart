@@ -233,7 +233,9 @@ class VenueOwnerProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () {},
+          onTap: () {
+            controller.logout();
+          },
         ),
       ],
     );

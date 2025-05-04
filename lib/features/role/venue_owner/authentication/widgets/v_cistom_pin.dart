@@ -20,7 +20,7 @@ class CustomPinField extends StatelessWidget {
       length: 6,
       onChanged: (value) {
         controller.text = value;
-        vForgetPasswordController.validdateForm2();
+        vForgetPasswordController.isValidForm();
       },
       pinTheme: PinTheme(
         fieldHeight: 50,

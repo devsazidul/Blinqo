@@ -1,3 +1,4 @@
+import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/singup_otp_screen.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
@@ -9,8 +10,10 @@ import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_netw
 import 'package:logger/logger.dart';
 
 class VenueLoginController extends GetxController {
+
   TextEditingController passwordControler = TextEditingController();
   TextEditingController emailController = TextEditingController();
+
   var isPasswordVisible = false.obs;
   var isFromValid = false.obs;
   var errorMessage = ''.obs;
@@ -39,21 +42,43 @@ class VenueLoginController extends GetxController {
     );
 
     if (response.isSuccess) {
-      // Save the authentication token after a successful login
-      await EvenAuthController.saveAuthToken(
-        response.body['data']['access_token'],
-      );
-      Logger().i(
-        'Login successful token: ${response.body['data']['access_token']}',
-      );
+      // Parse the login response into the LoginResponse model
+      LoginResponse loginResponse = LoginResponse.fromJson(response.body);
 
-      EasyLoading.showSuccess('Login successful');
-      Get.to(VanueOwnerBottomNavBar());
+      // Check the role before proceeding with login
+      if (loginResponse.success == true &&
+          loginResponse.data?.user?.roles?.contains('VENUE_OWNER') == true) {
+
+        // Save the authentication token after a successful login
+        String token = response.body['data']?['access_token'];
+        var roles = response.body['data']?['user']?['roles'];
+
+        if (token != null && roles != null && roles.isNotEmpty) {
+          String role = roles[0];
+          await EvenAuthController.saveAuthToken(token, role);
+        } else {
+          // Handle error if token or roles are null or empty
+          EasyLoading.showError('Failed to retrieve valid token or role.');
+          return;
+        }
+
+
+        Logger().i(
+          'Login successful token: ${loginResponse.data?.accessToken}',
+        );
+
+        EasyLoading.showSuccess('Login successful');
+        Get.to(VanueOwnerBottomNavBar());
+      } else {
+        // If role doesn't match, show error
+        errorMessage.value = 'Unauthorized: Incorrect role';
+        EasyLoading.showError(errorMessage.value);
+      }
     } else {
       if (response.errorMessage ==
           "A verification code has been sent to your email. Please verify your email") {
         errorMessage.value =
-            "Your account is not verified. Please verify your email.";
+        "Your account is not verified. Please verify your email.";
         EasyLoading.showError(errorMessage.value);
         Get.to(VerificationCodeScreen(email: emailController.text));
       } else {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -10,10 +12,28 @@ class VerificationCodeController extends GetxController {
   var isFormValid = false.obs;
   var errorMessage = ''.obs;
 
+
+  var timeCountdown = 120.obs;
+  Timer? countdownTimer;
+
+  // Function to start the countdown timer
+  void startTimer() {
+    countdownTimer?.cancel();
+    timeCountdown.value = 120;
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (timeCountdown.value > 0) {
+        timeCountdown.value--;
+      } else {
+        timer.cancel();
+      }
+    });
+  }
   @override
   void onInit() {
     // Add listener to trigger validation on text changes
     codeController.addListener(validateForm);
+
+    startTimer();
     super.onInit();
   }
 
@@ -63,21 +83,18 @@ class VerificationCodeController extends GetxController {
       EasyLoading.showError(errorMessage.value);
     }
   }
-
   // Handle resend code API call
-  // Future<void> resendCode() async {
-  //   final response = await OwnerNetworkCaller().postRequest(
-  //     Url: Urls.resendCode,
-  //     body: {
-  //       'email': email,
-  //     },
-  //   );
-  //
-  //   if (response.isSuccess) {
-  //     EasyLoading.showSuccess('Verification code resent successfully!');
-  //   } else {
-  //     errorMessage.value = response.errorMessage ?? 'Failed to resend code';
-  //     EasyLoading.showError(errorMessage.value);
-  //   }
-  // }
+  // handle resend OTP
+  Future<void> resendOTP(String email) async {
+    final response = await OwnerNetworkCaller().postRequest(
+      Url: Urls.resendVerificationCode,
+      body: {'email': email},
+    );
+    if (response.isSuccess) {
+      EasyLoading.showSuccess('OTP resent successfully');
+      startTimer();
+    } else {
+      EasyLoading.showError('Failed to resend OTP');
+    }
+  }
 }
