@@ -53,6 +53,7 @@ class VerificationCodeScreen extends StatelessWidget {
 
               const SizedBox(height: 32),
               PinCodeTextField(
+                autoDisposeControllers: false,
                 appContext: context,
                 length: 6,
                 controller: controller.codeController,
@@ -89,7 +90,7 @@ class VerificationCodeScreen extends StatelessWidget {
                       controller.isFormValid.value
                           ? Colors.white
                           : const Color(0xFF003366),
-                  onPress:(){
+                  onPress: () {
                     if (controller.isFormValid.value) {
                       controller.verifyCode(email);
                     }
@@ -105,31 +106,51 @@ class VerificationCodeScreen extends StatelessWidget {
                 );
               }),
               const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Didn't receive a code?",
-                    style: getTextStyle(
-                      color: const Color(0xFF333333),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  GestureDetector(
-                    // onTap: controller.resendCode,
-                    child: Text(
-                      "Resend",
-                      style: getTextStyle(
-                        color: const Color(0xFF003366),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+
+              Obx(() {
+                return controller.timeCountdown.value > 0
+                    ? Center(
+                      child: Text(
+                        'Resend OTP in ${controller.timeCountdown.value} seconds',
+                        style: getTextStyle(
+                          color: const Color(0xFF333333),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                  ),
-                ],
-              ),
+                    )
+                    : GestureDetector(
+                      onTap: () {
+                        controller.resendOTP(email);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Didn't receive a code?",
+                            style: getTextStyle(
+                              color: const Color(0xFF333333),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          GestureDetector(
+                            // onTap: controller.resendCode,
+                            child: Text(
+                              "Resend",
+                              style: getTextStyle(
+                                color: const Color(0xFF003366),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+              }),
             ],
           ),
         ),

@@ -3,7 +3,7 @@ import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_change_password_controller.dart';
-import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/controller/v_forget_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,8 +18,7 @@ class VChangePassword extends StatelessWidget {
     final ChangedPasswordController controller = Get.put(
       ChangedPasswordController(),
     );
-
-    debugPrint("email: $email");
+    final VForgetPasswordController vForgetPasswordController = Get.find();
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -43,14 +42,6 @@ class VChangePassword extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 18.0),
-                // Text(
-                //   'Enter Verification Code:',
-                //   style: getTextStyle(
-                //     color: Color(0xFF082B09),
-                //     fontSize: 18,
-                //     fontWeight: FontWeight.w400,
-                //   ),
-                // ),
                 SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -70,13 +61,12 @@ class VChangePassword extends StatelessWidget {
                 AuthCustomTextField(
                   controller: controller.newPasswordEditingController,
                   text: 'Enter your Password',
-                  onChanged: (value) {
-                    controller.newPasswordError.value =
-                        ''; // Reset error on change
-                  },
                   validator: (value) {
-                    if (controller.newPasswordError.value.isNotEmpty) {
-                      return controller.newPasswordError.value;
+                    if (value!.isEmpty) {
+                      return 'Password cannot be empty';
+                    }
+                    if (value.length < 8) {
+                      return 'Password should be at least 8 characters';
                     }
                     return null;
                   },
@@ -100,13 +90,16 @@ class VChangePassword extends StatelessWidget {
                 AuthCustomTextField(
                   controller: controller.confirmPasswordEditingController,
                   text: 'Confirm your Password',
-                  onChanged: (value) {
-                    controller.confirmPasswordError.value =
-                        ''; // Reset error on change
-                  },
                   validator: (value) {
-                    if (controller.confirmPasswordError.value.isNotEmpty) {
-                      return controller.confirmPasswordError.value;
+                    if (value!.isEmpty) {
+                      return 'Confirm Password cannot be empty';
+                    }
+                    if (value.length < 8) {
+                      return 'Password should be at least 8 characters';
+                    }
+                    if (controller.newPasswordEditingController.text !=
+                        controller.confirmPasswordEditingController.text) {
+                      return 'Passwords have to match';
                     }
                     return null;
                   },
@@ -116,7 +109,9 @@ class VChangePassword extends StatelessWidget {
                   title: 'Change Password',
                   textColor: Colors.white,
                   onPress: () {
-                    Get.offAll(VLoginScreen());
+                    controller.changePassword(
+                      vForgetPasswordController.emailController.text,
+                    );
                   },
                 ),
               ],

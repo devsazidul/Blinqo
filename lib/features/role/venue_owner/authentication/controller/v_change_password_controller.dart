@@ -1,7 +1,13 @@
+import 'package:blinqo/core/urls/endpoint.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/controller/v_forget_password_controller.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
+import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class ChangedPasswordController extends GetxController {
+  VForgetPasswordController vForgetPasswordController = Get.find();
   final newPasswordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
 
@@ -42,53 +48,32 @@ class ChangedPasswordController extends GetxController {
     return true;
   }
 
-  // Validate OTP and change password
-  // void changePassword(String? email) async {
-  //   debugPrint("Parsing email: $email");
-  //   debugPrint("New password: ${newPasswordEditingController.text}");
-  //   debugPrint("Confirm password: ${confirmPasswordEditingController.text}");
+  Future<void> changePassword(String email) async {
+    // Implement your password change logic here
+    try {
+      final response = await OwnerNetworkCaller().postRequest(
+        Url: Urls.resetPassword,
+        body: {
+          'email': email,
+          'newPassword': confirmPasswordEditingController.text,
+        },
+      );
+      if (response.isSuccess) {
+        EasyLoading.showSuccess('Password changed successfully');
+        Get.offAll(VLoginScreen());
+        clear();
+      } else {
+        EasyLoading.showError('$response.errorMessage');
+      }
+    } catch (e) {
+      EasyLoading.showError('Failed to change password: $e');
+    }
+  }
 
-  //   if (!validatePasswords()) {
-  //     return; // Don't proceed if validation fails
-  //   }
-
-  //   try {
-  //     EasyLoading.show(status: 'Verifying OTP...');
-
-  //     Map<String, String> requestBody = {
-  //       "password": newPasswordEditingController.text,
-  //       "confirmPassword": confirmPasswordEditingController.text,
-  //     };
-
-  //     final response = await http.put(
-  //       Uri.parse(Urls.updatePassword(email)),
-  //       body: requestBody,
-  //     );
-
-  //     debugPrint('Response Body: ${response.body}');
-  //     debugPrint("Status Code: ${response.statusCode}");
-
-  //     if (response.statusCode == 200) {
-  //       EasyLoading.showSuccess('Password Changed Successfully');
-  //       // print('Password changed successfully: ${response.body}');
-  //       // Optionally, reset fields after success
-  //       Get.toNamed(AppRoute.loginScreen);
-  //       newPasswordEditingController.clear();
-  //       confirmPasswordEditingController.clear();
-  //     } else {
-  //       var responseData = jsonDecode(response.body);
-  //       var errorMessage = responseData['message'] ?? 'An error occurred';
-
-  //       if (errorMessage.contains('Invalid or expired OTP')) {
-  //         EasyLoading.showError("Invalid or expired OTP. Please try again.");
-  //       } else {
-  //         EasyLoading.showError(errorMessage);
-  //       }
-  //     }
-  //   } catch (e) {
-  //     EasyLoading.showError("Something went wrong: $e");
-  //   } finally {
-  //     EasyLoading.dismiss();
-  //   }
-  // }
+  clear() {
+    newPasswordEditingController.clear();
+    confirmPasswordEditingController.clear();
+    vForgetPasswordController.emailController.clear();
+    vForgetPasswordController.pinController.clear();
+  }
 }

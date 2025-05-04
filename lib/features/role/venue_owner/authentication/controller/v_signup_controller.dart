@@ -1,4 +1,7 @@
-import 'package:blinqo/features/role/venue_owner/authentication/screen/singup_otp_screen.dart' as singupOtp;
+import 'dart:async';
+
+import 'package:blinqo/features/role/venue_owner/authentication/screen/singup_otp_screen.dart'
+    as singupOtp;
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -12,14 +15,15 @@ class VSignupController extends GetxController {
   final TextEditingController emailController1 = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController retypepasswordController =
-  TextEditingController();
+      TextEditingController();
 
   // State variables
   var isPasswordVisible = false.obs;
   var isPasswordVisible1 = false.obs;
   var isFormValid = false.obs;
   var errorMessage = ''.obs;
-  var fieldErrors = <String, String?>{}.obs; // Store field-specific errors
+  var fieldErrors = <String, String?>{}.obs;
+
 
   @override
   void onInit() {
@@ -122,18 +126,18 @@ class VSignupController extends GetxController {
   void validateForm() {
     isFormValid.value =
         validateName(nameController.text) == null &&
-            validatePhone(phoneController1.text) == null &&
-            validateEmail(emailController1.text) == null &&
-            validatePassword(passwordController.text) == null &&
-            validateRetypePassword(retypepasswordController.text) == null;
+        validatePhone(phoneController1.text) == null &&
+        validateEmail(emailController1.text) == null &&
+        validatePassword(passwordController.text) == null &&
+        validateRetypePassword(retypepasswordController.text) == null;
 
     // Update error message based on first invalid field
     errorMessage.value =
         fieldErrors.values.firstWhere(
-              (error) => error != null,
+          (error) => error != null,
           orElse: () => '',
         ) ??
-            '';
+        '';
   }
 
   // Handle signup API call
@@ -161,12 +165,15 @@ class VSignupController extends GetxController {
     );
 
     if (response.isSuccess) {
+      EasyLoading.showSuccess('Verification code sent to your email');
       Get.to(
-            () => singupOtp.VerificationCodeScreen(email: emailController1.text),
+        () => singupOtp.VerificationCodeScreen(email: emailController1.text),
       );
     } else {
       errorMessage.value = response.errorMessage ?? 'Registration failed';
       EasyLoading.showError(errorMessage.value);
     }
   }
+
+
 }

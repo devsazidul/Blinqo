@@ -18,7 +18,7 @@ class OwnerNetworkCaller {
       lineLength: 120,
       colors: true,
       printEmojis: true,
-      printTime: true,
+      dateTimeFormat: DateTimeFormat.dateAndTime,
     ),
   );
 
@@ -57,6 +57,19 @@ class OwnerNetworkCaller {
       // Log response
       _logger.d('Response: ${response.statusCode}\nBody: ${response.body}');
 
+      // Check if response body is empty
+      if (response.body.isEmpty) {
+        _logger.w('Empty response body received.');
+        return NetworkResponse(
+          isSuccess: response.statusCode == 200 || response.statusCode == 201,
+          statusCode: response.statusCode,
+          body: null,
+          errorMessage: response.statusCode == 201
+              ? 'Request succeeded but response body is empty.'
+              : 'Request failed with empty response body.',
+        );
+      }
+
       // Parse response
       final responseData = jsonDecode(response.body);
 
@@ -79,7 +92,7 @@ class OwnerNetworkCaller {
       _logger.e('Error: $e');
       return NetworkResponse(
         isSuccess: false,
-        statusCode: -1,
+        statusCode: 500,
         errorMessage: e.toString(),
       );
     } finally {

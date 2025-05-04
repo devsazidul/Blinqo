@@ -137,19 +137,6 @@ class VSignupScreen extends StatelessWidget {
                   ),
                   validator: controller.validateRetypePassword,
                 ),
-                const SizedBox(height: 16),
-                Obx(() {
-                  return controller.errorMessage.isNotEmpty
-                      ? Text(
-                    controller.errorMessage.value,
-                    style: getTextStyle(
-                      color: Colors.red,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  )
-                      : const SizedBox();
-                }),
                 const SizedBox(height: 32),
                 Obx(() {
                   return CustomButton(
@@ -166,10 +153,10 @@ class VSignupScreen extends StatelessWidget {
                     },
                     backgroundColor: controller.isFormValid.value
                         ? const Color(0xFF003366)
-                        : const Color(0xFF003366).withOpacity(0.1),
+                        : const Color(0xFF003366).withValues( alpha: 0.1),
                     borderColor: controller.isFormValid.value
                         ? const Color(0xFF003366)
-                        : const Color(0xFF003366).withOpacity(0.1),
+                        : const Color(0xFF003366).withValues( alpha: 0.1),
                   );
                 }),
                 const SizedBox(height: 28),
