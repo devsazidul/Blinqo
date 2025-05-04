@@ -29,7 +29,7 @@ class EventServiceCard extends StatelessWidget {
               service.imagePath,
               width: 168,
               height: 123,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
           Text(

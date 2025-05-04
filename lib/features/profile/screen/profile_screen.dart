@@ -76,52 +76,51 @@ class MainProfileScreen extends StatelessWidget {
       spacing: 10,
       children: [
         /// Avater image
-        // Obx(() {
-        // return
-        Stack(
-          alignment: Alignment.bottomRight,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.grey[300],
-              child: ClipOval(
-                child:
-                    controller.profileImage.value == null
-                        ? Image.asset(
-                          IconPath.profile01,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        )
-                        : Image.file(
-                          controller.profileImage.value!,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
+        Obx(() {
+          return Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.grey[300],
+                child: ClipOval(
+                  child:
+                      controller.profileImage.value == null
+                          ? Image.asset(
+                            IconPath.profile01,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          )
+                          : Image.file(
+                            controller.profileImage.value!,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: () {
-                  controller.pickImage();
-                },
-                child: CircleAvatar(
-                  radius: 18,
-                  backgroundColor: Colors.transparent,
-                  child: Image.asset(
-                    IconPath.profileedit,
-                    width: 24,
-                    height: 24,
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    controller.pickImage();
+                  },
+                  child: CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Colors.transparent,
+                    child: Image.asset(
+                      IconPath.profileedit,
+                      width: 24,
+                      height: 24,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        // }),
+            ],
+          );
+        }),
 
         /// Avater name
         Text(

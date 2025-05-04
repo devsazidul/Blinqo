@@ -18,6 +18,7 @@ class SpEditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.find<SpProfileController>().isDarkMode.value;
+
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -32,51 +33,72 @@ class SpEditProfilePage extends StatelessWidget {
                   : AppColors.backgroundColor,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: 87),
-                // Obx(() {
-                //   return Text(
-                //     "first name is ${controller.name.value}",
-                //     style: getTextStyle(),
-                //   );
-                // }),
-                Form(
-                  child: Column(
-                    spacing: 8,
-                    children: [
-                      // first name text
+            child: Form(
+              key: controller.formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 87),
 
-                      /// First Name
-                      ProfileEditTextFormField(
-                        label: 'First Name',
-                        controller: controller.nameController,
-                      ),
-
-                      /// Last Name
-                      ProfileEditTextFormField(label: 'Last Name'),
-
-                      /// Email
-                      ProfileEditTextFormField(label: 'Email'),
-
-                      /// Country
-                      ProfileEditTextFormField(label: 'Country'),
-
-                      /// City
-                      ProfileEditTextFormField(label: 'City'),
-                    ],
+                  /// First Name
+                  ProfileEditTextFormField(
+                    label: 'First Name',
+                    controller: controller.fastNameController,
+                    validator: controller.validateFastName,
+                    keyboardType: TextInputType.name,
                   ),
-                ),
 
-                SizedBox(height: 40),
-                CustomContinueButton(
-                  onPress: () {
-                    Navigator.pop(context);
-                  },
-                  title: 'Save & Change',
-                ),
-              ],
+                  const SizedBox(height: 16),
+
+                  /// Last Name
+                  ProfileEditTextFormField(
+                    label: 'Last Name',
+                    controller: controller.lastNameController,
+                    validator: controller.validateLastName,
+                    keyboardType: TextInputType.name,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  /// Email
+                  ProfileEditTextFormField(
+                    label: 'Email',
+                    controller: controller.emailController,
+                    validator: controller.validateEmail,
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  /// Country
+                  ProfileEditTextFormField(
+                    label: 'Country',
+                    controller: controller.countryController,
+                    validator: controller.validateCountry,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  /// City
+                  ProfileEditTextFormField(
+                    label: 'City',
+                    controller: controller.cityController,
+                    validator: controller.validateCity,
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  CustomContinueButton(
+                    onPress: () {
+                      if (controller.validateForm()) {
+                        controller.saveForm();
+                        Navigator.pop(context);
+                      }
+                    },
+                    title: 'Save & Change',
+                  ),
+                ],
+              ),
             ),
           ),
         ),

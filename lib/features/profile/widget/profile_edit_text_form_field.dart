@@ -6,12 +6,15 @@ import 'package:get/get.dart';
 
 class ProfileEditTextFormField extends StatelessWidget {
   final ProfileController themeController = Get.put(ProfileController());
-
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
   ProfileEditTextFormField({
     super.key,
     required this.label,
+    this.keyboardType,
     this.controller,
     this.hintText,
+    this.validator,
   });
 
   final String label;
@@ -33,6 +36,7 @@ class ProfileEditTextFormField extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: TextFormField(
+        validator: validator,
         style: getTextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
@@ -58,6 +62,7 @@ class ProfileEditTextFormField extends StatelessWidget {
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
         ),
+        controller: controller,
       ),
     );
   }

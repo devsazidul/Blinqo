@@ -1,4 +1,3 @@
-import 'package:blinqo/features/role/venue_owner/authentication/controller/v_signup_controller.dart' show VSignupController;
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -7,7 +6,6 @@ import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
 
 class VerificationCodeController extends GetxController {
-
   final TextEditingController codeController = TextEditingController();
   var isFormValid = false.obs;
   var errorMessage = ''.obs;
@@ -35,7 +33,7 @@ class VerificationCodeController extends GetxController {
       errorMessage.value = 'Code must be a 6-digit number';
       return 'Code must be a 6-digit number';
     }
-    errorMessage.value = '';  // Clear error if valid
+    errorMessage.value = ''; // Clear error if valid
     return null;
   }
 
@@ -54,10 +52,7 @@ class VerificationCodeController extends GetxController {
 
     final response = await OwnerNetworkCaller().postRequest(
       Url: Urls.verifyEmail,
-      body: {
-        'identifier': email,
-        'code': codeController.text,
-      },
+      body: {'identifier': email, 'code': codeController.text},
     );
 
     if (response.isSuccess) {
@@ -69,20 +64,20 @@ class VerificationCodeController extends GetxController {
     }
   }
 
-// Handle resend code API call
-// Future<void> resendCode() async {
-//   final response = await OwnerNetworkCaller().postRequest(
-//     Url: Urls.resendCode,
-//     body: {
-//       'email': email,
-//     },
-//   );
-//
-//   if (response.isSuccess) {
-//     EasyLoading.showSuccess('Verification code resent successfully!');
-//   } else {
-//     errorMessage.value = response.errorMessage ?? 'Failed to resend code';
-//     EasyLoading.showError(errorMessage.value);
-//   }
-// }
+  // Handle resend code API call
+  // Future<void> resendCode() async {
+  //   final response = await OwnerNetworkCaller().postRequest(
+  //     Url: Urls.resendCode,
+  //     body: {
+  //       'email': email,
+  //     },
+  //   );
+  //
+  //   if (response.isSuccess) {
+  //     EasyLoading.showSuccess('Verification code resent successfully!');
+  //   } else {
+  //     errorMessage.value = response.errorMessage ?? 'Failed to resend code';
+  //     EasyLoading.showError(errorMessage.value);
+  //   }
+  // }
 }
