@@ -5,7 +5,7 @@ import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_signup_controller.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_otp_send_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_confirm_email_verify_otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -209,7 +209,7 @@ class SpSignupScreen extends StatelessWidget {
                         signUpController.signUp().then((isSuccess) {
                           if (isSuccess) {
                             Get.to(
-                              SpOtpSendScreen(
+                              SpConfirmEmailVerifyOtpScreen(
                                 email: signUpController.emailController1.text,
                               ),
                             );
@@ -250,7 +250,7 @@ class SpSignupScreen extends StatelessWidget {
                     SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        Get.to(SpOtpSendScreen(email: ""));
+                        Get.to(SpConfirmEmailVerifyOtpScreen(email: ""));
                         // Get.toNamed(AppRoute.spLoginScreen);
                       },
                       child: Text(

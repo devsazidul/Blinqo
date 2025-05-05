@@ -49,13 +49,14 @@ class SpChangePasswordController extends GetxController {
     return true;
   }
 
-  Future<bool> resetPassword(String email) async {
+  Future<bool> resetPassword(String email, String otp) async {
     EasyLoading.show(status: 'Resetting Password...');
     bool isSuccess = false;
     update();
 
     Map<String, String> requestBody = {
       "email": email,
+      "code": otp,
       "newPassword": confirmPasswordEditingController.text,
     };
 

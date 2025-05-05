@@ -1,5 +1,4 @@
-import 'package:blinqo/features/role/service_provider/auth/controller/sp_forget_password_controller.dart';
-import 'package:blinqo/features/role/service_provider/auth/controller/sp_otp_verification_controller.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/sp_otp_verify_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -7,11 +6,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 // ignore: must_be_immutable
 class SpCustomPinField extends StatelessWidget {
   final TextEditingController controller;
-  final SpForgetPasswordController spForgetPasswordController = Get.put(
-    SpForgetPasswordController(),
-  );
 
-  SpCustomPinField({super.key, required this.controller});
+  const SpCustomPinField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +18,7 @@ class SpCustomPinField extends StatelessWidget {
       length: 6,
       onChanged: (value) {
         controller.text = value;
-        Get.put(SpOtpVerificationController()).validateOtpLength();
-        // spForgetPasswordController.validdateForm2();
+        Get.put(SpOtpVerifyController()).validateForm();
       },
       pinTheme: PinTheme(
         fieldHeight: 50,

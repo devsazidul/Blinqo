@@ -1,7 +1,7 @@
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/auth/model/auth_model.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_otp_send_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_confirm_email_verify_otp_screen.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -76,7 +76,10 @@ class SpLoginController extends GetxController {
     } else {
       if (response.errorMessage ==
           "A verification code has been sent to your email. Please verify your email") {
-        Get.to(() => SpOtpSendScreen(email: emailController.text.trim()));
+        Get.to(
+          () =>
+              SpConfirmEmailVerifyOtpScreen(email: emailController.text.trim()),
+        );
         _errorMessage = response.errorMessage;
         EasyLoading.showSuccess(response.errorMessage);
         isSuccess = false;

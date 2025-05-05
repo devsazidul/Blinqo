@@ -1,9 +1,12 @@
-import 'package:get/get.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
+import 'package:get/get.dart';
 
 class SplashoScreenController extends GetxController {
   @override
-  void onInit() {
+  void onInit() async {
+    await SpAuthController.getUserInformation();
+
     navigateAfterDelay();
     super.onInit();
   }

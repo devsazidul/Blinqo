@@ -17,4 +17,12 @@ class Urls {
   static const String resetPassword1 = '$baseUrl/auth/reset-password';
   static const String resendVerificationCode =
       '$baseUrl/auth/resend-verification-code';
+
+  static const String resendPasswordResetCode =
+      '$baseUrl/auth/send-password-reset-code';
+
+  static const String getEventPreference = '$baseUrl/event-preference/get';
+
+  static const String serviceProviderProfileSetup =
+      '$baseUrl/profile/service-provider-setup';
 }

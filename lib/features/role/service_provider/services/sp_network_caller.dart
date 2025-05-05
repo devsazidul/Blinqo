@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
@@ -13,8 +14,9 @@ class SpNetworkCaller {
     try {
       Uri uri = Uri.parse(url);
       Map<String, String> headers = {'content-type': 'application/json'};
-      if (accessToken != null) {
-        headers['token'] = accessToken;
+      if (accessToken != null || SpAuthController.token != null) {
+        headers['Authorization'] =
+            "Bearer ${accessToken ?? SpAuthController.token}";
       }
       _logRequest(url, headers);
       final response = await http.get(uri, headers: headers);
@@ -49,9 +51,9 @@ class SpNetworkCaller {
     try {
       Uri uri = Uri.parse(url);
       final headers = {"Content-Type": "application/json"};
-      // if (Get.find<AuthController>().accessToken != null) {
-      //   headers['token'] = Get.find<AuthController>().accessToken!;
-      // }
+      if (SpAuthController.token != null) {
+        headers['Authorization'] = "Bearer ${SpAuthController.token}";
+      }
 
       _logRequest(url, headers, body);
       http.Response response = await http.post(
@@ -91,9 +93,9 @@ class SpNetworkCaller {
     try {
       Uri uri = Uri.parse(url);
       final headers = {"Content-Type": "application/json"};
-      // if (Get.find<AuthController>().accessToken != null) {
-      //   headers['token'] = Get.find<AuthController>().accessToken!;
-      // }
+      if (SpAuthController.token != null) {
+        headers['Authorization'] = "Bearer ${SpAuthController.token}";
+      }
       _logRequest(url, headers, body);
       http.Response response = await http.patch(
         uri,
@@ -128,9 +130,9 @@ class SpNetworkCaller {
     try {
       Uri uri = Uri.parse(url);
       final headers = {"Content-Type": "application/json"};
-      // if (Get.find<AuthController>().accessToken != null) {
-      //   headers['token'] = Get.find<AuthController>().accessToken!;
-      // }
+      if (SpAuthController.token != null) {
+        headers['Authorization'] = "Bearer ${SpAuthController.token}";
+      }
       _logRequest(url, headers);
       http.Response response = await http.delete(uri, headers: headers);
       _logResponse(url, response.statusCode, response.headers, response.body);
