@@ -17,4 +17,6 @@ class Urls {
   static const String resetPassword1 = '$baseUrl/auth/reset-password';
   static const String resendVerificationCode =
       '$baseUrl/auth/resend-verification-code';
+  static const String venueOwnerSetupProfile =
+      '$baseUrl/profile/venue-owner-setup';
 }

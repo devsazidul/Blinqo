@@ -1,24 +1,28 @@
+import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
 
 class EvenAuthController {
-  // Define constant keys for storing and retrieving data
+
   static const String _tokenKey = "access_token";
   static const String _roleKey = "user_role";
+  static const String userInfo = "user_info";
 
   // Singleton pattern for SharedPreferences
   static Future<SharedPreferences> _getPreferences() async {
     return await SharedPreferences.getInstance();
   }
 
-  // Save auth token and role after successful login
-  static Future<void> saveAuthToken(String token, String role) async {
+
+  static Future<void> saveAuthToken(String token, String role, User user) async {
     try {
       final prefs = await _getPreferences();
       await prefs.setString(_tokenKey, token);
       await prefs.setString(_roleKey, role);
+      await prefs.setString(userInfo, json.encode(user.toJson())); // Save user data
     } catch (e) {
-      print("Error saving auth token: $e");
+      EasyLoading.showError("Error saving auth token: $e");
       throw Exception("Error saving auth token");
     }
   }
@@ -29,7 +33,7 @@ class EvenAuthController {
       final prefs = await _getPreferences();
       return prefs.getString(_tokenKey);
     } catch (e) {
-      print("Error retrieving auth token: $e");
+      EasyLoading.showError("Error retrieving auth token: $e");
       return null;
     }
   }
@@ -40,17 +44,34 @@ class EvenAuthController {
       final prefs = await _getPreferences();
       return prefs.getString(_roleKey);
     } catch (e) {
-      print("Error retrieving user role: $e");
+      EasyLoading.showError("Error retrieving user role: $e");
       return null;
     }
   }
 
-  // Remove auth token (logout)
+  // Retrieve user information from SharedPreferences
+  static Future<User?> getUserInfo() async {
+    try {
+      final prefs = await _getPreferences();
+      String? userInfoString = prefs.getString(userInfo);
+      if (userInfoString != null) {
+        Map<String, dynamic> userJson = json.decode(userInfoString);
+        return User.fromJson(userJson);
+      }
+      return null;
+    } catch (e) {
+      EasyLoading.showError("Error retrieving user information: $e");
+      return null;
+    }
+  }
+
+  // Remove auth token, role, and user information (logout)
   static Future<void> removeAuthToken() async {
     try {
       final prefs = await _getPreferences();
       await prefs.remove(_tokenKey);
       await prefs.remove(_roleKey);
+      await prefs.remove(userInfo); // Remove user data as well
     } catch (e) {
       EasyLoading.showError("Error removing auth token: $e");
       throw Exception("Error removing auth token");
@@ -70,5 +91,9 @@ class EvenAuthController {
     }
   }
 
-// Optionally, you can add additional helper methods for user data retrieval or storage, like userId or email.
+  // Check if the user has the role
+  static Future<bool> userHasRole(String role) async {
+    final user = await getUserInfo();
+    return user?.hasRole(role) ?? false;
+  }
 }
