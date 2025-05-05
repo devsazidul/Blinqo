@@ -10,7 +10,6 @@ import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_netw
 import 'package:logger/logger.dart';
 
 class VenueLoginController extends GetxController {
-
   TextEditingController passwordControler = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
@@ -48,20 +47,20 @@ class VenueLoginController extends GetxController {
       // Check the role before proceeding with login
       if (loginResponse.success == true &&
           loginResponse.data?.user?.roles?.contains('VENUE_OWNER') == true) {
-
         // Save the authentication token after a successful login
         String token = response.body['data']?['access_token'];
         var roles = response.body['data']?['user']?['roles'];
+        User user = User.fromJson(response.body['data']['user']);
 
         if (token != null && roles != null && roles.isNotEmpty) {
           String role = roles[0];
-          await EvenAuthController.saveAuthToken(token, role);
+          await EvenAuthController.saveAuthToken(token, role, user);
+          Logger().i('user info: ${user.toJson()}');
         } else {
           // Handle error if token or roles are null or empty
           EasyLoading.showError('Failed to retrieve valid token or role.');
           return;
         }
-
 
         Logger().i(
           'Login successful token: ${loginResponse.data?.accessToken}',
@@ -78,7 +77,7 @@ class VenueLoginController extends GetxController {
       if (response.errorMessage ==
           "A verification code has been sent to your email. Please verify your email") {
         errorMessage.value =
-        "Your account is not verified. Please verify your email.";
+            "Your account is not verified. Please verify your email.";
         EasyLoading.showError(errorMessage.value);
         Get.to(VerificationCodeScreen(email: emailController.text));
       } else {

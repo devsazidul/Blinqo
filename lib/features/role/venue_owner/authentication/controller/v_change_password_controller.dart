@@ -55,6 +55,7 @@ class ChangedPasswordController extends GetxController {
         Url: Urls.resetPassword,
         body: {
           'email': email,
+          'code': vForgetPasswordController.pinController.text,
           'newPassword': confirmPasswordEditingController.text,
         },
       );
