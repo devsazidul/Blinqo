@@ -4,12 +4,7 @@ class LoginResponse {
   final String? message;
   final bool? success;
 
-  LoginResponse({
-    this.data,
-    this.statusCode,
-    this.message,
-    this.success,
-  });
+  LoginResponse({this.data, this.statusCode, this.message, this.success});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
@@ -19,7 +14,6 @@ class LoginResponse {
       success: json['success'],
     );
   }
-
 }
 
 class Data {
@@ -34,7 +28,6 @@ class Data {
       user: json['user'] != null ? User.fromJson(json['user']) : null,
     );
   }
-
 }
 
 class User {
@@ -44,13 +37,18 @@ class User {
   final bool? isVerified;
   final String? profileId;
 
-  User({
-    this.id,
-    this.email,
-    this.roles,
-    this.isVerified,
-    this.profileId,
-  });
+  User({this.id, this.email, this.roles, this.isVerified, this.profileId});
+
+  // Convert User object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'email': email,
+      'roles': roles,
+      'isVerified': isVerified,
+      'profileId': profileId,
+    };
+  }
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -62,9 +60,8 @@ class User {
     );
   }
 
-
-  // Check if the user's role matches
-  // bool hasRole(String role) {
-  //   return roles?.contains(role) ?? false;
-  // }
+  //Check if the user's role matches
+  bool hasRole(String role) {
+    return roles?.contains(role) ?? false;
+  }
 }

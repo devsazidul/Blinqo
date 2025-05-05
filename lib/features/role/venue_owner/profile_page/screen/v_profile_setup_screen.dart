@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_verified_screen.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_profile_setup_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +15,16 @@ class VenueProfileScreen extends StatelessWidget {
     final VenueOwnerProfileController controller = Get.put(
       VenueOwnerProfileController(),
     );
+    final VenueProfileSetupController profileSetupController = Get.put(
+      VenueProfileSetupController(),
+    );
     // Get the current theme mode (light or dark)
     final bool isDarkMode = controller.isDarkMode.value;
     return Scaffold(
       backgroundColor:
-          isDarkMode
-              ? AppColors.darkBackgroundColor
-              : AppColors.backgroundColor,
+      isDarkMode
+          ? AppColors.darkBackgroundColor
+          : AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -43,25 +47,27 @@ class VenueProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-
                 // profile image
                 Stack(
                   children: [
                     Center(
                       child: Obx(
-                        () => CircleAvatar(
-                          radius: 80,
-                          backgroundColor: Color(0xffD9D9D9),
-                          backgroundImage:
-                              controller.profileImage.value != null
-                                  ? FileImage(controller.profileImage.value!)
+                            () =>
+                            CircleAvatar(
+                              radius: 48,
+                              backgroundColor: Color(0xffD9D9D9),
+                              backgroundImage:
+                              profileSetupController.profileImage.value != null
+                                  ? FileImage(
+                                profileSetupController.profileImage.value!,
+                              )
                                   : null,
-                        ),
+                            ),
                       ),
                     ),
                     Positioned(
-                      top: 120,
-                      left: 200,
+                      top: 65,
+                      left: 195,
                       child: GestureDetector(
                         onTap: () {
                           controller.pickImage();
@@ -81,13 +87,27 @@ class VenueProfileScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
 
-                // name text field
-                _buildTextField('Enter your name', 'Name'),
-                SizedBox(height: 20),
-                // Location text field
-                _buildTextField('Enter your location', 'Location'),
-                SizedBox(height: 40),
-
+                Form(
+                  child: Column(
+                    children: [
+                      // name text field
+                      _buildTextField('Enter your Username', 'Username',validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your username';
+                        }
+                        // only allow lowercase letter, numbers, and underscores
+                        if (!RegExp(r'^[a-z0-9_]+$').hasMatch(value)) {
+                          return 'Username can only contain letters, numbers, and underscores';
+                        }
+                        return null;
+                      }),
+                      SizedBox(height: 20),
+                      // Location text field
+                      _buildTextField('Enter your location', 'Location'),
+                      SizedBox(height: 40),
+                    ],
+                  ),
+                ),
                 // Upgrade to pro container
                 Container(
                   padding: EdgeInsets.all(12),
@@ -178,40 +198,40 @@ class VenueProfileScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 // Skip button elevated button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(VenueSetupScreen());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      backgroundColor:
-                          isDarkMode
-                              ? AppColors.darkBackgroundColor
-                              : AppColors.backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(
-                          width: 1,
-                          color:
-                              isDarkMode
-                                  ? Color(0xff003366)
-                                  : Color(0xff003366),
-                        ),
-                      ),
-                    ),
-                    child: Text(
-                      'Skip',
-                      style: getTextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color:
-                            isDarkMode ? Color(0xffE6EBF0) : Color(0xff003366),
-                      ),
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   width: double.infinity,
+                //   child: ElevatedButton(
+                //     onPressed: () {
+                //       Get.to(VenueSetupScreen());
+                //     },
+                //     style: ElevatedButton.styleFrom(
+                //       padding: EdgeInsets.symmetric(vertical: 12),
+                //       backgroundColor:
+                //       isDarkMode
+                //           ? AppColors.darkBackgroundColor
+                //           : AppColors.backgroundColor,
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(12),
+                //         side: BorderSide(
+                //           width: 1,
+                //           color:
+                //           isDarkMode
+                //               ? Color(0xff003366)
+                //               : Color(0xff003366),
+                //         ),
+                //       ),
+                //     ),
+                //     child: Text(
+                //       'Skip',
+                //       style: getTextStyle(
+                //         fontSize: 16,
+                //         fontWeight: FontWeight.w500,
+                //         color:
+                //         isDarkMode ? Color(0xffE6EBF0) : Color(0xff003366),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: 20),
               ],
             ),
@@ -221,13 +241,27 @@ class VenueProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(String hintText, String labelText) {
+  Widget _buildTextField(String hintText, String labelText,
+      {String? Function(String?)? validator}) {
     final VenueOwnerProfileController controller = Get.put(
       VenueOwnerProfileController(),
     );
     // dark theme text field
     final bool isDarkMode = controller.isDarkMode.value;
-    return TextField(
+    return TextFormField(
+      // validate on user interaction
+      onChanged: (value) {
+        if (validator != null) {
+          validator(value);
+        }
+      },
+
+      validator: validator,
+      style: getTextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+      ),
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: getTextStyle(
