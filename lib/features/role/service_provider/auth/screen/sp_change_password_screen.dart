@@ -7,8 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SpChangePasswordScreen extends StatelessWidget {
+  const SpChangePasswordScreen({
+    super.key,
+    required this.email,
+    required this.otp,
+  });
+
   final String email;
-  const SpChangePasswordScreen({super.key, required this.email});
+  final String otp;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +22,6 @@ class SpChangePasswordScreen extends StatelessWidget {
     final SpChangePasswordController controller = Get.put(
       SpChangePasswordController(),
     );
-
-    debugPrint("email: $email");
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -40,15 +44,6 @@ class SpChangePasswordScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // SizedBox(height: 18.0),
-                // Text(
-                //   'Enter Verification Code:',
-                //   style: getTextStyle(
-                //     color: Color(0xFF082B09),
-                //     fontSize: 18,
-                //     fontWeight: FontWeight.w400,
-                //   ),
-                // ),
                 SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -114,7 +109,7 @@ class SpChangePasswordScreen extends StatelessWidget {
                   title: 'Change Password',
                   textColor: Colors.white,
                   onPress: () async {
-                    await controller.resetPassword(email);
+                    await controller.resetPassword(email, otp);
                   },
                 ),
               ],

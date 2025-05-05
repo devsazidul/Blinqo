@@ -19,9 +19,9 @@ import 'package:blinqo/features/role/event_planner/payment_method/screen/evetnt_
 import 'package:blinqo/features/role/event_planner/payment_method/screen/final_review_booking_datieals.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/change_password_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/forget_password_verify_otp_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/sp_change_password_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_screen.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_verify_otp_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_signup_screen.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
@@ -257,7 +257,11 @@ class AppRoute {
     ),
     GetPage(
       name: spChangePassword,
-      page: () => SpChangePasswordScreen(email: Get.arguments as String),
+      page:
+          () => SpChangePasswordScreen(
+            email: Get.arguments as String,
+            otp: Get.arguments as String,
+          ),
     ),
   ];
 }

@@ -44,4 +44,9 @@ class RoleController extends GetxController {
         break;
     }
   }
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
 }

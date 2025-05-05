@@ -1,5 +1,5 @@
 import 'package:blinqo/core/urls/endpoint.dart';
-import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_verify_otp_screen.dart';
+import 'package:blinqo/features/role/service_provider/auth/screen/forget_password_verify_otp_screen.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:flutter/material.dart';

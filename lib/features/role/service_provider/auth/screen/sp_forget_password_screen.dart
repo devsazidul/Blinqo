@@ -13,7 +13,6 @@ class SpForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<int> focusedButtonIndex = ValueNotifier<int>(0);
     final SpForgetPasswordController forgetPasswordController = Get.put(
       SpForgetPasswordController(),
     );
@@ -32,191 +31,56 @@ class SpForgetPasswordScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 60),
-            Center(
-              child: Text(
-                "Please Enter your email address or phone",
-                style: getTextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xff5F5F5F),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 60),
+              Center(
+                child: Text(
+                  "Please Enter your email address \nfor confirmation code.",
+                  style: getTextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff5F5F5F),
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-            Center(
-              child: Text(
-                "number for confirmation code.",
-                style: getTextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xff5F5F5F),
+              SizedBox(height: 32),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Email",
+                  style: getTextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff333333),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 18),
-            Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              height: 44,
-              width: 190,
-
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      focusedButtonIndex.value = 0;
-                    },
-                    child: ValueListenableBuilder<int>(
-                      valueListenable: focusedButtonIndex,
-                      builder: (context, value, child) {
-                        return Container(
-                          height: 44,
-                          width: 93,
-                          decoration: BoxDecoration(
-                            color:
-                                value == 0
-                                    ? AppColors.textColor
-                                    : Colors.transparent,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Email",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color:
-                                    value == 0
-                                        ? Colors.white
-                                        : Color(0xff082B09),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      focusedButtonIndex.value = 1;
-                    },
-                    child: ValueListenableBuilder<int>(
-                      valueListenable: focusedButtonIndex,
-                      builder: (context, value, child) {
-                        return Container(
-                          height: 44,
-                          width: 93,
-                          decoration: BoxDecoration(
-                            color:
-                                value == 1
-                                    ? AppColors.textColor
-                                    : Colors.transparent,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Phone",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color:
-                                    value == 1
-                                        ? Colors.white
-                                        : Color(0xff082B09),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+              SizedBox(height: 8),
+              Form(
+                key: forgetPasswordController.formKey,
+                child: AuthCustomTextField(
+                  controller: forgetPasswordController.emailController,
+                  text: "Enter your Email",
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter your email";
+                    }
+                    if (!GetUtils.isEmail(value)) {
+                      return "Please enter a valid email";
+                    }
+                    return null;
+                  },
+                ),
               ),
-            ),
-            SizedBox(height: 31),
-            ValueListenableBuilder<int>(
-              valueListenable: focusedButtonIndex,
-              builder: (context, value, child) {
-                return Column(
-                  children: [
-                    if (value == 0)
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Email",
-                                  style: getTextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff333333),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 8),
-                            Form(
-                              key: forgetPasswordController.formKey,
-                              child: AuthCustomTextField(
-                                controller:
-                                    forgetPasswordController.emailController,
-                                text: "Enter your Email",
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Please enter your email";
-                                  }
-                                  if (!GetUtils.isEmail(value)) {
-                                    return "Please enter a valid email";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    if (value == 1)
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Phone",
-                                  style: getTextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff333333),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 8),
-                            AuthCustomTextField(
-                              controller:
-                                  forgetPasswordController.phoneController,
-                              text: "Enter your phone number",
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
-                );
-              },
-            ),
-            SizedBox(height: 63),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: SizedBox(
+              SizedBox(height: 63),
+              SizedBox(
                 height: 48,
                 width: double.infinity,
                 child: ElevatedButton(
@@ -234,11 +98,11 @@ class SpForgetPasswordScreen extends StatelessWidget {
                       await forgetPasswordController.forgetPasswordOtpSend();
                     }
                   },
-                  child: Text("Send", style: TextStyle(color: Colors.white)),
+                  child: Text("Send", style: getTextStyle(color: Colors.white)),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

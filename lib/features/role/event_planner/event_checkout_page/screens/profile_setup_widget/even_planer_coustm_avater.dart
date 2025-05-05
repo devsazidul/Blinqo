@@ -1,8 +1,8 @@
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_setup_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EvenPlanerCoustmAvater extends StatelessWidget {
   final String imagePath;
@@ -20,7 +20,7 @@ class EvenPlanerCoustmAvater extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double circleavatarradius = (screenHeight < 700) ? 50 : 58;
-    final profileController = Get.find<ProfileSetupController>();
+    final profileController = Get.find<SpProfileSetupController>();
 
     return GestureDetector(
       onTap: () {

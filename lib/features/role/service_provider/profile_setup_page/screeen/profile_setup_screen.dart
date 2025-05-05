@@ -3,25 +3,30 @@ import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/widget/customcircleavater.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:logger/logger.dart';
 
 class ProfileSetupScreen extends StatelessWidget {
-  ProfileSetupScreen({super.key});
-  final ProfileSetupController profileController = Get.put(
-    ProfileSetupController(),
-  );
-  final controller = Get.put(SpProfileController());
+  const ProfileSetupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final SpProfileSetupController profileController = Get.put(
+      SpProfileSetupController(),
+    );
+    final controller = Get.put(SpProfileController());
     profileController.initMarkers();
+
+    // print(
+    //   ">>>>>>>>>>>>>>>>>>>>>>>>> profileController.profileImage.value: ${profileController.profileImage.value}",
+    // );
+
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -36,6 +41,7 @@ class ProfileSetupScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
+                  // Profile Setup Text
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -53,6 +59,7 @@ class ProfileSetupScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 20),
+                  // Profile Image
                   Obx(() {
                     return Stack(
                       alignment: Alignment.bottomRight,
@@ -99,8 +106,10 @@ class ProfileSetupScreen extends StatelessWidget {
                     );
                   }),
                   SizedBox(height: 20),
+                  // Name
                   TextFormField(
-                    controller: profileController.spnameController,
+                    enabled: true,
+                    controller: profileController.nameController,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelText: "Name",
@@ -112,7 +121,7 @@ class ProfileSetupScreen extends StatelessWidget {
                                 : AppColors.subTextColor,
                       ),
 
-                      hintText: "Guy Hawkins",
+                      // hintText: "Guy Hawkins",
                       hintStyle: getTextStyle(
                         fontSize: 14,
                         color:
@@ -127,7 +136,7 @@ class ProfileSetupScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-
+                  // Role
                   Obx(
                     () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,6 +218,7 @@ class ProfileSetupScreen extends StatelessWidget {
                     ),
                   ),
 
+                  // Event Preference Text
                   SizedBox(height: 20),
                   Align(
                     alignment: Alignment.centerLeft,
@@ -225,108 +235,53 @@ class ProfileSetupScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.corporateEvents,
-                          text: "Corporate",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Corporate",
-                          ),
-                        );
-                      }),
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.wedding,
-                          text: "Weddings",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Weddings",
-                          ),
-                        );
-                      }),
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.musidFastivals,
-                          text: "Music Festivals",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Music Festivals",
-                          ),
-                        );
-                      }),
-                    ],
-                  ),
-                  SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.exhibition,
-                          text: "Exhibitions",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Exhibitions",
-                          ),
-                        );
-                      }),
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.concert,
-                          text: "Concerts",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Concerts",
-                          ),
-                        );
-                      }),
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.charityEvent,
-                          text: "Charity Events",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Charity Events",
-                          ),
-                        );
-                      }),
-                    ],
-                  ),
-                  SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.privateParties,
-                          text: "Private Parties",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Private Parties",
-                          ),
-                        );
-                      }),
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.productLaunches,
-                          text: "Product Launches",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Product Launches",
-                          ),
-                        );
-                      }),
-                      Obx(() {
-                        return CustomCircleAvater(
-                          imagePath: IconPath.tradeShow,
-                          text: "Trade Shows",
-                          isSelected: profileController.selectedEvents.contains(
-                            "Trade Shows",
-                          ),
-                        );
-                      }),
-                    ],
-                  ),
-                  SizedBox(height: 20),
+                  // Event Preference Grid
+                  Obx(() {
+                    return GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 0.7,
+                      children: List.generate(
+                        profileController.eventPreferenceList.length,
+                        (index) {
+                          final eventPreference =
+                              profileController.eventPreferenceList[index];
+                          return Obx(() {
+                            return GestureDetector(
+                              onTap: () {
+                                print(
+                                  "Hello world test jasdlkjf lajlkf jlfsjdlkj ",
+                                );
+                                profileController.selectedEvents.add(
+                                  eventPreference.id,
+                                );
+                                // print(
+                                //   ">>>>>>>>>>>>>>>>>>>>>>>>> profileController.selectedEvents: ${profileController.selectedEvents}",
+                                // );
+                                Logger().i(
+                                  "Event pref id============================: ${eventPreference.id}",
+                                );
+                              },
+                              child: CustomCircleAvatar(
+                                imagePath: eventPreference.avatar.path,
+                                text: eventPreference.name,
+                                isSelected: profileController.selectedEvents
+                                    .contains(eventPreference.id),
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    );
+                  }),
 
+                  // Description
+                  SizedBox(height: 20),
                   TextFormField(
-                    controller: profileController.spdescriptionController,
+                    controller: profileController.descriptionController,
                     maxLines: 5,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -357,7 +312,7 @@ class ProfileSetupScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   TextFormField(
-                    controller: profileController.splocationController,
+                    controller: profileController.locationController,
                     onFieldSubmitted: (value) {
                       profileController.searchLocation(value);
                     },
@@ -403,6 +358,7 @@ class ProfileSetupScreen extends StatelessWidget {
                     ),
                   ),
 
+                  // Select From Map Text
                   SizedBox(height: 20),
                   Align(
                     alignment: Alignment.centerLeft,
@@ -426,7 +382,7 @@ class ProfileSetupScreen extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: GetBuilder<ProfileSetupController>(
+                          child: GetBuilder<SpProfileSetupController>(
                             builder: (_) {
                               return GoogleMap(
                                 onMapCreated: profileController.onMapCreated,
@@ -466,9 +422,10 @@ class ProfileSetupScreen extends StatelessWidget {
                     ),
                   ),
 
+                  // Years of Experiences Text
                   SizedBox(height: 20),
                   TextFormField(
-                    controller: profileController.spyearController,
+                    controller: profileController.experienceYearController,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelText: "Years of Experiences",
@@ -591,12 +548,14 @@ class ProfileSetupScreen extends StatelessWidget {
                     }),
                   ),
 
+                  // Upgrade To Procard
                   SizedBox(height: 40),
                   UpgradeToProcard(onTap: () {}),
                   SizedBox(height: 40),
+                  // Continue Button
                   CustomContinueButton(
                     onPress: () {
-                      Get.to(GetVerifiedScreen());
+                      profileController.uploadServiceProviderProfile();
                     },
                     title: "Continue",
                   ),

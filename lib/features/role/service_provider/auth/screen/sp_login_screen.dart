@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:io';
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
@@ -8,6 +6,7 @@ import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_controller.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_screen.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +20,6 @@ class SpLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SpLoginController loginController = Get.put(SpLoginController());
-    // print(
-    //   "User: ------------------------------------> ${SpAuthController.userModel?.toJson()}",
-    // );
-    // print(
-    //   "Token: ------------------------------------> ${SpAuthController.token}",
-    // );
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -43,6 +36,7 @@ class SpLoginScreen extends StatelessWidget {
           ),
         ),
       ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
@@ -73,7 +67,7 @@ class SpLoginScreen extends StatelessWidget {
                   text: 'Enter your email',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Incorrect email or password';
+                      return 'Email is required';
                     }
                     return null;
                   },
@@ -104,7 +98,7 @@ class SpLoginScreen extends StatelessWidget {
                   obscureText: loginController.isPasswordVisible.value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Incorrect email or password';
+                      return 'Password is required';
                     }
                     return null;
                   },
@@ -123,15 +117,18 @@ class SpLoginScreen extends StatelessWidget {
                     backgroundColor:
                         loginController.isFromValid.value
                             ? Color(0xFF003366)
-                            : Color(0xFF003366).withOpacity(0.1),
+                            : Color(0xFF003366).withValues(alpha: 0.1),
                     borderColor:
                         loginController.isFromValid.value
                             ? Color(0xFF003366)
-                            : Color(0xFF003366).withOpacity(0.1),
+                            : Color(0xFF003366).withValues(alpha: 0.1),
                     onPress: () async {
                       if (loginController.formKey.currentState!.validate()) {
                         bool isSuccess = await loginController.login();
                         if (isSuccess) {
+                          await Get.put(
+                            SpProfileSetupController(),
+                          ).getEventPreferences();
                           Get.offAll(
                             ProfileSetupScreen(),
                             predicate: (route) => false,
