@@ -9,14 +9,17 @@ import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/e
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-// ignore: must_be_immutable
 class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
-  SignUpController singupController = Get.find<SignUpController>();
+  const SignUpScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final femaleColorController = Get.find<PickColorController>();
-    final bool isFemale = femaleColorController.isFemale.value;
+    final SignUpController signupController = Get.find<SignUpController>();
+    final PickColorController colorController = Get.find<PickColorController>();
+
+    final bool isFemale = colorController.isFemale.value;
+    final Color selectedColor = colorController.selectedColor;
+
     return Scaffold(
       backgroundColor: AppColors.loginBg,
       appBar: AppBar(
@@ -32,244 +35,485 @@ class SignUpScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Text(
-                'Name',
-                style: getTextStyle(
-                  color: AppColors.textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            // Name Field
+            Text(
+              'Name',
+              style: getTextStyle(
+                color: AppColors.textColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
               ),
-              SizedBox(height: 8),
-              AuthCustomTextField(
-                text: 'Enter your Name',
-                onChanged: (value) {
-                  singupController.validateFrom();
-                },
-                controller: singupController.nameController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter Your Name';
-                  }
-                  return null;
-                },
+            ),
+            const SizedBox(height: 8),
+            AuthCustomTextField(
+              text: 'Enter your Name',
+              onChanged: (_) => signupController.validateForm(),
+              controller: signupController.nameController,
+              validator:
+                  (value) => value?.isEmpty ?? true ? 'Enter Your Name' : null,
+            ),
+            const SizedBox(height: 20),
+            // Phone Field
+            Text(
+              'Phone Number',
+              style: getTextStyle(
+                color: AppColors.textColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
               ),
-              SizedBox(height: 20),
-              Text(
-                'Phone Number',
-                style: getTextStyle(
-                  color: AppColors.textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+            ),
+            const SizedBox(height: 8),
+            AuthCustomTextField(
+              controller: signupController.phoneController1,
+              text: 'Enter your Phone Number',
+              onChanged: (_) => signupController.validateForm(),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter Phone Number e.g:+8801234567891';
+                }
+                if (!RegExp(r'^\+8801[3-9][0-9]{8}$').hasMatch(value)) {
+                  return 'Invalid phone number format. Use +8801XXXXXXXXX';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            // Email Field
+            Text(
+              'Email',
+              style: getTextStyle(
+                color: AppColors.textColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
               ),
-              SizedBox(height: 8),
-              AuthCustomTextField(
-                controller: singupController.phoneController1,
-                text: 'Enter your Phone Number',
-                onChanged: (value) {
-                  singupController.validateFrom();
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter Phone Number e.g:+8801234567891';
-                  }
-                  RegExp phoneRegex = RegExp(r'^\+8801[3-9][0-9]{8}$');
-                  if (!phoneRegex.hasMatch(value)) {
-                    return 'Invalid phone number format. Use +8801XXXXXXXXX';
-                  }
-                  return null;
-                },
+            ),
+            const SizedBox(height: 8),
+            AuthCustomTextField(
+              controller: signupController.emailController1,
+              text: 'Enter your Email',
+              onChanged: (_) => signupController.validateForm(),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter a valid email address';
+                }
+                if (!RegExp(
+                  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                ).hasMatch(value)) {
+                  return 'Invalid email format. Example: example@mail.com';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            // Password Field
+            Text(
+              'Password',
+              style: getTextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textColor,
               ),
-              SizedBox(height: 20),
-              Text(
-                'Email',
-                style: getTextStyle(
-                  color: AppColors.textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(height: 8),
-              AuthCustomTextField(
-                controller: singupController.emailController1,
-                text: 'Enter your Email',
-                onChanged: (value) {
-                  singupController.validateFrom();
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter a valid email address';
-                  }
-
-                  RegExp emailRegex = RegExp(
-                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                  );
-                  if (!emailRegex.hasMatch(value)) {
-                    return 'Invalid email format. Example: example@mail.com';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Password',
-                style: getTextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.textColor,
-                ),
-              ),
-              SizedBox(height: 8),
-              Obx(
-                () => AuthCustomTextField(
-                  text: 'Enter your Password',
-                  onChanged: (value) {
-                    singupController.validateFrom();
-                  },
-                  controller: singupController.passwordController,
-                  obscureText: singupController.isPasswordVisible.value,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      singupController.isPasswordVisible.value
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color:
-                          isFemale
-                              ? femaleColorController.selectedColor
-                              : AppColors.buttonColor2,
-                    ),
-                    onPressed: singupController.togglePasswordVisibility,
+            ),
+            const SizedBox(height: 8),
+            Obx(
+              () => AuthCustomTextField(
+                text: 'Enter your Password',
+                onChanged: (_) => signupController.validateForm(),
+                controller: signupController.passwordController,
+                obscureText: signupController.isPasswordVisible.value,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    signupController.isPasswordVisible.value
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                    color: isFemale ? selectedColor : AppColors.buttonColor2,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password is required';
-                    }
-                    if (value.length < 8) {
-                      return 'Password must be at least 8 characters';
-                    }
-                    return null;
-                  },
+                  onPressed: signupController.togglePasswordVisibility,
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Password is required';
+                  }
+                  if (value.length < 8) {
+                    return 'Password must be at least 8 characters';
+                  }
+                  return null;
+                },
               ),
-              SizedBox(height: 16),
-              Text(
-                'Retype Password',
-                style: getTextStyle(
-                  color: AppColors.textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+            ),
+            const SizedBox(height: 16),
+            // Retype Password Field
+            Text(
+              'Retype Password',
+              style: getTextStyle(
+                color: AppColors.textColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
               ),
-              SizedBox(height: 8),
-              Obx(
-                () => AuthCustomTextField(
-                  controller: singupController.retypepasswordController,
-                  text: 'Enter your Password',
-                  onChanged: (value) {
-                    singupController.validateFrom();
-                  },
-                  obscureText: singupController.isPasswordVisible1.value,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      singupController.isPasswordVisible1.value
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color:
-                          isFemale
-                              ? femaleColorController.selectedColor
-                              : AppColors.buttonColor2,
-                    ),
-                    onPressed: singupController.togglePasswordVisibility1,
+            ),
+            const SizedBox(height: 8),
+            Obx(
+              () => AuthCustomTextField(
+                controller: signupController.retypepasswordController,
+                text: 'Enter your Password',
+                onChanged: (_) => signupController.validateForm(),
+                obscureText: signupController.isPasswordVisible1.value,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    signupController.isPasswordVisible1.value
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                    color: isFemale ? selectedColor : AppColors.buttonColor2,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please confirm your password';
-                    }
-                    if (value != singupController.passwordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
+                  onPressed: signupController.togglePasswordVisibility1,
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please confirm your password';
+                  }
+                  if (value != signupController.passwordController.text) {
+                    return 'Passwords do not match';
+                  }
+                  return null;
+                },
               ),
-              SizedBox(height: 30),
-              Obx(
-                () => CustomButton(
-                  title: 'Sign Up',
-                  textColor:
-                      singupController.isFromValid.value && isFemale
-                          ? AppColors.primary
-                          : singupController.isFromValid.value && !isFemale
-                          ? AppColors.primary
-                          : !singupController.isFromValid.value && isFemale
-                          ? Color(0xFFEBA8B5)
-                          : AppColors.buttonColor2,
-                  onPress:
-                      singupController.isFromValid.value
-                          ? () {
-                            Get.to(EvenProfileSetupScreen());
+            ),
+            const SizedBox(height: 30),
+            // Sign Up Button
+            Obx(() {
+              final isValid = signupController.isFormValid.value;
+              return CustomButton(
+                title: 'Sign Up',
+                textColor:
+                    isValid
+                        ? AppColors.primary
+                        : isFemale
+                        ? const Color(0xFFEBA8B5)
+                        : AppColors.buttonColor2,
+                onPress:
+                    isValid
+                        ? () async {
+                          await signupController.registerUser();
+                          if (signupController.responseMessage.value.contains(
+                            'success',
+                          )) {
+                            Get.to(() => EvenProfileSetupScreen());
                           }
-                          : null,
-                  backgroundColor:
-                      singupController.isFromValid.value && isFemale
-                          ? femaleColorController.selectedColor
-                          : singupController.isFromValid.value && !isFemale
-                          ? AppColors.buttonColor2
-                          : !singupController.isFromValid.value && isFemale
-                          ? femaleColorController.selectedColor.withValues(
-                            alpha: 0.1,
-                          )
-                          : AppColors.buttonColor2.withValues(alpha: 0.1),
-                  borderColor:
-                      isFemale
-                          ? Colors.transparent
-                          : singupController.isFromValid.value
-                          ? AppColors.buttonColor2
-                          : AppColors.buttonColor2.withValues(alpha: 0.1),
+                        }
+                        : null,
+                backgroundColor:
+                    isValid
+                        ? (isFemale ? selectedColor : AppColors.buttonColor2)
+                        : (isFemale
+                            ? selectedColor.withOpacity(0.1)
+                            : AppColors.buttonColor2.withOpacity(0.1)),
+                borderColor:
+                    isFemale
+                        ? Colors.transparent
+                        : (isValid
+                            ? AppColors.buttonColor2
+                            : AppColors.buttonColor2.withOpacity(0.1)),
+              );
+            }),
+            const SizedBox(height: 60),
+            // Sign In Link
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Already have an account?",
+                  style: getTextStyle(
+                    color: AppColors.textColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
-              SizedBox(height: 60),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () => Get.to(() => LogInScreen()),
+                  child: Text(
+                    "Sign In",
                     style: getTextStyle(
-                      color: AppColors.textColor,
+                      color: isFemale ? selectedColor : AppColors.buttonColor2,
                       fontSize: 14,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => LogInScreen());
-                    },
-                    child: Text(
-                      "Sign In",
-                      style: getTextStyle(
-                        color:
-                            isFemale
-                                ? femaleColorController.selectedColor
-                                : AppColors.buttonColor2,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 }
+// ignore: must_be_immutable
+// class SignUpScreen extends StatelessWidget {
+//   SignUpScreen({super.key});
+//   SignUpController singupController = Get.find<SignUpController>();
+//   @override
+//   Widget build(BuildContext context) {
+//     final femaleColorController = Get.find<PickColorController>();
+//     final bool isFemale = femaleColorController.isFemale.value;
+//     return Scaffold(
+//       backgroundColor: AppColors.loginBg,
+//       appBar: AppBar(
+//         centerTitle: true,
+//         forceMaterialTransparency: true,
+//         title: Text(
+//           'Sign Up',
+//           style: getTextStyle(
+//             color: AppColors.textColor,
+//             fontSize: 24,
+//             fontWeight: FontWeight.w600,
+//           ),
+//         ),
+//       ),
+//       body: SingleChildScrollView(
+//         child: Padding(
+//           padding: EdgeInsets.all(20),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+//               Text(
+//                 'Name',
+//                 style: getTextStyle(
+//                   color: AppColors.textColor,
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w400,
+//                 ),
+//               ),
+//               SizedBox(height: 8),
+//               AuthCustomTextField(
+//                 text: 'Enter your Name',
+//                 onChanged: (value) {
+//                   singupController.validateFrom();
+//                 },
+//                 controller: singupController.nameController,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Enter Your Name';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               SizedBox(height: 20),
+//               Text(
+//                 'Phone Number',
+//                 style: getTextStyle(
+//                   color: AppColors.textColor,
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w400,
+//                 ),
+//               ),
+//               SizedBox(height: 8),
+//               AuthCustomTextField(
+//                 controller: singupController.phoneController1,
+//                 text: 'Enter your Phone Number',
+//                 onChanged: (value) {
+//                   singupController.validateFrom();
+//                 },
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Enter Phone Number e.g:+8801234567891';
+//                   }
+//                   RegExp phoneRegex = RegExp(r'^\+8801[3-9][0-9]{8}$');
+//                   if (!phoneRegex.hasMatch(value)) {
+//                     return 'Invalid phone number format. Use +8801XXXXXXXXX';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               SizedBox(height: 20),
+//               Text(
+//                 'Email',
+//                 style: getTextStyle(
+//                   color: AppColors.textColor,
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w400,
+//                 ),
+//               ),
+//               SizedBox(height: 8),
+//               AuthCustomTextField(
+//                 controller: singupController.emailController1,
+//                 text: 'Enter your Email',
+//                 onChanged: (value) {
+//                   singupController.validateFrom();
+//                 },
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Enter a valid email address';
+//                   }
+
+//                   RegExp emailRegex = RegExp(
+//                     r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+//                   );
+//                   if (!emailRegex.hasMatch(value)) {
+//                     return 'Invalid email format. Example: example@mail.com';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               SizedBox(height: 20),
+//               Text(
+//                 'Password',
+//                 style: getTextStyle(
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w400,
+//                   color: AppColors.textColor,
+//                 ),
+//               ),
+//               SizedBox(height: 8),
+//               Obx(
+//                 () => AuthCustomTextField(
+//                   text: 'Enter your Password',
+//                   onChanged: (value) {
+//                     singupController.validateFrom();
+//                   },
+//                   controller: singupController.passwordController,
+//                   obscureText: singupController.isPasswordVisible.value,
+//                   suffixIcon: IconButton(
+//                     icon: Icon(
+//                       singupController.isPasswordVisible.value
+//                           ? Icons.visibility_off_outlined
+//                           : Icons.visibility_outlined,
+//                       color:
+//                           isFemale
+//                               ? femaleColorController.selectedColor
+//                               : AppColors.buttonColor2,
+//                     ),
+//                     onPressed: singupController.togglePasswordVisibility,
+//                   ),
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return 'Password is required';
+//                     }
+//                     if (value.length < 8) {
+//                       return 'Password must be at least 8 characters';
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//               ),
+//               SizedBox(height: 16),
+//               Text(
+//                 'Retype Password',
+//                 style: getTextStyle(
+//                   color: AppColors.textColor,
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w400,
+//                 ),
+//               ),
+//               SizedBox(height: 8),
+//               Obx(
+//                 () => AuthCustomTextField(
+//                   controller: singupController.retypepasswordController,
+//                   text: 'Enter your Password',
+//                   onChanged: (value) {
+//                     singupController.validateFrom();
+//                   },
+//                   obscureText: singupController.isPasswordVisible1.value,
+//                   suffixIcon: IconButton(
+//                     icon: Icon(
+//                       singupController.isPasswordVisible1.value
+//                           ? Icons.visibility_off_outlined
+//                           : Icons.visibility_outlined,
+//                       color:
+//                           isFemale
+//                               ? femaleColorController.selectedColor
+//                               : AppColors.buttonColor2,
+//                     ),
+//                     onPressed: singupController.togglePasswordVisibility1,
+//                   ),
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return 'Please confirm your password';
+//                     }
+//                     if (value != singupController.passwordController.text) {
+//                       return 'Passwords do not match';
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//               ),
+//               SizedBox(height: 30),
+//               Obx(
+//                 () => CustomButton(
+//                   title: 'Sign Up',
+//                   textColor:
+//                       singupController.isFromValid.value && isFemale
+//                           ? AppColors.primary
+//                           : singupController.isFromValid.value && !isFemale
+//                           ? AppColors.primary
+//                           : !singupController.isFromValid.value && isFemale
+//                           ? Color(0xFFEBA8B5)
+//                           : AppColors.buttonColor2,
+//                   onPress:
+//                       singupController.isFromValid.value
+//                           ? () {
+//                             Get.to(EvenProfileSetupScreen());
+//                           }
+//                           : null,
+//                   backgroundColor:
+//                       singupController.isFromValid.value && isFemale
+//                           ? femaleColorController.selectedColor
+//                           : singupController.isFromValid.value && !isFemale
+//                           ? AppColors.buttonColor2
+//                           : !singupController.isFromValid.value && isFemale
+//                           ? femaleColorController.selectedColor.withValues(
+//                             alpha: 0.1,
+//                           )
+//                           : AppColors.buttonColor2.withValues(alpha: 0.1),
+//                   borderColor:
+//                       isFemale
+//                           ? Colors.transparent
+//                           : singupController.isFromValid.value
+//                           ? AppColors.buttonColor2
+//                           : AppColors.buttonColor2.withValues(alpha: 0.1),
+//                 ),
+//               ),
+//               SizedBox(height: 60),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Text(
+//                     "Already have an account?",
+//                     style: getTextStyle(
+//                       color: AppColors.textColor,
+//                       fontSize: 14,
+//                       fontWeight: FontWeight.w400,
+//                     ),
+//                   ),
+//                   SizedBox(width: 8),
+//                   GestureDetector(
+//                     onTap: () {
+//                       Get.to(() => LogInScreen());
+//                     },
+//                     child: Text(
+//                       "Sign In",
+//                       style: getTextStyle(
+//                         color:
+//                             isFemale
+//                                 ? femaleColorController.selectedColor
+//                                 : AppColors.buttonColor2,
+//                         fontSize: 14,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

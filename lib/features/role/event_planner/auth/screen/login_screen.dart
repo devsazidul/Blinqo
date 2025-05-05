@@ -11,8 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
+
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
+
   final LoginController loginController = Get.find<LoginController>();
 
   @override
@@ -21,7 +23,7 @@ class LogInScreen extends StatelessWidget {
     final PickColorController femaleColorController = Get.put(
       PickColorController(),
     );
-    final bool isFemale = femaleColorController.isFemale.value;
+
     return Scaffold(
       backgroundColor: AppColors.loginBg,
       appBar: AppBar(
@@ -38,12 +40,12 @@ class LogInScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           child: Form(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,19 +60,21 @@ class LogInScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 AuthCustomTextField(
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    loginController.validateForm();
+                  },
                   controller: loginController.emailController,
                   text: 'Enter your email',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Incorrect email or password';
+                      return 'Please enter your email';
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,51 +82,87 @@ class LogInScreen extends StatelessWidget {
                     Text(
                       'Password',
                       style: getTextStyle(
-                        color: Color(0xFF333333),
+                        color: const Color(0xFF333333),
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
-                Obx(() {
-                  return AuthCustomTextField(
+                const SizedBox(height: 8),
+                Obx(
+                  () => AuthCustomTextField(
                     onChanged: (value) {
-                      loginController.validateFrom();
+                      loginController.validateForm();
                     },
                     text: 'Enter your password',
-                    controller: loginController.passwordControler,
-                    obscureText: loginController.isPasswordVisible.value,
+                    controller: loginController.passwordController,
+                    obscureText: !loginController.isPasswordVisible.value,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        loginController.isPasswordVisible.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: AppColors.textColor,
+                      ),
+                      onPressed: loginController.togglePasswordVisibility,
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Incorrect email or password';
+                        return 'Please enter your password';
                       }
                       return null;
                     },
-                  );
-                }),
-                SizedBox(height: screenHeight * 0.04),
+                  ),
+                ),
+                const SizedBox(height: 20),
                 Obx(
-                  () => CustomButton(
-                    title: 'Log In',
+                  () =>
+                      loginController.errorMessage.isNotEmpty
+                          ? Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: Text(
+                              loginController.errorMessage.value,
+                              style: getTextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          )
+                          : const SizedBox.shrink(),
+                ),
+                Obx(() {
+                  final bool isFemale = femaleColorController.isFemale.value;
+                  return CustomButton(
+                    title:
+                        loginController.isLoading.value
+                            ? 'Logging In...'
+                            : 'Log In',
                     textColor:
-                        loginController.isFromValid.value && isFemale
+                        loginController.isFormValid.value && isFemale
                             ? AppColors.primary
-                            : loginController.isFromValid.value && !isFemale
+                            : loginController.isFormValid.value && !isFemale
                             ? AppColors.primary
-                            : !loginController.isFromValid.value && isFemale
-                            ? Color(0xFFEBA8B5)
+                            : !loginController.isFormValid.value && isFemale
+                            ? const Color(0xFFEBA8B5)
                             : AppColors.buttonColor2,
-                    onPress: () {
-                      Get.to((EventBottomNavBar()));
-                    },
+                    onPress:
+                        loginController.isFormValid.value &&
+                                !loginController.isLoading.value
+                            ? () async {
+                              final success = await loginController.login();
+                              if (success) {
+                                Get.offAll(() => const EventBottomNavBar());
+                              }
+                            }
+                            : null,
                     backgroundColor:
-                        loginController.isFromValid.value && isFemale
+                        loginController.isFormValid.value && isFemale
                             ? femaleColorController.selectedColor
-                            : loginController.isFromValid.value && !isFemale
+                            : loginController.isFormValid.value && !isFemale
                             ? AppColors.buttonColor2
-                            : !loginController.isFromValid.value && isFemale
+                            : !loginController.isFormValid.value && isFemale
                             ? femaleColorController.selectedColor.withValues(
                               alpha: 0.1,
                             )
@@ -130,17 +170,17 @@ class LogInScreen extends StatelessWidget {
                     borderColor:
                         isFemale
                             ? Colors.transparent
-                            : loginController.isFromValid.value
+                            : loginController.isFormValid.value
                             ? AppColors.buttonColor2
                             : AppColors.buttonColor2.withValues(alpha: 0.1),
-                  ),
-                ),
-                SizedBox(height: 16),
+                  );
+                }),
+                const SizedBox(height: 16),
                 Align(
                   alignment: Alignment.center,
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(() => ForgetPasswordScreen());
+                      Get.to(() => const ForgetPasswordScreen());
                     },
                     child: Text(
                       'Forgot Password?',
@@ -153,32 +193,33 @@ class LogInScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.25),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don not have an account?",
+                      "Don't have an account?",
                       style: getTextStyle(
                         color: AppColors.textColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => SignUpScreen());
+                        Get.to(() => const SignUpScreen());
                       },
-                      child: Text(
-                        "Sign Up",
-                        style: getTextStyle(
-                          color:
-                              isFemale
-                                  ? femaleColorController.selectedColor
-                                  : AppColors.buttonColor2,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                      child: Obx(
+                        () => Text(
+                          "Sign Up",
+                          style: getTextStyle(
+                            color:
+                                femaleColorController.isFemale.value
+                                    ? femaleColorController.selectedColor
+                                    : AppColors.buttonColor2,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),

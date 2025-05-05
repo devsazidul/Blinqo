@@ -11,10 +11,11 @@ import '../controller/otp_controller.dart';
 
 class OTPScreen extends StatelessWidget {
   final int? isSelect;
+  final String? email;
   // Get the OTP controller instance using Get.find()
   final OTPController otpController = Get.put(OTPController());
 
-  OTPScreen({super.key, this.isSelect});
+  OTPScreen({super.key, this.isSelect, this.email});
 
   @override
   Widget build(BuildContext context) {
