@@ -110,7 +110,7 @@ class OwnerNetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: responseData.body,
+          errorMessage: jsonDecode(responseData.body)['message'],
         );
       }
     } catch (e) {
@@ -149,7 +149,7 @@ class OwnerNetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: response.body,
+          errorMessage: jsonDecode(response.body)['message'],
         );
       }
     } catch (e) {
