@@ -45,7 +45,7 @@ class VenueSetupScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // name text field
-                    _buildTextField('Enter your name', 'Name'),
+                    _buildTextField('Venue Name', 'Venue Name'),
                     SizedBox(height: 16),
                     // Location text field
                     _buildTextField('Enter your location', 'Location'),

@@ -18,23 +18,22 @@ class VenueProfileScreen extends StatelessWidget {
     final VenueProfileSetupController profileSetupController = Get.put(
       VenueProfileSetupController(),
     );
-    // Get the current theme mode (light or dark)
     final bool isDarkMode = controller.isDarkMode.value;
+    final formKey = GlobalKey<FormState>();
+
     return Scaffold(
       backgroundColor:
-      isDarkMode
-          ? AppColors.darkBackgroundColor
-          : AppColors.backgroundColor,
+          isDarkMode
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: 20),
-                // profile setup text
                 Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -47,31 +46,27 @@ class VenueProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                // profile image
                 Stack(
                   children: [
                     Center(
                       child: Obx(
-                            () =>
-                            CircleAvatar(
-                              radius: 48,
-                              backgroundColor: Color(0xffD9D9D9),
-                              backgroundImage:
+                        () => CircleAvatar(
+                          radius: 48,
+                          backgroundColor: Color(0xffD9D9D9),
+                          backgroundImage:
                               profileSetupController.profileImage.value != null
                                   ? FileImage(
-                                profileSetupController.profileImage.value!,
-                              )
+                                    profileSetupController.profileImage.value!,
+                                  )
                                   : null,
-                            ),
+                        ),
                       ),
                     ),
                     Positioned(
                       top: 65,
                       left: 195,
                       child: GestureDetector(
-                        onTap: () {
-                          controller.pickImage();
-                        },
+                        onTap: () => profileSetupController.pickImage(),
                         child: CircleAvatar(
                           backgroundColor: Color(0xffD4AF37),
                           radius: 14,
@@ -86,29 +81,44 @@ class VenueProfileScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 20),
-
                 Form(
+                  key: formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     children: [
-                      // name text field
-                      _buildTextField('Enter your Username', 'Username',validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your username';
+                      _buildTextField(
+                        hintText: 'Enter your Username',
+                        labelText: 'Username',
+                        controller: profileSetupController.nameController,
+                        validator: (value){
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your username';
+                          } if(value.length < 3) {
+                            return 'Username must be at least 3 characters';
+                          } if(value.length > 15) {
+                            return 'Username must be less than 15 characters';
+                          } if(!RegExp(r'^[a-z0-9_]+$').hasMatch(value)) {
+                            return 'Username can only contain lowercase letters, numbers, and underscores';
+                          }
+                          return null;
                         }
-                        // only allow lowercase letter, numbers, and underscores
-                        if (!RegExp(r'^[a-z0-9_]+$').hasMatch(value)) {
-                          return 'Username can only contain letters, numbers, and underscores';
-                        }
-                        return null;
-                      }),
+                      ),
                       SizedBox(height: 20),
-                      // Location text field
-                      _buildTextField('Enter your location', 'Location'),
+                      _buildTextField(
+                        hintText: 'Enter your location',
+                        labelText: 'Location',
+                        controller: profileSetupController.locationController,
+                        validator: (value){
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your location';
+                          }
+                          return null;
+                        }
+                      ),
                       SizedBox(height: 40),
                     ],
                   ),
                 ),
-                // Upgrade to pro container
                 Container(
                   padding: EdgeInsets.all(12),
                   width: double.infinity,
@@ -142,9 +152,7 @@ class VenueProfileScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 12),
                       ElevatedButton(
-                        onPressed: () {
-                          Get.off(VGetVerifiedScreen());
-                        },
+                        onPressed: () => Get.off(VGetVerifiedScreen()),
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(
                             vertical: 12,
@@ -168,13 +176,14 @@ class VenueProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 40),
-
-                // Continue button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(VenueSetupScreen());
+                      if (formKey.currentState!.validate()) {
+                        // profileSetupController.submitProfile();
+                        Get.to(VenueSetupScreen());
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(
@@ -197,42 +206,6 @@ class VenueProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Skip button elevated button
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: ElevatedButton(
-                //     onPressed: () {
-                //       Get.to(VenueSetupScreen());
-                //     },
-                //     style: ElevatedButton.styleFrom(
-                //       padding: EdgeInsets.symmetric(vertical: 12),
-                //       backgroundColor:
-                //       isDarkMode
-                //           ? AppColors.darkBackgroundColor
-                //           : AppColors.backgroundColor,
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(12),
-                //         side: BorderSide(
-                //           width: 1,
-                //           color:
-                //           isDarkMode
-                //               ? Color(0xff003366)
-                //               : Color(0xff003366),
-                //         ),
-                //       ),
-                //     ),
-                //     child: Text(
-                //       'Skip',
-                //       style: getTextStyle(
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.w500,
-                //         color:
-                //         isDarkMode ? Color(0xffE6EBF0) : Color(0xff003366),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                SizedBox(height: 20),
               ],
             ),
           ),
@@ -241,21 +214,18 @@ class VenueProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(String hintText, String labelText,
-      {String? Function(String?)? validator}) {
-    final VenueOwnerProfileController controller = Get.put(
+  Widget _buildTextField({
+    required String hintText,
+    required String labelText,
+    String? Function(String?)? validator,
+    required TextEditingController controller,
+  }) {
+    final VenueOwnerProfileController profileController = Get.put(
       VenueOwnerProfileController(),
     );
-    // dark theme text field
-    final bool isDarkMode = controller.isDarkMode.value;
+    final bool isDarkMode = profileController.isDarkMode.value;
     return TextFormField(
-      // validate on user interaction
-      onChanged: (value) {
-        if (validator != null) {
-          validator(value);
-        }
-      },
-
+      controller: controller,
       validator: validator,
       style: getTextStyle(
         fontSize: 14,
