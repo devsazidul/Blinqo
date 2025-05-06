@@ -1,7 +1,10 @@
 import 'package:blinqo/core/urls/endpoint.dart';
-import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/auth/model/auth_model.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_confirm_email_verify_otp_screen.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -54,22 +57,76 @@ class SpLoginController extends GetxController {
 
     if (response.isSuccess) {
       AuthModel authModel = AuthModel.fromJson(response.responseData['data']);
-      // if (!authModel.user.isVerified) {
-      //   // Get.to(() => SpOtpSendScreen(email: authModel.user.email));
-      //   EasyLoading.showSuccess('Please verify your email address');
-      //   _errorMessage = 'Please verify your email address';
-      //   // Get.to(SpOtpSendScreen(email: authModel.user.email));
-      //   isSuccess = true;
-      // } else
+
       if (!authModel.user.roles.contains('SERVICE_PROVIDER')) {
-        EasyLoading.showError('You are not a service provider user');
-        _errorMessage = 'Please sign up as a service provider';
-        return false;
+        EasyLoading.dismiss();
+        bool? wantToBeServiceProvider = await Get.dialog<bool>(
+          AlertDialog(
+            title: const Text(
+              'You are not a service provider user!',
+              textAlign: TextAlign.center,
+            ),
+            titleTextStyle: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+            content: const Text(
+              'Do you want to create a profile as a service provider?',
+            ),
+            contentTextStyle: const TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Get.back(result: false),
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('No'),
+              ),
+              TextButton(
+                onPressed: () => Get.back(result: true),
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        );
+
+        if (wantToBeServiceProvider == true) {
+          // final response = await Get.find<SpNetworkCaller>().patchRequest(
+          //   '${Urls.baseUrl}/auth/update-role',
+          //   {'userId': authModel.user.id, 'role': 'SERVICE_PROVIDER'},
+          // );
+
+          // if (response.isSuccess) {
+          //   await SpAuthController.saveUserInformation(
+          //     accessToken: authModel.accessToken,
+          //     user: authModel.user,
+          //   );
+          if (SpAuthController.userModel?.isProfileCreated == true) {
+            Get.offAll(() => SpBottomNavBarScreen());
+          } else {
+            Get.offAll(() => const SpProfileSetupScreen());
+          }
+          //   return true;
+          // } else {
+          //   EasyLoading.showError(response.errorMessage);
+          //   return false;
+          // }
+        }
       } else {
         await SpAuthController.saveUserInformation(
-          authModel.accessToken,
-          authModel.user,
+          accessToken: authModel.accessToken,
+          user: authModel.user,
         );
+        await Get.find<SpGetUserInfoController>().getUserInfo();
         isSuccess = true;
         EasyLoading.showSuccess(response.responseData['message']);
       }

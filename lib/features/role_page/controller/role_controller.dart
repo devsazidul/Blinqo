@@ -1,12 +1,14 @@
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
-import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/onboarding_screen/screen/venue_onboarding_screen.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 class RoleController extends GetxController {
   var selectedIndex = (-1).obs;
@@ -32,9 +34,15 @@ class RoleController extends GetxController {
         }
         break;
       case 2:
+        Logger().e(SpAuthController.userInfoModel);
         if (SpAuthController.token != null &&
-            SpAuthController.userModel!.roles.contains('SERVICE_PROVIDER')) {
-          Get.to(() => ProfileSetupScreen());
+            SpAuthController.userInfoModel?.role.contains('SERVICE_PROVIDER') ==
+                true) {
+          if (SpAuthController.userModel?.isProfileCreated == true) {
+            Get.to(() => SpBottomNavBarScreen());
+          } else {
+            Get.to(() => SpProfileSetupScreen());
+          }
         } else {
           Get.to(() => OnbordingScreen());
         }

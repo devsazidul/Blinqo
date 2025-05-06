@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/event_preference_model.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -23,22 +25,18 @@ class SpProfileSetupController extends GetxController {
   late GoogleMapController mapController;
   final LatLng center = const LatLng(37.7749, -122.4194);
   Set<Marker> markers = {};
-  Set<Marker> get mapMarkers => markers;
-  var selectedRoles = "Photographer".obs;
-  var roles = ["Photographer", "Videographer", "DJ Brand", "Catering"];
-  var selectedEvents = <String>[].obs;
 
-  var eventsRoles = [
-    "Corporate",
-    "Weddings",
-    "Music Festivals",
-    "Exhibitions",
-    "Concerts",
-    "Charity Events",
-    "Private Parties",
-    "Product Launches",
-    "Trade Shows",
-  ];
+  // var eventsRoles = [
+  //   "Corporate",
+  //   "Weddings",
+  //   "Music Festivals",
+  //   "Exhibitions",
+  //   "Concerts",
+  //   "Charity Events",
+  //   "Private Parties",
+  //   "Product Launches",
+  //   "Trade Shows",
+  // ];
 
   var profileImage = Rx<File?>(null);
 
@@ -47,7 +45,7 @@ class SpProfileSetupController extends GetxController {
 
     final ImagePicker picker = ImagePicker();
 
-    final ImageSource? source = await showPickrOption();
+    final ImageSource? source = await showPickerOption();
 
     if (source != null) {
       final XFile? pickedFile = await picker.pickImage(source: source);
@@ -71,7 +69,7 @@ class SpProfileSetupController extends GetxController {
     }
   }
 
-  Future<ImageSource?> showPickrOption() async {
+  Future<ImageSource?> showPickerOption() async {
     return await Get.bottomSheet(
       Container(
         padding: EdgeInsets.all(20),
@@ -114,10 +112,10 @@ class SpProfileSetupController extends GetxController {
   var coverImage = Rx<File?>(null); // To hold the selected cover image
 
   Future<void> pickCoverImage() async {
-    await coverrequestPermissions();
+    await coverRequestPermissions();
 
     final ImagePicker picker = ImagePicker();
-    final ImageSource? source = await covershowImagePickerOptions();
+    final ImageSource? source = await coverShowImagePickerOptions();
 
     if (source != null) {
       final XFile? pickedFile = await picker.pickImage(source: source);
@@ -130,7 +128,7 @@ class SpProfileSetupController extends GetxController {
     }
   }
 
-  Future<void> coverrequestPermissions() async {
+  Future<void> coverRequestPermissions() async {
     PermissionStatus cameraStatus = await Permission.camera.request();
     PermissionStatus storageStatus = await Permission.storage.request();
 
@@ -141,7 +139,7 @@ class SpProfileSetupController extends GetxController {
     }
   }
 
-  Future<ImageSource?> covershowImagePickerOptions() async {
+  Future<ImageSource?> coverShowImagePickerOptions() async {
     return await Get.bottomSheet(
       Container(
         padding: EdgeInsets.all(20),
@@ -169,21 +167,6 @@ class SpProfileSetupController extends GetxController {
         ),
       ),
     );
-  }
-
-  // selected roles
-  void updateRoles(String newRole) {
-    selectedRoles.value = newRole;
-  }
-
-  void toggleEventSelection(String event) {
-    if (selectedEvents.contains(event)) {
-      selectedEvents.remove(event);
-    } else {
-      selectedEvents.add(event);
-    }
-    debugPrint('Selected events: $selectedEvents');
-    update();
   }
 
   // google map
@@ -222,6 +205,34 @@ class SpProfileSetupController extends GetxController {
     }
   }
 
+  Set<Marker> get mapMarkers => markers;
+  var selectedRoles = "PHOTOGRAPHER".obs;
+  var roles = [
+    "PHOTOGRAPHER",
+    "VIDEOGRAPHER",
+    "DJ_BAND",
+    "CATERING",
+    "ENTERTAINER",
+  ];
+  var selectedEvents = <String>[].obs;
+
+  // selected roles
+  void updateRoles(String newRole) {
+    selectedRoles.value = newRole;
+  }
+
+  void toggleEventSelection(String eventId) {
+    if (selectedEvents.contains(eventId)) {
+      selectedEvents.remove(eventId);
+    } else {
+      selectedEvents.add(eventId);
+    }
+    debugPrint('Selected events: $selectedEvents');
+    update();
+  }
+
+  /// ------------------------------------------------
+  /// Event Preference
   /// ------------------------------------------------
   RxBool isLoadingEventPreference = false.obs;
   final RxList<EventPreferenceModel> eventPreferenceList =
@@ -250,14 +261,58 @@ class SpProfileSetupController extends GetxController {
     isLoadingEventPreference.value = false;
   }
 
-  // Profile Setup
-  // api_service.dart
+  /// ------------------------------------------------
+  /// Profile Setup
+  /// ------------------------------------------------
+  RxBool isLoadingServiceProviderSetup = false.obs;
+  Future<bool> serviceProviderSetup() async {
+    EasyLoading.show(status: 'Loading...');
+    bool isSuccess = false;
+    isLoadingServiceProviderSetup.value = true;
+    update();
+
+    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+      url: Urls.uploadServiceProviderProfile,
+      formFields: {
+        'eventPreferenceIds': selectedEvents.join(','),
+        'serviceProviderRole': selectedRoles.value,
+        'description': descriptionController.text,
+        'experience': experienceYearController.text,
+        'userId': SpAuthController.userModel?.id ?? '',
+        'location': locationController.text,
+        'name': nameController.text,
+      },
+      files: [
+        if (profileImage.value != null)
+          await http.MultipartFile.fromPath('image', profileImage.value!.path),
+        if (coverImage.value != null)
+          await http.MultipartFile.fromPath(
+            'coverPhoto',
+            coverImage.value!.path,
+          ),
+      ],
+    );
+    if (response.isSuccess) {
+      await SpAuthController.saveUserInformation(
+        accessToken: SpAuthController.token,
+        user: SpAuthController.userModel,
+      );
+      EasyLoading.dismiss();
+
+      isSuccess = true;
+      EasyLoading.showSuccess('Profile setup successful');
+    } else {
+      EasyLoading.dismiss();
+      EasyLoading.showError(response.errorMessage);
+    }
+    isLoadingServiceProviderSetup.value = false;
+    update();
+    return isSuccess;
+  }
 
   Future<void> uploadServiceProviderProfile() async {
     Logger logger = Logger();
-    final uri = Uri.parse(
-      '${Urls.baseUrl}${"/profile/service-provider-setup"}',
-    );
+    final uri = Uri.parse(Urls.uploadServiceProviderProfile);
     final request = http.MultipartRequest('POST', uri);
     Map<String, String> formFields = {
       'eventPreferenceIds': selectedEvents.join(','),
@@ -270,7 +325,7 @@ class SpProfileSetupController extends GetxController {
     };
 
     // Add authorization header
-    request.headers['Authorization'] = SpAuthController.token ?? '';
+    request.headers['Authorization'] = "Bearer ${SpAuthController.token}";
     // Content-Type is automatically set by MultipartRequest, so no need to add manually
 
     // Add form fields
@@ -294,23 +349,24 @@ class SpProfileSetupController extends GetxController {
       request.files.add(coverPhoto);
     }
 
-    logger.d(request.fields);
-    logger.d(request.files);
+    logger.i(request.fields);
+    logger.i(request.files.length);
     try {
       final response = await request.send();
-      logger.d(response.statusCode);
-      if (response.statusCode == 200) {
+      logger.i(response.statusCode);
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final respStr = await response.stream.bytesToString();
-        logger.d(respStr);
-        print('Upload successful: $respStr');
+        logger.i(respStr);
+        logger.i('Upload successful: $respStr');
+        Get.offAll(SpBottomNavBarScreen());
       } else {
         final error = await response.stream.bytesToString();
-        logger.d(
+        logger.e(
           'Upload failed with status: ${response.statusCode}, Error: $error',
         );
       }
     } catch (e) {
-      logger.d('Error during upload: $e');
+      logger.e('Error during upload: $e');
     }
   }
 }
