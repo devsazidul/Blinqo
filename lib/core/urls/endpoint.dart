@@ -28,4 +28,8 @@ class Urls {
   static const String venueOwnerSetupProfile =
       '$baseUrl/profile/venue-owner-setup';
 
+  static const String uploadServiceProviderProfile =
+      '$baseUrl/profile/service-provider-setup';
+
+  static const String getUserInfo = '$baseUrl/auth/user-info';
 }

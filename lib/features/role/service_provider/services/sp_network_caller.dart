@@ -1,12 +1,16 @@
 import 'dart:convert';
 
-import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 class SpNetworkCaller {
   final Logger _logger = Logger();
+
+  //* ------------------------------------------------
+  //* get request
+  //* ------------------------------------------------
   Future<SpNetworkResponse> getRequest(
     String url, {
     String? accessToken,
@@ -43,7 +47,9 @@ class SpNetworkCaller {
     }
   }
 
-  // post request
+  //* ------------------------------------------------
+  //* post request
+  //* ------------------------------------------------
   Future<SpNetworkResponse> postRequest(
     String url,
     Map<String, dynamic>? body,
@@ -85,7 +91,63 @@ class SpNetworkCaller {
     }
   }
 
-  // patch request
+  //* ------------------------------------------------
+  //* Multipart Request
+  //* ------------------------------------------------
+  Future<SpNetworkResponse> multipartRequest({
+    required String url,
+    Map<String, String>? formFields,
+    List<http.MultipartFile>? files,
+  }) async {
+    try {
+      Uri uri = Uri.parse(url);
+      final headers = {"Content-Type": "multipart/form-data"};
+      if (SpAuthController.token != null) {
+        headers['Authorization'] = "Bearer ${SpAuthController.token}";
+      }
+      final request = http.MultipartRequest('POST', uri);
+      request.headers.addAll(headers);
+      if (formFields != null) {
+        request.fields.addAll(formFields);
+        _logger.i('Form Fields => $formFields');
+      }
+      if (files != null) {
+        for (var file in files) {
+          request.files.add(file);
+          _logger.i('File => $file');
+        }
+      }
+      _logger.i('Request => $request');
+      final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        _logger.i('Url => $url\nResponse => $responseBody');
+        return SpNetworkResponse(
+          isSuccess: true,
+          statusCode: response.statusCode,
+          responseData: jsonDecode(responseBody),
+        );
+      } else {
+        _logger.e('Url => $url\nResponse => $responseBody');
+        return SpNetworkResponse(
+          isSuccess: false,
+          statusCode: response.statusCode,
+          errorMessage: responseBody,
+        );
+      }
+    } catch (e) {
+      _logger.e('Url => $url\nError => $e');
+      return SpNetworkResponse(
+        isSuccess: false,
+        statusCode: -1,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
+  //* ------------------------------------------------
+  //* patch request
+  //* ------------------------------------------------
   Future<SpNetworkResponse> patchRequest(
     String url,
     Map<String, dynamic>? body,
@@ -125,7 +187,9 @@ class SpNetworkCaller {
     }
   }
 
-  // delete request
+  //* ------------------------------------------------
+  //* delete request
+  //* ------------------------------------------------
   Future<SpNetworkResponse> deleteRequest(String url) async {
     try {
       Uri uri = Uri.parse(url);

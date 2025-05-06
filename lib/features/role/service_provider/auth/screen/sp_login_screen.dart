@@ -7,7 +7,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_controller.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/profile_setup_screen.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -130,7 +130,7 @@ class SpLoginScreen extends StatelessWidget {
                             SpProfileSetupController(),
                           ).getEventPreferences();
                           Get.offAll(
-                            ProfileSetupScreen(),
+                            SpProfileSetupScreen(),
                             predicate: (route) => false,
                           );
                         }

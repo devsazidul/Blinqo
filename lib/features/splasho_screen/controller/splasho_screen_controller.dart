@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/service_provider/auth/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:get/get.dart';
 

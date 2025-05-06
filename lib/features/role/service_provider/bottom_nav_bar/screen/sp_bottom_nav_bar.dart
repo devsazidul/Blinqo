@@ -11,8 +11,8 @@ import 'package:get/get.dart';
 
 import '../controller/bottom_nav_controller.dart';
 
-class BottomNavBar extends StatelessWidget {
-  BottomNavBar({super.key});
+class SpBottomNavBarScreen extends StatelessWidget {
+  SpBottomNavBarScreen({super.key});
   final SpProfileController spProfileController = Get.put(
     SpProfileController(),
   );

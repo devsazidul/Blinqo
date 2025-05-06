@@ -24,7 +24,7 @@ import 'package:blinqo/features/role/service_provider/auth/screen/sp_change_pass
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_signup_screen.dart';
-import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/bottom_nav_bar.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_congratulations_page.dart';
@@ -186,7 +186,7 @@ class AppRoute {
     GetPage(name: addShift, page: () => Addshift()),
     // GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: onbordingScreen, page: () => OnbordingScreen()),
-    GetPage(name: bottomNavBar, page: () => BottomNavBar()),
+    GetPage(name: bottomNavBar, page: () => SpBottomNavBarScreen()),
     GetPage(name: spHomePage, page: () => SpHomePage()),
     GetPage(name: spEarningPage, page: () => SpEarningPage()),
     GetPage(name: spBookingPage, page: () => SpBookingPage()),

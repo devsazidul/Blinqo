@@ -4,6 +4,7 @@ class UserModel {
   final List<String> roles;
   final bool isVerified;
   final String profileId;
+  final bool isProfileCreated;
 
   UserModel({
     required this.id,
@@ -11,6 +12,7 @@ class UserModel {
     required this.roles,
     required this.isVerified,
     required this.profileId,
+    required this.isProfileCreated,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class UserModel {
       roles: json['roles'] != null ? List<String>.from(json['roles']) : [],
       isVerified: json['isVerified'] ?? false,
       profileId: json['profileId'] ?? '',
+      isProfileCreated: json['isProfileCreated'] ?? false,
     );
   }
 
@@ -30,6 +33,7 @@ class UserModel {
       'roles': roles,
       'isVerified': isVerified,
       'profileId': profileId,
+      'isProfileCreated': isProfileCreated,
     };
   }
 }
