@@ -32,4 +32,8 @@ class Urls {
       '$baseUrl/profile/service-provider-setup';
 
   static const String getUserInfo = '$baseUrl/auth/user-info';
+  static const String eventDecorationEnum = '$baseUrl/booking/decoration_enum';
+  static const String eventAmenities = '$baseUrl/amenities/get-all-amenities';
+  static const String createAmenity = '$baseUrl/amenities/create-amenity';
+  static const String venueCreate = '$baseUrl/venue/create';
 }

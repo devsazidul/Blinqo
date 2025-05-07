@@ -15,7 +15,7 @@ class EvenAuthController {
   }
 
 
-  static Future<void> saveAuthToken(String token, String role, User user) async {
+  static Future<void> saveAuthToken(String token, String role, EventUser user) async {
     try {
       final prefs = await _getPreferences();
       await prefs.setString(_tokenKey, token);
@@ -50,13 +50,13 @@ class EvenAuthController {
   }
 
   // Retrieve user information from SharedPreferences
-  static Future<User?> getUserInfo() async {
+  static Future<EventUser?> getUserInfo() async {
     try {
       final prefs = await _getPreferences();
       String? userInfoString = prefs.getString(userInfo);
       if (userInfoString != null) {
         Map<String, dynamic> userJson = json.decode(userInfoString);
-        return User.fromJson(userJson);
+        return EventUser.fromJson(userJson);
       }
       return null;
     } catch (e) {
@@ -71,7 +71,7 @@ class EvenAuthController {
       final prefs = await _getPreferences();
       await prefs.remove(_tokenKey);
       await prefs.remove(_roleKey);
-      await prefs.remove(userInfo); // Remove user data as well
+      await prefs.remove(userInfo);
     } catch (e) {
       EasyLoading.showError("Error removing auth token: $e");
       throw Exception("Error removing auth token");

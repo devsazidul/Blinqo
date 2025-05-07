@@ -50,7 +50,7 @@ class VenueLoginController extends GetxController {
         // Save the authentication token after a successful login
         String token = response.body['data']?['access_token'];
         var roles = response.body['data']?['user']?['roles'];
-        User user = User.fromJson(response.body['data']['user']);
+        EventUser user = EventUser.fromJson(response.body['data']['user']);
 
         if (token != null && roles != null && roles.isNotEmpty) {
           String role = roles[0];

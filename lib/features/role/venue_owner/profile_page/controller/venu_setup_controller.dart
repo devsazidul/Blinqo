@@ -1,27 +1,23 @@
 import 'dart:io';
+
+import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
-import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/Model/event_decoration_model.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 
-import '../../../../../core/common/styles/global_text_style.dart';
-import '../../../../../core/utils/constants/colors.dart';
-import '../../authentication/model/login_model.dart';
+class VenueSetupController extends GetxController {
+  var venueImage = Rx<File?>(null);
+  var seatArrangementImage = Rx<File?>(null);
 
-class VenueProfileSetupController extends GetxController {
-  var profileImage = Rx<File?>(null);
-  TextEditingController nameController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  var name = ''.obs;
-  var location = ''.obs;
-  var userId = ''.obs;
+  var venuDecorationOption = Rxn<VenuDecorationOption>();
+  var isLoading = false.obs;
 
   final _logger = Logger(
     printer: PrettyPrinter(
@@ -34,19 +30,36 @@ class VenueProfileSetupController extends GetxController {
     ),
   );
 
+  // Selected options for each category
+  var selectedTableShapes = <String>[].obs;
+  var selectedSeatingStyles = <String>[].obs;
+  var selectedLightingStyles = <String>[].obs;
+  var selectedFlowerColors = <String>[].obs;
+  var selectedFlowerTypes = <String>[].obs;
+  var selectedFragrances = <String>[].obs;
 
-  Future<void> pickImage() async {
+  @override
+  void onInit() {
+    super.onInit();
+    fetchDecorationOptions();
+  }
+
+  // Generic method to handle image selection
+  Future<void> pickImage(String imageType) async {
     await requestPermissions();
 
     final ImagePicker picker = ImagePicker();
-
     final ImageSource? source = await showPickrOption();
 
     if (source != null) {
       final XFile? pickedFile = await picker.pickImage(source: source);
 
       if (pickedFile != null) {
-        profileImage.value = File(pickedFile.path);
+        if (imageType == 'venue') {
+          venueImage.value = File(pickedFile.path);
+        } else if (imageType == 'seat') {
+          seatArrangementImage.value = File(pickedFile.path);
+        }
       } else {
         debugPrint("No image selected");
       }
@@ -136,72 +149,43 @@ class VenueProfileSetupController extends GetxController {
     );
   }
 
-  //--------------------------------------------------------
-  // Submit profile data to the server
-  //--------------------------------------------------------
-
-  Future<void> submitProfile() async {
-    _logger.i('Starting profile submission process');
-
-    // Validate inputs
-
-    if (profileImage.value == null) {
-      EasyLoading.showError('Please select a profile image');
-      return;
-    }
-
-    _logger.i(
-      'Validation passed: Image: ${profileImage.value?.path}, Name: ${name.value}, Location: ${location.value}',
-    );
-
-    // Fetch user data
-    _logger.d('Fetching user info and auth token');
-    EventUser? user = await EvenAuthController.getUserInfo();
-    String? token = await EvenAuthController.getAuthToken();
-    userId.value = user?.id ?? '';
-    _logger.i('User info fetched - UserID: ${userId.value}, Token: $token');
-
-    if (userId.value.isEmpty) {
-      _logger.w('User ID is empty, cannot proceed with submission');
-      EasyLoading.showError('Failed to fetch user ID');
-      return;
-    }
-
-    // Prepare request data
-    _logger.d('Preparing multipart request data');
-    var body = {
-      'location': location.value,
-      'name': name.value,
-      'userId': userId.value,
-    };
-    _logger.i('Request body prepared: $body');
-    _logger.d('Preparing image file for upload: ${profileImage.value?.path}');
-
-    // Send request
-    _logger.i('Sending multipart request to ${Urls.venueOwnerSetupProfile}');
-    var request = await OwnerNetworkCaller().postRequest(
-      Url: Urls.venueOwnerSetupProfile,
-      body: body,
-      files: [
-        await http.MultipartFile.fromPath('image', profileImage.value!.path),
-      ],
-      isMultipart: true,
-    );
-
-    // Handle response
-    if (request.isSuccess) {
-      _logger.i(
-        'Profile submission successful - Status: ${request.statusCode}, Response: ${request.body}',
+  Future<void> fetchDecorationOptions() async {
+    _logger.i('Fetching venue decoration options');
+    isLoading.value = true;
+    try {
+      var response = await OwnerNetworkCaller().getRequest(
+        Url: Urls.eventDecorationEnum,
       );
-      EasyLoading.showSuccess('Profile updated successfully');
-      Get.to(VenueSetupScreen());
+
+      if (response.isSuccess) {
+        _logger.i('Decoration options fetched successfully: ${response.body}');
+
+        venuDecorationOption.value = VenuDecorationOption.fromJson(response.body);
+        // Filter options based on specific criteria
+        selectedTableShapes.value = venuDecorationOption.value?.tableShape?.where((option) => ['Round', 'Oval', 'Hexagonal'].contains(option)).toList() ?? [];
+        selectedSeatingStyles.value = venuDecorationOption.value?.seatingStyle?.where((option) => ['Banquet'].contains(option)).toList() ?? [];
+        selectedLightingStyles.value = venuDecorationOption.value?.lightingStyle?.where((option) => ['Ambient'].contains(option)).toList() ?? [];
+        selectedFlowerColors.value = venuDecorationOption.value?.flowerColor?.where((option) => ['White'].contains(option)).toList() ?? [];
+        selectedFlowerTypes.value = venuDecorationOption.value?.flowerType?.where((option) => ['Roses'].contains(option)).toList() ?? [];
+        selectedFragrances.value = venuDecorationOption.value?.fragrance?.where((option) => ['Floral Scents'].contains(option)).toList() ?? [];
+      } else {
+        _logger.w('Failed to fetch decoration options: ${response.errorMessage}');
+        EasyLoading.showError('Failed to load options: ${response.errorMessage}');
+      }
+    } catch (e) {
+      _logger.e('Error fetching decoration options: $e');
+      EasyLoading.showError('Error: $e');
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  void toggleSelection(String option, List<String> selectedList) {
+    if (selectedList.contains(option)) {
+      selectedList.remove(option);
     } else {
-      _logger.e(
-        'Profile submission failed - Status: ${request.statusCode}, Error: ${request.errorMessage}',
-      );
-      EasyLoading.showError(
-        'Failed: ${request.errorMessage ?? 'Unknown error'}',
-      );
+      selectedList.add(option);
     }
+    _logger.d('Updated selection for $option: $selectedList');
   }
 }
