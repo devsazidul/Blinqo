@@ -33,6 +33,7 @@ class SpSignupScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
+          //* ---------------------- Form --------------------
           child: Form(
             key: signUpController.formKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -49,11 +50,11 @@ class SpSignupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+
+                //* ---------------------- Name Text Field --------------------
                 AuthCustomTextField(
                   text: 'Enter your Name',
-                  onChanged: (value) {
-                    signUpController.validateFrom();
-                  },
+                  onChanged: (value) => signUpController.validateFrom(),
                   controller: signUpController.nameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -72,20 +73,20 @@ class SpSignupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+
+                //* ---------------------- Phone Number Text Field --------------------
                 AuthCustomTextField(
                   controller: signUpController.phoneController1,
                   text: 'Enter your Phone Number',
-                  onChanged: (value) {
-                    signUpController.validateFrom();
-                  },
+                  onChanged: (value) => signUpController.validateFrom(),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter Phone Number e.g:+8801234567891';
+                      return 'Enter Phone Number';
                     }
-                    RegExp phoneRegex = RegExp(r'^\+8801[3-9][0-9]{8}$');
-                    if (!phoneRegex.hasMatch(value)) {
-                      return 'Invalid phone number format. Use +8801XXXXXXXXX';
-                    }
+                    // RegExp phoneRegex = RegExp(r'^\+8801[3-9][0-9]{8}$');
+                    // if (!phoneRegex.hasMatch(value)) {
+                    //   return 'Invalid phone number format. Use +8801XXXXXXXXX';
+                    // }
                     return null;
                   },
                 ),
@@ -99,12 +100,12 @@ class SpSignupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+
+                //* ---------------------- Email Text Field --------------------
                 AuthCustomTextField(
                   controller: signUpController.emailController1,
                   text: 'Enter your Email',
-                  onChanged: (value) {
-                    signUpController.validateFrom();
-                  },
+                  onChanged: (value) => signUpController.validateFrom(),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Enter a valid email address';
@@ -129,14 +130,13 @@ class SpSignupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+
+                //* ---------------------- Password Text Field --------------------
                 Obx(
                   () => AuthCustomTextField(
-                    text: 'Enter your Password',
-                    onChanged: (value) {
-                      signUpController.validateFrom();
-                    },
+                    onChanged: (value) => signUpController.validateFrom(),
                     controller: signUpController.passwordController,
-                    obscureText: signUpController.isPasswordVisible.value,
+                    text: 'Enter your Password',
                     suffixIcon: IconButton(
                       icon: Icon(
                         signUpController.isPasswordVisible.value
@@ -167,13 +167,13 @@ class SpSignupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+
+                //* ---------------------- Retype Password Text Field --------------------
                 Obx(
                   () => AuthCustomTextField(
+                    onChanged: (value) => signUpController.validateFrom(),
                     controller: signUpController.retypePasswordController,
                     text: 'Enter your Password',
-                    onChanged: (value) {
-                      signUpController.validateFrom();
-                    },
                     obscureText: signUpController.isPasswordVisible1.value,
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -196,6 +196,8 @@ class SpSignupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 32),
+
+                //* ---------------------- Sign Up Button --------------------
                 Obx(
                   () => CustomContinueButton(
                     title: 'Sign Up',
@@ -204,17 +206,9 @@ class SpSignupScreen extends StatelessWidget {
                             ? Colors.white
                             : Color(0xFF003366),
                     onPress: () {
-                      signUpController.validateFrom();
+                      // signUpController.validateFrom();
                       if (signUpController.isFromValid.value) {
-                        signUpController.signUp().then((isSuccess) {
-                          if (isSuccess) {
-                            Get.to(
-                              SpConfirmEmailVerifyOtpScreen(
-                                email: signUpController.emailController1.text,
-                              ),
-                            );
-                          }
-                        });
+                        signUpController.signUp();
                       }
                     },
 
@@ -230,6 +224,7 @@ class SpSignupScreen extends StatelessWidget {
                             : Color(0xFF003366).withOpacity(0.1),
                   ),
                 ),
+
                 SizedBox(height: 28),
                 SizedBox(height: 32),
                 if (Platform.isAndroid || Platform.isIOS) ...[],

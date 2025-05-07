@@ -1,5 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
+import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_project_request.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/custombookingcard.dart';
@@ -7,7 +12,6 @@ import 'package:blinqo/features/role/service_provider/service_home_page/widget/p
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/upcoming_project_card.dart'
     show UpcomingProjectCard;
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-
 import 'package:easy_date_timeline/easy_date_timeline.dart'
     show
         DayStructure,
@@ -19,9 +23,6 @@ import 'package:easy_date_timeline/easy_date_timeline.dart'
         MonthPickerType;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 
 class SpHomePage extends StatelessWidget {
   SpHomePage({super.key});
@@ -30,6 +31,7 @@ class SpHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final profileInfo = SpGetUserInfoController().userInfoModel;
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -54,10 +56,17 @@ class SpHomePage extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             backgroundColor: Colors.grey.shade200,
-                            child: Image.asset(
-                              IconPath.sphprofile,
-                              width: 40,
-                              height: 40,
+                            child: ClipOval(
+                              child: Image.network(
+                                SpAuthController
+                                        .profileInfoModel
+                                        ?.image
+                                        ?.path ??
+                                    IconPath.sphprofile,
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           Positioned(
@@ -76,7 +85,8 @@ class SpHomePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Dianne Russell",
+                            SpAuthController.profileInfoModel?.name ??
+                                "unknown",
                             style: TextStyle(
                               color:
                                   themeMode == ThemeMode.dark

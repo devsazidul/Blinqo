@@ -1,61 +1,39 @@
-class ResponseModel {
-  final List<EventPreferenceModel> data;
-  final String message;
-  final int statusCode;
-  final bool success;
-
-  ResponseModel({
-    required this.data,
-    required this.message,
-    required this.statusCode,
-    required this.success,
-  });
-
-  factory ResponseModel.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> dataList = json['data'];
-    final List<EventPreferenceModel> data =
-        dataList
-            .map(
-              (item) =>
-                  EventPreferenceModel.fromJson(item as Map<String, dynamic>),
-            )
-            .toList();
-
-    return ResponseModel(
-      data: data,
-      message: json['message'],
-      statusCode: json['statusCode'],
-      success: json['success'],
-    );
-  }
-}
-
 class EventPreferenceModel {
-  final String id;
-  final String name;
-  final AvatarModel avatar;
+  String? id;
+  String? name;
+  Avatar? avatar;
 
-  EventPreferenceModel({
-    required this.id,
-    required this.name,
-    required this.avatar,
-  });
+  EventPreferenceModel({this.id, this.name, this.avatar});
 
-  factory EventPreferenceModel.fromJson(Map<String, dynamic> json) {
-    return EventPreferenceModel(
-      id: json['id'],
-      name: json['name'],
-      avatar: AvatarModel.fromJson(json['avatar']),
-    );
+  EventPreferenceModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    avatar = json['avatar'] != null ? Avatar.fromJson(json['avatar']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    if (avatar != null) {
+      data['avatar'] = avatar!.toJson();
+    }
+    return data;
   }
 }
 
-class AvatarModel {
-  final String path;
+class Avatar {
+  String? path;
 
-  AvatarModel({required this.path});
+  Avatar({this.path});
 
-  factory AvatarModel.fromJson(Map<String, dynamic> json) {
-    return AvatarModel(path: json['path']);
+  Avatar.fromJson(Map<String, dynamic> json) {
+    path = json['path'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['path'] = path;
+    return data;
   }
 }

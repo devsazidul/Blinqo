@@ -11,6 +11,8 @@ class CustomContinueButton extends StatelessWidget {
     this.textStyle,
     required this.onPress,
     this.textColor = AppColors.backgroundColor,
+    this.horizontalPadding,
+    this.verticalPadding,
   });
   final Color textColor;
   final String title;
@@ -18,6 +20,8 @@ class CustomContinueButton extends StatelessWidget {
   final Color? borderColor;
   final TextStyle? textStyle;
   final VoidCallback? onPress;
+  final double? horizontalPadding;
+  final double? verticalPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,10 @@ class CustomContinueButton extends StatelessWidget {
         child: Container(
           width: double.infinity,
           height: 48,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding ?? 20,
+            vertical: verticalPadding ?? 10,
+          ),
           decoration: BoxDecoration(
             border: Border.all(color: borderColor ?? backgroundColor),
             borderRadius: BorderRadius.circular(12),

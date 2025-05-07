@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:blinqo/features/role/service_provider/auth/model/user_model.dart';
+import 'package:blinqo/features/role/event_planner/auth/model/user_even_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EvenAuthSharedPreferencesSave {
   static String? token;
-  static UserModel? userModel;
+  static UserEvenModel? userModel;
 
   static const String _tokenKey = 'token';
   static const String _userDataKey = 'user-data';
@@ -13,7 +13,7 @@ class EvenAuthSharedPreferencesSave {
   // Save user information
   static Future<void> saveUserInformation(
     String accessToken,
-    UserModel user,
+    UserEvenModel user,
   ) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString(_tokenKey, accessToken);
@@ -26,15 +26,16 @@ class EvenAuthSharedPreferencesSave {
   // Get user information
   static Future<void> getUserInformation() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
     String? accessToken = sharedPreferences.getString(_tokenKey);
     String? savedUserModelString = sharedPreferences.getString(_userDataKey);
+
     if (savedUserModelString != null) {
-      UserModel savedUserModel = UserModel.fromJson(
+      UserEvenModel savedUserModel = UserEvenModel.fromJson(
         jsonDecode(savedUserModelString),
       );
       userModel = savedUserModel;
     }
-
     token = accessToken;
   }
 

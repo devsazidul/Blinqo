@@ -3,7 +3,7 @@ import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/widget/event_preference_circle_avatar.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
@@ -13,19 +13,32 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SpProfileSetupScreen extends StatelessWidget {
-  const SpProfileSetupScreen({super.key});
+  const SpProfileSetupScreen({super.key, this.isEdit = false});
+
+  final bool isEdit;
 
   @override
   Widget build(BuildContext context) {
-    final SpProfileSetupController profileController = Get.put(
-      SpProfileSetupController(),
-    );
-    final controller = Get.put(SpProfileController());
-    profileController.initMarkers();
+    final profileSetupController = Get.find<SpProfileSetupController>();
+    final profileController = Get.find<SpProfileController>();
+    profileSetupController.initMarkers();
+
+    if (isEdit) {
+      profileSetupController.nameController.text =
+          SpAuthController.profileInfoModel?.name ?? "";
+      profileSetupController.locationController.text =
+          SpAuthController.profileInfoModel?.location ?? "";
+      profileSetupController.descriptionController.text =
+          SpAuthController.profileInfoModel?.description ?? "";
+      profileSetupController.experienceYearController.text =
+          SpAuthController.profileInfoModel?.experience?.toString() ?? "";
+      // profileSetupController.coverImage.value =
+      //     SpAuthController.profileInfoModel?.coverPhoto?.path ?? "";
+    }
 
     // return Obx(() {
     final themeMode =
-        controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+        profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
     return Scaffold(
       backgroundColor:
           themeMode == ThemeMode.dark
@@ -37,7 +50,7 @@ class SpProfileSetupScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                ///------------------ Profile Setup Text
+                //* ------------------ Profile Setup Text ------------------
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -56,7 +69,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
 
-                ///------------------ Profile Image
+                //* ------------------ Profile Image ------------------
                 Obx(() {
                   return Stack(
                     alignment: Alignment.bottomRight,
@@ -66,15 +79,26 @@ class SpProfileSetupScreen extends StatelessWidget {
 
                         child: ClipOval(
                           child:
-                              profileController.profileImage.value == null
-                                  ? Image.asset(
-                                    IconPath.profile01,
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                  )
+                              profileSetupController.profileImage.value == null
+                                  ? isEdit
+                                      ? Image.network(
+                                        SpAuthController
+                                                .profileInfoModel
+                                                ?.image
+                                                ?.path ??
+                                            IconPath.profile01,
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      )
+                                      : Image.asset(
+                                        IconPath.profile01,
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      )
                                   : Image.file(
-                                    profileController.profileImage.value!,
+                                    profileSetupController.profileImage.value!,
                                     width: 100,
                                     height: 100,
                                     fit: BoxFit.cover,
@@ -86,7 +110,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                         right: 0,
                         child: GestureDetector(
                           onTap: () {
-                            profileController.pickImage();
+                            profileSetupController.pickImage();
                           },
                           child: CircleAvatar(
                             radius: 18,
@@ -104,10 +128,10 @@ class SpProfileSetupScreen extends StatelessWidget {
                 }),
                 SizedBox(height: 20),
 
-                ///------------------ Name TextField
+                //* ------------------ Name TextField ------------------
                 TextFormField(
                   enabled: true,
-                  controller: profileController.nameController,
+                  controller: profileSetupController.nameController,
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: "Name",
@@ -135,7 +159,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
 
-                ///------------------ Role Dropdown
+                //* ------------------ Role Dropdown ------------------
                 Obx(
                   () => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,9 +189,10 @@ class SpProfileSetupScreen extends StatelessWidget {
                         child: PopupMenuButton<String>(
                           color: Colors.white,
                           onSelected:
-                              (value) => profileController.updateRoles(value),
+                              (value) =>
+                                  profileSetupController.updateRoles(value),
                           itemBuilder: (context) {
-                            return profileController.roles.map((role) {
+                            return profileSetupController.roles.map((role) {
                               return PopupMenuItem<String>(
                                 value: role,
                                 child: Text(
@@ -186,13 +211,18 @@ class SpProfileSetupScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                profileController.selectedRoles.value.isEmpty
+                                profileSetupController
+                                        .selectedRoles
+                                        .value
+                                        .isEmpty
                                     ? 'Select a role'
-                                    : profileController.selectedRoles.value,
+                                    : profileSetupController
+                                        .selectedRoles
+                                        .value,
                                 style: getTextStyle(
                                   fontSize: 14,
                                   color:
-                                      profileController
+                                      profileSetupController
                                               .selectedRoles
                                               .value
                                               .isEmpty
@@ -217,7 +247,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                 ),
 
-                ///------------------ Event Preference Text
+                //* ------------------ Event Preference Text ------------------
                 SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -234,7 +264,8 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Event Preference Grid
+
+                //* ------------------ Event Preference Grid ------------------
                 GetBuilder<SpProfileSetupController>(
                   builder: (controller) {
                     return GridView.count(
@@ -252,7 +283,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                           return GestureDetector(
                             onTap: () {
                               controller.toggleEventSelection(
-                                eventPreference.id,
+                                eventPreference.id ?? '',
                               );
                             },
                             child: SpEventPreferenceCircleAvatar(
@@ -265,10 +296,10 @@ class SpProfileSetupScreen extends StatelessWidget {
                   },
                 ),
 
-                // Description
+                //* ------------------ Description TextField ------------------
                 SizedBox(height: 20),
                 TextFormField(
-                  controller: profileController.descriptionController,
+                  controller: profileSetupController.descriptionController,
                   maxLines: 5,
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -298,10 +329,12 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
+
+                //* ------------------ Location TextField ------------------
                 TextFormField(
-                  controller: profileController.locationController,
+                  controller: profileSetupController.locationController,
                   onFieldSubmitted: (value) {
-                    profileController.searchLocation(value);
+                    profileSetupController.searchLocation(value);
                   },
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -362,6 +395,8 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+
+                //* ------------------ Map ------------------
                 SizedBox(
                   width: double.infinity,
                   height: 200,
@@ -372,12 +407,12 @@ class SpProfileSetupScreen extends StatelessWidget {
                         child: GetBuilder<SpProfileSetupController>(
                           builder: (_) {
                             return GoogleMap(
-                              onMapCreated: profileController.onMapCreated,
+                              onMapCreated: profileSetupController.onMapCreated,
                               initialCameraPosition: CameraPosition(
-                                target: profileController.center,
+                                target: profileSetupController.center,
                                 zoom: 16.0,
                               ),
-                              markers: profileController.mapMarkers,
+                              markers: profileSetupController.mapMarkers,
                               myLocationButtonEnabled: false,
                               zoomControlsEnabled: false,
                             );
@@ -389,8 +424,10 @@ class SpProfileSetupScreen extends StatelessWidget {
                         right: 10,
                         child: FloatingActionButton(
                           onPressed: () {
-                            profileController.mapController.animateCamera(
-                              CameraUpdate.newLatLng(profileController.center),
+                            profileSetupController.mapController.animateCamera(
+                              CameraUpdate.newLatLng(
+                                profileSetupController.center,
+                              ),
                             );
                           },
                           backgroundColor: Colors.white,
@@ -407,10 +444,10 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Years of Experiences Text
+                //* ------------------ Years of Experiences TextField ------------------
                 SizedBox(height: 20),
                 TextFormField(
-                  controller: profileController.experienceYearController,
+                  controller: profileSetupController.experienceYearController,
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: "Years of Experiences",
@@ -442,6 +479,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
+
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -457,8 +495,12 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+
+                //* ------------------ Upload Cover Photos ------------------
                 GestureDetector(
-                  onTap: profileController.pickCoverImage, // Trigger image pick
+                  onTap:
+                      profileSetupController
+                          .pickCoverImage, // Trigger image pick
                   child: Obx(() {
                     return DottedBorder(
                       borderType: BorderType.RRect,
@@ -477,49 +519,61 @@ class SpProfileSetupScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child:
-                            profileController.coverImage.value == null
-                                ? Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 8,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        IconPath.backup,
-                                        height: 32,
-                                        width: 32,
+                            profileSetupController.coverImage.value == null
+                                ? isEdit
+                                    ? Image.network(
+                                      SpAuthController
+                                              .profileInfoModel
+                                              ?.coverPhoto
+                                              ?.path ??
+                                          IconPath.profile01,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    )
+                                    : Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 8,
                                       ),
-                                      SizedBox(height: 8),
-                                      Text(
-                                        'Select Cover Image',
-                                        style: getTextStyle(
-                                          color: AppColors.buttonColor2,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            IconPath.backup,
+                                            height: 32,
+                                            width: 32,
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            'Select Cover Image',
+                                            style: getTextStyle(
+                                              color: AppColors.buttonColor2,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            'Supported formats: JPEG, PNG',
+                                            style: getTextStyle(
+                                              color: Color(0xFF898989),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(height: 8),
-                                      Text(
-                                        'Supported formats: JPEG, PNG',
-                                        style: getTextStyle(
-                                          color: Color(0xFF898989),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                    )
                                 : Padding(
                                   padding: EdgeInsets.all(4),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: Image.file(
-                                      profileController.coverImage.value!,
+                                      profileSetupController.coverImage.value!,
                                       width: double.infinity,
                                       height: 106,
                                       fit: BoxFit.cover,
@@ -531,18 +585,27 @@ class SpProfileSetupScreen extends StatelessWidget {
                   }),
                 ),
 
-                // Upgrade To Procard
+                //* ------------------ Upgrade To Procard ------------------
                 SizedBox(height: 40),
                 UpgradeToProcard(onTap: () {}),
                 SizedBox(height: 40),
-                // Continue Button
-                CustomContinueButton(
-                  onPress: () {
-                    // profileController.uploadServiceProviderProfile();
-                    Get.to(() => SpBottomNavBarScreen());
-                  },
-                  title: "Continue",
-                ),
+
+                //* ------------------ Continue Button ------------------
+                isEdit
+                    ? CustomContinueButton(
+                      onPress: () {
+                        profileSetupController.serviceProviderUpdate();
+                        // Get.to(() => SpBottomNavBarScreen());
+                      },
+                      title: "Update",
+                    )
+                    : CustomContinueButton(
+                      onPress: () {
+                        profileSetupController.serviceProviderSetup();
+                        // Get.to(() => SpBottomNavBarScreen());
+                      },
+                      title: "Continue",
+                    ),
               ],
             ),
           ),
