@@ -5,37 +5,46 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddAmenitiesDialog extends StatelessWidget {
-  final AmenitiesController controller;
-  const AddAmenitiesDialog({super.key, required this.controller});
+  const AddAmenitiesDialog({super.key,});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController amenityController = TextEditingController();
+    final AmenitiesController controller = Get.put(AmenitiesController());
+    final formKey = GlobalKey<FormState>() ;
 
     return  AlertDialog(
       backgroundColor: Colors.white,
-      content: TextField(
-        // onChanged: (value) => controller.price.value = value,
-        controller: amenityController,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          hintText: 'Add new amenity',
-          hintStyle: getTextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: AppColors.hintTextColor,
-          ),
-          label: Text(
-            'Add New Amenity',
-            style: getTextStyle(
+      content: Form(
+        autovalidateMode:  AutovalidateMode.onUserInteraction,
+        key: formKey,
+        child: TextFormField(
+          controller: controller.amenityController,
+          keyboardType: TextInputType.number,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Enter Amenity';
+            }
+            return null;
+          },
+          decoration: InputDecoration(
+            hintText: 'Add new amenity',
+            hintStyle: getTextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: Colors.grey,
+              color: AppColors.hintTextColor,
             ),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(width: 1),
+            label: Text(
+              'Add New Amenity',
+              style: getTextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey,
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(width: 1),
+            ),
           ),
         ),
       ),
@@ -74,9 +83,10 @@ class AddAmenitiesDialog extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  controller.addCustomAmenity(amenityController.text);
-                  amenityController.clear();
-                  Get.back();
+                  if (formKey.currentState!.validate()) {
+                    controller.createAmenity();
+                    Get.back();
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(

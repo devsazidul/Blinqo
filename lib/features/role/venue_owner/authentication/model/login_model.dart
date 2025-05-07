@@ -18,26 +18,34 @@ class LoginResponse {
 
 class Data {
   final String? accessToken;
-  final User? user;
+  final EventUser? user;
 
   Data({this.accessToken, this.user});
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
       accessToken: json['access_token'],
-      user: json['user'] != null ? User.fromJson(json['user']) : null,
+      user: json['user'] != null ? EventUser.fromJson(json['user']) : null,
     );
   }
 }
 
-class User {
+class EventUser {
   final String? id;
   final String? email;
   final List<String>? roles;
   final bool? isVerified;
   final String? profileId;
+  final bool? isProfileCreated;
 
-  User({this.id, this.email, this.roles, this.isVerified, this.profileId});
+  EventUser({
+    this.id,
+    this.email,
+    this.roles,
+    this.isVerified,
+    this.profileId,
+    this.isProfileCreated,
+  });
 
   // Convert User object to JSON
   Map<String, dynamic> toJson() {
@@ -47,16 +55,18 @@ class User {
       'roles': roles,
       'isVerified': isVerified,
       'profileId': profileId,
+      'isProfileCreated': isProfileCreated,
     };
   }
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory EventUser.fromJson(Map<String, dynamic> json) {
+    return EventUser(
       id: json['id'],
       email: json['email'],
       roles: List<String>.from(json['roles'] ?? []),
       isVerified: json['isVerified'],
       profileId: json['profileId'],
+      isProfileCreated: json['isProfileCreated'],
     );
   }
 

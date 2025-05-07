@@ -1,48 +1,49 @@
 import 'dart:io';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 class VenueSetupHeader extends StatelessWidget {
   const VenueSetupHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(VenueOwnerProfileController());
-     double width = MediaQuery.of(context).size.width;
+    // Initialize the VenueSetupController
+    VenueSetupController controller = Get.put(VenueSetupController());
+    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     return Stack(
       children: [
         ClipRRect(
           child: Stack(
             children: [
               Obx(() {
-      // Check if a selected image exists, if not, use the default asset image
-      if (Get.find<VenueOwnerProfileController>().selectedImage.value != null) {
-        // If an image is selected, show it using Image.file
-        return Image.file(
-          Get.find<VenueOwnerProfileController>().selectedImage.value!,
-          width: double.infinity,
-          height: height * 0.35,
-          fit: BoxFit.cover,
-        );
-      } else {
-        // If no image is selected, use Image.asset for the default image
-        return Image.asset(
-          ImagePath.venuesHall, // The asset path for the default image
-          width: double.infinity,
-          height: height * 0.35,
-          fit: BoxFit.cover,
-        );
-      }
-    }),
+                // Check if a venue image is selected, if not, use the default asset image
+                if (controller.venueImage.value != null) {
+                  // If an image is selected, show it using Image.file
+                  return Image.file(
+                    controller.venueImage.value!,
+                    width: double.infinity,
+                    height: height * 0.35,
+                    fit: BoxFit.cover,
+                  );
+                } else {
+                  // If no image is selected, use Image.asset for the default image
+                  return Image.asset(
+                    ImagePath.venuesHall, // Default asset image path
+                    width: double.infinity,
+                    height: height * 0.35,
+                    fit: BoxFit.cover,
+                  );
+                }
+              }),
               Container(
                 width: double.infinity,
-                height:height * 0.35,
+                height: height * 0.35,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -57,7 +58,7 @@ class VenueSetupHeader extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ),
         Positioned(
           top: 60,
@@ -89,16 +90,9 @@ class VenueSetupHeader extends StatelessWidget {
           bottom: 20,
           right: 20,
           child: InkWell(
-            onTap:()async {
-          // Open the gallery to pick an image
-          final ImagePicker _pickers = ImagePicker();
-          final XFile? images = await _pickers.pickImage(source: ImageSource.gallery);
-
-          if (images != null) {
-            // Update the selected image in the controller
-            Get.find<VenueOwnerProfileController>().selectedImage.value = File(images.path);
-          }
-        },
+            onTap: () async {
+              controller.pickImage('venue');
+            },
             child: CircleAvatar(
               backgroundColor: Color(0xffD4AF37),
               radius: 18,
@@ -113,6 +107,4 @@ class VenueSetupHeader extends StatelessWidget {
       ],
     );
   }
-
-
 }
