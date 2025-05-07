@@ -12,12 +12,14 @@ import 'package:get/get.dart';
 import '../controller/bottom_nav_controller.dart';
 
 class SpBottomNavBarScreen extends StatelessWidget {
-  SpBottomNavBarScreen({super.key});
-  final SpProfileController spProfileController = Get.put(
-    SpProfileController(),
-  );
+  const SpBottomNavBarScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    print("SpBottomNavBarScreen");
+    final SpProfileController spProfileController = Get.put(
+      SpProfileController(),
+    );
     final BottomNavController controller = Get.put(BottomNavController());
 
     final List<Widget> pages = [
@@ -100,7 +102,7 @@ class SpBottomNavBarScreen extends StatelessWidget {
     required int index,
     required double iconSize,
   }) {
-    bool isDarkMode = spProfileController.isDarkMode.value;
+    bool isDarkMode = Get.find<SpProfileController>().isDarkMode.value;
     return GestureDetector(
       onTap: () {
         Get.find<BottomNavController>().changeIndex(index);

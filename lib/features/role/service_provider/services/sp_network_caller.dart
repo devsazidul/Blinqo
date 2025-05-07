@@ -98,14 +98,22 @@ class SpNetworkCaller {
     required String url,
     Map<String, String>? formFields,
     List<http.MultipartFile>? files,
+    bool? isPatchRequest = false,
   }) async {
     try {
       Uri uri = Uri.parse(url);
       final headers = {"Content-Type": "multipart/form-data"};
+      _logger.i('Current token value: ${SpAuthController.token}');
       if (SpAuthController.token != null) {
         headers['Authorization'] = "Bearer ${SpAuthController.token}";
+        _logger.i('Added Authorization header: ${headers['Authorization']}');
+      } else {
+        _logger.w('No token available for request');
       }
-      final request = http.MultipartRequest('POST', uri);
+      final request =
+          isPatchRequest == true
+              ? http.MultipartRequest('PATCH', uri)
+              : http.MultipartRequest('POST', uri);
       request.headers.addAll(headers);
       if (formFields != null) {
         request.fields.addAll(formFields);

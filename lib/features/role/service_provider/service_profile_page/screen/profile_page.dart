@@ -3,13 +3,13 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
 
 class SpProfilePage extends StatelessWidget {
   static const String name = '/sp_profile_settings';
@@ -61,55 +61,54 @@ class SpProfilePage extends StatelessWidget {
       spacing: 10,
       children: [
         /// Avatar image
-        Obx(() {
-          return Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.grey[300],
-                child: ClipOval(
-                  child:
-                      controller.profileImage.value == null
-                          ? Image.asset(
-                            IconPath.profile01,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          )
-                          : Image.file(
-                            controller.profileImage.value!,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
+        Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey[300],
+              child: ClipOval(
+                child: Image.network(
+                  SpAuthController.profileInfoModel?.image?.path ??
+                      IconPath.sphprofile,
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 100,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      IconPath.profile01,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    controller.pickImage(); // Call the image picking function
-                  },
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Colors.transparent,
-                    child: Image.asset(
-                      IconPath.profileedit,
-                      width: 24,
-                      height: 24,
-                    ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: GestureDetector(
+                onTap: () {
+                  controller.pickImage(); // Call the image picking function
+                },
+                child: CircleAvatar(
+                  radius: 18,
+                  backgroundColor: Colors.transparent,
+                  child: Image.asset(
+                    IconPath.profileedit,
+                    width: 24,
+                    height: 24,
                   ),
                 ),
               ),
-            ],
-          );
-        }),
+            ),
+          ],
+        ),
 
         /// Avatar name
         Text(
-          'Ronald Richards',
+          SpAuthController.profileInfoModel?.name ?? "unknown",
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -132,7 +131,7 @@ class SpProfilePage extends StatelessWidget {
               size: 20,
             ),
             Text(
-              'New York',
+              SpAuthController.profileInfoModel?.location ?? "unknown",
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -165,9 +164,9 @@ class SpProfilePage extends StatelessWidget {
           themeMode,
           iconPath: IconPath.editProfile,
           title: "Edit Profile",
-          onTap: () {
-            // Navigator.pushNamed(context, SpEditProfilePage.name);
-            Get.to(EvenProfileSetupScreen());
+          onTap: () async {
+            await Get.find<SpProfileSetupController>().getEventPreferences();
+            Get.to(SpProfileSetupScreen(isEdit: true));
           },
         ),
         Obx(

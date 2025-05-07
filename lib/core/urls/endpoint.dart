@@ -31,6 +31,9 @@ class Urls {
   static const String uploadServiceProviderProfile =
       '$baseUrl/profile/service-provider-setup';
 
+  static String updateServiceProviderProfile(String id) =>
+      '$baseUrl/profile/service-provider-profile-update/$id';
+
   static const String getUserInfo = '$baseUrl/auth/user-info';
   static const String eventDecorationEnum = '$baseUrl/booking/decoration_enum';
   static const String eventAmenities = '$baseUrl/amenities/get-all-amenities';

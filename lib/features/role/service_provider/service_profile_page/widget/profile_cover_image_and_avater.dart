@@ -1,5 +1,6 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -13,11 +14,20 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
         SizedBox(height: 270, width: double.infinity),
 
         /// Cover image
-        Image.asset(
-          "assets/images/profile_cover_image.jpeg",
+        Image.network(
+          SpAuthController.profileInfoModel?.coverPhoto?.path ??
+              "assets/images/profile_cover_image.jpeg",
           height: 220,
           width: double.infinity,
           fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Image.asset(
+              "assets/images/profile_cover_image.jpeg",
+              height: 220,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            );
+          },
         ),
 
         /// Three-dot menu and back button
@@ -67,7 +77,16 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 45,
-                    child: Image.asset(IconPath.profile01, fit: BoxFit.cover),
+                    child: ClipOval(
+                      child: Image.network(
+                        SpAuthController.profileInfoModel?.image?.path ??
+                            IconPath.sphprofile,
+                        fit: BoxFit.cover,
+                        width: 90,
+                        height: 90,
+                      ),
+                    ),
+                    // child: Image.asset(IconPath.profile01, fit: BoxFit.cover),
                   ),
                   Positioned(
                     right: 10,

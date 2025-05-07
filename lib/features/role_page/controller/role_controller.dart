@@ -2,7 +2,9 @@ import 'package:blinqo/features/role/event_planner/auth/controller/signup_contro
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
@@ -14,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 class RoleController extends GetxController {
+  Logger logger = Logger();
   var selectedIndex = (-1).obs;
 
   void selectedRole(int index) {
@@ -41,27 +44,28 @@ class RoleController extends GetxController {
         }
         break;
       case 2:
-        Logger().e(SpAuthController.userInfoModel);
-        if (SpAuthController.token != null &&
-            SpAuthController.userInfoModel?.role.contains('SERVICE_PROVIDER') ==
-                true) {
+        if (await SpAuthController.isUserLoggedIn()) {
           if (SpAuthController.userModel?.isProfileCreated == true) {
+            // Logger().e(
+            //   "Profile created ${SpAuthController.userModel?.isProfileCreated}",
+            // );
+            await Get.find<SpGetUserInfoController>().getUserInfo();
             Get.to(() => SpBottomNavBarScreen());
           } else {
+            // Logger().e(
+            //   "Profile not created ${SpAuthController.userModel?.isProfileCreated}",
+            // );
+            await Get.put(SpProfileSetupController()).getEventPreferences();
             Get.to(() => SpProfileSetupScreen());
           }
         } else {
           Get.to(() => OnbordingScreen());
         }
+
         break;
       default:
         EasyLoading.showError('Please select a valid role to continue.');
         break;
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
   }
 }

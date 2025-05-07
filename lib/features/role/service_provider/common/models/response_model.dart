@@ -1,34 +1,31 @@
-class ResponseModel<T extends Object> {
-  final T? data;
-  final int statusCode;
-  final bool success;
-  final String message;
+class SpResponseModel<T extends Object> {
+  T? data;
+  int? statusCode;
+  String? message;
+  bool? success;
 
-  ResponseModel({
-    this.data,
-    required this.statusCode,
-    required this.success,
-    required this.message,
-  });
+  SpResponseModel({this.data, this.statusCode, this.message, this.success});
 
-  factory ResponseModel.fromJson(
+  SpResponseModel.fromJson(
     Map<String, dynamic> json,
     T Function(Map<String, dynamic>) fromJson,
   ) {
-    return ResponseModel(
-      data: json['data'] != null ? fromJson(json['data']) : null,
-      statusCode: json['statusCode'] ?? 0,
-      success: json['success'] ?? false,
-      message: json['message'] ?? '',
-    );
+    data = json['data'] != null ? fromJson(json['data']) : null;
+    statusCode = json['statusCode'];
+    message = json['message'];
+    success = json['success'];
   }
 
   Map<String, dynamic> toJson(Map<String, dynamic> Function(T) toJson) {
-    return {
-      'data': data != null ? toJson(data!) : null,
-      'statusCode': statusCode,
-      'success': success,
-      'message': message,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (this.data != null) {
+      data['data'] = toJson(this.data!);
+    } else {
+      data['data'] = null;
+    }
+    data['statusCode'] = statusCode;
+    data['message'] = message;
+    data['success'] = success;
+    return data;
   }
 }

@@ -52,6 +52,7 @@ class ServiceProviderProfile extends StatelessWidget {
                         SizedBox(
                           width: 148,
                           child: CustomContinueButton(
+                            horizontalPadding: 10,
                             onPress: () {
                               Navigator.pushNamed(
                                 context,

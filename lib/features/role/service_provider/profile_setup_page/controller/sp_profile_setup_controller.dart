@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
@@ -5,8 +6,10 @@ import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/event_preference_model.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
+import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
@@ -14,7 +17,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SpProfileSetupController extends GetxController {
@@ -206,14 +208,10 @@ class SpProfileSetupController extends GetxController {
   }
 
   Set<Marker> get mapMarkers => markers;
-  var selectedRoles = "PHOTOGRAPHER".obs;
-  var roles = [
-    "PHOTOGRAPHER",
-    "VIDEOGRAPHER",
-    "DJ_BAND",
-    "CATERING",
-    "ENTERTAINER",
-  ];
+  var selectedRoles = ServiceProviderRole.photographer.obs;
+
+  var roles = ServiceProviderRole.roles;
+
   var selectedEvents = <String>[].obs;
 
   // selected roles
@@ -238,27 +236,32 @@ class SpProfileSetupController extends GetxController {
   final RxList<EventPreferenceModel> eventPreferenceList =
       <EventPreferenceModel>[].obs;
 
-  Future<void> getEventPreferences() async {
+  Future<bool> getEventPreferences() async {
+    bool isSuccess = false;
     isLoadingEventPreference.value = true;
     update();
 
-    final response = await Get.find<SpNetworkCaller>().getRequest(
-      Urls.getEventPreference,
-    );
+    print('Current token before event preferences: ${SpAuthController.token}');
+    await SpAuthController.getUserInformation();
+    print('Token after reload: ${SpAuthController.token}');
+
+    final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
+        .getRequest(Urls.getEventPreference);
 
     if (response.isSuccess) {
-      try {
-        final responseModel = ResponseModel.fromJson(response.responseData);
-        eventPreferenceList.value = responseModel.data;
-        update();
-        print('Loaded ${eventPreferenceList.length} event preferences');
-      } catch (e) {
-        Get.snackbar('Error', 'Failed to parse event preferences: $e');
-      }
+      eventPreferenceList.addAll(
+        (response.responseData['data'] as List)
+            .map((e) => EventPreferenceModel.fromJson(e))
+            .toList(),
+      );
+      update();
+      isSuccess = true;
     } else {
       Get.snackbar('Error', response.errorMessage);
     }
     isLoadingEventPreference.value = false;
+    update();
+    return isSuccess;
   }
 
   /// ------------------------------------------------
@@ -293,12 +296,10 @@ class SpProfileSetupController extends GetxController {
       ],
     );
     if (response.isSuccess) {
-      await SpAuthController.saveUserInformation(
-        accessToken: SpAuthController.token,
-        user: SpAuthController.userModel,
-      );
+      await SpAuthController.updateUserInformation(true);
+      await Get.find<SpGetUserInfoController>().getUserInfo();
       EasyLoading.dismiss();
-
+      Get.offAll(SpBottomNavBarScreen());
       isSuccess = true;
       EasyLoading.showSuccess('Profile setup successful');
     } else {
@@ -310,63 +311,82 @@ class SpProfileSetupController extends GetxController {
     return isSuccess;
   }
 
-  Future<void> uploadServiceProviderProfile() async {
-    Logger logger = Logger();
-    final uri = Uri.parse(Urls.uploadServiceProviderProfile);
-    final request = http.MultipartRequest('POST', uri);
-    Map<String, String> formFields = {
-      'eventPreferenceIds': selectedEvents.join(','),
-      'serviceProviderRole': selectedRoles.value,
-      'description': descriptionController.text,
-      'experience': experienceYearController.text,
-      'userId': SpAuthController.userModel?.id ?? '',
-      'location': locationController.text,
-      'name': nameController.text,
-    };
+  /// ------------------------------------------------
+  /// Profile update
+  /// ------------------------------------------------
+  RxBool isLoadingServiceProviderUpdate = false.obs;
+  Future<bool> serviceProviderUpdate() async {
+    EasyLoading.show(status: 'Loading...');
+    bool isSuccess = false;
+    isLoadingServiceProviderUpdate.value = true;
+    update();
 
-    // Add authorization header
-    request.headers['Authorization'] = "Bearer ${SpAuthController.token}";
-    // Content-Type is automatically set by MultipartRequest, so no need to add manually
+    print('Current token before update: ${SpAuthController.token}');
+    await SpAuthController.getUserInformation();
+    print('Token after reload: ${SpAuthController.token}');
 
-    // Add form fields
-    request.fields.addAll(formFields);
-
-    // Add image file
-    if (profileImage.value != null) {
-      final imageFile = await http.MultipartFile.fromPath(
-        'image',
-        profileImage.value!.path,
-      );
-      request.files.add(imageFile);
+    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+      isPatchRequest: true,
+      url: Urls.updateServiceProviderProfile(
+        SpAuthController.userModel?.profileId ?? '',
+      ),
+      formFields: {
+        'eventPreferenceIds': jsonEncode(selectedEvents),
+        'serviceProviderRole': selectedRoles.value,
+        'description': descriptionController.text,
+        'experience': experienceYearController.text,
+        'user': jsonEncode({'id': SpAuthController.userModel?.id}),
+        'location': locationController.text,
+        'name': nameController.text,
+      },
+      files: [
+        if (profileImage.value != null)
+          await http.MultipartFile.fromPath('image', profileImage.value!.path),
+        if (coverImage.value != null)
+          await http.MultipartFile.fromPath(
+            'coverPhoto',
+            coverImage.value!.path,
+          ),
+      ],
+    );
+    if (response.isSuccess) {
+      await SpAuthController.updateUserInformation(true);
+      await Get.find<SpGetUserInfoController>().getUserInfo();
+      EasyLoading.dismiss();
+      Get.offAll(SpBottomNavBarScreen());
+      isSuccess = true;
+      EasyLoading.showSuccess('Profile setup successful');
+    } else {
+      EasyLoading.dismiss();
+      EasyLoading.showError(response.errorMessage);
     }
-
-    // Add cover photo file
-    if (coverImage.value != null) {
-      final coverPhoto = await http.MultipartFile.fromPath(
-        'coverPhoto',
-        coverImage.value!.path,
-      );
-      request.files.add(coverPhoto);
-    }
-
-    logger.i(request.fields);
-    logger.i(request.files.length);
-    try {
-      final response = await request.send();
-      logger.i(response.statusCode);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final respStr = await response.stream.bytesToString();
-        logger.i(respStr);
-        logger.i('Upload successful: $respStr');
-        Get.offAll(SpBottomNavBarScreen());
-      } else {
-        final error = await response.stream.bytesToString();
-        logger.e(
-          'Upload failed with status: ${response.statusCode}, Error: $error',
-        );
-      }
-    } catch (e) {
-      logger.e('Error during upload: $e');
-    }
+    isLoadingServiceProviderSetup.value = false;
+    update();
+    return isSuccess;
   }
+
+  @override
+  void onClose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    locationController.dispose();
+    experienceYearController.dispose();
+    super.onClose();
+  }
+}
+
+class ServiceProviderRole {
+  static const String photographer = "PHOTOGRAPHER";
+  static const String videographer = "VIDEOGRAPHER";
+  static const String djBand = "DJ_BAND";
+  static const String catering = "CATERING";
+  static const String entertainer = "ENTERTAINER";
+
+  static const List<String> roles = [
+    photographer,
+    videographer,
+    djBand,
+    catering,
+    entertainer,
+  ];
 }

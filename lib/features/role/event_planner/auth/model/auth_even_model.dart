@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/service_provider/auth/model/user_model.dart';
+import 'package:blinqo/features/role/event_planner/auth/model/user_even_model.dart';
 
 class AuthEvenModel {
   final AuthModel? data;
@@ -34,14 +34,14 @@ class AuthEvenModel {
 
 class AuthModel {
   final String accessToken;
-  final UserModel user;
+  final UserEvenModel user;
 
   AuthModel({required this.accessToken, required this.user});
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
     return AuthModel(
       accessToken: json['access_token'] ?? '',
-      user: UserModel.fromJson(json['user']),
+      user: UserEvenModel.fromJson(json['user']),
     );
   }
 

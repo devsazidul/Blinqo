@@ -25,7 +25,7 @@ class SpEventPreferenceCircleAvatar extends StatelessWidget {
     // return Obx(() {
     return GestureDetector(
       onTap: () {
-        profileSetupController.toggleEventSelection(eventPreference.id);
+        profileSetupController.toggleEventSelection(eventPreference.id ?? '');
       },
       child: SizedBox(
         width: 110,
@@ -40,7 +40,7 @@ class SpEventPreferenceCircleAvatar extends StatelessWidget {
                 ClipOval(
                   clipBehavior: Clip.antiAlias,
                   child: Image.network(
-                    eventPreference.avatar.path,
+                    eventPreference.avatar?.path ?? '',
                     width: 108,
                     height: 108,
                     fit: BoxFit.cover,
@@ -64,7 +64,7 @@ class SpEventPreferenceCircleAvatar extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              eventPreference.name,
+              eventPreference.name ?? '',
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
