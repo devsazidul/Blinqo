@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:blinqo/core/common/widgets/logger_view.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
+import 'package:blinqo/features/role/venue_owner/widgets/even_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,17 +25,7 @@ class VenueProfileSetupController extends GetxController {
   var location = ''.obs;
   var userId = ''.obs;
 
-  final _logger = Logger(
-    printer: PrettyPrinter(
-      methodCount: 0,
-      errorMethodCount: 5,
-      lineLength: 140,
-      colors: true,
-      printEmojis: true,
-      dateTimeFormat: DateTimeFormat.dateAndTime,
-    ),
-  );
-
+  final _logger = createLogger();
 
   Future<void> pickImage() async {
     await requestPermissions();
@@ -64,78 +56,6 @@ class VenueProfileSetupController extends GetxController {
     }
   }
 
-  Widget _buildImagePickerOption({
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: AppColors.iconColor.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: AppColors.iconColor, size: 30),
-          ),
-          SizedBox(height: 8),
-          Text(
-            title,
-            style: getTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<ImageSource?> showPickrOption() async {
-    return await Get.bottomSheet(
-      Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Select Image',
-                style: getTextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildImagePickerOption(
-                    icon: Icons.camera_alt,
-                    title: 'Camera',
-                    onTap: () {
-                      Get.back(result: ImageSource.camera);
-                    },
-                  ),
-                  _buildImagePickerOption(
-                    icon: Icons.photo_library,
-                    title: 'Gallery',
-                    onTap: () {
-                      Get.back(result: ImageSource.gallery);
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   //--------------------------------------------------------
   // Submit profile data to the server
   //--------------------------------------------------------
@@ -157,9 +77,7 @@ class VenueProfileSetupController extends GetxController {
     // Fetch user data
     _logger.d('Fetching user info and auth token');
     EventUser? user = await EvenAuthController.getUserInfo();
-    String? token = await EvenAuthController.getAuthToken();
-    userId.value = user?.id ?? '';
-    _logger.i('User info fetched - UserID: ${userId.value}, Token: $token');
+    userId.value = user!.id!;
 
     if (userId.value.isEmpty) {
       _logger.w('User ID is empty, cannot proceed with submission');

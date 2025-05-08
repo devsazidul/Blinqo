@@ -4,6 +4,7 @@ import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_veri
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_profile_setup_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
+import 'package:blinqo/features/role/venue_owner/widgets/event_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -86,7 +87,7 @@ class VenueProfileScreen extends StatelessWidget {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     children: [
-                      _buildTextField(
+                      TextFieldWidget(
                         hintText: 'Enter your Username',
                         labelText: 'Username',
                         controller: profileSetupController.nameController,
@@ -104,7 +105,7 @@ class VenueProfileScreen extends StatelessWidget {
                         }
                       ),
                       SizedBox(height: 20),
-                      _buildTextField(
+                      TextFieldWidget(
                         hintText: 'Enter your location',
                         labelText: 'Location',
                         controller: profileSetupController.locationController,
@@ -214,59 +215,5 @@ class VenueProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField({
-    required String hintText,
-    required String labelText,
-    String? Function(String?)? validator,
-    required TextEditingController controller,
-  }) {
-    final VenueOwnerProfileController profileController = Get.put(
-      VenueOwnerProfileController(),
-    );
-    final bool isDarkMode = profileController.isDarkMode.value;
-    return TextFormField(
-      controller: controller,
-      validator: validator,
-      style: getTextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
-      ),
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: getTextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          color: isDarkMode ? Color(0xffC0C0C0) : Color(0xff767676),
-        ),
-        hintText: hintText,
-        hintStyle: getTextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff767676),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
-            width: 1,
-          ),
-        ),
-      ),
-    );
-  }
+
 }
