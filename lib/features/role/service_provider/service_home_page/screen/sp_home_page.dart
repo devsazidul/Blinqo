@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_project_request.dart';
@@ -31,7 +30,6 @@ class SpHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileInfo = SpGetUserInfoController().userInfoModel;
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -69,15 +67,16 @@ class SpHomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Positioned(
-                            right: 0,
-                            bottom: -5,
-                            child: Image.asset(
-                              IconPath.verifiedlogo,
-                              width: 15,
-                              height: 15,
+                          if (SpAuthController.profileInfoModel?.isPro ?? false)
+                            Positioned(
+                              right: 0,
+                              bottom: -5,
+                              child: Image.asset(
+                                IconPath.verifiedlogo,
+                                width: 15,
+                                height: 15,
+                              ),
                             ),
-                          ),
                         ],
                       ),
                       SizedBox(width: 10),
@@ -113,44 +112,42 @@ class SpHomePage extends StatelessWidget {
                       Spacer(),
                       Row(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Get.find<SpHomeController>().isVerified.value =
-                                  true;
-                              Get.to(GetVerifiedScreen());
-                            },
-                            child: Obx(
-                              () =>
-                                  spHomeController.isVerified.value
-                                      ? Container()
-                                      : Container(
-                                        width: 80,
-                                        height: 42,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            6,
-                                          ),
-                                          color: AppColors.buttonColor,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 8,
-                                            vertical: 4,
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              'Go Pro',
-                                              style: getTextStyle(
-                                                color: AppColors.borderColor2,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                          if (!(SpAuthController.profileInfoModel?.isPro ??
+                              false))
+                            GestureDetector(
+                              onTap: () {
+                                // Get.find<SpHomeController>().isVerified.value =
+                                //     true;
+                                Get.to(GetVerifiedScreen());
+                              },
+                              child:
+                              // ? SizedBox()
+                              // :
+                              Container(
+                                width: 80,
+                                height: 42,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: AppColors.buttonColor,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Go Pro',
+                                      style: getTextStyle(
+                                        color: AppColors.borderColor2,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
                                       ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
                           SizedBox(width: 12),
                           GestureDetector(
                             onTap: () {},

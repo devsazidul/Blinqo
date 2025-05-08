@@ -1,3 +1,5 @@
+import 'package:blinqo/features/role/service_provider/profile_setup_page/model/event_preference_model.dart';
+
 class ProfileInfoModel {
   String? id;
   String? userId;
@@ -19,6 +21,7 @@ class ProfileInfoModel {
   String? serviceProviderRole;
   Image? image;
   Image? coverPhoto;
+  List<EventPreferenceModel>? eventPreference;
 
   ProfileInfoModel({
     this.id,
@@ -41,6 +44,7 @@ class ProfileInfoModel {
     this.serviceProviderRole,
     this.image,
     this.coverPhoto,
+    this.eventPreference,
   });
 
   ProfileInfoModel.fromJson(Map<String, dynamic> json) {
@@ -65,6 +69,14 @@ class ProfileInfoModel {
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
     coverPhoto =
         json['coverPhoto'] != null ? Image.fromJson(json['coverPhoto']) : null;
+    eventPreference =
+        json['eventPreference'] != null
+            ? List<EventPreferenceModel>.from(
+              json['eventPreference'].map(
+                (x) => EventPreferenceModel.fromJson(x),
+              ),
+            )
+            : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -92,6 +104,10 @@ class ProfileInfoModel {
     }
     if (coverPhoto != null) {
       data['coverPhoto'] = coverPhoto!.toJson();
+    }
+    if (eventPreference != null) {
+      data['eventPreference'] =
+          eventPreference!.map((x) => x.toJson()).toList();
     }
     return data;
   }

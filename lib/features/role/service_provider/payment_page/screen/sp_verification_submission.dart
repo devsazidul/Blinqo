@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/controller/sp_verification_submission_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
@@ -10,12 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SpVerificationSubmission extends StatelessWidget {
-  SpVerificationSubmission({super.key});
-  final SpVerificationSubmissionController verificationSubmissionController =
-      Get.put(SpVerificationSubmissionController());
-  final controller = Get.put(SpProfileController());
+  const SpVerificationSubmission({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SpProfileController());
+    final verificationSubmissionController = Get.put(
+      SpVerificationSubmissionController(),
+    );
+
+    verificationSubmissionController.spNameController.text =
+        SpAuthController.profileInfoModel?.name ?? '';
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -40,8 +46,8 @@ class SpVerificationSubmission extends StatelessWidget {
                         : AppColors.appBarIcolor,
                 child: Image.asset(
                   IconPath.arrowleft,
-                  width: 20,
-                  height: 20,
+                  width: 16,
+                  height: 12,
                   color:
                       themeMode == ThemeMode.dark
                           ? AppColors.primary
@@ -70,9 +76,11 @@ class SpVerificationSubmission extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 32),
+                  //* ------------------ Name Text Field ------------------
                   TextFormField(
+                    enabled: false,
                     controller:
-                        verificationSubmissionController.spnameController,
+                        verificationSubmissionController.spNameController,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelText: "Name",
@@ -80,14 +88,14 @@ class SpVerificationSubmission extends StatelessWidget {
                         fontSize: 16,
                         color: AppColors.borderColor,
                       ),
-                      hintText: "Guy Hawkins",
-                      hintStyle: getTextStyle(
-                        fontSize: 14,
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : AppColors.textColor,
-                      ),
+                      // hintText: "Guy Hawkins",
+                      // hintStyle: getTextStyle(
+                      //   fontSize: 14,
+                      //   color:
+                      //       themeMode == ThemeMode.dark
+                      //           ? AppColors.primary
+                      //           : AppColors.textColor,
+                      // ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey, width: 1.0),
                         borderRadius: BorderRadius.circular(10),
@@ -95,92 +103,138 @@ class SpVerificationSubmission extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Role',
-                      style: getTextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Obx(
-                    () => Container(
-                      width: double.infinity,
-                      height: 61,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: AppColors.borderColor,
-                          width: 1,
-                        ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: Text(
+                  //     'Role',
+                  //     style: getTextStyle(fontSize: 12, color: Colors.grey),
+                  //   ),
+                  // ),
+                  // SizedBox(height: 10),
+
+                  //* ------------------ Role Dropdown ------------------
+                  DropdownButtonFormField(
+                    value:
+                        SpAuthController.profileInfoModel?.serviceProviderRole,
+                    items: [],
+                    onChanged: (value) {},
+                    decoration: InputDecoration(
+                      hintText:
+                          SpAuthController
+                              .profileInfoModel
+                              ?.serviceProviderRole,
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      labelText: "Role",
+                      labelStyle: getTextStyle(
+                        fontSize: 16,
+                        color: AppColors.borderColor,
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 8, bottom: 9.5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 18,
-                              child: PopupMenuButton<String>(
-                                color: AppColors.primary,
-                                onSelected:
-                                    (value) => verificationSubmissionController
-                                        .setRole(value),
-                                itemBuilder: (context) {
-                                  return verificationSubmissionController.roles
-                                      .map((role) {
-                                        return PopupMenuItem<String>(
-                                          value: role,
-                                          child: Text(
-                                            role,
-                                            style: getTextStyle(
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        );
-                                      })
-                                      .toList();
-                                },
-                                padding: EdgeInsets.zero,
-                                offset: Offset(0, 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      verificationSubmissionController
-                                          .selectedRole
-                                          .value,
-                                      style: getTextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color:
-                                            themeMode == ThemeMode.dark
-                                                ? AppColors.primary
-                                                : Colors.black,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                      ),
-                                      child: Image.asset(
-                                        IconPath.arrowdown,
-                                        width: 20,
-                                        height: 20,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 215, 216, 220),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 215, 216, 220),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 219, 221, 227),
+                          width: 1.0,
                         ),
                       ),
                     ),
+                    icon: Image.asset(
+                      IconPath.arrowdown,
+                      width: 20,
+                      height: 20,
+                      color: AppColors.borderColor,
+                    ),
                   ),
+                  // Obx(
+                  //   () => Container(
+                  //     width: double.infinity,
+                  //     height: 61,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       border: Border.all(
+                  //         color: AppColors.borderColor,
+                  //         width: 1,
+                  //       ),
+                  //     ),
+                  //     child: Padding(
+                  //       padding: EdgeInsets.only(left: 8, bottom: 9.5),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           SizedBox(
+                  //             height: 18,
+                  //             child: PopupMenuButton<String>(
+                  //               color: AppColors.primary,
+                  //               onSelected:
+                  //                   (value) => verificationSubmissionController
+                  //                       .setRole(value),
+                  //               itemBuilder: (context) {
+                  //                 return verificationSubmissionController.roles
+                  //                     .map((role) {
+                  //                       return PopupMenuItem<String>(
+                  //                         value: role,
+                  //                         child: Text(
+                  //                           role,
+                  //                           style: getTextStyle(
+                  //                             fontSize: 14,
+                  //                             color: Colors.black,
+                  //                           ),
+                  //                         ),
+                  //                       );
+                  //                     })
+                  //                     .toList();
+                  //               },
+                  //               padding: EdgeInsets.zero,
+                  //               offset: Offset(0, 20),
+                  //               child: Row(
+                  //                 mainAxisAlignment:
+                  //                     MainAxisAlignment.spaceBetween,
+                  //                 children: [
+                  //                   Text(
+                  //                     verificationSubmissionController
+                  //                         .selectedRole
+                  //                         .value,
+                  //                     style: getTextStyle(
+                  //                       fontSize: 14,
+                  //                       fontWeight: FontWeight.w600,
+                  //                       color:
+                  //                           themeMode == ThemeMode.dark
+                  //                               ? AppColors.primary
+                  //                               : Colors.black,
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.symmetric(
+                  //                       horizontal: 10,
+                  //                     ),
+                  //                     child: Image.asset(
+                  //                       IconPath.arrowdown,
+                  //                       width: 20,
+                  //                       height: 20,
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(height: 24),
                   Align(
                     alignment: Alignment.centerLeft,
