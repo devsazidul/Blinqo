@@ -1,21 +1,22 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/amenities_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddAmenitiesDialog extends StatelessWidget {
-  const AddAmenitiesDialog({super.key,});
+  const AddAmenitiesDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final AmenitiesController controller = Get.put(AmenitiesController());
-    final formKey = GlobalKey<FormState>() ;
+    final VenueSetupController controller = Get.put(VenueSetupController());
+    final formKey = GlobalKey<FormState>();
 
-    return  AlertDialog(
+    return AlertDialog(
       backgroundColor: Colors.white,
       content: Form(
-        autovalidateMode:  AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         key: formKey,
         child: TextFormField(
           controller: controller.amenityController,
@@ -82,9 +83,9 @@ class AddAmenitiesDialog extends StatelessWidget {
             SizedBox(width: 8),
             Expanded(
               child: GestureDetector(
-                onTap: () {
+                onTap: () async {
                   if (formKey.currentState!.validate()) {
-                    controller.createAmenity();
+                    await controller.createAmenity();
                     Get.back();
                   }
                 },
