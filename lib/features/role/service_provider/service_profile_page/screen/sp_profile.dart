@@ -1,6 +1,5 @@
-
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/service_provider_profile.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/work_post_screen.dart';
@@ -15,8 +14,8 @@ class SpProfile extends StatelessWidget {
       onGenerateRoute: (settings) {
         Widget screen;
         switch (settings.name) {
-          case SpProfilePage.name:
-            screen = SpProfilePage(); // sp profile settings
+          case SpProfileSettingsScreen.name:
+            screen = SpProfileSettingsScreen(); // sp profile settings
             break;
           case SpEditProfilePage.name:
             screen = SpEditProfilePage(); // sp edit profile

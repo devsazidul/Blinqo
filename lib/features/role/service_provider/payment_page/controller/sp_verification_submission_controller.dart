@@ -1,10 +1,11 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SpVerificationSubmissionController extends GetxController {
-  TextEditingController spnameController = TextEditingController();
+  TextEditingController spNameController = TextEditingController();
   TextEditingController spProfileLinkController = TextEditingController();
   TextEditingController spShortBioController = TextEditingController();
   var nidimageupload = <File>[].obs;

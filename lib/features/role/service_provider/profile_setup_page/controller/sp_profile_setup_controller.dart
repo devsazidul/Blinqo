@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SpProfileSetupController extends GetxController {
@@ -196,6 +197,7 @@ class SpProfileSetupController extends GetxController {
   Future<void> searchLocation(String place) async {
     try {
       List<Location> locations = await locationFromAddress(place);
+      Logger().i(locations);
       if (locations.isNotEmpty) {
         final loc = locations.first;
         final target = LatLng(loc.latitude, loc.longitude);
@@ -237,13 +239,14 @@ class SpProfileSetupController extends GetxController {
       <EventPreferenceModel>[].obs;
 
   Future<bool> getEventPreferences() async {
+    eventPreferenceList.clear();
     bool isSuccess = false;
     isLoadingEventPreference.value = true;
     update();
 
-    print('Current token before event preferences: ${SpAuthController.token}');
+    // print('Current token before event preferences: ${SpAuthController.token}');
     await SpAuthController.getUserInformation();
-    print('Token after reload: ${SpAuthController.token}');
+    // print('Token after reload: ${SpAuthController.token}');
 
     final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
         .getRequest(Urls.getEventPreference);
@@ -328,7 +331,7 @@ class SpProfileSetupController extends GetxController {
     final response = await Get.find<SpNetworkCaller>().multipartRequest(
       isPatchRequest: true,
       url: Urls.updateServiceProviderProfile(
-        SpAuthController.userModel?.profileId ?? '',
+        SpAuthController.profileInfoModel?.id ?? '',
       ),
       formFields: {
         'eventPreferenceIds': jsonEncode(selectedEvents),
@@ -366,11 +369,18 @@ class SpProfileSetupController extends GetxController {
   }
 
   @override
+  void onInit() {
+    eventPreferenceList.clear();
+    super.onInit();
+  }
+
+  @override
   void onClose() {
     nameController.dispose();
     descriptionController.dispose();
     locationController.dispose();
     experienceYearController.dispose();
+    selectedEvents.clear();
     super.onClose();
   }
 }
