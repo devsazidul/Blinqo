@@ -3,7 +3,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/screen/edit_profile_screen.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,7 +41,7 @@ Future<void> showPopupMenu(BuildContext context) async {
         value: "settings",
         iconPath: IconPath.settings,
         onTap: () {
-          Navigator.pushNamed(context, SpProfilePage.name);
+          Navigator.pushNamed(context, SpProfileSettingsScreen.name);
         },
         addDivider: false,
       ),

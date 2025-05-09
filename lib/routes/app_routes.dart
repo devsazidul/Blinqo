@@ -25,7 +25,7 @@ import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_pass
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_signup_screen.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
-import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
+import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_congratulations_page.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
@@ -39,7 +39,7 @@ import 'package:blinqo/features/role/service_provider/service_earning_page/scree
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_page.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
@@ -185,13 +185,13 @@ class AppRoute {
     GetPage(name: roleScreen, page: () => const RoleScreen()),
     GetPage(name: addShift, page: () => Addshift()),
     // GetPage(name: profileScreen, page: () => ProfileScreen()),
-    GetPage(name: onbordingScreen, page: () => OnbordingScreen()),
+    GetPage(name: onbordingScreen, page: () => SpOnBoardingScreen()),
     GetPage(name: bottomNavBar, page: () => SpBottomNavBarScreen()),
     GetPage(name: spHomePage, page: () => SpHomePage()),
     GetPage(name: spEarningPage, page: () => SpEarningPage()),
     GetPage(name: spBookingPage, page: () => SpBookingPage()),
     GetPage(name: spChatPage, page: () => SpChatPage()),
-    GetPage(name: spProfilePage, page: () => SpProfilePage()),
+    GetPage(name: spProfilePage, page: () => SpProfileSettingsScreen()),
     GetPage(name: vloginscreen, page: () => VLoginScreen()),
     GetPage(name: vsignupscreen, page: () => VSignupScreen()),
     GetPage(name: vforgetpassword, page: () => VForgetPassword()),

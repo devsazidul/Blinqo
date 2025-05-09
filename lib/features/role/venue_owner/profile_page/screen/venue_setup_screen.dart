@@ -1,5 +1,3 @@
-
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 
@@ -10,13 +8,15 @@ import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_se
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/add_amenities_dialog.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/widgets/event_aminites_button.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/seating_arrangement_widget.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/venue_decoration_option_selection.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/venue_setup_header.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/google_map_venue_setup.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/widgets/venue_type_dropdown_menu.dart';
+import 'package:blinqo/features/role/venue_owner/widgets/event_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 class VenueSetupScreen extends StatelessWidget {
   static const String name = '/venue-setup-screen';
@@ -28,12 +28,7 @@ class VenueSetupScreen extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
-
-    final AmenitiesController amenitiesController = Get.put(
-      AmenitiesController(),
-    );
     final VenueSetupController controller = Get.put(VenueSetupController());
-
 
     return Obx(
       () => Scaffold(
@@ -55,9 +50,10 @@ class VenueSetupScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // name text field
-                      _buildTextField(
+                      TextFieldWidget(
                         hintText: 'Venue Name',
                         labelText: 'Venue Name',
+                        controller: controller.venueNameTEController,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Enter Venue Name';
@@ -67,9 +63,10 @@ class VenueSetupScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       // Location text field
-                      _buildTextField(
+                      TextFieldWidget(
                         hintText: 'Enter your location',
                         labelText: 'Location',
+                        controller: controller.venueAddressTEController,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Enter your location';
@@ -96,15 +93,19 @@ class VenueSetupScreen extends StatelessWidget {
                       GoogleMapVenueSetup(),
 
                       SizedBox(height: 16),
-                      _buildTextField(
+                      TextFieldWidget(
                         hintText: 'Guests Capacity',
                         labelText: 'Number Of Guests',
+                        controller: controller.numberGuestsTEController,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Enter Guests Capacity';
                           }
-                          if (int.parse(value) <= 0) {
-                            return 'Guests Capacity must be greater than 0';
+                          if (int.tryParse(value) == null) {
+                            return 'Enter Valid Number';
+                          }
+                          if (int.tryParse(value)! <= 0) {
+                            return 'Enter Valid Number';
                           }
                           return null;
                         },
@@ -122,172 +123,79 @@ class VenueSetupScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 16),
-                      // show popup menu for venue type
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color:
-                                isDarkMode
-                                    ? Color(0xffAFB1B6)
-                                    : Color(0xffABB7C2),
-                          ),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            iconSize: 24,
-                            style: getTextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffEBEBEB)
-                                      : Color(0xff333333),
-                            ),
-                            hint: Text(
-                              'Select Venue Type',
-                              style: getTextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color:
-                                    isDarkMode
-                                        ? Color(0xffA1A1A1)
-                                        : Color(0xff767676),
-                              ),
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                            menuWidth: Get.width * 0.7,
-                            icon: const Icon(
-                              Icons.arrow_drop_down,
-                              color: Color(0xff003366),
-                            ),
-                            dropdownColor:
-                                isDarkMode
-                                    ? AppColors.darkBackgroundColor
-                                    : AppColors.backgroundColor,
-                            value: 'Select Venue Type',
-                            items:
-                                <String>[
-                                  'Select Venue Type',
-                                  'HOTEL',
-                                  'RESTAURANT',
-                                  'CONFERENCE_HALL',
-                                  'BANQUET',
-                                  'RESORT',
-                                  'OUTDOOR',
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                            onChanged: (String? newValue) {},
-                          ),
+                      // Venue Type Dropdown
+                      Obx(() {
+                        return DropdownSelector(
+                          selectedValue: controller.selectedVenueType.value,
+                          options: [
+                            'Select Venue Type',
+                            'HOTEL',
+                            'RESTAURANT',
+                            'CONFERENCE_HALL',
+                            'BANQUET',
+                            'RESORT',
+                            'OUTDOOR',
+                          ],
+                          hintText: 'Select Venue Type',
+                          onChanged: (String? newValue) {
+                            controller.updateSelectedVenueType(newValue);
+                          },
+                        );
+                      }),
+                      SizedBox(height: 16),
+
+                      Text(
+                        'Amenities',
+                        style: getTextStyle(
+                          color: const Color(0xFF333333),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: 12),
                       Obx(() {
-                        if (amenitiesController.isLoading.value) {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Selected Amenities Section
-                            Text(
-                              'Selected Amenities',
-                              style: getTextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color:
-                                    isDarkMode
-                                        ? Color(0xffEBEBEB)
-                                        : Color(0xff333333),
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            Obx(
-                              () =>
-                                  amenitiesController.selectedAmenities.isEmpty
-                                      ? Text(
-                                        'No amenities selected',
-                                        style: getTextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color:
-                                              isDarkMode
-                                                  ? Color(0xffEBEBEB)
-                                                  : Colors.grey,
-                                        ),
-                                      )
-                                      : Wrap(
-                                        spacing: 8,
-                                        runSpacing: 8,
-                                        children:
-                                            amenitiesController
-                                                .selectedAmenities
-                                                .map((amenity) {
-                                                  return _buildAmenityButton(
-                                                    amenity.name,
-                                                    false,
-                                                    amenitiesController,
-                                                  );
-                                                })
-                                                .toList(),
-                                      ),
-                            ),
-                            SizedBox(height: 24),
-                            // Select From Here Section
-                            Text(
-                              'Select From Here',
-                              style: getTextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color:
-                                    isDarkMode
-                                        ? Color(0xffEBEBEB)
-                                        : Color(0xff333333),
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            Obx(
-                              () =>
-                                  amenitiesController.availableAmenities.isEmpty
-                                      ? Text(
-                                        'No more amenities available',
-                                        style: getTextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color:
-                                              isDarkMode
-                                                  ? Color(0xffEBEBEB)
-                                                  : Colors.grey,
-                                        ),
-                                      )
-                                      : Wrap(
-                                        spacing: 8,
-                                        runSpacing: 8,
-                                        children:
-                                            amenitiesController
-                                                .availableAmenities
-                                                .map((amenity) {
-                                                  return _buildAmenityButton(
-                                                    amenity.name,
-                                                    true,
-                                                    amenitiesController,
-                                                  );
-                                                })
-                                                .toList(),
-                                      ),
-                            ),
-                            const SizedBox(height: 24),
-                          ],
-                        );
+                        return controller.selectedAmenities.isEmpty
+                            ? Text('No amenities selected')
+                            : Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children:
+                                  controller.selectedAmenities.map((amenity) {
+                                    return EventAmenityButton(
+                                      amenity: amenity,
+                                      isSelected: true,
+                                      controller: controller,
+                                    );
+                                  }).toList(),
+                            );
+                      }),
+
+                      SizedBox(height: 24),
+                      // Available Amenities Section
+                      Text(
+                        'Select From Here',
+                        style: getTextStyle(
+                          color: const Color(0xFF333333),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Obx(() {
+                        return controller.availableAmenities.isEmpty
+                            ? Text('No more amenities available')
+                            : Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children:
+                                  controller.availableAmenities.map((amenity) {
+                                    return EventAmenityButton(
+                                      amenity: amenity,
+                                      isSelected: false,
+                                      controller: controller,
+                                    );
+                                  }).toList(),
+                            );
                       }),
 
                       const SizedBox(height: 24),
@@ -309,7 +217,7 @@ class VenueSetupScreen extends StatelessWidget {
                           child: Icon(Icons.add, color: Colors.white, size: 24),
                         ),
                       ),
-                      SizedBox(height: 85),
+                      SizedBox(height: 40),
                       // Seating Arrangement
                       Text(
                         'Seating Arrangement',
@@ -409,7 +317,8 @@ class VenueSetupScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              Get.to(() => VenueOwnerProfilePage());
+                              controller.createNewVenue();
+                              // Get.to(() => VenueOwnerProfilePage());
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -477,98 +386,6 @@ class VenueSetupScreen extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required String hintText,
-    required String labelText,
-    required String? Function(String?)? validator,
-  }) {
-    final bool isDarkMode =
-        Get.put(VenueOwnerProfileController()).isDarkMode.value;
-
-    return TextFormField(
-      validator: validator,
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: getTextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          color: isDarkMode ? Color(0xffC0C0C0) : Color(0xff767676),
-        ),
-        hintText: hintText,
-        hintStyle: getTextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff767676),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
-            width: 1,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAmenityButton(
-    String amenity,
-    bool isSelected,
-    AmenitiesController controller,
-  ) {
-    return GestureDetector(
-      onTap: () {
-        if (isSelected) {
-          controller.selectAmenity(
-            EventAmenity(
-              id: '', // Placeholder, adjust if ID is needed
-              name: amenity,
-              defaultSelected: false,
-            ),
-          );
-        } else {
-          controller.removeAmenity(
-            EventAmenity(
-              id: '', // Placeholder, adjust if ID is needed
-              name: amenity,
-              defaultSelected: false,
-            ),
-          );
-        }
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300),
-          borderRadius: BorderRadius.circular(20),
-          color: isSelected ? Colors.white : Color(0xffFBF7EB),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.wifi, size: 16, color: Color(0xffD4AF37)),
-            const SizedBox(width: 8),
-            Text(
-              amenity,
-              style: getTextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: const Color(0xFF333333),
-              ),
-            ),
-          ],
         ),
       ),
     );

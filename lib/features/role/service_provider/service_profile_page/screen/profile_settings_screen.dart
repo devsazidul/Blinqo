@@ -1,8 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
@@ -11,10 +11,10 @@ import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SpProfilePage extends StatelessWidget {
+class SpProfileSettingsScreen extends StatelessWidget {
   static const String name = '/sp_profile_settings';
 
-  const SpProfilePage({super.key});
+  const SpProfileSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -205,8 +205,9 @@ class SpProfilePage extends StatelessWidget {
           themeMode,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
-          onTap: () {
-            Get.to(InvitationCardScreen());
+          onTap: () async {
+            await SpAuthController.clearUserData();
+            Get.offAll(SpOnBoardingScreen());
           },
         ),
         ListTile(

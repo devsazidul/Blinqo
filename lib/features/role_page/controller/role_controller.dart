@@ -3,7 +3,7 @@ import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.d
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
-import 'package:blinqo/features/role/service_provider/onbording/screen/onbording_screen.dart';
+import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
@@ -59,7 +59,7 @@ class RoleController extends GetxController {
             Get.to(() => SpProfileSetupScreen());
           }
         } else {
-          Get.to(() => OnbordingScreen());
+          Get.to(() => SpOnBoardingScreen());
         }
 
         break;
