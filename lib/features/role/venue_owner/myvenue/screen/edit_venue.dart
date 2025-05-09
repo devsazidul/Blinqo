@@ -23,6 +23,7 @@ class EditVenue extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    // ignore: no_leading_underscores_for_local_identifiers
     final Completer<GoogleMapController> _mapController = Completer();
     final controller = Get.put(MyVenueController());
     final controllers = Get.put(FacilityController());
@@ -197,7 +198,7 @@ Obx(() {
     spacing: 10, // Horizontal space between items
     runSpacing: 10, // Vertical space between lines
     children: facilities.map((facility) {
-      return Container(
+      return SizedBox(
         width: (screenWidth - 40) / 2, // Each item takes up half the screen width (2 items per row)
         child: FacilityTag(
           icon: Icons.wifi,

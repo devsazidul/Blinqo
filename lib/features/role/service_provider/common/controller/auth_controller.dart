@@ -23,6 +23,7 @@ class SpAuthController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (accessToken != null) {
       sharedPreferences.setString(_tokenKey, accessToken);
+      // ignore: avoid_print
       print('Saving token to SharedPreferences: $accessToken');
     }
     if (user != null) {
@@ -46,6 +47,7 @@ class SpAuthController {
 
     String? accessToken = sharedPreferences.getString(_tokenKey);
     token = accessToken;
+    // ignore: avoid_print
     print('Loading token from SharedPreferences: $token');
 
     String? userDataString = sharedPreferences.getString(_userDataKey);

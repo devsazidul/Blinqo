@@ -57,7 +57,7 @@ class SpLoginController extends GetxController {
         response.responseData['data'],
       );
 
-      print('Login successful, access token: ${authModel.accessToken}');
+      debugPrint('Login successful, access token: ${authModel.accessToken}');
 
       //* check if user role is "SERVICE_PROVIDER" then check if user profile is created or not
       //* if profile is not created then show profile setup screen
@@ -67,7 +67,7 @@ class SpLoginController extends GetxController {
           accessToken: authModel.accessToken,
           user: authModel.user,
         );
-        print('Token saved, current token: ${SpAuthController.token}');
+        debugPrint('Token saved, current token: ${SpAuthController.token}');
 
         if (authModel.user?.isProfileCreated == true) {
           //* Save user profile information into shared preferences

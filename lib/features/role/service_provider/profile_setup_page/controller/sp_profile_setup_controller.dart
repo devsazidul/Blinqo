@@ -241,9 +241,9 @@ class SpProfileSetupController extends GetxController {
     isLoadingEventPreference.value = true;
     update();
 
-    print('Current token before event preferences: ${SpAuthController.token}');
+    debugPrint('Current token before event preferences: ${SpAuthController.token}');
     await SpAuthController.getUserInformation();
-    print('Token after reload: ${SpAuthController.token}');
+    debugPrint('Token after reload: ${SpAuthController.token}');
 
     final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
         .getRequest(Urls.getEventPreference);
@@ -321,9 +321,9 @@ class SpProfileSetupController extends GetxController {
     isLoadingServiceProviderUpdate.value = true;
     update();
 
-    print('Current token before update: ${SpAuthController.token}');
+    debugPrint('Current token before update: ${SpAuthController.token}');
     await SpAuthController.getUserInformation();
-    print('Token after reload: ${SpAuthController.token}');
+    debugPrint('Token after reload: ${SpAuthController.token}');
 
     final response = await Get.find<SpNetworkCaller>().multipartRequest(
       isPatchRequest: true,

@@ -28,6 +28,7 @@ class OwnerNetworkCaller {
   }
 
   Future<NetworkResponse> postRequest({
+    // ignore: non_constant_identifier_names
     required String Url,
     required Map<String, dynamic> body,
     String? token,
@@ -67,6 +68,7 @@ class OwnerNetworkCaller {
   }
 
   Future<NetworkResponse> getRequest({
+    // ignore: non_constant_identifier_names
     required String Url,
     String? token,
     bool showLoading = true,

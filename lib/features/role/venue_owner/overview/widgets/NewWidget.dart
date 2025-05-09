@@ -20,6 +20,7 @@ class NewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
         final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
+    // ignore: avoid_print
     print(screenHeight);
     final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;///
     return SizedBox(
@@ -128,7 +129,7 @@ class NewWidget extends StatelessWidget {
                             width:37 ,
                             height: 28,
                             fit: BoxFit.cover,
-                            color: isDarkMode ? Color(0xff8D4AF37) : Color(0xff003366),
+                            color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                           ),
                         ),
                       ],

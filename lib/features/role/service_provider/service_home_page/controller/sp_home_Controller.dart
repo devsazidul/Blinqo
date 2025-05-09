@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';

@@ -103,6 +103,7 @@ class SignUpController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         String token = jsonDecode(response.body)["data"]["access_token"];
         LoginController(token: token);
+        // ignore: avoid_print
         print(token);
       } else {
         responseMessage.value = _parseError(responseData);

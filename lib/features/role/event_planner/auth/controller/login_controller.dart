@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:blinqo/features/role/event_planner/auth/mixin/acasinge_token.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -46,7 +45,7 @@ class LoginController extends GetxController {
     isLoading.value = true;
     errorMessage.value = '';
 
-    print("login: token : $_token");
+    debugPrint("login: token : $_token");
 
     try {
       final response = await http
@@ -54,7 +53,7 @@ class LoginController extends GetxController {
             Uri.parse(loginUrl),
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer ${this._token}',
+              'Authorization': 'Bearer $_token',
             },
             body: jsonEncode({
               'email': emailController.text.trim(),
@@ -67,6 +66,7 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200) {
         // Handle successful login
+        // ignore: unused_local_variable
         final token = responseData['token'] ?? '';
         final roles = List<String>.from(responseData['roles'] ?? []);
 

@@ -21,6 +21,7 @@ class EvenPaymentHistoryScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 48),
+            // ignore: dead_code
             if (false) _buildNoPaymnetScreen(),
             Container(
               width: double.infinity,

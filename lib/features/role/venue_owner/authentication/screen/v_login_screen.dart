@@ -8,6 +8,7 @@ import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class VLoginScreen extends StatelessWidget {
   VLoginScreen({super.key});
   VenueLoginController loginController = Get.put(VenueLoginController());
@@ -109,10 +110,10 @@ class VLoginScreen extends StatelessWidget {
                     },
                     backgroundColor: loginController.isFromValid.value
                         ? Color(0xFF003366)
-                        : Color(0xFF003366).withOpacity(0.1),
+                        : Color(0xFF003366).withValues(alpha:  0.1),
                     borderColor: loginController.isFromValid.value
                         ? Color(0xFF003366)
-                        : Color(0xFF003366).withOpacity(0.1),
+                        : Color(0xFF003366).withValues (alpha:  0.1),
                   );
                 }),
                 SizedBox(height: 16),

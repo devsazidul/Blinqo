@@ -85,7 +85,7 @@ class GroupChatView extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: AppColors.iconColor.withOpacity(0.1),
+              color: AppColors.iconColor.withValues(alpha:  0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: AppColors.iconColor, size: 30),
@@ -718,8 +718,8 @@ class GroupMessageBubble extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 10,
                               color: isCurrentUser
-                                  ? Colors.white.withOpacity(0.7)
-                                  : Colors.black.withOpacity(0.5),
+                                  ? Colors.white.withValues(alpha:  0.7)
+                                  : Colors.black.withValues(alpha:  0.5),
                             ),
                           ),
                         ),
@@ -779,7 +779,7 @@ class GroupMessageBubble extends StatelessWidget {
                   width: 28,
                   height: 28,
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha:  0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -802,10 +802,10 @@ class GroupMessageBubble extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 isCurrentUser
-                                    ? Colors.white.withOpacity(
+                                    ? Colors.white.withValues(alpha: 
                                       0.2 + (index % 5) * 0.15,
                                     )
-                                    : Colors.black.withOpacity(
+                                    : Colors.black.withValues( alpha: 
                                       0.2 + (index % 5) * 0.15,
                                     ),
                             borderRadius: BorderRadius.circular(1.5),

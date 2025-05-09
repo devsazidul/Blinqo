@@ -5,7 +5,6 @@ import 'package:blinqo/features/role/venue_owner/overview/controller/overview_co
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class AllBookingRequests extends StatelessWidget {
   AllBookingRequests({super.key});
@@ -53,7 +52,7 @@ class AllBookingRequests extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xff000000).withOpacity(0.1),
+                    color: const Color(0xff000000).withValues(alpha:  0.1),
                     blurRadius: 6,
                     offset: const Offset(0, 3),
                   ),
@@ -108,7 +107,7 @@ class AllBookingRequests extends StatelessWidget {
                           height: 28,
                           color:
                               isDarkMode
-                                  ? const Color(0xff8D4AF37)
+                                  ? const Color(0xffD4AF37)
                                   : const Color(0xff003366),
                         ),
                       ],

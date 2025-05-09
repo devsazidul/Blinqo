@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_confirm_email_verify_otp_screen.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
@@ -14,6 +16,7 @@ class SpSignupController extends GetxController {
   TextEditingController retypePasswordController = TextEditingController();
 
   bool _isLoading = false;
+  
   String _errorMessage = '';
   bool _isSuccess = false;
 
@@ -39,7 +42,7 @@ class SpSignupController extends GetxController {
       isFromValid.value = false;
     }
     update();
-    print("isFromValid: $isFromValid");
+    debugPrint("isFromValid: $isFromValid");
   }
 
   Future<bool> signUp() async {

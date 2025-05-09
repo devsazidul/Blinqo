@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:blinqo/features/role/venue_owner/authentication/screen/singup_otp_screen.dart'
+    // ignore: library_prefixes
     as singupOtp;
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
