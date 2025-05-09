@@ -9,12 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:logger/logger.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
-import '../../../../../core/common/styles/global_text_style.dart';
-import '../../../../../core/utils/constants/colors.dart';
 import '../../authentication/model/login_model.dart';
 
 class VenueProfileSetupController extends GetxController {

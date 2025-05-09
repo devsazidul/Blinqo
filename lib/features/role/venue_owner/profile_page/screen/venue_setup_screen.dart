@@ -1,9 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-
-import 'package:blinqo/features/role/venue_owner/profile_page/Model/amenity_model.dart';
-
-import 'package:blinqo/features/role/venue_owner/profile_page/controller/amenities_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner_profile_page.dart';

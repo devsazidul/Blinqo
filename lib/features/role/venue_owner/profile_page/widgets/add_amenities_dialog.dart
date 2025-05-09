@@ -1,6 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/controller/amenities_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

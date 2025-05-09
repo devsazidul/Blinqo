@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:blinqo/features/role/event_planner/auth/controller/login_controller.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter/material.dart';
@@ -78,51 +80,66 @@ class SignUpController extends GetxController {
 
   // Sign-up API call with token handling
   Future<void> registerUser() async {
-    _isLoading.value = true;
-    responseMessage.value = '';
-
-    try {
-      final user = {
-        'email': emailController1.text.trim(),
-        'password': passwordController.text,
-        'name': nameController.text.trim(),
-        'phone': phoneController1.text.trim(),
-        'roles': ['PLANNER'],
-      };
-
-      final response = await http
-          .post(
-            Uri.parse(apiUrl),
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode(user),
-          )
-          .timeout(const Duration(seconds: 30));
-
-      final responseData = jsonDecode(response.body);
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        String token = jsonDecode(response.body)["data"]["access_token"];
-        LoginController(token: token);
-        // ignore: avoid_print
-        print(token);
-      } else {
-        responseMessage.value = _parseError(responseData);
-      }
-    } on SocketException {
-      responseMessage.value = 'No internet connection';
-    } on TimeoutException {
-      responseMessage.value = 'Request timed out';
-    } on http.ClientException catch (e) {
-      responseMessage.value = 'Network error: ${e.message}';
-    } on FormatException {
-      responseMessage.value = 'Invalid server response';
-    } catch (e) {
-      responseMessage.value = 'An unexpected error occurred';
-      debugPrint('Registration error: $e');
-    } finally {
-      _isLoading.value = false;
+  _isLoading.value = true;
+  responseMessage.value = '';
+  EasyLoading.show(status: 'creating Profile...');
+  
+  try {
+    debugPrint('Attempting to register user...');
+    final user = {
+      'email': emailController1.text.trim(),
+      'password': passwordController.text,
+      'name': nameController.text.trim(),
+      'phone': phoneController1.text.trim(),
+      'roles': ['SERVICE_PROVIDER'],
+    };
+    
+    debugPrint('User data: $user');
+    
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(user),
+    );
+    
+    debugPrint('Response status code: ${response.statusCode}');
+    debugPrint('Response body: ${response.body}');
+    
+    final responseData = jsonDecode(response.body);
+    debugPrint('Decoded response data: $responseData');
+    
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      String token = responseData["data"]["access_token"];
+      Get.to(OTPScreen());
+      LoginController(token: token);
+      debugPrint('Login token: $token');
+    } else {
+      responseMessage.value = _parseError(responseData);
+      debugPrint('Error message: ${responseMessage.value}');
     }
+  } on SocketException {
+    responseMessage.value = 'No internet connection';
+    debugPrint('SocketException: No internet connection');
+  } on TimeoutException {
+    responseMessage.value = 'Request timed out';
+    debugPrint('TimeoutException: Request timed out');
+  } on http.ClientException catch (e) {
+    responseMessage.value = 'Network error: ${e.message}';
+    debugPrint('http.ClientException: Network error: ${e.message}');
+  } on FormatException {
+    responseMessage.value = 'Invalid server response';
+    debugPrint('FormatException: Invalid server response');
+  } catch (e) {
+    responseMessage.value = 'An unexpected error occurred';
+    debugPrint('Unexpected error: $e');
+    debugPrint('Registration error: $e');
+  } finally {
+    _isLoading.value = false;
+    EasyLoading.dismiss();
+    debugPrint('Loading finished');
   }
+}
+
 
   String _parseError(dynamic data) {
     try {
