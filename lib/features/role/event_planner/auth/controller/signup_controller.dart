@@ -91,7 +91,7 @@ class SignUpController extends GetxController {
       'password': passwordController.text,
       'name': nameController.text.trim(),
       'phone': phoneController1.text.trim(),
-      'roles': ['SERVICE_PROVIDER'],
+      'roles': ['EVENT_PLANNER'],
     };
     
     debugPrint('User data: $user');
