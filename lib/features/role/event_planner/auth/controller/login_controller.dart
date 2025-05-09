@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,9 +22,7 @@ class LoginController extends GetxController {
   final isPasswordVisible = false.obs;
   final isFormValid = false.obs;
 
-  // Constants
-  static const String loginUrl =
-      'https://freepik.softvenceomega.com/auth/login';
+ 
 
   // Toggle password visibility
   void togglePasswordVisibility() {
@@ -42,70 +41,83 @@ class LoginController extends GetxController {
 
   // Login API call
   Future<bool> login() async {
-    isLoading.value = true;
-    errorMessage.value = '';
+  isLoading.value = true;
+  errorMessage.value = '';
 
-    debugPrint("login: token : $_token");
+  debugPrint("login: token : $_token");
+  debugPrint("Attempting to log in...");
+  
+  try {
+    debugPrint('Sending login request...');
+    final response = await http
+        .post(
+          Uri.parse(Urls.login),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $_token',
+          },
+          body: jsonEncode({
+            'email': emailController.text.trim(),
+            'password': passwordController.text.trim(),
+          }),
+        )
+        .timeout(const Duration(seconds: 30));
 
-    try {
-      final response = await http
-          .post(
-            Uri.parse(loginUrl),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $_token',
-            },
-            body: jsonEncode({
-              'email': emailController.text.trim(),
-              'password': passwordController.text.trim(),
-            }),
-          )
-          .timeout(const Duration(seconds: 30));
+    debugPrint('Response status code: ${response.statusCode}');
+    debugPrint('Response body: ${response.body}');
 
-      final responseData = jsonDecode(response.body);
+    final responseData = jsonDecode(response.body);
+    debugPrint('Decoded response data: $responseData');
 
-      if (response.statusCode == 200) {
-        // Handle successful login
-        // ignore: unused_local_variable
-        final token = responseData['token'] ?? '';
-        final roles = List<String>.from(responseData['roles'] ?? []);
+    if (response.statusCode == 200) {
+      // Handle successful login
+      final token = responseData['token'] ?? '';
+      final roles = List<String>.from(responseData['roles'] ?? []);
+      debugPrint('Token: $token');
+      debugPrint('Roles: $roles');
 
-        if (!roles.contains('PLANNER')) {
-          errorMessage.value = 'Please sign up as a service provider';
-          return false;
-        }
-
-        // Save user information (implement your storage method)
-        // await saveUserInformation(token, responseData['user']);
-
-        return true;
-      } else {
-        // Handle API errors
-        errorMessage.value = responseData['message'] ?? 'Login failed';
-
-        // Special case for email verification
-        if (responseData['message']?.contains('verification code') ?? false) {
-          // Get.to(() => OtpSendScreen(email: emailController.text.trim()));
-        }
-
+      if (!roles.contains('PLANNER')) {
+        errorMessage.value = 'Please sign up as a service provider';
+        debugPrint('Error: Please sign up as a service provider');
         return false;
       }
-    } on http.ClientException catch (e) {
-      errorMessage.value = 'Network error: ${e.message}';
+
+      debugPrint('Login successful');
+      return true;
+    } else {
+      errorMessage.value = responseData['message'] ?? 'Login failed';
+      debugPrint('Error message: ${errorMessage.value}');
+
+      // Special case for email verification
+      if (responseData['message']?.contains('verification code') ?? false) {
+        debugPrint('Special case: Email verification required');
+        // Get.to(() => OtpSendScreen(email: emailController.text.trim()));
+      }
+
       return false;
-    } on TimeoutException {
-      errorMessage.value = 'Request timed out';
-      return false;
-    } on FormatException {
-      errorMessage.value = 'Invalid server response';
-      return false;
-    } catch (e) {
-      errorMessage.value = 'An unexpected error occurred';
-      return false;
-    } finally {
-      isLoading.value = false;
     }
+  } on http.ClientException catch (e) {
+    errorMessage.value = 'Network error: ${e.message}';
+    debugPrint('Network error: ${e.message}');
+    return false;
+  } on TimeoutException {
+    errorMessage.value = 'Request timed out';
+    debugPrint('TimeoutException: Request timed out');
+    return false;
+  } on FormatException {
+    errorMessage.value = 'Invalid server response';
+    debugPrint('FormatException: Invalid server response');
+    return false;
+  } catch (e) {
+    errorMessage.value = 'An unexpected error occurred';
+    debugPrint('Unexpected error: $e');
+    return false;
+  } finally {
+    isLoading.value = false;
+    debugPrint('Loading finished');
   }
+}
+
 
   @override
   void onClose() {

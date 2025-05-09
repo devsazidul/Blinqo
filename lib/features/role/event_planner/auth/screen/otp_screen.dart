@@ -2,7 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
-import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
+import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -106,7 +106,7 @@ class OTPScreen extends StatelessWidget {
                     onPress:
                         otpController.isFormValid.value
                             ? () {
-                              Get.to(() => ChangePasswordScreen());
+                              Get.to(() => EventBottomNavBar());
                             }
                             : null,
                     backgroundColor:
