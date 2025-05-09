@@ -172,11 +172,11 @@ class MessageBubble extends StatelessWidget {
                         decoration: BoxDecoration(
                           color:
                               isCurrentUser
-                                  ? Colors.white.withOpacity(
-                                    0.2 + (index % 5) * 0.15,
+                                  ? Colors.white.withValues(
+                                    alpha: 0.2 + (index % 5) * 0.15,
                                   )
-                                  : Colors.black.withOpacity(
-                                    0.2 + (index % 5) * 0.15,
+                                  : Colors.black.withValues(
+                                    alpha: 0.2 + (index % 5) * 0.15,
                                   ),
                           borderRadius: BorderRadius.circular(1.5),
                         ),

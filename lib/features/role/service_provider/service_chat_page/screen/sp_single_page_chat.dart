@@ -327,6 +327,7 @@ class SpSinglePageChat extends StatelessWidget {
               Obx(() {
                 if (controller.isEmojiVisible.value) {
                   return EmojiPicker(
+                    // ignore: non_constant_identifier_names
                     onEmojiSelected: (Category, emoji) {
                       controller.messageController.text += emoji.emoji;
                       controller.messageText.value =

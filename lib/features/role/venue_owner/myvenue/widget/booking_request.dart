@@ -124,7 +124,7 @@ class BookingRequest extends StatelessWidget {
                             width:37 ,
                             height: 28,
                             fit: BoxFit.cover,
-                            color: isDarkMode ? Color(0xff8D4AF37) : Color(0xff003366),
+                            color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
                           ),
                         ),
                       ],

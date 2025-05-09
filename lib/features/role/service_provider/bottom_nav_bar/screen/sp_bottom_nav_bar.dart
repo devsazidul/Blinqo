@@ -16,7 +16,7 @@ class SpBottomNavBarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("SpBottomNavBarScreen");
+    debugPrint("SpBottomNavBarScreen");
     final SpProfileController spProfileController = Get.put(
       SpProfileController(),
     );

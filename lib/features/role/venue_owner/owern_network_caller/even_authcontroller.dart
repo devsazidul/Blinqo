@@ -86,6 +86,7 @@ class EvenAuthController {
       // Ensure both token and role are present
       return token != null && token.isNotEmpty && role != null && role.isNotEmpty;
     } catch (e) {
+      // ignore: avoid_print
       print("Error checking login status: $e");
       return false;
     }

@@ -98,11 +98,11 @@ class VerificationCodeScreen extends StatelessWidget {
                   backgroundColor:
                       controller.isFormValid.value
                           ? const Color(0xFF003366)
-                          : const Color(0xFF003366).withOpacity(0.1),
+                          : const Color(0xFF003366).withValues(alpha:  0.1),
                   borderColor:
                       controller.isFormValid.value
                           ? const Color(0xFF003366)
-                          : const Color(0xFF003366).withOpacity(0.1),
+                          : const Color(0xFF003366).withValues(alpha:  0.1),
                 );
               }),
               const SizedBox(height: 16),

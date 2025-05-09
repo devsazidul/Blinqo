@@ -30,6 +30,10 @@ class SpHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // ignore: unused_local_variable
+    final profileInfo = SpGetUserInfoController().userInfoModel;
+
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;

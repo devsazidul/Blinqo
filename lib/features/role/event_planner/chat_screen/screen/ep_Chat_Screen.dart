@@ -1,3 +1,6 @@
+
+// ignore_for_file: file_names
+
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
@@ -85,7 +88,7 @@ class EpChatScreen extends StatelessWidget {
                   onTap: () {
                     epChatController.setActiveChat(chats[index].id);
                     Get.to(() => ChatDetails(chatId: chats[index].id));
-                    print(chats[index].id);
+                    debugPrint(chats[index].id);
                   },
                 );
               },

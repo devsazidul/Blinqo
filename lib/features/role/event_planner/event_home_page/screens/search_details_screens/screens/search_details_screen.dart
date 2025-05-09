@@ -62,6 +62,7 @@ class SearchDetailsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                // ignore: unrelated_type_equality_checks
                 searchDetailsController.clear == false
                     ? ListView.separated(
                       separatorBuilder: (context, index) {

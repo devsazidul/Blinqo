@@ -25,7 +25,7 @@ class SearchEmployee extends StatelessWidget {
         style: getTextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: isDarkMode?Color(0xffEFEFEFf):Colors.black,
+          color: isDarkMode?Color(0xffFEFEFf):Colors.black,
         ),
         decoration: InputDecoration(
           hintText: 'Search your venues....',

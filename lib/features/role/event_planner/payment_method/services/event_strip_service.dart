@@ -48,6 +48,7 @@ class EventStripService {
       //   transition: Transition.rightToLeft,
       //   duration: const Duration(milliseconds: 500),
       // );
+      // ignore: use_build_context_synchronously
       Navigator.pushNamed(context, EventCongratulationScreen.routeName);
     } catch (e) {
       // Show snackbar on failure using GetX

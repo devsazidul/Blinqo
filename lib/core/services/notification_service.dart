@@ -128,6 +128,7 @@ class NotificationService {
   Future<void> _setupMessageHandlers() async {
     // Foreground message
     FirebaseMessaging.onMessage.listen((message) {
+      // ignore: avoid_print
       print(message.data);
       debugPrint(message.notification?.title);
       debugPrint(message.notification?.body);
@@ -149,6 +150,7 @@ class NotificationService {
   }
 
   Future<void> _handleBackgroundMessage(RemoteMessage message) async {
+    // ignore: avoid_print
     print(message.data);
     debugPrint(message.notification?.title);
     debugPrint(message.notification?.body);

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';

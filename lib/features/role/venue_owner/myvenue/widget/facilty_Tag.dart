@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
@@ -7,11 +9,7 @@ class FacilityTag extends StatelessWidget {
   final IconData icon;
   final String label;
 
-  const FacilityTag({
-    super.key,
-    required this.icon,
-    required this.label,
-  });
+  const FacilityTag({super.key, required this.icon, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,6 @@ class FacilityTag extends StatelessWidget {
           BoxShadow(
             color: Color(0xff000000).withValues(alpha: .2),
             blurRadius: 3,
-           
           ),
         ],
       ),

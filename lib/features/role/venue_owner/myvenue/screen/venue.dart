@@ -65,7 +65,7 @@ class Venue extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color:
                                       isDarkMode
-                                          ? Color(0xff132383D)
+                                          ? Color(0xff32383D)
                                           : Colors.white,
                                   borderRadius: BorderRadius.circular(16),
                                 ),

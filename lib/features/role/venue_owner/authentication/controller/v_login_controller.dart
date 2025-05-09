@@ -52,6 +52,7 @@ class VenueLoginController extends GetxController {
         var roles = response.body['data']?['user']?['roles'];
         EventUser user = EventUser.fromJson(response.body['data']['user']);
 
+        // ignore: unnecessary_null_comparison
         if (token != null && roles != null && roles.isNotEmpty) {
           String role = roles[0];
           await EvenAuthController.saveAuthToken(token, role, user);

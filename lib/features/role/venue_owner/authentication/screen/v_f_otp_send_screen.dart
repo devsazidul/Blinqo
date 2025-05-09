@@ -100,11 +100,11 @@ class VForgetOTPScreen extends StatelessWidget {
                     backgroundColor:
                         vForgetPasswordController.isFormValid2.value
                             ? const Color(0xFF003366)
-                            : const Color(0xFF003366).withOpacity(0.1),
+                            : const Color(0xFF003366).withValues(alpha:  0.1),
                     borderColor:
                         vForgetPasswordController.isFormValid2.value
                             ? const Color(0xFF003366)
-                            : const Color(0xFF003366).withOpacity(0.1),
+                            : const Color(0xFF003366).withValues(alpha:  0.1),
                   ),
                 ),
                 const SizedBox(height: 32),

@@ -53,7 +53,7 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xff000000).withOpacity(0.1),
+                    color: const Color(0xff000000).withValues(alpha:  0.1),
                     blurRadius: 6,
                     offset: const Offset(0, 3),
                   ),
@@ -108,7 +108,7 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                           height: 28,
                           color:
                               isDarkMode
-                                  ? const Color(0xff8D4AF37)
+                                  ? const Color(0xffD4AF37)
                                   : const Color(0xff003366),
                         ),
                       ],
@@ -154,8 +154,8 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 reviews["status"] == "Confirmed"
-                                    ? const Color(0xff37D459).withOpacity(0.2)
-                                    : const Color(0xffD4AF37).withOpacity(0.2),
+                                    ? const Color(0xff37D459).withValues(alpha:  0.2)
+                                    : const Color(0xffD4AF37).withValues(alpha:  0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
