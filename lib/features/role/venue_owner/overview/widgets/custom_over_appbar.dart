@@ -1,6 +1,7 @@
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_verified_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_setup_screen.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/venue_notification_page/screens/v_notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    VenueOwnerProfileController controller = Get.put(VenueOwnerProfileController());
     final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return SafeArea(
       child: Padding(
@@ -35,7 +37,9 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Get.to(VenueProfileScreen());
+                controller.getProfileInformation();
+                controller.getUserInfo();
+                Get.to(VenueOwnerProfilePage());
               },
               child: Row(
                 children: [

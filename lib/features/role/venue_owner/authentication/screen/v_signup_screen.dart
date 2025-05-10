@@ -95,22 +95,24 @@ class VSignupScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                AuthCustomTextField(
-                  text: 'Enter your Password',
-                  onChanged: (value) => controller.validateForm(),
-                  controller: controller.passwordController,
-                  obscureText: controller.isPasswordVisible.value,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      controller.isPasswordVisible.value
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color: const Color(0xFF003366),
+                Obx((){
+                  return AuthCustomTextField(
+                    text: 'Enter your Password',
+                    onChanged: (value) => controller.validateForm(),
+                    controller: controller.passwordController,
+                    obscureText: controller.isPasswordVisible.value,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        controller.isPasswordVisible.value
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: const Color(0xFF003366),
+                      ),
+                      onPressed: controller.togglePasswordVisibility,
                     ),
-                    onPressed: controller.togglePasswordVisibility,
-                  ),
-                  validator: controller.validatePassword,
-                ),
+                    validator: controller.validatePassword,
+                  );
+                }),
                 const SizedBox(height: 16),
                 Text(
                   'Retype Password',
@@ -121,22 +123,24 @@ class VSignupScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                AuthCustomTextField(
-                  controller: controller.retypepasswordController,
-                  text: 'Enter your Password',
-                  onChanged: (value) => controller.validateForm(),
-                  obscureText: controller.isPasswordVisible1.value,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      controller.isPasswordVisible1.value
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color: const Color(0xFF003366),
+                Obx((){
+                  return AuthCustomTextField(
+                    controller: controller.retypepasswordController,
+                    text: 'Enter your Password',
+                    onChanged: (value) => controller.validateForm(),
+                    obscureText: controller.isPasswordVisible1.value,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        controller.isPasswordVisible1.value
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: const Color(0xFF003366),
+                      ),
+                      onPressed: controller.togglePasswordVisibility1,
                     ),
-                    onPressed: controller.togglePasswordVisibility1,
-                  ),
-                  validator: controller.validateRetypePassword,
-                ),
+                    validator: controller.validateRetypePassword,
+                  );
+                }),
                 const SizedBox(height: 32),
                 Obx(() {
                   return CustomButton(

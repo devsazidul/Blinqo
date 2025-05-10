@@ -7,6 +7,7 @@ import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authc
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/Model/amenity_model.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/Model/event_decoration_model.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/widgets/even_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -191,7 +192,7 @@ class VenueSetupController extends GetxController {
   }
 
   Future<void> fetchAmenities() async {
-    final authToken = await EvenAuthController.getAuthToken();
+    final authToken = await EventAuthController.getAuthToken();
     if (authToken?.isEmpty ?? true) {
       _logger.w('Auth token is missing or invalid.');
       EasyLoading.showError('Authorization token is missing.');
@@ -271,7 +272,7 @@ class VenueSetupController extends GetxController {
     _logger.i(
       'Validation Passed : Venue Image: ${venueImage.value?.path}, Seat Arrangement Image: ${seatArrangementImage.value?.path} ',
     );
-    EventUser? user = await EvenAuthController.getUserInfo();
+    EventUser? user = await EventAuthController.getUserInfo();
     String? profileId = user?.profileId;
     _logger.i('User ID: $profileId');
     if (profileId == null) {
@@ -339,9 +340,9 @@ class VenueSetupController extends GetxController {
       // // Replace with actual input
       // 'parkingDescription': 'string',
       // // Replace with actual input
-      // 'price': 0,
+      'price': 0,
       // // Replace with actual input
-      // 'bookingType': 'INSTANT_BOOKING',
+      'bookingType': 'INSTANT_BOOKING',
       // // Replace with actual input
       // 'extraServiceDescription': 'string',
       // // Replace with actual input
@@ -373,6 +374,7 @@ class VenueSetupController extends GetxController {
     if (response.isSuccess) {
       EasyLoading.showSuccess('Venue created successfully');
       clearControllers();
+      VenueOwnerProfilePage();
       _logger.i('Venue created successfully: ${response.body}');
     } else {
       EasyLoading.showError('Failed to create venue: ${response.errorMessage}');

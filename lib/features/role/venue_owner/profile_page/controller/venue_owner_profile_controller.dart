@@ -1,7 +1,10 @@
-import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/common/widgets/logger_view.dart';
+import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
+import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/Model/user_all_info_model.dart';
+import 'package:blinqo/features/role/venue_owner/widgets/even_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -12,14 +15,16 @@ import 'package:permission_handler/permission_handler.dart';
 class VenueOwnerProfileController extends GetxController {
   RxBool isDarkMode = false.obs;
   var showNotifications = true.obs;
-    var selectedImage = Rx<File?>(null);
-    var seledtedImages = Rx<File?>(null);
+  VenueOwnerUserData? user;
+  var selectedImage = Rx<File?>(null);
+
   var profileImage = Rx<File?>(null);
+
+  final _logger = createLogger();
 
   @override
   void onInit() {
     super.onInit();
-
     isDarkMode.value = Get.isDarkMode;
   }
 
@@ -51,78 +56,6 @@ class VenueOwnerProfileController extends GetxController {
     }
   }
 
-  Widget _buildImagePickerOption({
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: AppColors.iconColor.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: AppColors.iconColor, size: 30),
-          ),
-          SizedBox(height: 8),
-          Text(
-            title,
-            style: getTextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<ImageSource?> showPickrOption() async {
-    return await Get.bottomSheet(
-      Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Select Image',
-                style: getTextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildImagePickerOption(
-                    icon: Icons.camera_alt,
-                    title: 'Camera',
-                    onTap: () {
-                      Get.back(result: ImageSource.camera);
-                    },
-                  ),
-                  _buildImagePickerOption(
-                    icon: Icons.photo_library,
-                    title: 'Gallery',
-                    onTap: () {
-                      Get.back(result: ImageSource.gallery);
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   void toggleDarkMode() {
     isDarkMode.value = !isDarkMode.value;
     Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
@@ -131,9 +64,26 @@ class VenueOwnerProfileController extends GetxController {
   void toggleNotifications() {
     showNotifications.value = !showNotifications.value;
   }
+
+  // get profile information
+  Future<void> getProfileInformation() async {
+    var response = await OwnerNetworkCaller().getRequest(Url: Urls.getUserInfo);
+    if (response.isSuccess) {
+      final venueOwnerData = VenueOwnerUserData.fromJson(response.body['data']);
+      await EventAuthController.saveUserInfo(venueOwnerData);
+      _logger.i('Profile Information: ${response.body['data']}');
+    }
+  }
+
+  // get profile information
+  getUserInfo() async {
+    user = await EventAuthController.getUserAllInfo();
+    update();
+  }
+
   // logout
-  void logout() async{
-    await EvenAuthController.removeAuthToken();
+  void logout() async {
+    await EventAuthController.removeAuthToken();
     Get.offAll(VLoginScreen());
     EasyLoading.showSuccess('Logout Successfully');
   }

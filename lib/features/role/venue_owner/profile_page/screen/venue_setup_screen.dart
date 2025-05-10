@@ -1,8 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/add_amenities_dialog.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/event_aminites_button.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/seating_arrangement_widget.dart';
@@ -15,9 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VenueSetupScreen extends StatelessWidget {
+  final String venueStatus;
   static const String name = '/venue-setup-screen';
 
-  const VenueSetupScreen({super.key});
+  const VenueSetupScreen({super.key, required this.venueStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class VenueSetupScreen extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
-                VenueSetupHeader(),
+                VenueSetupHeader(title: venueStatus),
                 SizedBox(height: 32),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -346,7 +347,7 @@ class VenueSetupScreen extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            Get.to(() => VenueOwnerProfilePage());
+                            Get.to(() => VanueOwnerBottomNavBar());
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 12),

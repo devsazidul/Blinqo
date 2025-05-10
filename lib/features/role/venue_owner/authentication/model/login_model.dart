@@ -70,6 +70,24 @@ class EventUser {
     );
   }
 
+  EventUser copyWith({
+    String? id,
+    String? email,
+    List<String>? roles,
+    bool? isVerified,
+    String? profileId,
+    bool? isProfileCreated,
+  }) {
+    return EventUser(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      roles: roles ?? this.roles,
+      isVerified: isVerified ?? this.isVerified,
+      profileId: profileId ?? this.profileId,
+      isProfileCreated: isProfileCreated ?? this.isProfileCreated,
+    );
+  }
+
   //Check if the user's role matches
   bool hasRole(String role) {
     return roles?.contains(role) ?? false;

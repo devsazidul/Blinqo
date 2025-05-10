@@ -39,4 +39,7 @@ class Urls {
   static const String eventAmenities = '$baseUrl/amenities/get-all-amenities';
   static const String createAmenity = '$baseUrl/amenities/create-amenity';
   static const String venueCreate = '$baseUrl/venue/create';
+
+  static String venueProfileUpdate(String id) =>
+      '$baseUrl/profile/venue-owner-profile-update/$id';
 }
