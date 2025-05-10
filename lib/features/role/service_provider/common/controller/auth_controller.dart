@@ -23,22 +23,20 @@ class SpAuthController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (accessToken != null) {
       sharedPreferences.setString(_tokenKey, accessToken);
-      // ignore: avoid_print
-      print('Saving token to SharedPreferences: $accessToken');
+      token = accessToken;
     }
     if (user != null) {
       sharedPreferences.setString(_userDataKey, jsonEncode(user.toJson()));
+      userModel = user;
     }
     if (profileInfo != null) {
       sharedPreferences.setString(
         _profileInfoDataKey,
         jsonEncode(profileInfo.toJson()),
       );
-    }
 
-    token = accessToken;
-    userModel = user;
-    profileInfoModel = profileInfo;
+      profileInfoModel = profileInfo;
+    }
   }
 
   //*----------------- Get user information -----------------

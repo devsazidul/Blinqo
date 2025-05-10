@@ -1,4 +1,4 @@
-import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/review_controller.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';

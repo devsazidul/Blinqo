@@ -40,6 +40,11 @@ class Urls {
   static const String createAmenity = '$baseUrl/amenities/create-amenity';
   static const String venueCreate = '$baseUrl/venue/create';
 
+  static const String sendVerificationRequest =
+      '$baseUrl/profile-verification/send-verification-request';
+
+
   static String venueProfileUpdate(String id) =>
       '$baseUrl/profile/venue-owner-profile-update/$id';
+
 }
