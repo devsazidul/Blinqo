@@ -24,9 +24,9 @@ class RoleController extends GetxController {
 
   Future<void> navigateToRolePage() async {
     // Check if user is logged in and has a valid token
-    bool isLoggedIn = await EvenAuthController.isUserLoggedIn();
-    String? role = await EvenAuthController.getUserRole();
-    EventUser? eventUser = await EvenAuthController.getUserInfo();
+    bool isLoggedIn = await EventAuthController.isUserLoggedIn();
+    String? role = await EventAuthController.getUserRole();
+    EventUser? eventUser = await EventAuthController.getUserInfo();
 
     switch (selectedIndex.value) {
       case 0:
@@ -34,10 +34,14 @@ class RoleController extends GetxController {
         break;
       case 1:
         if (isLoggedIn && role == 'VENUE_OWNER') {
+          Logger().i('Checking if Profile created ${eventUser?.isProfileCreated}');
           if (eventUser?.isProfileCreated == false) {
+            Logger().i('Profile not created ${eventUser?.isProfileCreated}');
+            Get.offAll(() => VenueProfileScreen());
+          } else {
+            Logger().i('Profile created successfully ${eventUser?.isProfileCreated}');
             Get.offAll(() => VanueOwnerBottomNavBar());
           }
-          Get.offAll(() => VenueProfileScreen());
         } else {
           Get.to(() => VenueOnboardingScreen());
         }

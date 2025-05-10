@@ -56,6 +56,7 @@ class VLoginScreen extends StatelessWidget {
                 AuthCustomTextField(
                   onChanged: (value) {},
                   controller: loginController.emailController,
+
                   text: 'Enter your email',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -87,6 +88,15 @@ class VLoginScreen extends StatelessWidget {
                     },
                     text: 'Enter your password',
                     controller: loginController.passwordControler,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        loginController.isPasswordVisible.value
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: const Color(0xFF003366),
+                      ),
+                      onPressed: loginController.togglePasswordVisibility,
+                    ),
                     obscureText: loginController.isPasswordVisible.value,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
