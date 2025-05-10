@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VenueSetupHeader extends StatelessWidget {
-  const VenueSetupHeader({super.key});
+  final String title;
+  const VenueSetupHeader({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +78,7 @@ class VenueSetupHeader extends StatelessWidget {
           top: 66,
           left: (width - 120) / 2,
           child: Text(
-            'Venue Setup',
+            title,
             style: getTextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w600,

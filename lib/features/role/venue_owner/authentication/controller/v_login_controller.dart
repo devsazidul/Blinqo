@@ -2,6 +2,7 @@ import 'package:blinqo/features/role/venue_owner/authentication/model/login_mode
 import 'package:blinqo/features/role/venue_owner/authentication/screen/singup_otp_screen.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -55,20 +56,23 @@ class VenueLoginController extends GetxController {
         // ignore: unnecessary_null_comparison
         if (token != null && roles != null && roles.isNotEmpty) {
           String role = roles[0];
-          await EvenAuthController.saveAuthToken(token, role, user);
+          await EventAuthController.saveAuthToken(token, role, user);
           Logger().i('user info: ${user.toJson()}');
         } else {
           // Handle error if token or roles are null or empty
           EasyLoading.showError('Failed to retrieve valid token or role.');
           return;
         }
-
         Logger().i(
           'Login successful token: ${loginResponse.data?.accessToken}',
         );
-
-        EasyLoading.showSuccess('Login successful');
-        Get.to(VanueOwnerBottomNavBar());
+        if (user.isProfileCreated == false) {
+          EasyLoading.showSuccess('Login successful');
+          Get.to(VenueProfileScreen());
+        } else {
+          EasyLoading.showSuccess('Login successful');
+          Get.to(VanueOwnerBottomNavBar());
+        }
       } else {
         // If role doesn't match, show error
         errorMessage.value = 'Unauthorized: Incorrect role';
