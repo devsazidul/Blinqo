@@ -319,6 +319,7 @@ class SpProfileSetupController extends GetxController {
   /// Profile update
   /// ------------------------------------------------
   RxBool isLoadingServiceProviderUpdate = false.obs;
+  
   Future<bool> serviceProviderUpdate() async {
     EasyLoading.show(status: 'Loading...');
     bool isSuccess = false;

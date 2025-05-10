@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
-import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_controller.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_screen.dart';
@@ -64,6 +64,7 @@ class SpLoginScreen extends StatelessWidget {
                 AuthCustomTextField(
                   onChanged: (value) {},
                   controller: loginController.emailController,
+                  keyboardType: TextInputType.emailAddress,
                   text: 'Enter your email',
                   validator: (value) {
                     if (value == null || value.isEmpty) {

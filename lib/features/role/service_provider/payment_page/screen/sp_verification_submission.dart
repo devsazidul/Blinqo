@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
@@ -16,12 +18,14 @@ class SpVerificationSubmission extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SpProfileController());
+
     final verificationSubmissionController = Get.put(
       SpVerificationSubmissionController(),
     );
 
     verificationSubmissionController.spNameController.text =
         SpAuthController.profileInfoModel?.name ?? '';
+
     return Obx(() {
       final themeMode =
           controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -76,33 +80,21 @@ class SpVerificationSubmission extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 32),
+
                   //* ------------------ Name Text Field ------------------
-                  TextFormField(
+                  TextField(
                     enabled: false,
                     controller:
                         verificationSubmissionController.spNameController,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelText: "Name",
-                      labelStyle: getTextStyle(
-                        fontSize: 16,
-                        color: AppColors.borderColor,
-                      ),
-                      // hintText: "Guy Hawkins",
-                      // hintStyle: getTextStyle(
-                      //   fontSize: 14,
-                      //   color:
-                      //       themeMode == ThemeMode.dark
-                      //           ? AppColors.primary
-                      //           : AppColors.textColor,
-                      // ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  // SizedBox(height: 20),
                   // Align(
                   //   alignment: Alignment.centerLeft,
                   //   child: Text(
@@ -112,51 +104,60 @@ class SpVerificationSubmission extends StatelessWidget {
                   // ),
                   // SizedBox(height: 10),
 
-                  //* ------------------ Role Dropdown ------------------
-                  DropdownButtonFormField(
-                    value:
-                        SpAuthController.profileInfoModel?.serviceProviderRole,
-                    items: [],
-                    onChanged: (value) {},
-                    decoration: InputDecoration(
-                      hintText:
-                          SpAuthController
-                              .profileInfoModel
-                              ?.serviceProviderRole,
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: "Role",
-                      labelStyle: getTextStyle(
-                        fontSize: 16,
-                        color: AppColors.borderColor,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: const Color.fromARGB(255, 215, 216, 220),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: const Color.fromARGB(255, 215, 216, 220),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: const Color.fromARGB(255, 219, 221, 227),
-                          width: 1.0,
-                        ),
-                      ),
-                    ),
-                    icon: Image.asset(
-                      IconPath.arrowdown,
-                      width: 20,
-                      height: 20,
-                      color: AppColors.borderColor,
-                    ),
-                  ),
+                  // ------------------ Role Dropdown ------------------
+                  // TextField(
+                  //   decoration: InputDecoration(
+                  //     suffixIcon: Icon(Icons.keyboard_arrow_down_outlined),
+                  //     enabled: false,
+                  //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                  //     labelText: "Role",
+                  //   ),
+                  //   controller: verificationSubmissionController.roleController,
+                  // ),
+                  // DropdownButtonFormField(
+                  //   value:
+                  //       SpAuthController.profileInfoModel?.serviceProviderRole,
+                  //   items: [],
+                  //   onChanged: (value) {},
+                  //   decoration: InputDecoration(
+                  //     hintText:
+                  //         SpAuthController
+                  //             .profileInfoModel
+                  //             ?.serviceProviderRole,
+                  //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                  //     labelText: "Role",
+                  //     labelStyle: getTextStyle(
+                  //       fontSize: 16,
+                  //       color: AppColors.borderColor,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //       borderSide: BorderSide(
+                  //         color: const Color.fromARGB(255, 215, 216, 220),
+                  //         width: 1.0,
+                  //       ),
+                  //       borderRadius: BorderRadius.circular(10),
+                  //     ),
+                  //     enabledBorder: OutlineInputBorder(
+                  //       borderSide: BorderSide(
+                  //         color: const Color.fromARGB(255, 215, 216, 220),
+                  //         width: 1.0,
+                  //       ),
+                  //       borderRadius: BorderRadius.circular(10),
+                  //     ),
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderSide: BorderSide(
+                  //         color: const Color.fromARGB(255, 219, 221, 227),
+                  //         width: 1.0,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   icon: Image.asset(
+                  //     IconPath.arrowdown,
+                  //     width: 20,
+                  //     height: 20,
+                  //     color: AppColors.borderColor,
+                  //   ),
+                  // ),
                   // Obx(
                   //   () => Container(
                   //     width: double.infinity,
@@ -236,6 +237,8 @@ class SpVerificationSubmission extends StatelessWidget {
                   //   ),
                   // ),
                   SizedBox(height: 24),
+
+                  //* ------------------ NID Image Upload ------------------
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -251,98 +254,20 @@ class SpVerificationSubmission extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
-                  GestureDetector(
-                    onTap: verificationSubmissionController.addNidImage,
-                    child: Obx(() {
-                      return DottedBorder(
-                        borderType: BorderType.RRect,
-                        radius: Radius.circular(16),
-                        color: AppColors.appBarIcolor,
-                        strokeWidth: 1.5,
-                        dashPattern: [5, 3],
-                        child: Container(
-                          width: double.infinity,
-                          height: 112,
-                          decoration: BoxDecoration(
-                            color:
-                                themeMode == ThemeMode.dark
-                                    ? AppColors.textFrieldDarkColor
-                                    : AppColors.backgroundColor,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child:
-                              verificationSubmissionController
-                                      .nidimageupload
-                                      .isEmpty
-                                  ? Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 8,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          IconPath.niduploadlogo,
-                                          height: 32,
-                                          width: 32,
-                                        ),
-                                        SizedBox(height: 12),
-                                        Text(
-                                          'Click to upload',
-                                          style: getTextStyle(
-                                            color: Color(0xff0EA5E9),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        Text(
-                                          'JPG, JPEG, PNG less than 1MB',
-                                          style: getTextStyle(
-                                            color: AppColors.subTextColor,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                  : PageView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        verificationSubmissionController
-                                            .nidimageupload
-                                            .length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: EdgeInsets.all(4),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
-                                          child: Image.file(
-                                            verificationSubmissionController
-                                                .nidimageupload[index],
-                                            width: 80,
-                                            height: 80,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                        ),
-                      );
-                    }),
+
+                  _buildImageUploadSection(
+                    themeMode,
+                    verificationSubmissionController.nidImage.value,
+                    true,
                   ),
+
                   SizedBox(height: 24),
+
+                  //* ------------------ Trade License Image Upload ------------------
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Portfolio link",
+                      "Trade License",
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -354,25 +279,15 @@ class SpVerificationSubmission extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
-                  TextFormField(
-                    controller:
-                        verificationSubmissionController
-                            .spProfileLinkController,
-                    decoration: InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: "Portfolio link",
-                      labelStyle: getTextStyle(
-                        fontSize: 16,
-                        color: AppColors.borderColor,
-                      ),
 
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
+                  _buildImageUploadSection(
+                    themeMode,
+                    verificationSubmissionController.tradeLicenseImage.value,
+                    false,
                   ),
+
                   SizedBox(height: 24),
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -388,6 +303,8 @@ class SpVerificationSubmission extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
+
+                  //* ------------------ Short Bio Text Field ------------------
                   TextFormField(
                     controller:
                         verificationSubmissionController.spShortBioController,
@@ -406,38 +323,44 @@ class SpVerificationSubmission extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 40),
-                  GestureDetector(
-                    onTap: () {},
-                    child: DottedBorder(
-                      borderType: BorderType.RRect,
-                      radius: Radius.circular(16),
-                      color: AppColors.buttonColor,
-                      strokeWidth: 1.5,
-                      dashPattern: [2, 2],
-                      child: Container(
-                        width: double.infinity,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0xffFBF7EB),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "\$99",
-                            style: getTextStyle(
-                              color: AppColors.buttonColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 112),
+                  // GestureDetector(
+                  //   onTap: () {},
+                  //   child: DottedBorder(
+                  //     borderType: BorderType.RRect,
+                  //     radius: Radius.circular(16),
+                  //     color: AppColors.buttonColor,
+                  //     strokeWidth: 1.5,
+                  //     dashPattern: [2, 2],
+                  //     child: Container(
+                  //       width: double.infinity,
+                  //       height: 50,
+                  //       decoration: BoxDecoration(
+                  //         color: Color(0xffFBF7EB),
+                  //         borderRadius: BorderRadius.circular(12),
+                  //       ),
+                  //       child: Center(
+                  //         child: Text(
+                  //           "\$99",
+                  //           style: getTextStyle(
+                  //             color: AppColors.buttonColor,
+                  //             fontSize: 20,
+                  //             fontWeight: FontWeight.w700,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // SizedBox(height: 112),
+
+                  //* ------------------ Get Verified Button ------------------
                   CustomContinueButton(
-                    onPress: () {
-                      Get.to(SpPaymentOption());
+                    onPress: () async {
+                      bool isSuccess =
+                          await verificationSubmissionController.getVerified();
+                      if (isSuccess) {
+                        Get.to(SpPaymentOption());
+                      }
                     },
                     title: "Get Verified",
                   ),
@@ -449,5 +372,98 @@ class SpVerificationSubmission extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Widget _buildImageUploadSection(
+    ThemeMode themeMode,
+    File? image,
+    bool isNidImage,
+  ) {
+    return GetBuilder<SpVerificationSubmissionController>(
+      builder: (controller) {
+        return GestureDetector(
+          onTap: () async {
+            await controller.addImage(isNidImage);
+          },
+          child: DottedBorder(
+            borderType: BorderType.RRect,
+            radius: Radius.circular(16),
+            color: AppColors.appBarIcolor,
+            strokeWidth: 1.5,
+            dashPattern: [5, 3],
+            child: Container(
+              width: double.infinity,
+              height: 112,
+              decoration: BoxDecoration(
+                color:
+                    themeMode == ThemeMode.dark
+                        ? AppColors.textFrieldDarkColor
+                        : AppColors.backgroundColor,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child:
+                  image == null
+                      ? Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              IconPath.niduploadlogo,
+                              height: 32,
+                              width: 32,
+                            ),
+                            SizedBox(height: 12),
+                            Text(
+                              'Click to upload',
+                              style: getTextStyle(
+                                color: Color(0xff0EA5E9),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              'JPG, JPEG, PNG less than 1MB',
+                              style: getTextStyle(
+                                color: AppColors.subTextColor,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                      : Padding(
+                        padding: EdgeInsets.all(4),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.file(
+                            image,
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                width: 80,
+                                height: 80,
+                                color: Colors.grey[200],
+                                child: Icon(
+                                  Icons.error_outline,
+                                  color: Colors.red,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

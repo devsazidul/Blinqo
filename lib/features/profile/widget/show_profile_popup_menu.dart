@@ -1,35 +1,39 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/controller/profile_controller.dart';
-import 'package:blinqo/features/profile/screen/edit_profile_screen.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Future<void> showPopupMenu(BuildContext context) async {
+Future<void> showPopupMenu(BuildContext context, bool isDarkMode) async {
   // Show the popup menu
   showMenu(
-    color:
-        Get.find<ProfileController>().isDarkMode.value
-            ? Color(0xff32383D)
-            : Colors.white,
+    color: isDarkMode ? Color(0xff32383D) : Colors.white,
     context: context,
     position: RelativeRect.fromLTRB(100, 50, 0, 0),
     items: [
       _buildPopupMenuItem(
         context,
+        isDarkMode,
         text: "Edit Profile",
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Navigator.pushNamed(context, EditProfilePage.name);
-          //Get.to(EditProfilePage());
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SpProfileSetupScreen(isEdit: true),
+            ),
+          );
         },
       ),
       _buildPopupMenuItem(
         context,
+        isDarkMode,
         text: "View As",
         value: "view_as",
         iconPath: IconPath.viewAs,
@@ -37,6 +41,7 @@ Future<void> showPopupMenu(BuildContext context) async {
       ),
       _buildPopupMenuItem(
         context,
+        isDarkMode,
         text: "Settings",
         value: "settings",
         iconPath: IconPath.settings,
@@ -45,28 +50,33 @@ Future<void> showPopupMenu(BuildContext context) async {
         },
         addDivider: false,
       ),
-      _buildPopupMenuItem(
-        context,
-        text: "Go Pro",
-        value: "go_pro",
-        iconPath: IconPath.goPro,
-        onTap: () {},
-        addDivider: false,
-        isPro: true,
-      ),
+      if (!(SpAuthController.profileInfoModel?.isPro ?? false))
+        _buildPopupMenuItem(
+          context,
+          isDarkMode,
+          text: "Go Pro",
+          value: "go_pro",
+          iconPath: IconPath.goPro,
+          onTap: () {
+            Get.to(SpVerificationSubmission());
+          },
+          addDivider: false,
+          isPro: true,
+        ),
     ],
   );
 }
 
-Future<void> showEditDeletePopup(BuildContext context) async {
+Future<void> showEditDeletePopup(BuildContext context, bool isDarkMode) async {
   // Show the popup menu
   showMenu(
-    color: Colors.white,
+    color: isDarkMode ? Color(0xff32383D) : Colors.white,
     context: context,
     position: RelativeRect.fromLTRB(100, 50, 0, 0),
     items: [
       _buildPopupMenuItem(
         context,
+        isDarkMode,
         text: "Edit Project",
         value: "Edit Project",
         iconPath: IconPath.editPencil,
@@ -76,6 +86,7 @@ Future<void> showEditDeletePopup(BuildContext context) async {
       ),
       _buildPopupMenuItem(
         context,
+        isDarkMode,
         text: "Delete Project",
         value: "Delete Project",
         iconPath: IconPath.delete,
@@ -87,7 +98,8 @@ Future<void> showEditDeletePopup(BuildContext context) async {
 }
 
 PopupMenuItem<String> _buildPopupMenuItem(
-  BuildContext context, {
+  BuildContext context,
+  bool isDarkMood, {
   required String text,
   required String value,
   required void Function() onTap,
@@ -117,10 +129,7 @@ PopupMenuItem<String> _buildPopupMenuItem(
                 child: Image.asset(
                   iconPath,
                   width: 15,
-                  color:
-                      Get.find<ProfileController>().isDarkMode.value
-                          ? Color(0xFFD4AF37)
-                          : AppColors.textColor,
+                  color: isDarkMood ? Color(0xFFD4AF37) : AppColors.textColor,
                 ),
                 // child: Icon(icon, size: 20, color: Colors.black87),
               ),
@@ -130,10 +139,7 @@ PopupMenuItem<String> _buildPopupMenuItem(
                 Text(
                   text,
                   style: getTextStyle(
-                    color:
-                        Get.find<ProfileController>().isDarkMode.value
-                            ? Color(0xFFEBEBEB)
-                            : Color(0xFF003285),
+                    color: isDarkMood ? Color(0xFFEBEBEB) : Color(0xFF003285),
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     lineHeight: 1.6,

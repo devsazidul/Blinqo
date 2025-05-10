@@ -1,8 +1,10 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class ProfileCoverImageAndAvatar extends StatelessWidget {
   const ProfileCoverImageAndAvatar({super.key});
@@ -50,7 +52,10 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  showPopupMenu(context);
+                  showPopupMenu(
+                    context,
+                    Get.find<SpProfileController>().isDarkMode.value,
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(right: 20.0),
