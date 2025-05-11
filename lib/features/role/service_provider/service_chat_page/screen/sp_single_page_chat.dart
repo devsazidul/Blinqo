@@ -7,7 +7,7 @@ import 'package:blinqo/features/role/service_provider/service_chat_page/controll
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_full_image_view.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/widget/sp_custom_popup_menu.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/widget/sp_custom_single_textfield.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart'
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart'
     show SpProfileController;
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';

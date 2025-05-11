@@ -1,5 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/review_controller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/review_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,13 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_settings_screen.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 Future<void> showPopupMenu(BuildContext context, bool isDarkMode) async {
   // Show the popup menu
@@ -22,14 +16,7 @@ Future<void> showPopupMenu(BuildContext context, bool isDarkMode) async {
         text: "Edit Profile",
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SpProfileSetupScreen(isEdit: true),
-            ),
-          );
-        },
+        onTap: () {},
       ),
       _buildPopupMenuItem(
         context,
@@ -45,24 +32,19 @@ Future<void> showPopupMenu(BuildContext context, bool isDarkMode) async {
         text: "Settings",
         value: "settings",
         iconPath: IconPath.settings,
-        onTap: () {
-          Navigator.pushNamed(context, SpProfileSettingsScreen.name);
-        },
+        onTap: () {},
         addDivider: false,
       ),
-      if (!(SpAuthController.profileInfoModel?.isPro ?? false))
-        _buildPopupMenuItem(
-          context,
-          isDarkMode,
-          text: "Go Pro",
-          value: "go_pro",
-          iconPath: IconPath.goPro,
-          onTap: () {
-            Get.to(SpVerificationSubmission());
-          },
-          addDivider: false,
-          isPro: true,
-        ),
+      _buildPopupMenuItem(
+        context,
+        isDarkMode,
+        text: "Go Pro",
+        value: "go_pro",
+        iconPath: IconPath.goPro,
+        onTap: () {},
+        addDivider: false,
+        isPro: true,
+      ),
     ],
   );
 }
@@ -80,9 +62,7 @@ Future<void> showEditDeletePopup(BuildContext context, bool isDarkMode) async {
         text: "Edit Project",
         value: "Edit Project",
         iconPath: IconPath.editPencil,
-        onTap: () {
-          Navigator.pushNamed(context, SpShareWorkPage.name);
-        },
+        onTap: () {},
       ),
       _buildPopupMenuItem(
         context,

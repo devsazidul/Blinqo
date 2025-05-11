@@ -5,6 +5,7 @@ import 'package:blinqo/features/profile/widget/coustm_appbar.dart';
 import 'package:blinqo/features/profile/widget/coustm_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../widget/profile_edit_text_form_field.dart';
 
 class EditProfilePage extends StatelessWidget {

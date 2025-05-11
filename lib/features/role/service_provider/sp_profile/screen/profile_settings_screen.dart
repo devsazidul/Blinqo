@@ -5,8 +5,8 @@ import 'package:blinqo/features/role/service_provider/common/controller/auth_con
 import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_profile_app_bar.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,28 +20,28 @@ class SpProfileSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(SpProfileController());
     return Obx(() {
-      // Get the current theme mode (light or dark)
-      final themeMode =
-          controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
-
       return Scaffold(
         backgroundColor:
-            themeMode == ThemeMode.dark
+            controller.isDarkMode.value
                 ? AppColors.darkBackgroundColor
                 : AppColors.backgroundColor,
         appBar: SpProfileAppBar(title: "Profile"),
         body: ColoredBox(
           color:
-              themeMode == ThemeMode.dark
+              controller.isDarkMode.value
                   ? Colors.black
                   : AppColors.backgroundColor,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: 40),
-                _buildProfileSection(context, themeMode, controller),
+                _buildProfileSection(
+                  context,
+                  controller.isDarkMode.value,
+                  controller,
+                ),
                 SizedBox(height: 34),
-                _buildSettingsSection(context, themeMode),
+                _buildSettingsSection(context, controller.isDarkMode.value),
                 SizedBox(height: 80),
               ],
             ),
@@ -53,7 +53,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
 
   Widget _buildProfileSection(
     BuildContext context,
-    ThemeMode themeMode,
+    bool isDarkMode,
     SpProfileController controller,
   ) {
     return Column(
@@ -85,24 +85,24 @@ class SpProfileSettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: () {
-                  controller.pickImage(); // Call the image picking function
-                },
-                child: CircleAvatar(
-                  radius: 18,
-                  backgroundColor: Colors.transparent,
-                  child: Image.asset(
-                    IconPath.profileedit,
-                    width: 24,
-                    height: 24,
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   bottom: 0,
+            //   right: 0,
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       controller.pickImage(); // Call the image picking function
+            //     },
+            //     child: CircleAvatar(
+            //       radius: 18,
+            //       backgroundColor: Colors.transparent,
+            //       child: Image.asset(
+            //         IconPath.profileedit,
+            //         width: 24,
+            //         height: 24,
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
 
@@ -112,10 +112,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
-            color:
-                themeMode == ThemeMode.dark
-                    ? AppColors.backgroundColor
-                    : Color(0xFF003285),
+            color: isDarkMode ? AppColors.backgroundColor : Color(0xFF003285),
           ),
         ),
         // Location
@@ -125,9 +122,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
             Icon(
               Icons.location_on_outlined,
               color:
-                  themeMode == ThemeMode.dark
-                      ? AppColors.buttonColor
-                      : AppColors.buttonColor2,
+                  isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
               size: 20,
             ),
             Text(
@@ -136,7 +131,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color:
-                    themeMode == ThemeMode.dark
+                    isDarkMode
                         ? AppColors.backgroundColor
                         : AppColors.textColor,
               ),
@@ -156,12 +151,12 @@ class SpProfileSettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingsSection(BuildContext context, ThemeMode themeMode) {
+  Widget _buildSettingsSection(BuildContext context, bool isDarkMode) {
     final controller = Get.put(SpProfileController());
     return Column(
       children: [
         _buildSettingsTile(
-          themeMode,
+          isDarkMode,
           iconPath: IconPath.editProfile,
           title: "Edit Profile",
           onTap: () async {
@@ -171,7 +166,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
         ),
         Obx(
           () => _buildSettingsTile(
-            themeMode,
+            isDarkMode,
             title: "Dark Mode",
             iconPath: IconPath.dartMood, // Replace with your actual icon path
             isSwitch: true,
@@ -187,13 +182,13 @@ class SpProfileSettingsScreen extends StatelessWidget {
         ),
         _buildSettingsTile(
           onTap: () {},
-          themeMode,
+          isDarkMode,
           title: "Language",
           iconPath: IconPath.language,
         ),
         Obx(
           () => _buildSettingsTile(
-            themeMode,
+            isDarkMode,
             title: "Notification",
             iconPath: IconPath.notification,
             isSwitch: true,
@@ -202,7 +197,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
           ),
         ),
         _buildSettingsTile(
-          themeMode,
+          isDarkMode,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
           onTap: () async {
@@ -220,17 +215,12 @@ class SpProfileSettingsScreen extends StatelessWidget {
                 IconPath.logOut,
                 width: 20.06,
                 color:
-                    themeMode == ThemeMode.dark
-                        ? AppColors.buttonColor
-                        : AppColors.buttonColor2,
+                    isDarkMode ? AppColors.buttonColor : AppColors.buttonColor2,
               ),
               Text(
                 "Log out",
                 style: getTextStyle(
-                  color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.buttonColor
-                          : Color(0xFF003285),
+                  color: isDarkMode ? AppColors.buttonColor : Color(0xFF003285),
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -247,7 +237,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
   }
 
   Widget _buildSettingsTile(
-    ThemeMode themeMode, {
+    bool isDarkMode, {
     required String iconPath,
     required String title,
     void Function()? onTap,
@@ -266,16 +256,13 @@ class SpProfileSettingsScreen extends StatelessWidget {
               Image.asset(
                 iconPath,
                 width: 16,
-                color:
-                    themeMode == ThemeMode.dark
-                        ? AppColors.buttonColor
-                        : AppColors.textColor,
+                color: isDarkMode ? AppColors.buttonColor : AppColors.textColor,
               ),
               Text(
                 title,
                 style: getTextStyle(
                   color:
-                      themeMode == ThemeMode.dark
+                      isDarkMode
                           ? AppColors.backgroundColor
                           : AppColors.textColor,
                   fontSize: 16,

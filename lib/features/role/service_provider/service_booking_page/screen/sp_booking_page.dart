@@ -9,7 +9,7 @@ import 'package:blinqo/features/role/service_provider/service_booking_page/widge
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/sp_status_label.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/upcoming_project_card.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart'

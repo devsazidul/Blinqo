@@ -1,6 +1,5 @@
-import 'package:blinqo/features/role/service_provider/service_profile_page/model/review_model.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/model/review_model.dart';
 import 'package:get/get.dart';
-
 
 class ReviewController extends GetxController {
   var reviews = <Review>[].obs;
@@ -62,12 +61,16 @@ class ReviewController extends GetxController {
       int star = review.rating.round();
       distribution[star] = (distribution[star] ?? 0) + 1;
     }
-    return distribution.map((key, value) => MapEntry(key, (value / reviews.length) * 100));
+    return distribution.map(
+      (key, value) => MapEntry(key, (value / reviews.length) * 100),
+    );
   }
 
   List<Review> get filteredReviews {
     if (selectedStarFilter.value == 0) return reviews;
-    return reviews.where((review) => review.rating.round() == selectedStarFilter.value).toList();
+    return reviews
+        .where((review) => review.rating.round() == selectedStarFilter.value)
+        .toList();
   }
 
   void setStarFilter(int star) {

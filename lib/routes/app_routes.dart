@@ -26,8 +26,8 @@ import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_scree
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_signup_screen.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
-import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_congratulations_page.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option_card.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
@@ -38,9 +38,9 @@ import 'package:blinqo/features/role/service_provider/service_chat_page/screen/s
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_settings_screen.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
@@ -197,7 +197,7 @@ class AppRoute {
     GetPage(name: vforgetpassword, page: () => VForgetPassword()),
     GetPage(name: vchangepassword, page: () => VChangePassword()),
     GetPage(name: votpsendscreen, page: () => VOptSendScreen()),
-    GetPage(name: getVerifiedScreen, page: () => GetVerifiedScreen()),
+    GetPage(name: getVerifiedScreen, page: () => SpGetVerifiedScreen()),
     GetPage(name: getaddCard, page: () => AddcardScreen()),
     GetPage(
       name: spVerificationSubmission,

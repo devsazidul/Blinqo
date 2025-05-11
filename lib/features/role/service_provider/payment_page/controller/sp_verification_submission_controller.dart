@@ -52,7 +52,7 @@ class SpVerificationSubmissionController extends GetxController {
     final response = await Get.find<SpNetworkCaller>().multipartRequest(
       url: Urls.sendVerificationRequest,
       formFields: {
-        'profileId': SpAuthController.userModel?.profileId ?? '',
+        'profileId': SpAuthController.profileInfoModel?.id ?? '',
         'bio': spShortBioController.text,
       },
       files: [

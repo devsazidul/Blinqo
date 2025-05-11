@@ -68,7 +68,10 @@ class SpAuthController {
   }
 
   //*----------------- Update is verified in user model -----------------
-  static Future<void> updateUserInformation(bool isProfileCreated) async {
+  static Future<void> updateUserInformation({
+    required bool isProfileCreated,
+    required String profileId,
+  }) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     if (userModel == null) {
@@ -76,7 +79,10 @@ class SpAuthController {
     }
 
     if (userModel != null) {
-      userModel = userModel!.copyWith(isProfileCreated: isProfileCreated);
+      userModel = userModel!.copyWith(
+        isProfileCreated: isProfileCreated,
+        profileId: profileId,
+      );
 
       sharedPreferences.setString(
         _userDataKey,
