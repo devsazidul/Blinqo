@@ -1,8 +1,5 @@
 
-import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_profile_setup_controller.dart';

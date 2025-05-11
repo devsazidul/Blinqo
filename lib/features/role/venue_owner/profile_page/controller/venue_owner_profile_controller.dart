@@ -67,7 +67,10 @@ class VenueOwnerProfileController extends GetxController {
 
   // get profile information
   Future<void> getProfileInformation() async {
-    var response = await OwnerNetworkCaller().getRequest(Url: Urls.getUserInfo);
+    var response = await OwnerNetworkCaller().getRequest(
+      showLoading: false,
+      Url: Urls.getUserInfo,
+    );
     if (response.isSuccess) {
       final venueOwnerData = VenueOwnerUserData.fromJson(response.body['data']);
       await EventAuthController.saveUserInfo(venueOwnerData);

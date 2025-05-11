@@ -8,6 +8,8 @@ class TextFieldWidget extends StatelessWidget {
   final String labelText;
   final String? Function(String?)? validator;
   final TextEditingController controller;
+  final int? maxLines;
+  final bool enabled;
 
   const TextFieldWidget({
     super.key,
@@ -15,16 +17,22 @@ class TextFieldWidget extends StatelessWidget {
     required this.labelText,
     this.validator,
     required this.controller,
+    this.maxLines = 1,
+    this.enabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    final VenueOwnerProfileController profileController = Get.put(VenueOwnerProfileController());
+    final VenueOwnerProfileController profileController = Get.put(
+      VenueOwnerProfileController(),
+    );
     final bool isDarkMode = profileController.isDarkMode.value;
 
     return TextFormField(
       controller: controller,
       validator: validator,
+      maxLines: maxLines,
+      enabled: enabled,
       style: getTextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,

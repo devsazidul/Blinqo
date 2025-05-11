@@ -234,13 +234,7 @@ Obx(() {
         },
         child: CustomShapeTag(
           label: facility,
-          height: screenHeight * 0.04,
-          width: screenWidth * 0.35,
-          icon: Icon(
-            Icons.wifi,
-            size: 15,
-            color: Color(0xffD4AF37),
-          ),
+
         ),
       )
     ).toList(),

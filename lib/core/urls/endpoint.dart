@@ -43,8 +43,8 @@ class Urls {
   static const String sendVerificationRequest =
       '$baseUrl/profile-verification/send-verification-request';
 
-
   static String venueProfileUpdate(String id) =>
       '$baseUrl/profile/venue-owner-profile-update/$id';
 
+  static String getVenue(String id) => '$baseUrl/venue/get/$id';
 }

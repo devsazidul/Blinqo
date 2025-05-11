@@ -8,15 +8,13 @@ import 'package:get/get.dart';
 class CustomAmenityBox extends StatelessWidget {
   final IconData icon;
   final String label;
-  final double heights;
-  final double widths;
+
 
 
   const CustomAmenityBox({
     super.key,
     required this.icon,
     required this.label,
-    required this.heights, required this.widths,
 
 
   });
@@ -25,33 +23,26 @@ class CustomAmenityBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
-     height:heights ,
-      width: widths,
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(
-          width: 1  ,
-          color: const Color(0xffC0C0C0),
-        ),
-      ),
-      child: Row(
-        children: [
-          const SizedBox(width: 4),
-          Icon( 
-            icon,
-            size: 18,
-            color: const Color(0xffD4AF37),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            label,
-            style: getTextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
-            ),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 10,
+            offset: Offset(0, 3),
+            spreadRadius: 0,
           ),
         ],
+        borderRadius: BorderRadius.circular(34),
+        color: Color(0xffFBF7EB) ,
+      ),
+      child: Text(
+        label,
+        style: getTextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Color(0xff333333),
+        ),
       ),
     );
   }
