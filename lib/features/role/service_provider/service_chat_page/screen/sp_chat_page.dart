@@ -2,7 +2,7 @@ import 'package:blinqo/features/role/service_provider/service_chat_page/screen/s
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_single_page_chat.dart'
     show SpSinglePageChat;
 import 'package:blinqo/features/role/service_provider/service_chat_page/widget/sp_custom_chat_list.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';

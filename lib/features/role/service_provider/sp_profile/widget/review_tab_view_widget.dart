@@ -1,11 +1,11 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/review_controller.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/rating_summary.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/ratting_distribution_widget.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/review_filter_star_buttons.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/review_list_widget.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/review_controller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/widget/rating_summary.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/widget/ratting_distribution_widget.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/widget/review_filter_star_buttons.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/widget/review_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

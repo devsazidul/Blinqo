@@ -1,7 +1,8 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class SpPaymentOptionController extends GetxController {
@@ -26,10 +27,14 @@ class SpPaymentOptionController extends GetxController {
 
   Map? paymentIntent;
 
-  Future makePayment() async {
+  Future<void> makePayment({
+    required String amount,
+    String currency = 'USD',
+  }) async {
     try {
-      paymentIntent = await createPaymentIntent('10', 'USD');
+      paymentIntent = await createPaymentIntent(amount, currency);
 
+      // Initialize the payment sheet
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: paymentIntent!['client_secret'],
@@ -38,7 +43,7 @@ class SpPaymentOptionController extends GetxController {
             currencyCode: "USD",
             merchantCountryCode: "US",
           ),
-          merchantDisplayName: 'shakil',
+          merchantDisplayName: 'Test Merchant',
         ),
       );
 

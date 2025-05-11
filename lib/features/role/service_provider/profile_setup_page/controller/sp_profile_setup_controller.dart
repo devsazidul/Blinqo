@@ -7,6 +7,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/models/profile_info_model.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/event_preference_model.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
@@ -28,18 +29,7 @@ class SpProfileSetupController extends GetxController {
   late GoogleMapController mapController;
   final LatLng center = const LatLng(37.7749, -122.4194);
   Set<Marker> markers = {};
-
-  // var eventsRoles = [
-  //   "Corporate",
-  //   "Weddings",
-  //   "Music Festivals",
-  //   "Exhibitions",
-  //   "Concerts",
-  //   "Charity Events",
-  //   "Private Parties",
-  //   "Product Launches",
-  //   "Trade Shows",
-  // ];
+  var isInitialized = false.obs;
 
   var profileImage = Rx<File?>(null);
 
@@ -244,10 +234,7 @@ class SpProfileSetupController extends GetxController {
     isLoadingEventPreference.value = true;
     update();
 
-    debugPrint('Current token before event preferences: ${SpAuthController.token}');
     await SpAuthController.getUserInformation();
-    debugPrint('Token after reload: ${SpAuthController.token}');
-
 
     final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
         .getRequest(Urls.getEventPreference);
@@ -300,7 +287,13 @@ class SpProfileSetupController extends GetxController {
       ],
     );
     if (response.isSuccess) {
-      await SpAuthController.updateUserInformation(true);
+      final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
+        response.responseData['data'],
+      );
+      await SpAuthController.updateUserInformation(
+        profileId: profileInfoModel.id ?? '',
+        isProfileCreated: true,
+      );
       await Get.find<SpGetUserInfoController>().getUserInfo();
       EasyLoading.dismiss();
       Get.offAll(SpBottomNavBarScreen());
@@ -319,7 +312,7 @@ class SpProfileSetupController extends GetxController {
   /// Profile update
   /// ------------------------------------------------
   RxBool isLoadingServiceProviderUpdate = false.obs;
-  
+
   Future<bool> serviceProviderUpdate() async {
     EasyLoading.show(status: 'Loading...');
     bool isSuccess = false;
@@ -355,7 +348,13 @@ class SpProfileSetupController extends GetxController {
       ],
     );
     if (response.isSuccess) {
-      await SpAuthController.updateUserInformation(true);
+      final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
+        response.responseData['data'],
+      );
+      await SpAuthController.updateUserInformation(
+        profileId: profileInfoModel.id ?? '',
+        isProfileCreated: true,
+      );
       await Get.find<SpGetUserInfoController>().getUserInfo();
       EasyLoading.dismiss();
       Get.offAll(SpBottomNavBarScreen());
@@ -370,10 +369,16 @@ class SpProfileSetupController extends GetxController {
     return isSuccess;
   }
 
-  @override
-  void onInit() {
-    eventPreferenceList.clear();
-    super.onInit();
+  void clearAllData() {
+    // eventPreferenceList.clear();
+    nameController.clear();
+    descriptionController.clear();
+    locationController.clear();
+    experienceYearController.clear();
+    selectedEvents.clear();
+    profileImage.value = null;
+    coverImage.value = null;
+    update();
   }
 
   @override
@@ -382,7 +387,9 @@ class SpProfileSetupController extends GetxController {
     descriptionController.dispose();
     locationController.dispose();
     experienceYearController.dispose();
-    selectedEvents.clear();
+    eventPreferenceList.clear();
+    clearAllData();
+    update();
     super.onClose();
   }
 }
