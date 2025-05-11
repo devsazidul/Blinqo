@@ -34,12 +34,9 @@ class RoleController extends GetxController {
         break;
       case 1:
         if (isLoggedIn && role == 'VENUE_OWNER') {
-          Logger().i('Checking if Profile created ${eventUser?.isProfileCreated}');
           if (eventUser?.isProfileCreated == false) {
-            Logger().i('Profile not created ${eventUser?.isProfileCreated}');
             Get.offAll(() => VenueProfileScreen());
           } else {
-            Logger().i('Profile created successfully ${eventUser?.isProfileCreated}');
             Get.offAll(() => VanueOwnerBottomNavBar());
           }
         } else {

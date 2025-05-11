@@ -152,13 +152,14 @@ class EventAuthController {
   // Check if the user is logged in by checking for the token and role
   static Future<bool> isUserLoggedIn() async {
     try {
-      final token = await getAuthToken();
-      final role = await getUserRole();
-      // Ensure both token and role are present
+      userInfo = await getUserInfo();
+      profileInfo = await getUserAllInfo();
+       token = await getAuthToken();
+       role = await getUserRole();
       return token != null &&
-          token.isNotEmpty &&
+          token!.isNotEmpty &&
           role != null &&
-          role.isNotEmpty;
+          role!.isNotEmpty;
     } catch (e) {
       // ignore: avoid_print
       print("Error checking login status: $e");

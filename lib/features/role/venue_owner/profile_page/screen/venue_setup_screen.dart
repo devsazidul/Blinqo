@@ -26,7 +26,6 @@ class VenueSetupScreen extends StatelessWidget {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final VenueSetupController controller = Get.put(VenueSetupController());
-
     return Obx(
       () => Scaffold(
         backgroundColor:

@@ -86,6 +86,7 @@ dependencies:
   mime_type: ^1.0.1
   uuid: ^4.5.1
   dropdown_button2: ^2.3.9
+  cached_network_image: ^3.4.1
  
   
 

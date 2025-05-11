@@ -4,6 +4,8 @@ import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/Model/user_all_info_model.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/widgets/even_image_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -15,8 +17,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../authentication/model/login_model.dart';
 
-
 class VenueProfileSetupController extends GetxController {
+  VenueOwnerProfileController venueOwnerProfileController = Get.put(
+    VenueOwnerProfileController(),
+  );
   var profileImage = Rx<File?>(null);
   VenueOwnerUserData? user;
   TextEditingController nameTEController = TextEditingController();
@@ -120,13 +124,20 @@ class VenueProfileSetupController extends GetxController {
       if (request.isSuccess) {
         String profileId = request.body['data']['id'] ?? '';
         _logger.i('Profile submission successful, profileId: $profileId');
-        await EventAuthController.updateUserInfo(profileId, profileId.isNotEmpty);
+        await EventAuthController.updateUserInfo(
+          profileId,
+          profileId.isNotEmpty,
+        );
         await EasyLoading.showSuccess('Profile created successfully');
         Get.to(() => VenueSetupScreen(venueStatus: 'Venue Setup'));
         clear();
       } else {
-        _logger.e('Profile submission failed - Status: ${request.statusCode}, Error: ${request.errorMessage}');
-        EasyLoading.showError('Failed: ${request.errorMessage ?? 'Unknown error'}');
+        _logger.e(
+          'Profile submission failed - Status: ${request.statusCode}, Error: ${request.errorMessage}',
+        );
+        EasyLoading.showError(
+          'Failed: ${request.errorMessage ?? 'Unknown error'}',
+        );
       }
     } catch (e) {
       _logger.e('Exception during profile submission: $e');
@@ -138,7 +149,6 @@ class VenueProfileSetupController extends GetxController {
 
   // Update existing profile (PATCH)
   Future<void> updateProfile() async {
-
     _logger.i('Starting profile update process');
     isLoading.value = true;
 
@@ -150,12 +160,10 @@ class VenueProfileSetupController extends GetxController {
     }
     userId.value = user!.id!;
 
-
     String profileId = EventAuthController.profileInfo!.profile!.id;
     // Format URL with profileId
     String url = Urls.venueProfileUpdate(profileId);
 
-    // Prepare request data (exclude id from body, as it’s in the URL)
     var body = {
       // 'userId': userId.value,
       'location': locationTEController.text.trim(),
@@ -168,22 +176,28 @@ class VenueProfileSetupController extends GetxController {
       var request = await OwnerNetworkCaller().postRequest(
         Url: url,
         body: body,
-        files: profileImage.value != null
-            ? [
-          await http.MultipartFile.fromPath('image', profileImage.value!.path),
-        ]
-            : [],
+        files:
+            profileImage.value != null
+                ? [
+                  await http.MultipartFile.fromPath(
+                    'image',
+                    profileImage.value!.path,
+                  ),
+                ]
+                : [],
         isMultipart: true,
         isPatch: true,
       );
 
       if (request.isSuccess) {
-
         await EasyLoading.showSuccess('Profile updated successfully');
-        Get.back();
+       await venueOwnerProfileController.getProfileInformation();
+       await venueOwnerProfileController.getUserInfo();
+       Get.off(VenueOwnerProfilePage());
       } else {
-
-        EasyLoading.showError('Failed: ${request.errorMessage ?? 'Unknown error'}');
+        EasyLoading.showError(
+          'Failed: ${request.errorMessage ?? 'Unknown error'}',
+        );
       }
     } catch (e) {
       _logger.e('Exception during profile update: $e');
@@ -193,8 +207,6 @@ class VenueProfileSetupController extends GetxController {
     }
   }
 
-
-
   // Get profile information
   Future<void> getUserInfo() async {
     isLoading.value = true;
@@ -203,7 +215,9 @@ class VenueProfileSetupController extends GetxController {
       if (user != null && user!.profile != null) {
         nameTEController.text = user!.profile!.name;
         locationTEController.text = user!.profile!.location;
-        _logger.i('User info loaded: ${user!.profile!.name}, ${user!.profile!.location}');
+        _logger.i(
+          'User info loaded: ${user!.profile!.name}, ${user!.profile!.location}',
+        );
       } else {
         _logger.w('No user profile info available');
       }
