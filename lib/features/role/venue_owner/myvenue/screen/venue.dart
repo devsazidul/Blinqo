@@ -237,12 +237,12 @@ class Venue extends StatelessWidget {
                                                 onTap: () {
                                                   Get.to(
                                                     () => VenueDetailsScreen(
-                                                      title: venue['title']!,
-                                                      address:
-                                                          venue['address']!,
-                                                      guest: venue['guest']!,
-                                                      rating: venue['rating']!,
-                                                      image: venue['image']!,
+                                                      // title: venue['title']!,
+                                                      // address:
+                                                      //     venue['address']!,
+                                                      // guest: venue['guest']!,
+                                                      // rating: venue['rating']!,
+                                                      // image: venue['image']!,
                                                     ),
                                                     transition:
                                                         Transition.rightToLeft,

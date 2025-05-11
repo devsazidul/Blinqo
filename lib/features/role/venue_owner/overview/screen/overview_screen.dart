@@ -6,6 +6,7 @@ import 'package:blinqo/features/role/venue_owner/overview/screen/all_coming_book
 import 'package:blinqo/features/role/venue_owner/overview/screen/bookviewerreview.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/payment_card.dart';
+import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,19 +16,20 @@ import '../widgets/revenue_card.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
-
     final OverviewController controller = Get.put(OverviewController());
+    final user = EventAuthController.profileInfo;
     return Scaffold(
       backgroundColor:
           isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       appBar: ProfileRow(
-        imagePath: ImagePath.profile,
-        name: 'Dianne Russell',
-        role: 'Venue Owner',
+        imagePath: user?.profile?.image?.path ?? "",
+        name: user?.profile?.name ?? "Unknown",
+        role: user?.role.first.toLowerCase() ?? "Unknown",
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -93,18 +95,18 @@ class OverviewScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Text(
-                      'Add Venue  ',
-                      style: getTextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.white,
+                      Text(
+                        'Add Venue  ',
+                        style: getTextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 15,),
-                    Icon(Icons.add,size: 20,color: Color(0xffF4F4F4),)
+                      SizedBox(width: 15),
+                      Icon(Icons.add, size: 20, color: Color(0xffF4F4F4)),
                     ],
-                  )
+                  ),
                 ),
               ),
               SizedBox(height: 40),

@@ -6,16 +6,11 @@ import '../../../../../core/common/styles/global_text_style.dart';
 
 class CustomShapeTag extends StatelessWidget {
   final String label;
-  final double height;
-  final double width;
-  final Widget? icon; // Optional icon
+
 
   const CustomShapeTag({
     super.key,
     required this.label,
-    required this.height,
-    required this.width,
-    this.icon,
   });
 
   @override
@@ -24,34 +19,25 @@ class CustomShapeTag extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
-        height: height,
-        width: width,
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: const Color(0xff000000).withValues(alpha: .1),
-              blurRadius: 3,
+              color: Color(0x0F000000),
+              blurRadius: 10,
               offset: Offset(0, 3),
+              spreadRadius: 0,
             ),
           ],
           borderRadius: BorderRadius.circular(34),
-          color: isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
+          color:Color(0xffFBF7EB) ,
         ),
-        child: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (icon != null) ...[icon!, const SizedBox(width: 2)],
-              Text(
-                label,
-                style: getTextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400,
-                  color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
-                ),
-              ),
-            ],
+        child: Text(
+           label,
+          style: getTextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Color(0xff333333),
           ),
         ),
       ),

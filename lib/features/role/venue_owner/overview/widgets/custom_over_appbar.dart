@@ -1,8 +1,8 @@
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_verified_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_setup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/venue_notification_page/screens/v_notification_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,11 +44,15 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
               child: Row(
                 children: [
                   ClipOval(
-                    child: Image.asset(
-                      imagePath,
+                    child: CachedNetworkImage(
+                     imageUrl:  imagePath,
                       width: 40,
                       height: 40,
                       fit: BoxFit.cover,
+                      errorWidget:  (_, __, ___) => CircleAvatar(
+                        backgroundColor: Color(0xffD9D9D9),
+                        child: Icon(Icons.person, size: 20, color: Color(0xffA1A1A1)),
+                      ),
                     ),
                   ),
                   SizedBox(width: 8),
