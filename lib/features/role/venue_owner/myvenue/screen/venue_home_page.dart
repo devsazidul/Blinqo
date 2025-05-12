@@ -1,9 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/all_venue_details_controller.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
+
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_details_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../core/utils/constants/colors.dart';
@@ -11,16 +14,31 @@ import '../../../../../core/utils/constants/icon_path.dart';
 import '../widget/SearchBarWidget.dart';
 import '../widget/venueplaceholder.dart';
 
-class Venue extends StatelessWidget {
-  Venue({super.key});
+class VenueHomePage extends StatelessWidget {
+  VenueHomePage({super.key});
+
   final TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
-    final MyVenueController venueController = Get.put(MyVenueController());
+    final AllVenuesDetailsController venueController = Get.put(
+      AllVenuesDetailsController(),
+    );
+    VenueDetailsController venueDetailsController = Get.put(
+      VenueDetailsController(),
+    );
+
+
+    // Bind search bar input to filterVenues
+    searchController.addListener(() {
+      venueController.filterVenues(searchController.text);
+    });
+
     return Scaffold(
       backgroundColor:
           isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
@@ -50,7 +68,44 @@ class Venue extends StatelessWidget {
               const SizedBox(height: 12),
               Obx(
                 () =>
-                    venueController.filteredVenues.isEmpty
+                    venueController.response.value == null
+                        ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 16),
+                              VenuePlaceholderWidget(),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      isDarkMode
+                                          ? Color(
+                                            0xff003366,
+                                          ).withValues(alpha: 0.6)
+                                          : const Color(
+                                            0xff003366,
+                                          ).withValues(alpha: 0.5),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 10,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  venueController.getAllVenues();
+                                },
+                                child: const Text(
+                                  'Retry',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                        : venueController.filteredVenues.isEmpty
                         ? const VenuePlaceholderWidget()
                         : ListView.builder(
                           shrinkWrap: true,
@@ -58,6 +113,10 @@ class Venue extends StatelessWidget {
                           itemCount: venueController.filteredVenues.length,
                           itemBuilder: (context, index) {
                             final venue = venueController.filteredVenues[index];
+
+                            // Get the original VenueData for navigation
+                            // final venueData =
+                            //     venueController.response.value!.data[index];
 
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 6),
@@ -81,10 +140,22 @@ class Venue extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(
                                               16,
                                             ),
-                                            child: Image.asset(
-                                              venue["image"]!,
+                                            child: CachedNetworkImage(
+                                              imageUrl: venue["image"]!,
                                               width: double.infinity,
+                                              height: screenHeight * 0.2,
                                               fit: BoxFit.cover,
+                                              errorWidget:
+                                                  (
+                                                    context,
+                                                    error,
+                                                    stackTrace,
+                                                  ) => Image.asset(
+                                                    venue["image"]!,
+                                                    width: double.infinity,
+                                                    height: screenHeight * 0.2,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                             ),
                                           ),
                                           Positioned.fill(
@@ -234,16 +305,11 @@ class Venue extends StatelessWidget {
                                               ),
                                               const Spacer(),
                                               InkWell(
-                                                onTap: () {
+                                                onTap: () async {
+                                                  await venueDetailsController.getVenueDetails(venue['id']??'');
+
                                                   Get.to(
-                                                    () => VenueDetailsScreen(
-                                                      // title: venue['title']!,
-                                                      // address:
-                                                      //     venue['address']!,
-                                                      // guest: venue['guest']!,
-                                                      // rating: venue['rating']!,
-                                                      // image: venue['image']!,
-                                                    ),
+                                                    () => VenueDetailsScreen(),
                                                     transition:
                                                         Transition.rightToLeft,
                                                   );

@@ -206,90 +206,90 @@ class AddNewVenue extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CustomShapeTag(
-                        label: 'Storage & lighting',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.38,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
+                      // CustomShapeTag(
+                      //   label: 'Storage & lighting',
+                      //   height: screenHeight * 0.04,
+                      //   width: screenWidth * 0.38,
+                      //   icon: Icon(
+                      //     Icons.wifi,
+                      //     size: 15,
+                      //     color: Color(0xffD4AF37),
+                      //   ),
+                      // ),
                       SizedBox(width: .2),
-                      CustomShapeTag(
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                        label: 'Sound System',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.38,
-                      ),
+                      // CustomShapeTag(
+                      //   icon: Icon(
+                      //     Icons.wifi,
+                      //     size: 15,
+                      //     color: Color(0xffD4AF37),
+                      //   ),
+                      //   label: 'Sound System',
+                      //   height: screenHeight * 0.04,
+                      //   width: screenWidth * 0.38,
+                      // ),
                     ],
                   ),
                   SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CustomShapeTag(
-                        label: 'Barservices',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.27,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
-                      CustomShapeTag(
-                        label: '  Elevator',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.24,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
-                      CustomShapeTag(
-                        label: 'Restroom',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.25,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
+                      // CustomShapeTag(
+                      //   label: 'Barservices',
+                      //   height: screenHeight * 0.04,
+                      //   width: screenWidth * 0.27,
+                      //   icon: Icon(
+                      //     Icons.wifi,
+                      //     size: 15,
+                      //     color: Color(0xffD4AF37),
+                      //   ),
+                      // ),
+                      // CustomShapeTag(
+                      //   label: '  Elevator',
+                      //   height: screenHeight * 0.04,
+                      //   width: screenWidth * 0.24,
+                      //   icon: Icon(
+                      //     Icons.wifi,
+                      //     size: 15,
+                      //     color: Color(0xffD4AF37),
+                      //   ),
+                      // ),
+                      // CustomShapeTag(
+                      //   label: 'Restroom',
+                      //   height: screenHeight * 0.04,
+                      //   width: screenWidth * 0.25,
+                      //   icon: Icon(
+                      //     Icons.wifi,
+                      //     size: 15,
+                      //     color: Color(0xffD4AF37),
+                      //   ),
+                      // ),
                     ],
                   ),
                   SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CustomShapeTag(
-                        label: 'Event Staff',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.30,
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                      ),
-                      SizedBox(width: .2),
-                      CustomShapeTag(
-                        icon: Icon(
-                          Icons.wifi,
-                          size: 15,
-                          color: Color(0xffD4AF37),
-                        ),
-                        label: 'Sound System',
-                        height: screenHeight * 0.04,
-                        width: screenWidth * 0.38,
-                      ),
+                      // CustomShapeTag(
+                      //   label: 'Event Staff',
+                      //   height: screenHeight * 0.04,
+                      //   width: screenWidth * 0.30,
+                      //   icon: Icon(
+                      //     Icons.wifi,
+                      //     size: 15,
+                      //     color: Color(0xffD4AF37),
+                      //   ),
+                      // ),
+                      // SizedBox(width: .2),
+                      // CustomShapeTag(
+                      //   icon: Icon(
+                      //     Icons.wifi,
+                      //     size: 15,
+                      //     color: Color(0xffD4AF37),
+                      //   ),
+                      //   label: 'Sound System',
+                      //   height: screenHeight * 0.04,
+                      //   width: screenWidth * 0.38,
+                      // ),
                     ],
                   ),
                   SizedBox(height: 19),

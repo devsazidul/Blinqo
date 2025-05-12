@@ -342,6 +342,7 @@ class VenueSetupScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       // Skip button elevated button
+                      if(venueStatus == 'Venue Setup')
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(

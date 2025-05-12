@@ -1,6 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_home_page.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/all_coming_booking.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/bookviewerreview.dart';
@@ -40,7 +40,14 @@ class OverviewScreen extends StatelessWidget {
               SizedBox(height: 30),
               Obx(
                 () =>
-                    controller.isPayment.value ? RevenueCard() : PaymentCard(),
+                    controller.isPayment.value
+                        ? RevenueCard(
+                          totalRevenue: 1000,
+                          currentMonthRevenue: 1500,
+                          growthRate: 10,
+                          pendingBookings: 5,
+                        )
+                        : PaymentCard(),
               ),
               SizedBox(height: 25),
               Text(
@@ -83,7 +90,7 @@ class OverviewScreen extends StatelessWidget {
 
               InkWell(
                 onTap: () {
-                  Get.to(() => Venue());
+                  Get.to(() => VenueHomePage());
                 },
                 child: Container(
                   height: 48,

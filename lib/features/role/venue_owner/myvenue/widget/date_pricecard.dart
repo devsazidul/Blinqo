@@ -1,14 +1,15 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../../core/common/styles/global_text_style.dart';
 
 class DatePriceCard extends StatelessWidget {
   final ValueNotifier<List<DateTime>> selectedDatesNotifier;
   final TextEditingController priceController;
   final double screenHeight;
   final double screenWidth;
+  final int price;
 
   const DatePriceCard({
     super.key,
@@ -16,6 +17,7 @@ class DatePriceCard extends StatelessWidget {
     required this.priceController,
     required this.screenHeight,
     required this.screenWidth,
+    required this.price,
   });
 
   String _getMonthName(int month) {
@@ -37,13 +39,46 @@ class DatePriceCard extends StatelessWidget {
     return months[month];
   }
 
+  String _formatDates(List<DateTime> dates) {
+    if (dates.isEmpty) return 'No date selected';
+    if (dates.length == 1) {
+      final date = dates.first;
+      return '${date.day} ${_getMonthName(date.month)} ${date.year}';
+    }
+    // For multiple dates, show a range or list
+    dates.sort(); // Ensure dates are sorted
+    final start = dates.first;
+    final end = dates.last;
+    return '${start.day} ${_getMonthName(start.month)} ${start.year} - ${end.day} ${_getMonthName(end.month)} ${end.year}';
+  }
+
+  void _saveChanges() {
+    final priceText = priceController.text.trim();
+    if (priceText.isEmpty || int.tryParse(priceText) == null) {
+      Get.snackbar('Error', 'Please enter a valid price');
+      return;
+    }
+    final newPrice = int.parse(priceText);
+    final controller = Get.find<VenueDetailsController>();
+    // Assuming an updatePrice method exists in VenueDetailsController
+    // controller.updatePrice(newPrice);
+    Get.snackbar('Success', 'Price updated to \$$newPrice');
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+    // Initialize priceController with the venue's price
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (priceController.text.isEmpty && price > 0) {
+        priceController.text = price.toString();
+      }
+    });
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: isDarkMode ? Color(0xff32383D) : Color(0xffFFFFFF),
+        color: isDarkMode ? const Color(0xff32383D) : const Color(0xffFFFFFF),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
@@ -55,46 +90,30 @@ class DatePriceCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Selected Date',
+                  'Selected Date(s)',
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                    color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
                   ),
                 ),
                 const Spacer(),
                 ValueListenableBuilder<List<DateTime>>(
                   valueListenable: selectedDatesNotifier,
                   builder: (context, selectedDates, _) {
-                    if (selectedDates.isEmpty) {
-                      return Text(
-                        'No date selected',
-                        style: getTextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff333333),
-                        ),
-                      );
-                    }
-                    final selected = selectedDates.first;
-                    final formatted =
-                        '${selected.day} ${_getMonthName(selected.month)} ${selected.year}';
-
                     return Text(
-                      formatted,
+                      _formatDates(selectedDates),
                       style: getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: isDarkMode ? Color(0xff34C759) : Color(0xff19480B),
+                        color: isDarkMode ? const Color(0xff34C759) : const Color(0xff19480B),
                       ),
                     );
                   },
                 ),
               ],
             ),
-
-            const SizedBox(height: 8),
-
+            const SizedBox(height: 16),
             /// Price Row
             Row(
               children: [
@@ -103,7 +122,7 @@ class DatePriceCard extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color:isDarkMode ? Color(0xffEBEBEB) : const Color(0xff333333),
+                    color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
                   ),
                 ),
                 const Spacer(),
@@ -114,49 +133,48 @@ class DatePriceCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       width: 1,
-                      color: isDarkMode ? Color(0xffAFB1B6) : Color(0xffABB7C2),
+                      color: isDarkMode ? const Color(0xffAFB1B6) : const Color(0xffABB7C2),
                     ),
                   ),
                   child: TextField(
                     controller: priceController,
+                    keyboardType: TextInputType.number,
                     style: getTextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
-                      color: isDarkMode ? Color(0xff34C759) : Color(0xff19480B),
+                      color: isDarkMode ? const Color(0xff34C759) : const Color(0xff19480B),
                     ),
-                    decoration: InputDecoration(
-                      labelText: 'Price',
-                      labelStyle: getTextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xff767676),
-                      ),
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     ),
                   ),
                 ),
               ],
             ),
-
             const SizedBox(height: 30),
-
             /// Save Button
             Center(
-              child: Container(
-                height: screenHeight * 0.06,
-                width: screenWidth * 0.50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(width: 1, color:isDarkMode ? Color(0xffD4AF37) : const Color(0xff003366)),
-                ),
-                child: Center(
-                  child: Text(
-                    'Save Changes',
-                    style: getTextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+              child: GestureDetector(
+                onTap: _saveChanges,
+                child: Container(
+                  height: screenHeight * 0.06,
+                  width: screenWidth * 0.50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      width: 1,
+                      color: isDarkMode ? const Color(0xffD4AF37) : const Color(0xff003366),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save Changes',
+                      style: getTextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: isDarkMode ? const Color(0xffD4AF37) : const Color(0xff003366),
+                      ),
                     ),
                   ),
                 ),

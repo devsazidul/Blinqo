@@ -47,4 +47,5 @@ class Urls {
       '$baseUrl/profile/venue-owner-profile-update/$id';
 
   static String getVenue(String id) => '$baseUrl/venue/get/$id';
+  static String getAllVenue = '$baseUrl//venue/get-all-by-venue-owner';
 }
