@@ -2,25 +2,22 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
-import 'package:blinqo/features/role/event_planner/profile_setup/profile_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../controller/otp_controller.dart';
 
 class OTPScreen extends StatelessWidget {
-  final int? isSelect;
-  final String? email;
-  // Get the OTP controller instance using Get.find()
   final OTPController otpController = Get.put(OTPController());
 
-  OTPScreen({super.key, this.isSelect, this.email});
+  OTPScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String email = Get.arguments ?? '';
     final femaleColorController = Get.find<PickColorController>();
     final bool isFemale = femaleColorController.isFemale.value;
+
     return Scaffold(
       backgroundColor: AppColors.loginBg,
       body: SafeArea(
@@ -45,9 +42,7 @@ class OTPScreen extends StatelessWidget {
                 _buildPinCodeTextField(context),
                 SizedBox(height: 20),
                 Text(
-                  isSelect == 0
-                      ? 'Verification code has been sent to the email'
-                      : 'Verification code has been sent to the Phone',
+                  'Verification code has been sent to the email',
                   style: getTextStyle(
                     color: AppColors.textColor,
                     fontSize: 16,
@@ -58,15 +53,7 @@ class OTPScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      isSelect == 0 ? ' Your ' : 'number Your',
-                      style: getTextStyle(
-                        color: AppColors.textColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    Text(
-                      isSelect == 0 ? '****abc@gmal.com' : ' 0724****',
+                      'Your $email',
                       style: getTextStyle(
                         color:
                             isFemale
@@ -80,7 +67,10 @@ class OTPScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    otpController.resendCode(email);
+                   
+                  },
                   child: Text(
                     "Resend Code",
                     style: getTextStyle(
@@ -102,11 +92,10 @@ class OTPScreen extends StatelessWidget {
                             : !otpController.isFormValid.value && isFemale
                             ? Color(0xFFEBA8B5)
                             : AppColors.buttonColor2,
-
                     onPress:
                         otpController.isFormValid.value
                             ? () {
-                              Get.to(() => ProfileSetup());
+                              otpController.validatePin(email);
                             }
                             : null,
                     backgroundColor:
@@ -157,7 +146,6 @@ class OTPScreen extends StatelessWidget {
       controller: otpController.pinController,
       appContext: context,
       onChanged: (value) {
-        // Call validate form on OTP field change
         otpController.validateForm();
       },
     );

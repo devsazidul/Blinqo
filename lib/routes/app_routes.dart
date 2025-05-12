@@ -4,6 +4,7 @@ import 'package:blinqo/features/role/event_planner/auth/screen/change_password_s
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
+import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
@@ -17,6 +18,7 @@ import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.d
 import 'package:blinqo/features/role/event_planner/payment_method/screen/even_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/evetnt_congratulation_screen.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/final_review_booking_datieals.dart';
+import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/forget_password_verify_otp_screen.dart';
@@ -120,6 +122,8 @@ class AppRoute {
   static String spForgetPassword = '/spForgetPassword';
   static String spFOtpSendScreen = '/spFOtpSendScreen';
   static String spChangePassword = '/spChangePassword';
+  static String profilesetup = '/profilesetup';
+  static String eventbottomnavbar = '/eventbottomnavbar';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -178,6 +182,8 @@ class AppRoute {
   static String getspForgetPassword() => spForgetPassword;
   static String getspFOtpSendScreen() => spFOtpSendScreen;
   static String getspChangePassword() => spChangePassword;
+  static String getprofilesetup() => profilesetup;
+  static String geteventbottomnavbar() => eventbottomnavbar;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -250,6 +256,8 @@ class AppRoute {
     GetPage(name: spSignupScreen, page: () => SpSignupScreen()),
     GetPage(name: spLoginScreen, page: () => SpLoginScreen()),
     GetPage(name: spForgetPassword, page: () => SpForgetPasswordScreen()),
+    GetPage(name: profilesetup, page: () => ProfileSetup()),
+    GetPage(name: eventbottomnavbar, page: () => EventBottomNavBar()),
     GetPage(
       name: spFOtpSendScreen,
       page:

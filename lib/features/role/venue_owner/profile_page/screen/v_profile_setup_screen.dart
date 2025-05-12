@@ -105,17 +105,7 @@ class VenueProfileScreen extends StatelessWidget {
                         }
                       ),
                       SizedBox(height: 20),
-                      TextFieldWidget(
-                        hintText: 'Enter your location',
-                        labelText: 'Location',
-                        controller: profileSetupController.locationController,
-                        validator: (value){
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your location';
-                          }
-                          return null;
-                        }
-                      ),
+                         
                       SizedBox(height: 40),
                     ],
                   ),
