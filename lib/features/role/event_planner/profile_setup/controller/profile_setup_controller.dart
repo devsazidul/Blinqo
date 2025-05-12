@@ -2,15 +2,13 @@ import 'package:blinqo/features/role/event_planner/profile_setup/model/event_pre
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
-class ProfileSetupController extends GetxController{
+class ProfileSetupController extends GetxController {
   RxString selectedGender = 'Select Gender'.obs;
 
   // Method to update the gender
   void updateGender(String gender) {
     selectedGender.value = gender;
   }
-
-
 
   /// ------------------------------------------------
   /// Event Preference
@@ -27,7 +25,6 @@ class ProfileSetupController extends GetxController{
 
   //   await SpAuthController.getUserInformation();
   //   debugPrint('Token after reload: ${SpAuthController.token}');
-
 
   //   final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
   //       .getRequest(Urls.getEventPreference);

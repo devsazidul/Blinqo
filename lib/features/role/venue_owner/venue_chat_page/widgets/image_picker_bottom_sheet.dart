@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../controllers/chat_controller.dart';
-
 
 class ImagePickerBottomSheet extends StatelessWidget {
   final String chatId;
@@ -32,19 +30,12 @@ class ImagePickerBottomSheet extends StatelessWidget {
               color: const Color(0xFF205295).withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              icon,
-              color: const Color(0xFF205295),
-              size: 30,
-            ),
+            child: Icon(icon, color: const Color(0xFF205295), size: 30),
           ),
           const SizedBox(height: 8),
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -65,10 +56,7 @@ class ImagePickerBottomSheet extends StatelessWidget {
           children: [
             const Text(
               'Select Image',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             Row(

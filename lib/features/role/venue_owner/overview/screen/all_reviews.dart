@@ -11,18 +11,20 @@ class AllReviewsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OverviewController controller = Get.put(OverviewController());
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('All Reviews'),
-        backgroundColor: isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
+        backgroundColor:
+            isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       ),
       body: ListView.builder(
         itemCount: controller.seereview.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -45,16 +47,39 @@ class AllReviewsScreen extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                            color:
+                                isDarkMode
+                                    ? Color(0xffEBEBEB)
+                                    : Color(0xff333333),
                           ),
                         ),
                         Row(
                           children: [
-                            Icon(Icons.star, color: Color(0xffF0C020), size: 15),
-                            Icon(Icons.star, color: Color(0xffF0C020), size: 15),
-                            Icon(Icons.star, color: Color(0xffF0C020), size: 15),
-                            Icon(Icons.star, color: Color(0xffF0C020), size: 15),
-                            Icon(Icons.star, color: Color(0xffF0C020), size: 15),
+                            Icon(
+                              Icons.star,
+                              color: Color(0xffF0C020),
+                              size: 15,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Color(0xffF0C020),
+                              size: 15,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Color(0xffF0C020),
+                              size: 15,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Color(0xffF0C020),
+                              size: 15,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Color(0xffF0C020),
+                              size: 15,
+                            ),
                           ],
                         ),
                       ],

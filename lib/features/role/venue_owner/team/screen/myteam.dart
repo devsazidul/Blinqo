@@ -10,7 +10,6 @@ import 'package:blinqo/features/role/venue_owner/team/widget/contact_permission.
 import 'package:blinqo/features/role/venue_owner/team/widget/search_employee.dart'
     show SearchEmployee;
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -216,13 +215,17 @@ class Myteam extends StatelessWidget {
                                     horizontal: 40,
                                   ),
                                   child: InkWell(
-                                   onTap: () async {
-     final result = await pickContact(context); // ইউজার কাকে সিলেক্ট করলো সেটা ফেরত পাবে
+                                    onTap: () async {
+                                      final result = await pickContact(
+                                        context,
+                                      ); // ইউজার কাকে সিলেক্ট করলো সেটা ফেরত পাবে
 
-     if (result != null) {
-    controller.addTeamMembercontact(result); // টিম লিস্টে অ্যাড করে ফেলো
-        }
-     },
+                                      if (result != null) {
+                                        controller.addTeamMembercontact(
+                                          result,
+                                        ); // টিম লিস্টে অ্যাড করে ফেলো
+                                      }
+                                    },
                                     child: Row(
                                       children: [
                                         Image.asset(

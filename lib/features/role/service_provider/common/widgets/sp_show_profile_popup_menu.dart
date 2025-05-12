@@ -3,6 +3,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_get_verified_screen.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
@@ -22,7 +23,8 @@ Future<void> spShowPopupMenu(BuildContext context, bool isDarkMode) async {
         text: "Edit Profile",
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
-        onTap: () {
+        onTap: () async {
+          await Get.put(SpProfileSetupController()).getEventPreferences();
           Navigator.push(
             context,
             MaterialPageRoute(

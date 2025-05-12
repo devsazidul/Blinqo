@@ -6,9 +6,9 @@ class AppDimentions {
   static double height12 = getHeight(12);
   static double height16 = getHeight(16);
   static double height36 = getHeight(36);
-//end height
+  //end height
 
-//width
+  //width
   static double widht16 = getWidth(16);
   //end width
 }

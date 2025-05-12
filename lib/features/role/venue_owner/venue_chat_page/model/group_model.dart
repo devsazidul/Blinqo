@@ -1,4 +1,3 @@
-
 import 'chat_model.dart';
 
 class Group {
@@ -34,9 +33,7 @@ class GroupMessage extends Message {
     required super.type,
     super.mediaUrl,
     super.audioDuration,
-  }) : super(
-    receiverId: groupId,
-  );
+  }) : super(receiverId: groupId);
 }
 
 class GroupChatPreview {

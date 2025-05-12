@@ -27,17 +27,17 @@ class BookingNavigator extends StatelessWidget {
           screens = ReviewBookingDetails();
         } else if (settings.name == AppRoute.geteventPaymentOption()) {
           screens = EvenPaymentOption();
-        }else if (settings.name == SearchStartBooking.routeName) {
+        } else if (settings.name == SearchStartBooking.routeName) {
           screens = SearchStartBooking();
-        }else if (settings.name == ReviewBooking.routeName) {
+        } else if (settings.name == ReviewBooking.routeName) {
           screens = ReviewBooking();
-        }else if (settings.name == EventCongratulationScreen.routeName) {
+        } else if (settings.name == EventCongratulationScreen.routeName) {
           screens = EventCongratulationScreen();
-        }else if (settings.name == FinalReviewBookingDatieals.routeName) {
+        } else if (settings.name == FinalReviewBookingDatieals.routeName) {
           screens = FinalReviewBookingDatieals();
-        }else if (settings.name == GuestListScreen.routeName) {
+        } else if (settings.name == GuestListScreen.routeName) {
           screens = GuestListScreen();
-        }else if (settings.name == InvitationCardScreen.routeName) {
+        } else if (settings.name == InvitationCardScreen.routeName) {
           screens = InvitationCardScreen();
         } else {
           screens = BookingList();

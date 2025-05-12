@@ -69,12 +69,19 @@ class GroupInfoView extends StatelessWidget {
             // Group name
             Text(
               group.name,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: isDarkMode ? Color(0xffEBEBEB) : Colors.black),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+              ),
             ),
             SizedBox(height: 4),
             Text(
               '${members.length} Members',
-              style: TextStyle(fontSize: 16, color:isDarkMode ? Color(0xffC0C0C0) : Colors.grey[600]),
+              style: TextStyle(
+                fontSize: 16,
+                color: isDarkMode ? Color(0xffC0C0C0) : Colors.grey[600],
+              ),
             ),
             SizedBox(height: 24),
 

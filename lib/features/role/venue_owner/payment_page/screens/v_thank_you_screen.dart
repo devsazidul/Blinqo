@@ -7,7 +7,6 @@ import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_o
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class VThankYouScreen extends StatelessWidget {
   const VThankYouScreen({super.key});
 
@@ -16,7 +15,7 @@ class VThankYouScreen extends StatelessWidget {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Scaffold(
-      backgroundColor:isDarkMode ? Color(0xff151515) : Color(0xffF9FAFB),
+      backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xffF9FAFB),
       appBar: VPaymentAppBar(isBackButtonVisible: false, title: 'Thank You'),
       body: SafeArea(
         child: Center(
@@ -32,7 +31,10 @@ class VThankYouScreen extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color:isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+                    color:
+                        isDarkMode
+                            ? AppColors.borderColor2
+                            : AppColors.textColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -42,7 +44,7 @@ class VThankYouScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Get.to(
-                     VPaymentMethod(),
+                      VPaymentMethod(),
                       transition: Transition.rightToLeft,
                       duration: const Duration(milliseconds: 400),
                     );

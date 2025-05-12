@@ -91,18 +91,21 @@ class VenueProfileScreen extends StatelessWidget {
                         hintText: 'Enter your Username',
                         labelText: 'Username',
                         controller: profileSetupController.nameTEController,
-                        validator: (value){
+                        validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your username';
-                          } if(value.length < 3) {
+                          }
+                          if (value.length < 3) {
                             return 'Username must be at least 3 characters';
-                          } if(value.length > 15) {
+                          }
+                          if (value.length > 15) {
                             return 'Username must be less than 15 characters';
-                          } if(!RegExp(r'^[a-z0-9_]+$').hasMatch(value)) {
+                          }
+                          if (!RegExp(r'^[a-z0-9_]+$').hasMatch(value)) {
                             return 'Username can only contain lowercase letters, numbers, and underscores';
                           }
                           return null;
-                        }
+                        },
                       ),
                       SizedBox(height: 20),
 
@@ -110,12 +113,12 @@ class VenueProfileScreen extends StatelessWidget {
                         hintText: 'Enter your location',
                         labelText: 'Location',
                         controller: profileSetupController.locationTEController,
-                        validator: (value){
+                        validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your location';
                           }
                           return null;
-                        }
+                        },
                       ),
 
                       SizedBox(height: 40),
@@ -215,6 +218,4 @@ class VenueProfileScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }

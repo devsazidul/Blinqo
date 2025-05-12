@@ -11,7 +11,7 @@ class VenueDetails {
   final int? statusCode;
   final bool? success;
 
-  factory VenueDetails.fromJson(Map<String, dynamic> json){
+  factory VenueDetails.fromJson(Map<String, dynamic> json) {
     return VenueDetails(
       data: json["data"] == null ? null : VenueData.fromJson(json["data"]),
       message: json["message"],
@@ -26,7 +26,6 @@ class VenueDetails {
     "statusCode": statusCode,
     "success": success,
   };
-
 }
 
 class VenueData {
@@ -78,7 +77,7 @@ class VenueData {
   final Image? arrangementsImage;
   final Image? venueImage;
 
-  factory VenueData.fromJson(Map<String, dynamic> json){
+  factory VenueData.fromJson(Map<String, dynamic> json) {
     return VenueData(
       id: json["id"],
       profileId: json["profileId"],
@@ -87,7 +86,10 @@ class VenueData {
       area: json["area"],
       description: json["description"],
       capacity: json["capacity"],
-      bookedDates: json["bookedDates"] == null ? [] : List<dynamic>.from(json["bookedDates"]!.map((x) => x)),
+      bookedDates:
+          json["bookedDates"] == null
+              ? []
+              : List<dynamic>.from(json["bookedDates"]!.map((x) => x)),
       type: json["type"],
       cateringDescription: json["cateringDescription"],
       parkingDescription: json["parkingDescription"],
@@ -98,10 +100,24 @@ class VenueData {
       verified: json["verified"],
       createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
-      amenities: json["amenities"] == null ? [] : List<Amenity>.from(json["amenities"]!.map((x) => Amenity.fromJson(x))),
-      decoration: json["decoration"] == null ? null : Decoration.fromJson(json["decoration"]),
-      arrangementsImage: json["arrangementsImage"] == null ? null : Image.fromJson(json["arrangementsImage"]),
-      venueImage: json["venueImage"] == null ? null : Image.fromJson(json["venueImage"]),
+      amenities:
+          json["amenities"] == null
+              ? []
+              : List<Amenity>.from(
+                json["amenities"]!.map((x) => Amenity.fromJson(x)),
+              ),
+      decoration:
+          json["decoration"] == null
+              ? null
+              : Decoration.fromJson(json["decoration"]),
+      arrangementsImage:
+          json["arrangementsImage"] == null
+              ? null
+              : Image.fromJson(json["arrangementsImage"]),
+      venueImage:
+          json["venueImage"] == null
+              ? null
+              : Image.fromJson(json["venueImage"]),
     );
   }
 
@@ -129,7 +145,6 @@ class VenueData {
     "arrangementsImage": arrangementsImage?.toJson(),
     "venueImage": venueImage?.toJson(),
   };
-
 }
 
 class Amenity {
@@ -145,7 +160,7 @@ class Amenity {
   final bool? amenityDefault;
   final dynamic profileId;
 
-  factory Amenity.fromJson(Map<String, dynamic> json){
+  factory Amenity.fromJson(Map<String, dynamic> json) {
     return Amenity(
       id: json["id"],
       name: json["name"],
@@ -160,26 +175,18 @@ class Amenity {
     "default": amenityDefault,
     "profileId": profileId,
   };
-
 }
 
 class Image {
-  Image({
-    required this.path,
-  });
+  Image({required this.path});
 
   final String? path;
 
-  factory Image.fromJson(Map<String, dynamic> json){
-    return Image(
-      path: json["path"],
-    );
+  factory Image.fromJson(Map<String, dynamic> json) {
+    return Image(path: json["path"]);
   }
 
-  Map<String, dynamic> toJson() => {
-    "path": path,
-  };
-
+  Map<String, dynamic> toJson() => {"path": path};
 }
 
 class Decoration {
@@ -199,14 +206,32 @@ class Decoration {
   final List<String> tableShapes;
   final List<String> seatingStyles;
 
-  factory Decoration.fromJson(Map<String, dynamic> json){
+  factory Decoration.fromJson(Map<String, dynamic> json) {
     return Decoration(
-      flowerColors: json["flowerColors"] == null ? [] : List<String>.from(json["flowerColors"]!.map((x) => x)),
-      flowerTypes: json["flowerTypes"] == null ? [] : List<String>.from(json["flowerTypes"]!.map((x) => x)),
-      fragrances: json["fragrances"] == null ? [] : List<String>.from(json["fragrances"]!.map((x) => x)),
-      lighting: json["lighting"] == null ? [] : List<String>.from(json["lighting"]!.map((x) => x)),
-      tableShapes: json["tableShapes"] == null ? [] : List<String>.from(json["tableShapes"]!.map((x) => x)),
-      seatingStyles: json["seatingStyles"] == null ? [] : List<String>.from(json["seatingStyles"]!.map((x) => x)),
+      flowerColors:
+          json["flowerColors"] == null
+              ? []
+              : List<String>.from(json["flowerColors"]!.map((x) => x)),
+      flowerTypes:
+          json["flowerTypes"] == null
+              ? []
+              : List<String>.from(json["flowerTypes"]!.map((x) => x)),
+      fragrances:
+          json["fragrances"] == null
+              ? []
+              : List<String>.from(json["fragrances"]!.map((x) => x)),
+      lighting:
+          json["lighting"] == null
+              ? []
+              : List<String>.from(json["lighting"]!.map((x) => x)),
+      tableShapes:
+          json["tableShapes"] == null
+              ? []
+              : List<String>.from(json["tableShapes"]!.map((x) => x)),
+      seatingStyles:
+          json["seatingStyles"] == null
+              ? []
+              : List<String>.from(json["seatingStyles"]!.map((x) => x)),
     );
   }
 
@@ -218,5 +243,4 @@ class Decoration {
     "tableShapes": tableShapes.map((x) => x).toList(),
     "seatingStyles": seatingStyles.map((x) => x).toList(),
   };
-
 }

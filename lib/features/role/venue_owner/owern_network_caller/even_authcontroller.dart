@@ -154,8 +154,8 @@ class EventAuthController {
     try {
       userInfo = await getUserInfo();
       profileInfo = await getUserAllInfo();
-       token = await getAuthToken();
-       role = await getUserRole();
+      token = await getAuthToken();
+      role = await getUserRole();
       return token != null &&
           token!.isNotEmpty &&
           role != null &&

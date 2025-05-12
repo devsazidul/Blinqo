@@ -11,5 +11,5 @@ enum PaymentMethods {
   creditCard,
   paystack,
   razorPay,
-  paytm
+  paytm,
 }

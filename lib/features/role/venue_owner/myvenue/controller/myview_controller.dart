@@ -48,6 +48,7 @@ class MyVenueController extends GetxController {
   void updateSearch(String text) {
     searchText.value = text;
   }
+
   var selectedTableShapes = <String>[].obs;
   var selectedSeatingStyles = <String>[].obs;
   var selectedLightingStyles = <String>[].obs;
@@ -156,12 +157,14 @@ class MyVenueController extends GetxController {
       selectedSeatingStyles.add(style);
     }
   }
-   var favoriteList = <bool>[false, false].obs;
+
+  var favoriteList = <bool>[false, false].obs;
 
   void toggleFavorite(int index) {
     favoriteList[index] = !favoriteList[index];
   }
-    var pickedImage = Rx<File?>(null);
+
+  var pickedImage = Rx<File?>(null);
 
   Future<void> pickImageFromGallery() async {
     final ImagePicker picker = ImagePicker();
@@ -171,19 +174,20 @@ class MyVenueController extends GetxController {
       pickedImage.value = File(image.path);
     }
   }
-    Rx<LatLng> selectedLocation = LatLng(23.8103, 90.4125).obs; // Initial (Dhaka)
+
+  Rx<LatLng> selectedLocation = LatLng(23.8103, 90.4125).obs; // Initial (Dhaka)
 
   void updateLocation(LatLng newLocation) {
     selectedLocation.value = newLocation;
   }
+
   Rx<File?> decorationImage = Rx<File?>(null);
 
-void pickDecorationImageFromGallery() async {
-  final picker = ImagePicker();
-  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-  if (pickedFile != null) {
-    decorationImage.value = File(pickedFile.path);
+  void pickDecorationImageFromGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      decorationImage.value = File(pickedFile.path);
+    }
   }
-}
-
 }

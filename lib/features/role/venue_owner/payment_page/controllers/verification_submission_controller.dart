@@ -71,11 +71,17 @@ class VerificationSubmissionController extends GetxController {
       return;
     }
     if (businessRegistrationImage.value == null) {
-      EasyLoading.showError('Please upload your Business Registration Certificate');
+      EasyLoading.showError(
+        'Please upload your Business Registration Certificate',
+      );
       return;
     }
 
-    String? profileId = EventAuthController.profileInfo?.profile?.id; // Changed from userId to id
+    String? profileId =
+        EventAuthController
+            .profileInfo
+            ?.profile
+            ?.id; // Changed from userId to id
     _logger.i('Profile ID: $profileId');
     if (profileId == null || profileId.isEmpty) {
       EasyLoading.showError('Failed to fetch valid profile ID');
@@ -87,21 +93,26 @@ class VerificationSubmissionController extends GetxController {
       return;
     }
 
-    var body = {
-      "profileId": profileId,
-      "bio": bioTEController.text.trim(),
-    };
+    var body = {"profileId": profileId, "bio": bioTEController.text.trim()};
 
     List<http.MultipartFile> files = [
       if (nationalIDImage.value != null)
-        await http.MultipartFile.fromPath('idCard', nationalIDImage.value!.path),
+        await http.MultipartFile.fromPath(
+          'idCard',
+          nationalIDImage.value!.path,
+        ),
       if (businessRegistrationImage.value != null)
-        await http.MultipartFile.fromPath('tradeLicense', businessRegistrationImage.value!.path),
+        await http.MultipartFile.fromPath(
+          'tradeLicense',
+          businessRegistrationImage.value!.path,
+        ),
     ];
 
     _logger.i('Request body: $body');
     _logger.d('Id Card Image file: ${nationalIDImage.value?.path}');
-    _logger.d('Business Registration Image file: ${businessRegistrationImage.value?.path}');
+    _logger.d(
+      'Business Registration Image file: ${businessRegistrationImage.value?.path}',
+    );
 
     try {
       final response = await OwnerNetworkCaller().postRequest(

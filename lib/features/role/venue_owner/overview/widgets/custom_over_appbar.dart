@@ -28,11 +28,14 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    VenueOwnerProfileController controller = Get.put(VenueOwnerProfileController());
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    VenueOwnerProfileController controller = Get.put(
+      VenueOwnerProfileController(),
+    );
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Row(
           children: [
             GestureDetector(
@@ -45,14 +48,19 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   ClipOval(
                     child: CachedNetworkImage(
-                     imageUrl:  imagePath,
+                      imageUrl: imagePath,
                       width: 40,
                       height: 40,
                       fit: BoxFit.cover,
-                      errorWidget:  (_, __, ___) => CircleAvatar(
-                        backgroundColor: Color(0xffD9D9D9),
-                        child: Icon(Icons.person, size: 20, color: Color(0xffA1A1A1)),
-                      ),
+                      errorWidget:
+                          (_, __, ___) => CircleAvatar(
+                            backgroundColor: Color(0xffD9D9D9),
+                            child: Icon(
+                              Icons.person,
+                              size: 20,
+                              color: Color(0xffA1A1A1),
+                            ),
+                          ),
                     ),
                   ),
                   SizedBox(width: 8),
@@ -64,7 +72,10 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
                         style: getTextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xff333333),
                         ),
                       ),
                       Text(
@@ -72,7 +83,10 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
                         style: getTextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color:isDarkMode ? Color(0xffA1A1A1) : Color(0xffA1A1A1),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffA1A1A1)
+                                  : Color(0xffA1A1A1),
                         ),
                       ),
                     ],
@@ -105,9 +119,16 @@ class ProfileRow extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             SizedBox(width: 10),
-            InkWell(onTap: () {
-              Get.to(VNotificationScreen());
-            }, child: Icon(Icons.notifications, size: 30,color: isDarkMode ? Color(0xffD4AF37) : null)),
+            InkWell(
+              onTap: () {
+                Get.to(VNotificationScreen());
+              },
+              child: Icon(
+                Icons.notifications,
+                size: 30,
+                color: isDarkMode ? Color(0xffD4AF37) : null,
+              ),
+            ),
           ],
         ),
       ),

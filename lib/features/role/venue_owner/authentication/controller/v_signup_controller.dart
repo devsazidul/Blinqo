@@ -25,7 +25,6 @@ class VSignupController extends GetxController {
   var errorMessage = ''.obs;
   var fieldErrors = <String, String?>{}.obs;
 
-
   @override
   void onInit() {
     // Add listeners to trigger validation on text changes
@@ -175,6 +174,4 @@ class VSignupController extends GetxController {
       EasyLoading.showError(errorMessage.value);
     }
   }
-
-
 }

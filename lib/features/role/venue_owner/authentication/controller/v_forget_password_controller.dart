@@ -15,7 +15,7 @@ class VForgetPasswordController extends GetxController {
   // RxBool to track if form is valid
   var isFormValid2 = false.obs;
 
-  var timeCountdown= 120.obs;
+  var timeCountdown = 120.obs;
   Timer? countdownTimer;
 
   // Function to start the countdown timer
@@ -30,6 +30,7 @@ class VForgetPasswordController extends GetxController {
       }
     });
   }
+
   @override
   void onInit() {
     startTimer();

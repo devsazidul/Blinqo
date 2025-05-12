@@ -81,7 +81,7 @@ class SignUpController extends GetxController {
     _isLoading.value = true;
     responseMessage.value = '';
     EasyLoading.show(status: 'creating Profile...');
-  
+
     try {
       final user = {
         'email': emailController1.text.trim(),
@@ -90,18 +90,21 @@ class SignUpController extends GetxController {
         'phone': phoneController1.text.trim(),
         'roles': ['PLANNER'],
       };
-  
+
       final response = await http.post(
         Uri.parse(Urls.register),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(user),
       );
-  
+
       final responseData = jsonDecode(response.body);
-  
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         String token = responseData["data"]["access_token"];
-        Get.to(() => OTPScreen(), arguments: emailController1.text); // Pass email correctly
+        Get.to(
+          () => OTPScreen(),
+          arguments: emailController1.text,
+        ); // Pass email correctly
         LoginController(token: token);
       } else {
         responseMessage.value = _parseError(responseData);

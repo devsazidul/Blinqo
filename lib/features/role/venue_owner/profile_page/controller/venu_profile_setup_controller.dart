@@ -191,9 +191,9 @@ class VenueProfileSetupController extends GetxController {
 
       if (request.isSuccess) {
         await EasyLoading.showSuccess('Profile updated successfully');
-       await venueOwnerProfileController.getProfileInformation();
-       await venueOwnerProfileController.getUserInfo();
-       Get.off(VenueOwnerProfilePage());
+        await venueOwnerProfileController.getProfileInformation();
+        await venueOwnerProfileController.getUserInfo();
+        Get.off(VenueOwnerProfilePage());
       } else {
         EasyLoading.showError(
           'Failed: ${request.errorMessage ?? 'Unknown error'}',

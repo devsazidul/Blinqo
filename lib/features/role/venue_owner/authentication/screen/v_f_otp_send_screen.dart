@@ -5,6 +5,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/controller/v_forget_password_controller.dart';
+
 class VForgetOTPScreen extends StatelessWidget {
   final String email;
 
@@ -100,39 +101,39 @@ class VForgetOTPScreen extends StatelessWidget {
                     backgroundColor:
                         vForgetPasswordController.isFormValid2.value
                             ? const Color(0xFF003366)
-                            : const Color(0xFF003366).withValues(alpha:  0.1),
+                            : const Color(0xFF003366).withValues(alpha: 0.1),
                     borderColor:
                         vForgetPasswordController.isFormValid2.value
                             ? const Color(0xFF003366)
-                            : const Color(0xFF003366).withValues(alpha:  0.1),
+                            : const Color(0xFF003366).withValues(alpha: 0.1),
                   ),
                 ),
                 const SizedBox(height: 32),
                 // i want a resende text button where 2 minutes will be there after 2 minutes the button will be active again
-                Obx((){
+                Obx(() {
                   return vForgetPasswordController.timeCountdown.value > 0
                       ? Text(
-                          'Resend OTP in ${vForgetPasswordController.timeCountdown.value} seconds',
+                        'Resend OTP in ${vForgetPasswordController.timeCountdown.value} seconds',
+                        style: getTextStyle(
+                          color: const Color(0xFF333333),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )
+                      : GestureDetector(
+                        onTap: () {
+                          vForgetPasswordController.sendOTP();
+                        },
+                        child: Text(
+                          'Resend OTP',
                           style: getTextStyle(
-                            color: const Color(0xFF333333),
+                            color: const Color(0xFF00BA0B),
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
                           ),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            vForgetPasswordController.sendOTP();
-                          },
-                          child:  Text(
-                            'Resend OTP',
-                            style: getTextStyle(
-                              color: const Color(0xFF00BA0B),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        );
-                })
+                        ),
+                      );
+                }),
               ],
             ),
           ),

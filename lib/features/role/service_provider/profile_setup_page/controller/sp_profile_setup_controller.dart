@@ -9,6 +9,7 @@ import 'package:blinqo/features/role/service_provider/common/controller/auth_con
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/models/profile_info_model.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/event_preference_model.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_page/model/profile_setup_model.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:flutter/material.dart';
@@ -22,16 +23,53 @@ import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SpProfileSetupController extends GetxController {
+  final Logger logger = Logger();
+  final formKey = GlobalKey<FormState>();
+
+  TextEditingController profileNameController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController experienceYearController = TextEditingController();
-  late GoogleMapController mapController;
+  // late GoogleMapController mapController;
   final LatLng center = const LatLng(37.7749, -122.4194);
   Set<Marker> markers = {};
   var isInitialized = false.obs;
+  var isEditMode = false.obs;
 
   var profileImage = Rx<File?>(null);
+
+  void initializeEditMode() {
+    if (isEditMode.value && !isInitialized.value) {
+      profileNameController.text =
+          SpAuthController.profileInfoModel?.name ?? "";
+      nameController.text = SpAuthController.profileInfoModel?.name ?? "";
+      selectedRoles.value =
+          SpAuthController.profileInfoModel?.serviceProviderRole ??
+          ServiceProviderRole.photographer;
+      locationController.text =
+          SpAuthController.profileInfoModel?.location ?? "";
+      descriptionController.text =
+          SpAuthController.profileInfoModel?.description ?? "";
+      experienceYearController.text =
+          SpAuthController.profileInfoModel?.experience?.toString() ?? "";
+      selectedEvents.addAll(
+        SpAuthController.profileInfoModel?.eventPreference?.map(
+              (e) => e.id ?? '',
+            ) ??
+            [],
+      );
+      isInitialized.value = true;
+    }
+  }
+
+  void setEditMode(bool value) {
+    isEditMode.value = value;
+    if (value) {
+      print('isEditMode: $isEditMode');
+      initializeEditMode();
+    }
+  }
 
   Future<void> pickImage() async {
     await requestPermissions();
@@ -180,24 +218,52 @@ class SpProfileSetupController extends GetxController {
     update();
   }
 
+  late GoogleMapController mapController;
+  bool isMapCreated = false;
+
   void onMapCreated(GoogleMapController controller) {
     mapController = controller;
+    isMapCreated = true;
+    update();
   }
 
+  // Always check if map is created before using controller
   Future<void> searchLocation(String place) async {
+    if (!isMapCreated) return;
+
     try {
       List<Location> locations = await locationFromAddress(place);
-      Logger().i(locations);
       if (locations.isNotEmpty) {
         final loc = locations.first;
         final target = LatLng(loc.latitude, loc.longitude);
-        mapController.animateCamera(CameraUpdate.newLatLngZoom(target, 16));
+        await mapController.animateCamera(
+          CameraUpdate.newLatLngZoom(target, 16),
+        );
         initMarkers(location: target, title: place);
       }
     } catch (e) {
-      Get.snackbar('Location not found', 'Try a more specific name');
+      Get.snackbar('Error', 'Location not found: ${e.toString()}');
     }
   }
+
+  // void onMapCreated(GoogleMapController controller) {
+  //   mapController = controller;
+  // }
+
+  // Future<void> searchLocation(String place) async {
+  //   try {
+  //     List<Location> locations = await locationFromAddress(place);
+  //     Logger().i(locations);
+  //     if (locations.isNotEmpty) {
+  //       final loc = locations.first;
+  //       final target = LatLng(loc.latitude, loc.longitude);
+  //       mapController.animateCamera(CameraUpdate.newLatLngZoom(target, 16));
+  //       initMarkers(location: target, title: place);
+  //     }
+  //   } catch (e) {
+  //     Get.snackbar('Location not found', 'Try a more specific name');
+  //   }
+  // }
 
   Set<Marker> get mapMarkers => markers;
   var selectedRoles = ServiceProviderRole.photographer.obs;
@@ -228,9 +294,8 @@ class SpProfileSetupController extends GetxController {
   final RxList<EventPreferenceModel> eventPreferenceList =
       <EventPreferenceModel>[].obs;
 
-  Future<bool> getEventPreferences() async {
+  Future<void> getEventPreferences() async {
     eventPreferenceList.clear();
-    bool isSuccess = false;
     isLoadingEventPreference.value = true;
     update();
 
@@ -246,126 +311,172 @@ class SpProfileSetupController extends GetxController {
             .toList(),
       );
       update();
-      isSuccess = true;
     } else {
       Get.snackbar('Error', response.errorMessage);
     }
     isLoadingEventPreference.value = false;
     update();
-    return isSuccess;
   }
+
+  RxBool isLoadingServiceProviderSetup = false.obs;
 
   /// ------------------------------------------------
   /// Profile Setup
   /// ------------------------------------------------
-  RxBool isLoadingServiceProviderSetup = false.obs;
-  Future<bool> serviceProviderSetup() async {
+  Future<bool> spProfileSetup() async {
     EasyLoading.show(status: 'Loading...');
     bool isSuccess = false;
     isLoadingServiceProviderSetup.value = true;
     update();
 
-    final response = await Get.find<SpNetworkCaller>().multipartRequest(
-      url: Urls.uploadServiceProviderProfile,
-      formFields: {
-        'eventPreferenceIds': selectedEvents.join(','),
-        'serviceProviderRole': selectedRoles.value,
-        'description': descriptionController.text,
-        'experience': experienceYearController.text,
-        'userId': SpAuthController.userModel?.id ?? '',
-        'location': locationController.text,
-        'name': nameController.text,
-      },
-      files: [
-        if (profileImage.value != null)
-          await http.MultipartFile.fromPath('image', profileImage.value!.path),
-        if (coverImage.value != null)
-          await http.MultipartFile.fromPath(
-            'coverPhoto',
-            coverImage.value!.path,
-          ),
-      ],
-    );
-    if (response.isSuccess) {
-      final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
-        response.responseData['data'],
+    try {
+      final response = await Get.find<SpNetworkCaller>().multipartRequest(
+        url: Urls.uploadServiceProviderProfile,
+        formFields: {
+          'eventPreferenceIds': selectedEvents.join(','),
+          'serviceProviderRole': selectedRoles.value,
+          'description': descriptionController.text,
+          'experience': experienceYearController.text,
+          'userId': SpAuthController.userModel?.id ?? '',
+          'location': locationController.text,
+          'name': nameController.text,
+        },
+        files: [
+          if (profileImage.value != null)
+            await http.MultipartFile.fromPath(
+              'image',
+              profileImage.value!.path,
+            ),
+          if (coverImage.value != null)
+            await http.MultipartFile.fromPath(
+              'coverPhoto',
+              coverImage.value!.path,
+            ),
+        ],
       );
-      await SpAuthController.updateUserInformation(
-        profileId: profileInfoModel.id ?? '',
-        isProfileCreated: true,
-      );
-      await Get.find<SpGetUserInfoController>().getUserInfo();
+
+      if (response.isSuccess) {
+        //* create sp user model
+        final ProfileSetupModel profileSetupModel = ProfileSetupModel.fromJson(
+          response.responseData,
+        );
+
+        //* create profile info model
+        final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
+          response.responseData['data'],
+        );
+
+        //* save user information
+        // await SpAuthController.saveUserInformation(
+        //   accessToken: profileSetupModel.accessToken,
+        //   spUser: SpUser(
+        //     id: profileInfoModel.id,
+        //     email: profileInfoModel.email,
+        //     phone: profileInfoModel.phone,
+        //     name: profileInfoModel.name,
+        //     role: profileInfoModel.role,
+        //     isVerified: profileInfoModel.isVerified,
+        //     createdAt: profileInfoModel.createdAt,
+        //     updatedAt: profileInfoModel.updatedAt,
+        //     profile: profileInfoModel,
+        //   ),
+        // );
+
+        await SpAuthController.updateUserInformation(
+          profileId: profileInfoModel.id,
+          isProfileCreated: true,
+        );
+
+        await Get.find<SpGetUserInfoController>().spGetUserInfo();
+        EasyLoading.dismiss();
+        Get.offAll(SpBottomNavBarScreen());
+        isSuccess = true;
+        EasyLoading.showSuccess('Profile setup successful');
+      } else {
+        EasyLoading.dismiss();
+        EasyLoading.showError(response.errorMessage);
+        isSuccess = false;
+      }
+    } catch (e) {
       EasyLoading.dismiss();
-      Get.offAll(SpBottomNavBarScreen());
-      isSuccess = true;
-      EasyLoading.showSuccess('Profile setup successful');
-    } else {
-      EasyLoading.dismiss();
-      EasyLoading.showError(response.errorMessage);
+      EasyLoading.showError('An error occurred during profile setup');
+      isSuccess = false;
+    } finally {
+      isLoadingServiceProviderSetup.value = false;
+      update();
     }
-    isLoadingServiceProviderSetup.value = false;
-    update();
     return isSuccess;
   }
+
+  RxBool isLoadingServiceProviderUpdate = false.obs;
 
   /// ------------------------------------------------
   /// Profile update
   /// ------------------------------------------------
-  RxBool isLoadingServiceProviderUpdate = false.obs;
-
-  Future<bool> serviceProviderUpdate() async {
+  Future<bool> spProfileUpdate() async {
     EasyLoading.show(status: 'Loading...');
     bool isSuccess = false;
     isLoadingServiceProviderUpdate.value = true;
     update();
 
-    debugPrint('Current token before update: ${SpAuthController.token}');
-    await SpAuthController.getUserInformation();
-    debugPrint('Token after reload: ${SpAuthController.token}');
+    try {
+      await SpAuthController.getUserInformation();
 
-    final response = await Get.find<SpNetworkCaller>().multipartRequest(
-      isPatchRequest: true,
-      url: Urls.updateServiceProviderProfile(
-        SpAuthController.profileInfoModel?.id ?? '',
-      ),
-      formFields: {
-        'eventPreferenceIds': jsonEncode(selectedEvents),
-        'serviceProviderRole': selectedRoles.value,
-        'description': descriptionController.text,
-        'experience': experienceYearController.text,
-        'user': jsonEncode({'id': SpAuthController.userModel?.id}),
-        'location': locationController.text,
-        'name': nameController.text,
-      },
-      files: [
-        if (profileImage.value != null)
-          await http.MultipartFile.fromPath('image', profileImage.value!.path),
-        if (coverImage.value != null)
-          await http.MultipartFile.fromPath(
-            'coverPhoto',
-            coverImage.value!.path,
-          ),
-      ],
-    );
-    if (response.isSuccess) {
-      final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
-        response.responseData['data'],
+      final response = await Get.find<SpNetworkCaller>().multipartRequest(
+        isPatchRequest: true,
+        url: Urls.updateServiceProviderProfile(
+          SpAuthController.profileInfoModel?.id ?? '',
+        ),
+        formFields: {
+          'eventPreferenceIds': jsonEncode(selectedEvents),
+          'serviceProviderRole': selectedRoles.value,
+          'description': descriptionController.text,
+          'experience': experienceYearController.text,
+          'userId': SpAuthController.userModel?.id ?? '',
+          'location': locationController.text,
+          'name': nameController.text,
+        },
+        files: [
+          if (profileImage.value != null)
+            await http.MultipartFile.fromPath(
+              'image',
+              profileImage.value!.path,
+            ),
+          if (coverImage.value != null)
+            await http.MultipartFile.fromPath(
+              'coverPhoto',
+              coverImage.value!.path,
+            ),
+        ],
       );
-      await SpAuthController.updateUserInformation(
-        profileId: profileInfoModel.id ?? '',
-        isProfileCreated: true,
-      );
-      await Get.find<SpGetUserInfoController>().getUserInfo();
+
+      if (response.isSuccess) {
+        final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
+          response.responseData['data'],
+        );
+
+        await SpAuthController.saveUserInformation(
+          profileInfo: profileInfoModel,
+        );
+
+        await Get.find<SpGetUserInfoController>().spGetUserInfo();
+        EasyLoading.dismiss();
+        Get.offAll(SpBottomNavBarScreen());
+        isSuccess = true;
+        EasyLoading.showSuccess('Profile updated successfully');
+      } else {
+        EasyLoading.dismiss();
+        EasyLoading.showError(response.errorMessage);
+        isSuccess = false;
+      }
+    } catch (e) {
       EasyLoading.dismiss();
-      Get.offAll(SpBottomNavBarScreen());
-      isSuccess = true;
-      EasyLoading.showSuccess('Profile setup successful');
-    } else {
-      EasyLoading.dismiss();
-      EasyLoading.showError(response.errorMessage);
+      EasyLoading.showError('An error occurred during profile update');
+      isSuccess = false;
+    } finally {
+      isLoadingServiceProviderUpdate.value = false;
+      update();
     }
-    isLoadingServiceProviderSetup.value = false;
-    update();
     return isSuccess;
   }
 
@@ -387,7 +498,6 @@ class SpProfileSetupController extends GetxController {
     descriptionController.dispose();
     locationController.dispose();
     experienceYearController.dispose();
-    eventPreferenceList.clear();
     clearAllData();
     update();
     super.onClose();

@@ -8,16 +8,20 @@ class VPaymentCard extends StatelessWidget {
   final String imagePath;
   final String cardName;
 
-  const VPaymentCard({super.key, required this.imagePath, required this.cardName});
+  const VPaymentCard({
+    super.key,
+    required this.imagePath,
+    required this.cardName,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final PaymentOptionController controller = Get.put(
+      PaymentOptionController(),
+    );
 
-    final PaymentOptionController controller =Get.put(PaymentOptionController());
-
-    final bool isDarkMode =Get.put(VenueOwnerProfileController()).isDarkMode.value;
-
-
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
     return Container(
       width: double.infinity,
@@ -40,26 +44,38 @@ class VPaymentCard extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff171725),
+              color:
+                  isDarkMode
+                      ? const Color(0xffEBEBEB)
+                      : const Color(0xff171725),
             ),
           ),
           const Spacer(),
           // Checkbox
           Obx(
-                () => Checkbox(
+            () => Checkbox(
               value: controller.selections[cardName]?.value ?? false,
               onChanged: (_) {
                 controller.toggleSelection(cardName);
               },
-              activeColor: isDarkMode ? const Color(0xffD4AF37) : const Color(0xff003366),
+              activeColor:
+                  isDarkMode
+                      ? const Color(0xffD4AF37)
+                      : const Color(0xff003366),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               side: BorderSide(
-                color: isDarkMode ? const Color(0xffD4AF37) : const Color(0xff003366),
+                color:
+                    isDarkMode
+                        ? const Color(0xffD4AF37)
+                        : const Color(0xff003366),
                 width: 1,
               ),
-              checkColor: isDarkMode ? const Color(0xff151515) : const Color(0xffF9FAFB),
+              checkColor:
+                  isDarkMode
+                      ? const Color(0xff151515)
+                      : const Color(0xffF9FAFB),
             ),
           ),
         ],

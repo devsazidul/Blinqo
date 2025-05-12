@@ -69,7 +69,6 @@ class OTPScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     otpController.resendCode(email);
-                   
                   },
                   child: Text(
                     "Resend Code",

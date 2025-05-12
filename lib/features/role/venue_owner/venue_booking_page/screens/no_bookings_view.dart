@@ -21,17 +21,18 @@ class NoBookingsView extends StatelessWidget {
               style: getTextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color:isDarkMode ? Color(0xffEBEBEB) : AppColors.buttonColor2,
+                color: isDarkMode ? Color(0xffEBEBEB) : AppColors.buttonColor2,
               ),
             ),
             Spacer(),
             Container(
               height: 40,
               decoration: BoxDecoration(
-                color:isDarkMode?Color(0xff151515) :AppColors.backgroundColor,
+                color:
+                    isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(
-                  color:isDarkMode ? Color(0xffABB7C2) : Color(0xFFABB7C2),
+                  color: isDarkMode ? Color(0xffABB7C2) : Color(0xFFABB7C2),
                   width: 1,
                 ),
               ),
@@ -51,12 +52,16 @@ class NoBookingsView extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color:isDarkMode ? Color(0xffEBEBEB) : Color(0xFFABB7C2),
+                          color:
+                              isDarkMode
+                                  ? Color(0xffEBEBEB)
+                                  : Color(0xFFABB7C2),
                         ),
                       ),
                       Icon(
                         Icons.keyboard_arrow_down,
-                        color:isDarkMode ? Color(0xffEBEBEB) : Color(0xFFABB7C2),
+                        color:
+                            isDarkMode ? Color(0xffEBEBEB) : Color(0xFFABB7C2),
                       ),
                     ],
                   ),
@@ -66,10 +71,7 @@ class NoBookingsView extends StatelessWidget {
           ],
         ),
         SizedBox(height: 32),
-        Image.asset(
-          ImagePath.nocontentbackground,
-          width: screenWidth * 0.6,
-        ),
+        Image.asset(ImagePath.nocontentbackground, width: screenWidth * 0.6),
         SizedBox(height: 32),
         Text(
           'It looks like no events have been\n scheduled yet.',
@@ -77,7 +79,7 @@ class NoBookingsView extends StatelessWidget {
           style: getTextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color:isDarkMode ? Color(0xffEBEBEB) : Color(0xFF333333),
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xFF333333),
           ),
         ),
         SizedBox(height: 40),

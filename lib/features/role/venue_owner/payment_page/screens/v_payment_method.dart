@@ -73,7 +73,8 @@ class VPaymentMethod extends StatelessWidget {
                       titleTextStyle: getTextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff171725),
+                        color:
+                            isDarkMode ? Color(0xffEBEBEB) : Color(0xff171725),
                       ),
                     ),
                   ),

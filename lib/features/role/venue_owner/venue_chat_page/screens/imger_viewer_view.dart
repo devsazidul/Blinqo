@@ -20,7 +20,7 @@ class ImageViewerView extends StatelessWidget {
           icon: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.black.withValues(alpha:  0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               shape: BoxShape.circle,
             ),
             child: Icon(Icons.arrow_back, color: Colors.white),
@@ -32,7 +32,7 @@ class ImageViewerView extends StatelessWidget {
             icon: Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha:  0.5),
+                color: Colors.black.withValues(alpha: 0.5),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.download, color: Colors.white),
@@ -49,7 +49,7 @@ class ImageViewerView extends StatelessWidget {
             icon: Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha:  0.5),
+                color: Colors.black.withValues(alpha: 0.5),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.share, color: Colors.white),

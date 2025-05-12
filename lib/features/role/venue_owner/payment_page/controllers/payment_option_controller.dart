@@ -24,7 +24,9 @@ class PaymentOptionController extends GetxController {
   void toggleSelection(String cardName) {
     if (selections.containsKey(cardName)) {
       selections[cardName]!.value = !selections[cardName]!.value;
-      debugPrint("Toggled selection for $cardName: ${selections[cardName]!.value}");
+      debugPrint(
+        "Toggled selection for $cardName: ${selections[cardName]!.value}",
+      );
     }
   }
 }

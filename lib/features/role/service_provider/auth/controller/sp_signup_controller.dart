@@ -16,7 +16,7 @@ class SpSignupController extends GetxController {
   TextEditingController retypePasswordController = TextEditingController();
 
   bool _isLoading = false;
-  
+
   String _errorMessage = '';
   bool _isSuccess = false;
 

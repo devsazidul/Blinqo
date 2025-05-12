@@ -1,4 +1,3 @@
-
 import 'package:blinqo/features/role/venue_owner/venue_booking_page/model/booking.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +16,6 @@ class PriceController extends GetxController {
   }
 }
 
-
 /// Controller for managing booking data and sorting logic.
 class BookingController extends GetxController {
   /// Reactive list of bookings.
@@ -35,7 +33,7 @@ class BookingController extends GetxController {
   /// Loads initial booking data.
   void _loadBookings() {
     bookings.addAll([
-     // Booking Requests
+      // Booking Requests
       Booking(
         id: '1',
         name: 'Corporate Event',
@@ -131,7 +129,8 @@ class BookingController extends GetxController {
 
   /// Filters bookings by status and sorts them based on the current sort option.
   List<Booking> getBookingsByStatus(String status) {
-    var filtered = bookings.where((booking) => booking.status == status).toList();
+    var filtered =
+        bookings.where((booking) => booking.status == status).toList();
     if (sortBy.value == 'By Venue') {
       filtered.sort((a, b) => a.venue.compareTo(b.venue));
     } else if (sortBy.value == 'By Date') {

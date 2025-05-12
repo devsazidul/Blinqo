@@ -7,15 +7,12 @@ import '../../../../../core/common/styles/global_text_style.dart';
 class CustomShapeTag extends StatelessWidget {
   final String label;
 
-
-  const CustomShapeTag({
-    super.key,
-    required this.label,
-  });
+  const CustomShapeTag({super.key, required this.label});
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
@@ -30,10 +27,10 @@ class CustomShapeTag extends StatelessWidget {
             ),
           ],
           borderRadius: BorderRadius.circular(34),
-          color:Color(0xffFBF7EB) ,
+          color: Color(0xffFBF7EB),
         ),
         child: Text(
-           label,
+          label,
           style: getTextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,

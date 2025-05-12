@@ -17,7 +17,8 @@ class VProfileEditTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+    final bool isDarkMode =
+        Get.find<VenueOwnerProfileController>().isDarkMode.value;
     return Container(
       padding: EdgeInsets.only(top: 9.5, bottom: 2, left: 8, right: 8),
       decoration: BoxDecoration(

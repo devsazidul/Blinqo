@@ -20,10 +20,7 @@ class ProfileSetup extends StatelessWidget {
           style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w600),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.dark_mode), 
-            onPressed: () {}
-          )
+          IconButton(icon: const Icon(Icons.dark_mode), onPressed: () {}),
         ],
         automaticallyImplyLeading: false,
       ),
@@ -162,7 +159,7 @@ class ProfileSetup extends StatelessWidget {
               Get.offAll(() => EventBottomNavBar());
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue, 
+              backgroundColor: Colors.blue,
               padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 100.w),
             ),
             child: Text(

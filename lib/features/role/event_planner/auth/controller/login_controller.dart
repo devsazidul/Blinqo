@@ -135,7 +135,6 @@
 //   }
 // }
 
-
 import 'dart:async';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
@@ -154,7 +153,7 @@ class LoginController extends GetxController {
   String? _token;
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  
+
   final isLoading = false.obs;
   final errorMessage = ''.obs;
   final isPasswordVisible = false.obs;
@@ -176,7 +175,7 @@ class LoginController extends GetxController {
   Future<bool> login(BuildContext context) async {
     isLoading.value = true;
     errorMessage.value = '';
-    
+
     try {
       final response = await http
           .post(
@@ -196,9 +195,8 @@ class LoginController extends GetxController {
       final responseData = jsonDecode(response.body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        if (responseData['success'] == true && 
+        if (responseData['success'] == true &&
             responseData['message'] == 'Login Successful') {
-          
           final userData = responseData['data']['user'];
           final roles = List<String>.from(userData['roles'] ?? []);
 
@@ -217,13 +215,13 @@ class LoginController extends GetxController {
           return true;
         }
       }
-      
+
       errorMessage.value = responseData['message'] ?? 'Login failed';
-      
+
       if (responseData['message']?.contains('verification code') ?? false) {
         Get.to(() => OTPScreen(), arguments: emailController.text.trim());
       }
-      
+
       return false;
     } catch (e) {
       errorMessage.value = 'An error occurred during login';

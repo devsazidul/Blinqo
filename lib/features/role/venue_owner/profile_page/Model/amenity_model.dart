@@ -18,10 +18,6 @@ class EventAmenity {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'default': defaultSelected,
-    };
+    return {'id': id, 'name': name, 'default': defaultSelected};
   }
 }

@@ -12,7 +12,6 @@ class StartBookingButton extends StatelessWidget {
     required this.screenHeight,
     required this.themeMode,
     this.onTapContinue,
-
   });
 
   final double screenHeight;

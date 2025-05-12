@@ -71,9 +71,9 @@ class ChatDetailView extends StatelessWidget {
           },
           child: CircleAvatar(
             backgroundColor:
-            isDarkMode
-                ? Color(0xFFD9D9D9).withAlpha(40)
-                : const Color(0xFFD9D9D9),
+                isDarkMode
+                    ? Color(0xFFD9D9D9).withAlpha(40)
+                    : const Color(0xFFD9D9D9),
             child: Image.asset(
               IconPath.arrowLeftAlt,
               width: 16,
@@ -150,21 +150,18 @@ class ChatDetailView extends StatelessWidget {
                 'Delete Conversation',
                 onTap: () {
                   Get.back();
-
                 },
               ),
               _buildOptionItem(
                 'Mark as Unread',
                 onTap: () {
                   Get.back();
-
                 },
               ),
               _buildOptionItem(
                 'Block',
                 onTap: () {
                   Get.back();
-
                 },
               ),
               _buildOptionItem(
@@ -182,10 +179,10 @@ class ChatDetailView extends StatelessWidget {
   }
 
   Widget _buildOptionItem(
-      String title, {
-        required VoidCallback onTap,
-        bool isLast = false,
-      }) {
+    String title, {
+    required VoidCallback onTap,
+    bool isLast = false,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -193,11 +190,11 @@ class ChatDetailView extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
           border:
-          !isLast
-              ? Border(
-            bottom: BorderSide(color: Colors.grey[200]!, width: 1),
-          )
-              : null,
+              !isLast
+                  ? Border(
+                    bottom: BorderSide(color: Colors.grey[200]!, width: 1),
+                  )
+                  : null,
         ),
         child: Center(
           child: Text(
@@ -205,16 +202,15 @@ class ChatDetailView extends StatelessWidget {
             style: getTextStyle(
               fontSize: 16,
               color:
-              title.contains('Leave') || title.contains('Delete')
-                  ? Colors.red
-                  : Colors.black,
+                  title.contains('Leave') || title.contains('Delete')
+                      ? Colors.red
+                      : Colors.black,
             ),
           ),
         ),
       ),
     );
   }
-
 
   Widget _buildEmptyState(User user) {
     final bool isDarkMode =

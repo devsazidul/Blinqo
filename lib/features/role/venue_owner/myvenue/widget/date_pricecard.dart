@@ -39,7 +39,8 @@ class DatePriceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -85,7 +86,8 @@ class DatePriceCard extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: isDarkMode ? Color(0xff34C759) : Color(0xff19480B),
+                        color:
+                            isDarkMode ? Color(0xff34C759) : Color(0xff19480B),
                       ),
                     );
                   },
@@ -103,7 +105,10 @@ class DatePriceCard extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color:isDarkMode ? Color(0xffEBEBEB) : const Color(0xff333333),
+                    color:
+                        isDarkMode
+                            ? Color(0xffEBEBEB)
+                            : const Color(0xff333333),
                   ),
                 ),
                 const Spacer(),
@@ -148,7 +153,13 @@ class DatePriceCard extends StatelessWidget {
                 width: screenWidth * 0.50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(width: 1, color:isDarkMode ? Color(0xffD4AF37) : const Color(0xff003366)),
+                  border: Border.all(
+                    width: 1,
+                    color:
+                        isDarkMode
+                            ? Color(0xffD4AF37)
+                            : const Color(0xff003366),
+                  ),
                 ),
                 child: Center(
                   child: Text(

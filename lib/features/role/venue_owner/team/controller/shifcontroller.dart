@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ShiftController extends GetxController {
-var startTime = Rx<TimeOfDay?>(null);
+  var startTime = Rx<TimeOfDay?>(null);
   var endTime = Rx<TimeOfDay?>(null);
 
   String get duration {
@@ -63,7 +63,7 @@ var startTime = Rx<TimeOfDay?>(null);
       }
     }
   }
- 
+
   var selectedEmployees = <Employee>[].obs;
 
   void setSelectedEmployees(List<Employee> employees) {

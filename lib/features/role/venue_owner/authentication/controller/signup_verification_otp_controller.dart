@@ -12,7 +12,6 @@ class VerificationCodeController extends GetxController {
   var isFormValid = false.obs;
   var errorMessage = ''.obs;
 
-
   var timeCountdown = 120.obs;
   Timer? countdownTimer;
 
@@ -28,6 +27,7 @@ class VerificationCodeController extends GetxController {
       }
     });
   }
+
   @override
   void onInit() {
     // Add listener to trigger validation on text changes
@@ -83,6 +83,7 @@ class VerificationCodeController extends GetxController {
       EasyLoading.showError(errorMessage.value);
     }
   }
+
   // Handle resend code API call
   // handle resend OTP
   Future<void> resendOTP(String email) async {

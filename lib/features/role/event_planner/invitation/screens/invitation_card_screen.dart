@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InvitationCardScreen extends StatelessWidget {
-    static const String routeName = '/invitation_card_screen';
+  static const String routeName = '/invitation_card_screen';
   const InvitationCardScreen({super.key});
 
   @override
@@ -134,7 +134,6 @@ class InvitationCardScreen extends StatelessWidget {
               child: FCustomButton(
                 onPressed: () {
                   _showBlurredDialog(context);
-
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

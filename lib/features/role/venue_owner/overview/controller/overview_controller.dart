@@ -22,7 +22,6 @@ class OverviewController extends GetxController {
       "status": "Confirmed",
     },
 
-
     {
       "title": "Team Building Retreat",
       "subtitle": "Lakeside Lodge",
@@ -47,7 +46,7 @@ class OverviewController extends GetxController {
       "image": ImagePath.event2,
       "status": "Pending",
     },
-     {
+    {
       "title": "Corporate Event",
       "subtitle": "Conference Hall",
       "date": "15 March,2025",
@@ -55,7 +54,7 @@ class OverviewController extends GetxController {
       "image": ImagePath.event,
       "status": "Confirmed",
     },
-      {
+    {
       "title": "Team Building Retreat",
       "subtitle": "Lakeside Lodge",
       "date": "22 April,2025",
@@ -63,7 +62,6 @@ class OverviewController extends GetxController {
       "image": ImagePath.event2,
       "status": "Pending",
     },
-
   ];
   List<Map<String, String>> bookingreviews = [
     {
@@ -75,7 +73,6 @@ class OverviewController extends GetxController {
       "status": "Accept",
     },
 
-
     {
       "title": "Team Building Retreat",
       "subtitle": "Lakeside Lodge",
@@ -100,7 +97,7 @@ class OverviewController extends GetxController {
       "image": ImagePath.event2,
       "status": "Accept",
     },
-     {
+    {
       "title": "Corporate Event",
       "subtitle": "Conference Hall",
       "date": "15 March,2025",
@@ -108,7 +105,7 @@ class OverviewController extends GetxController {
       "image": ImagePath.event,
       "status": "Accept",
     },
-      {
+    {
       "title": "Team Building Retreat",
       "subtitle": "Lakeside Lodge",
       "date": "22 April,2025",
@@ -116,7 +113,6 @@ class OverviewController extends GetxController {
       "image": ImagePath.event2,
       "status": "Accept",
     },
-
   ];
 
   List<Map<String, String>> seereview = [
@@ -124,19 +120,22 @@ class OverviewController extends GetxController {
       "title": "Floyd Miles",
       "time": "Today",
       "image": ImagePath.reviewer1,
-      "desc": "Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient.",
+      "desc":
+          "Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient.",
     },
     {
       "title": "Renee Ellis",
       "time": "2 days ago",
       "image": ImagePath.reviewer3,
-      "desc": "Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
+      "desc":
+          "Aenean consectetur diam vel urna interdum, in pharetra sapien posuere. Curabitur varius eros sit amet nisi faucibus, eu posuere eros maximus. Vivamus nec lacus ut nisl dignissim convallis.",
     },
     {
       "title": "Floyd Miles",
       "time": "Today",
       "image": ImagePath.reviewer1,
-      "desc": "Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient.",
+      "desc":
+          "Lorem ipsum dolor sit amet consectetur. Interdum ac hac nec etiam. Augue etiam ornare eu velit ultrices pharetra. Velit fringilla tellus justo sed et praesent quam praesent in. Scelerisque venenatis leo nunc convallis vel amet faucibus mattis parturient.",
     },
   ];
 }

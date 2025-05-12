@@ -1,14 +1,12 @@
-import 'package:blinqo/core/common/styles/global_text_style.dart' show getTextStyle;
+import 'package:blinqo/core/common/styles/global_text_style.dart'
+    show getTextStyle;
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RevenueCard extends StatelessWidget {
-   RevenueCard({
-    super.key });
-
- 
+  RevenueCard({super.key});
 
   final OverviewController controller = Get.find<OverviewController>();
 
@@ -49,7 +47,7 @@ class RevenueCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding:  EdgeInsets.all(7.0),
+                    padding: EdgeInsets.all(7.0),
                     child: Row(
                       children: [
                         Image.asset(ImagePath.move, height: 20, width: 22),

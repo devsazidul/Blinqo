@@ -91,9 +91,7 @@ class VenueDetailsScreen extends StatelessWidget {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 16),
-              ],
+              children: [const SizedBox(height: 16)],
             ),
           );
         }

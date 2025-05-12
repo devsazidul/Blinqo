@@ -33,7 +33,9 @@ class VenueDetailsController extends GetxController {
         } else if (apiResponse.body is Map<String, dynamic>) {
           jsonResponse = apiResponse.body;
         } else {
-          _logger.e('Unexpected response body type: ${apiResponse.body.runtimeType}');
+          _logger.e(
+            'Unexpected response body type: ${apiResponse.body.runtimeType}',
+          );
           throw Exception('Unexpected response body type');
         }
 
@@ -49,7 +51,7 @@ class VenueDetailsController extends GetxController {
         throw Exception('Failed to load venue details');
       }
     } catch (e) {
-      _logger.e('Error fetching venue details: $e', );
+      _logger.e('Error fetching venue details: $e');
       response.value = null; // Ensure response is null on error
       Get.snackbar('Error', 'Failed to load venue details: $e');
     }

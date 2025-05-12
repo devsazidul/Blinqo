@@ -110,20 +110,23 @@ class VLoginScreen extends StatelessWidget {
                 Obx(() {
                   return CustomButton(
                     title: 'Log In',
-                    textColor: loginController.isFromValid.value
-                        ? Colors.white
-                        : Color(0xFF003366),
+                    textColor:
+                        loginController.isFromValid.value
+                            ? Colors.white
+                            : Color(0xFF003366),
                     onPress: () async {
                       if (loginController.isFromValid.value) {
                         await loginController.login();
                       }
                     },
-                    backgroundColor: loginController.isFromValid.value
-                        ? Color(0xFF003366)
-                        : Color(0xFF003366).withValues(alpha:  0.1),
-                    borderColor: loginController.isFromValid.value
-                        ? Color(0xFF003366)
-                        : Color(0xFF003366).withValues (alpha:  0.1),
+                    backgroundColor:
+                        loginController.isFromValid.value
+                            ? Color(0xFF003366)
+                            : Color(0xFF003366).withValues(alpha: 0.1),
+                    borderColor:
+                        loginController.isFromValid.value
+                            ? Color(0xFF003366)
+                            : Color(0xFF003366).withValues(alpha: 0.1),
                   );
                 }),
                 SizedBox(height: 16),

@@ -210,14 +210,14 @@ class SignUpScreen extends StatelessWidget {
                     isValid
                         ? (isFemale ? selectedColor : AppColors.buttonColor2)
                         : (isFemale
-                            ? selectedColor.withValues(alpha:  0.1)
-                            : AppColors.buttonColor2.withValues( alpha: 0.1)),
+                            ? selectedColor.withValues(alpha: 0.1)
+                            : AppColors.buttonColor2.withValues(alpha: 0.1)),
                 borderColor:
                     isFemale
                         ? Colors.transparent
                         : (isValid
                             ? AppColors.buttonColor2
-                            : AppColors.buttonColor2.withValues(alpha:  0.1)),
+                            : AppColors.buttonColor2.withValues(alpha: 0.1)),
               );
             }),
             const SizedBox(height: 60),

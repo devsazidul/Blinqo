@@ -46,7 +46,7 @@ class RoleController extends GetxController {
       case 2:
         if (await SpAuthController.isUserLoggedIn()) {
           if (SpAuthController.userModel?.isProfileCreated == true) {
-            await Get.find<SpGetUserInfoController>().getUserInfo();
+            await Get.find<SpGetUserInfoController>().spGetUserInfo();
             Get.to(() => SpBottomNavBarScreen());
           } else {
             await Get.put(SpProfileSetupController()).getEventPreferences();

@@ -17,7 +17,8 @@ class CustomCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return ValueListenableBuilder<List<DateTime>>(
       valueListenable: selectedDatesNotifier,
       builder: (context, selectedDates, _) {
@@ -50,9 +51,15 @@ class CustomCalendar extends StatelessWidget {
           markedDateShowIcon: true,
           markedDateIconBuilder: (event) {
             if (selectedDates.indexOf(event.date) == 0) {
-              return _buildCircle(event.date.day, isDarkMode ? Color(0xff34C759) : Color(0xff19480B));
+              return _buildCircle(
+                event.date.day,
+                isDarkMode ? Color(0xff34C759) : Color(0xff19480B),
+              );
             } else {
-              return _buildCircle(event.date.day, isDarkMode ? Color(0xff0066CC) : Color(0xff0066CC));
+              return _buildCircle(
+                event.date.day,
+                isDarkMode ? Color(0xff0066CC) : Color(0xff0066CC),
+              );
             }
           },
           todayBorderColor: Colors.transparent,
@@ -80,15 +87,9 @@ class CustomCalendar extends StatelessWidget {
 
   Widget _buildCircle(int day, Color color) {
     return Container(
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       child: Center(
-        child: Text(
-          '$day',
-          style: const TextStyle(color: Colors.white),
-        ),
+        child: Text('$day', style: const TextStyle(color: Colors.white)),
       ),
     );
   }

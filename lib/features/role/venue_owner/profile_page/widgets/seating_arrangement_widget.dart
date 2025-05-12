@@ -1,4 +1,3 @@
-
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
 import 'package:flutter/material.dart';
