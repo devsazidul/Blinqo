@@ -1,5 +1,5 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_home_page.dart';
 
 // ignore_for_file: file_names
 import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen.dart';
@@ -27,7 +27,7 @@ class VanueOwnerBottomNavBar extends StatelessWidget {
 
     final List<Widget> pages = [
       OverviewScreen(),
-      Venue(),
+      VenueHomePage(),
       VenueOwnerBooking(),
       ChatListView(),
       Emptyschedule(),

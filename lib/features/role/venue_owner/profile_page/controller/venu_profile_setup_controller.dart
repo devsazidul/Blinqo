@@ -122,13 +122,16 @@ class VenueProfileSetupController extends GetxController {
       );
 
       if (request.isSuccess) {
-        String profileId = request.body['data']['id'] ?? '';
+        String profileId = request.body['data']['profile']['id'] ?? '';
         _logger.i('Profile submission successful, profileId: $profileId');
         await EventAuthController.updateUserInfo(
           profileId,
           profileId.isNotEmpty,
         );
         await EasyLoading.showSuccess('Profile created successfully');
+        final newToken = request.body['data']['access_token'];
+        await EventAuthController.updateAuthToken(newToken);
+        await venueOwnerProfileController.getProfileInformation();
         Get.to(() => VenueSetupScreen(venueStatus: 'Venue Setup'));
         clear();
       } else {
@@ -191,9 +194,9 @@ class VenueProfileSetupController extends GetxController {
 
       if (request.isSuccess) {
         await EasyLoading.showSuccess('Profile updated successfully');
-       await venueOwnerProfileController.getProfileInformation();
-       await venueOwnerProfileController.getUserInfo();
-       Get.off(VenueOwnerProfilePage());
+        await venueOwnerProfileController.getProfileInformation();
+        await venueOwnerProfileController.getUserInfo();
+        Get.off(VenueOwnerProfilePage());
       } else {
         EasyLoading.showError(
           'Failed: ${request.errorMessage ?? 'Unknown error'}',

@@ -216,7 +216,11 @@ class AddNewVenue extends StatelessWidget {
                       //     color: Color(0xffD4AF37),
                       //   ),
                       // ),
+
+                      SizedBox(width: .2),
+
                       // SizedBox(width: .2),
+
                       // CustomShapeTag(
                       //   icon: Icon(
                       //     Icons.wifi,

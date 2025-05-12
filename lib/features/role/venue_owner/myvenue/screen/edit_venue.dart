@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/venueownerprofilecontroller.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_home_page.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -901,7 +901,7 @@ SizedBox(height: 19),
                   SizedBox(height: 45),
                   InkWell(
                     onTap: (){
-                      Get.to(()=>Venue());
+                      Get.to(()=>VenueHomePage());
                     },
                     child: Container(
                       width: double.infinity,

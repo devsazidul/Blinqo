@@ -2,6 +2,7 @@ import 'package:blinqo/features/role/venue_owner/authentication/model/login_mode
 import 'package:blinqo/features/role/venue_owner/authentication/screen/singup_otp_screen.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -11,6 +12,8 @@ import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_netw
 import 'package:logger/logger.dart';
 
 class VenueLoginController extends GetxController {
+  VenueOwnerProfileController venueOwnerProfileController =
+      Get.put(VenueOwnerProfileController());
   TextEditingController passwordControler = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
@@ -58,6 +61,7 @@ class VenueLoginController extends GetxController {
           String role = roles[0];
           await EventAuthController.saveAuthToken(token, role, user);
           Logger().i('user info: ${user.toJson()}');
+         await venueOwnerProfileController.getProfileInformation();
         } else {
           // Handle error if token or roles are null or empty
           EasyLoading.showError('Failed to retrieve valid token or role.');
