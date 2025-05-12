@@ -147,21 +147,25 @@ class LogInScreen extends StatelessWidget {
                             : !loginController.isFormValid.value && isFemale
                             ? const Color(0xFFEBA8B5)
                             : AppColors.buttonColor2,
-                    onPress:
-                        loginController.isFormValid.value &&
-                                !loginController.isLoading.value
-                            ? () async {
-                              final success = await loginController.login();
-                              if (success) {
-                                Get.offAll(() => const EventBottomNavBar());
-                              }
-                            }
-                            : null,
+                    // onPress:
+                    // loginController.isFormValid.value &&
+                    //         !loginController.isLoading.value
+                    //     ? () async {
+                    //       final success = await loginController.login(context);
+                    //       if (success) {
+                    //         Get.offAll(() => const EventBottomNavBar());
+                    //       }
+                    //     }
+                    //     : null,
+                    onPress: () {
+                      loginController.login(context);
+                    },
+
                     backgroundColor:
                         loginController.isFormValid.value && isFemale
                             ? femaleColorController.selectedColor
                             : loginController.isFormValid.value && !isFemale
-                            ? AppColors.buttonColor2
+                            ? const Color.fromARGB(255, 31, 63, 96)
                             : !loginController.isFormValid.value && isFemale
                             ? femaleColorController.selectedColor.withValues(
                               alpha: 0.1,

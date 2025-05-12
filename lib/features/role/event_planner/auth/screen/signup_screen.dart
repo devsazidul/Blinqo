@@ -253,6 +253,7 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 }
+
 // ignore: must_be_immutable
 // class SignUpScreen extends StatelessWidget {
 //   SignUpScreen({super.key});

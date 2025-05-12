@@ -222,8 +222,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                     // Add logic to handle form submission here
                     Get.to(
                       () => OTPScreen(
-                        isSelect:
-                            forgetPasswordController.focusedButtonIndex.value,
+                        // isSelect:
+                        //     forgetPasswordController.focusedButtonIndex.value,
                       ),
                     );
                   },
