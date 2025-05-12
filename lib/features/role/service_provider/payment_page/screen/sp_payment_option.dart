@@ -1,67 +1,26 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/controller/sp_payment_option_controller.dart';
-import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option_card.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SpPaymentOption extends StatelessWidget {
-  SpPaymentOption({super.key});
-  final SpPaymentOptionController spPaymentOptionController = Get.put(
-    SpPaymentOptionController(),
-  );
-  final controller = Get.put(SpProfileController());
+  const SpPaymentOption({super.key});
   @override
   Widget build(BuildContext context) {
+    final spPaymentOptionController = Get.put(SpPaymentOptionController());
+    final profileController = Get.find<SpProfileController>();
     return Obx(() {
-      final themeMode =
-          controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
       return Scaffold(
         backgroundColor:
-            themeMode == ThemeMode.dark
+            profileController.isDarkMode.value
                 ? AppColors.darkBackgroundColor
                 : AppColors.backgroundColor,
-        appBar: AppBar(
-          forceMaterialTransparency: true,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: CircleAvatar(
-                radius: 20,
-                backgroundColor:
-                    themeMode == ThemeMode.dark
-                        ? AppColors.primary.withValues(alpha: .10)
-                        : AppColors.appBarIcolor,
-                child: Image.asset(
-                  IconPath.arrowleft,
-                  width: 20,
-                  height: 20,
-                  color:
-                      themeMode == ThemeMode.dark
-                          ? AppColors.primary
-                          : AppColors.textColor,
-                ),
-              ),
-            ),
-          ),
-          title: Text(
-            'Payment Option',
-            style: getTextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color:
-                  themeMode == ThemeMode.dark
-                      ? AppColors.primary
-                      : AppColors.textColor,
-            ),
-          ),
-          centerTitle: true,
-        ),
+        appBar: CustomAppBarWidget(title: "Payment Option"),
+
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -81,7 +40,7 @@ class SpPaymentOption extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color:
-                          themeMode == ThemeMode.dark
+                          profileController.isDarkMode.value
                               ? AppColors.primary
                               : AppColors.textColor,
                       lineHeight: 2,
@@ -94,7 +53,7 @@ class SpPaymentOption extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color:
-                          themeMode == ThemeMode.dark
+                          profileController.isDarkMode.value
                               ? AppColors.primary
                               : AppColors.textColor,
                       lineHeight: 1.5,
@@ -106,17 +65,15 @@ class SpPaymentOption extends StatelessWidget {
 
               SizedBox(height: 40),
               GestureDetector(
-                onTap: () async {
-                  Get.to(SpPaymentOptionCard());
-                  spPaymentOptionController.makePayment();
-                },
+                onTap:
+                    () => _onClickAddPaymentMethod(spPaymentOptionController),
                 child: Container(
                   padding: EdgeInsets.all(10),
                   width: double.infinity,
                   height: 64,
                   decoration: BoxDecoration(
                     color:
-                        themeMode == ThemeMode.dark
+                        profileController.isDarkMode.value
                             ? AppColors.textFrieldDarkColor
                             : AppColors.primary,
                     borderRadius: BorderRadius.circular(12),
@@ -139,7 +96,7 @@ class SpPaymentOption extends StatelessWidget {
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color:
-                              themeMode == ThemeMode.dark
+                              profileController.isDarkMode.value
                                   ? AppColors.primary
                                   : AppColors.textColor,
                         ),
@@ -153,5 +110,11 @@ class SpPaymentOption extends StatelessWidget {
         ),
       );
     });
+  }
+
+  void _onClickAddPaymentMethod(
+    SpPaymentOptionController spPaymentOptionController,
+  ) async {
+    await spPaymentOptionController.makePayment(amount: '10', currency: 'USD');
   }
 }

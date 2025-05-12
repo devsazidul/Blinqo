@@ -1,8 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/common/widgets/sp_show_profile_popup_menu.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -65,10 +65,7 @@ class SpProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         if (isMoreVertIcon)
           IconButton(
-            // onPressed: () {
-            //   showPopupMenu(context);
-            // },
-            onPressed: onPressed ?? () => showPopupMenu(context, isDarkMode),
+            onPressed: onPressed ?? () => spShowPopupMenu(context, isDarkMode),
             icon: Image.asset(
               IconPath.moreVert,
               width: 4,

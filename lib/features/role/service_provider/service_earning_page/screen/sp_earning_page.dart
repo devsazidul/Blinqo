@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/icon_path.dart';
-import '../../service_profile_page/controller/service_user_profile_controler.dart';
+import '../../sp_profile/controller/service_user_profile_controler.dart';
 
 class SpEarningPage extends StatelessWidget {
   SpEarningPage({super.key});

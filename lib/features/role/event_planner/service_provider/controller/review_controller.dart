@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/service_provider/service_profile_page/model/review_model.dart';
+import 'package:blinqo/features/role/event_planner/service_provider/model/review_model.dart';
 import 'package:get/get.dart';
 
 class EpSpReviewController extends GetxController {

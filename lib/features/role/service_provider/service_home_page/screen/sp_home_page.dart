@@ -3,7 +3,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
-import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_project_request.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
@@ -11,7 +11,7 @@ import 'package:blinqo/features/role/service_provider/service_home_page/widget/c
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/project_request_card.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/upcoming_project_card.dart'
     show UpcomingProjectCard;
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart'
     show
         DayStructure,
@@ -31,7 +31,6 @@ class SpHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     // ignore: unused_local_variable
     final profileInfo = SpGetUserInfoController().userInfoModel;
 
@@ -123,7 +122,7 @@ class SpHomePage extends StatelessWidget {
                               onTap: () {
                                 // Get.find<SpHomeController>().isVerified.value =
                                 //     true;
-                                Get.to(GetVerifiedScreen());
+                                Get.to(SpGetVerifiedScreen());
                               },
                               child:
                               // ? SizedBox()

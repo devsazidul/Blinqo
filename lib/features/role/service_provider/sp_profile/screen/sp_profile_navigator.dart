@@ -1,8 +1,8 @@
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_settings_screen.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/service_provider_profile.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/work_post_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/work_post_screen.dart';
 import 'package:flutter/material.dart';
 
 class SpProfile extends StatelessWidget {
@@ -27,7 +27,7 @@ class SpProfile extends StatelessWidget {
             screen = WorkPostScreen(); // sp works portfolio
             break;
           default:
-            screen = ServiceProviderProfile(); // profile home page
+            screen = SpProfileScreen(); // profile home page
             break;
         }
         return MaterialPageRoute(builder: (_) => screen);

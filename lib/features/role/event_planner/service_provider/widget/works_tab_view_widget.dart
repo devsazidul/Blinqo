@@ -1,5 +1,5 @@
 import 'package:blinqo/features/role/event_planner/service_provider/widget/works_card_widget.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/work_post_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/work_post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

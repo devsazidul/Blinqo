@@ -4,6 +4,7 @@ import 'package:blinqo/features/role/event_planner/auth/screen/change_password_s
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
+import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
@@ -17,6 +18,7 @@ import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.d
 import 'package:blinqo/features/role/event_planner/payment_method/screen/even_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/evetnt_congratulation_screen.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/final_review_booking_datieals.dart';
+import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/forget_password_verify_otp_screen.dart';
@@ -26,8 +28,8 @@ import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_scree
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_signup_screen.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
-import 'package:blinqo/features/role/service_provider/payment_page/screen/get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_congratulations_page.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option_card.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
@@ -38,9 +40,9 @@ import 'package:blinqo/features/role/service_provider/service_chat_page/screen/s
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/profile_settings_screen.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
@@ -120,6 +122,8 @@ class AppRoute {
   static String spForgetPassword = '/spForgetPassword';
   static String spFOtpSendScreen = '/spFOtpSendScreen';
   static String spChangePassword = '/spChangePassword';
+  static String profilesetup = '/profilesetup';
+  static String eventbottomnavbar = '/eventbottomnavbar';
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -178,6 +182,8 @@ class AppRoute {
   static String getspForgetPassword() => spForgetPassword;
   static String getspFOtpSendScreen() => spFOtpSendScreen;
   static String getspChangePassword() => spChangePassword;
+  static String getprofilesetup() => profilesetup;
+  static String geteventbottomnavbar() => eventbottomnavbar;
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -197,7 +203,7 @@ class AppRoute {
     GetPage(name: vforgetpassword, page: () => VForgetPassword()),
     GetPage(name: vchangepassword, page: () => VChangePassword()),
     GetPage(name: votpsendscreen, page: () => VOptSendScreen()),
-    GetPage(name: getVerifiedScreen, page: () => GetVerifiedScreen()),
+    GetPage(name: getVerifiedScreen, page: () => SpGetVerifiedScreen()),
     GetPage(name: getaddCard, page: () => AddcardScreen()),
     GetPage(
       name: spVerificationSubmission,
@@ -250,6 +256,8 @@ class AppRoute {
     GetPage(name: spSignupScreen, page: () => SpSignupScreen()),
     GetPage(name: spLoginScreen, page: () => SpLoginScreen()),
     GetPage(name: spForgetPassword, page: () => SpForgetPasswordScreen()),
+    GetPage(name: profilesetup, page: () => ProfileSetup()),
+    GetPage(name: eventbottomnavbar, page: () => EventBottomNavBar()),
     GetPage(
       name: spFOtpSendScreen,
       page:

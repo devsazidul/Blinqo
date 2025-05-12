@@ -105,6 +105,7 @@ class VenueProfileScreen extends StatelessWidget {
                         }
                       ),
                       SizedBox(height: 20),
+
                       TextFieldWidget(
                         hintText: 'Enter your location',
                         labelText: 'Location',
@@ -116,6 +117,7 @@ class VenueProfileScreen extends StatelessWidget {
                           return null;
                         }
                       ),
+
                       SizedBox(height: 40),
                     ],
                   ),

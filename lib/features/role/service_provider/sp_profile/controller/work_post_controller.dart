@@ -1,5 +1,5 @@
-import 'package:blinqo/features/role/service_provider/service_profile_page/model/work_post_model.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/model/work_post_model.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
 import 'package:get/get.dart';
 
 class WorkPostController extends GetxController {
