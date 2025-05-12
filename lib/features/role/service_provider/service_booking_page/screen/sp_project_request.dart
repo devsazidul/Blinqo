@@ -1,12 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/controller/sp_project_requestcontroller.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/accept_decline_button.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/custom_p_request_row.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_chat_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

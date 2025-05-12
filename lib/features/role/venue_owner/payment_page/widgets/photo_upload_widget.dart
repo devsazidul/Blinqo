@@ -1,14 +1,13 @@
 import 'dart:io';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/controllers/verification_submission_controller.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:blinqo/features/role/venue_owner/widgets/even_image_picker.dart';
 
 class PhotoUploadWidget extends StatelessWidget {
-  final String
-  imageKey; // Identifier for the image (e.g., "national_id" or "business_cert")
+  final String imageKey;
 
   const PhotoUploadWidget({super.key, required this.imageKey});
 
@@ -21,14 +20,13 @@ class PhotoUploadWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        debugPrint(
-          "PhotoUploadWidget tapped for imageKey: $imageKey, calling pickImage...",
-        );
-        controller.pickImage(imageKey); // Pass the imageKey to pickImage
+        controller.pickImage(imageKey);
       },
       child: Obx(() {
-        // Access the specific image using the imageKey
-        final File? selectedImage = controller.images[imageKey]?.value;
+        final File? selectedImage =
+            (imageKey == 'national_id')
+                ? controller.nationalIDImage.value
+                : controller.businessRegistrationImage.value;
         return ColoredBox(
           color: isDarkMode ? const Color(0xff32383D) : const Color(0xffFAFAFA),
           child: SizedBox(
@@ -46,7 +44,10 @@ class PhotoUploadWidget extends StatelessWidget {
                       child: Center(
                         child: Column(
                           children: [
-                            Image.asset(IconPath.niduploadlogo, height: 32),
+                            Image.asset(
+                              'assets/icons/niduploadlogo.png',
+                              height: 32,
+                            ),
                             const SizedBox(height: 12),
                             Text(
                               'Click to upload',

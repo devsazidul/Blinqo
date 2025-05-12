@@ -63,7 +63,7 @@ class EpSpProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
             // onPressed: () {
             //   showPopupMenu(context);
             // },
-            onPressed: onPressed ?? () => showPopupMenu(context),
+            onPressed: onPressed ?? () => showPopupMenu(context, isDarkMode),
             icon: Image.asset(
               IconPath.moreVert,
               width: 4,

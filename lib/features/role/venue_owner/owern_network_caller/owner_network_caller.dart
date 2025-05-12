@@ -6,7 +6,9 @@ import 'package:logger/logger.dart';
 
 class OwnerNetworkCaller {
   static final OwnerNetworkCaller _instance = OwnerNetworkCaller._internal();
+
   factory OwnerNetworkCaller() => _instance;
+
   OwnerNetworkCaller._internal();
 
   final _logger = Logger(
@@ -35,6 +37,7 @@ class OwnerNetworkCaller {
     bool showLoading = true,
     bool isMultipart = false,
     List<http.MultipartFile>? files,
+    bool isPatch = false,
   }) async {
     try {
       if (showLoading) {
@@ -42,14 +45,16 @@ class OwnerNetworkCaller {
       }
 
       // Fetch token if not provided
-      token ??= await EvenAuthController.getAuthToken();
-      _logger.i('Using token: ${token?.substring(0, 5)}...'); // Log first 5 chars for security
+      token ??= await EventAuthController.getAuthToken();
+      _logger.i(
+        'Using token: ${token?.substring(0, 5)}...',
+      ); // Log first 5 chars for security
 
       final url = Uri.parse(Url);
       _logger.i('Request URL: $url\nBody: ${jsonEncode(body)}');
 
       if (isMultipart) {
-        return await _sendMultipartRequest(url, body, files, token);
+        return await _sendMultipartRequest(url, body, files, token,isPatch);
       } else {
         return await _sendJsonRequest(url, body, token);
       }
@@ -68,7 +73,6 @@ class OwnerNetworkCaller {
   }
 
   Future<NetworkResponse> getRequest({
-    // ignore: non_constant_identifier_names
     required String Url,
     String? token,
     bool showLoading = true,
@@ -80,8 +84,8 @@ class OwnerNetworkCaller {
       }
 
       // Fetch token if not provided
-      token ??= await EvenAuthController.getAuthToken();
-      _logger.i('Using token: ${token?.substring(0, 5)}...'); // Log first 5 chars for security
+      token ??= await EventAuthController.getAuthToken();
+      _logger.i('Using token: ${token?.substring(0, 5)}...');
 
       final url = Uri.parse(Url).replace(queryParameters: queryParameters);
       _logger.i('GET Request URL: $url');
@@ -123,13 +127,14 @@ class OwnerNetworkCaller {
   }
 
   Future<NetworkResponse> _sendMultipartRequest(
-      Uri url,
-      Map<String, dynamic> body,
-      List<http.MultipartFile>? files,
-      String? token,
-      ) async {
+    Uri url,
+    Map<String, dynamic> body,
+    List<http.MultipartFile>? files,
+    String? token, [
+    bool isPatch = false,
+  ]) async {
     try {
-      var request = http.MultipartRequest('POST', url)
+      var request = http.MultipartRequest(isPatch ? 'PATCH' : 'POST', url)
         ..headers.addAll(_getHeaders(token: token, isMultipart: true));
 
       body.forEach((key, value) {
@@ -176,10 +181,10 @@ class OwnerNetworkCaller {
   }
 
   Future<NetworkResponse> _sendJsonRequest(
-      Uri url,
-      Map<String, dynamic> body,
-      String? token,
-      ) async {
+    Uri url,
+    Map<String, dynamic> body,
+    String? token,
+  ) async {
     try {
       final response = await http
           .post(url, headers: _getHeaders(token: token), body: jsonEncode(body))

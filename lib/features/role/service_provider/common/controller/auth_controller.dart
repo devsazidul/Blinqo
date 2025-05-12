@@ -23,22 +23,20 @@ class SpAuthController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (accessToken != null) {
       sharedPreferences.setString(_tokenKey, accessToken);
-      // ignore: avoid_print
-      print('Saving token to SharedPreferences: $accessToken');
+      token = accessToken;
     }
     if (user != null) {
       sharedPreferences.setString(_userDataKey, jsonEncode(user.toJson()));
+      userModel = user;
     }
     if (profileInfo != null) {
       sharedPreferences.setString(
         _profileInfoDataKey,
         jsonEncode(profileInfo.toJson()),
       );
-    }
 
-    token = accessToken;
-    userModel = user;
-    profileInfoModel = profileInfo;
+      profileInfoModel = profileInfo;
+    }
   }
 
   //*----------------- Get user information -----------------
@@ -70,7 +68,10 @@ class SpAuthController {
   }
 
   //*----------------- Update is verified in user model -----------------
-  static Future<void> updateUserInformation(bool isProfileCreated) async {
+  static Future<void> updateUserInformation({
+    required bool isProfileCreated,
+    required String profileId,
+  }) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     if (userModel == null) {
@@ -78,7 +79,10 @@ class SpAuthController {
     }
 
     if (userModel != null) {
-      userModel = userModel!.copyWith(isProfileCreated: isProfileCreated);
+      userModel = userModel!.copyWith(
+        isProfileCreated: isProfileCreated,
+        profileId: profileId,
+      );
 
       sharedPreferences.setString(
         _userDataKey,

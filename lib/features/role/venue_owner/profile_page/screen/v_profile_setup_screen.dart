@@ -3,7 +3,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_get_verified_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_profile_setup_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
+
 import 'package:blinqo/features/role/venue_owner/widgets/event_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,7 +90,7 @@ class VenueProfileScreen extends StatelessWidget {
                       TextFieldWidget(
                         hintText: 'Enter your Username',
                         labelText: 'Username',
-                        controller: profileSetupController.nameController,
+                        controller: profileSetupController.nameTEController,
                         validator: (value){
                           if (value == null || value.isEmpty) {
                             return 'Please enter your username';
@@ -105,7 +105,19 @@ class VenueProfileScreen extends StatelessWidget {
                         }
                       ),
                       SizedBox(height: 20),
-                         
+
+                      TextFieldWidget(
+                        hintText: 'Enter your location',
+                        labelText: 'Location',
+                        controller: profileSetupController.locationTEController,
+                        validator: (value){
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your location';
+                          }
+                          return null;
+                        }
+                      ),
+
                       SizedBox(height: 40),
                     ],
                   ),
@@ -172,8 +184,7 @@ class VenueProfileScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        // profileSetupController.submitProfile();
-                        Get.to(VenueSetupScreen());
+                        profileSetupController.submitProfile();
                       }
                     },
                     style: ElevatedButton.styleFrom(

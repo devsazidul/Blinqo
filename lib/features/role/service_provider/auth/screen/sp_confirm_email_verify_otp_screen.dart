@@ -32,7 +32,6 @@ class SpConfirmEmailVerifyOtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SpOtpVerifyController());
-    controller.pinController.clear();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

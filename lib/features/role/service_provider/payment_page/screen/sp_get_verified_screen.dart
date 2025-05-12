@@ -1,16 +1,19 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-class GetVerifiedScreen extends StatelessWidget {
-  GetVerifiedScreen({super.key});
+class SpGetVerifiedScreen extends StatelessWidget {
+  SpGetVerifiedScreen({super.key});
   final controller = Get.put(SpProfileController());
   final SpHomeController spPaymentOptionController = Get.put(
     SpHomeController(),
@@ -48,36 +51,29 @@ class GetVerifiedScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 32),
+
+                  //* -------------------------- Get Verified Button --------------------------
                   CustomContinueButton(
                     onPress: () {
-                      debugPrint(
-                        "Before: ${Get.find<SpHomeController>().isVerified.value}",
-                      );
-
-                      spHomeController.isVerified.value = true;
-
-                      spHomeController.isVerified.refresh();
-
-                      debugPrint(
-                        "After: ${Get.find<SpHomeController>().isVerified.value}",
-                      );
-
-                      // Navigate after a slight delay
-                      Future.delayed(Duration(milliseconds: 100), () {
+                      EasyLoading.dismiss();
+                      if (SpAuthController
+                              .profileInfoModel
+                              ?.verificationSubmissionId !=
+                          null) {
+                        Get.snackbar(
+                          "Verification Submission",
+                          "Your verification submission is already done. Please add a payment method to get verified.",
+                          backgroundColor: Colors.indigo,
+                          colorText: Colors.white,
+                          duration: Duration(milliseconds: 3000),
+                        );
+                        Get.to(SpPaymentOption());
+                      } else {
                         Get.to(SpVerificationSubmission());
-                      });
+                      }
                     },
                     title: "Get Verified",
                   ),
-                  // CustomContinueButton(
-                  //   onTap: () {
-                  //     Get.find<SpHomeController>().isVerified.value = true;
-                  //     Future.delayed(Duration(milliseconds: 100), () {
-                  //       Get.to(SpVerificationSubmission());
-                  //     });
-                  //   },
-                  //   title: "Get Verified",
-                  // ),
                   SizedBox(height: 16),
                   GestureDetector(
                     onTap: () {

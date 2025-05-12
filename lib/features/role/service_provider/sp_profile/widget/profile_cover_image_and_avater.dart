@@ -1,8 +1,9 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/widgets/sp_show_profile_popup_menu.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class ProfileCoverImageAndAvatar extends StatelessWidget {
   const ProfileCoverImageAndAvatar({super.key});
@@ -16,7 +17,7 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
         /// Cover image
         Image.network(
           SpAuthController.profileInfoModel?.coverPhoto?.path ??
-              "assets/images/profile_cover_image.jpeg",
+              "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
           height: 220,
           width: double.infinity,
           fit: BoxFit.cover,
@@ -37,20 +38,20 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
           right: 0,
           child: Row(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white.withAlpha(100),
-                    child: SvgPicture.asset(IconPath.arrowLeftAltSvg),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 20.0),
+              //   child: CircleAvatar(
+              //     backgroundColor: Colors.white.withAlpha(100),
+              //     child: SvgPicture.asset(IconPath.arrowLeftAltSvg),
+              //   ),
+              // ),
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  showPopupMenu(context);
+                  spShowPopupMenu(
+                    context,
+                    Get.find<SpProfileController>().isDarkMode.value,
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(right: 20.0),
@@ -80,7 +81,7 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
                     child: ClipOval(
                       child: Image.network(
                         SpAuthController.profileInfoModel?.image?.path ??
-                            IconPath.sphprofile,
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaUTp3j_LpF5r5_gNdvW0g7p057ExdcHWbUQ&s",
                         fit: BoxFit.cover,
                         width: 90,
                         height: 90,
@@ -88,15 +89,29 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
                     ),
                     // child: Image.asset(IconPath.profile01, fit: BoxFit.cover),
                   ),
-                  Positioned(
-                    right: 10,
-                    bottom: 0,
-                    child: Image.asset(
-                      IconPath.verifiedlogo,
-                      width: 24,
-                      height: 24,
+                  if (SpAuthController.profileInfoModel?.isPro == true)
+                    Positioned(
+                      right: 11,
+                      bottom: 1,
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
+                  if (SpAuthController.profileInfoModel?.isPro == true)
+                    Positioned(
+                      right: 10,
+                      bottom: 0,
+                      child: Image.asset(
+                        IconPath.verifiedlogo,
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
                 ],
               ),
             ],

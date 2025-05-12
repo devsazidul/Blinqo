@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class SpHomeController extends GetxController {
-  var isVerified = true.obs;
   var hasdata = false.obs;
   var selectedDate = Rxn<DateTime>();
   var secondSelectedDate = Rxn<DateTime>();

@@ -1,9 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_congratulations_page.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

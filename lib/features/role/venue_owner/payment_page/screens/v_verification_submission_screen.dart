@@ -1,9 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
+import 'package:blinqo/features/role/venue_owner/payment_page/controllers/verification_submission_controller.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_payment_method.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/photo_upload_widget.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/v_payment_app_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/role/venue_owner/widgets/event_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +19,13 @@ class VVerificationSubmissionScreen extends StatelessWidget {
     Get.put(VenueOwnerProfileController());
     final bool isDarkMode =
         Get.find<VenueOwnerProfileController>().isDarkMode.value;
-
+    VerificationSubmissionController controller = Get.put(
+      VerificationSubmissionController(),
+    );
+    if (controller.nameTEController.text.isEmpty) {
+      controller.nameTEController.text =
+          EventAuthController.profileInfo?.profile?.name ?? '';
+    }
     return Scaffold(
       backgroundColor:
           isDarkMode ? const Color(0xff151515) : const Color(0xffF9FAFB),
@@ -30,7 +39,12 @@ class VVerificationSubmissionScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 32),
-                _buildTextField('Name', 'Name'),
+                TextFieldWidget(
+                  enabled: false,
+                  hintText: 'Name',
+                  labelText: 'Name',
+                  controller: controller.nameTEController,
+                ),
                 const SizedBox(height: 24),
                 Text(
                   'Nation ID',
@@ -45,7 +59,7 @@ class VVerificationSubmissionScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 const PhotoUploadWidget(imageKey: 'national_id'),
-                // Use "national_id" for this section
+
                 const SizedBox(height: 24),
                 Text(
                   'Business Registration Certificate',
@@ -74,17 +88,17 @@ class VVerificationSubmissionScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                _buildTextField('Bio', 'Bio', 2),
+                TextFieldWidget(
+                  hintText: 'Bio',
+                  labelText: 'Bio',
+                  maxLines: 2,
+                  controller: controller.bioTEController,
+                ),
                 const SizedBox(height: 48),
                 // Get Verified Button
                 GestureDetector(
                   onTap: () {
-                    Get.to(
-                      // const VThankYouScreen(),
-                      VPaymentMethod(),
-                      transition: Transition.rightToLeft,
-                      duration: const Duration(milliseconds: 400),
-                    );
+                    controller.submitVerification();
                   },
                   child: Container(
                     width: double.infinity,

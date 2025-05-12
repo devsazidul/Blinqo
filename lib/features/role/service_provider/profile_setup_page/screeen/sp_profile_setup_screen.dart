@@ -1,12 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/core/common/widgets/customcontinuebutton.dart';
+import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/widget/event_preference_circle_avatar.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class SpProfileSetupScreen extends StatelessWidget {
     final profileSetupController = Get.find<SpProfileSetupController>();
     final profileController = Get.find<SpProfileController>();
     profileSetupController.initMarkers();
-    profileSetupController.selectedEvents.clear();
+    // profileSetupController.clearAllData();
 
     if (isEdit) {
       profileSetupController.nameController.text =
@@ -721,9 +721,11 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
 
                   //* ------------------ Upgrade To Proc ------------------
-                  if (!(SpAuthController.profileInfoModel?.isPro ?? false))
+                  if (isEdit &&
+                      !(SpAuthController.profileInfoModel?.isPro ?? false))
                     SizedBox(height: 40),
-                  if (!(SpAuthController.profileInfoModel?.isPro ?? false))
+                  if (isEdit &&
+                      !(SpAuthController.profileInfoModel?.isPro ?? false))
                     UpgradeToProcard(onTap: () {}),
 
                   SizedBox(height: 40),

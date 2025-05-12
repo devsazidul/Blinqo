@@ -14,6 +14,7 @@ class RoleScreen extends StatelessWidget {
     final RoleController roleController = Get.put(RoleController());
 
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

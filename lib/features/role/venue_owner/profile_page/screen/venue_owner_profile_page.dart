@@ -1,6 +1,8 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_edit_profile_page.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/v_profile_app_bar.dart';
@@ -15,9 +17,10 @@ class VenueOwnerProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final VenueOwnerProfileController controller =
-        Get.put(VenueOwnerProfileController(), permanent: true);
+    final VenueOwnerProfileController controller = Get.put(
+      VenueOwnerProfileController(),
+      permanent: true,
+    );
 
     return Obx(() {
       // Get the current theme mode (light or dark)
@@ -61,55 +64,35 @@ class VenueOwnerProfilePage extends StatelessWidget {
       spacing: 10,
       children: [
         /// Avater image
-        Obx(() {
-          return Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.grey[300],
-                child: ClipOval(
-                  child:
-                      controller.profileImage.value == null
-                          ? Image.asset(
-                            IconPath.profile01,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          )
-                          : Image.file(
-                            controller.profileImage.value!,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                ),
+        Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey[300],
+              child: ClipOval(
+                child:
+                    controller.user?.profile!.image == null
+                        ? Image.asset(
+                          IconPath.profile01,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        )
+                        : CachedNetworkImage(
+                          imageUrl: controller.user!.profile!.image!.path,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
               ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    controller.pickImage();
-                  },
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Colors.transparent,
-                    child: Image.asset(
-                      IconPath.profileedit,
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          );
-        }),
+            ),
+          ],
+        ),
 
         /// Avater name
         Text(
-          'Ronald Richards',
+          EventAuthController.profileInfo?.profile?.name ?? "Unknown",
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -117,6 +100,35 @@ class VenueOwnerProfilePage extends StatelessWidget {
                 themeMode == ThemeMode.dark
                     ? AppColors.backgroundColor
                     : Color(0xFF003285),
+          ),
+        ),
+        // show user in container in beautiful way
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          decoration: BoxDecoration(
+            color: themeMode == ThemeMode.dark
+                ? AppColors.buttonColor
+                :   const Color(0x19003366),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            mainAxisSize:  MainAxisSize.min,
+            children: [
+              Text('username:'),
+              SizedBox(width: 5),
+              Text(
+                EventAuthController.profileInfo?.name ?? "Unknown",
+                style: getTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color:
+                      themeMode == ThemeMode.dark
+                          ? AppColors.backgroundColor
+                          : AppColors.textColor,
+                ),
+              ),
+
+            ],
           ),
         ),
         // location
@@ -132,7 +144,7 @@ class VenueOwnerProfilePage extends StatelessWidget {
               size: 20,
             ),
             Text(
-              'New York',
+              EventAuthController.profileInfo?.profile?.location ?? "Unknown",
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -158,8 +170,9 @@ class VenueOwnerProfilePage extends StatelessWidget {
   }
 
   Widget _buildSettingsSection(BuildContext context, ThemeMode themeMode) {
-    final VenueOwnerProfileController controller =
-        Get.put(VenueOwnerProfileController());
+    final VenueOwnerProfileController controller = Get.put(
+      VenueOwnerProfileController(),
+    );
     return Column(
       children: [
         _buildSettingsTile(
@@ -168,14 +181,15 @@ class VenueOwnerProfilePage extends StatelessWidget {
           title: "Edit Profile",
           onTap: () {
             // Navigator.pushNamed(context, SpEditProfilePage.name);
-            Get.to(VEditProfilePage());
+            Get.to(VEditProfilePage(isEditProfile: true));
           },
         ),
         Obx(
           () => _buildSettingsTile(
             themeMode,
             title: "Dark Mode",
-            iconPath: IconPath.dartMood, // Replace with your actual icon path
+            iconPath: IconPath.dartMood,
+            // Replace with your actual icon path
             isSwitch: true,
             switchValue: controller.isDarkMode.value,
             onTap: () {
@@ -198,7 +212,8 @@ class VenueOwnerProfilePage extends StatelessWidget {
           themeMode,
           title: "Switch Role",
           iconPath: IconPath.switchRole,
-        ),_buildSettingsTile(
+        ),
+        _buildSettingsTile(
           onTap: () {
             Get.to(VPaymentHistoryScreen());
           },

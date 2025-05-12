@@ -1,4 +1,3 @@
-
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
@@ -25,9 +24,9 @@ class RoleController extends GetxController {
 
   Future<void> navigateToRolePage() async {
     // Check if user is logged in and has a valid token
-    bool isLoggedIn = await EvenAuthController.isUserLoggedIn();
-    String? role = await EvenAuthController.getUserRole();
-    EventUser? eventUser = await EvenAuthController.getUserInfo();
+    bool isLoggedIn = await EventAuthController.isUserLoggedIn();
+    String? role = await EventAuthController.getUserRole();
+    EventUser? eventUser = await EventAuthController.getUserInfo();
 
     switch (selectedIndex.value) {
       case 0:
@@ -36,9 +35,10 @@ class RoleController extends GetxController {
       case 1:
         if (isLoggedIn && role == 'VENUE_OWNER') {
           if (eventUser?.isProfileCreated == false) {
+            Get.offAll(() => VenueProfileScreen());
+          } else {
             Get.offAll(() => VanueOwnerBottomNavBar());
           }
-          Get.offAll(() => VenueProfileScreen());
         } else {
           Get.to(() => VenueOnboardingScreen());
         }
@@ -46,15 +46,9 @@ class RoleController extends GetxController {
       case 2:
         if (await SpAuthController.isUserLoggedIn()) {
           if (SpAuthController.userModel?.isProfileCreated == true) {
-            // Logger().e(
-            //   "Profile created ${SpAuthController.userModel?.isProfileCreated}",
-            // );
             await Get.find<SpGetUserInfoController>().getUserInfo();
             Get.to(() => SpBottomNavBarScreen());
           } else {
-            // Logger().e(
-            //   "Profile not created ${SpAuthController.userModel?.isProfileCreated}",
-            // );
             await Get.put(SpProfileSetupController()).getEventPreferences();
             Get.to(() => SpProfileSetupScreen());
           }

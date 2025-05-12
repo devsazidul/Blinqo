@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -18,7 +19,7 @@ class SpProfileController extends GetxController {
 
     final ImagePicker picker = ImagePicker();
 
-    final ImageSource? source = await showPickrOption();
+    final ImageSource? source = await showPickerOption();
 
     if (source != null) {
       final XFile? pickedFile = await picker.pickImage(source: source);
@@ -42,7 +43,7 @@ class SpProfileController extends GetxController {
     }
   }
 
-  Future<ImageSource?> showPickrOption() async {
+  Future<ImageSource?> showPickerOption() async {
     return await Get.bottomSheet(
       Container(
         padding: EdgeInsets.all(20),

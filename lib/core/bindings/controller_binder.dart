@@ -7,9 +7,9 @@ import 'package:blinqo/features/role/event_planner/auth/controller/signup_contro
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/controller/bottom_nav_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_edit_profile_controller.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_edit_profile_controller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:get/get.dart';
 
 class ControllerBinder extends Bindings {

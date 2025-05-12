@@ -2,10 +2,10 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/device/device_utility.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/service_user_profile_controler.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/controller/work_post_controller.dart';
 import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
-import 'package:blinqo/features/role/service_provider/service_profile_page/widget/sp_profile_app_bar.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/work_post_controller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +31,9 @@ class WorkPostScreen extends StatelessWidget {
           themeMode == ThemeMode.dark
               ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
-      appBar: SpProfileAppBar(onPressed: () => showEditDeletePopup(context)),
+      appBar: SpProfileAppBar(
+        onPressed: () => showEditDeletePopup(context, isDarkMode),
+      ),
       body: Obx(
         () => SingleChildScrollView(
           child: Padding(
