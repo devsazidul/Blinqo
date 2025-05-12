@@ -15,6 +15,7 @@ TextStyle getTextStyle({
     color: color,
   );
 }
+
 TextStyle getTextStylePoppins({
   double fontSize = 14,
   FontWeight fontWeight = FontWeight.normal,
@@ -29,4 +30,3 @@ TextStyle getTextStylePoppins({
     color: color,
   );
 }
-

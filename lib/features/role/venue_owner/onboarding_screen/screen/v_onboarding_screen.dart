@@ -153,7 +153,7 @@ class Page1 extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
-                    lineHeight: 1.2
+                      lineHeight: 1.2,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -215,7 +215,7 @@ class Page2 extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
-                      lineHeight: 0
+                      lineHeight: 0,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -288,7 +288,7 @@ class Page3 extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
-                      lineHeight: 0
+                      lineHeight: 0,
                     ),
                     textAlign: TextAlign.center,
                   ),

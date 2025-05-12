@@ -71,13 +71,13 @@ class Createshift extends StatelessWidget {
                     Spacer(),
                     if (title != null)
                       InkWell(
-                        onTap:(){
-                          
-                        },
+                        onTap: () {},
                         child: Image.asset(
                           IconPath.delete,
                           color:
-                              isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                              isDarkMode
+                                  ? Color(0xffD4AF37)
+                                  : Color(0xff003366),
                           height: 15,
                           width: 15,
                         ),
@@ -101,7 +101,10 @@ class Createshift extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff333333),
                             ),
                           ),
                           SizedBox(height: 4),
@@ -135,15 +138,21 @@ class Createshift extends StatelessWidget {
                                         color:
                                             controller.startTime.value == null
                                                 ? Colors.grey
-                                                : isDarkMode?Color(0xffA1A1A1):Colors.black,
+                                                : isDarkMode
+                                                ? Color(0xffA1A1A1)
+                                                : Colors.black,
                                       ),
                                     ),
                                   ),
-                                 Image.asset(IconPath.dropdown,
-                                 height: 10,
-                                 width: 10,
-                                 color: isDarkMode?Color(0xffD4AF37):Color(0xff003366),
-                                 )
+                                  Image.asset(
+                                    IconPath.dropdown,
+                                    height: 10,
+                                    width: 10,
+                                    color:
+                                        isDarkMode
+                                            ? Color(0xffD4AF37)
+                                            : Color(0xff003366),
+                                  ),
                                 ],
                               ),
                             ),
@@ -163,7 +172,10 @@ class Createshift extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff333333),
                             ),
                           ),
                           SizedBox(height: 4),
@@ -199,15 +211,21 @@ class Createshift extends StatelessWidget {
                                         color:
                                             controller.endTime.value == null
                                                 ? Colors.grey
-                                                : isDarkMode?Color(0xffA1A1A1):Colors.black,
+                                                : isDarkMode
+                                                ? Color(0xffA1A1A1)
+                                                : Colors.black,
                                       ),
                                     ),
                                   ),
-                                   Image.asset(IconPath.dropdown,
-                                 height: 10,
-                                 width: 10,
-                                 color:isDarkMode?Color(0xffD4AF37):Color(0xff003366),
-                                 )
+                                  Image.asset(
+                                    IconPath.dropdown,
+                                    height: 10,
+                                    width: 10,
+                                    color:
+                                        isDarkMode
+                                            ? Color(0xffD4AF37)
+                                            : Color(0xff003366),
+                                  ),
                                 ],
                               ),
                             ),
@@ -228,7 +246,10 @@ class Createshift extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: isDarkMode?Color(0xffEBEBEB):Color(0xff333333),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff333333),
                             ),
                           ),
                           SizedBox(
@@ -237,8 +258,12 @@ class Createshift extends StatelessWidget {
                           Obx(
                             () => Text(
                               controller.duration,
-                              style: TextStyle(fontSize: 14,
-                              color: isDarkMode?Color(0xffA1A1A1):Color(0xff333333)
+                              style: TextStyle(
+                                fontSize: 14,
+                                color:
+                                    isDarkMode
+                                        ? Color(0xffA1A1A1)
+                                        : Color(0xff333333),
                               ),
                             ),
                           ),

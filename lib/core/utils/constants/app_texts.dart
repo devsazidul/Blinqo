@@ -1,6 +1,5 @@
-
-class AppText{
+class AppText {
   AppText._();
 
-  static const String appName='';
+  static const String appName = '';
 }

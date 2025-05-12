@@ -20,7 +20,9 @@ class CustomCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+
     return ValueListenableBuilder<List<DateTime>>(
       valueListenable: selectedDatesNotifier,
       builder: (context, selectedDates, _) {

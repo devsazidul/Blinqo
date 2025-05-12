@@ -50,7 +50,7 @@ class OTPController extends GetxController {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         debugPrint('OTP Verified Successfully, navigating...');
         EasyLoading.showSuccess('OTP Verified Successfully');
-        Get.to(()=>ProfileSetup());
+        Get.to(() => ProfileSetup());
       } else {
         debugPrint("Failed with status code: ${response.statusCode}");
         var responseData = jsonDecode(response.body);

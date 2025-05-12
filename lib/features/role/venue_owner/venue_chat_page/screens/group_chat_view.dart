@@ -85,7 +85,7 @@ class GroupChatView extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: AppColors.iconColor.withValues(alpha:  0.1),
+              color: AppColors.iconColor.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: AppColors.iconColor, size: 30),
@@ -659,7 +659,7 @@ class GroupMessageBubble extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment:
-          isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             if (!isCurrentUser)
               Row(
@@ -674,37 +674,41 @@ class GroupMessageBubble extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
                       ),
-
                     ),
                   ),
                 ],
               ),
             Row(
-              mainAxisAlignment: isCurrentUser
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.start,
+              mainAxisAlignment:
+                  isCurrentUser
+                      ? MainAxisAlignment.end
+                      : MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 if (!isCurrentUser) ...[
                   CircleAvatar(
                     radius: 14,
-                    backgroundImage: senderAvatar.startsWith('http')
-                        ? NetworkImage(senderAvatar)
-                        : FileImage(File(senderAvatar)) as ImageProvider,
+                    backgroundImage:
+                        senderAvatar.startsWith('http')
+                            ? NetworkImage(senderAvatar)
+                            : FileImage(File(senderAvatar)) as ImageProvider,
                   ),
                   const SizedBox(width: 8),
                 ],
                 Flexible(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: isCurrentUser ? Color(0xFF205295) : Color(0xFFF0F0F0),
+                      color:
+                          isCurrentUser ? Color(0xFF205295) : Color(0xFFF0F0F0),
                       borderRadius: BorderRadius.circular(16).copyWith(
-                        bottomRight: isCurrentUser
-                            ? Radius.circular(4)
-                            : Radius.circular(16),
-                        bottomLeft: !isCurrentUser
-                            ? Radius.circular(4)
-                            : Radius.circular(16),
+                        bottomRight:
+                            isCurrentUser
+                                ? Radius.circular(4)
+                                : Radius.circular(16),
+                        bottomLeft:
+                            !isCurrentUser
+                                ? Radius.circular(4)
+                                : Radius.circular(16),
                       ),
                     ),
                     child: Column(
@@ -712,14 +716,19 @@ class GroupMessageBubble extends StatelessWidget {
                       children: [
                         _buildMessageContent(context),
                         Padding(
-                          padding: EdgeInsets.only(right: 8, bottom: 4, left: 8),
+                          padding: EdgeInsets.only(
+                            right: 8,
+                            bottom: 4,
+                            left: 8,
+                          ),
                           child: Text(
                             ChatDateUtils.formatTime(message.timestamp),
                             style: getTextStyle(
                               fontSize: 10,
-                              color: isCurrentUser
-                                  ? Colors.white.withValues(alpha:  0.7)
-                                  : Colors.black.withValues(alpha:  0.5),
+                              color:
+                                  isCurrentUser
+                                      ? Colors.white.withValues(alpha: 0.7)
+                                      : Colors.black.withValues(alpha: 0.5),
                             ),
                           ),
                         ),
@@ -779,7 +788,7 @@ class GroupMessageBubble extends StatelessWidget {
                   width: 28,
                   height: 28,
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha:  0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -802,11 +811,11 @@ class GroupMessageBubble extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 isCurrentUser
-                                    ? Colors.white.withValues(alpha: 
-                                      0.2 + (index % 5) * 0.15,
+                                    ? Colors.white.withValues(
+                                      alpha: 0.2 + (index % 5) * 0.15,
                                     )
-                                    : Colors.black.withValues( alpha: 
-                                      0.2 + (index % 5) * 0.15,
+                                    : Colors.black.withValues(
+                                      alpha: 0.2 + (index % 5) * 0.15,
                                     ),
                             borderRadius: BorderRadius.circular(1.5),
                           ),

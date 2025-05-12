@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RevenueCard extends StatelessWidget {
+  RevenueCard({super.key});
   final int totalRevenue;
   final int currentMonthRevenue;
   final int growthRate;
@@ -18,6 +19,7 @@ class RevenueCard extends StatelessWidget {
     required this.growthRate,
     required this.pendingBookings,
   });
+
 
   final OverviewController controller = Get.find<OverviewController>();
 

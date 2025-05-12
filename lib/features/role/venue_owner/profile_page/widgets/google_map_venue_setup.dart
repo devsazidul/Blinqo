@@ -4,7 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMapVenueSetup extends StatelessWidget {
   final bool isDarkMode = VenueOwnerProfileController().isDarkMode.value;
-   GoogleMapVenueSetup({super.key});
+  GoogleMapVenueSetup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,10 @@ class GoogleMapVenueSetup extends StatelessWidget {
       height: height * 0.26,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color:isDarkMode ? Color(0xffABB7C2) : Color(0xffABB7C2), width: 1),
+        border: Border.all(
+          color: isDarkMode ? Color(0xffABB7C2) : Color(0xffABB7C2),
+          width: 1,
+        ),
       ),
       child: Stack(
         children: [
@@ -39,10 +42,7 @@ class GoogleMapVenueSetup extends StatelessWidget {
             markers: <Marker>{
               Marker(
                 markerId: MarkerId('marker_1'),
-                position: LatLng(
-                  23.80732623303042,
-                  90.3686790524852,
-                ),
+                position: LatLng(23.80732623303042, 90.3686790524852),
                 infoWindow: InfoWindow(
                   title: 'Your Location',
                   snippet: 'This is your location',
@@ -62,10 +62,7 @@ class GoogleMapVenueSetup extends StatelessWidget {
                   duration: Duration(milliseconds: 300),
                   CameraUpdate.newCameraPosition(
                     CameraPosition(
-                      target: LatLng(
-                        23.80732623303042,
-                        90.3686790524852,
-                      ),
+                      target: LatLng(23.80732623303042, 90.3686790524852),
                       zoom: 14,
                     ),
                   ),

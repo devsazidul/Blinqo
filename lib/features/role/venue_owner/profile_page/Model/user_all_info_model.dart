@@ -1,4 +1,3 @@
-
 class VenueOwnerUserData {
   final String id;
   final String email;
@@ -32,7 +31,10 @@ class VenueOwnerUserData {
       isVerified: json['isVerified'] as bool,
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
-      profile: json['profile'] != null ? UserProfile.fromJson(json['profile']) : null,
+      profile:
+          json['profile'] != null
+              ? UserProfile.fromJson(json['profile'])
+              : null,
     );
   }
 
@@ -118,7 +120,10 @@ class UserProfile {
       verificationSubmissionId: json['verificationSubmissionId'] as String?,
       groupMessageId: json['groupMessageId'] as String?,
       serviceProviderRole: json['serviceProviderRole'] as String?,
-      image: json['image'] != null ? UserProfileImage.fromJson(json['image']) : null,
+      image:
+          json['image'] != null
+              ? UserProfileImage.fromJson(json['image'])
+              : null,
       coverPhoto: json['coverPhoto'] as String?,
       eventPreference: List.from(json['eventPreference']),
     );
@@ -157,14 +162,10 @@ class UserProfileImage {
   UserProfileImage({required this.path});
 
   factory UserProfileImage.fromJson(Map<String, dynamic> json) {
-    return UserProfileImage(
-      path: json['path'] as String,
-    );
+    return UserProfileImage(path: json['path'] as String);
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'path': path,
-    };
+    return {'path': path};
   }
 }

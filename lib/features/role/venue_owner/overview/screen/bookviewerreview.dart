@@ -9,13 +9,15 @@ class Bookviewerreview extends StatelessWidget {
   Bookviewerreview({super.key});
 
   final OverviewController controller = Get.find<OverviewController>();
-  final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+  final bool isDarkMode =
+      Get.put(VenueOwnerProfileController()).isDarkMode.value;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
+        backgroundColor:
+            isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
@@ -72,7 +74,10 @@ class Bookviewerreview extends StatelessWidget {
                                   style: getTextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
-                                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                                    color:
+                                        isDarkMode
+                                            ? Color(0xffEBEBEB)
+                                            : Color(0xff333333),
                                   ),
                                 ),
                                 Row(
@@ -104,7 +109,10 @@ class Bookviewerreview extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff5C5C5C),
+                            color:
+                                isDarkMode
+                                    ? Color(0xffA1A1A1)
+                                    : Color(0xff5C5C5C),
                           ),
                         ),
                       ],

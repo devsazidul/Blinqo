@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class VenueProfileController extends GetxController {
-
   var profileImage = Rx<File?>(null);
 
   // Function to request permissions and pick an image

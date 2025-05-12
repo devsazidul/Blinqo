@@ -38,11 +38,12 @@ class OptionSection extends StatelessWidget {
                 return Obx(
                   () => SizedBox(
                     // ass need space not fix
-                    width:  MediaQuery.of(context).size.width * 0.4,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     child: Row(
                       children: [
                         Checkbox(
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           value: selectedOptions.contains(option),
                           onChanged: (bool? value) {
                             onToggle(option, selectedOptions);
@@ -52,7 +53,8 @@ class OptionSection extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                         Text(
-                          option[0].toUpperCase() + option.substring(1).toLowerCase(),
+                          option[0].toUpperCase() +
+                              option.substring(1).toLowerCase(),
                           style: getTextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -61,7 +63,7 @@ class OptionSection extends StatelessWidget {
                         ),
                       ],
                     ),
-                  )
+                  ),
                 );
               }).toList(),
         ),

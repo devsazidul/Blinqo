@@ -61,7 +61,7 @@ class VNotificationScreen extends StatelessWidget {
             );
           },
           separatorBuilder:
-              (BuildContext context, int index) => const SizedBox(height: 8,),
+              (BuildContext context, int index) => const SizedBox(height: 8),
         ),
       ),
     );

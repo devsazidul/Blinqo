@@ -16,7 +16,9 @@ class VPaymentOptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Initialize controllers
     Get.put(VenueOwnerProfileController());
-    final PaymentOptionController paymentController = Get.put(PaymentOptionController());
+    final PaymentOptionController paymentController = Get.put(
+      PaymentOptionController(),
+    );
 
     // List of payment options
     const paymentOptions = [
@@ -30,10 +32,12 @@ class VPaymentOptionScreen extends StatelessWidget {
     // Initialize selection states for all payment options
     paymentController.initializeSelections(paymentOptions);
 
-    final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+    final bool isDarkMode =
+        Get.find<VenueOwnerProfileController>().isDarkMode.value;
 
     return Scaffold(
-      backgroundColor: isDarkMode ? const Color(0xff151515) : const Color(0xffF4F4F4),
+      backgroundColor:
+          isDarkMode ? const Color(0xff151515) : const Color(0xffF4F4F4),
       appBar: const VPaymentAppBar(title: 'Payment Option'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -78,7 +82,10 @@ class VPaymentOptionScreen extends StatelessWidget {
                     color: const Color(0xff003366),
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(
-                      color: isDarkMode ? const Color(0xff003366) : const Color(0xffE4E4E7),
+                      color:
+                          isDarkMode
+                              ? const Color(0xff003366)
+                              : const Color(0xffE4E4E7),
                       width: 1,
                     ),
                   ),

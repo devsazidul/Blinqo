@@ -18,7 +18,7 @@ class EditVenue extends StatelessWidget {
   final String image;
 
   const EditVenue({super.key, required this.image});
-  
+
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode =
@@ -182,127 +182,142 @@ class EditVenue extends StatelessWidget {
                     label: "Number of Guests",
                   ),
                   SizedBox(height: 15),
-         Text(
-  'Amenities',
-  style: getTextStyle(
-    fontWeight: FontWeight.w600,
-    fontSize: 20,
-    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
-  ),
-),
-SizedBox(height: 12),
-Obx(() {
-  List<String> facilities = controllers.selectedFacilities;
+                  Text(
+                    'Amenities',
+                    style: getTextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Obx(() {
+                    List<String> facilities = controllers.selectedFacilities;
 
-  return Wrap(
-    spacing: 10, // Horizontal space between items
-    runSpacing: 10, // Vertical space between lines
-    children: facilities.map((facility) {
-      return SizedBox(
-        width: (screenWidth - 40) / 2, // Each item takes up half the screen width (2 items per row)
-        child: FacilityTag(
-          icon: Icons.wifi,
-          label: facility,
-        ),
-      );
-    }).toList(),
-  );
-}),
-SizedBox(height: 16),
-Text(
-  'Select From Here',
-  style: getTextStyle(
-    fontWeight: FontWeight.w600,
-    fontSize: 16,
-    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
-  ),
-),
-SizedBox(height: 16),
-Obx(() {
-  // যেসব এখনো সিলেক্ট হয়নি শুধু সেগুলো দেখাবে
-  List<String> remainingFacilities = controllers.allFacilities
-      .where((facility) => !controllers.selectedFacilities.contains(facility))
-      .toList();
+                    return Wrap(
+                      spacing: 10, // Horizontal space between items
+                      runSpacing: 10, // Vertical space between lines
+                      children:
+                          facilities.map((facility) {
+                            return SizedBox(
+                              width:
+                                  (screenWidth - 40) /
+                                  2, // Each item takes up half the screen width (2 items per row)
+                              child: FacilityTag(
+                                icon: Icons.wifi,
+                                label: facility,
+                              ),
+                            );
+                          }).toList(),
+                    );
+                  }),
+                  SizedBox(height: 16),
+                  Text(
+                    'Select From Here',
+                    style: getTextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Obx(() {
+                    // যেসব এখনো সিলেক্ট হয়নি শুধু সেগুলো দেখাবে
+                    List<String> remainingFacilities =
+                        controllers.allFacilities
+                            .where(
+                              (facility) =>
+                                  !controllers.selectedFacilities.contains(
+                                    facility,
+                                  ),
+                            )
+                            .toList();
 
-  return Wrap(
-    spacing: 10,
-    runSpacing: 10,
-    children: remainingFacilities.map((facility) => 
-      GestureDetector(
-        onTap: () {
-          controllers.addFacility(facility);
-        },
-        child: CustomShapeTag(
-          label: facility,
+                    return Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children:
+                          remainingFacilities
+                              .map(
+                                (facility) => GestureDetector(
+                                  onTap: () {
+                                    controllers.addFacility(facility);
+                                  },
+                                  child: CustomShapeTag(label: facility),
+                                ),
+                              )
+                              .toList(),
+                    );
+                  }),
+                  SizedBox(height: 19),
 
-        ),
-      )
-    ).toList(),
-  );
-}),
-SizedBox(height: 19),
-       
-          Align(
-  alignment: Alignment.centerRight,
-  child: InkWell(
-    onTap: () {
-      // Button click হলে popup dialog দেখাবে
-      showDialog(
-        context: context,
-        builder: (context) {
-          TextEditingController newFacilityController = TextEditingController();
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                      onTap: () {
+                        // Button click হলে popup dialog দেখাবে
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            TextEditingController newFacilityController =
+                                TextEditingController();
 
-         return AlertDialog(
-          backgroundColor: Colors.white,
-  title: Text("Added New"),
-  content: SizedBox(
-    width: 300, // এখানে আপনি ইচ্ছামতো width বাড়াতে পারেন
-    child: TextField(
-      controller: newFacilityController,
-      decoration: InputDecoration(
-        labelText: 'Enter facility',
-        border: OutlineInputBorder(),
-      ),
-    ),
-  ),
-  actions: <Widget>[
-    TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: Text('Cancel',style: getTextStyle(
-        color: Colors.red
-      ),),
-    ),
-    TextButton(
-      onPressed: () {
-        String newFacility = newFacilityController.text.trim();
-        if (newFacility.isNotEmpty) {
-          controllers.addFacility(newFacility);
-          Navigator.of(context).pop();
-        }
-      },
-      child: Text('Add',style: getTextStyle(color: Colors.green),),
-    ),
-  ],
-);
-
-        },
-      );
-    },
-    child: Container(
-      width: 48,
-      height: 40,
-      decoration: BoxDecoration(
-        color: Color(0xff003366),
-        shape: BoxShape.circle,
-      ),
-      child: Center(
-        child: Icon(Icons.add, color: Colors.white, size: 24),
-      ),
-    ),
-  ),
-),
+                            return AlertDialog(
+                              backgroundColor: Colors.white,
+                              title: Text("Added New"),
+                              content: SizedBox(
+                                width:
+                                    300, // এখানে আপনি ইচ্ছামতো width বাড়াতে পারেন
+                                child: TextField(
+                                  controller: newFacilityController,
+                                  decoration: InputDecoration(
+                                    labelText: 'Enter facility',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Cancel',
+                                    style: getTextStyle(color: Colors.red),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    String newFacility =
+                                        newFacilityController.text.trim();
+                                    if (newFacility.isNotEmpty) {
+                                      controllers.addFacility(newFacility);
+                                      Navigator.of(context).pop();
+                                    }
+                                  },
+                                  child: Text(
+                                    'Add',
+                                    style: getTextStyle(color: Colors.green),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        width: 48,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Color(0xff003366),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Icon(Icons.add, color: Colors.white, size: 24),
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 20),
                   Text(
                     'Decoration',
@@ -312,52 +327,51 @@ SizedBox(height: 19),
                       color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
                     ),
                   ),
-                 
 
                   SizedBox(height: 40),
-                 Obx(() {
-  return SizedBox(
-    height: screenHeight * 0.249,
-    width: double.infinity,
-    child: Stack(
-      children: [
-        // Background image (default or picked)
-        controller.decorationImage.value != null
-            ? Image.file(
-                controller.decorationImage.value!,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-              )
-            : Image.asset(
-                ImagePath.venueview,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-              ),
+                  Obx(() {
+                    return SizedBox(
+                      height: screenHeight * 0.249,
+                      width: double.infinity,
+                      child: Stack(
+                        children: [
+                          // Background image (default or picked)
+                          controller.decorationImage.value != null
+                              ? Image.file(
+                                controller.decorationImage.value!,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              )
+                              : Image.asset(
+                                ImagePath.venueview,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              ),
 
-        // Edit icon
-        Positioned(
-          bottom: 12,
-          left: 260,
-          child: InkWell(
-            onTap: () {
-              controller.pickDecorationImageFromGallery();
-            },
-            child: Image.asset(
-              IconPath.edit,
-              width: 32,
-              height: 32,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}),
+                          // Edit icon
+                          Positioned(
+                            bottom: 12,
+                            left: 260,
+                            child: InkWell(
+                              onTap: () {
+                                controller.pickDecorationImageFromGallery();
+                              },
+                              child: Image.asset(
+                                IconPath.edit,
+                                width: 32,
+                                height: 32,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
                   SizedBox(height: 40),
-                    Text(
+                  Text(
                     "Table Shape",
                     style: getTextStyle(
                       fontWeight: FontWeight.w500,

@@ -18,8 +18,12 @@ class VenuePlaceholderWidget extends StatelessWidget {
       children: [
         Center(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * (232 / MediaQuery.of(context).size.height),
-            width: MediaQuery.of(context).size.width * (232 / MediaQuery.of(context).size.width),
+            height:
+                MediaQuery.of(context).size.height *
+                (232 / MediaQuery.of(context).size.height),
+            width:
+                MediaQuery.of(context).size.width *
+                (232 / MediaQuery.of(context).size.width),
             child: Image.asset(ImagePath.emptyvenue, fit: BoxFit.cover),
           ),
         ),

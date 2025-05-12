@@ -94,6 +94,7 @@ class VenueDetailsScreen extends StatelessWidget {
         final rating = venueDetails.data?.ratting ?? 0.0;
 
         if (venueData == null) {
+
           return const Center(
             child: Text('No venue data available'),
           );

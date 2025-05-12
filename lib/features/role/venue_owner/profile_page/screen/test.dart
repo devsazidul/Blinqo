@@ -1,4 +1,3 @@
-
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'amenities_controller.dart';
@@ -154,4 +153,3 @@
 //     );
 //   }
 // }
-

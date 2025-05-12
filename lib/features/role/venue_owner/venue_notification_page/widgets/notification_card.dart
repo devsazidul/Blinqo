@@ -50,7 +50,14 @@ class VNotificationCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16,color: isRead && isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333)),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color:
+                          isRead && isDarkMode
+                              ? Color(0xffEBEBEB)
+                              : Color(0xff333333),
+                    ),
                   ),
                   SizedBox(height: 4),
                   Text(

@@ -28,7 +28,8 @@ class EventDecorationDetailsSection extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color:isDarkMode ? Color(0xffD4AF37) : AppColors.buttonColor2,
+                  color:
+                      isDarkMode ? Color(0xffD4AF37) : AppColors.buttonColor2,
                 ),
               ),
               SizedBox(height: 16),
@@ -63,7 +64,7 @@ class EventDecorationDetailsSection extends StatelessWidget {
           style: getTextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff767676),
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff767676),
           ),
         ),
         Text(
@@ -71,7 +72,7 @@ class EventDecorationDetailsSection extends StatelessWidget {
           style: getTextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color:isDarkMode ? Color(0xffD4AF37) : AppColors.buttonColor2,
+            color: isDarkMode ? Color(0xffD4AF37) : AppColors.buttonColor2,
           ),
         ),
       ],

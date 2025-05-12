@@ -20,19 +20,19 @@ class SplashoScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(ImagePath.splashImage, width: 160),
-            SizedBox(
-              height: 20,
-            ), 
-            Text("Ventqo",
-             style: GoogleFonts.sansitaSwashed(
-                color: Color(0xFF003366), 
-                fontSize: 48, 
-                fontWeight: FontWeight.w700, 
-                 decoration: TextDecoration.none,
-             ),
-            )
+            SizedBox(height: 20),
+            Text(
+              "Ventqo",
+              style: GoogleFonts.sansitaSwashed(
+                color: Color(0xFF003366),
+                fontSize: 48,
+                fontWeight: FontWeight.w700,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ],
-        )),
+        ),
+      ),
     );
   }
 }

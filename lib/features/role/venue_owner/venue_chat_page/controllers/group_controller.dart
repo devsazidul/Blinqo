@@ -12,7 +12,8 @@ class GroupController extends GetxController {
   final RxList<Group> groups = GroupData.groups.obs;
   final RxList<GroupChatPreview> groupChats = <GroupChatPreview>[].obs;
   final Rx<String?> activeGroup = Rx<String?>(null);
-  final RxMap<String, List<GroupMessage>> groupMessages = <String, List<GroupMessage>>{}.obs;
+  final RxMap<String, List<GroupMessage>> groupMessages =
+      <String, List<GroupMessage>>{}.obs;
 
   // Typing and UI controllers
   final RxBool isTyping = false.obs;
@@ -95,7 +96,13 @@ class GroupController extends GetxController {
     _addMessageToGroup(groupId, newMessage);
   }
 
-  void sendGroupMessage(String groupId, String text, {MessageType type = MessageType.text, String? mediaUrl, String? audioDuration}) {
+  void sendGroupMessage(
+    String groupId,
+    String text, {
+    MessageType type = MessageType.text,
+    String? mediaUrl,
+    String? audioDuration,
+  }) {
     if (text.trim().isEmpty && type == MessageType.text) return;
 
     final newMessage = GroupMessage(
@@ -115,25 +122,29 @@ class GroupController extends GetxController {
 
   void _addMessageToGroup(String groupId, GroupMessage newMessage) {
     // Update messages
-    final List<GroupMessage> chatMessages = List<GroupMessage>.from(groupMessages[groupId] ?? []);
+    final List<GroupMessage> chatMessages = List<GroupMessage>.from(
+      groupMessages[groupId] ?? [],
+    );
     chatMessages.add(newMessage);
     groupMessages[groupId] = chatMessages;
 
-
     // Update group chat previews
-    final updatedGroupChats = groupChats.map((chat) {
-      if (chat.group.id == groupId) {
-        return GroupChatPreview(
-          group: chat.group,
-          lastMessage: newMessage,
-          unreadCount: chat.unreadCount,
-        );
-      }
-      return chat;
-    }).toList();
+    final updatedGroupChats =
+        groupChats.map((chat) {
+          if (chat.group.id == groupId) {
+            return GroupChatPreview(
+              group: chat.group,
+              lastMessage: newMessage,
+              unreadCount: chat.unreadCount,
+            );
+          }
+          return chat;
+        }).toList();
 
     // Sort chats by latest message
-    updatedGroupChats.sort((a, b) => b.lastMessage.timestamp.compareTo(a.lastMessage.timestamp));
+    updatedGroupChats.sort(
+      (a, b) => b.lastMessage.timestamp.compareTo(a.lastMessage.timestamp),
+    );
     groupChats.value = updatedGroupChats;
 
     update(); // Add this to trigger GetBuilder updates
@@ -142,36 +153,38 @@ class GroupController extends GetxController {
   void markGroupMessagesAsRead(String groupId) {
     // Mark all messages in this group as read
     final chatMessages = groupMessages[groupId] ?? [];
-    final updatedMessages = chatMessages.map((msg) {
-      if (!msg.isRead) {
-        return GroupMessage(
-          id: msg.id,
-          senderId: msg.senderId,
-          groupId: msg.groupId,
-          text: msg.text,
-          timestamp: msg.timestamp,
-          isRead: true,
-          type: msg.type,
-          mediaUrl: msg.mediaUrl,
-          audioDuration: msg.audioDuration,
-        );
-      }
-      return msg;
-    }).toList();
+    final updatedMessages =
+        chatMessages.map((msg) {
+          if (!msg.isRead) {
+            return GroupMessage(
+              id: msg.id,
+              senderId: msg.senderId,
+              groupId: msg.groupId,
+              text: msg.text,
+              timestamp: msg.timestamp,
+              isRead: true,
+              type: msg.type,
+              mediaUrl: msg.mediaUrl,
+              audioDuration: msg.audioDuration,
+            );
+          }
+          return msg;
+        }).toList();
 
     groupMessages[groupId] = updatedMessages;
 
     // Update unread count in group chat preview
-    final updatedGroupChats = groupChats.map((chat) {
-      if (chat.group.id == groupId) {
-        return GroupChatPreview(
-          group: chat.group,
-          lastMessage: chat.lastMessage,
-          unreadCount: 0,
-        );
-      }
-      return chat;
-    }).toList();
+    final updatedGroupChats =
+        groupChats.map((chat) {
+          if (chat.group.id == groupId) {
+            return GroupChatPreview(
+              group: chat.group,
+              lastMessage: chat.lastMessage,
+              unreadCount: 0,
+            );
+          }
+          return chat;
+        }).toList();
 
     groupChats.value = updatedGroupChats;
     update(); // Add this to trigger GetBuilder updates
@@ -198,13 +211,15 @@ class GroupController extends GetxController {
         return currentUser.value;
       }
       return ChatData.users.firstWhere(
-            (user) => user.id == memberId,
-        orElse: () => User(
-          id: memberId,
-          name: "Unknown User",
-          avatar: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          isOnline: false,
-        ),
+        (user) => user.id == memberId,
+        orElse:
+            () => User(
+              id: memberId,
+              name: "Unknown User",
+              avatar:
+                  "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+              isOnline: false,
+            ),
       );
     }).toList();
   }
@@ -233,7 +248,8 @@ class GroupController extends GetxController {
     try {
       // In a real app, you would upload the group avatar to a server here
       // For this demo, we'll use a default image or the selected one
-      String avatarUrl = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
+      String avatarUrl =
+          "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
 
       if (groupAvatar.value != null) {
         // Simulate upload delay
@@ -280,7 +296,9 @@ class GroupController extends GetxController {
       groupChats.add(newGroupChat);
 
       // Sort chats by latest message
-      groupChats.sort((a, b) => b.lastMessage.timestamp.compareTo(a.lastMessage.timestamp));
+      groupChats.sort(
+        (a, b) => b.lastMessage.timestamp.compareTo(a.lastMessage.timestamp),
+      );
 
       // Reset creation state
       resetGroupCreation();
@@ -291,7 +309,6 @@ class GroupController extends GetxController {
       Get.toNamed('/group_chat/$newGroupId');
 
       update(); // Add this to trigger GetBuilder updates
-
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -364,32 +381,34 @@ class GroupController extends GetxController {
     }
 
     // Update group members
-    final updatedGroups = groups.map((g) {
-      if (g.id == groupId) {
-        return Group(
-          id: g.id,
-          name: g.name,
-          avatar: g.avatar,
-          isOnline: g.isOnline,
-          memberIds: g.memberIds.where((id) => id != userId).toList(),
-          creatorId: g.creatorId,
-          createdAt: g.createdAt,
-        );
-      }
-      return g;
-    }).toList();
+    final updatedGroups =
+        groups.map((g) {
+          if (g.id == groupId) {
+            return Group(
+              id: g.id,
+              name: g.name,
+              avatar: g.avatar,
+              isOnline: g.isOnline,
+              memberIds: g.memberIds.where((id) => id != userId).toList(),
+              creatorId: g.creatorId,
+              createdAt: g.createdAt,
+            );
+          }
+          return g;
+        }).toList();
 
     groups.value = updatedGroups;
 
     // Add system message about member removal
     final user = ChatData.users.firstWhere(
-          (u) => u.id == userId,
-      orElse: () => User(
-        id: userId,
-        name: "Unknown User",
-        avatar: "https://via.placeholder.com/150",
-        isOnline: false,
-      ),
+      (u) => u.id == userId,
+      orElse:
+          () => User(
+            id: userId,
+            name: "Unknown User",
+            avatar: "https://via.placeholder.com/150",
+            isOnline: false,
+          ),
     );
 
     final systemMessage = GroupMessage(
@@ -428,20 +447,24 @@ class GroupController extends GetxController {
     }
 
     // Update group members
-    final updatedGroups = groups.map((g) {
-      if (g.id == groupId) {
-        return Group(
-          id: g.id,
-          name: g.name,
-          avatar: g.avatar,
-          isOnline: g.isOnline,
-          memberIds: g.memberIds.where((id) => id != currentUser.value.id).toList(),
-          creatorId: g.creatorId,
-          createdAt: g.createdAt,
-        );
-      }
-      return g;
-    }).toList();
+    final updatedGroups =
+        groups.map((g) {
+          if (g.id == groupId) {
+            return Group(
+              id: g.id,
+              name: g.name,
+              avatar: g.avatar,
+              isOnline: g.isOnline,
+              memberIds:
+                  g.memberIds
+                      .where((id) => id != currentUser.value.id)
+                      .toList(),
+              creatorId: g.creatorId,
+              createdAt: g.createdAt,
+            );
+          }
+          return g;
+        }).toList();
 
     groups.value = updatedGroups;
 

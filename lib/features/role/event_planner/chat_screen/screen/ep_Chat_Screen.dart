@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';

@@ -6,8 +6,6 @@ import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_login_controller.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_forget_password_screen.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -91,7 +89,7 @@ class SpLoginScreen extends StatelessWidget {
                 SizedBox(height: 8),
                 AuthCustomTextField(
                   onChanged: (value) {
-                    loginController.validateFrom();
+                    loginController.validateForm();
                   },
                   text: 'Enter your password',
 
@@ -111,31 +109,32 @@ class SpLoginScreen extends StatelessWidget {
                   () => CustomContinueButton(
                     title: 'Log In',
                     textColor:
-                        loginController.isFromValid.value
+                        loginController.isFormValid.value
                             ? Colors.white
                             : Color(0xFF003366),
 
                     backgroundColor:
-                        loginController.isFromValid.value
+                        loginController.isFormValid.value
                             ? Color(0xFF003366)
                             : Color(0xFF003366).withValues(alpha: 0.1),
                     borderColor:
-                        loginController.isFromValid.value
+                        loginController.isFormValid.value
                             ? Color(0xFF003366)
                             : Color(0xFF003366).withValues(alpha: 0.1),
                     onPress: () async {
                       if (loginController.formKey.currentState!.validate()) {
-                        bool isSuccess = await loginController.login();
-                        if (isSuccess) {
-                          await Get.put(
-                            SpProfileSetupController(),
-                          ).getEventPreferences();
-                          Get.offAll(
-                            SpProfileSetupScreen(),
-                            predicate: (route) => false,
-                          );
-                        }
+                        await loginController.login();
                         EasyLoading.dismiss();
+                        // bool isSuccess = await loginController.login();
+                        // if (isSuccess) {
+                        //   await Get.put(
+                        //     SpProfileSetupController(),
+                        //   ).getEventPreferences();
+                        //   Get.offAll(
+                        //     SpProfileSetupScreen(),
+                        //     predicate: (route) => false,
+                        //   );
+                        // }
                       }
                     },
                   ),

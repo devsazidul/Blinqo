@@ -9,7 +9,6 @@ Widget customTimeContainer({
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -25,11 +24,11 @@ Widget customTimeContainer({
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              
+
               color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
             ),
           ),
-          SizedBox(width: 30,),
+          SizedBox(width: 30),
           Icon(
             Icons.keyboard_arrow_down,
             color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff003366),

@@ -54,7 +54,7 @@ class OwnerNetworkCaller {
       _logger.i('Request URL: $url\nBody: ${jsonEncode(body)}');
 
       if (isMultipart) {
-        return await _sendMultipartRequest(url, body, files, token,isPatch);
+        return await _sendMultipartRequest(url, body, files, token, isPatch);
       } else {
         return await _sendJsonRequest(url, body, token);
       }

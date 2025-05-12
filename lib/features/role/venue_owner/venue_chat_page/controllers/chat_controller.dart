@@ -101,7 +101,10 @@ class ChatController extends GetxController {
                   previewImage.value = null; // Clear preview
                   Get.back(); // Close dialog
                 },
-                child: Text('Cancel', style: getTextStyle(color: AppColors.iconColor,)),
+                child: Text(
+                  'Cancel',
+                  style: getTextStyle(color: AppColors.iconColor),
+                ),
               ),
               TextButton(
                 onPressed: () {

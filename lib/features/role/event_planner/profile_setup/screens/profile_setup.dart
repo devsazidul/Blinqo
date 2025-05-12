@@ -18,7 +18,15 @@ class ProfileSetup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Setup', style: TextStyle(fontSize: 24.sp)),
+        centerTitle: true,
+        title: Text(
+          'Profile Setup',
+          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w600),
+        ),
+        actions: [
+          IconButton(icon: const Icon(Icons.dark_mode), onPressed: () {}),
+        ],
+
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
@@ -172,6 +180,46 @@ class ProfileSetup extends StatelessWidget {
     );
   }
 
+          //         //* ------------------ Event Preference Grid ------------------
+          //         GetBuilder<SpProfileSetupController>(
+          //           builder: (controller) {
+          //             return GridView.count(
+          //               shrinkWrap: true,
+          //               physics: const NeverScrollableScrollPhysics(),
+          //               crossAxisCount: 3,
+          //               crossAxisSpacing: 12,
+          //               mainAxisSpacing: 12,
+          //               childAspectRatio: 0.7,
+          //               children: List.generate(
+          //                 controller.eventPreferenceList.length,
+          //                 (index) {
+          //                   final eventPreference =
+          //                       controller.eventPreferenceList[index];
+          //                   return GestureDetector(
+          //                     onTap: () {
+          //                       controller.toggleEventSelection(
+          //                         eventPreference.id ?? '',
+          //                       );
+          //                     },
+          //                     child: SpEventPreferenceCircleAvatar(
+          //                       eventPreference: eventPreference,
+          //                     ),
+          //                   );
+          //                 },
+          //               ),
+          //             );
+          //           },
+          //         ),
+          ElevatedButton(
+            onPressed: () {
+              // Handle save action
+              debugPrint('Save button tapped!');
+              Get.offAll(() => EventBottomNavBar());
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 100.w),
+
   Widget _buildEventPreferencesSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -259,4 +307,5 @@ class ProfileSetup extends StatelessWidget {
       ),
     );
   }
+
 }

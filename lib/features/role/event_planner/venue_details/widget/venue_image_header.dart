@@ -25,7 +25,10 @@ class VenueImageHeader extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-                colors: [Color(0xff161616), Color(0xff000000).withValues(alpha:  0.1)],
+                colors: [
+                  Color(0xff161616),
+                  Color(0xff000000).withValues(alpha: 0.1),
+                ],
               ),
             ),
             child: Stack(

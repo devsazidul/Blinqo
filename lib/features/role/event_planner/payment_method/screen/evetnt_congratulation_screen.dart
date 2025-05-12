@@ -96,7 +96,10 @@ class EventCongratulationScreen extends StatelessWidget {
             SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, FinalReviewBookingDatieals.routeName);
+                Navigator.pushNamed(
+                  context,
+                  FinalReviewBookingDatieals.routeName,
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xff003366), // Background color

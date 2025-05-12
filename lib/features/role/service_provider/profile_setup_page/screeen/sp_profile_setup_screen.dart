@@ -20,32 +20,16 @@ class SpProfileSetupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     final profileSetupController = Get.find<SpProfileSetupController>();
     final profileController = Get.find<SpProfileController>();
+
+    // Set edit mode in controller
+    profileSetupController.setEditMode(isEdit);
     profileSetupController.initMarkers();
-    // profileSetupController.clearAllData();
 
-    if (isEdit) {
-      profileSetupController.nameController.text =
-          SpAuthController.profileInfoModel?.name ?? "";
-      profileSetupController.locationController.text =
-          SpAuthController.profileInfoModel?.location ?? "";
-      profileSetupController.descriptionController.text =
-          SpAuthController.profileInfoModel?.description ?? "";
-      profileSetupController.experienceYearController.text =
-          SpAuthController.profileInfoModel?.experience?.toString() ?? "";
-      profileSetupController.selectedEvents.addAll(
-        SpAuthController.profileInfoModel?.eventPreference?.map(
-              (e) => e.id ?? '',
-            ) ??
-            [],
-      );
-    }
-
-    // return Obx(() {
     final themeMode =
         profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+
     return Scaffold(
       backgroundColor:
           themeMode == ThemeMode.dark
@@ -56,7 +40,7 @@ class SpProfileSetupScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
-              key: formKey,
+              key: profileSetupController.formKey,
               child: Column(
                 children: [
                   //* ------------------ Profile Setup Text ------------------
@@ -138,9 +122,28 @@ class SpProfileSetupScreen extends StatelessWidget {
                   }),
                   SizedBox(height: 20),
 
+                  //* ------------------ Profile Name TextField ------------------
+                  TextFormField(
+                    controller: profileSetupController.profileNameController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your profile name';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      label: Text("Profile Name"),
+                      hintText: "Enter your profile name",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+
                   //* ------------------ Username TextField ------------------
                   TextFormField(
-                    enabled: true,
                     controller: profileSetupController.nameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -149,22 +152,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                       return null;
                     },
                     decoration: InputDecoration(
-                      // floatingLabelBehavior: FloatingLabelBehavior.always,
-                      // labelText: "Username",
-                      label: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(text: "Username"),
-                            TextSpan(
-                              text: " *",
-                              style: getTextStyle(
-                                fontSize: 16,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      label: Text("Username"),
                       hintText: "Enter your username",
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -256,94 +244,6 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
 
-                  // //* ------------------ Role Dropdown ------------------
-                  // Obx(
-                  //   () => Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: [
-                  //       Text(
-                  //         'Role',
-                  //         style: getTextStyle(
-                  //           fontSize: 12,
-                  //           color:
-                  //               themeMode == ThemeMode.dark
-                  //                   ? AppColors.primary
-                  //                   : AppColors.subTextColor,
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 4),
-                  //       Container(
-                  //         width: double.infinity,
-                  //         height: 48,
-                  //         padding: const EdgeInsets.symmetric(horizontal: 12),
-                  //         decoration: BoxDecoration(
-                  //           border: Border.all(
-                  //             color: AppColors.borderColor,
-                  //             width: 1,
-                  //           ),
-                  //           borderRadius: BorderRadius.circular(8),
-                  //         ),
-                  //         child: PopupMenuButton<String>(
-                  //           color: Colors.white,
-                  //           onSelected:
-                  //               (value) =>
-                  //                   profileSetupController.updateRoles(value),
-                  //           itemBuilder: (context) {
-                  //             return profileSetupController.roles.map((role) {
-                  //               return PopupMenuItem<String>(
-                  //                 value: role,
-                  //                 child: Text(
-                  //                   role,
-                  //                   style: getTextStyle(
-                  //                     fontSize: 14,
-                  //                     color: Colors.black,
-                  //                   ),
-                  //                 ),
-                  //               );
-                  //             }).toList();
-                  //           },
-                  //           offset: const Offset(0, 40),
-                  //           padding: EdgeInsets.zero,
-                  //           child: Row(
-                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //             children: [
-                  //               Text(
-                  //                 profileSetupController
-                  //                         .selectedRoles
-                  //                         .value
-                  //                         .isEmpty
-                  //                     ? 'Select a role'
-                  //                     : profileSetupController
-                  //                         .selectedRoles
-                  //                         .value,
-                  //                 style: getTextStyle(
-                  //                   fontSize: 14,
-                  //                   color:
-                  //                       profileSetupController
-                  //                               .selectedRoles
-                  //                               .value
-                  //                               .isEmpty
-                  //                           ? Colors.grey
-                  //                           : Colors.black,
-                  //                 ),
-                  //               ),
-                  //               Image.asset(
-                  //                 IconPath.arrowdown,
-                  //                 width: 18,
-                  //                 height: 18,
-                  //                 color:
-                  //                     themeMode == ThemeMode.dark
-                  //                         ? AppColors.primary
-                  //                         : AppColors.textColor,
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-
                   //* ------------------ Event Preference Text ------------------
                   SizedBox(height: 20),
                   Align(
@@ -409,13 +309,6 @@ class SpProfileSetupScreen extends StatelessWidget {
                                 : AppColors.subTextColor,
                       ),
                       hintText: "I am a ............",
-                      // hintStyle: getTextStyle(
-                      //   fontSize: 14,
-                      //   color:
-                      //       themeMode == ThemeMode.dark
-                      //           ? AppColors.primary
-                      //           : AppColors.textColor,
-                      // ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: AppColors.subTextColor,
@@ -444,13 +337,6 @@ class SpProfileSetupScreen extends StatelessWidget {
                                 : AppColors.subTextColor,
                       ),
                       hintText: "New York City",
-                      // hintStyle: getTextStyle(
-                      //   fontSize: 14,
-                      //   color:
-                      //       themeMode == ThemeMode.dark
-                      //           ? AppColors.primary
-                      //           : AppColors.textColor,
-                      // ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: AppColors.subTextColor,
@@ -733,16 +619,18 @@ class SpProfileSetupScreen extends StatelessWidget {
                   isEdit
                       ? CustomContinueButton(
                         onPress: () {
-                          if (formKey.currentState!.validate()) {
-                            profileSetupController.serviceProviderUpdate();
+                          if (profileSetupController.formKey.currentState!
+                              .validate()) {
+                            profileSetupController.spProfileUpdate();
                           }
                         },
                         title: "Update",
                       )
                       : CustomContinueButton(
                         onPress: () {
-                          if (formKey.currentState!.validate()) {
-                            profileSetupController.serviceProviderSetup();
+                          if (profileSetupController.formKey.currentState!
+                              .validate()) {
+                            profileSetupController.spProfileSetup();
                           }
                         },
                         title: "Continue",
@@ -754,6 +642,5 @@ class SpProfileSetupScreen extends StatelessWidget {
         ),
       ),
     );
-    // });
   }
 }

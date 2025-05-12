@@ -22,7 +22,7 @@ class AmenitiesCard extends StatelessWidget {
             blurRadius: 10,
             offset: Offset(0, 3),
           ),
-        ]
+        ],
       ),
 
       // height: 15,

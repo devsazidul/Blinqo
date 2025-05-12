@@ -1,4 +1,3 @@
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
@@ -49,7 +48,10 @@ class ReviewListWidget extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: isDarkMode ? AppColors.borderColor2 : Color(0xff333333),
+                              color:
+                                  isDarkMode
+                                      ? AppColors.borderColor2
+                                      : Color(0xff333333),
                             ),
                           ),
 
@@ -84,7 +86,7 @@ class ReviewListWidget extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: isDarkMode ? Color(0xffA1A1A1): Color(0xff5C5C5C),
+                      color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff5C5C5C),
                     ),
                   ),
                 ],

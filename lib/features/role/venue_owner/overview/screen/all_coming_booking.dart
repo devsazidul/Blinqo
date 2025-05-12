@@ -15,9 +15,9 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      backgroundColor: isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
+      backgroundColor:
+          isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
       appBar: AppBar(
         forceMaterialTransparency: true,
         title: Text(
@@ -53,7 +53,7 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xff000000).withValues(alpha:  0.1),
+                    color: const Color(0xff000000).withValues(alpha: 0.1),
                     blurRadius: 6,
                     offset: const Offset(0, 3),
                   ),
@@ -154,8 +154,12 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 reviews["status"] == "Confirmed"
-                                    ? const Color(0xff37D459).withValues(alpha:  0.2)
-                                    : const Color(0xffD4AF37).withValues(alpha:  0.2),
+                                    ? const Color(
+                                      0xff37D459,
+                                    ).withValues(alpha: 0.2)
+                                    : const Color(
+                                      0xffD4AF37,
+                                    ).withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(

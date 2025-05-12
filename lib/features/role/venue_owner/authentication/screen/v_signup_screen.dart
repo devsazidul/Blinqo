@@ -95,7 +95,7 @@ class VSignupScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Obx((){
+                Obx(() {
                   return AuthCustomTextField(
                     text: 'Enter your Password',
                     onChanged: (value) => controller.validateForm(),
@@ -123,7 +123,7 @@ class VSignupScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Obx((){
+                Obx(() {
                   return AuthCustomTextField(
                     controller: controller.retypepasswordController,
                     text: 'Enter your Password',
@@ -145,22 +145,26 @@ class VSignupScreen extends StatelessWidget {
                 Obx(() {
                   return CustomButton(
                     title: 'Sign Up',
-                    textColor: controller.isFormValid.value
-                        ? Colors.white
-                        : const Color(0xFF003366),
+                    textColor:
+                        controller.isFormValid.value
+                            ? Colors.white
+                            : const Color(0xFF003366),
                     onPress: () {
                       if (controller.isFormValid.value) {
                         controller.signup();
                       } else {
-                        controller.validateForm(); // Ensure error message is updated
+                        controller
+                            .validateForm(); // Ensure error message is updated
                       }
                     },
-                    backgroundColor: controller.isFormValid.value
-                        ? const Color(0xFF003366)
-                        : const Color(0xFF003366).withValues( alpha: 0.1),
-                    borderColor: controller.isFormValid.value
-                        ? const Color(0xFF003366)
-                        : const Color(0xFF003366).withValues( alpha: 0.1),
+                    backgroundColor:
+                        controller.isFormValid.value
+                            ? const Color(0xFF003366)
+                            : const Color(0xFF003366).withValues(alpha: 0.1),
+                    borderColor:
+                        controller.isFormValid.value
+                            ? const Color(0xFF003366)
+                            : const Color(0xFF003366).withValues(alpha: 0.1),
                   );
                 }),
                 const SizedBox(height: 28),

@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:flutter/material.dart';
 
-
 class BookingHeader extends StatelessWidget {
   const BookingHeader({super.key});
 
@@ -28,12 +27,9 @@ class BookingHeader extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Color(0x00000000),
-                Color(0x00000000),
-                Color(0xFF000000),
-              ]
-          ))
+              colors: [Color(0x00000000), Color(0x00000000), Color(0xFF000000)],
+            ),
+          ),
         ),
         Positioned(
           top: 60,
@@ -65,8 +61,7 @@ class BookingHeader extends StatelessWidget {
           bottom: 20,
           right: 20,
           child: GestureDetector(
-            onTap: () {
-            },
+            onTap: () {},
             child: Icon(Icons.threesixty, size: 32, color: Colors.white),
           ),
         ),

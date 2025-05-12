@@ -3,20 +3,24 @@ import 'dart:convert';
 import 'package:blinqo/features/role/service_provider/auth/model/user_data_model.dart';
 import 'package:blinqo/features/role/service_provider/common/constant/constants.dart';
 import 'package:blinqo/features/role/service_provider/common/models/profile_info_model.dart';
+import 'package:blinqo/features/role/service_provider/common/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SpAuthController {
   static String? token;
+  static SpUser? spUser;
   static UserDataModel? userModel;
   static ProfileInfoModel? profileInfoModel;
 
   static const String _tokenKey = 'token';
+  static const String _spUserKey = 'sp-user';
   static const String _userDataKey = 'user-data';
   static const String _profileInfoDataKey = 'profile-info-data';
 
   // Save user information
   static Future<void> saveUserInformation({
     String? accessToken,
+    SpUser? spUser,
     UserDataModel? user,
     ProfileInfoModel? profileInfo,
   }) async {
@@ -24,6 +28,10 @@ class SpAuthController {
     if (accessToken != null) {
       sharedPreferences.setString(_tokenKey, accessToken);
       token = accessToken;
+    }
+    if (spUser != null) {
+      sharedPreferences.setString(_spUserKey, jsonEncode(spUser.toJson()));
+      SpAuthController.spUser = spUser;
     }
     if (user != null) {
       sharedPreferences.setString(_userDataKey, jsonEncode(user.toJson()));
@@ -34,61 +42,99 @@ class SpAuthController {
         _profileInfoDataKey,
         jsonEncode(profileInfo.toJson()),
       );
-
       profileInfoModel = profileInfo;
     }
   }
 
-  //*----------------- Get user information -----------------
+  // Get user information
   static Future<void> getUserInformation() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    String? accessToken = sharedPreferences.getString(_tokenKey);
-    token = accessToken;
-    // ignore: avoid_print
-    print('Loading token from SharedPreferences: $token');
-
+    String? tokenString = sharedPreferences.getString(_tokenKey);
+    String? spUserString = sharedPreferences.getString(_spUserKey);
     String? userDataString = sharedPreferences.getString(_userDataKey);
-    if (userDataString != null) {
-      UserDataModel savedUserData = UserDataModel.fromJson(
-        jsonDecode(userDataString),
-      );
-      userModel = savedUserData;
-    }
-
-    String? profileInfoDataString = sharedPreferences.getString(
+    String? profileInfoString = sharedPreferences.getString(
       _profileInfoDataKey,
     );
-    if (profileInfoDataString != null) {
-      ProfileInfoModel savedProfileInfo = ProfileInfoModel.fromJson(
-        jsonDecode(profileInfoDataString),
+
+    if (tokenString != null) {
+      token = tokenString;
+    }
+    if (spUserString != null) {
+      spUser = SpUser.fromJson(jsonDecode(spUserString));
+    }
+    if (userDataString != null) {
+      userModel = UserDataModel.fromJson(jsonDecode(userDataString));
+    }
+    if (profileInfoString != null) {
+      profileInfoModel = ProfileInfoModel.fromJson(
+        jsonDecode(profileInfoString),
       );
-      profileInfoModel = savedProfileInfo;
     }
   }
 
-  //*----------------- Update is verified in user model -----------------
+  // Update user information
   static Future<void> updateUserInformation({
-    required bool isProfileCreated,
-    required String profileId,
+    String? profileId,
+    bool? isProfileCreated,
   }) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    if (userModel == null) {
-      await getUserInformation();
-    }
-
     if (userModel != null) {
       userModel = userModel!.copyWith(
-        isProfileCreated: isProfileCreated,
         profileId: profileId,
+        isProfileCreated: isProfileCreated,
       );
-
-      sharedPreferences.setString(
-        _userDataKey,
-        jsonEncode(userModel!.toJson()),
-      );
+      await saveUserInformation(user: userModel);
     }
+  }
+
+  // Clear user data
+  static Future<void> clearUserData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.remove(_tokenKey);
+    await sharedPreferences.remove(_spUserKey);
+    await sharedPreferences.remove(_userDataKey);
+    await sharedPreferences.remove(_profileInfoDataKey);
+
+    token = null;
+    spUser = null;
+    userModel = null;
+    profileInfoModel = null;
+  }
+
+  //*----------------- Update token -----------------
+  static Future<void> updateToken({required String token}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(_tokenKey, token);
+    token = token;
+  }
+
+  //*----------------- Update sp user -----------------
+  static Future<void> updateSpUser({required SpUser spUser}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(_spUserKey, jsonEncode(spUser.toJson()));
+    spUser = spUser;
+  }
+
+  //*----------------- is Logged in -----------------
+  static Future<bool> isLoggedIn() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString(_tokenKey);
+    if (token != null) {
+      await getUserInformation();
+      return userModel?.roles?.contains(SpConstants.SERVICE_PROVIDER_ROLE) ??
+          false;
+    }
+    return false;
+  }
+
+  //*----------------- Logout -----------------
+  static Future<void> logout() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+    token = null;
+    spUser = null;
+    userModel = null;
+    profileInfoModel = null;
   }
 
   // Check if user already logged in
@@ -101,13 +147,5 @@ class SpAuthController {
           false;
     }
     return false;
-  }
-
-  static Future<void> clearUserData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.clear();
-    token = null;
-    userModel = null;
-    profileInfoModel = null;
   }
 }

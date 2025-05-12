@@ -54,7 +54,12 @@ class ReviewsTabViewWidget extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Text(
               "Review",
-              style: getTextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor),
+              style: getTextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color:
+                    isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+              ),
             ),
           ),
           // SizedBox(height: 16),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 Future<Map<String, String>?> pickContact(BuildContext context) async {
   final permissionStatus = await Permission.contacts.request();
 

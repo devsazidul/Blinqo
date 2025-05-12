@@ -11,10 +11,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileSetupController extends GetxController {
+
   TextEditingController namecontroller = TextEditingController();
   TextEditingController locationcontroller = TextEditingController();
-  
-  // Reactive variables for profile data
+ 
   RxString selectedGender = 'Select Gender'.obs;
   RxString selectedImagePath = ''.obs;
   RxList<String> selectedEvents = <String>[].obs;
@@ -34,6 +34,42 @@ class ProfileSetupController extends GetxController {
   void updateGender(String gender) {
     selectedGender.value = gender;
   }
+
+
+  /// ------------------------------------------------
+  /// Event Preference
+  /// ------------------------------------------------
+  // RxBool isLoadingEventPreference = false.obs;
+  // final RxList<EEventPreferenceModel> eventPreferenceList =
+  //     <EEventPreferenceModel>[].obs;
+
+  // Future<bool> getEventPreferences() async {
+  //   eventPreferenceList.clear();
+  //   bool isSuccess = false;
+  //   isLoadingEventPreference.value = true;
+  //   update();
+
+  //   await SpAuthController.getUserInformation();
+  //   debugPrint('Token after reload: ${SpAuthController.token}');
+
+  //   final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
+  //       .getRequest(Urls.getEventPreference);
+
+  //   if (response.isSuccess) {
+  //     eventPreferenceList.addAll(
+  //       (response.responseData['data'] as List)
+  //           .map((e) => EEventPreferenceModel.fromJson(e))
+  //           .toList(),
+  //     );
+  //     update();
+  //     isSuccess = true;
+  //   } else {
+  //     Get.snackbar('Error', response.errorMessage);
+  //   }
+  //   isLoadingEventPreference.value = false;
+  //   update();
+  //   return isSuccess;
+  // }
 
   // Event Selection
   void toggleEventSelection(String eventId) {
@@ -208,4 +244,5 @@ class ProfileSetupController extends GetxController {
     }
     return null;
   }
+
 }

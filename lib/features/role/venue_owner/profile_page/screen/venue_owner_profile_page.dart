@@ -106,13 +106,14 @@ class VenueOwnerProfilePage extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
-            color: themeMode == ThemeMode.dark
-                ? AppColors.buttonColor
-                :   const Color(0x19003366),
+            color:
+                themeMode == ThemeMode.dark
+                    ? AppColors.buttonColor
+                    : const Color(0x19003366),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
-            mainAxisSize:  MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text('username:'),
               SizedBox(width: 5),
@@ -127,7 +128,6 @@ class VenueOwnerProfilePage extends StatelessWidget {
                           : AppColors.textColor,
                 ),
               ),
-
             ],
           ),
         ),

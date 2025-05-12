@@ -67,13 +67,17 @@ class DatePriceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    
     // Initialize priceController with the venue's price
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (priceController.text.isEmpty && price > 0) {
         priceController.text = price.toString();
       }
     });
+
 
     return Container(
       width: double.infinity,
@@ -106,7 +110,10 @@ class DatePriceCard extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
+
+
                         color: isDarkMode ? const Color(0xff34C759) : const Color(0xff19480B),
+
                       ),
                     );
                   },
@@ -122,7 +129,10 @@ class DatePriceCard extends StatelessWidget {
                   style: getTextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
+
+
                     color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+
                   ),
                 ),
                 const Spacer(),
@@ -155,6 +165,9 @@ class DatePriceCard extends StatelessWidget {
             const SizedBox(height: 30),
             /// Save Button
             Center(
+
+ 
+
               child: GestureDetector(
                 onTap: _saveChanges,
                 child: Container(

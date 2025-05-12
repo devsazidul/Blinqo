@@ -37,7 +37,7 @@ class ChatListView extends StatelessWidget {
         centerTitle: true,
         backgroundColor: isDarkMode ? Color(0xff151515) : Color(0xffF4F4F4),
         automaticallyImplyLeading: false,
-        forceMaterialTransparency:true,
+        forceMaterialTransparency: true,
       ),
 
       body: Obx(() {

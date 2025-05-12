@@ -12,53 +12,59 @@ class Emptyschedule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final TeamControllerGetx teamControllerGetx = Get.put(TeamControllerGetx());
 
-    Color activeColor =isDarkMode ? Color(0xffD4AF37) : Color(0xff003366);
+    Color activeColor = isDarkMode ? Color(0xffD4AF37) : Color(0xff003366);
     const Color inactiveColor = Color(0xffA1A1A1);
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor:isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
+        backgroundColor:
+            isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Obx(() => TabBar(
-                onTap: teamControllerGetx.changeTab,
-                tabs: [
-                  Tab(
-                    child: Text(
-                      'Schedule',
-                      style: getTextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: teamControllerGetx.selectedIndex.value == 0
-                            ? activeColor
-                            : inactiveColor,
+              Obx(
+                () => TabBar(
+                  onTap: teamControllerGetx.changeTab,
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        'Schedule',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color:
+                              teamControllerGetx.selectedIndex.value == 0
+                                  ? activeColor
+                                  : inactiveColor,
+                        ),
                       ),
                     ),
-                  ),
-                  Tab(
-                    child: Text(
-                      'My Team',
-                      style: getTextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: teamControllerGetx.selectedIndex.value == 1
-                            ? activeColor
-                            : inactiveColor,
+                    Tab(
+                      child: Text(
+                        'My Team',
+                        style: getTextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color:
+                              teamControllerGetx.selectedIndex.value == 1
+                                  ? activeColor
+                                  : inactiveColor,
+                        ),
                       ),
                     ),
+                  ],
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(width: 3, color: activeColor),
+                    insets: EdgeInsets.symmetric(horizontal: Get.width * 0.35),
                   ),
-                ],
-                indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(width: 3, color: activeColor),
-                  insets: EdgeInsets.symmetric(horizontal: Get.width * 0.35),
                 ),
-              )),
+              ),
               Expanded(
                 child: Obx(() {
                   switch (teamControllerGetx.selectedIndex.value) {
@@ -70,7 +76,7 @@ class Emptyschedule extends StatelessWidget {
                       return const SizedBox();
                   }
                 }),
-              )
+              ),
             ],
           ),
         ),

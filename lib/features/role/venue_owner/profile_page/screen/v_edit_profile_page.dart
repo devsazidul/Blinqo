@@ -1,4 +1,3 @@
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
@@ -18,8 +17,11 @@ class VEditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
-    final VenueProfileSetupController profileSetupController = Get.put(VenueProfileSetupController());
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final VenueProfileSetupController profileSetupController = Get.put(
+      VenueProfileSetupController(),
+    );
 
     // Initialize fields for edit mode
     if (isEditProfile) {
@@ -30,8 +32,13 @@ class VEditProfilePage extends StatelessWidget {
 
     final formKey = GlobalKey<FormState>();
     return Scaffold(
-      backgroundColor: isDarkMode ? AppColors.darkBackgroundColor : AppColors.backgroundColor,
-      appBar: VProfileAppBar(title: isEditProfile ? 'Edit Profile' : 'Set Up Profile'),
+      backgroundColor:
+          isDarkMode
+              ? AppColors.darkBackgroundColor
+              : AppColors.backgroundColor,
+      appBar: VProfileAppBar(
+        title: isEditProfile ? 'Edit Profile' : 'Set Up Profile',
+      ),
       body: SafeArea(
         child: Obx(() {
           return Stack(
@@ -51,56 +58,78 @@ class VEditProfilePage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: isDarkMode ? Colors.white30 : Colors.grey[300]!,
+                                  color:
+                                      isDarkMode
+                                          ? Colors.white30
+                                          : Colors.grey[300]!,
                                   width: 2,
                                 ),
                               ),
                               child: CircleAvatar(
                                 radius: 50,
                                 backgroundColor: const Color(0xffD9D9D9),
-                                child: profileSetupController.profileImage.value != null
-                                    ? ClipOval(
-                                  child: Image.file(
-                                    profileSetupController.profileImage.value!,
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) => const Icon(
-                                      Icons.broken_image,
-                                      size: 50,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                )
-                                    : isEditProfile &&
-                                    EventAuthController.profileInfo?.profile?.image?.path != null
-                                    ? ClipOval(
-                                  child: Image.network(
-                                    EventAuthController.profileInfo!.profile!.image!.path,
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) => const Icon(
-                                      Icons.person,
-                                      size: 50,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                )
-                                    : const Icon(
-                                  Icons.person,
-                                  size: 50,
-                                  color: Colors.grey,
-                                ),
+                                child:
+                                    profileSetupController.profileImage.value !=
+                                            null
+                                        ? ClipOval(
+                                          child: Image.file(
+                                            profileSetupController
+                                                .profileImage
+                                                .value!,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) =>
+                                                    const Icon(
+                                                      Icons.broken_image,
+                                                      size: 50,
+                                                      color: Colors.grey,
+                                                    ),
+                                          ),
+                                        )
+                                        : isEditProfile &&
+                                            EventAuthController
+                                                    .profileInfo
+                                                    ?.profile
+                                                    ?.image
+                                                    ?.path !=
+                                                null
+                                        ? ClipOval(
+                                          child: Image.network(
+                                            EventAuthController
+                                                .profileInfo!
+                                                .profile!
+                                                .image!
+                                                .path,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) =>
+                                                    const Icon(
+                                                      Icons.person,
+                                                      size: 50,
+                                                      color: Colors.grey,
+                                                    ),
+                                          ),
+                                        )
+                                        : const Icon(
+                                          Icons.person,
+                                          size: 50,
+                                          color: Colors.grey,
+                                        ),
                               ),
                             ),
                             Positioned(
                               bottom: 0,
                               right: 0,
                               child: GestureDetector(
-                                onTap: profileSetupController.isLoading.value
-                                    ? null
-                                    : () => profileSetupController.pickImage(),
+                                onTap:
+                                    profileSetupController.isLoading.value
+                                        ? null
+                                        : () =>
+                                            profileSetupController.pickImage(),
                                 child: CircleAvatar(
                                   backgroundColor: const Color(0xffD4AF37),
                                   radius: 16,
@@ -124,7 +153,8 @@ class VEditProfilePage extends StatelessWidget {
                             TextFieldWidget(
                               hintText: 'Enter your Name',
                               labelText: 'Name',
-                              controller: profileSetupController.nameTEController,
+                              controller:
+                                  profileSetupController.nameTEController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your Name';
@@ -136,7 +166,8 @@ class VEditProfilePage extends StatelessWidget {
                             TextFieldWidget(
                               hintText: 'Enter your location',
                               labelText: 'Location',
-                              controller: profileSetupController.locationTEController,
+                              controller:
+                                  profileSetupController.locationTEController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your location';
@@ -151,39 +182,48 @@ class VEditProfilePage extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: profileSetupController.isLoading.value
-                              ? null
-                              : () {
-                            if (formKey.currentState!.validate()) {
-                              if (isEditProfile) {
-                                profileSetupController.updateProfile();
-                              } else {
-                                profileSetupController.submitProfile();
-                              }
-                            }
-                          },
+                          onPressed:
+                              profileSetupController.isLoading.value
+                                  ? null
+                                  : () {
+                                    if (formKey.currentState!.validate()) {
+                                      if (isEditProfile) {
+                                        profileSetupController.updateProfile();
+                                      } else {
+                                        profileSetupController.submitProfile();
+                                      }
+                                    }
+                                  },
                           style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 20,
+                            ),
                             backgroundColor: const Color(0xff003366),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          ),
-                          child: profileSetupController.isLoading.value
-                              ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
-                          )
-                              : Text(
-                            isEditProfile ? 'Update Profile' : 'Save & Continue',
-                            style: getTextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xffFFFFFF),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
+                          child:
+                              profileSetupController.isLoading.value
+                                  ? const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                  : Text(
+                                    isEditProfile
+                                        ? 'Update Profile'
+                                        : 'Save & Continue',
+                                    style: getTextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xffFFFFFF),
+                                    ),
+                                  ),
                         ),
                       ),
                       const SizedBox(height: 20),

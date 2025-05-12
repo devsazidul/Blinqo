@@ -11,7 +11,7 @@ class VenueDetails {
   final int? statusCode;
   final bool? success;
 
-  factory VenueDetails.fromJson(Map<String, dynamic> json){
+  factory VenueDetails.fromJson(Map<String, dynamic> json) {
     return VenueDetails(
       data: json["data"] == null ? null : Data.fromJson(json["data"]),
       message: json["message"],
@@ -26,7 +26,6 @@ class VenueDetails {
     "statusCode": statusCode,
     "success": success,
   };
-
 }
 
 class Data {
@@ -305,7 +304,7 @@ class VenueData {
   final ArrangementsImage? venueImage;
   final List<Review> reviews;
 
-  factory VenueData.fromJson(Map<String, dynamic> json){
+  factory VenueData.fromJson(Map<String, dynamic> json) {
     return VenueData(
       id: json["id"],
       profileId: json["profileId"],
@@ -314,7 +313,10 @@ class VenueData {
       area: json["area"],
       description: json["description"],
       capacity: json["capacity"],
-      bookedDates: json["bookedDates"] == null ? [] : List<dynamic>.from(json["bookedDates"]!.map((x) => x)),
+      bookedDates:
+          json["bookedDates"] == null
+              ? []
+              : List<dynamic>.from(json["bookedDates"]!.map((x) => x)),
       type: json["type"],
       cateringDescription: json["cateringDescription"],
       parkingDescription: json["parkingDescription"],
@@ -325,11 +327,13 @@ class VenueData {
       verified: json["verified"],
       createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
+
       amenities: json["amenities"] == null ? [] : List<Amenity>.from(json["amenities"]!.map((x) => Amenity.fromJson(x))),
       decoration: json["decoration"] == null ? null : Decoration.fromJson(json["decoration"]),
       arrangementsImage: json["arrangementsImage"] == null ? null : ArrangementsImage.fromJson(json["arrangementsImage"]),
       venueImage: json["venueImage"] == null ? null : ArrangementsImage.fromJson(json["venueImage"]),
       reviews: json["reviews"] == null ? [] : List<Review>.from(json["reviews"]!.map((x) => Review.fromJson(x))),
+
     );
   }
 
@@ -358,7 +362,6 @@ class VenueData {
     "venueImage": venueImage?.toJson(),
     "reviews": reviews.map((x) => x?.toJson()).toList(),
   };
-
 }
 
 class Amenity {
@@ -374,7 +377,7 @@ class Amenity {
   final bool? amenityDefault;
   final dynamic profileId;
 
-  factory Amenity.fromJson(Map<String, dynamic> json){
+  factory Amenity.fromJson(Map<String, dynamic> json) {
     return Amenity(
       id: json["id"],
       name: json["name"],
@@ -389,9 +392,7 @@ class Amenity {
     "default": amenityDefault,
     "profileId": profileId,
   };
-
 }
-
 class Decoration {
   Decoration({
     required this.id,
@@ -413,8 +414,9 @@ class Decoration {
   final List<String> flowerTypes;
   final List<String> fragrances;
 
-  factory Decoration.fromJson(Map<String, dynamic> json){
+  factory Decoration.fromJson(Map<String, dynamic> json) {
     return Decoration(
+
       id: json["id"],
       venueId: json["venueId"],
       tableShapes: json["tableShapes"] == null ? [] : List<String>.from(json["tableShapes"]!.map((x) => x)),
@@ -533,5 +535,4 @@ class VenueMetrics {
     "growthRate": growthRate,
     "pendingBookings": pendingBookings,
   };
-
 }

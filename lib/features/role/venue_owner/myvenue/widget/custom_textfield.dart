@@ -19,7 +19,8 @@ class CustomInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return SizedBox(
       width: double.infinity,
       child: TextField(
@@ -39,7 +40,10 @@ class CustomInputField extends StatelessWidget {
             color: isDarkMode ? Color(0xffA1A1A1) : Color(0xff767676),
           ),
           border: const OutlineInputBorder(), // optional: add border
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
         ),
       ),
     );

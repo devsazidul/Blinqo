@@ -43,7 +43,7 @@ class VenueDetailsSection extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color:isDarkMode ? Color(0xffEBEBEB) : Colors.black,
+                      color: isDarkMode ? Color(0xffEBEBEB) : Colors.black,
                     ),
                   ),
                   SizedBox(width: 4),
@@ -52,7 +52,7 @@ class VenueDetailsSection extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color:isDarkMode ? Color(0xffABB7C2) : Color(0xFFABB7C2),
+                      color: isDarkMode ? Color(0xffABB7C2) : Color(0xFFABB7C2),
                     ),
                   ),
                 ],
@@ -64,7 +64,7 @@ class VenueDetailsSection extends StatelessWidget {
                     IconPath.locationOnPath,
                     width: 20,
                     height: 20,
-                    color:isDarkMode ? Color(0xffD4AF37) : Color(0xFF003366),
+                    color: isDarkMode ? Color(0xffD4AF37) : Color(0xFF003366),
                   ),
                   SizedBox(width: 4),
                   Text(
@@ -86,7 +86,7 @@ class VenueDetailsSection extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color:isDarkMode ? Color(0x1AD4AF37) : Color(0x1A003366),
+                color: isDarkMode ? Color(0x1AD4AF37) : Color(0x1A003366),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
@@ -96,8 +96,11 @@ class VenueDetailsSection extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Image.asset(IconPath.attachmoney, width: 24, height: 24,
-                    color: isDarkMode ? Color(0xffD4AF37) : null,
+                    Image.asset(
+                      IconPath.attachmoney,
+                      width: 24,
+                      height: 24,
+                      color: isDarkMode ? Color(0xffD4AF37) : null,
                     ),
                     SizedBox(width: 8),
                     Obx(() {
@@ -107,7 +110,10 @@ class VenueDetailsSection extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffD4AF37)
+                                      : Color(0xff003366),
                             ),
                           )
                           : Text(
@@ -115,7 +121,10 @@ class VenueDetailsSection extends StatelessWidget {
                             style: getTextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color:isDarkMode ? Color(0xffD4AF37) : Color(0xff003366),
+                              color:
+                                  isDarkMode
+                                      ? Color(0xffD4AF37)
+                                      : Color(0xff003366),
                             ),
                           );
                     }),

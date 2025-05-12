@@ -314,7 +314,7 @@ class EpEventServiceDetailsController extends GetxController {
                           activeTrackColor: AppColors.buttonColor2,
                           inactiveTrackColor: Color(0xffE0E0E0),
                           thumbColor: AppColors.buttonColor2,
-                          overlayColor: Colors.blue.withValues(alpha:  0.2),
+                          overlayColor: Colors.blue.withValues(alpha: 0.2),
                           trackHeight: 4.0,
                           thumbShape: RoundSliderThumbShape(
                             enabledThumbRadius: 10,

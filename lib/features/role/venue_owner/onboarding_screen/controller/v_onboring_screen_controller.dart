@@ -10,19 +10,19 @@ class OnboardingController extends GetxController {
       'image': 'assets/images/list_venue.png',
       'title': 'List Your Venue in\nMinutes',
       'subtitle':
-      'Showcase your event space with images, amenities, and pricing to attract customers.',
+          'Showcase your event space with images, amenities, and pricing to attract customers.',
     },
     {
       'image': 'assets/images/booking.png',
       'title': 'Real-Time Booking &\nAvailability',
       'subtitle':
-      'Accept or decline bookings, update availability, and manage reservations easily.',
+          'Accept or decline bookings, update availability, and manage reservations easily.',
     },
     {
       'image': 'assets/images/visibility.png',
       'title': 'Boost Your Venue’s\nVisibility',
       'subtitle':
-      'Get featured, collect reviews, and increase revenue with premium listings and insights.',
+          'Get featured, collect reviews, and increase revenue with premium listings and insights.',
     },
   ];
 
