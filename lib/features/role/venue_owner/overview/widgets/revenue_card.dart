@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RevenueCard extends StatelessWidget {
-  RevenueCard({super.key});
+
   final int totalRevenue;
   final int currentMonthRevenue;
   final int growthRate;

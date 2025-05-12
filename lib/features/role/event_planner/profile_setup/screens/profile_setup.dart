@@ -210,15 +210,17 @@ class ProfileSetup extends StatelessWidget {
           //             );
           //           },
           //         ),
-          ElevatedButton(
-            onPressed: () {
-              // Handle save action
-              debugPrint('Save button tapped!');
-              Get.offAll(() => EventBottomNavBar());
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 100.w),
+// ElevatedButton(
+//   onPressed: () {
+//     // Handle save action
+//     debugPrint('Save button tapped!');
+//     Get.offAll(() => EventBottomNavBar()); // Ensure EventBottomNavBar is imported or defined
+//   },
+//   style: ElevatedButton.styleFrom(
+//     backgroundColor: Colors.blue,
+//     padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 100.w),
+//   ),
+// ),
 
   Widget _buildEventPreferencesSection() {
     return Column(
