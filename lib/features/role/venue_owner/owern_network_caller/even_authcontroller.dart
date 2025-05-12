@@ -21,10 +21,10 @@ class EventAuthController {
   }
 
   static Future<void> saveAuthToken(
-    String token,
-    String role,
-    EventUser user,
-  ) async {
+      String token,
+      String role,
+      EventUser user,
+      ) async {
     try {
       final prefs = await _getPreferences();
       await prefs.setString(_tokenKey, token);
@@ -51,7 +51,7 @@ class EventAuthController {
     }
   }
 
-  // get user information from SharedPreferences
+  // Get user information from SharedPreferences
   static Future<VenueOwnerUserData?> getUserAllInfo() async {
     try {
       final prefs = await _getPreferences();
@@ -109,11 +109,23 @@ class EventAuthController {
     }
   }
 
-  // update user information in SharedPreferences
+  // Update only the auth token in SharedPreferences
+  static Future<void> updateAuthToken(String newToken) async {
+    try {
+      final prefs = await _getPreferences();
+      await prefs.setString(_tokenKey, newToken);
+      token = newToken;
+    } catch (e) {
+      EasyLoading.showError("Error updating auth token: $e");
+      throw Exception("Error updating auth token");
+    }
+  }
+
+  // Update user information in SharedPreferences
   static Future<void> updateUserInfo(
-    String profileId,
-    bool isProfileCreated,
-  ) async {
+      String profileId,
+      bool isProfileCreated,
+      ) async {
     try {
       final prefs = await _getPreferences();
       final currentUser = await getUserInfo();

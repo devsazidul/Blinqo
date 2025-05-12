@@ -7,6 +7,19 @@ import 'package:get/get.dart';
 
 class RevenueCard extends StatelessWidget {
   RevenueCard({super.key});
+  final int totalRevenue;
+  final int currentMonthRevenue;
+  final int growthRate;
+  final int pendingBookings;
+
+  RevenueCard({
+    super.key,
+    required this.totalRevenue,
+    required this.currentMonthRevenue,
+    required this.growthRate,
+    required this.pendingBookings,
+  });
+
 
   final OverviewController controller = Get.find<OverviewController>();
 
@@ -52,7 +65,7 @@ class RevenueCard extends StatelessWidget {
                       children: [
                         Image.asset(ImagePath.move, height: 20, width: 22),
                         Text(
-                          controller.percentage.value.toString(),
+                          '$growthRate%',
                           style: getTextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -99,8 +112,9 @@ class RevenueCard extends StatelessWidget {
             SizedBox(height: 1),
             Row(
               children: [
+                // this month
                 Text(
-                  controller.totalEarnings.value.toString(),
+                  '\$${currentMonthRevenue.toString()}',
                   style: getTextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w600,
@@ -111,7 +125,7 @@ class RevenueCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Text(
-                    '${controller.totalBookings.value}',
+                    pendingBookings.toString(),
                     style: getTextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 22,

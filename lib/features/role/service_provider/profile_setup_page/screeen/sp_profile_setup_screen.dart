@@ -161,7 +161,6 @@ class SpProfileSetupScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-
                   //* ------------------ Role Dropdown ------------------
                   Align(
                     alignment: Alignment.centerLeft,

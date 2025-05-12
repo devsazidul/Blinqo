@@ -15,6 +15,7 @@ class Urls {
   static const String passwordReset = '$baseUrl/auth/send-password-reset-code';
   static const String verifyResetCode1 = '$baseUrl/auth/verify-reset-code';
   static const String resetPassword1 = '$baseUrl/auth/reset-password';
+  static const String plannerprofilesetup = '$baseUrl/profile/planner-setup';
   static const String resendVerificationCode =
       '$baseUrl/auth/resend-verification-code';
   static const String resendPasswordResetCode =
@@ -47,4 +48,5 @@ class Urls {
       '$baseUrl/profile/venue-owner-profile-update/$id';
 
   static String getVenue(String id) => '$baseUrl/venue/get/$id';
+  static String getAllVenue = '$baseUrl//venue/get-all-by-venue-owner';
 }
