@@ -159,7 +159,7 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Obx(
               () => AuthCustomTextField(
-                controller: signupController.retypepasswordController,
+                controller: signupController.retypePasswordController,
                 text: 'Enter your Password',
                 onChanged: (_) => signupController.validateForm(),
                 obscureText: signupController.isPasswordVisible1.value,

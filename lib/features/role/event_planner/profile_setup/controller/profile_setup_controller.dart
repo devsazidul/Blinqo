@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:blinqo/core/urls/endpoint.dart';
+import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
 import 'package:blinqo/features/role/event_planner/profile_setup/model/event_preference_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -11,16 +12,16 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileSetupController extends GetxController {
-
   TextEditingController namecontroller = TextEditingController();
   TextEditingController locationcontroller = TextEditingController();
- 
+
   RxString selectedGender = 'Select Gender'.obs;
   RxString selectedImagePath = ''.obs;
   RxList<String> selectedEvents = <String>[].obs;
 
   RxBool isLoadingEventPreference = false.obs;
-  RxList<EEventPreferenceModel> eventPreferenceList = <EEventPreferenceModel>[].obs;
+  RxList<EEventPreferenceModel> eventPreferenceList =
+      <EEventPreferenceModel>[].obs;
 
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -34,7 +35,6 @@ class ProfileSetupController extends GetxController {
   void updateGender(String gender) {
     selectedGender.value = gender;
   }
-
 
   /// ------------------------------------------------
   /// Event Preference
@@ -110,7 +110,10 @@ class ProfileSetupController extends GetxController {
 
     if (cameraStatus.isDenied || storageStatus.isDenied) {
       debugPrint("Permission denied");
-      Get.snackbar("Permission Denied", "Please grant camera and storage permissions to proceed.");
+      Get.snackbar(
+        "Permission Denied",
+        "Please grant camera and storage permissions to proceed.",
+      );
     } else {
       debugPrint("Permissions granted");
     }
@@ -121,10 +124,11 @@ class ProfileSetupController extends GetxController {
     try {
       isLoadingEventPreference.value = true;
       EasyLoading.show(status: "Loading events...");
-      final prefs = await SharedPreferences.getInstance();
-      final accessToken = prefs.getString('access_token') ?? '';
 
-      if (accessToken.isEmpty) {
+      // Use AuthService to get the token
+      final accessToken = await AuthService.getToken();
+
+      if (accessToken == null || accessToken.isEmpty) {
         throw Exception('Authentication token not found');
       }
 
@@ -160,7 +164,7 @@ class ProfileSetupController extends GetxController {
   }
 
   // Function to submit the profile setup data to the server
- Future<void> submitProfileSetup() async {
+  Future<void> submitProfileSetup() async {
     try {
       debugPrint("1. Showing loading indicator");
       EasyLoading.show(status: "Saving profile setup...");
@@ -169,7 +173,7 @@ class ProfileSetupController extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       final accessToken = prefs.getString('access_token') ?? '';
       debugPrint("Access token: $accessToken");
-      
+
       final id = selectedEvents.isNotEmpty ? selectedEvents.first : '';
       debugPrint("id: $id");
 
@@ -184,7 +188,8 @@ class ProfileSetupController extends GetxController {
         'gender': selectedGender.value,
         'location': locationcontroller.text,
         'eventPreferenceIds': id,
-        'image': selectedImagePath.value.isNotEmpty ? await _uploadImage() : null,
+        'image':
+            selectedImagePath.value.isNotEmpty ? await _uploadImage() : null,
       };
       debugPrint("Selected image path: ${selectedImagePath.value}");
       debugPrint("Profile data to be sent: $profileData");
@@ -229,8 +234,13 @@ class ProfileSetupController extends GetxController {
   // Function to upload the profile image (if available)
   Future<String?> _uploadImage() async {
     if (selectedImagePath.value.isNotEmpty) {
-      final request = http.MultipartRequest('POST', Uri.parse(Urls.plannerprofilesetup)); // Use the actual upload image URL
-      request.files.add(await http.MultipartFile.fromPath('file', selectedImagePath.value));
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse(Urls.plannerprofilesetup),
+      ); // Use the actual upload image URL
+      request.files.add(
+        await http.MultipartFile.fromPath('file', selectedImagePath.value),
+      );
 
       final response = await request.send();
 
@@ -244,5 +254,4 @@ class ProfileSetupController extends GetxController {
     }
     return null;
   }
-
 }

@@ -6,7 +6,6 @@ import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/login_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
