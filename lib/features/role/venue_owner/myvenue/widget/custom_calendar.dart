@@ -20,8 +20,8 @@ class CustomCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+    final bool isDarkMode =
+        Get.find<VenueOwnerProfileController>().isDarkMode.value;
 
     return ValueListenableBuilder<List<DateTime>>(
       valueListenable: selectedDatesNotifier,
@@ -32,9 +32,17 @@ class CustomCalendar extends StatelessWidget {
             // Add booked dates
             for (var booked in bookedDates)
               if (booked.selectedDate != null)
-                DateTime(booked.selectedDate!.year, booked.selectedDate!.month, booked.selectedDate!.day): [
+                DateTime(
+                  booked.selectedDate!.year,
+                  booked.selectedDate!.month,
+                  booked.selectedDate!.day,
+                ): [
                   Event(
-                    date: DateTime(booked.selectedDate!.year, booked.selectedDate!.month, booked.selectedDate!.day),
+                    date: DateTime(
+                      booked.selectedDate!.year,
+                      booked.selectedDate!.month,
+                      booked.selectedDate!.day,
+                    ),
                     title: 'Booked',
                   ),
                 ],
@@ -53,18 +61,20 @@ class CustomCalendar extends StatelessWidget {
           daysTextStyle: getTextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+            color:
+                isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
           ),
           headerTextStyle: getTextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
-            color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff615E83),
+            color:
+                isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff615E83),
           ),
           onDayPressed: (date, events) {
             // Prevent selecting booked dates
             final isBooked = bookedDates.any(
-                  (booked) =>
-              booked.selectedDate != null &&
+              (booked) =>
+                  booked.selectedDate != null &&
                   booked.selectedDate!.year == date.year &&
                   booked.selectedDate!.month == date.month &&
                   booked.selectedDate!.day == date.day,
@@ -73,31 +83,42 @@ class CustomCalendar extends StatelessWidget {
 
             final normalizedDate = DateTime(date.year, date.month, date.day);
             if (selectedDates.contains(normalizedDate)) {
-              selectedDatesNotifier.value = selectedDates.where((d) => d != normalizedDate).toList();
+              selectedDatesNotifier.value =
+                  selectedDates.where((d) => d != normalizedDate).toList();
             } else {
-              selectedDatesNotifier.value = List.from(selectedDates)..add(normalizedDate);
+              selectedDatesNotifier.value = List.from(selectedDates)
+                ..add(normalizedDate);
             }
           },
           markedDatesMap: markedDatesMap,
           markedDateShowIcon: true,
           markedDateIconBuilder: (event) {
-            final date = DateTime(event.date.year, event.date.month, event.date.day);
+            final date = DateTime(
+              event.date.year,
+              event.date.month,
+              event.date.day,
+            );
             final isBooked = bookedDates.any(
-                  (booked) =>
-              booked.selectedDate != null &&
+              (booked) =>
+                  booked.selectedDate != null &&
                   booked.selectedDate!.year == date.year &&
                   booked.selectedDate!.month == date.month &&
                   booked.selectedDate!.day == date.day,
             );
             if (isBooked) {
-              return _buildCircle(event.date.day, Colors.red); // Booked dates in red
+              return _buildCircle(
+                event.date.day,
+                const Color(0xFF0066CC),
+              ); // Booked dates in red
             } else {
               // Selected dates
               return _buildCircle(
                 event.date.day,
                 selectedDatesNotifier.value.indexOf(date) == 0
-                    ? (isDarkMode ? const Color(0xff34C759) : const Color(0xff19480B)) // First selected date
-                    : const Color(0xff0066CC), // Other selected dates
+                    ? (isDarkMode
+                        ? const Color(0xff34C759)
+                        : const Color(0xff19480B)) // First selected date
+                    : const Color(0xff19480B), // Other selected dates
               );
             }
           },
@@ -128,10 +149,7 @@ class CustomCalendar extends StatelessWidget {
     return Container(
       width: 36,
       height: 36,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       child: Center(
         child: Text(
           '$day',

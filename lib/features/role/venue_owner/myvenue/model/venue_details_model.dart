@@ -1,3 +1,5 @@
+import 'dart:developer'; // For logging
+
 class VenueDetails {
   VenueDetails({
     required this.data,
@@ -12,10 +14,14 @@ class VenueDetails {
   final bool? success;
 
   factory VenueDetails.fromJson(Map<String, dynamic> json) {
+    log('Parsing VenueDetails: statusCode = ${json["statusCode"]}');
     return VenueDetails(
       data: json["data"] == null ? null : Data.fromJson(json["data"]),
       message: json["message"],
-      statusCode: json["statusCode"],
+      statusCode:
+          json["statusCode"] is num
+              ? json["statusCode"].toInt()
+              : json["statusCode"],
       success: json["success"],
     );
   }
@@ -43,84 +49,87 @@ class Data {
   final List<BookingRequest> bookingRequest;
   final double? ratting;
 
-  factory Data.fromJson(Map<String, dynamic> json){
+  factory Data.fromJson(Map<String, dynamic> json) {
+    log('Parsing Data: ratting = ${json["ratting"]}');
     return Data(
       venue: json["venue"] == null ? null : VenueData.fromJson(json["venue"]),
-      venueMetrics: json["venueMetrics"] == null ? null : VenueMetrics.fromJson(json["venueMetrics"]),
-      bookedDate: json["bookedDate"] == null ? [] : List<BookedDate>.from(json["bookedDate"]!.map((x) => BookedDate.fromJson(x))),
-      bookingRequest: json["bookingRequest"] == null ? [] : List<BookingRequest>.from(json["bookingRequest"]!.map((x) => BookingRequest.fromJson(x))),
-      ratting: json["ratting"] == null
-          ? null
-          : (json["ratting"] is num ? json["ratting"].toDouble() : null),
+      venueMetrics:
+          json["venueMetrics"] == null
+              ? null
+              : VenueMetrics.fromJson(json["venueMetrics"]),
+      bookedDate:
+          json["bookedDate"] == null
+              ? []
+              : List<BookedDate>.from(
+                json["bookedDate"]!.map((x) => BookedDate.fromJson(x)),
+              ),
+      bookingRequest:
+          json["bookingRequest"] == null
+              ? []
+              : List<BookingRequest>.from(
+                json["bookingRequest"]!.map((x) => BookingRequest.fromJson(x)),
+              ),
+      ratting:
+          json["ratting"] == null
+              ? null
+              : (json["ratting"] is num ? json["ratting"].toDouble() : null),
     );
   }
 
   Map<String, dynamic> toJson() => {
     "venue": venue?.toJson(),
     "venueMetrics": venueMetrics?.toJson(),
-    "bookedDate": bookedDate.map((x) => x?.toJson()).toList(),
-    "bookingRequest": bookingRequest.map((x) => x?.toJson()).toList(),
+    "bookedDate": bookedDate.map((x) => x.toJson()).toList(),
+    "bookingRequest": bookingRequest.map((x) => x.toJson()).toList(),
     "ratting": ratting,
   };
-
 }
 
 class BookedDate {
-  BookedDate({
-    required this.selectedDate,
-    required this.startTime,
-    required this.endTime,
-  });
-
+  final String? id;
   final DateTime? selectedDate;
   final DateTime? startTime;
   final DateTime? endTime;
+  final int? duration;
 
-  factory BookedDate.fromJson(Map<String, dynamic> json){
+  BookedDate({
+    this.id,
+    this.selectedDate,
+    this.startTime,
+    this.endTime,
+    this.duration,
+  });
+
+  factory BookedDate.fromJson(Map<String, dynamic> json) {
+    log('Parsing BookedDate: duration = ${json["duration"]}');
     return BookedDate(
-      selectedDate: DateTime.tryParse(json["selectedDate"] ?? ""),
-      startTime: DateTime.tryParse(json["startTime"] ?? ""),
-      endTime: DateTime.tryParse(json["endTime"] ?? ""),
+      id: json["id"],
+      selectedDate:
+          json["selectedDate"] == null
+              ? null
+              : DateTime.parse(json["selectedDate"]),
+      startTime:
+          json["startTime"] == null ? null : DateTime.parse(json["startTime"]),
+      endTime: json["endTime"] == null ? null : DateTime.parse(json["endTime"]),
+      duration:
+          json["duration"] == null
+              ? null
+              : (json["duration"] is num
+                  ? json["duration"].toInt()
+                  : json["duration"]),
     );
   }
 
   Map<String, dynamic> toJson() => {
+    "id": id,
     "selectedDate": selectedDate?.toIso8601String(),
     "startTime": startTime?.toIso8601String(),
     "endTime": endTime?.toIso8601String(),
+    "duration": duration,
   };
-
 }
 
 class BookingRequest {
-  BookingRequest({
-    required this.id,
-    required this.bookedById,
-    required this.venueId,
-    required this.serviceProviderId,
-    required this.eventName,
-    required this.location,
-    required this.plannerName,
-    required this.selectedDate,
-    required this.startTime,
-    required this.endTime,
-    required this.duration,
-    required this.bookingType,
-    required this.guestNumber,
-    required this.decoration,
-    required this.services,
-    required this.bookingStatus,
-    required this.totalAmount,
-    required this.paid,
-    required this.due,
-    required this.accept,
-    required this.isEventFinished,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.eventTypeId,
-    required this.eventType,
-  });
-
   final String? id;
   final String? bookedById;
   final String? venueId;
@@ -135,7 +144,7 @@ class BookingRequest {
   final String? bookingType;
   final int? guestNumber;
   final String? decoration;
-  final List<String> services;
+  final List<String>? services;
   final String? bookingStatus;
   final int? totalAmount;
   final int? paid;
@@ -147,7 +156,38 @@ class BookingRequest {
   final String? eventTypeId;
   final EventType? eventType;
 
-  factory BookingRequest.fromJson(Map<String, dynamic> json){
+  BookingRequest({
+    this.id,
+    this.bookedById,
+    this.venueId,
+    this.serviceProviderId,
+    this.eventName,
+    this.location,
+    this.plannerName,
+    this.selectedDate,
+    this.startTime,
+    this.endTime,
+    this.duration,
+    this.bookingType,
+    this.guestNumber,
+    this.decoration,
+    this.services,
+    this.bookingStatus,
+    this.totalAmount,
+    this.paid,
+    this.due,
+    this.accept,
+    this.isEventFinished,
+    this.createdAt,
+    this.updatedAt,
+    this.eventTypeId,
+    this.eventType,
+  });
+
+  factory BookingRequest.fromJson(Map<String, dynamic> json) {
+    log(
+      'Parsing BookingRequest: guestNumber = ${json["guestNumber"]}, totalAmount = ${json["totalAmount"]}',
+    );
     return BookingRequest(
       id: json["id"],
       bookedById: json["bookedById"],
@@ -156,24 +196,55 @@ class BookingRequest {
       eventName: json["eventName"],
       location: json["location"],
       plannerName: json["plannerName"],
-      selectedDate: DateTime.tryParse(json["selectedDate"] ?? ""),
-      startTime: DateTime.tryParse(json["startTime"] ?? ""),
-      endTime: DateTime.tryParse(json["endTime"] ?? ""),
-      duration: json["duration"],
+      selectedDate:
+          json["selectedDate"] == null
+              ? null
+              : DateTime.parse(json["selectedDate"]),
+      startTime:
+          json["startTime"] == null ? null : DateTime.parse(json["startTime"]),
+      endTime: json["endTime"] == null ? null : DateTime.parse(json["endTime"]),
+      duration:
+          json["duration"] == null
+              ? null
+              : (json["duration"] is num
+                  ? json["duration"].toInt()
+                  : json["duration"]),
       bookingType: json["bookingType"],
-      guestNumber: json["guestNumber"],
+      guestNumber:
+          json["guestNumber"] == null
+              ? null
+              : (json["guestNumber"] is num
+                  ? json["guestNumber"].toInt()
+                  : json["guestNumber"]),
       decoration: json["decoration"],
-      services: json["services"] == null ? [] : List<String>.from(json["services"]!.map((x) => x)),
+      services:
+          json["services"] == null ? [] : List<String>.from(json["services"]!),
       bookingStatus: json["bookingStatus"],
-      totalAmount: json["totalAmount"],
-      paid: json["paid"],
-      due: json["due"],
+      totalAmount:
+          json["totalAmount"] == null
+              ? null
+              : (json["totalAmount"] is num
+                  ? json["totalAmount"].toInt()
+                  : json["totalAmount"]),
+      paid:
+          json["paid"] == null
+              ? null
+              : (json["paid"] is num ? json["paid"].toInt() : json["paid"]),
+      due:
+          json["due"] == null
+              ? null
+              : (json["due"] is num ? json["due"].toInt() : json["due"]),
       accept: json["accept"],
       isEventFinished: json["isEventFinished"],
-      createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
-      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
+      createdAt:
+          json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+      updatedAt:
+          json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
       eventTypeId: json["eventTypeId"],
-      eventType: json["EventType"] == null ? null : EventType.fromJson(json["EventType"]),
+      eventType:
+          json["eventType"] == null
+              ? null
+              : EventType.fromJson(json["eventType"]),
     );
   }
 
@@ -192,7 +263,7 @@ class BookingRequest {
     "bookingType": bookingType,
     "guestNumber": guestNumber,
     "decoration": decoration,
-    "services": services.map((x) => x).toList(),
+    "services": services,
     "bookingStatus": bookingStatus,
     "totalAmount": totalAmount,
     "paid": paid,
@@ -202,27 +273,25 @@ class BookingRequest {
     "createdAt": createdAt?.toIso8601String(),
     "updatedAt": updatedAt?.toIso8601String(),
     "eventTypeId": eventTypeId,
-    "EventType": eventType?.toJson(),
+    "eventType": eventType?.toJson(),
   };
-
 }
 
 class EventType {
-  EventType({
-    required this.id,
-    required this.name,
-    required this.avatar,
-  });
+  EventType({required this.id, required this.name, required this.avatar});
 
   final String? id;
   final String? name;
   final ArrangementsImage? avatar;
 
-  factory EventType.fromJson(Map<String, dynamic> json){
+  factory EventType.fromJson(Map<String, dynamic> json) {
     return EventType(
       id: json["id"],
       name: json["name"],
-      avatar: json["avatar"] == null ? null : ArrangementsImage.fromJson(json["avatar"]),
+      avatar:
+          json["avatar"] == null
+              ? null
+              : ArrangementsImage.fromJson(json["avatar"]),
     );
   }
 
@@ -231,26 +300,43 @@ class EventType {
     "name": name,
     "avatar": avatar?.toJson(),
   };
-
 }
 
 class ArrangementsImage {
   ArrangementsImage({
     required this.path,
+    this.filename,
+    this.originalname,
+    this.size,
+    this.type,
   });
 
   final String? path;
+  final String? filename;
+  final String? originalname;
+  final int? size;
+  final String? type;
 
-  factory ArrangementsImage.fromJson(Map<String, dynamic> json){
+  factory ArrangementsImage.fromJson(Map<String, dynamic> json) {
     return ArrangementsImage(
       path: json["path"],
+      filename: json["filename"],
+      originalname: json["originalname"],
+      size:
+          json["size"] == null
+              ? null
+              : (json["size"] is num ? json["size"].toInt() : json["size"]),
+      type: json["type"],
     );
   }
 
   Map<String, dynamic> toJson() => {
     "path": path,
+    "filename": filename,
+    "originalname": originalname,
+    "size": size,
+    "type": type,
   };
-
 }
 
 class VenueData {
@@ -305,6 +391,9 @@ class VenueData {
   final List<Review> reviews;
 
   factory VenueData.fromJson(Map<String, dynamic> json) {
+    log(
+      'Parsing VenueData: price = ${json["price"]}, capacity = ${json["capacity"]}',
+    );
     return VenueData(
       id: json["id"],
       profileId: json["profileId"],
@@ -312,28 +401,55 @@ class VenueData {
       city: json["city"],
       area: json["area"],
       description: json["description"],
-      capacity: json["capacity"],
+      capacity:
+          json["capacity"] == null
+              ? null
+              : (json["capacity"] is num
+                  ? json["capacity"].toInt()
+                  : json["capacity"]),
       bookedDates:
           json["bookedDates"] == null
               ? []
-              : List<dynamic>.from(json["bookedDates"]!.map((x) => x)),
+              : List<dynamic>.from(json["bookedDates"]!),
       type: json["type"],
       cateringDescription: json["cateringDescription"],
       parkingDescription: json["parkingDescription"],
       availabilityDescription: json["availabilityDescription"],
       extraServiceDescription: json["extraServiceDescription"],
-      price: json["price"],
+      price:
+          json["price"] == null
+              ? null
+              : (json["price"] is num ? json["price"].toInt() : json["price"]),
       bookingType: json["bookingType"],
       verified: json["verified"],
-      createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
-      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
-
-      amenities: json["amenities"] == null ? [] : List<Amenity>.from(json["amenities"]!.map((x) => Amenity.fromJson(x))),
-      decoration: json["decoration"] == null ? null : Decoration.fromJson(json["decoration"]),
-      arrangementsImage: json["arrangementsImage"] == null ? null : ArrangementsImage.fromJson(json["arrangementsImage"]),
-      venueImage: json["venueImage"] == null ? null : ArrangementsImage.fromJson(json["venueImage"]),
-      reviews: json["reviews"] == null ? [] : List<Review>.from(json["reviews"]!.map((x) => Review.fromJson(x))),
-
+      createdAt:
+          json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+      updatedAt:
+          json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+      amenities:
+          json["amenities"] == null
+              ? []
+              : List<Amenity>.from(
+                json["amenities"]!.map((x) => Amenity.fromJson(x)),
+              ),
+      decoration:
+          json["decoration"] == null
+              ? null
+              : Decoration.fromJson(json["decoration"]),
+      arrangementsImage:
+          json["arrangementsImage"] == null
+              ? null
+              : ArrangementsImage.fromJson(json["arrangementsImage"]),
+      venueImage:
+          json["venueImage"] == null
+              ? null
+              : ArrangementsImage.fromJson(json["venueImage"]),
+      reviews:
+          json["reviews"] == null
+              ? []
+              : List<Review>.from(
+                json["reviews"]!.map((x) => Review.fromJson(x)),
+              ),
     );
   }
 
@@ -345,7 +461,7 @@ class VenueData {
     "area": area,
     "description": description,
     "capacity": capacity,
-    "bookedDates": bookedDates.map((x) => x).toList(),
+    "bookedDates": bookedDates,
     "type": type,
     "cateringDescription": cateringDescription,
     "parkingDescription": parkingDescription,
@@ -356,11 +472,11 @@ class VenueData {
     "verified": verified,
     "createdAt": createdAt?.toIso8601String(),
     "updatedAt": updatedAt?.toIso8601String(),
-    "amenities": amenities.map((x) => x?.toJson()).toList(),
+    "amenities": amenities.map((x) => x.toJson()).toList(),
     "decoration": decoration?.toJson(),
     "arrangementsImage": arrangementsImage?.toJson(),
     "venueImage": venueImage?.toJson(),
-    "reviews": reviews.map((x) => x?.toJson()).toList(),
+    "reviews": reviews.map((x) => x.toJson()).toList(),
   };
 }
 
@@ -393,10 +509,11 @@ class Amenity {
     "profileId": profileId,
   };
 }
+
 class Decoration {
   Decoration({
-    required this.id,
-    required this.venueId,
+    this.id,
+    this.venueId,
     required this.tableShapes,
     required this.seatingStyles,
     required this.lighting,
@@ -416,29 +533,43 @@ class Decoration {
 
   factory Decoration.fromJson(Map<String, dynamic> json) {
     return Decoration(
-
       id: json["id"],
       venueId: json["venueId"],
-      tableShapes: json["tableShapes"] == null ? [] : List<String>.from(json["tableShapes"]!.map((x) => x)),
-      seatingStyles: json["seatingStyles"] == null ? [] : List<String>.from(json["seatingStyles"]!.map((x) => x)),
-      lighting: json["lighting"] == null ? [] : List<String>.from(json["lighting"]!.map((x) => x)),
-      flowerColors: json["flowerColors"] == null ? [] : List<String>.from(json["flowerColors"]!.map((x) => x)),
-      flowerTypes: json["flowerTypes"] == null ? [] : List<String>.from(json["flowerTypes"]!.map((x) => x)),
-      fragrances: json["fragrances"] == null ? [] : List<String>.from(json["fragrances"]!.map((x) => x)),
+      tableShapes:
+          json["tableShapes"] == null
+              ? []
+              : List<String>.from(json["tableShapes"]!),
+      seatingStyles:
+          json["seatingStyles"] == null
+              ? []
+              : List<String>.from(json["seatingStyles"]!),
+      lighting:
+          json["lighting"] == null ? [] : List<String>.from(json["lighting"]!),
+      flowerColors:
+          json["flowerColors"] == null
+              ? []
+              : List<String>.from(json["flowerColors"]!),
+      flowerTypes:
+          json["flowerTypes"] == null
+              ? []
+              : List<String>.from(json["flowerTypes"]!),
+      fragrances:
+          json["fragrances"] == null
+              ? []
+              : List<String>.from(json["fragrances"]!),
     );
   }
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "venueId": venueId,
-    "tableShapes": tableShapes.map((x) => x).toList(),
-    "seatingStyles": seatingStyles.map((x) => x).toList(),
-    "lighting": lighting.map((x) => x).toList(),
-    "flowerColors": flowerColors.map((x) => x).toList(),
-    "flowerTypes": flowerTypes.map((x) => x).toList(),
-    "fragrances": fragrances.map((x) => x).toList(),
+    "tableShapes": tableShapes,
+    "seatingStyles": seatingStyles,
+    "lighting": lighting,
+    "flowerColors": flowerColors,
+    "flowerTypes": flowerTypes,
+    "fragrances": fragrances,
   };
-
 }
 
 class Review {
@@ -454,21 +585,29 @@ class Review {
 
   final String? id;
   final String? venueId;
-  final int? rating;
+  final double? rating; // Changed to double? to handle 4.5, 3.5, etc.
   final String? comment;
   final DateTime? createdAt;
   final String? profileId;
   final Profile? profile;
 
-  factory Review.fromJson(Map<String, dynamic> json){
+  factory Review.fromJson(Map<String, dynamic> json) {
+    log('Parsing Review: rating = ${json["rating"]}');
     return Review(
       id: json["id"],
       venueId: json["venueId"],
-      rating: json["rating"],
+      rating:
+          json["rating"] == null
+              ? null
+              : (json["rating"] is num ? json["rating"].toDouble() : null),
       comment: json["comment"],
-      createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
+      createdAt:
+          json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
       profileId: json["profileId"],
-      profile: json["Profile"] == null ? null : Profile.fromJson(json["Profile"]),
+      profile:
+          json["profile"] == null
+              ? null
+              : Profile.fromJson(json["profile"]), // Fixed key
     );
   }
 
@@ -479,32 +618,27 @@ class Review {
     "comment": comment,
     "createdAt": createdAt?.toIso8601String(),
     "profileId": profileId,
-    "Profile": profile?.toJson(),
+    "profile": profile?.toJson(),
   };
-
 }
 
 class Profile {
-  Profile({
-    required this.name,
-    required this.image,
-  });
+  Profile({required this.name, required this.image});
 
   final dynamic name;
   final ArrangementsImage? image;
 
-  factory Profile.fromJson(Map<String, dynamic> json){
+  factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
       name: json["name"],
-      image: json["image"] == null ? null : ArrangementsImage.fromJson(json["image"]),
+      image:
+          json["image"] == null
+              ? null
+              : ArrangementsImage.fromJson(json["image"]),
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    "name": name,
-    "image": image?.toJson(),
-  };
-
+  Map<String, dynamic> toJson() => {"name": name, "image": image?.toJson()};
 }
 
 class VenueMetrics {
@@ -517,15 +651,36 @@ class VenueMetrics {
 
   final int? totalRevenue;
   final int? currentMonthRevenue;
-  final int? growthRate;
+  final double? growthRate;
   final int? pendingBookings;
 
-  factory VenueMetrics.fromJson(Map<String, dynamic> json){
+  factory VenueMetrics.fromJson(Map<String, dynamic> json) {
+    log('Parsing VenueMetrics: totalRevenue = ${json["totalRevenue"]}');
     return VenueMetrics(
-      totalRevenue: json["totalRevenue"],
-      currentMonthRevenue: json["currentMonthRevenue"],
-      growthRate: json["growthRate"],
-      pendingBookings: json["pendingBookings"],
+      totalRevenue:
+          json["totalRevenue"] == null
+              ? null
+              : (json["totalRevenue"] is num
+                  ? json["totalRevenue"].toInt()
+                  : json["totalRevenue"]),
+      currentMonthRevenue:
+          json["currentMonthRevenue"] == null
+              ? null
+              : (json["currentMonthRevenue"] is num
+                  ? json["currentMonthRevenue"].toInt()
+                  : json["currentMonthRevenue"]),
+      growthRate:
+          json["growthRate"] == null
+              ? null
+              : (json["growthRate"] is num
+                  ? json["growthRate"].toDouble()
+                  : json["growthRate"]),
+      pendingBookings:
+          json["pendingBookings"] == null
+              ? null
+              : (json["pendingBookings"] is num
+                  ? json["pendingBookings"].toInt()
+                  : json["pendingBookings"]),
     );
   }
 

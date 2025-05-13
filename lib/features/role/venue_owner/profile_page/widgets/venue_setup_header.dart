@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class VenueSetupHeader extends StatelessWidget {
   final String title;
+
   const VenueSetupHeader({super.key, required this.title});
 
   @override
@@ -60,8 +61,8 @@ class VenueSetupHeader extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 60,
-          left: 20,
+          top: height * 0.07,
+          left: width * 0.05,
           child: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -74,8 +75,8 @@ class VenueSetupHeader extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 66,
-          left: (width - 120) / 2,
+          top: Get.height * 0.07,
+          left: (Get.width - (title.length * 14.0)) / 2,
           child: Text(
             title,
             style: getTextStyle(

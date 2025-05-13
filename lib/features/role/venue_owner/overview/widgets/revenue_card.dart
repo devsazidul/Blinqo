@@ -9,7 +9,7 @@ class RevenueCard extends StatelessWidget {
 
   final int totalRevenue;
   final int currentMonthRevenue;
-  final int growthRate;
+  final double growthRate;
   final int pendingBookings;
 
   RevenueCard({
@@ -52,35 +52,63 @@ class RevenueCard extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
+                // Container(
+                //   width: 85,
+                //   height: 33,
+                //   decoration: BoxDecoration(
+                //     color: Color(0xff003366),
+                //     borderRadius: BorderRadius.circular(12),
+                //   ),
+                //   child: Padding(
+                //     padding: EdgeInsets.all(7.0),
+                //     child: Row(
+                //       children: [
+                //         Image.asset(ImagePath.move, height: 20, width: 22),
+                //         Text(
+                //           '$growthRate%',
+                //           style: getTextStyle(
+                //             fontSize: 16,
+                //             fontWeight: FontWeight.w600,
+                //             color: Colors.white,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 Container(
-                  width: 85,
-                  height: 33,
-                  decoration: BoxDecoration(
-                    color: Color(0xff003366),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(7.0),
-                    child: Row(
-                      children: [
-                        Image.asset(ImagePath.move, height: 20, width: 22),
-                        Text(
-                          '$growthRate%',
-                          style: getTextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: ShapeDecoration(
+                    color: const Color(0xFF003366),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    spacing: 1,
+                    children: [
+                      Image.asset(ImagePath.move, height: 20, width: 22),
+                      Text(
+                        '$growthRate%',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 1.20,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
             SizedBox(height: 3),
             Text(
-              controller.totalRevenue.value.toString(),
+              '\$${controller.totalRevenue.value.toString()}',
               style: getTextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,

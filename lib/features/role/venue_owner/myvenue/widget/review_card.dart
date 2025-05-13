@@ -1,4 +1,6 @@
+import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/common/styles/global_text_style.dart';
 import 'package:get/get.dart';
@@ -31,11 +33,18 @@ class ReviewCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipOval(
-              child: Image.asset(
-                image,
+              child: CachedNetworkImage(
+                imageUrl: image,
                 fit: BoxFit.cover,
                 height: 40,
                 width: 40,
+                errorWidget: (context, url, error) {
+                  return Icon(
+                    Icons.person,
+                    size: 40,
+                    color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                  );
+                },
               ),
             ),
             const SizedBox(width: 8),

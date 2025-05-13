@@ -8,6 +8,8 @@ import 'package:blinqo/features/role/venue_owner/myvenue/widget/booking_request.
 import 'package:blinqo/features/role/venue_owner/overview/screen/all_reviews.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/revenue_card.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -116,12 +118,13 @@ class VenueDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    child: Image.network(
-                      venueData.venueImage?.path ?? ImagePath.venueview,
+                    child: CachedNetworkImage(
+                     imageUrl:  venueData.venueImage?.path ?? ImagePath.venueview,
                       width: double.infinity,
-                      height: screenHeight * 0.4,
+                      height: screenHeight * 0.35,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
+                      errorWidget:
+                       (context, error, stackTrace) =>
                           Image.asset(
                             ImagePath.venueview,
                             width: double.infinity,
@@ -147,8 +150,8 @@ class VenueDetailsScreen extends StatelessWidget {
                         child: Stack(
                           children: [
                             Positioned(
-                              left: 20,
-                              top: 40,
+                              left: screenWidth * 0.05,
+                              top: screenHeight * 0.05,
                               child: GestureDetector(
                                 onTap: () {
                                   Get.back();
@@ -169,10 +172,10 @@ class VenueDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const Positioned(
-                              left: 110,
-                              top: 48,
-                              child: Text(
+                            Positioned(
+                             left: screenWidth * 0.28,
+                              top: screenHeight * 0.06,
+                              child: const Text(
                                 "Venue Details",
                                 style: TextStyle(
                                   fontSize: 20,
@@ -227,11 +230,8 @@ class VenueDetailsScreen extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             Get.to(
-                                  () =>
-                                  EditVenue(
-                                    image: venueData.venueImage?.path ??
-                                        ImagePath.venueview,
-                                  ),
+                                  () => VenueSetupScreen(venueStatus: 'Update Venue'),
+
                             );
                           },
                           child: Container(
@@ -626,6 +626,8 @@ class VenueDetailsScreen extends StatelessWidget {
                           selectedDate: request.selectedDate,
                           guestNumber: request.guestNumber ?? 0,
                           bookingStatus: request.bookingStatus ?? 'Pending',
+                          //TODO: Get Venue Name
+                          venueName: request.plannerName ?? 'Unknown Venue',
                         );
                       },
                     )
@@ -687,12 +689,13 @@ class VenueDetailsScreen extends StatelessWidget {
                                 .year}'
                                 : 'Unknown',
                             desc: review.comment ?? 'No comment',
-                            rating: review.rating ?? 0,
+                            rating: (review.rating ?? 0).toInt(),
                           ),
                         );
                       },
                     )
                         : const Text('No reviews available'),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
