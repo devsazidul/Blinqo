@@ -10,7 +10,6 @@ import 'package:blinqo/features/role/service_provider/services/sp_network_respon
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 class SpLoginController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -60,8 +59,6 @@ class SpLoginController extends GetxController {
 
       _loginModel = loginModel;
 
-      Logger().d("loginModel: $loginModel");
-
       if (loginModel.user?.roles.contains("SERVICE_PROVIDER") == true) {
         await SpAuthController.saveUserInformation(
           accessToken: loginModel.accessToken,
@@ -72,18 +69,15 @@ class SpLoginController extends GetxController {
             isVerified: loginModel.user?.isVerified,
           ),
         );
-        Logger().d("step 1: role is ${loginModel.user?.roles}");
 
         if (loginModel.user?.isProfileCreated == true) {
           //* Save user profile information into shared preferences
           await Get.put(SpGetUserInfoController()).spGetUserInfo();
-          Logger().d("step 2: profile is created");
           EasyLoading.dismiss();
           Get.offAll(() => SpBottomNavBarScreen());
         } else {
           //* Get event preferences from server
           await Get.put(SpProfileSetupController()).getEventPreferences();
-          Logger().d("step 3: event preferences are fetched");
           EasyLoading.dismiss();
           Get.offAll(() => SpProfileSetupScreen());
         }

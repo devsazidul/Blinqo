@@ -24,7 +24,7 @@ class SpVerificationSubmission extends StatelessWidget {
     );
 
     verificationSubmissionController.spNameController.text =
-        SpAuthController.profileInfoModel?.name ?? '';
+        "@${SpAuthController.spUser?.profile?.name}";
 
     return Obx(() {
       final themeMode =

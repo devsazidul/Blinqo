@@ -49,4 +49,5 @@ class Urls {
 
   static String getVenue(String id) => '$baseUrl/venue/get/$id';
   static String getAllVenue = '$baseUrl//venue/get-all-by-venue-owner';
+  static String createPaymentIntent = '$baseUrl/billing/create-payment-intent';
 }

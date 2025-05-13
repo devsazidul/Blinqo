@@ -245,7 +245,7 @@ class SpSignupScreen extends StatelessWidget {
                     SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        Get.to(SpConfirmEmailVerifyOtpScreen(email: ""));
+                        Get.to(SpConfirmEmailVerifyOtpScreen());
                         // Get.toNamed(AppRoute.spLoginScreen);
                       },
                       child: Text(

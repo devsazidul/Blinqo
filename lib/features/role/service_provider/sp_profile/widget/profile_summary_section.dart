@@ -16,7 +16,7 @@ class ProfileSummarySection extends StatelessWidget {
       children: [
         /// name
         Text(
-          SpAuthController.profileInfoModel?.name ?? "unknown",
+          SpAuthController.spUser?.profile?.name ?? "unknown",
           style: getTextStyle(
             fontSize: 20,
             color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
@@ -38,7 +38,7 @@ class ProfileSummarySection extends StatelessWidget {
             ),
             SizedBox(width: 4),
             Text(
-              SpAuthController.profileInfoModel?.location ?? "unknown",
+              SpAuthController.spUser?.profile?.location ?? "unknown",
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -63,7 +63,7 @@ class ProfileSummarySection extends StatelessWidget {
             ),
             SizedBox(width: 4),
             Text(
-              SpAuthController.profileInfoModel?.serviceProviderRole ??
+              SpAuthController.spUser?.profile?.serviceProviderRole ??
                   "unknown",
               style: getTextStyle(
                 fontSize: 14,

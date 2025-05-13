@@ -69,8 +69,8 @@ class SpProfileSettingsScreen extends StatelessWidget {
               backgroundColor: Colors.grey[300],
               child: ClipOval(
                 child: Image.network(
-                  SpAuthController.profileInfoModel?.image?.path ??
-                      IconPath.sphprofile,
+                  SpAuthController.spUser?.profile?.image?.path ??
+                      "https://cdn-icons-png.flaticon.com/512/20/20079.png",
                   fit: BoxFit.cover,
                   width: 100,
                   height: 100,
@@ -108,7 +108,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
 
         /// Avatar name
         Text(
-          SpAuthController.profileInfoModel?.name ?? "unknown",
+          SpAuthController.spUser?.profile?.name ?? "unknown",
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -126,7 +126,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
               size: 20,
             ),
             Text(
-              SpAuthController.profileInfoModel?.location ?? "unknown",
+              SpAuthController.spUser?.profile?.location ?? "unknown",
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
