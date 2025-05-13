@@ -56,18 +56,15 @@ class SpHomePage extends StatelessWidget {
                             backgroundColor: Colors.grey.shade200,
                             child: ClipOval(
                               child: Image.network(
-                                SpAuthController
-                                        .profileInfoModel
-                                        ?.image
-                                        ?.path ??
-                                    IconPath.sphprofile,
+                                SpAuthController.spUser?.profile?.image?.path ??
+                                    "https://cdn-icons-png.flaticon.com/512/20/20079.png",
                                 width: 40,
                                 height: 40,
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          if (SpAuthController.profileInfoModel?.isPro ?? false)
+                          if (SpAuthController.spUser?.profile?.isPro ?? false)
                             Positioned(
                               right: 0,
                               bottom: -5,
@@ -84,8 +81,7 @@ class SpHomePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            SpAuthController.profileInfoModel?.name ??
-                                "unknown",
+                            SpAuthController.spUser?.name ?? "unknown",
                             style: TextStyle(
                               color:
                                   themeMode == ThemeMode.dark
@@ -95,7 +91,7 @@ class SpHomePage extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          // SizedBox(height: 4),
                           Text(
                             "Service Provider",
                             style: TextStyle(

@@ -1,14 +1,14 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
+import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/auth/controller/sp_otp_verify_controller.dart';
+import 'package:blinqo/features/role/service_provider/auth/controller/sp_signup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class SpConfirmEmailVerifyOtpScreen extends StatelessWidget {
-  const SpConfirmEmailVerifyOtpScreen({super.key, required this.email});
-
-  final String email;
+  const SpConfirmEmailVerifyOtpScreen({super.key});
 
   String _maskEmail(String email) {
     if (email.isEmpty || !email.contains('@')) return email;
@@ -32,7 +32,9 @@ class SpConfirmEmailVerifyOtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SpOtpVerifyController());
+    final email = Get.put(SpSignupController()).emailController1.text;
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

@@ -16,7 +16,7 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
 
         /// Cover image
         Image.network(
-          SpAuthController.profileInfoModel?.coverPhoto?.path ??
+          SpAuthController.spUser?.profile?.coverPhoto?.path ??
               "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
           height: 220,
           width: double.infinity,
@@ -80,7 +80,7 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
                     radius: 45,
                     child: ClipOval(
                       child: Image.network(
-                        SpAuthController.profileInfoModel?.image?.path ??
+                        SpAuthController.spUser?.profile?.image?.path ??
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaUTp3j_LpF5r5_gNdvW0g7p057ExdcHWbUQ&s",
                         fit: BoxFit.cover,
                         width: 90,
@@ -89,7 +89,7 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
                     ),
                     // child: Image.asset(IconPath.profile01, fit: BoxFit.cover),
                   ),
-                  if (SpAuthController.profileInfoModel?.isPro == true)
+                  if (SpAuthController.spUser?.profile?.isPro == true)
                     Positioned(
                       right: 11,
                       bottom: 1,
@@ -102,7 +102,7 @@ class ProfileCoverImageAndAvatar extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if (SpAuthController.profileInfoModel?.isPro == true)
+                  if (SpAuthController.spUser?.profile?.isPro == true)
                     Positioned(
                       right: 10,
                       bottom: 0,

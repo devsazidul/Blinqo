@@ -45,6 +45,9 @@ class SpSignupController extends GetxController {
     debugPrint("isFromValid: $isFromValid");
   }
 
+  //* --------------------------------------------------------------------------
+  //* Sign up
+  //* --------------------------------------------------------------------------
   Future<bool> signUp() async {
     EasyLoading.show(status: "Signing up....");
     _isLoading = true;
@@ -67,7 +70,7 @@ class SpSignupController extends GetxController {
 
     if (response.isSuccess) {
       EasyLoading.showSuccess(response.responseData["message"]);
-      Get.to(SpConfirmEmailVerifyOtpScreen(email: emailController1.text));
+      Get.to(SpConfirmEmailVerifyOtpScreen());
       isSuccess = true;
     } else {
       EasyLoading.showError(response.errorMessage);

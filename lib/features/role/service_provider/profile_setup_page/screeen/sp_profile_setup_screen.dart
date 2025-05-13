@@ -10,6 +10,7 @@ import 'package:blinqo/features/role/service_provider/sp_profile/controller/serv
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -20,6 +21,7 @@ class SpProfileSetupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("username: ${SpAuthController.spUser?.profile?.serviceProviderRole}");
     final profileSetupController = Get.find<SpProfileSetupController>();
     final profileController = Get.find<SpProfileController>();
 
@@ -41,6 +43,7 @@ class SpProfileSetupScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Form(
               key: profileSetupController.formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 children: [
                   //* ------------------ Profile Setup Text ------------------
@@ -48,7 +51,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Profile Setup",
+                        isEdit ? "Edit Profile" : "Profile Setup",
                         style: getTextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
@@ -76,7 +79,8 @@ class SpProfileSetupScreen extends StatelessWidget {
                                     ? isEdit
                                         ? Image.network(
                                           SpAuthController
-                                                  .profileInfoModel
+                                                  .spUser
+                                                  ?.profile
                                                   ?.image
                                                   ?.path ??
                                               IconPath.profile01,
@@ -123,36 +127,65 @@ class SpProfileSetupScreen extends StatelessWidget {
                   SizedBox(height: 20),
 
                   //* ------------------ Profile Name TextField ------------------
-                  TextFormField(
-                    controller: profileSetupController.profileNameController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your profile name';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      label: Text("Profile Name"),
-                      hintText: "Enter your profile name",
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                        borderRadius: BorderRadius.circular(10),
+                  if (isEdit)
+                    TextFormField(
+                      controller: profileSetupController.profileNameController,
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'Please enter your profile name';
+                      //   }
+                      //   return null;
+                      // },
+                      decoration: InputDecoration(
+                        label: Text("Profile Name"),
+                        hintText: "Enter your profile name",
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
-                  ),
                   SizedBox(height: 20),
 
                   //* ------------------ Username TextField ------------------
                   TextFormField(
-                    controller: profileSetupController.nameController,
+                    // always label make floating
+                    controller: profileSetupController.usernameController,
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your username';
+                      if (!isEdit) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your username';
+                        }
+                        if (value.length < 3) {
+                          return 'Username must be at least 3 characters long';
+                        }
+                        // username only contain alphanumeric and underscore
+                        if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
+                          return 'Username must contain only alphanumeric and underscore';
+                        }
                       }
                       return null;
                     },
                     decoration: InputDecoration(
-                      label: Text("Username"),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      label: Text.rich(
+                        TextSpan(
+                          text: "Username",
+                          children: [
+                            if (!isEdit)
+                              TextSpan(
+                                text: " *",
+                                style: getTextStyle(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                       hintText: "Enter your username",
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -162,18 +195,28 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   //* ------------------ Role Dropdown ------------------
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Role",
-                      style: getTextStyle(
-                        fontSize: 12,
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : AppColors.subTextColor,
+                  Row(
+                    children: [
+                      Text(
+                        "Role",
+                        style: getTextStyle(
+                          fontSize: 12,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.primary
+                                  : AppColors.subTextColor,
+                        ),
                       ),
-                    ),
+                      if (!isEdit)
+                        Text(
+                          " *",
+                          style: getTextStyle(
+                            fontSize: 12,
+                            color: Colors.red,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                    ],
                   ),
                   DropdownButtonFormField2<String>(
                     isExpanded: true,
@@ -246,19 +289,29 @@ class SpProfileSetupScreen extends StatelessWidget {
 
                   //* ------------------ Event Preference Text ------------------
                   SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Event Preference",
-                      style: getTextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : AppColors.textColor,
+                  Row(
+                    children: [
+                      Text(
+                        "Event Preference",
+                        style: getTextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.primary
+                                  : AppColors.textColor,
+                        ),
                       ),
-                    ),
+                      if (!isEdit)
+                        Text(
+                          " *",
+                          style: getTextStyle(
+                            fontSize: 20,
+                            color: Colors.red,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                    ],
                   ),
                   SizedBox(height: 20),
 
@@ -298,16 +351,38 @@ class SpProfileSetupScreen extends StatelessWidget {
                   TextFormField(
                     controller: profileSetupController.descriptionController,
                     maxLines: 5,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your description';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: "Description",
-                      labelStyle: getTextStyle(
-                        fontSize: 16,
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : AppColors.subTextColor,
+                      // labelText: "Description",
+                      label: Text.rich(
+                        TextSpan(
+                          text: "Description",
+                          style: getTextStyle(
+                            fontSize: 16,
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? AppColors.primary
+                                    : AppColors.subTextColor,
+                          ),
+                          children: [
+                            if (!isEdit)
+                              TextSpan(
+                                text: " *",
+                                style: getTextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red,
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
+
                       hintText: "I am a ............",
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -323,18 +398,38 @@ class SpProfileSetupScreen extends StatelessWidget {
                   //* ------------------ Location TextField ------------------
                   TextFormField(
                     controller: profileSetupController.locationController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your location';
+                      }
+                      return null;
+                    },
                     onFieldSubmitted: (value) {
                       profileSetupController.searchLocation(value);
                     },
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: "Location",
-                      labelStyle: getTextStyle(
-                        fontSize: 16,
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : AppColors.subTextColor,
+                      label: Text.rich(
+                        TextSpan(
+                          text: "Location",
+                          style: getTextStyle(
+                            fontSize: 16,
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? AppColors.primary
+                                    : AppColors.subTextColor,
+                          ),
+                          children: [
+                            if (!isEdit)
+                              TextSpan(
+                                text: " *",
+                                style: getTextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red,
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                       hintText: "New York City",
                       border: OutlineInputBorder(
@@ -465,25 +560,54 @@ class SpProfileSetupScreen extends StatelessWidget {
                   //* ------------------ Years of Experiences TextField ------------------
                   SizedBox(height: 20),
                   TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your years of experiences';
+                      }
+                      // check if the value is a number
+                      if (value.isNotEmpty) {
+                        if (int.tryParse(value) == null) {
+                          return 'Please enter a valid number';
+                        }
+                      }
+
+                      return null;
+                    },
                     controller: profileSetupController.experienceYearController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: "Years of Experiences",
-                      labelStyle: getTextStyle(
-                        fontSize: 16,
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : AppColors.subTextColor,
+                      // labelText: "Years of Experiences",
+                      label: Text.rich(
+                        TextSpan(
+                          text: "Years of Experiences",
+                          style: getTextStyle(
+                            fontSize: 16,
+                            color:
+                                themeMode == ThemeMode.dark
+                                    ? AppColors.primary
+                                    : AppColors.subTextColor,
+                          ),
+                          children: [
+                            if (!isEdit)
+                              TextSpan(
+                                text: " *",
+                                style: getTextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red,
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
-                      hintText: "3 years",
-                      hintStyle: getTextStyle(
-                        fontSize: 14,
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.primary
-                                : AppColors.textColor,
-                      ),
+                      // hintText: "3",
+                      // hintStyle: getTextStyle(
+                      //   fontSize: 14,
+                      //   color:
+                      //       themeMode == ThemeMode.dark
+                      //           ? AppColors.primary
+                      //           : AppColors.textColor,
+                      // ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                           color:
@@ -498,19 +622,25 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
 
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Upload Cover Photos",
-                      style: getTextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color:
-                            themeMode == ThemeMode.dark
-                                ? AppColors.buttonColor
-                                : AppColors.buttonColor2,
+                  Row(
+                    children: [
+                      Text(
+                        "Upload Cover Photos",
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color:
+                              themeMode == ThemeMode.dark
+                                  ? AppColors.buttonColor
+                                  : AppColors.buttonColor2,
+                        ),
                       ),
-                    ),
+                      if (!isEdit)
+                        Text(
+                          " *",
+                          style: getTextStyle(fontSize: 14, color: Colors.red),
+                        ),
+                    ],
                   ),
                   SizedBox(height: 8),
 
@@ -541,7 +671,8 @@ class SpProfileSetupScreen extends StatelessWidget {
                                   ? isEdit
                                       ? Image.network(
                                         SpAuthController
-                                                .profileInfoModel
+                                                .spUser
+                                                ?.profile
                                                 ?.coverPhoto
                                                 ?.path ??
                                             IconPath.profile01,
@@ -618,19 +749,21 @@ class SpProfileSetupScreen extends StatelessWidget {
                   //* ------------------ Continue Button ------------------
                   isEdit
                       ? CustomContinueButton(
-                        onPress: () {
+                        onPress: () async {
                           if (profileSetupController.formKey.currentState!
                               .validate()) {
-                            profileSetupController.spProfileUpdate();
+                            await profileSetupController.spProfileUpdate();
+                            EasyLoading.dismiss();
                           }
                         },
                         title: "Update",
                       )
                       : CustomContinueButton(
-                        onPress: () {
+                        onPress: () async {
                           if (profileSetupController.formKey.currentState!
                               .validate()) {
-                            profileSetupController.spProfileSetup();
+                            await profileSetupController.spProfileSetup();
+                            EasyLoading.dismiss();
                           }
                         },
                         title: "Continue",

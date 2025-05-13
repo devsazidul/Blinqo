@@ -9,7 +9,6 @@ import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_ver
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class SpGetVerifiedScreen extends StatelessWidget {
@@ -55,9 +54,9 @@ class SpGetVerifiedScreen extends StatelessWidget {
                   //* -------------------------- Get Verified Button --------------------------
                   CustomContinueButton(
                     onPress: () {
-                      EasyLoading.dismiss();
                       if (SpAuthController
-                              .profileInfoModel
+                              .spUser
+                              ?.profile
                               ?.verificationSubmissionId !=
                           null) {
                         Get.snackbar(
@@ -75,6 +74,8 @@ class SpGetVerifiedScreen extends StatelessWidget {
                     title: "Get Verified",
                   ),
                   SizedBox(height: 16),
+
+                  //* -------------------------- Skip Button --------------------------
                   GestureDetector(
                     onTap: () {
                       Get.to(SpBottomNavBarScreen());

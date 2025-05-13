@@ -7,7 +7,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
-import 'package:blinqo/features/role/service_provider/common/models/profile_info_model.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/event_preference_model.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/profile_setup_model.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
@@ -27,7 +26,7 @@ class SpProfileSetupController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   TextEditingController profileNameController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController experienceYearController = TextEditingController();
@@ -41,20 +40,19 @@ class SpProfileSetupController extends GetxController {
 
   void initializeEditMode() {
     if (isEditMode.value && !isInitialized.value) {
-      profileNameController.text =
-          SpAuthController.profileInfoModel?.name ?? "";
-      nameController.text = SpAuthController.profileInfoModel?.name ?? "";
+      profileNameController.text = SpAuthController.spUser?.name ?? "";
+      usernameController.text = SpAuthController.spUser?.profile?.name ?? "";
       selectedRoles.value =
-          SpAuthController.profileInfoModel?.serviceProviderRole ??
+          SpAuthController.spUser?.profile?.serviceProviderRole ??
           ServiceProviderRole.photographer;
       locationController.text =
-          SpAuthController.profileInfoModel?.location ?? "";
+          SpAuthController.spUser?.profile?.location ?? "";
       descriptionController.text =
-          SpAuthController.profileInfoModel?.description ?? "";
+          SpAuthController.spUser?.profile?.description ?? "";
       experienceYearController.text =
-          SpAuthController.profileInfoModel?.experience?.toString() ?? "";
+          SpAuthController.spUser?.profile?.experience?.toString() ?? "";
       selectedEvents.addAll(
-        SpAuthController.profileInfoModel?.eventPreference?.map(
+        SpAuthController.spUser?.profile?.eventPreference?.map(
               (e) => e.id ?? '',
             ) ??
             [],
@@ -329,82 +327,78 @@ class SpProfileSetupController extends GetxController {
     isLoadingServiceProviderSetup.value = true;
     update();
 
-    try {
-      final response = await Get.find<SpNetworkCaller>().multipartRequest(
-        url: Urls.uploadServiceProviderProfile,
-        formFields: {
-          'eventPreferenceIds': selectedEvents.join(','),
-          'serviceProviderRole': selectedRoles.value,
-          'description': descriptionController.text,
-          'experience': experienceYearController.text,
-          'userId': SpAuthController.userModel?.id ?? '',
-          'location': locationController.text,
-          'name': nameController.text,
-        },
-        files: [
-          if (profileImage.value != null)
-            await http.MultipartFile.fromPath(
-              'image',
-              profileImage.value!.path,
-            ),
-          if (coverImage.value != null)
-            await http.MultipartFile.fromPath(
-              'coverPhoto',
-              coverImage.value!.path,
-            ),
-        ],
+    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+      url: Urls.uploadServiceProviderProfile,
+      formFields: {
+        'eventPreferenceIds': jsonEncode(selectedEvents),
+        'serviceProviderRole': selectedRoles.value,
+        'description': descriptionController.text,
+        'experience': experienceYearController.text,
+        'userId': SpAuthController.spUser?.id ?? '',
+        'location': locationController.text,
+        'name': profileNameController.text,
+        'userName': usernameController.text,
+      },
+      files: [
+        if (profileImage.value != null)
+          await http.MultipartFile.fromPath('image', profileImage.value!.path),
+        if (coverImage.value != null)
+          await http.MultipartFile.fromPath(
+            'coverPhoto',
+            coverImage.value!.path,
+          ),
+      ],
+    );
+
+    if (response.isSuccess) {
+      /// If profile setup is successful, then update the token and call the
+      /// get user info api to get the updated user information
+      final ProfileSetupModel profileSetupModel = ProfileSetupModel.fromJson(
+        response.responseData['data'],
+      );
+      //* update token
+      await SpAuthController.updateToken(
+        token: profileSetupModel.accessToken ?? '',
       );
 
-      if (response.isSuccess) {
-        //* create sp user model
-        final ProfileSetupModel profileSetupModel = ProfileSetupModel.fromJson(
-          response.responseData,
-        );
+      //* create profile info model
+      // final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
+      //   response.responseData['data'],
+      // );
 
-        //* create profile info model
-        final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
-          response.responseData['data'],
-        );
+      //* save user information
+      // await SpAuthController.saveUserInformation(
+      //   accessToken: profileSetupModel.accessToken,
+      //   spUser: SpUser(
+      //     id: profileInfoModel.id,
+      //     email: profileInfoModel.email,
+      //     phone: profileInfoModel.phone,
+      //     name: profileInfoModel.name,
+      //     role: profileInfoModel.role,
+      //     isVerified: profileInfoModel.isVerified,
+      //     createdAt: profileInfoModel.createdAt,
+      //     updatedAt: profileInfoModel.updatedAt,
+      //     profile: profileInfoModel,
+      //   ),
+      // );
 
-        //* save user information
-        // await SpAuthController.saveUserInformation(
-        //   accessToken: profileSetupModel.accessToken,
-        //   spUser: SpUser(
-        //     id: profileInfoModel.id,
-        //     email: profileInfoModel.email,
-        //     phone: profileInfoModel.phone,
-        //     name: profileInfoModel.name,
-        //     role: profileInfoModel.role,
-        //     isVerified: profileInfoModel.isVerified,
-        //     createdAt: profileInfoModel.createdAt,
-        //     updatedAt: profileInfoModel.updatedAt,
-        //     profile: profileInfoModel,
-        //   ),
-        // );
+      // await SpAuthController.updateUserInformation(
+      //   profileId: profileInfoModel.id,
+      //   isProfileCreated: true,
+      // );
 
-        await SpAuthController.updateUserInformation(
-          profileId: profileInfoModel.id,
-          isProfileCreated: true,
-        );
-
-        await Get.find<SpGetUserInfoController>().spGetUserInfo();
-        EasyLoading.dismiss();
-        Get.offAll(SpBottomNavBarScreen());
-        isSuccess = true;
-        EasyLoading.showSuccess('Profile setup successful');
-      } else {
-        EasyLoading.dismiss();
-        EasyLoading.showError(response.errorMessage);
-        isSuccess = false;
-      }
-    } catch (e) {
+      await Get.find<SpGetUserInfoController>().spGetUserInfo();
       EasyLoading.dismiss();
-      EasyLoading.showError('An error occurred during profile setup');
+      Get.offAll(SpBottomNavBarScreen());
+      isSuccess = true;
+      EasyLoading.showSuccess('Profile setup successful');
+    } else {
+      EasyLoading.dismiss();
+      EasyLoading.showError(response.errorMessage);
       isSuccess = false;
-    } finally {
-      isLoadingServiceProviderSetup.value = false;
-      update();
     }
+    isLoadingServiceProviderSetup.value = false;
+    update();
     return isSuccess;
   }
 
@@ -419,70 +413,54 @@ class SpProfileSetupController extends GetxController {
     isLoadingServiceProviderUpdate.value = true;
     update();
 
-    try {
-      await SpAuthController.getUserInformation();
+    await SpAuthController.getUserInformation();
 
-      final response = await Get.find<SpNetworkCaller>().multipartRequest(
-        isPatchRequest: true,
-        url: Urls.updateServiceProviderProfile(
-          SpAuthController.profileInfoModel?.id ?? '',
-        ),
-        formFields: {
-          'eventPreferenceIds': jsonEncode(selectedEvents),
-          'serviceProviderRole': selectedRoles.value,
-          'description': descriptionController.text,
-          'experience': experienceYearController.text,
-          'userId': SpAuthController.userModel?.id ?? '',
-          'location': locationController.text,
-          'name': nameController.text,
-        },
-        files: [
-          if (profileImage.value != null)
-            await http.MultipartFile.fromPath(
-              'image',
-              profileImage.value!.path,
-            ),
-          if (coverImage.value != null)
-            await http.MultipartFile.fromPath(
-              'coverPhoto',
-              coverImage.value!.path,
-            ),
-        ],
-      );
+    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+      isPatchRequest: true,
+      url: Urls.updateServiceProviderProfile(
+        SpAuthController.spUser?.profile?.id ?? '',
+      ),
+      formFields: {
+        'eventPreferenceIds': jsonEncode(selectedEvents),
+        'serviceProviderRole': selectedRoles.value,
+        'description': descriptionController.text,
+        'experience': experienceYearController.text,
+        // 'userId': SpAuthController.userModel?.id ?? '',
+        'location': locationController.text,
+        'name': profileNameController.text,
+        'userName': usernameController.text,
+      },
+      files: [
+        if (profileImage.value != null)
+          await http.MultipartFile.fromPath('image', profileImage.value!.path),
+        if (coverImage.value != null)
+          await http.MultipartFile.fromPath(
+            'coverPhoto',
+            coverImage.value!.path,
+          ),
+      ],
+    );
 
-      if (response.isSuccess) {
-        final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
-          response.responseData['data'],
-        );
-
-        await SpAuthController.saveUserInformation(
-          profileInfo: profileInfoModel,
-        );
-
-        await Get.find<SpGetUserInfoController>().spGetUserInfo();
-        EasyLoading.dismiss();
-        Get.offAll(SpBottomNavBarScreen());
-        isSuccess = true;
-        EasyLoading.showSuccess('Profile updated successfully');
-      } else {
-        EasyLoading.dismiss();
-        EasyLoading.showError(response.errorMessage);
-        isSuccess = false;
-      }
-    } catch (e) {
+    if (response.isSuccess) {
+      await Get.find<SpGetUserInfoController>().spGetUserInfo();
       EasyLoading.dismiss();
-      EasyLoading.showError('An error occurred during profile update');
+      Get.offAll(SpBottomNavBarScreen());
+      isSuccess = true;
+      EasyLoading.showSuccess('Profile updated successfully');
+    } else {
+      EasyLoading.dismiss();
+      EasyLoading.showError(response.errorMessage);
       isSuccess = false;
-    } finally {
-      isLoadingServiceProviderUpdate.value = false;
-      update();
     }
+
+    isLoadingServiceProviderUpdate.value = false;
+    update();
     return isSuccess;
   }
 
   void clearAllData() {
     // eventPreferenceList.clear();
-    nameController.clear();
+    usernameController.clear();
     descriptionController.clear();
     locationController.clear();
     experienceYearController.clear();
@@ -493,14 +471,14 @@ class SpProfileSetupController extends GetxController {
   }
 
   @override
-  void onClose() {
-    nameController.dispose();
+  void dispose() {
+    clearAllData();
+    profileNameController.dispose();
+    usernameController.dispose();
     descriptionController.dispose();
     locationController.dispose();
     experienceYearController.dispose();
-    clearAllData();
-    update();
-    super.onClose();
+    super.dispose();
   }
 }
 

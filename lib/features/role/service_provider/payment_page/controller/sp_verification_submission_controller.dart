@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -52,7 +53,7 @@ class SpVerificationSubmissionController extends GetxController {
     final response = await Get.find<SpNetworkCaller>().multipartRequest(
       url: Urls.sendVerificationRequest,
       formFields: {
-        'profileId': SpAuthController.profileInfoModel?.id ?? '',
+        'profileId': SpAuthController.spUser?.profile?.id ?? '',
         'bio': spShortBioController.text,
       },
       files: [
@@ -67,6 +68,7 @@ class SpVerificationSubmissionController extends GetxController {
     );
     if (response.isSuccess) {
       EasyLoading.dismiss();
+      Get.find<SpGetUserInfoController>().spGetUserInfo();
       EasyLoading.showSuccess('Verification request sent successfully');
       isSuccess = true;
     } else {

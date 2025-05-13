@@ -115,6 +115,6 @@ class SpPaymentOption extends StatelessWidget {
   void _onClickAddPaymentMethod(
     SpPaymentOptionController spPaymentOptionController,
   ) async {
-    await spPaymentOptionController.makePayment(amount: '10', currency: 'USD');
+    await spPaymentOptionController.payWithStripe(amount: 10);
   }
 }
