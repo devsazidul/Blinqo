@@ -17,8 +17,9 @@ import 'package:get/get.dart';
 class VenueSetupScreen extends StatelessWidget {
   final String venueStatus;
   static const String name = '/venue-setup-screen';
+  final bool? isEdit;
 
-  const VenueSetupScreen({super.key, required this.venueStatus});
+  const VenueSetupScreen({super.key, required this.venueStatus, this.isEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -313,7 +314,7 @@ class VenueSetupScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              controller.createNewVenue();
+                              controller.createNewVenue(venueStatus);
                               // Get.to(() => VenueOwnerProfilePage());
                             }
                           },
@@ -342,40 +343,40 @@ class VenueSetupScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       // Skip button elevated button
-                      if(venueStatus == 'Venue Setup')
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Get.to(() => VanueOwnerBottomNavBar());
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            backgroundColor:
-                                isDarkMode
-                                    ? AppColors.darkBackgroundColor
-                                    : AppColors.backgroundColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(
-                                width: 1,
-                                color: Color(0xff003366),
+                      if (venueStatus == 'Venue Setup')
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => VanueOwnerBottomNavBar());
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              backgroundColor:
+                                  isDarkMode
+                                      ? AppColors.darkBackgroundColor
+                                      : AppColors.backgroundColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                  width: 1,
+                                  color: Color(0xff003366),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              'Skip',
+                              style: getTextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    isDarkMode
+                                        ? Color(0xffE6EBF0)
+                                        : Color(0xff003366),
                               ),
                             ),
                           ),
-                          child: Text(
-                            'Skip',
-                            style: getTextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color:
-                                  isDarkMode
-                                      ? Color(0xffE6EBF0)
-                                      : Color(0xff003366),
-                            ),
-                          ),
                         ),
-                      ),
                       SizedBox(height: 40),
                     ],
                   ),

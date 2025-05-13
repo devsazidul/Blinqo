@@ -2,6 +2,7 @@
 
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,9 +14,11 @@ class BookingRequest extends StatelessWidget {
   final DateTime? selectedDate;
   final int guestNumber;
   final String bookingStatus;
+  final String venueName;
 
   const BookingRequest({
     super.key,
+    required this.venueName,
     required this.eventName,
     required this.selectedDate,
     required this.guestNumber,
@@ -32,7 +35,8 @@ class BookingRequest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+    final bool isDarkMode =
+        Get.find<VenueOwnerProfileController>().isDarkMode.value;
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
@@ -70,12 +74,16 @@ class BookingRequest extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Image.asset(
-                    ImagePath.venuesHall,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Image.asset(
-                      ImagePath.venuesHall,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: CachedNetworkImage(
+                      imageUrl: ImagePath.venuesHall,
                       fit: BoxFit.cover,
+                      errorWidget:
+                          (context, error, stackTrace) => Image.asset(
+                            ImagePath.venuesHall,
+                            fit: BoxFit.cover,
+                          ),
                     ),
                   ),
                 ),
@@ -89,13 +97,16 @@ class BookingRequest extends StatelessWidget {
                         style: getTextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+                          color:
+                              isDarkMode
+                                  ? const Color(0xffEBEBEB)
+                                  : const Color(0xff333333),
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '$guestNumber Guests',
+                        venueName,
                         style: getTextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -110,7 +121,10 @@ class BookingRequest extends StatelessWidget {
                   width: 37,
                   height: 28,
                   fit: BoxFit.contain,
-                  color: isDarkMode ? const Color(0xffD4AF37) : const Color(0xff003366),
+                  color:
+                      isDarkMode
+                          ? const Color(0xffD4AF37)
+                          : const Color(0xff003366),
                 ),
               ],
             ),
@@ -128,7 +142,10 @@ class BookingRequest extends StatelessWidget {
                   style: getTextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 12,
-                    color: isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
+                    color:
+                        isDarkMode
+                            ? const Color(0xff8A8A8A)
+                            : const Color(0xff767676),
                   ),
                 ),
                 const Spacer(),
@@ -136,11 +153,12 @@ class BookingRequest extends StatelessWidget {
                   height: 22,
                   width: screenWidth * 0.17,
                   decoration: BoxDecoration(
-                    color: bookingStatus.toLowerCase() == 'accepted'
-                        ? const Color(0xff003366)
-                        : bookingStatus.toLowerCase() == 'pending'
-                        ? const Color(0xffD4AF37)
-                        : const Color(0xffCC0000),
+                    color:
+                        bookingStatus.toLowerCase() == 'accepted'
+                            ? const Color(0xff003366)
+                            : bookingStatus.toLowerCase() == 'pending'
+                            ? const Color(0xffD4AF37)
+                            : const Color(0xffCC0000),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Center(
@@ -159,6 +177,6 @@ class BookingRequest extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ).marginOnly(bottom: screenWidth * 0.03);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
@@ -17,17 +17,19 @@ class CustomShapeTag extends StatelessWidget {
       padding: const EdgeInsets.all(6.0),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          boxShadow: [
+        decoration: ShapeDecoration(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(34),
+          ),
+          shadows: [
             BoxShadow(
               color: Color(0x0F000000),
               blurRadius: 10,
               offset: Offset(0, 3),
               spreadRadius: 0,
-            ),
+            )
           ],
-          borderRadius: BorderRadius.circular(34),
-          color: Color(0xffFBF7EB),
         ),
         child: Text(
           label,

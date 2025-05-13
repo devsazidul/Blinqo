@@ -6,6 +6,7 @@ import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_detail
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_details_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,7 +33,6 @@ class VenueHomePage extends StatelessWidget {
     VenueDetailsController venueDetailsController = Get.put(
       VenueDetailsController(),
     );
-
 
     // Bind search bar input to filterVenues
     searchController.addListener(() {
@@ -306,7 +306,10 @@ class VenueHomePage extends StatelessWidget {
                                               const Spacer(),
                                               InkWell(
                                                 onTap: () async {
-                                                  await venueDetailsController.getVenueDetails(venue['id']??'');
+                                                  await venueDetailsController
+                                                      .getVenueDetails(
+                                                        venue['id'] ?? '',
+                                                      );
 
                                                   Get.to(
                                                     () => VenueDetailsScreen(),
@@ -357,7 +360,7 @@ class VenueHomePage extends StatelessWidget {
                 child: Center(
                   child: InkWell(
                     onTap: () {
-                      Get.to(() => EditVenue(image: ImagePath.venuesHall));
+                      Get.to(VenueSetupScreen(venueStatus: 'Create New Venue'));
                     },
                     child: Container(
                       width: double.infinity,

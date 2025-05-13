@@ -16,18 +16,14 @@ class CustomAmenityBox extends StatelessWidget {
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x0F000000),
-            blurRadius: 10,
-            offset: Offset(0, 3),
-            spreadRadius: 0,
-          ),
-        ],
-        borderRadius: BorderRadius.circular(34),
-        color: Color(0xffFBF7EB),
-      ),
+    decoration: ShapeDecoration(
+    shape: RoundedRectangleBorder(
+    side: BorderSide(
+    width: 1,
+    color: const Color(0xFFC0C0C0),
+    ),
+    borderRadius: BorderRadius.circular(4),
+    ),),
       child: Text(
         label,
         style: getTextStyle(

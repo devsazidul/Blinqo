@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:blinqo/core/common/widgets/logger_view.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/all_venue_details_controller.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/Model/amenity_model.dart';
@@ -258,7 +259,7 @@ class VenueSetupController extends GetxController {
 
   //------------- Start New Venue Create  --------------//
 
-  Future<void> createNewVenue() async {
+  Future<void> createNewVenue(String venueName) async {
     _logger.i('Starting venue creation process');
 
     if (venueImage.value == null) {
@@ -373,6 +374,19 @@ class VenueSetupController extends GetxController {
     );
     if (response.isSuccess) {
       EasyLoading.showSuccess('Venue created successfully');
+      if (venueName == 'Create New Venue') {
+        EasyLoading.showSuccess('Venue created successfully');
+        clearControllers();
+        AllVenuesDetailsController allVenuesDetailsController = Get.put(
+          AllVenuesDetailsController(),
+        );
+        await allVenuesDetailsController.getAllVenues();
+        Get.back();
+      }
+      if (venueName == 'Venue Setup') {
+        clearControllers();
+        VenueOwnerProfilePage();
+      }
       clearControllers();
       VenueOwnerProfilePage();
       _logger.i('Venue created successfully: ${response.body}');
