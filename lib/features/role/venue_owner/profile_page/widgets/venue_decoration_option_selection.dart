@@ -7,6 +7,7 @@ class OptionSection extends StatelessWidget {
   final List<String> options;
   final RxList<String> selectedOptions;
   final Function(String, List<String>) onToggle;
+  final bool isDarkMode;
 
   const OptionSection({
     super.key,
@@ -14,6 +15,7 @@ class OptionSection extends StatelessWidget {
     required this.options,
     required this.selectedOptions,
     required this.onToggle,
+    required this.isDarkMode,
   });
 
   @override
@@ -27,7 +29,7 @@ class OptionSection extends StatelessWidget {
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w500,
-            color: Color(0xff333333),
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
           ),
         ),
         Wrap(
@@ -48,8 +50,17 @@ class OptionSection extends StatelessWidget {
                           onChanged: (bool? value) {
                             onToggle(option, selectedOptions);
                           },
-                          activeColor: Color(0xff003366),
-                          side: BorderSide(color: Color(0xff003366), width: 1),
+                          activeColor:
+                              isDarkMode
+                                  ? Color(0xFFD4AF37)
+                                  : Color(0xff003366),
+                          side: BorderSide(
+                            color:
+                                isDarkMode
+                                    ? Color(0xFFD4AF37)
+                                    : Color(0xff003366),
+                            width: 1,
+                          ),
                         ),
                         SizedBox(width: 8),
                         Text(
@@ -58,7 +69,10 @@ class OptionSection extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff333333),
+                            color:
+                                isDarkMode
+                                    ? Color(0xffEBEBEB)
+                                    : Color(0xff333333),
                           ),
                         ),
                       ],

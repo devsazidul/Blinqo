@@ -85,7 +85,7 @@ class OwnerNetworkCaller {
 
       // Fetch token if not provided
       token ??= await EventAuthController.getAuthToken();
-      _logger.i('Using token: ${token?.substring(0, 5)}...');
+      _logger.i('Using token: $token');
 
       final url = Uri.parse(Url).replace(queryParameters: queryParameters);
       _logger.i('GET Request URL: $url');

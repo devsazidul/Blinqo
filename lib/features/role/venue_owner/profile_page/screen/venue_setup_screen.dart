@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/widgets/add_amenities_dialog.dart';
@@ -17,9 +18,13 @@ import 'package:get/get.dart';
 class VenueSetupScreen extends StatelessWidget {
   final String venueStatus;
   static const String name = '/venue-setup-screen';
-  final bool? isEdit;
+  final bool isEdit;
 
-  const VenueSetupScreen({super.key, required this.venueStatus, this.isEdit});
+  const VenueSetupScreen({
+    super.key,
+    required this.venueStatus,
+    this.isEdit = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,19 @@ class VenueSetupScreen extends StatelessWidget {
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final VenueSetupController controller = Get.put(VenueSetupController());
+    controller.setEditMode(isEdit);
+    String venueImage =
+        Get.put(
+          VenueDetailsController(),
+        ).response.value?.data?.venue?.venueImage?.path ??
+        '';
+
+    String seatArrangementImage =
+        Get.put(
+          VenueDetailsController(),
+        ).response.value?.data?.venue?.arrangementsImage?.path ??
+        '';
+
     return Obx(
       () => Scaffold(
         backgroundColor:
@@ -39,14 +57,14 @@ class VenueSetupScreen extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
-                VenueSetupHeader(title: venueStatus),
-                SizedBox(height: 32),
+                VenueSetupHeader(title: venueStatus, isEdit: isEdit,imagePath: venueImage,),
+                const SizedBox(height: 32),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // name text field
+                      // Name text field
                       TextFieldWidget(
                         hintText: 'Venue Name',
                         labelText: 'Venue Name',
@@ -58,21 +76,24 @@ class VenueSetupScreen extends StatelessWidget {
                           return null;
                         },
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       // Location text field
                       TextFieldWidget(
-                        hintText: 'Enter your location',
+                        hintText: 'Enter your location (City, Area)',
                         labelText: 'Location',
                         controller: controller.venueAddressTEController,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Enter your location';
                           }
+                          if (!value.contains(',')) {
+                            return 'Enter City, Area';
+                          }
                           return null;
                         },
                       ),
-                      SizedBox(height: 16),
-                      // select From image here show google map in short
+                      const SizedBox(height: 16),
+
                       Text(
                         'Select From',
                         style: getTextStyle(
@@ -80,16 +101,14 @@ class VenueSetupScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           color:
                               isDarkMode
-                                  ? Color(0xffEBEBEB)
-                                  : Color(0xff333333),
+                                  ? const Color(0xffEBEBEB)
+                                  : const Color(0xff333333),
                         ),
                       ),
-                      SizedBox(height: 16),
-
+                      const SizedBox(height: 16),
                       // Google Map
                       GoogleMapVenueSetup(),
-
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       TextFieldWidget(
                         hintText: 'Guests Capacity',
                         labelText: 'Number Of Guests',
@@ -107,7 +126,7 @@ class VenueSetupScreen extends StatelessWidget {
                           return null;
                         },
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Text(
                         'Venue Type',
                         style: getTextStyle(
@@ -115,16 +134,16 @@ class VenueSetupScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           color:
                               isDarkMode
-                                  ? Color(0xffEBEBEB)
-                                  : Color(0xff333333),
+                                  ? const Color(0xffEBEBEB)
+                                  : const Color(0xff333333),
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       // Venue Type Dropdown
                       Obx(() {
                         return DropdownSelector(
                           selectedValue: controller.selectedVenueType.value,
-                          options: [
+                          options: const [
                             'Select Venue Type',
                             'HOTEL',
                             'RESTAURANT',
@@ -139,20 +158,19 @@ class VenueSetupScreen extends StatelessWidget {
                           },
                         );
                       }),
-                      SizedBox(height: 16),
-
+                      const SizedBox(height: 16),
                       Text(
                         'Amenities',
                         style: getTextStyle(
-                          color: const Color(0xFF333333),
+                          color: isDarkMode ? Color(0xffEBEBEB) : Color(0xFF333333),
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Obx(() {
                         return controller.selectedAmenities.isEmpty
-                            ? Text('No amenities selected')
+                            ? const Text('No amenities selected')
                             : Wrap(
                               spacing: 8,
                               runSpacing: 8,
@@ -166,21 +184,20 @@ class VenueSetupScreen extends StatelessWidget {
                                   }).toList(),
                             );
                       }),
-
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
                       // Available Amenities Section
                       Text(
                         'Select From Here',
                         style: getTextStyle(
-                          color: const Color(0xFF333333),
+                          color: isDarkMode ? Color(0xffEBEBEB) : Color(0xFF333333),
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Obx(() {
                         return controller.availableAmenities.isEmpty
-                            ? Text('No more amenities available')
+                            ? const Text('No more amenities available')
                             : Wrap(
                               spacing: 8,
                               runSpacing: 8,
@@ -194,27 +211,28 @@ class VenueSetupScreen extends StatelessWidget {
                                   }).toList(),
                             );
                       }),
-
                       const SizedBox(height: 24),
-
                       // Add Amenity button
                       Center(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff003366),
+                            backgroundColor: const Color(0xff003366),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(34),
                             ),
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                           ),
                           onPressed: () {
-                            Get.dialog(AddAmenitiesDialog());
+                            Get.dialog(const AddAmenitiesDialog());
                           },
-
-                          child: Icon(Icons.add, color: Colors.white, size: 24),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 24,
+                          ),
                         ),
                       ),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       // Seating Arrangement
                       Text(
                         'Seating Arrangement',
@@ -223,22 +241,25 @@ class VenueSetupScreen extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                           color:
                               isDarkMode
-                                  ? Color(0xffEBEBEB)
-                                  : Color(0xff333333),
+                                  ? const Color(0xffEBEBEB)
+                                  : const Color(0xff333333),
                         ),
                       ),
-                      SizedBox(height: 16),
-                      SeatingArrangementWidget(),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
+                      SeatingArrangementWidget(isEdit: isEdit,imagePath: seatArrangementImage,),
+                      const SizedBox(height: 16),
                       Obx(() {
                         if (controller.venuDecorationOption.value == null) {
-                          return Center(child: Text('No options available'));
+                          return const Center(
+                            child: Text('No options available'),
+                          );
                         }
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             OptionSection(
                               title: 'Table Shape',
+                              isDarkMode: isDarkMode,
                               options:
                                   controller
                                       .venuDecorationOption
@@ -249,6 +270,7 @@ class VenueSetupScreen extends StatelessWidget {
                               onToggle: controller.toggleSelection,
                             ),
                             OptionSection(
+                              isDarkMode: isDarkMode,
                               title: 'Seating Style',
                               options:
                                   controller
@@ -260,6 +282,7 @@ class VenueSetupScreen extends StatelessWidget {
                               onToggle: controller.toggleSelection,
                             ),
                             OptionSection(
+                              isDarkMode: isDarkMode,
                               title: 'Lighting Style',
                               options:
                                   controller
@@ -272,6 +295,7 @@ class VenueSetupScreen extends StatelessWidget {
                               onToggle: controller.toggleSelection,
                             ),
                             OptionSection(
+                              isDarkMode: isDarkMode,
                               title: 'Flower Color',
                               options:
                                   controller
@@ -283,6 +307,7 @@ class VenueSetupScreen extends StatelessWidget {
                               onToggle: controller.toggleSelection,
                             ),
                             OptionSection(
+                              isDarkMode: isDarkMode,
                               title: 'Flower Type',
                               options:
                                   controller
@@ -294,6 +319,7 @@ class VenueSetupScreen extends StatelessWidget {
                               onToggle: controller.toggleSelection,
                             ),
                             OptionSection(
+                              isDarkMode: isDarkMode,
                               title: 'Fragrance',
                               options:
                                   controller
@@ -307,58 +333,57 @@ class VenueSetupScreen extends StatelessWidget {
                           ],
                         );
                       }),
-                      SizedBox(height: 48),
-                      // Continue button
+                      const SizedBox(height: 48),
+                      // Save button
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              controller.createNewVenue(venueStatus);
-                              // Get.to(() => VenueOwnerProfilePage());
+                              controller.saveVenue(venueStatus, isEdit: isEdit);
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               vertical: 12,
                               horizontal: 20,
                             ),
-                            backgroundColor: Color(0xff003366),
+                            backgroundColor: const Color(0xff003366),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                           child: Text(
-                            'Save & Continue',
+                            isEdit ? 'Update Venue' : 'Save & Continue',
                             style: getTextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color:
                                   isDarkMode
-                                      ? Color(0xffE6EBF0)
-                                      : Color(0xffFFFFFF),
+                                      ? const Color(0xffE6EBF0)
+                                      : const Color(0xffFFFFFF),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
-                      // Skip button elevated button
-                      if (venueStatus == 'Venue Setup')
+                      const SizedBox(height: 20),
+                      // Skip button (only for create)
+                      if (venueStatus == 'Venue Setup' && !isEdit)
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.to(() => VanueOwnerBottomNavBar());
+                              Get.to(() => const VanueOwnerBottomNavBar());
                             },
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                               backgroundColor:
                                   isDarkMode
                                       ? AppColors.darkBackgroundColor
                                       : AppColors.backgroundColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                side: BorderSide(
+                                side: const BorderSide(
                                   width: 1,
                                   color: Color(0xff003366),
                                 ),
@@ -371,13 +396,13 @@ class VenueSetupScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 color:
                                     isDarkMode
-                                        ? Color(0xffE6EBF0)
-                                        : Color(0xff003366),
+                                        ? const Color(0xffE6EBF0)
+                                        : const Color(0xff003366),
                               ),
                             ),
                           ),
                         ),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                     ],
                   ),
                 ),

@@ -1,10 +1,15 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/booking_requests.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/booking_request.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_amenity.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_calendar.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/review_card.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/status_label.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/all_reviews.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/revenue_card.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
@@ -13,24 +18,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../core/utils/constants/icon_path.dart';
-import '../widget/custom_amenity.dart';
-import '../widget/custom_calendar.dart';
-import '../widget/custom_shape.dart';
-import '../widget/date_pricecard.dart';
-import '../widget/review_card.dart';
-import '../widget/status_label.dart';
 
 final ValueNotifier<List<DateTime>> selectedDatesNotifier =
-ValueNotifier<List<DateTime>>([
-  DateTime(DateTime
-      .now()
-      .year, DateTime
-      .now()
-      .month, DateTime
-      .now()
-      .day),
-]);
+    ValueNotifier<List<DateTime>>([
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+    ]);
 
 class VenueDetailsScreen extends StatelessWidget {
   const VenueDetailsScreen({super.key});
@@ -56,15 +48,12 @@ class VenueDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final VenueDetailsController venueDetailsController = Get.put(
-        VenueDetailsController());
-    final bool isDarkMode = Get
-        .put(VenueOwnerProfileController())
-        .isDarkMode
-        .value;
+      VenueDetailsController(),
+    );
+    final bool isDarkMode =
+        Get.put(VenueOwnerProfileController()).isDarkMode.value;
     TextEditingController priceController = TextEditingController();
-    final Size screenSize = MediaQuery
-        .of(context)
-        .size;
+    final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
     final double screenWidth = screenSize.width;
 
@@ -78,17 +67,15 @@ class VenueDetailsScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: isDarkMode ? const Color(0xff151515) : AppColors
-          .backgroundColor,
+      backgroundColor:
+          isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
       body: Obx(() {
         final venueDetails = venueDetailsController.response.value;
         if (venueDetails == null) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
-
         final venueData = venueDetails.data?.venue;
+        final venueId = venueDetails.data?.venue?.id;
         final venueMetrics = venueDetails.data?.venueMetrics;
         final bookedDates = venueDetails.data?.bookedDate ?? [];
         final bookingRequests = venueDetails.data?.bookingRequest ?? [];
@@ -96,10 +83,7 @@ class VenueDetailsScreen extends StatelessWidget {
         final rating = venueDetails.data?.ratting ?? 0.0;
 
         if (venueData == null) {
-
-          return const Center(
-            child: Text('No venue data available'),
-          );
+          return const Center(child: Text('No venue data available'));
         }
 
         return SingleChildScrollView(
@@ -119,13 +103,13 @@ class VenueDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     child: CachedNetworkImage(
-                     imageUrl:  venueData.venueImage?.path ?? ImagePath.venueview,
+                      imageUrl:
+                          venueData.venueImage?.path ?? ImagePath.venueview,
                       width: double.infinity,
                       height: screenHeight * 0.35,
                       fit: BoxFit.cover,
                       errorWidget:
-                       (context, error, stackTrace) =>
-                          Image.asset(
+                          (context, error, stackTrace) => Image.asset(
                             ImagePath.venueview,
                             width: double.infinity,
                             height: screenHeight * 0.4,
@@ -137,11 +121,11 @@ class VenueDetailsScreen extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
+                          begin: Alignment(0.50, -0.00),
+                          end: Alignment(0.50, 1.00),
                           colors: [
-                            const Color(0xff161616),
-                            const Color(0xff000000).withOpacity(.1),
+                            Colors.black.withValues(alpha: 0),
+                            const Color(0xFF161616),
                           ],
                         ),
                       ),
@@ -158,11 +142,14 @@ class VenueDetailsScreen extends StatelessWidget {
                                 },
                                 child: CircleAvatar(
                                   radius: 20,
-                                  backgroundColor: isDarkMode
-                                      ? const Color(0xFFD9D9D9).withValues(
-                                      alpha: .1)
-                                      : const Color(0xFFD9D9D9).withValues(
-                                      alpha: .1),
+                                  backgroundColor:
+                                      isDarkMode
+                                          ? const Color(
+                                            0xFFD9D9D9,
+                                          ).withValues(alpha: .1)
+                                          : const Color(
+                                            0xFFD9D9D9,
+                                          ).withValues(alpha: .1),
                                   child: Image.asset(
                                     IconPath.arrowLeftAlt,
                                     width: 16,
@@ -173,7 +160,7 @@ class VenueDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                             left: screenWidth * 0.28,
+                              left: screenWidth * 0.28,
                               top: screenHeight * 0.06,
                               child: const Text(
                                 "Venue Details",
@@ -214,24 +201,23 @@ class VenueDetailsScreen extends StatelessWidget {
                           style: GoogleFonts.roboto(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
-                            color: isDarkMode
-                                ? const Color(0xffEBEBEB)
-                                : const Color(0xff333333),
+                            color:
+                                isDarkMode
+                                    ? const Color(0xffEBEBEB)
+                                    : const Color(0xff333333),
                           ),
                         ),
                         const SizedBox(width: 8),
                         if (venueData.verified == true)
-                          Image.asset(
-                            IconPath.verify,
-                            height: 16,
-                            width: 16,
-                          ),
+                          Image.asset(IconPath.verify, height: 16, width: 16),
                         const Spacer(),
                         InkWell(
                           onTap: () {
                             Get.to(
-                                  () => VenueSetupScreen(venueStatus: 'Update Venue'),
-
+                              () => VenueSetupScreen(
+                                venueStatus: 'Update Venue',
+                                isEdit: true,
+                              ),
                             );
                           },
                           child: Container(
@@ -279,9 +265,10 @@ class VenueDetailsScreen extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: isDarkMode
-                                ? const Color(0xffEBEBEB)
-                                : const Color(0xff333333),
+                            color:
+                                isDarkMode
+                                    ? const Color(0xffEBEBEB)
+                                    : const Color(0xff333333),
                           ),
                         ),
                         const SizedBox(width: 5),
@@ -290,9 +277,10 @@ class VenueDetailsScreen extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: isDarkMode
-                                ? const Color(0xffABB7C2)
-                                : const Color(0xffABB7C2),
+                            color:
+                                isDarkMode
+                                    ? const Color(0xffABB7C2)
+                                    : const Color(0xffABB7C2),
                           ),
                         ),
                       ],
@@ -300,11 +288,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        const Icon(
-                          Icons.location_on_outlined,
-                          size: 20,
-                          color: Color(0xff003366),
-                        ),
+                       Image.asset(IconPath.locationOn, height: 16, width: 16),
                         const SizedBox(width: 5),
                         Expanded(
                           child: Text(
@@ -312,9 +296,10 @@ class VenueDetailsScreen extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
-                              color: isDarkMode
-                                  ? const Color(0xffEBEBEB)
-                                  : const Color(0xff333333),
+                              color:
+                                  isDarkMode
+                                      ? const Color(0xffEBEBEB)
+                                      : const Color(0xff333333),
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -325,9 +310,10 @@ class VenueDetailsScreen extends StatelessWidget {
                           style: getTextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: isDarkMode
-                                ? const Color(0xffEBEBEB)
-                                : const Color(0xff333333),
+                            color:
+                                isDarkMode
+                                    ? const Color(0xffEBEBEB)
+                                    : const Color(0xff333333),
                           ),
                         ),
                       ],
@@ -338,34 +324,36 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Wrap(
                       spacing: 7,
                       runSpacing: 7,
-                      children: venueData.amenities.isNotEmpty
-                          ? venueData.amenities.map((amenity) {
-                        return CustomAmenityBox(
-                          icon: Icons.check_circle_outline,
-                          label: amenity.name ?? 'Unknown',
-                        );
-                      }).toList()
-                          : [
-                        CustomAmenityBox(
-                          icon: Icons.wifi,
-                          label: 'No Amenities',
-                        ),
-                      ],
+                      children:
+                          venueData.amenities.isNotEmpty
+                              ? venueData.amenities.map((amenity) {
+                                return CustomAmenityBox(
+                                  icon: Icons.check_circle_outline,
+                                  label: amenity.name ?? 'Unknown',
+                                );
+                              }).toList()
+                              : [
+                                CustomAmenityBox(
+                                  icon: Icons.wifi,
+                                  label: 'No Amenities',
+                                ),
+                              ],
                     ),
                     const SizedBox(height: 40),
                     RevenueCard(
                       totalRevenue: venueMetrics?.totalRevenue ?? 0,
-                      currentMonthRevenue: venueMetrics?.currentMonthRevenue ??
-                          0,
+                      currentMonthRevenue:
+                          venueMetrics?.currentMonthRevenue ?? 0,
                       growthRate: venueMetrics?.growthRate ?? 0,
                       pendingBookings: venueMetrics?.pendingBookings ?? 0,
                     ),
@@ -376,9 +364,10 @@ class VenueDetailsScreen extends StatelessWidget {
                         style: getTextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 20,
-                          color: isDarkMode
-                              ? const Color(0xffEBEBEB)
-                              : const Color(0xff333333),
+                          color:
+                              isDarkMode
+                                  ? const Color(0xffEBEBEB)
+                                  : const Color(0xff333333),
                         ),
                       ),
                     ),
@@ -386,8 +375,8 @@ class VenueDetailsScreen extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: isDarkMode ? const Color(0xff32383D) : Colors
-                            .white,
+                        color:
+                            isDarkMode ? const Color(0xff32383D) : Colors.white,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: CustomCalendar(
@@ -400,49 +389,55 @@ class VenueDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         StatusLabel(
-                          color: isDarkMode
-                              ? const Color(0xff0066CC)
-                              : const Color(0xff0066CC),
+                          color:
+                              isDarkMode
+                                  ? const Color(0xff0066CC)
+                                  : const Color(0xff0066CC),
                           label: 'Booked',
                         ),
                         const SizedBox(height: 8),
                         StatusLabel(
-                          color: isDarkMode
-                              ? const Color(0xff34C759)
-                              : const Color(0xff19480B),
+                          color:
+                              isDarkMode
+                                  ? const Color(0xff34C759)
+                                  : const Color(0xff19480B),
                           label: 'Selected',
                         ),
                       ],
                     ),
-                    const SizedBox(height: 24),
-                    DatePriceCard(
-                      selectedDatesNotifier: selectedDatesNotifier,
-                      priceController: priceController,
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
-                      price: venueData.price ?? 0,
-                    ),
+
+                    // Date Price Card
+                    // const SizedBox(height: 24),
+                    // DatePriceCard(
+                    //   selectedDatesNotifier: selectedDatesNotifier,
+                    //   priceController: priceController,
+                    //   screenHeight: screenHeight,
+                    //   screenWidth: screenWidth,
+                    //   price: venueData.price ?? 0,
+                    // ),
                     const SizedBox(height: 40),
                     Text(
                       "Decoration",
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
                       height: screenHeight * 0.249,
                       width: double.infinity,
-                      child: Image.network(
-                        venueData.arrangementsImage?.path ??
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            venueData.arrangementsImage?.path ??
                             ImagePath.venueview,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset(
+                        errorWidget:
+                            (context, error, stackTrace) => Image.asset(
                               ImagePath.venueview,
                               fit: BoxFit.cover,
                             ),
@@ -454,43 +449,48 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Wrap(
                       spacing: 7,
                       runSpacing: 7,
-                      children: venueData.decoration?.tableShapes.isNotEmpty ??
-                          false
-                          ? venueData.decoration!.tableShapes.map((shape) {
-                        return CustomShapeTag(label: shape);
-                      }).toList()
-                          : [CustomShapeTag(label: "None")],
+                      children:
+                          venueData.decoration?.tableShapes.isNotEmpty ?? false
+                              ? venueData.decoration!.tableShapes.map((shape) {
+                                return CustomShapeTag(label: shape);
+                              }).toList()
+                              : [CustomShapeTag(label: "None")],
                     ),
                     const SizedBox(height: 20),
                     Text(
                       'Seating Style',
                       style: getTextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: isDarkMode
-                              ? const Color(0xffEBEBEB)
-                              : const Color(0xff333333)
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Wrap(
                       spacing: 7,
                       runSpacing: 7,
-                      children: venueData.decoration?.seatingStyles
-                          .isNotEmpty ?? false
-                          ? venueData.decoration!.seatingStyles.map((style) {
-                        return CustomShapeTag(label: style);
-                      }).toList()
-                          : [CustomShapeTag(label: "None")],
+                      children:
+                          venueData.decoration?.seatingStyles.isNotEmpty ??
+                                  false
+                              ? venueData.decoration!.seatingStyles.map((
+                                style,
+                              ) {
+                                return CustomShapeTag(label: style);
+                              }).toList()
+                              : [CustomShapeTag(label: "None")],
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -498,21 +498,22 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Wrap(
                       spacing: 7,
                       runSpacing: 7,
-                      children: venueData.decoration?.lighting.isNotEmpty ??
-                          false
-                          ? venueData.decoration!.lighting.map((lighting) {
-                        return CustomShapeTag(label: lighting);
-                      }).toList()
-                          : [CustomShapeTag(label: "None")],
+                      children:
+                          venueData.decoration?.lighting.isNotEmpty ?? false
+                              ? venueData.decoration!.lighting.map((lighting) {
+                                return CustomShapeTag(label: lighting);
+                              }).toList()
+                              : [CustomShapeTag(label: "None")],
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -520,21 +521,22 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Wrap(
                       spacing: 7,
                       runSpacing: 7,
-                      children: venueData.decoration?.flowerColors.isNotEmpty ??
-                          false
-                          ? venueData.decoration!.flowerColors.map((color) {
-                        return CustomShapeTag(label: color);
-                      }).toList()
-                          : [CustomShapeTag(label: "None")],
+                      children:
+                          venueData.decoration?.flowerColors.isNotEmpty ?? false
+                              ? venueData.decoration!.flowerColors.map((color) {
+                                return CustomShapeTag(label: color);
+                              }).toList()
+                              : [CustomShapeTag(label: "None")],
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -542,21 +544,22 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Wrap(
                       spacing: 7,
                       runSpacing: 7,
-                      children: venueData.decoration?.flowerTypes.isNotEmpty ??
-                          false
-                          ? venueData.decoration!.flowerTypes.map((type) {
-                        return CustomShapeTag(label: type);
-                      }).toList()
-                          : [CustomShapeTag(label: "None")],
+                      children:
+                          venueData.decoration?.flowerTypes.isNotEmpty ?? false
+                              ? venueData.decoration!.flowerTypes.map((type) {
+                                return CustomShapeTag(label: type);
+                              }).toList()
+                              : [CustomShapeTag(label: "None")],
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -564,21 +567,24 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     const SizedBox(height: 16),
                     Wrap(
                       spacing: 7,
                       runSpacing: 7,
-                      children: venueData.decoration?.fragrances.isNotEmpty ??
-                          false
-                          ? venueData.decoration!.fragrances.map((fragrance) {
-                        return CustomShapeTag(label: fragrance);
-                      }).toList()
-                          : [CustomShapeTag(label: "None")],
+                      children:
+                          venueData.decoration?.fragrances.isNotEmpty ?? false
+                              ? venueData.decoration!.fragrances.map((
+                                fragrance,
+                              ) {
+                                return CustomShapeTag(label: fragrance);
+                              }).toList()
+                              : [CustomShapeTag(label: "None")],
                     ),
                     const SizedBox(height: 30),
                     Text(
@@ -586,9 +592,10 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     Row(
@@ -603,9 +610,10 @@ class VenueDetailsScreen extends StatelessWidget {
                             style: getTextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
-                              color: isDarkMode
-                                  ? const Color(0xffEBEBEB)
-                                  : const Color(0xff444444),
+                              color:
+                                  isDarkMode
+                                      ? const Color(0xffEBEBEB)
+                                      : const Color(0xff444444),
                             ),
                           ),
                         ),
@@ -614,23 +622,24 @@ class VenueDetailsScreen extends StatelessWidget {
                     ),
                     bookingRequests.isNotEmpty
                         ? ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: bookingRequests.length > 3
-                          ? 3
-                          : bookingRequests.length,
-                      itemBuilder: (context, index) {
-                        final request = bookingRequests[index];
-                        return BookingRequest(
-                          eventName: request.eventName ?? 'Unknown Event',
-                          selectedDate: request.selectedDate,
-                          guestNumber: request.guestNumber ?? 0,
-                          bookingStatus: request.bookingStatus ?? 'Pending',
-                          //TODO: Get Venue Name
-                          venueName: request.plannerName ?? 'Unknown Venue',
-                        );
-                      },
-                    )
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount:
+                              bookingRequests.length > 3
+                                  ? 3
+                                  : bookingRequests.length,
+                          itemBuilder: (context, index) {
+                            final request = bookingRequests[index];
+                            return BookingRequest(
+                              eventName: request.eventName ?? 'Unknown Event',
+                              selectedDate: request.selectedDate,
+                              guestNumber: request.guestNumber ?? 0,
+                              bookingStatus: request.bookingStatus ?? 'Pending',
+                              //TODO: Get Venue Name
+                              venueName: request.plannerName ?? 'Unknown Venue',
+                            );
+                          },
+                        )
                         : const Text('No booking requests available'),
                     const SizedBox(height: 8),
                     Text(
@@ -638,9 +647,10 @@ class VenueDetailsScreen extends StatelessWidget {
                       style: getTextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
-                        color: isDarkMode
-                            ? const Color(0xffEBEBEB)
-                            : const Color(0xff333333),
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
                       ),
                     ),
                     Row(
@@ -655,45 +665,47 @@ class VenueDetailsScreen extends StatelessWidget {
                             style: getTextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
-                              color: isDarkMode
-                                  ? const Color(0xffEBEBEB)
-                                  : const Color(0xff444444),
+                              color:
+                                  isDarkMode
+                                      ? const Color(0xffEBEBEB)
+                                      : const Color(0xff444444),
                             ),
                           ),
                         ),
                         Icon(
                           Icons.arrow_right_alt,
                           size: 16,
-                          color: isDarkMode
-                              ? const Color(0xffEBEBEB)
-                              : const Color(0xff444444),
+                          color:
+                              isDarkMode
+                                  ? const Color(0xffEBEBEB)
+                                  : const Color(0xff444444),
                         ),
                       ],
                     ),
                     reviews.isNotEmpty
                         ? ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: reviews.length > 2 ? 2 : reviews.length,
-                      itemBuilder: (context, index) {
-                        final review = reviews[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: ReviewCard(
-                            image: review.profile?.image?.path ??
-                                ImagePath.reviewer1,
-                            title: review.profile?.name ?? 'Anonymous',
-                            time: review.createdAt != null
-                                ? '${review.createdAt!.day} ${getMonthName(
-                                review.createdAt!.month)} ${review.createdAt!
-                                .year}'
-                                : 'Unknown',
-                            desc: review.comment ?? 'No comment',
-                            rating: (review.rating ?? 0).toInt(),
-                          ),
-                        );
-                      },
-                    )
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: reviews.length > 2 ? 2 : reviews.length,
+                          itemBuilder: (context, index) {
+                            final review = reviews[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: ReviewCard(
+                                image:
+                                    review.profile?.image?.path ??
+                                    ImagePath.reviewer1,
+                                title: review.profile?.name ?? 'Anonymous',
+                                time:
+                                    review.createdAt != null
+                                        ? '${review.createdAt!.day} ${getMonthName(review.createdAt!.month)} ${review.createdAt!.year}'
+                                        : 'Unknown',
+                                desc: review.comment ?? 'No comment',
+                                rating: (review.rating ?? 0).toInt(),
+                              ),
+                            );
+                          },
+                        )
                         : const Text('No reviews available'),
                     const SizedBox(height: 40),
                   ],

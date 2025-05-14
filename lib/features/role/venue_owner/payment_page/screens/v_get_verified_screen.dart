@@ -2,6 +2,8 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
+import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_thank_you_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,11 +44,20 @@ class VGetVerifiedScreen extends StatelessWidget {
                 // Get Verified Button
                 GestureDetector(
                   onTap: () {
-                    Get.to(
-                      VVerificationSubmissionScreen(),
-                      transition: Transition.rightToLeft,
-                      duration: const Duration(milliseconds: 400),
-                    );
+                    if(EventAuthController.profileInfo?.profile?.verificationSubmissionId==null){
+                      Get.to(
+                        VVerificationSubmissionScreen(),
+                        transition: Transition.rightToLeft,
+                        duration: const Duration(milliseconds: 400),
+                      );
+                    } else {
+                      Get.to(
+                        VThankYouScreen(),
+                        transition: Transition.rightToLeft,
+                        duration: const Duration(milliseconds: 400),
+                      );
+                    }
+
                   },
                   child: Container(
                     width: double.infinity,

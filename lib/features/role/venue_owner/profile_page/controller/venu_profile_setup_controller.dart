@@ -24,6 +24,7 @@ class VenueProfileSetupController extends GetxController {
   var profileImage = Rx<File?>(null);
   VenueOwnerUserData? user;
   TextEditingController nameTEController = TextEditingController();
+  TextEditingController userNameTEController = TextEditingController();
   TextEditingController locationTEController = TextEditingController();
 
   var userId = ''.obs;
@@ -171,6 +172,7 @@ class VenueProfileSetupController extends GetxController {
       // 'userId': userId.value,
       'location': locationTEController.text.trim(),
       'name': nameTEController.text.trim(),
+      'userName': userNameTEController.text.trim(),
     };
     _logger.i('Request body: $body');
     _logger.d('Image file: ${profileImage.value?.path}');
@@ -216,8 +218,9 @@ class VenueProfileSetupController extends GetxController {
     try {
       user = await EventAuthController.getUserAllInfo();
       if (user != null && user!.profile != null) {
-        nameTEController.text = user!.profile!.name;
-        locationTEController.text = user!.profile!.location;
+        nameTEController.text = user?.name ?? 'Unknown';
+        locationTEController.text = user?.profile?.location?? 'Unknown';
+        userNameTEController.text= user?.profile?.name ?? 'Unknown';
         _logger.i(
           'User info loaded: ${user!.profile!.name}, ${user!.profile!.location}',
         );

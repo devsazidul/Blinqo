@@ -2,18 +2,18 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/all_venue_details_controller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
-
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/edit_venue.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_details_screen.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/SearchBarWidget.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/widget/venueplaceholder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/icon_path.dart';
-import '../widget/SearchBarWidget.dart';
-import '../widget/venueplaceholder.dart';
 
 class VenueHomePage extends StatelessWidget {
   VenueHomePage({super.key});
@@ -24,13 +24,12 @@ class VenueHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final AllVenuesDetailsController venueController = Get.put(
       AllVenuesDetailsController(),
     );
-    VenueDetailsController venueDetailsController = Get.put(
+    final VenueDetailsController venueDetailsController = Get.put(
       VenueDetailsController(),
     );
 
@@ -41,7 +40,7 @@ class VenueHomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor:
-          isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
+          isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -50,15 +49,17 @@ class VenueHomePage extends StatelessWidget {
             children: [
               const SizedBox(height: 5),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: 85),
                   Text(
                     'My Venues',
                     style: getTextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
-                      color: isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
+                      color:
+                          isDarkMode
+                              ? const Color(0xffEBEBEB)
+                              : const Color(0xff333333),
                     ),
                   ),
                 ],
@@ -69,42 +70,7 @@ class VenueHomePage extends StatelessWidget {
               Obx(
                 () =>
                     venueController.response.value == null
-                        ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: 16),
-                              VenuePlaceholderWidget(),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      isDarkMode
-                                          ? Color(
-                                            0xff003366,
-                                          ).withValues(alpha: 0.6)
-                                          : const Color(
-                                            0xff003366,
-                                          ).withValues(alpha: 0.5),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 10,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  venueController.getAllVenues();
-                                },
-                                child: const Text(
-                                  'Retry',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
+                        ? _buildVenueListShimmer(screenHeight, isDarkMode)
                         : venueController.filteredVenues.isEmpty
                         ? const VenuePlaceholderWidget()
                         : ListView.builder(
@@ -113,18 +79,13 @@ class VenueHomePage extends StatelessWidget {
                           itemCount: venueController.filteredVenues.length,
                           itemBuilder: (context, index) {
                             final venue = venueController.filteredVenues[index];
-
-                            // Get the original VenueData for navigation
-                            // final venueData =
-                            //     venueController.response.value!.data[index];
-
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 6),
                               child: Container(
                                 decoration: BoxDecoration(
                                   color:
                                       isDarkMode
-                                          ? Color(0xff32383D)
+                                          ? const Color(0xff32383D)
                                           : Colors.white,
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -146,12 +107,8 @@ class VenueHomePage extends StatelessWidget {
                                               height: screenHeight * 0.2,
                                               fit: BoxFit.cover,
                                               errorWidget:
-                                                  (
-                                                    context,
-                                                    error,
-                                                    stackTrace,
-                                                  ) => Image.asset(
-                                                    venue["image"]!,
+                                                  (_, __, ___) => Image.asset(
+                                                    ImagePath.venueview,
                                                     width: double.infinity,
                                                     height: screenHeight * 0.2,
                                                     fit: BoxFit.cover,
@@ -167,7 +124,9 @@ class VenueHomePage extends StatelessWidget {
                                                   begin: Alignment.bottomCenter,
                                                   end: Alignment.topCenter,
                                                   colors: [
-                                                    Colors.black.withAlpha(60),
+                                                    Colors.black.withValues(
+                                                      alpha: 0.6,
+                                                    ),
                                                     Colors.transparent,
                                                   ],
                                                 ),
@@ -252,8 +211,8 @@ class VenueHomePage extends StatelessWidget {
                                               fontWeight: FontWeight.w600,
                                               color:
                                                   isDarkMode
-                                                      ? Color(0xffEBEBEB)
-                                                      : Color(0xff333333),
+                                                      ? const Color(0xffEBEBEB)
+                                                      : const Color(0xff333333),
                                             ),
                                           ),
                                           const SizedBox(height: 3),
@@ -261,7 +220,7 @@ class VenueHomePage extends StatelessWidget {
                                             children: [
                                               Image.asset(
                                                 IconPath.locationOn,
-                                                color: Color(0xff8A8A8A),
+                                                color: const Color(0xff8A8A8A),
                                                 height: 14,
                                               ),
                                               const SizedBox(width: 4),
@@ -270,7 +229,9 @@ class VenueHomePage extends StatelessWidget {
                                                 style: getTextStyle(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 12,
-                                                  color: Color(0xff8A8A8A),
+                                                  color: const Color(
+                                                    0xff8A8A8A,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -310,9 +271,9 @@ class VenueHomePage extends StatelessWidget {
                                                       .getVenueDetails(
                                                         venue['id'] ?? '',
                                                       );
-
                                                   Get.to(
-                                                    () => VenueDetailsScreen(),
+                                                    () =>
+                                                        const VenueDetailsScreen(),
                                                     transition:
                                                         Transition.rightToLeft,
                                                   );
@@ -383,11 +344,61 @@ class VenueHomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildVenueListShimmer(double screenHeight, bool isDarkMode) {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 5,
+      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      itemBuilder: (context, _) {
+        return Shimmer.fromColors(
+          baseColor: isDarkMode ? Colors.grey.shade800 : Colors.grey.shade300,
+          highlightColor:
+              isDarkMode ? Colors.grey.shade700 : Colors.grey.shade100,
+          child: Container(
+            decoration: BoxDecoration(
+              color: isDarkMode ? const Color(0xff32383D) : Colors.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: screenHeight * 0.2,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(width: 120, height: 20, color: Colors.white),
+                  const SizedBox(height: 6),
+                  Container(width: 80, height: 14, color: Colors.white),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Container(width: 60, height: 24, color: Colors.white),
+                      const Spacer(),
+                      Container(width: 90, height: 30, color: Colors.white),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

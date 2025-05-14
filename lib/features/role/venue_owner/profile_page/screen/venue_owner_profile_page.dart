@@ -92,7 +92,7 @@ class VenueOwnerProfilePage extends StatelessWidget {
 
         /// Avater name
         Text(
-          EventAuthController.profileInfo?.profile?.name ?? "Unknown",
+          EventAuthController.profileInfo?.name ?? "Unknown",
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -118,7 +118,7 @@ class VenueOwnerProfilePage extends StatelessWidget {
               Text('username:'),
               SizedBox(width: 5),
               Text(
-                EventAuthController.profileInfo?.name ?? "Unknown",
+                EventAuthController.profileInfo?.profile?.name ?? "Unknown",
                 style: getTextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
