@@ -139,6 +139,7 @@ class OTPScreen extends StatelessWidget {
         inactiveColor: AppColors.otpbg,
         selectedColor: AppColors.otpbg,
         activeColor: AppColors.otpbg,
+        
       ),
       animationDuration: const Duration(milliseconds: 300),
       backgroundColor: Colors.transparent,

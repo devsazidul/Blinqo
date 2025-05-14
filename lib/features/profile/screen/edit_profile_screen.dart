@@ -1,4 +1,6 @@
+import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/profile/widget/coustm_appbar.dart';
@@ -39,32 +41,78 @@ class EditProfilePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 87),
-
+                _buildProfileSection(context, themeController),
+                SizedBox(height: 50),
                 Form(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 8,
                     children: [
-                      ProfileEditTextFormField(
-                        label: 'First Name',
-                        hintText: "Adam",
+                      Text(
+                        "Name",
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color:
+                              isDarkMode
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
+                        ),
                       ),
-                      ProfileEditTextFormField(
-                        label: 'Last Name',
-                        hintText: "Jonh",
+                      Obx(() {
+                        return ProfileEditTextFormField(
+                          hintText:
+                              themeController.userInfo.value?.data?.name ??
+                              "Adam",
+                        );
+                      }),
+                      Text(
+                        "User Name",
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color:
+                              isDarkMode
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
+                        ),
                       ),
-                      ProfileEditTextFormField(
-                        label: 'Email',
-                        hintText: "abcdefg@gmail.com",
+                      Obx(() {
+                        return ProfileEditTextFormField(
+                          hintText:
+                              themeController
+                                  .userInfo
+                                  .value
+                                  ?.data
+                                  ?.profile
+                                  ?.name ??
+                              "Adam@",
+                        );
+                      }),
+                      Text(
+                        "Location",
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color:
+                              isDarkMode
+                                  ? AppColors.borderColor2
+                                  : AppColors.textColor,
+                        ),
                       ),
-                      ProfileEditTextFormField(
-                        label: 'Country',
-                        hintText: "USA",
-                      ),
-                      ProfileEditTextFormField(
-                        label: 'City',
-                        hintText: "New York",
-                      ),
+
+                      Obx(() {
+                        return ProfileEditTextFormField(
+                          hintText:
+                              themeController
+                                  .userInfo
+                                  .value
+                                  ?.data
+                                  ?.profile
+                                  ?.location ??
+                              "USA", // Fetch location from profile or use default "USA"
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -83,4 +131,82 @@ class EditProfilePage extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildProfileSection(
+  BuildContext context,
+  ProfileController controller,
+) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    spacing: 10,
+    children: [
+      Obx(() {
+        return Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey[300],
+              child: ClipOval(
+                child:
+                    controller.profileImage.value == null &&
+                            controller
+                                    .userInfo
+                                    .value
+                                    ?.data
+                                    ?.profile
+                                    ?.image
+                                    ?.path ==
+                                null
+                        ? Image.asset(
+                          IconPath.profile01,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        )
+                        : controller.profileImage.value != null
+                        ? Image.file(
+                          controller.profileImage.value!,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        )
+                        : Image.network(
+                          controller
+                              .userInfo
+                              .value!
+                              .data!
+                              .profile!
+                              .image!
+                              .path!,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: GestureDetector(
+                onTap: () {
+                  controller.pickImage();
+                },
+                child: CircleAvatar(
+                  radius: 18,
+                  backgroundColor: Colors.transparent,
+                  child: Image.asset(
+                    IconPath.profileedit,
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      }),
+    ],
+  );
 }

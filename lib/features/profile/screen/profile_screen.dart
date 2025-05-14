@@ -12,11 +12,15 @@ import 'package:get/get.dart';
 
 import '../../role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 
+// ignore: must_be_immutable
 class MainProfileScreen extends StatelessWidget {
-  const MainProfileScreen({super.key});
+  MainProfileScreen({super.key});
+
+  ProfileController profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
+    profileController.getUser();
     return GetBuilder<ProfileController>(
       builder: (controller) {
         bool isDarkMode = controller.isDarkMode.value;
@@ -85,53 +89,60 @@ class MainProfileScreen extends StatelessWidget {
                 backgroundColor: Colors.grey[300],
                 child: ClipOval(
                   child:
-                      controller.profileImage.value == null
-                          ? Image.asset(
-                            IconPath.profile01,
+                      profileController
+                                  .userInfo
+                                  .value
+                                  ?.data
+                                  ?.profile
+                                  ?.image
+                                  ?.path
+                                  ?.isNotEmpty ==
+                              true
+                          ? Image.network(
+                            profileController
+                                .userInfo
+                                .value!
+                                .data!
+                                .profile!
+                                .image!
+                                .path!,
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
+                            errorBuilder:
+                                (context, error, stackTrace) => Image.asset(
+                                  IconPath.profile01,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
                           )
-                          : Image.file(
-                            controller.profileImage.value!,
+                          : Image.asset(
+                            IconPath.profile01,
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
                           ),
                 ),
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    controller.pickImage();
-                  },
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Colors.transparent,
-                    child: Image.asset(
-                      IconPath.profileedit,
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                ),
-              ),
             ],
           );
         }),
 
-        /// Avater name
-        Text(
-          'Ronald Richards',
-          style: getTextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            color:
-                controller.isDarkMode.value
-                    ? AppColors.backgroundColor
-                    : Color(0xFF003285),
+        /// Avater name˝
+        Obx(
+          () => Text(
+            profileController.userInfo.value?.data?.name?.isNotEmpty == true
+                ? profileController.userInfo.value!.data!.name!
+                : 'Ronald Richards',
+            style: getTextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color:
+                  controller.isDarkMode.value
+                      ? AppColors.backgroundColor
+                      : AppColors.textColor,
+            ),
           ),
         ),
         // location
@@ -149,15 +160,26 @@ class MainProfileScreen extends StatelessWidget {
                       : AppColors.buttonColor2,
               // size: 20,
             ),
-            Text(
-              'Radio Colony, Savar',
-              style: getTextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color:
-                    controller.isDarkMode.value
-                        ? AppColors.backgroundColor
-                        : AppColors.textColor,
+            Obx(
+              () => Text(
+                profileController
+                            .userInfo
+                            .value
+                            ?.data
+                            ?.profile
+                            ?.location
+                            ?.isNotEmpty ==
+                        true
+                    ? profileController.userInfo.value!.data!.profile!.location!
+                    : 'Unknown Location',
+                style: getTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color:
+                      controller.isDarkMode.value
+                          ? AppColors.backgroundColor
+                          : AppColors.textColor,
+                ),
               ),
             ),
           ],
@@ -273,7 +295,9 @@ class MainProfileScreen extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () {},
+          onTap: () {
+            profileController.logOut();
+          },
         ),
       ],
     );

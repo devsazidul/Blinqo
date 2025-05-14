@@ -10,14 +10,14 @@ class ProfileEditTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   ProfileEditTextFormField({
     super.key,
-    required this.label,
+     this.label,
     this.keyboardType,
     this.controller,
     this.hintText,
     this.validator,
   });
 
-  final String label;
+  final String? label;
   final String? hintText;
   final TextEditingController? controller;
 
