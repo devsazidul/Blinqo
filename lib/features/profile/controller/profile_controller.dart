@@ -1,9 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/profile/model/usermodel.dart';
+import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -151,5 +158,108 @@ class ProfileController extends GetxController {
   void toggleNotifications() {
     showNotifications.value = !showNotifications.value;
     update();
+  }
+
+  //============================================================================
+  // Reactive variable to store user info
+  final userInfo = Rx<UserInfo?>(null);
+  // Reactive variable for loading state
+  final isLoadingUser = false.obs;
+
+  Future<void> getUser() async {
+    debugPrint(
+      'Starting getUser function at ${DateTime.now().toIso8601String()}',
+    );
+
+    try {
+      debugPrint('Setting isLoadingUser to true');
+      isLoadingUser.value = true;
+
+      debugPrint('Showing EasyLoading with status: Loading user data...');
+      EasyLoading.show(status: "Loading user data...");
+
+      debugPrint('Fetching access token from AuthService');
+      final accessToken = await AuthService.getToken();
+      debugPrint(
+        'Access token received: ${accessToken != null ? 'Token present' : 'Token null or empty'}',
+      );
+
+      if (accessToken == null || accessToken.isEmpty) {
+        debugPrint('Throwing exception: Authentication token not found');
+        throw Exception('Authentication token not found');
+      }
+
+      debugPrint('Preparing HTTP GET request to: ${Urls.getUserInfo}');
+      debugPrint(
+        'Request headers: Authorization: Bearer $accessToken, Content-Type: application/json',
+      );
+      final response = await http.get(
+        Uri.parse(Urls.getUserInfo),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+          'Content-Type': 'application/json',
+        },
+      );
+      debugPrint(
+        'HTTP response received with status code: ${response.statusCode}',
+      );
+      debugPrint('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        debugPrint('Parsing response body as JSON');
+        final responseData = jsonDecode(response.body);
+        debugPrint('Parsed response data: $responseData');
+
+        debugPrint('Checking if success is true: ${responseData['success']}');
+        if (responseData['success'] == true) {
+          debugPrint('Parsing response into UserInfo model');
+          userInfo.value = UserInfo.fromJson(responseData);
+          debugPrint(
+            'UserInfo parsed and assigned: ${userInfo.value?.data?.name ?? 'No name'}',
+          );
+        } else {
+          debugPrint(
+            'Throwing exception: Failed to fetch user data: ${responseData['message']}',
+          );
+          throw Exception(
+            'Failed to fetch user data: ${responseData['message']}',
+          );
+        }
+      } else {
+        debugPrint(
+          'Throwing exception: Failed to load user data: ${response.statusCode}',
+        );
+        throw Exception('Failed to load user data: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Caught exception: $e');
+      Get.snackbar("Error", "Failed to load user data: ${e.toString()}");
+      debugPrint(
+        'Showing Get.snackbar with error: Failed to load user data: ${e.toString()}',
+      );
+    } finally {
+      debugPrint('Setting isLoadingUser to false');
+      isLoadingUser.value = false;
+
+      debugPrint('Dismissing EasyLoading');
+      EasyLoading.dismiss();
+
+      debugPrint(
+        'getUser function completed at ${DateTime.now().toIso8601String()}',
+      );
+    }
+  }
+
+  //==========================================================================
+  void logOut() async {
+    await AuthService.clearAuthData();
+    Get.offAll(() => LogInScreen());
+  }
+
+  //===========================================================================
+  @override
+  void onInit() {
+    getUser();
+    super.onInit();
   }
 }
