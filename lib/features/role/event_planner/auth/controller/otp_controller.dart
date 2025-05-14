@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:blinqo/core/urls/endpoint.dart';
-import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -50,7 +50,7 @@ class OTPController extends GetxController {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         debugPrint('OTP Verified Successfully, navigating...');
         EasyLoading.showSuccess('OTP Verified Successfully');
-        Get.to(() => ProfileSetup());
+        Get.to(() => LogInScreen());
       } else {
         debugPrint("Failed with status code: ${response.statusCode}");
         var responseData = jsonDecode(response.body);

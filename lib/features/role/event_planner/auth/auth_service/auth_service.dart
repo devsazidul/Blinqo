@@ -1,11 +1,11 @@
-// auth_service.dart
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   static const _tokenKey = 'access_token';
   static const _userIdKey = 'id';
 
-  // Save token and user ID
+
   static Future<void> saveAuthData(String token, String userId) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tokenKey, token);

@@ -97,7 +97,6 @@ class ProfileSetup extends StatelessWidget {
                 leading: Icon(Icons.photo_library),
                 title: Text('Choose from Gallery'),
                 onTap: () async {
-                  await controller.requestPermissions();
                   await controller.pickImage(ImageSource.gallery);
                   // ignore: use_build_context_synchronously
                   Navigator.pop(dialogContext);
@@ -107,7 +106,6 @@ class ProfileSetup extends StatelessWidget {
                 leading: Icon(Icons.camera_alt),
                 title: Text('Take a Photo'),
                 onTap: () async {
-                  await controller.requestPermissions();
                   await controller.pickImage(ImageSource.camera);
                   // ignore: use_build_context_synchronously
                   Navigator.pop(dialogContext);
@@ -136,11 +134,11 @@ class ProfileSetup extends StatelessWidget {
       () => DropdownButtonFormField<String>(
         value: controller.selectedGender.value,
         items:
-            ['Select Gender', 'Male', 'Female'].map((String value) {
+            ['MALE', 'FEMALE','OTHER'].map((String value) {
               return DropdownMenuItem<String>(value: value, child: Text(value));
             }).toList(),
         onChanged: (newValue) {
-          if (newValue != 'Select Gender') {
+          if (newValue != 'MALE') {
             controller.updateGender(newValue!);
           }
         },
@@ -180,47 +178,47 @@ class ProfileSetup extends StatelessWidget {
     );
   }
 
-          //         //* ------------------ Event Preference Grid ------------------
-          //         GetBuilder<SpProfileSetupController>(
-          //           builder: (controller) {
-          //             return GridView.count(
-          //               shrinkWrap: true,
-          //               physics: const NeverScrollableScrollPhysics(),
-          //               crossAxisCount: 3,
-          //               crossAxisSpacing: 12,
-          //               mainAxisSpacing: 12,
-          //               childAspectRatio: 0.7,
-          //               children: List.generate(
-          //                 controller.eventPreferenceList.length,
-          //                 (index) {
-          //                   final eventPreference =
-          //                       controller.eventPreferenceList[index];
-          //                   return GestureDetector(
-          //                     onTap: () {
-          //                       controller.toggleEventSelection(
-          //                         eventPreference.id ?? '',
-          //                       );
-          //                     },
-          //                     child: SpEventPreferenceCircleAvatar(
-          //                       eventPreference: eventPreference,
-          //                     ),
-          //                   );
-          //                 },
-          //               ),
-          //             );
-          //           },
-          //         ),
-// ElevatedButton(
-//   onPressed: () {
-//     // Handle save action
-//     debugPrint('Save button tapped!');
-//     Get.offAll(() => EventBottomNavBar()); // Ensure EventBottomNavBar is imported or defined
-//   },
-//   style: ElevatedButton.styleFrom(
-//     backgroundColor: Colors.blue,
-//     padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 100.w),
-//   ),
-// ),
+  //         //* ------------------ Event Preference Grid ------------------
+  //         GetBuilder<SpProfileSetupController>(
+  //           builder: (controller) {
+  //             return GridView.count(
+  //               shrinkWrap: true,
+  //               physics: const NeverScrollableScrollPhysics(),
+  //               crossAxisCount: 3,
+  //               crossAxisSpacing: 12,
+  //               mainAxisSpacing: 12,
+  //               childAspectRatio: 0.7,
+  //               children: List.generate(
+  //                 controller.eventPreferenceList.length,
+  //                 (index) {
+  //                   final eventPreference =
+  //                       controller.eventPreferenceList[index];
+  //                   return GestureDetector(
+  //                     onTap: () {
+  //                       controller.toggleEventSelection(
+  //                         eventPreference.id ?? '',
+  //                       );
+  //                     },
+  //                     child: SpEventPreferenceCircleAvatar(
+  //                       eventPreference: eventPreference,
+  //                     ),
+  //                   );
+  //                 },
+  //               ),
+  //             );
+  //           },
+  //         ),
+  // ElevatedButton(
+  //   onPressed: () {
+  //     // Handle save action
+  //     debugPrint('Save button tapped!');
+  //     Get.offAll(() => EventBottomNavBar()); // Ensure EventBottomNavBar is imported or defined
+  //   },
+  //   style: ElevatedButton.styleFrom(
+  //     backgroundColor: Colors.blue,
+  //     padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 100.w),
+  //   ),
+  // ),
 
   Widget _buildEventPreferencesSection() {
     return Column(
@@ -309,5 +307,4 @@ class ProfileSetup extends StatelessWidget {
       ),
     );
   }
-
 }
