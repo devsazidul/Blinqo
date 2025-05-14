@@ -48,11 +48,12 @@ class RoleController extends GetxController {
         // It will check is token exists on local storage.
         // if exists then get SpUser data from local storage and save on the spUser variable in AuthController
         if (await SpAuthController.isLoggedIn()) {
+          // get user info from server and save on the spUser variable in AuthController
+          await Get.find<SpGetUserInfoController>().spGetUserInfo();
+
           // check is profile id exists?
           if (SpAuthController.spUser?.profile?.id != null) {
             // if profile id exists it means profile is already created
-            // So we will get user info from server and save on the spUser variable in AuthController
-            await Get.find<SpGetUserInfoController>().spGetUserInfo();
             Get.to(() => SpBottomNavBarScreen());
           } else {
             // if profile id not exists it means profile is not created

@@ -28,19 +28,6 @@ class SpGetUserInfoController extends GetxController {
       SpUser spUser = SpUser.fromJson(response.responseData["data"]);
       await SpAuthController.saveUserInformation(spUser: spUser);
 
-      //* Get profile info if available
-      // if (response.responseData["data"]["profile"] != null) {
-      //   ProfileInfoModel profileInfo = ProfileInfoModel.fromJson(
-      //     response.responseData["data"]["profile"],
-      //   );
-      //   await SpAuthController.saveUserInformation(
-      //     spUser: spUser,
-      //     profileInfo: profileInfo,
-      //   );
-      // } else {
-      //   await SpAuthController.saveUserInformation(spUser: spUser);
-      // }
-
       isSuccess = true;
     } else {
       // show popup error

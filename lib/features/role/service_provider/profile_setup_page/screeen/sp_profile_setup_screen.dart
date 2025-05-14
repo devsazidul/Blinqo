@@ -21,13 +21,22 @@ class SpProfileSetupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("username: ${SpAuthController.spUser?.profile?.serviceProviderRole}");
     final profileSetupController = Get.find<SpProfileSetupController>();
     final profileController = Get.find<SpProfileController>();
 
     // Set edit mode in controller
     profileSetupController.setEditMode(isEdit);
     profileSetupController.initMarkers();
+    if (!isEdit) {
+      // set name to profile name controller
+      profileSetupController.profileNameController.text =
+          SpAuthController.spUser?.name ?? "";
+    }
+    print(
+      "-------------1-------------------${SpAuthController.spUser?.profile?.name}",
+    );
+    print("-------------2-------------------${SpAuthController.spUser?.name}");
+    print("-------------3-------------------${SpAuthController.spUser?.email}");
 
     final themeMode =
         profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -126,28 +135,25 @@ class SpProfileSetupScreen extends StatelessWidget {
                   }),
                   SizedBox(height: 20),
 
-                  //* ------------------ Profile Name TextField ------------------
-                  if (isEdit)
-                    TextFormField(
-                      controller: profileSetupController.profileNameController,
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'Please enter your profile name';
-                      //   }
-                      //   return null;
-                      // },
-                      decoration: InputDecoration(
-                        label: Text("Profile Name"),
-                        hintText: "Enter your profile name",
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                  //* ------------------ Name TextField ------------------
+                  TextFormField(
+                    controller: profileSetupController.profileNameController,
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'Please enter your profile name';
+                    //   }
+                    //   return null;
+                    // },
+                    decoration: InputDecoration(
+                      enabled: isEdit,
+                      label: Text("Name"),
+                      hintText: "Enter your name",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+                  ),
                   SizedBox(height: 20),
 
                   //* ------------------ Username TextField ------------------
@@ -155,18 +161,18 @@ class SpProfileSetupScreen extends StatelessWidget {
                     // always label make floating
                     controller: profileSetupController.usernameController,
                     validator: (value) {
-                      if (!isEdit) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your username';
-                        }
-                        if (value.length < 3) {
-                          return 'Username must be at least 3 characters long';
-                        }
-                        // username only contain alphanumeric and underscore
-                        if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
-                          return 'Username must contain only alphanumeric and underscore';
-                        }
+                      // if (!isEdit) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your username';
                       }
+                      if (value.length < 3) {
+                        return 'Username must be at least 3 characters long';
+                      }
+                      // username only contain lowercase alphanumeric and underscore
+                      if (!RegExp(r'^[a-z0-9_]+$').hasMatch(value)) {
+                        return 'Username must contain only lowercase alphanumeric and underscore';
+                      }
+                      // }
                       return null;
                     },
                     decoration: InputDecoration(
@@ -737,11 +743,9 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
 
                   //* ------------------ Upgrade To Proc ------------------
-                  if (isEdit &&
-                      !(SpAuthController.profileInfoModel?.isPro ?? false))
+                  if (isEdit && SpAuthController.spUser?.profile?.isPro != true)
                     SizedBox(height: 40),
-                  if (isEdit &&
-                      !(SpAuthController.profileInfoModel?.isPro ?? false))
+                  if (isEdit && SpAuthController.spUser?.profile?.isPro != true)
                     UpgradeToProcard(onTap: () {}),
 
                   SizedBox(height: 40),

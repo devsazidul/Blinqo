@@ -6,14 +6,17 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ShareWorkController extends GetxController {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   var eventList = ['Wedding', 'Birthday', 'Corporate Event', 'Other'].obs;
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  var selectedImages = <XFile>[].obs;
+
   var selectedEvent = 'Wedding'.obs;
   var projectTitle = ''.obs;
   var projectDescription = ''.obs;
-  var selectedImages = <XFile>[].obs;
 
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
   bool isEditing = false;
   int? postIndex;
 
@@ -137,5 +140,12 @@ class ShareWorkController extends GetxController {
     titleController.dispose();
     descriptionController.dispose();
     super.onClose();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
   }
 }
