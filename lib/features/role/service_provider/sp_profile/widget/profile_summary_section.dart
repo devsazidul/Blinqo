@@ -16,7 +16,7 @@ class ProfileSummarySection extends StatelessWidget {
       children: [
         /// name
         Text(
-          SpAuthController.spUser?.profile?.name ?? "unknown",
+          SpAuthController.spUser?.name ?? "unknown",
           style: getTextStyle(
             fontSize: 20,
             color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,

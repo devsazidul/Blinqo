@@ -40,7 +40,6 @@ class SpProfileSetupController extends GetxController {
 
   void initializeEditMode() {
     if (isEditMode.value && !isInitialized.value) {
-      profileNameController.text = SpAuthController.spUser?.name ?? "";
       usernameController.text = SpAuthController.spUser?.profile?.name ?? "";
       selectedRoles.value =
           SpAuthController.spUser?.profile?.serviceProviderRole ??
@@ -64,7 +63,6 @@ class SpProfileSetupController extends GetxController {
   void setEditMode(bool value) {
     isEditMode.value = value;
     if (value) {
-      print('isEditMode: $isEditMode');
       initializeEditMode();
     }
   }
@@ -336,8 +334,7 @@ class SpProfileSetupController extends GetxController {
         'experience': experienceYearController.text,
         'userId': SpAuthController.spUser?.id ?? '',
         'location': locationController.text,
-        'name': profileNameController.text,
-        'userName': usernameController.text,
+        'name': usernameController.text,
       },
       files: [
         if (profileImage.value != null)
@@ -361,34 +358,9 @@ class SpProfileSetupController extends GetxController {
         token: profileSetupModel.accessToken ?? '',
       );
 
-      //* create profile info model
-      // final ProfileInfoModel profileInfoModel = ProfileInfoModel.fromJson(
-      //   response.responseData['data'],
-      // );
-
-      //* save user information
-      // await SpAuthController.saveUserInformation(
-      //   accessToken: profileSetupModel.accessToken,
-      //   spUser: SpUser(
-      //     id: profileInfoModel.id,
-      //     email: profileInfoModel.email,
-      //     phone: profileInfoModel.phone,
-      //     name: profileInfoModel.name,
-      //     role: profileInfoModel.role,
-      //     isVerified: profileInfoModel.isVerified,
-      //     createdAt: profileInfoModel.createdAt,
-      //     updatedAt: profileInfoModel.updatedAt,
-      //     profile: profileInfoModel,
-      //   ),
-      // );
-
-      // await SpAuthController.updateUserInformation(
-      //   profileId: profileInfoModel.id,
-      //   isProfileCreated: true,
-      // );
-
       await Get.find<SpGetUserInfoController>().spGetUserInfo();
       EasyLoading.dismiss();
+
       Get.offAll(SpBottomNavBarScreen());
       isSuccess = true;
       EasyLoading.showSuccess('Profile setup successful');
@@ -458,8 +430,15 @@ class SpProfileSetupController extends GetxController {
     return isSuccess;
   }
 
+  @override
+  void onInit() {
+    profileNameController.text = SpAuthController.spUser?.name ?? "";
+    super.onInit();
+    clearAllData();
+  }
+
   void clearAllData() {
-    // eventPreferenceList.clear();
+    profileNameController.clear();
     usernameController.clear();
     descriptionController.clear();
     locationController.clear();
@@ -467,6 +446,10 @@ class SpProfileSetupController extends GetxController {
     selectedEvents.clear();
     profileImage.value = null;
     coverImage.value = null;
+    selectedRoles.value = ServiceProviderRole.photographer;
+    isInitialized.value = false;
+    isEditMode.value = false;
+    markers.clear();
     update();
   }
 

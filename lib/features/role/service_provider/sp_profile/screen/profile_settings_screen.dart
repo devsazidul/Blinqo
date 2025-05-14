@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
@@ -35,12 +34,15 @@ class SpProfileSettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 40),
+                //* ------------ Profile Section ------------
                 _buildProfileSection(
                   context,
                   controller.isDarkMode.value,
                   controller,
                 ),
                 SizedBox(height: 34),
+
+                //* ------------ Settings Section ------------
                 _buildSettingsSection(context, controller.isDarkMode.value),
                 SizedBox(height: 80),
               ],
@@ -85,30 +87,26 @@ class SpProfileSettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Positioned(
-            //   bottom: 0,
-            //   right: 0,
-            //   child: GestureDetector(
-            //     onTap: () {
-            //       controller.pickImage(); // Call the image picking function
-            //     },
-            //     child: CircleAvatar(
-            //       radius: 18,
-            //       backgroundColor: Colors.transparent,
-            //       child: Image.asset(
-            //         IconPath.profileedit,
-            //         width: 24,
-            //         height: 24,
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            if (SpAuthController.spUser?.profile?.isPro != false)
+              Positioned(
+                bottom: -4,
+                right: -5,
+                child: CircleAvatar(
+                  radius: 18,
+                  backgroundColor: Colors.transparent,
+                  child: Image.asset(
+                    IconPath.verifiedlogo,
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+              ),
           ],
         ),
 
         /// Avatar name
         Text(
-          SpAuthController.spUser?.profile?.name ?? "unknown",
+          SpAuthController.spUser?.name ?? "unknown",
           style: getTextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -202,7 +200,10 @@ class SpProfileSettingsScreen extends StatelessWidget {
           iconPath: IconPath.switchRole,
           onTap: () async {
             await SpAuthController.clearUserData();
-            Get.offAll(SpOnBoardingScreen());
+            Get.delete<
+              SpProfileSetupController
+            >(); // Delete the controller instance
+            Get.offAll(() => RoleScreen());
           },
         ),
         ListTile(
@@ -229,6 +230,9 @@ class SpProfileSettingsScreen extends StatelessWidget {
           ),
           onTap: () async {
             await SpAuthController.clearUserData();
+            Get.delete<
+              SpProfileSetupController
+            >(); // Delete the controller instance
             Get.offAll(() => RoleScreen());
           },
         ),

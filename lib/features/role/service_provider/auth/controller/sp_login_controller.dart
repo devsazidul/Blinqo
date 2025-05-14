@@ -108,7 +108,7 @@ class SpLoginController extends GetxController {
 
   /// Check if user already logged in
   Future<bool> checkIfUserLoggedIn() async {
-    return await SpAuthController.isUserLoggedIn();
+    return await SpAuthController.isLoggedIn();
   }
 
   void clearFields() {

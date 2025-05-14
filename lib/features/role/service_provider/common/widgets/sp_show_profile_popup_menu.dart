@@ -52,7 +52,7 @@ Future<void> spShowPopupMenu(BuildContext context, bool isDarkMode) async {
         },
         addDivider: false,
       ),
-      if (!(SpAuthController.profileInfoModel?.isPro ?? false))
+      if (SpAuthController.spUser?.profile?.isPro != true)
         _buildPopupMenuItem(
           context,
           isDarkMode,

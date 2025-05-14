@@ -34,8 +34,8 @@ class SpPaymentOptionController extends GetxController {
       "currency": "usd",
       "email": SpAuthController.spUser?.email,
       "amount": amount,
-      "id": SpAuthController.spUser?.profile?.id,
-      "userId": SpAuthController.spUser?.id,
+      // "id": SpAuthController.spUser?.profile?.id,
+      "userId": SpAuthController.spUser?.profile?.id,
       "paymentType": "verificationFee",
     };
 
@@ -46,7 +46,7 @@ class SpPaymentOptionController extends GetxController {
 
     if (response.isSuccess) {
       final String clientSecret = response.responseData['data']['clientSecret'];
-      Logger().i(response.responseData);
+      Logger().i(response.responseData['data']['clientSecret']);
       // final paymentMethod = await Stripe.instance.createPaymentMethod(
       //   params: PaymentMethodParams.card(
       //     paymentMethodData: PaymentMethodData(

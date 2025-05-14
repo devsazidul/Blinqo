@@ -4,8 +4,8 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
@@ -59,14 +59,9 @@ class SpGetVerifiedScreen extends StatelessWidget {
                               ?.profile
                               ?.verificationSubmissionId !=
                           null) {
-                        Get.snackbar(
-                          "Verification Submission",
-                          "Your verification submission is already done. Please add a payment method to get verified.",
-                          backgroundColor: Colors.indigo,
-                          colorText: Colors.white,
-                          duration: Duration(milliseconds: 3000),
-                        );
-                        Get.to(SpPaymentOption());
+                        Get.to(SpVerificationThanks());
+
+                        // Get.to(SpPaymentOption());
                       } else {
                         Get.to(SpVerificationSubmission());
                       }
