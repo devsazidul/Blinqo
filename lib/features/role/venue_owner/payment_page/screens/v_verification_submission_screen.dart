@@ -98,6 +98,9 @@ class VVerificationSubmissionScreen extends StatelessWidget {
                 // Get Verified Button
                 GestureDetector(
                   onTap: () {
+                    VenueOwnerProfileController venueOwnerProfileController = Get.put(VenueOwnerProfileController());
+                    venueOwnerProfileController.getProfileInformation();
+
                     controller.submitVerification();
                   },
                   child: Container(

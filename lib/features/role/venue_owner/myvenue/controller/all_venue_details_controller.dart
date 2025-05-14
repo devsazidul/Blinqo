@@ -14,9 +14,9 @@ class AllVenuesDetailsController extends GetxController {
   Rxn<AllVenueDetails> response = Rxn<AllVenueDetails>();
 
   @override
-  void onInit() {
+  void onInit()async {
     super.onInit();
-    getAllVenues();
+    await getAllVenues();
   }
 
   Future<void> getAllVenues() async {
@@ -24,7 +24,7 @@ class AllVenuesDetailsController extends GetxController {
 
       var apiResponse = await OwnerNetworkCaller().getRequest(
         showLoading: true,
-        Url: Urls.getAllVenue,
+        Url: "${Urls.baseUrl}/venue/get-all-by-venue-owner",
       );
 
 

@@ -18,7 +18,7 @@ class CustomShapeTag extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: ShapeDecoration(
-          color: Colors.white,
+          color:isDarkMode ? Color(0xff32383D) : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(34),
           ),
@@ -36,7 +36,7 @@ class CustomShapeTag extends StatelessWidget {
           style: getTextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color: Color(0xff333333),
+            color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
           ),
         ),
       ),

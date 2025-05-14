@@ -1,13 +1,22 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VenueSetupHeader extends StatelessWidget {
   final String title;
+  final bool isEdit;
+  final String imagePath;
 
-  const VenueSetupHeader({super.key, required this.title});
+  const VenueSetupHeader({
+    super.key,
+    required this.title,
+    this.isEdit = false,
+    this.imagePath = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,26 +30,40 @@ class VenueSetupHeader extends StatelessWidget {
         ClipRRect(
           child: Stack(
             children: [
-              Obx(() {
-                // Check if a venue image is selected, if not, use the default asset image
-                if (controller.venueImage.value != null) {
-                  // If an image is selected, show it using Image.file
-                  return Image.file(
-                    controller.venueImage.value!,
-                    width: double.infinity,
-                    height: height * 0.35,
-                    fit: BoxFit.cover,
-                  );
-                } else {
-                  // If no image is selected, use Image.asset for the default image
-                  return Image.asset(
-                    ImagePath.venuesHall, // Default asset image path
-                    width: double.infinity,
-                    height: height * 0.35,
-                    fit: BoxFit.cover,
-                  );
-                }
-              }),
+              isEdit
+                  ? Obx(() {
+                    // If user has picked a new image, show it, else show network image
+                    if (controller.venueImage.value != null) {
+                      return Image.file(
+                        controller.venueImage.value!,
+                        width: double.infinity,
+                        height: height * 0.35,
+                        fit: BoxFit.cover,
+                      );
+                    } else {
+                      return CachedNetworkImage(
+                        imageUrl: imagePath,
+                        width: double.infinity,
+                        height: height * 0.35,
+                        fit: BoxFit.cover,
+                      );
+                    }
+                  })
+                  : Obx(() {
+                    return controller.venueImage.value != null
+                        ? Image.file(
+                          controller.venueImage.value!,
+                          width: double.infinity,
+                          height: height * 0.35,
+                          fit: BoxFit.cover,
+                        )
+                        : Image.asset(
+                          ImagePath.venuesHall, // Default asset image path
+                          width: double.infinity,
+                          height: height * 0.35,
+                          fit: BoxFit.cover,
+                        );
+                  }),
               Container(
                 width: double.infinity,
                 height: height * 0.35,

@@ -4,6 +4,7 @@ import 'package:blinqo/core/common/widgets/logger_view.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/all_venue_details_controller.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart'; // Import VenueDetailsController
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/Model/amenity_model.dart';
@@ -34,6 +35,12 @@ class VenueSetupController extends GetxController {
   Rxn<VenuDecorationOption> venuDecorationOption = Rxn<VenuDecorationOption>();
 
   RxBool isLoading = false.obs;
+  RxBool isEditMode = false.obs;
+
+  void setEditMode(bool isEdit) {
+    isEditMode.value = isEdit;
+    preloadVenueData();
+  }
 
   //----------- Start Venue Type --------------//
   RxString selectedVenueType = 'Select Venue Type'.obs;
@@ -62,6 +69,54 @@ class VenueSetupController extends GetxController {
     super.onInit();
     await fetchDecorationOptions();
     await fetchAmenities();
+    // // Preload data if editing
+    // if (Get.arguments != null && Get.arguments['isEdit'] == true) {
+    //   venueId = Get.arguments['venueId'];
+    //   preloadVenueData();
+    // }
+  }
+
+  // Preload venue data from VenueDetailsController
+  void preloadVenueData() {
+    final venueDetails =
+        Get.find<VenueDetailsController>().response.value?.data?.venue;
+    if (venueDetails != null) {
+      // preload image
+
+      _logger.i('Preloading venue data for ID: ${venueDetails.id}');
+      venueNameTEController.text = venueDetails.name ?? '';
+      venueAddressTEController.text =
+          '${venueDetails.city ?? ''}, ${venueDetails.area ?? ''}';
+      numberGuestsTEController.text = venueDetails.capacity?.toString() ?? '';
+      selectedVenueType.value = venueDetails.type ?? 'Select Venue Type';
+
+      // Preload amenities
+      final fetchedAmenities = venueDetails.amenities;
+      selectedAmenities.value =
+          availableAmenities
+              .where((a) => fetchedAmenities.any((fa) => fa.id == a.id))
+              .toList();
+      availableAmenities.value =
+          availableAmenities
+              .where((a) => !fetchedAmenities.any((fa) => fa.id == a.id))
+              .toList();
+
+      // Preload decoration
+      final decoration = venueDetails.decoration;
+      if (decoration != null) {
+        selectedTableShapes.value = decoration.tableShapes;
+        selectedSeatingStyles.value = decoration.seatingStyles;
+        selectedLightingStyles.value = decoration.lighting;
+        selectedFlowerColors.value = decoration.flowerColors;
+        selectedFlowerTypes.value = decoration.flowerTypes;
+        selectedFragrances.value = decoration.fragrances;
+      }
+
+      // Note: Images are not preloaded as File objects; they remain null unless user picks new images
+    } else {
+      _logger.w('No venue data found for preloading');
+      EasyLoading.showError('Failed to load venue data');
+    }
   }
 
   // Generic method to handle image selection
@@ -81,7 +136,7 @@ class VenueSetupController extends GetxController {
           seatArrangementImage.value = File(pickedFile.path);
         }
       } else {
-        debugPrint("No image selected");
+        _logger.w("No image selected");
       }
     }
   }
@@ -91,9 +146,9 @@ class VenueSetupController extends GetxController {
     PermissionStatus storageStatus = await Permission.storage.request();
 
     if (cameraStatus.isDenied || storageStatus.isDenied) {
-      debugPrint("Permission denied");
+      _logger.w("Permission denied");
     } else {
-      debugPrint("Permission granted");
+      _logger.i("Permission granted");
     }
   }
 
@@ -107,43 +162,9 @@ class VenueSetupController extends GetxController {
 
       if (response.isSuccess) {
         _logger.i('Decoration options fetched successfully: ${response.body}');
-
         venuDecorationOption.value = VenuDecorationOption.fromJson(
           response.body,
         );
-        // Filter options based on specific criteria
-        selectedTableShapes.value =
-            venuDecorationOption.value?.tableShape
-                ?.where(
-                  (option) => ['Round', 'Oval', 'Hexagonal'].contains(option),
-                )
-                .toList() ??
-            [];
-        selectedSeatingStyles.value =
-            venuDecorationOption.value?.seatingStyle
-                ?.where((option) => ['Banquet'].contains(option))
-                .toList() ??
-            [];
-        selectedLightingStyles.value =
-            venuDecorationOption.value?.lightingStyle
-                ?.where((option) => ['Ambient'].contains(option))
-                .toList() ??
-            [];
-        selectedFlowerColors.value =
-            venuDecorationOption.value?.flowerColor
-                ?.where((option) => ['White'].contains(option))
-                .toList() ??
-            [];
-        selectedFlowerTypes.value =
-            venuDecorationOption.value?.flowerType
-                ?.where((option) => ['Roses'].contains(option))
-                .toList() ??
-            [];
-        selectedFragrances.value =
-            venuDecorationOption.value?.fragrance
-                ?.where((option) => ['Floral Scents'].contains(option))
-                .toList() ??
-            [];
       } else {
         _logger.w(
           'Failed to fetch decoration options: ${response.errorMessage}',
@@ -168,8 +189,6 @@ class VenueSetupController extends GetxController {
     }
     _logger.d('Updated selection for $option: $selectedList');
   }
-
-  //----------- End Decoration Options --------------//
 
   //----------- Start Venue Amenities --------------//
   Future<void> createAmenity() async {
@@ -223,7 +242,6 @@ class VenueSetupController extends GetxController {
             amenities.where((a) => !a.defaultSelected).toList();
         selectedAmenities.value =
             amenities.where((a) => a.defaultSelected).toList();
-        await Future.delayed(Duration(milliseconds: 100));
         _logger.i('Fetched ${amenities.length} amenities.');
       } else {
         EasyLoading.showError(
@@ -239,7 +257,6 @@ class VenueSetupController extends GetxController {
     }
   }
 
-  // Function to select an amenity
   void selectAmenity(EventAmenity amenity) {
     if (availableAmenities.contains(amenity)) {
       availableAmenities.remove(amenity);
@@ -247,7 +264,6 @@ class VenueSetupController extends GetxController {
     }
   }
 
-  // Function to remove an amenity
   void removeAmenity(EventAmenity amenity) {
     if (selectedAmenities.contains(amenity)) {
       selectedAmenities.remove(amenity);
@@ -257,22 +273,27 @@ class VenueSetupController extends GetxController {
 
   //----------- End Venue Amenities --------------//
 
-  //------------- Start New Venue Create  --------------//
+  //------------- Start Venue Create/Update --------------//
 
-  Future<void> createNewVenue(String venueName) async {
-    _logger.i('Starting venue creation process');
+  Future<void> saveVenue(String venueStatus, {bool isEdit = false}) async {
+    _logger.i(
+      isEdit
+          ? 'Starting venue update process'
+          : 'Starting venue creation process',
+    );
 
-    if (venueImage.value == null) {
+    if (!isEdit && venueImage.value == null) {
       EasyLoading.showError('Please select venue image');
       return;
     }
-    if (seatArrangementImage.value == null) {
+    if (!isEdit && seatArrangementImage.value == null) {
       EasyLoading.showError('Please select seat arrangement image');
       return;
     }
     _logger.i(
-      'Validation Passed : Venue Image: ${venueImage.value?.path}, Seat Arrangement Image: ${seatArrangementImage.value?.path} ',
+      'Validation Passed: Venue Image: ${venueImage.value?.path}, Seat Arrangement Image: ${seatArrangementImage.value?.path}',
     );
+
     EventUser? user = await EventAuthController.getUserInfo();
     String? profileId = user?.profileId;
     _logger.i('User ID: $profileId');
@@ -318,18 +339,17 @@ class VenueSetupController extends GetxController {
       return;
     }
 
-    // Prepare the decoration object and stringify it
+    // Prepare the decoration object
     final decoration = {
-      'tableShapes': selectedTableShapes.map((e) => e.toUpperCase()).toList(),
-      'seatingStyles':
-          selectedSeatingStyles.map((e) => e.toUpperCase()).toList(),
-      'lighting': selectedLightingStyles.map((e) => e.toUpperCase()).toList(),
-      'flowerColors': selectedFlowerColors.map((e) => e.toUpperCase()).toList(),
-      'flowerTypes': selectedFlowerTypes.map((e) => e.toUpperCase()).toList(),
-      'fragrances': selectedFragrances.map((e) => e.toUpperCase()).toList(),
+      'tableShapes': selectedTableShapes.toList(),
+      'seatingStyles': selectedSeatingStyles.toList(),
+      'lighting': selectedLightingStyles.toList(),
+      'flowerColors': selectedFlowerColors.toList(),
+      'flowerTypes': selectedFlowerTypes.toList(),
+      'fragrances': selectedFragrances.toList(),
     };
 
-    // Prepare the body with all required fields
+    // Prepare the body
     var body = {
       'name': venueNameTEController.text.trim(),
       'city': locationParts[0].trim(),
@@ -337,66 +357,85 @@ class VenueSetupController extends GetxController {
       'capacity': int.tryParse(numberGuestsTEController.text.trim()) ?? 0,
       'type': selectedVenueType.value,
       'profileId': profileId,
-      // 'availabilityDescription': 'string',
-      // // Replace with actual input
-      // 'parkingDescription': 'string',
-      // // Replace with actual input
       'price': 0,
-      // // Replace with actual input
       'bookingType': 'INSTANT_BOOKING',
-      // // Replace with actual input
-      // 'extraServiceDescription': 'string',
-      // // Replace with actual input
-      // 'cateringDescription': 'string',
-      // // Replace with actual input
       'amenityIds': selectedAmenities.map((a) => a.id).join(','),
-      // Comma-separated string
       'decoration': jsonEncode(decoration),
-      // Stringify decoration
     };
 
-    List<http.MultipartFile> files = [
-      await http.MultipartFile.fromPath('venueImage', venueImage.value!.path),
-      await http.MultipartFile.fromPath(
-        'arrangementsImage',
-        seatArrangementImage.value!.path,
-      ),
-    ];
+    List<http.MultipartFile> files = [];
+    if (venueImage.value != null) {
+      files.add(
+        await http.MultipartFile.fromPath('venueImage', venueImage.value!.path),
+      );
+    }
+    if (seatArrangementImage.value != null) {
+      files.add(
+        await http.MultipartFile.fromPath(
+          'arrangementsImage',
+          seatArrangementImage.value!.path,
+        ),
+      );
+    }
 
     _logger.i('Request Body: ${body.toString()}');
     _logger.i('Files: ${files.map((f) => f.filename).toList()}');
 
     final response = await OwnerNetworkCaller().postRequest(
-      Url: Urls.venueCreate,
+      isPatch: isEdit,
+      Url:
+          isEdit
+              ? Urls.updateVenue(
+                Get.find<VenueDetailsController>()
+                    .response
+                    .value
+                    ?.data
+                    ?.venue
+                    ?.id,
+              )
+              : Urls.venueCreate,
       body: body,
       files: files,
       isMultipart: true,
     );
+
     if (response.isSuccess) {
-      EasyLoading.showSuccess('Venue created successfully');
-      if (venueName == 'Create New Venue') {
-        EasyLoading.showSuccess('Venue created successfully');
-        clearControllers();
-        AllVenuesDetailsController allVenuesDetailsController = Get.put(
-          AllVenuesDetailsController(),
+      EasyLoading.showSuccess(
+        isEdit ? 'Venue updated successfully' : 'Venue created successfully',
+      );
+      final allVenuesController = Get.find<AllVenuesDetailsController>();
+      await allVenuesController.getAllVenues(); // Refresh venue list
+      clearControllers();
+      if (venueStatus == 'Create New Venue') {
+        Get.back();
+      } else if (venueStatus == 'Venue Setup') {
+        Get.to(() => VenueOwnerProfilePage());
+      } else if (venueStatus == 'Update Venue') {
+        VenueDetailsController venueDetailsController = Get.put(
+          VenueDetailsController(),
         );
-        await allVenuesDetailsController.getAllVenues();
+        venueDetailsController.getVenueDetails(
+          Get.find<VenueDetailsController>().response.value?.data?.venue?.id ??
+              '',
+        );
         Get.back();
       }
-      if (venueName == 'Venue Setup') {
-        clearControllers();
-        VenueOwnerProfilePage();
-      }
-      clearControllers();
-      VenueOwnerProfilePage();
-      _logger.i('Venue created successfully: ${response.body}');
+      _logger.i(
+        isEdit
+            ? 'Venue updated successfully: ${response.body}'
+            : 'Venue created successfully: ${response.body}',
+      );
     } else {
-      EasyLoading.showError('Failed to create venue: ${response.errorMessage}');
-      _logger.w('Failed to create venue: ${response.errorMessage}');
+      EasyLoading.showError(
+        'Failed to ${isEdit ? 'update' : 'create'} venue: ${response.errorMessage}',
+      );
+      _logger.w(
+        'Failed to ${isEdit ? 'update' : 'create'} venue: ${response.errorMessage}',
+      );
     }
   }
 
-  // clear all controllers
+  // Clear all controllers
   void clearControllers() {
     venueAddressTEController.clear();
     numberGuestsTEController.clear();
@@ -410,16 +449,16 @@ class VenueSetupController extends GetxController {
     selectedTableShapes.clear();
     venueImage.value = null;
     seatArrangementImage.value = null;
+    selectedVenueType.value = 'Select Venue Type';
   }
 
-  // dispose
+  // Dispose
   @override
   void onClose() {
     super.onClose();
     venueNameTEController.dispose();
     numberGuestsTEController.dispose();
     venueAddressTEController.dispose();
+    amenityController.dispose();
   }
-
-  //------------- End New Venue Create  --------------//
 }

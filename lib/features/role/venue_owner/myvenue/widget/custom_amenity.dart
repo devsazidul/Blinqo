@@ -29,7 +29,7 @@ class CustomAmenityBox extends StatelessWidget {
         style: getTextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: Color(0xff333333),
+          color:isDarkMode ? Color(0xffEBEBEB) : Color(0xff333333),
         ),
       ),
     );

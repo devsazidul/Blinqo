@@ -108,7 +108,7 @@ class RevenueCard extends StatelessWidget {
             ),
             SizedBox(height: 3),
             Text(
-              '\$${controller.totalRevenue.value.toString()}',
+              '\$${totalRevenue.toString()}',
               style: getTextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,

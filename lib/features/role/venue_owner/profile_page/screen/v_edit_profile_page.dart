@@ -164,6 +164,26 @@ class VEditProfilePage extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             TextFieldWidget(
+                              hintText: 'Enter your Username',
+                              labelText: 'Username',
+                              controller:
+                                  profileSetupController.userNameTEController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your Username';
+                                } if (value.length < 3) {
+                                  return 'Username must be at least 3 characters';
+                                } if(value.length > 15) {
+                                  return 'Username must be less than 15 characters';
+                                } // only allow lowercaseletters and numbers and underscore
+                                if (!RegExp(r'^[a-z0-9_]+$').hasMatch(value)) {
+                                  return 'Username can only contain lowercase letters, numbers, and underscore';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            TextFieldWidget(
                               hintText: 'Enter your location',
                               labelText: 'Location',
                               controller:
