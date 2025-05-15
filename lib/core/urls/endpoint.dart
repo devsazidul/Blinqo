@@ -35,6 +35,8 @@ class Urls {
   static String updateServiceProviderProfile(String id) =>
       '$baseUrl/profile/service-provider-profile-update/$id';
 
+  static String getServiceProviderProfile = '$baseUrl/profile/get-service-provider-profiles';
+
   static const String getUserInfo = '$baseUrl/auth/user-info';
   static const String eventDecorationEnum = '$baseUrl/booking/decoration_enum';
   static const String eventAmenities = '$baseUrl/amenities/get-all-amenities';
@@ -52,4 +54,7 @@ class Urls {
   static String updateVenue(String? id) => '$baseUrl/venue/update/$id';
   static String getAllVenue = '$baseUrl/venue/get-all-by-venue-owner';
   static String createPaymentIntent = '$baseUrl/billing/create-payment-intent';
+
+  // service provider
+  static String getServiceProvider = '${Urls.baseUrl}/service-provider-type/get';
 }

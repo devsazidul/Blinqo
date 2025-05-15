@@ -4,6 +4,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_compare/screen/add_compare.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_service_provider_controller/ep_additional_service_provider_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/eventCard.dart';
@@ -26,6 +27,11 @@ class EventHomeScreen extends StatelessWidget {
     final UpcomingEventsController controller = Get.put(
       UpcomingEventsController(),
     );
+    // additional service
+    final EpAdditionalServiceProviderController additionalServiceProviderController = Get.put(EpAdditionalServiceProviderController());
+
+
+
     final femaleColorController = Get.put(PickColorController());
     final bool isFemale = femaleColorController.isFemale.value;
     final ProfileController profileController = Get.find<ProfileController>();
@@ -282,6 +288,7 @@ class EventHomeScreen extends StatelessWidget {
                 themeMode == ThemeMode.dark ? Colors.white : Color(0xFF444444),
           ),
         ),
+
         GestureDetector(
           onTap: onTap,
           child: Row(
@@ -402,26 +409,23 @@ class EventHomeScreen extends StatelessWidget {
 
   // Event Services
   Widget _eventServicesList(BuildContext context, ThemeMode themeMode) {
-    final List<Service> services = [
-      Service(imagePath: IconPath.epphotograph, label: 'Photography'),
-      Service(imagePath: IconPath.epvideography, label: 'Videography'),
-      Service(imagePath: IconPath.epcatering, label: 'Catering'),
-      Service(imagePath: IconPath.epdj, label: 'Dj'),
-      Service(imagePath: IconPath.epentertainment, label: 'Entertainment'),
-      Service(imagePath: IconPath.epgame, label: 'Game'),
-    ];
+
 
     return SizedBox(
       height: 160,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: services.length,
-        separatorBuilder: (context, index) => SizedBox(width: 8),
-        itemBuilder: (context, index) {
-          final service = services[index];
-          return EventServiceCard(service: service, themeMode: themeMode);
-        },
+      child : Obx(
+        () {
+          final service = Get.find<EpAdditionalServiceProviderController>().service.value.value.data;
+          return ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: service.length,
+            separatorBuilder: (context, index) => SizedBox(width: 8),
+            itemBuilder: (context, index) {
+              return EventServiceCard(datum: service[index], themeMode: themeMode);
+            },
+          );
+        }
       ),
-    );
+    ).marginOnly(top: 10);
   }
 }

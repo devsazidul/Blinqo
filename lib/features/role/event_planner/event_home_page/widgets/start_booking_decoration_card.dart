@@ -53,12 +53,69 @@ class StartBookingDecorationCard extends StatelessWidget {
           ),
         ),
 
-        Spacer(),
 
-        // DropdownMenu(
-        //   initialSelection: dropdownItems.first,
-        //   controller: ,
-        // )
+
+        // dropdown menu
+        Container(
+          width: 200,
+          alignment: Alignment.centerRight,
+          decoration: BoxDecoration(
+            color: Color(0xFFFBF7EB),
+            borderRadius: BorderRadius.circular(7),
+            border: Border.all(color: AppColors.secondary, width: 1)
+          ),
+
+          child: DropdownMenu(
+            width: double.infinity,
+            onSelected: (value) {
+              print(value);
+            },
+            trailingIcon: Image.asset(IconPath.arrowdown, color: AppColors.secondary, height: 24,),
+            selectedTrailingIcon: RotatedBox(quarterTurns: 90, child: Image.asset(IconPath.arrowdown, color: AppColors.secondary,height: 24,),),
+            menuStyle: MenuStyle(
+              backgroundColor: WidgetStateProperty.all(Colors.white),
+            ),
+
+            inputDecorationTheme: InputDecorationTheme(
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: AppColors.secondary,
+                  width: 1,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: AppColors.secondary,
+                  width: 1,
+                  style: BorderStyle.none,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: AppColors.secondary,
+                  width: 1
+                ),
+              ),
+            ),
+
+
+            textStyle: getTextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 15,
+              color: AppColors.secondary
+            ),
+
+            initialSelection: dropdownItems.first,
+            controller: controller,
+            requestFocusOnTap: true, dropdownMenuEntries: dropdownItems.map((e) {
+              return DropdownMenuEntry(
+                value: e,
+                label: e,
+              );
+          }).toList(),
+
+          ),
+        )
         // GestureDetector(
         //   onTap: onTap,
         //   child: Container(
