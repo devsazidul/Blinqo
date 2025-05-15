@@ -46,17 +46,6 @@ class SpPaymentOptionController extends GetxController {
 
     if (response.isSuccess) {
       final String clientSecret = response.responseData['data']['clientSecret'];
-      Logger().i(response.responseData['data']['clientSecret']);
-      // final paymentMethod = await Stripe.instance.createPaymentMethod(
-      //   params: PaymentMethodParams.card(
-      //     paymentMethodData: PaymentMethodData(
-      //       billingDetails: BillingDetails(
-      //         email: SpAuthController.spUser?.email,
-      //         name: SpAuthController.spUser?.name,
-      //       ),
-      //     ),
-      //   ),
-      // );
 
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(

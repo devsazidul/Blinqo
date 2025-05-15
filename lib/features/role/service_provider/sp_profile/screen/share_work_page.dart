@@ -15,7 +15,7 @@ import 'package:image_picker/image_picker.dart';
 class SpShareWorkPage extends StatelessWidget {
   static const String name = '/sp_profile_share_work';
 
-  SpShareWorkPage({
+  const SpShareWorkPage({
     super.key,
     this.isEditing = false,
     this.postIndex,
@@ -32,12 +32,11 @@ class SpShareWorkPage extends StatelessWidget {
   final String? description;
   final List<XFile>? photos;
 
-  final ShareWorkController _shareWorkController = Get.put(
-    ShareWorkController(),
-  );
-
   @override
   Widget build(BuildContext context) {
+    final ShareWorkController shareWorkController = Get.put(
+      ShareWorkController(),
+    );
     final bool isDarkMode = Get.put(SpProfileController()).isDarkMode.value;
     return Scaffold(
       backgroundColor:
@@ -56,6 +55,7 @@ class SpShareWorkPage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 4),
+                //* ------------------ Event Type Dropdown ------------------
                 Obx(
                   () => DropdownButtonFormField<String>(
                     icon: Icon(
@@ -66,11 +66,11 @@ class SpShareWorkPage extends StatelessWidget {
                               : AppColors.buttonColor2,
                     ),
                     items:
-                        _shareWorkController.eventList.map((e) {
+                        shareWorkController.eventPreferenceList.map((e) {
                           return DropdownMenuItem<String>(
-                            value: e,
+                            value: e.name,
                             child: Text(
-                              e,
+                              e.name ?? '',
                               style: getTextStyle(
                                 color:
                                     isDarkMode
@@ -82,6 +82,12 @@ class SpShareWorkPage extends StatelessWidget {
                         }).toList(),
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintText: "Select Event Type",
+                      hintStyle: getTextStyle(
+                        fontSize: 14,
+                        color:
+                            isDarkMode ? Color(0xFFebebeb) : Color(0xFFA1A1A1),
+                      ),
                       labelText: "Event Type",
                       labelStyle: getTextStyle(
                         fontSize: 16,
@@ -99,10 +105,17 @@ class SpShareWorkPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    value: _shareWorkController.selectedEvent.value,
+
+                    // value: shareWorkController.selectedEvent.value,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
-                        _shareWorkController.selectedEvent.value = newValue;
+                        shareWorkController.selectedEvent.value =
+                            shareWorkController.eventPreferenceList
+                                .firstWhere(
+                                  (element) => element.name == newValue,
+                                )
+                                .id ??
+                            '';
                       }
                     },
                     validator: (value) {
@@ -114,8 +127,10 @@ class SpShareWorkPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
+
+                //* ------------------ Project Title TextField ------------------
                 TextFormField(
-                  controller: _shareWorkController.titleController,
+                  controller: shareWorkController.titleController,
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: "Project Title",
@@ -130,7 +145,9 @@ class SpShareWorkPage extends StatelessWidget {
                     hintStyle: getTextStyle(
                       fontSize: 14,
                       color:
-                          isDarkMode ? Color(0xFFebebeb) : AppColors.textColor,
+                          isDarkMode
+                              ? Color(0xFFebebeb)
+                              : AppColors.borderColor,
                     ),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -144,7 +161,7 @@ class SpShareWorkPage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  controller: _shareWorkController.descriptionController,
+                  controller: shareWorkController.descriptionController,
                   maxLines: 3,
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -189,7 +206,7 @@ class SpShareWorkPage extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 GestureDetector(
-                  onTap: _shareWorkController.pickImages,
+                  onTap: shareWorkController.pickImages,
                   child: Obx(() {
                     return DottedBorder(
                       borderType: BorderType.RRect,
@@ -205,7 +222,7 @@ class SpShareWorkPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child:
-                            _shareWorkController.selectedImages.isEmpty
+                            shareWorkController.selectedImages.isEmpty
                                 ? Padding(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 12,
@@ -251,9 +268,7 @@ class SpShareWorkPage extends StatelessWidget {
                                         mainAxisSpacing: 8,
                                       ),
                                   itemCount:
-                                      _shareWorkController
-                                          .selectedImages
-                                          .length,
+                                      shareWorkController.selectedImages.length,
                                   itemBuilder: (context, index) {
                                     return Stack(
                                       children: [
@@ -265,7 +280,7 @@ class SpShareWorkPage extends StatelessWidget {
                                             ),
                                             child: Image.file(
                                               File(
-                                                _shareWorkController
+                                                shareWorkController
                                                     .selectedImages[index]
                                                     .path,
                                               ),
@@ -280,7 +295,7 @@ class SpShareWorkPage extends StatelessWidget {
                                           right: 0,
                                           child: GestureDetector(
                                             onTap: () {
-                                              _shareWorkController.removeImage(
+                                              shareWorkController.removeImage(
                                                 index,
                                               );
                                             },
@@ -308,7 +323,11 @@ class SpShareWorkPage extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 CustomContinueButton(
-                  onPress: _shareWorkController.uploadToServer,
+                  onPress: () async {
+                    // if (shareWorkController.formKey.currentState!.validate()) {
+                    await shareWorkController.uploadWorkPost();
+                    // }
+                  },
                   title: isEditing ? "Update" : "Upload",
                 ),
                 SizedBox(height: 16),

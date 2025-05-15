@@ -1,19 +1,30 @@
+import 'package:blinqo/core/urls/endpoint.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
+import 'package:blinqo/features/role/service_provider/common/models/sp_user_model.dart';
+import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/work_post_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/model/work_post_model.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/work_post_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 class ShareWorkController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   var eventList = ['Wedding', 'Birthday', 'Corporate Event', 'Other'].obs;
+  RxList<EventPreference> eventPreferenceList =
+      (SpAuthController.spUser?.profile?.eventPreference ?? [])
+          .cast<EventPreference>()
+          .obs;
+  var selectedEvent = ''.obs;
+
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   var selectedImages = <XFile>[].obs;
 
-  var selectedEvent = 'Wedding'.obs;
   var projectTitle = ''.obs;
   var projectDescription = ''.obs;
 
@@ -93,22 +104,6 @@ class ShareWorkController extends GetxController {
       return;
     }
 
-    // var uri = Uri.parse('https://your-api-endpoint.com/upload');
-    // var request = http.MultipartRequest('POST', uri);
-
-    // request.fields['event_type'] = selectedEvent.value;
-    // request.fields['project_title'] = projectTitle.value;
-    // request.fields['project_description'] = projectDescription.value;
-
-    // for (int i = 0; i < selectedImages.length; i++) {
-    //   var file = await http.MultipartFile.fromPath(
-    //     'photos[$i]',
-    //     selectedImages[i].path,
-    //     contentType: http.MediaType('image', selectedImages[i].path.endsWith('.png') ? 'png' : 'jpeg'),
-    //   );
-    //   request.files.add(file);
-    // }
-
     // Create or update the post
     var post = WorkPost(
       eventType: selectedEvent.value,
@@ -133,6 +128,49 @@ class ShareWorkController extends GetxController {
     titleController.clear();
     descriptionController.clear();
     selectedEvent.value = eventList[0];
+  }
+
+  //* ------------------  Upload Work Post  ------------------
+  Future<bool> uploadWorkPost() async {
+    bool isSuccess = false;
+    EasyLoading.show(status: 'Uploading...');
+
+    Map<String, String> formFields = {
+      'eventTypeId': selectedEvent.value,
+      'projectTitle': titleController.text,
+      'description': descriptionController.text,
+    };
+
+    List<http.MultipartFile>? files;
+    if (selectedImages.isNotEmpty) {
+      files = [];
+      for (var image in selectedImages) {
+        files.add(await http.MultipartFile.fromPath('files', image.path));
+      }
+    }
+
+    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+      url: Urls.workShowcase,
+      formFields: formFields,
+      files: files,
+    );
+
+    if (response.isSuccess) {
+      EasyLoading.dismiss();
+      isSuccess = true;
+      Get.off(() => WorkPostScreen());
+    } else {
+      EasyLoading.dismiss();
+      isSuccess = false;
+      Get.snackbar(
+        'Error',
+        'Failed to upload work post.',
+        snackPosition: SnackPosition.TOP,
+      );
+    }
+
+    update();
+    return isSuccess;
   }
 
   @override
