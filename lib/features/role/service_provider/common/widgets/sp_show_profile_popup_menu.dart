@@ -7,7 +7,7 @@ import 'package:blinqo/features/role/service_provider/profile_setup_page/control
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -89,7 +89,7 @@ Future<void> spShowEditDeletePopup(
         value: "Edit Project",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Navigator.pushNamed(context, SpShareWorkPage.name);
+          Navigator.pushNamed(context, SpShareWorkScreen.name);
         },
       ),
       _buildPopupMenuItem(

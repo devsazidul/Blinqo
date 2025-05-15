@@ -60,4 +60,5 @@ class Urls {
   // Service Provider work urls
   static String workShowcase = '$baseUrl/works/create-work-showcase';
   static String getAllWorks = '$baseUrl/works/get-all-by-service-provider';
+  static String getWorkDetails(String id) => '$baseUrl/works/get/$id';
 }

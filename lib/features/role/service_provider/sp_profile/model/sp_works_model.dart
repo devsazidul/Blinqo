@@ -17,28 +17,28 @@ class SpWorksModel {
 
   factory SpWorksModel.fromJson(Map<String, dynamic> json) {
     return SpWorksModel(
-      id: json['id'],
-      eventTypeId: json['eventTypeId'],
-      projectTitle: json['projectTitle'],
-      description: json['description'],
-      profileId: json['profileId'],
+      id: json['id'] ?? '',
+      eventTypeId: json['eventTypeId'] ?? '',
+      projectTitle: json['projectTitle'] ?? '',
+      description: json['description'] ?? '',
+      profileId: json['profileId'] ?? '',
       files:
           json['files'] != null
               ? List<ImageModel>.from(
                 json['files'].map((x) => ImageModel.fromJson(x)),
               )
-              : null,
+              : [],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'eventTypeId': eventTypeId,
-      'projectTitle': projectTitle,
-      'description': description,
-      'profileId': profileId,
-      'files': files?.map((e) => e.toJson()).toList(),
+      'id': id ?? '',
+      'eventTypeId': eventTypeId ?? '',
+      'projectTitle': projectTitle ?? '',
+      'description': description ?? '',
+      'profileId': profileId ?? '',
+      'files': files?.map((e) => e.toJson()).toList() ?? [],
     };
   }
 }
@@ -50,11 +50,11 @@ class ImageModel {
   ImageModel({this.id, this.path});
 
   factory ImageModel.fromJson(Map<String, dynamic> json) {
-    return ImageModel(id: json['id'], path: json['path']);
+    return ImageModel(id: json['id'] ?? '', path: json['path'] ?? '');
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'path': path};
+    return {'id': id ?? '', 'path': path ?? ''};
   }
 }
 

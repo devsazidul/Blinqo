@@ -1,12 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/review_controller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_review_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ReviewFilterStarButtons extends StatelessWidget {
   ReviewFilterStarButtons({super.key});
 
-  final ReviewController controller = Get.put(ReviewController());
+  final SpReviewController controller = Get.put(SpReviewController());
 
   @override
   Widget build(BuildContext context) {
