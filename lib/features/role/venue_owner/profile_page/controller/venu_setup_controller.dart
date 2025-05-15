@@ -35,6 +35,7 @@ class VenueSetupController extends GetxController {
   Rxn<VenuDecorationOption> venuDecorationOption = Rxn<VenuDecorationOption>();
 
   RxBool isLoading = false.obs;
+
   RxBool isEditMode = false.obs;
 
   void setEditMode(bool isEdit) {
@@ -79,7 +80,7 @@ class VenueSetupController extends GetxController {
   // Preload venue data from VenueDetailsController
   void preloadVenueData() {
     final venueDetails =
-        Get.find<VenueDetailsController>().response.value?.data?.venue;
+        Get.put(VenueDetailsController()).response.value?.data?.venue;
     if (venueDetails != null) {
       // preload image
 
@@ -386,7 +387,7 @@ class VenueSetupController extends GetxController {
       Url:
           isEdit
               ? Urls.updateVenue(
-                Get.find<VenueDetailsController>()
+                Get.put(VenueDetailsController())
                     .response
                     .value
                     ?.data
@@ -403,7 +404,7 @@ class VenueSetupController extends GetxController {
       EasyLoading.showSuccess(
         isEdit ? 'Venue updated successfully' : 'Venue created successfully',
       );
-      final allVenuesController = Get.find<AllVenuesDetailsController>();
+      final allVenuesController = Get.put(AllVenuesDetailsController());
       await allVenuesController.getAllVenues(); // Refresh venue list
       clearControllers();
       if (venueStatus == 'Create New Venue') {
@@ -415,7 +416,7 @@ class VenueSetupController extends GetxController {
           VenueDetailsController(),
         );
         venueDetailsController.getVenueDetails(
-          Get.find<VenueDetailsController>().response.value?.data?.venue?.id ??
+          Get.put(VenueDetailsController()).response.value?.data?.venue?.id ??
               '',
         );
         Get.back();
