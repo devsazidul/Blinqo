@@ -5,6 +5,7 @@ import 'package:blinqo/features/role/service_provider/common/controller/sp_get_u
 import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
 import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/onboarding_screen/screen/venue_onboarding_screen.dart';
@@ -54,6 +55,7 @@ class RoleController extends GetxController {
           // check is profile id exists?
           if (SpAuthController.spUser?.profile?.id != null) {
             // if profile id exists it means profile is already created
+            await Get.find<SpGetAllWorksController>().getAllWorks();
             Get.to(() => SpBottomNavBarScreen());
           } else {
             // if profile id not exists it means profile is not created

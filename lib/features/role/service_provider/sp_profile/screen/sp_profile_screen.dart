@@ -1,10 +1,10 @@
 import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/review_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_review_controller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/profile_cover_image_and_avater.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/profile_summary_section.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/widget/review_tab_view_widget.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_review_tab_view_widget.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_works_tab_view_widget.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/works_reviews_tab_bar_section.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class SpProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReviewController controller = Get.put(ReviewController());
+    final SpReviewController controller = Get.put(SpReviewController());
 
     return Scaffold(
       body: Obx(() {
@@ -56,7 +56,7 @@ class SpProfileScreen extends StatelessWidget {
                             onPress: () {
                               Navigator.pushNamed(
                                 context,
-                                SpShareWorkPage.name,
+                                SpShareWorkScreen.name,
                               );
                             },
                             title: 'Share Your Work',
@@ -82,7 +82,7 @@ class SpProfileScreen extends StatelessWidget {
                     SpWorksTabViewWidget(),
 
                     /// Reviews Tab
-                    ReviewsTabViewWidget(controller: controller),
+                    SpReviewsTabViewWidget(controller: controller),
                   ],
                 ),
               ),

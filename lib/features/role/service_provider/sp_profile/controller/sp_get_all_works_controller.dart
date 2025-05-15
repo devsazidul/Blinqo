@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class SpGetAllWorksController extends GetxController {
   bool _isLoading = false;
   String _errorMessage = '';
-  List<SpWorksModel> _works = [];
+  final List<SpWorksModel> _works = [];
 
   bool get isLoading => _isLoading;
   String get errorMessage => _errorMessage;
@@ -20,31 +20,39 @@ class SpGetAllWorksController extends GetxController {
   }
 
   Future<bool> getAllWorks() async {
-    EasyLoading.show(status: 'Loading...');
+    _works.clear();
+    // EasyLoading.show(status: 'Loading...');
     bool isSuccess = false;
     _isLoading = true;
     update();
 
-    final response = await Get.find<SpNetworkCaller>().getRequest(
-      Urls.getAllWorks,
-    );
+    try {
+      final response = await Get.find<SpNetworkCaller>().getRequest(
+        Urls.getAllWorks,
+      );
 
-    if (response.isSuccess) {
-      final List<SpWorksModel> spWorksModel =
-          response.responseData['data']
-              .map((e) => SpWorksModel.fromJson(e))
-              .toList();
-      _works = spWorksModel;
-      EasyLoading.showSuccess("Works retrieved successfully");
-      isSuccess = true;
-    } else {
-      _errorMessage = "Works retrieval failed";
-      EasyLoading.showError(_errorMessage);
+      if (response.isSuccess) {
+        for (var work in response.responseData['data']) {
+          _works.add(SpWorksModel.fromJson(work as Map<String, dynamic>));
+        }
+        // response.responseData['data']
+        //     .map((e) => SpWorksModel.fromJson(e as Map<String, dynamic>))
+        //     .toList();
+
+        // EasyLoading.showSuccess("Works retrieved successfully");
+        isSuccess = true;
+      } else {
+        _errorMessage = response.errorMessage;
+        EasyLoading.showError(_errorMessage);
+      }
+    } catch (e) {
+      _errorMessage = "Failed to load works: $e";
+      // EasyLoading.showError(_errorMessage);
     }
 
     _isLoading = false;
     update();
-    EasyLoading.dismiss();
+    // EasyLoading.dismiss();
     return isSuccess;
   }
 }

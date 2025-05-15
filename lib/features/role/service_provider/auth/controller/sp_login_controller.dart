@@ -7,6 +7,7 @@ import 'package:blinqo/features/role/service_provider/profile_setup_page/control
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -73,6 +74,7 @@ class SpLoginController extends GetxController {
         if (loginModel.user?.isProfileCreated == true) {
           //* Save user profile information into shared preferences
           await Get.put(SpGetUserInfoController()).spGetUserInfo();
+          await Get.find<SpGetAllWorksController>().getAllWorks();
           EasyLoading.dismiss();
           Get.offAll(() => SpBottomNavBarScreen());
         } else {
