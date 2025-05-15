@@ -8,9 +8,18 @@ import '../../event_home_page/sharch_start_booking/mixin/sharch_set_price.dart';
 
 class BookingController extends GetxController
     with ServiceManagementMixin, Amenities, SharchSetPrice {
+
   final eventNameController = TextEditingController();
   final eventPlannerNameController = TextEditingController();
   final numberOfGuestsController = TextEditingController();
+
+  final tableShapeController = TextEditingController();
+  final seatingStyleController = TextEditingController();
+  final lightingController = TextEditingController();
+  final flowerColorController = TextEditingController();
+  final flowerTypeController = TextEditingController();
+  final fragranceController = TextEditingController();
+
   var selectedDate = DateTime.now().obs;
   var isDateSelected = false.obs;
   var isStartTimeSelected = false.obs;
