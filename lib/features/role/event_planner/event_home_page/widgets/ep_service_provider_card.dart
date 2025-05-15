@@ -3,14 +3,15 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/screen/ep_service_provider_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpCustomServiceProdiverCard extends StatelessWidget {
-  EpCustomServiceProdiverCard({super.key, required this.provider});
+  EpCustomServiceProdiverCard({super.key, required this.userModel});
 
-  final Map<String, dynamic> provider;
+  final Datum userModel;
   final controller = Get.put(ProfileController());
   final PickColorController femaleColorController = Get.put(
     PickColorController(),
@@ -40,7 +41,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                       isDarkMode
                           ? AppColors.textFrieldDarkColor
                           : AppColors.primary,
-                  child: Image.asset(provider['image'] as String),
+                  backgroundImage: NetworkImage(userModel.image.path),
                 ),
               ],
             ),
@@ -54,7 +55,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        provider['name'] as String,
+                        userModel.name,
 
                         style: getTextStyle(
                           fontSize: 15,
@@ -66,7 +67,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 8),
-                      if (provider['verified'] == true)
+                      if (userModel.user.isVerified)
                         Image.asset(
                           IconPath.eventserviceverificaitonlogo,
                           width: 14,
@@ -83,19 +84,22 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                         height: 16,
                       ),
                       SizedBox(width: 4),
-                      Text(
-                        provider['location'] as String,
-                        style: getTextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.locationIconColor,
+                      Expanded(
+                        child: Text(
+                          userModel.location,
+                          overflow: TextOverflow.ellipsis,
+                          style: getTextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.locationIconColor,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 10),
                   Text(
-                    provider['price'] as String,
+                    userModel.basePrice.toString(),
                     style: getTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -130,7 +134,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        '${provider['rating']}',
+                        '3.2',
                         style: getTextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -150,10 +154,10 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                 SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
-                    Get.to(
-                      () => EpServiceProviderProfile(),
-                      arguments: provider,
-                    );
+                    // Get.to(
+                    //   () => EpServiceProviderProfile(),
+                    //   arguments: provider,
+                    // );
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

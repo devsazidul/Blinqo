@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 class EpBottomNavController extends GetxController {
   RxInt currentIndex = 0.obs;
-  RxList<StatelessWidget> screens =
+  RxList<Widget> screens =
       [
         // EventHomeNavigator(),
         EventHomeScreen(),

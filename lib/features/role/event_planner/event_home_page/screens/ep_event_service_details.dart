@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_event_service_details_controller.dart';
 
@@ -9,13 +10,30 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EpEventServiceDetails extends StatelessWidget {
-  EpEventServiceDetails({super.key, required this.service});
-  final Service service;
+class EpEventServiceDetails extends StatefulWidget {
+  EpEventServiceDetails({super.key, required this.serviceName, required this.serviceId});
+
+  final String serviceName;
+  final String serviceId;
+
+  @override
+  State<EpEventServiceDetails> createState() => _EpEventServiceDetailsState();
+}
+
+class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
+  // final Service service;
   final EpEventServiceDetailsController epServiceDetailsController = Get.put(
     EpEventServiceDetailsController(),
   );
+
   final controller = Get.put(ProfileController());
+
+  @override
+  void initState() {
+    super.initState();
+    epServiceDetailsController.fetchData(serviceId: widget.serviceId);
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = controller.isDarkMode.value;
@@ -34,7 +52,7 @@ class EpEventServiceDetails extends StatelessWidget {
           flexibleSpace: Stack(
             children: [
               Image.asset(
-                service.imagePath,
+                ImagePath.profile,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
               ),
@@ -71,7 +89,7 @@ class EpEventServiceDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      service.label,
+                      widget.serviceName,
                       style: getTextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
@@ -165,7 +183,7 @@ class EpEventServiceDetails extends StatelessWidget {
                 // filter button
                 GestureDetector(
                   onTap: () {
-                    epServiceDetailsController.showFilterDialog(context);
+                    // epServiceDetailsController.showFilterDialog(context);
                   },
                   child: Container(
                     width: 48,
@@ -196,14 +214,13 @@ class EpEventServiceDetails extends StatelessWidget {
               child: Obx(() {
                 return ListView.builder(
                   shrinkWrap: true,
-                  itemCount: epServiceDetailsController.serviceProviders.length,
+                  itemCount: epServiceDetailsController.serviceUserModel.value.value.data.length,
                   itemBuilder: (context, index) {
-                    final provider =
-                        epServiceDetailsController.serviceProviders[index];
+                   final user = epServiceDetailsController.serviceUserModel.value.value.data[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 6.0),
                       child: EpCustomServiceProdiverCard(
-                        provider: provider.cast<String, Object>(),
+                        userModel: user,
                       ),
                     );
                   },
