@@ -1,6 +1,7 @@
 import 'package:blinqo/features/profile/screen/pick_color_screen.dart';
 import 'package:blinqo/features/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_otp_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
@@ -125,7 +126,11 @@ class AppRoute {
   static String spChangePassword = '/spChangePassword';
   static String profilesetup = '/profilesetup';
   static String eventbottomnavbar = '/eventbottomnavbar';
+
+  static String fpotpscreen = '/fpotpscreen';
+
   static String spWorksPortfolio = '/sp_works_portfolio';
+
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -186,7 +191,11 @@ class AppRoute {
   static String getspChangePassword() => spChangePassword;
   static String getprofilesetup() => profilesetup;
   static String geteventbottomnavbar() => eventbottomnavbar;
+
+  static String getfpotpscreen() => fpotpscreen;
+
   static String getspWorksPortfolio() => spWorksPortfolio;
+
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -226,6 +235,7 @@ class AppRoute {
     GetPage(name: spUpcomingProject, page: () => SpUpcomingProject()),
     GetPage(name: loginscreen, page: () => LogInScreen()),
     GetPage(name: signupscreen, page: () => SignUpScreen()),
+    GetPage(name: fpotpscreen, page: () => FPOTPScreen()),
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
     // GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),

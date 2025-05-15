@@ -2,7 +2,6 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
-import 'package:blinqo/features/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/profile/widget/coustm_appbar.dart';
 import 'package:blinqo/features/profile/widget/coustm_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +26,7 @@ class EditProfilePage extends StatelessWidget {
       appBar: CoustmAppbar(
         title: 'Edit Profile',
         onPressed: () {
+          
           // Get.to(() => const MainProfileScreen());
         },
       ),
@@ -87,6 +87,7 @@ class EditProfilePage extends StatelessWidget {
                                   ?.profile
                                   ?.name ??
                               "Adam@",
+                              
                         );
                       }),
                       Text(
@@ -120,7 +121,7 @@ class EditProfilePage extends StatelessWidget {
                 SizedBox(height: 40),
                 EditCustomContinueButton(
                   onTap: () {
-                    Get.to(MainProfileScreen());
+                    // Get.to(MainProfileScreen());
                   },
                   title: 'Save & Change',
                 ),

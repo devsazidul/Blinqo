@@ -4,23 +4,28 @@ import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/change_password_controller.dart';
-import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   final String? email;
-  const ChangePasswordScreen({super.key, this.email});
+  final String? otp;
+
+  const ChangePasswordScreen({super.key, this.email, this.otp});
 
   @override
   Widget build(BuildContext context) {
     final femaleColorController = Get.find<PickColorController>();
     final bool isFemale = femaleColorController.isFemale.value;
 
-    final ChangePasswordController changePasswordController =
-        Get.find<ChangePasswordController>();
+    final ChangePasswordController changePasswordController = Get.put(
+      ChangePasswordController(),
+    );
 
-    debugPrint("email: $email");
+    // Set email and OTP in the controller
+    changePasswordController.setEmailAndOtp(email, otp);
+
+    debugPrint("email: $email, otp: $otp");
 
     return Scaffold(
       backgroundColor: AppColors.loginBg,
@@ -28,7 +33,7 @@ class ChangePasswordScreen extends StatelessWidget {
         centerTitle: true,
         forceMaterialTransparency: true,
         title: Text(
-          'Changed Password',
+          'Change Password',
           style: getTextStyle(
             color: AppColors.textColor,
             fontSize: 24,
@@ -38,83 +43,70 @@ class ChangePasswordScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           child: Form(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'New Password',
-                      style: getTextStyle(
-                        color: AppColors.textColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 20),
+                Text(
+                  'New Password',
+                  style: getTextStyle(
+                    color: AppColors.textColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 AuthCustomTextField(
                   controller:
                       changePasswordController.newPasswordEditingController,
                   text: 'Enter your Password',
+                  obscureText: true,
                   onChanged: (value) {
-                    changePasswordController.newPasswordError.value =
-                        ''; // Reset error on change
+                    changePasswordController.validatePasswords();
                   },
-                  validator: (value) {
-                    if (changePasswordController
-                        .newPasswordError
-                        .value
-                        .isNotEmpty) {
-                      return changePasswordController.newPasswordError.value;
-                    }
-                    return null;
-                  },
+                  validator:
+                      (value) =>
+                          changePasswordController
+                                  .newPasswordError
+                                  .value
+                                  .isNotEmpty
+                              ? changePasswordController.newPasswordError.value
+                              : null,
                 ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Confirm Password',
-                      style: getTextStyle(
-                        color: AppColors.textColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 20),
+                Text(
+                  'Confirm Password',
+                  style: getTextStyle(
+                    color: AppColors.textColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 AuthCustomTextField(
                   controller:
                       changePasswordController.confirmPasswordEditingController,
                   text: 'Enter your Password',
+                  obscureText: true,
                   onChanged: (value) {
-                    changePasswordController.confirmPasswordError.value = '';
+                    changePasswordController.validatePasswords();
                   },
-                  validator: (value) {
-                    if (changePasswordController
-                        .confirmPasswordError
-                        .value
-                        .isNotEmpty) {
-                      return changePasswordController
-                          .confirmPasswordError
-                          .value;
-                    }
-                    return null;
-                  },
+                  validator:
+                      (value) =>
+                          changePasswordController
+                                  .confirmPasswordError
+                                  .value
+                                  .isNotEmpty
+                              ? changePasswordController
+                                  .confirmPasswordError
+                                  .value
+                              : null,
                 ),
-                SizedBox(height: 68),
+                const SizedBox(height: 68),
                 CustomButton(
-                  title: 'Changed',
+                  title: 'Change',
                   backgroundColor:
                       isFemale
                           ? femaleColorController.selectedColor
@@ -125,7 +117,9 @@ class ChangePasswordScreen extends StatelessWidget {
                           : AppColors.buttonColor2,
                   textColor: AppColors.primary,
                   onPress: () {
-                    Get.off(() => LogInScreen());
+                    if (changePasswordController.validatePasswords()) {
+                      changePasswordController.resetPassword();
+                    }
                   },
                 ),
               ],

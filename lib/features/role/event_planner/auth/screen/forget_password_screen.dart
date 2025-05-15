@@ -3,7 +3,6 @@ import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_controller.dart';
-import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -100,41 +99,41 @@ class ForgetPasswordScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      forgetPasswordController.focusedButtonIndex.value = 1;
-                    },
-                    child: ValueListenableBuilder<int>(
-                      valueListenable:
-                          forgetPasswordController.focusedButtonIndex,
-                      builder: (context, value, child) {
-                        return Container(
-                          height: 44,
-                          width: 93,
-                          decoration: BoxDecoration(
-                            color:
-                                value == 1
-                                    ? AppColors.textColor
-                                    : Colors.transparent,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Phone",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color:
-                                    value == 1
-                                        ? AppColors.primary
-                                        : AppColors.textColor,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     forgetPasswordController.focusedButtonIndex.value = 1;
+                  //   },
+                  //   child: ValueListenableBuilder<int>(
+                  //     valueListenable:
+                  //         forgetPasswordController.focusedButtonIndex,
+                  //     builder: (context, value, child) {
+                  //       return Container(
+                  //         height: 44,
+                  //         width: 93,
+                  //         decoration: BoxDecoration(
+                  //           color:
+                  //               value == 1
+                  //                   ? AppColors.textColor
+                  //                   : Colors.transparent,
+                  //           borderRadius: BorderRadius.circular(4),
+                  //         ),
+                  //         child: Center(
+                  //           child: Text(
+                  //             "Phone",
+                  //             style: TextStyle(
+                  //               fontWeight: FontWeight.w400,
+                  //               fontSize: 16,
+                  //               color:
+                  //                   value == 1
+                  //                       ? AppColors.primary
+                  //                       : AppColors.textColor,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -171,33 +170,33 @@ class ForgetPasswordScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                    if (value == 1)
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Phone",
-                                  style: getTextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.textColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 8),
-                            AuthCustomTextField(
-                              controller:
-                                  forgetPasswordController.phoneController,
-                              text: "Enter your phone number",
-                            ),
-                          ],
-                        ),
-                      ),
+                    // if (value == 1)
+                    //   Padding(
+                    //     padding: const EdgeInsets.all(12),
+                    //     child: Column(
+                    //       children: [
+                    //         Row(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           children: [
+                    //             Text(
+                    //               "Phone",
+                    //               style: getTextStyle(
+                    //                 fontSize: 16,
+                    //                 fontWeight: FontWeight.w400,
+                    //                 color: AppColors.textColor,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         SizedBox(height: 8),
+                    //         AuthCustomTextField(
+                    //           controller:
+                    //               forgetPasswordController.phoneController,
+                    //           text: "Enter your phone number",
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
                   ],
                 );
               },
@@ -219,13 +218,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Add logic to handle form submission here
-                    Get.to(
-                      () => OTPScreen(
-                        // isSelect:
-                        //     forgetPasswordController.focusedButtonIndex.value,
-                      ),
-                    );
+                    forgetPasswordController.sendPasswordResetCode();
                   },
                   child: Text(
                     "Send",

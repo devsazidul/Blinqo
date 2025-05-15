@@ -161,16 +161,13 @@ class ProfileController extends GetxController {
   }
 
   //============================================================================
-  // Reactive variable to store user info
   final userInfo = Rx<UserInfo?>(null);
-  // Reactive variable for loading state
   final isLoadingUser = false.obs;
 
   Future<void> getUser() async {
     debugPrint(
       'Starting getUser function at ${DateTime.now().toIso8601String()}',
     );
-
     try {
       debugPrint('Setting isLoadingUser to true');
       isLoadingUser.value = true;
@@ -183,12 +180,10 @@ class ProfileController extends GetxController {
       debugPrint(
         'Access token received: ${accessToken != null ? 'Token present' : 'Token null or empty'}',
       );
-
       if (accessToken == null || accessToken.isEmpty) {
         debugPrint('Throwing exception: Authentication token not found');
         throw Exception('Authentication token not found');
       }
-
       debugPrint('Preparing HTTP GET request to: ${Urls.getUserInfo}');
       debugPrint(
         'Request headers: Authorization: Bearer $accessToken, Content-Type: application/json',
@@ -204,7 +199,6 @@ class ProfileController extends GetxController {
         'HTTP response received with status code: ${response.statusCode}',
       );
       debugPrint('Response body: ${response.body}');
-
       if (response.statusCode == 200) {
         debugPrint('Parsing response body as JSON');
         final responseData = jsonDecode(response.body);
@@ -233,9 +227,9 @@ class ProfileController extends GetxController {
       }
     } catch (e) {
       debugPrint('Caught exception: $e');
-      Get.snackbar("Error", "Failed to load user data: ${e.toString()}");
+      EasyLoading.showError("Failed to load user data: ${e.toString()}");
       debugPrint(
-        'Showing Get.snackbar with error: Failed to load user data: ${e.toString()}',
+        'Showing EasyLoading with error: Failed to load user data: ${e.toString()}',
       );
     } finally {
       debugPrint('Setting isLoadingUser to false');
