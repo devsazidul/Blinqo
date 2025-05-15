@@ -30,16 +30,17 @@ class EpEventServiceDetails extends StatelessWidget {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
+          leading: null,
           flexibleSpace: Stack(
             children: [
               Image.asset(
                 service.imagePath,
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
               ),
               Positioned.fill(
                 child: Container(
-                  color: AppColors.textColor.withValues(alpha: 0.6),
+                  color: Colors.black.withOpacity(0.6),
                 ),
               ),
               Positioned(
@@ -71,7 +72,7 @@ class EpEventServiceDetails extends StatelessWidget {
                   children: [
                     Text(
                       service.label,
-                      style: TextStyle(
+                      style: getTextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primary,
@@ -90,9 +91,14 @@ class EpEventServiceDetails extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
+
             SizedBox(height: 20),
+
+            // search options
             Row(
               children: [
+
+                // search text field
                 Expanded(
                   child: TextField(
                     controller: epServiceDetailsController.search,
@@ -152,7 +158,11 @@ class EpEventServiceDetails extends StatelessWidget {
                     ),
                   ),
                 ),
+
+
                 SizedBox(width: 10),
+
+                // filter button
                 GestureDetector(
                   onTap: () {
                     epServiceDetailsController.showFilterDialog(context);
@@ -164,7 +174,7 @@ class EpEventServiceDetails extends StatelessWidget {
                       color:
                           isDarkMode
                               ? AppColors.textFrieldDarkColor
-                              : AppColors.appBarArrowIconColor,
+                              : Colors.black,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Center(
@@ -180,6 +190,8 @@ class EpEventServiceDetails extends StatelessWidget {
               ],
             ),
             SizedBox(height: 33),
+
+            // list view for all the users
             Expanded(
               child: Obx(() {
                 return ListView.builder(

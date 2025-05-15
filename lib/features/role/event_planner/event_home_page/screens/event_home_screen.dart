@@ -32,7 +32,6 @@ class EventHomeScreen extends StatelessWidget {
     return Obx(() {
       final themeMode =
           profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
-
       return Scaffold(
         backgroundColor:
             themeMode == ThemeMode.dark
@@ -48,6 +47,7 @@ class EventHomeScreen extends StatelessWidget {
           child: Stack(
             children: [
               SingleChildScrollView(
+
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -169,6 +169,8 @@ class EventHomeScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 8),
+
+
                             Column(
                               children: List.generate(
                                 controller.venues.length,

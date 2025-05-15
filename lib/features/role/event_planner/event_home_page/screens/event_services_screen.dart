@@ -55,12 +55,12 @@ class EventServicesScreen extends StatelessWidget {
             // SizedBox(height: 20),
             GridView.builder(
               shrinkWrap: true,
-              physics: ScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: .20,
-                crossAxisSpacing: 1,
-                childAspectRatio: 1,
+                crossAxisSpacing: 0,
+                childAspectRatio: 1.1,
               ),
               itemCount: services.length,
               itemBuilder: (context, index) {

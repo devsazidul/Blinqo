@@ -32,6 +32,8 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
           children: [
             Column(
               children: [
+
+                // profile image
                 CircleAvatar(
                   radius: 18,
                   backgroundColor:
@@ -43,6 +45,8 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
               ],
             ),
             SizedBox(width: 12),
+
+            // user details
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,6 +110,8 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                 ],
               ),
             ),
+
+            // rating and view details
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
