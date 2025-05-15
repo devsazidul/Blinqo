@@ -1,37 +1,33 @@
+import 'package:blinqo/core/common/widgets/logger_view.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_congratulation_screen.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'dart:convert';
-
 import '../public_private_key/public_private_stripe_key.dart';
 
 class VStripeServices {
-  // Create a logger instance for debugging
-  final logger = Logger(printer: PrettyPrinter());
+
+  final logger = createLogger();
 
   // Private constructor for singleton
   VStripeServices._();
   static final VStripeServices instance = VStripeServices._();
 
-  /// Initiates a payment of $999.99 USD.
+  /// Initiates a payment of $10 USD.
   /// Navigates to ThankYouPage on success using GetX, shows snackbar on failure.
   Future<void> makePayment() async {
     try {
       // Step 1: Create Payment Intent
-      String? paymentClientSecret = await _createPaymentIntent(100, "USD");
+      String? paymentClientSecret = await _createPaymentIntent(10, "USD");
       if (paymentClientSecret == null) {
-        Get.snackbar(
-          'Error',
-          'Failed to create payment intent',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        EasyLoading.showError('Failed to create payment intent');
         logger.e("Failed to create payment intent");
         return;
       }
 
-      // Step 2: Initialize Payment Sheet
+
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: paymentClientSecret,
