@@ -5,8 +5,8 @@ import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_wo
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/profile_cover_image_and_avater.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/profile_summary_section.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/review_tab_view_widget.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_works_tab_view_widget.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/works_reviews_tab_bar_section.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/widget/works_tab_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -79,7 +79,7 @@ class SpProfileScreen extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   children: [
                     /// Works Tab
-                    WorksTabViewWidget(),
+                    SpWorksTabViewWidget(),
 
                     /// Reviews Tab
                     ReviewsTabViewWidget(controller: controller),

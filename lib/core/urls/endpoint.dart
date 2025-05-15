@@ -4,6 +4,8 @@ class Urls {
   // static const String baseUrl = 'https://sports-app-dvka.onrender.com';
   // static const String baseUrl = 'https://sports-app-y7lq.onrender.com';
   static const String baseUrl = 'https://freepik.softvenceomega.com';
+
+  // Auth urls
   static const String login = '$baseUrl/auth/login';
   static const String register = '$baseUrl/auth/register';
   static const String otpVerification = '$baseUrl/auth/verify-email';
@@ -51,5 +53,11 @@ class Urls {
 
   static String updateVenue(String? id) => '$baseUrl/venue/update/$id';
   static String getAllVenue = '$baseUrl/venue/get-all-by-venue-owner';
+
+  // Payment urls
   static String createPaymentIntent = '$baseUrl/billing/create-payment-intent';
+
+  // Service Provider work urls
+  static String workShowcase = '$baseUrl/works/create-work-showcase';
+  static String getAllWorks = '$baseUrl/works/get-all-by-service-provider';
 }
