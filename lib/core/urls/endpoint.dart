@@ -60,5 +60,17 @@ class Urls {
   // Service Provider work urls
   static String workShowcase = '$baseUrl/works/create-work-showcase';
   static String getAllWorks = '$baseUrl/works/get-all-by-service-provider';
+
   static String getWorkDetails(String id) => '$baseUrl/works/get/$id';
+
+  static String getVenueOwnerHome = '$baseUrl/venue/venue-owner-home';
+
+  //-----------------------Venue Owner Shifts-----------------------
+  static String getAllShifts = '$baseUrl/shift/all';
+  static String createShift = '$baseUrl/shift/create';
+  static String getSingleShift(String id) => '$baseUrl/shift/$id';
+  static String updateShift(String id) => '$baseUrl/shift/update/$id';
+  static String deleteShift(String id) => '$baseUrl/shift/delete/$id';
+  //-----------------------Venue Owner Shifts-----------------------
+
 }
