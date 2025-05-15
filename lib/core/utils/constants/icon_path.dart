@@ -165,4 +165,5 @@ class IconPath {
   static const String favorite = 'assets/icons/favorite.png';
   static const String closesmallicon = 'assets/icons/closesmallicon.png';
   static const String eventselected = 'assets/icons/eventselected.png';
+  static const String arrowUpper = 'assets/icons/call_made.png';
 }
