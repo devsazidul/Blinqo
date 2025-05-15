@@ -1,7 +1,7 @@
 import 'package:blinqo/features/role/service_provider/sp_profile/model/review_model.dart';
 import 'package:get/get.dart';
 
-class ReviewController extends GetxController {
+class SpReviewController extends GetxController {
   var reviews = <Review>[].obs;
   var selectedStarFilter = 0.obs;
 

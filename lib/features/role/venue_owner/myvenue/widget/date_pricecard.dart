@@ -59,7 +59,7 @@ class DatePriceCard extends StatelessWidget {
       return;
     }
     final newPrice = int.parse(priceText);
-    final controller = Get.find<VenueDetailsController>();
+    // final controller = Get.find<VenueDetailsController>();
     // Assuming an updatePrice method exists in VenueDetailsController
     // controller.updatePrice(newPrice);
     Get.snackbar('Success', 'Price updated to \$$newPrice');

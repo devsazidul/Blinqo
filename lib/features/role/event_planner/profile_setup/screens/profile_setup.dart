@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 class ProfileSetup extends StatelessWidget {
   ProfileSetup({super.key});
   final ProfileSetupController controller = Get.put(ProfileSetupController());
+  final _formKey = GlobalKey<FormState>(); // Global key for form
 
   @override
   Widget build(BuildContext context) {
@@ -26,29 +27,31 @@ class ProfileSetup extends StatelessWidget {
         actions: [
           IconButton(icon: const Icon(Icons.dark_mode), onPressed: () {}),
         ],
-
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.w),
-        child: Column(
-          children: [
-            _buildProfilePictureSection(context),
-            SizedBox(height: 20.h),
-            _buildNameField(),
-            SizedBox(height: 8.h),
-            _buildGenderDropdown(),
-            SizedBox(height: 10.h),
-            _buildLocationField(),
-            SizedBox(height: 10.h),
-            _buildMapSection(),
-            SizedBox(height: 20.h),
-            _buildEventPreferencesSection(),
-            SizedBox(height: 20.h),
-            _buildUpgradeCard(),
-            SizedBox(height: 40.h),
-            _buildContinueButton(),
-          ],
+        child: Form(
+          key: _formKey, // Assigning the form key
+          child: Column(
+            children: [
+              _buildProfilePictureSection(context),
+              SizedBox(height: 20.h),
+              _buildNameField(),
+              SizedBox(height: 8.h),
+              _buildGenderDropdown(),
+              SizedBox(height: 10.h),
+              _buildLocationField(),
+              SizedBox(height: 10.h),
+              _buildMapSection(),
+              SizedBox(height: 20.h),
+              _buildEventPreferencesSection(),
+              SizedBox(height: 20.h),
+              _buildUpgradeCard(),
+              SizedBox(height: 40.h),
+              _buildContinueButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -124,8 +127,33 @@ class ProfileSetup extends StatelessWidget {
         labelText: "User Name",
         hintText: "Type your Username",
         border: OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.green, width: 2.0),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 2.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 2.0),
+        ),
       ),
       controller: controller.namecontroller,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter your username';
+        }
+        if (value.length < 3) {
+          return 'Username must be at least 3 characters long';
+        }
+        if (!RegExp(r'^[a-z0-9_]+$').hasMatch(value)) {
+          return 'Username must contain only lowercase alphanumeric and underscore';
+        }
+        return null;
+      },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 
@@ -134,7 +162,7 @@ class ProfileSetup extends StatelessWidget {
       () => DropdownButtonFormField<String>(
         value: controller.selectedGender.value,
         items:
-            ['MALE', 'FEMALE','OTHER'].map((String value) {
+            ['MALE', 'FEMALE', 'OTHER'].map((String value) {
               return DropdownMenuItem<String>(value: value, child: Text(value));
             }).toList(),
         onChanged: (newValue) {
@@ -177,48 +205,6 @@ class ProfileSetup extends StatelessWidget {
       ],
     );
   }
-
-  //         //* ------------------ Event Preference Grid ------------------
-  //         GetBuilder<SpProfileSetupController>(
-  //           builder: (controller) {
-  //             return GridView.count(
-  //               shrinkWrap: true,
-  //               physics: const NeverScrollableScrollPhysics(),
-  //               crossAxisCount: 3,
-  //               crossAxisSpacing: 12,
-  //               mainAxisSpacing: 12,
-  //               childAspectRatio: 0.7,
-  //               children: List.generate(
-  //                 controller.eventPreferenceList.length,
-  //                 (index) {
-  //                   final eventPreference =
-  //                       controller.eventPreferenceList[index];
-  //                   return GestureDetector(
-  //                     onTap: () {
-  //                       controller.toggleEventSelection(
-  //                         eventPreference.id ?? '',
-  //                       );
-  //                     },
-  //                     child: SpEventPreferenceCircleAvatar(
-  //                       eventPreference: eventPreference,
-  //                     ),
-  //                   );
-  //                 },
-  //               ),
-  //             );
-  //           },
-  //         ),
-  // ElevatedButton(
-  //   onPressed: () {
-  //     // Handle save action
-  //     debugPrint('Save button tapped!');
-  //     Get.offAll(() => EventBottomNavBar()); // Ensure EventBottomNavBar is imported or defined
-  //   },
-  //   style: ElevatedButton.styleFrom(
-  //     backgroundColor: Colors.blue,
-  //     padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 100.w),
-  //   ),
-  // ),
 
   Widget _buildEventPreferencesSection() {
     return Column(
@@ -288,7 +274,13 @@ class ProfileSetup extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => controller.submitProfileSetup(),
+        onPressed: () {
+          if (_formKey.currentState?.validate() ?? false) {
+            controller.submitProfileSetup();
+          } else {
+            debugPrint('Form is invalid');
+          }
+        },
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           backgroundColor: Color(0xff003366),

@@ -1,8 +1,11 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
+import 'package:blinqo/core/services/stripe_payment_service.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/controller/sp_payment_option_controller.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_congratulations_page.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -115,6 +118,19 @@ class SpPaymentOption extends StatelessWidget {
   void _onClickAddPaymentMethod(
     SpPaymentOptionController spPaymentOptionController,
   ) async {
-    await spPaymentOptionController.payWithStripe(amount: 10);
+    final isSuccess = await StripePaymentService.payWithStripe(
+      body: PaymentService(
+        currency: "usd",
+        email: SpAuthController.spUser?.email,
+        amount: 10,
+        // id: "123",
+        userId: SpAuthController.spUser?.id,
+        paymentType: PaymentType.verificationFee,
+      ),
+      merchantDisplayName: "Mukarrom",
+    );
+    if (isSuccess) {
+      Get.to(() => SpCongratulationsPage());
+    }
   }
 }

@@ -32,11 +32,6 @@ class SpProfileSetupScreen extends StatelessWidget {
       profileSetupController.profileNameController.text =
           SpAuthController.spUser?.name ?? "";
     }
-    print(
-      "-------------1-------------------${SpAuthController.spUser?.profile?.name}",
-    );
-    print("-------------2-------------------${SpAuthController.spUser?.name}");
-    print("-------------3-------------------${SpAuthController.spUser?.email}");
 
     final themeMode =
         profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
@@ -201,6 +196,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   //* ------------------ Role Dropdown ------------------
+                  // TODO: I have to save role id instead of role name
                   Row(
                     children: [
                       Text(

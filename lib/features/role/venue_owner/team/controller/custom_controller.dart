@@ -10,7 +10,6 @@ class MyDatePickerController extends GetxController {
       if (selectedDates.length < 2) {
         selectedDates.add(date);
       } else {
-        // সর্বশেষ ২টি তারিখ রাখে
         selectedDates[0] = selectedDates[1];
         selectedDates[1] = date;
       }

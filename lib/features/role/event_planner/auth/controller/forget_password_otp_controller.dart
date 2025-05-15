@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:blinqo/core/urls/endpoint.dart';
-import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class OTPController extends GetxController {
+class FPOTPController extends GetxController {
   // OTP related controllers
   TextEditingController pinController = TextEditingController();
 
@@ -42,20 +41,22 @@ class OTPController extends GetxController {
         return;
       }
 
-      Map<String, String> requestbody = {"identifier": '$email', "code": otp};
+      Map<String, String> requestbody = {"email": '$email', "code": otp};
 
       final response = await http.post(
-        Uri.parse(Urls.verifyEmail),
+        Uri.parse(Urls.verifyResetCode),
         body: requestbody,
       );
 
       debugPrint('Response Body: ${response.body}');
       debugPrint("Status Code: ${response.statusCode}");
 
-      if (response.statusCode >= 200 && response.statusCode < 300) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         debugPrint('OTP Verified Successfully, navigating...');
         EasyLoading.showSuccess('OTP Verified Successfully');
-        Get.to(() => LogInScreen());
+        pinController.clear();
+        // Pass email and OTP to ChangePasswordScreen
+        Get.to(() => ChangePasswordScreen(email: email, otp: otp));
       } else {
         debugPrint("Failed with status code: ${response.statusCode}");
         var responseData = jsonDecode(response.body);

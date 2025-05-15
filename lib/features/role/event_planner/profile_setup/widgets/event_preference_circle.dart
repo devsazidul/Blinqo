@@ -126,7 +126,7 @@ class EventPreferenceCircleAvatar extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: isSelected
-                          ? Border.all(color: Colors.green, width: 2)
+                          ? Border.all(color: Colors.transparent, width: 2)
                           : null,
                     ),
                     child: ClipOval(
@@ -154,7 +154,7 @@ class EventPreferenceCircleAvatar extends StatelessWidget {
                             ),
                             child: Icon(
                               Icons.check_circle,
-                              color: Colors.green,
+                              color: Color(0xff3A63ED),
                               size: 20,
                             ),
                           ),

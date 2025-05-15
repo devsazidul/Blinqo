@@ -5,8 +5,9 @@ import 'package:blinqo/features/role/service_provider/common/controller/auth_con
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +40,9 @@ Future<void> spShowPopupMenu(BuildContext context, bool isDarkMode) async {
         text: "View As",
         value: "view_as",
         iconPath: IconPath.viewAs,
-        onTap: () {},
+        onTap: () {
+          Get.to(SpEditProfilePage());
+        },
       ),
       _buildPopupMenuItem(
         context,
@@ -86,7 +89,7 @@ Future<void> spShowEditDeletePopup(
         value: "Edit Project",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Navigator.pushNamed(context, SpShareWorkPage.name);
+          Navigator.pushNamed(context, SpShareWorkScreen.name);
         },
       ),
       _buildPopupMenuItem(

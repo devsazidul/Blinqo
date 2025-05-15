@@ -18,6 +18,7 @@ class ProfileSetupController extends GetxController {
   RxString selectedGender = 'MALE'.obs;
   RxString selectedImagePath = ''.obs;
   RxList<String> selectedEvents = <String>[].obs;
+  RxString nameError = ''.obs;
 
   RxBool isLoadingEventPreference = false.obs;
   RxList<EEventPreferenceModel> eventPreferenceList =
@@ -57,12 +58,7 @@ class ProfileSetupController extends GetxController {
     }
   }
 
-
-
-
-
-
-//==============================================================================
+  //==============================================================================
 
   Future<void> fetchEventPreferences() async {
     try {
@@ -106,10 +102,7 @@ class ProfileSetupController extends GetxController {
     }
   }
 
-
-
-
-//===============================================================================
+  //===============================================================================
 
   Future<void> submitProfileSetup() async {
     debugPrint("====== [START] submitProfileSetup() ======");
@@ -223,8 +216,7 @@ class ProfileSetupController extends GetxController {
           debugPrint("[31] Server returned success=true");
           debugPrint("[32] Navigating to EventBottomNavBar");
           Get.offAll(() => EventBottomNavBar());
-          debugPrint("[33] Showing success snackbar");
-          Get.snackbar("Success", "Profile setup completed successfully");
+          EasyLoading.showSuccess('Profile setup completed successfully');
         } else {
           debugPrint("[31] ERROR: Server returned success=false");
           debugPrint("[32] Error message: ${responseData['message']}");
@@ -240,12 +232,7 @@ class ProfileSetupController extends GetxController {
     } catch (e, stackTrace) {
       debugPrint("[ERROR] Exception occurred: $e");
       debugPrint("[STACK TRACE] $stackTrace");
-      debugPrint("[ERROR HANDLING] Showing error snackbar");
-      Get.snackbar(
-        "Profile Setup Failed",
-        e.toString(),
-        duration: const Duration(seconds: 5),
-      );
+      EasyLoading.showError('Please fill all fields');
     } finally {
       debugPrint("[34] Dismissing loading indicator");
       EasyLoading.dismiss();
@@ -253,11 +240,7 @@ class ProfileSetupController extends GetxController {
     }
   }
 
-
-
-
-
-//==============================================================================
+  //==============================================================================
 
   String? _extractUserIdFromToken(String token) {
     try {

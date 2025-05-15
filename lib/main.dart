@@ -16,8 +16,7 @@ void main() async {
   await Firebase.initializeApp();
   await NotificationService.instance.initialize();
   Stripe.publishableKey = dotenv.get('STRIPE_PUBLISHABLE_KEY', fallback: '');
-  // Stripe.publishableKey =
-  //     'pk_test_51RBy8VEUlVKujITuQoI2db1u5vXbjKmjhqE0qAELNL8SQXpNH8GLsSMJ5Wrk4uUgWGD0GJLOrQ8n7GEyShlr01DT00Qg41bjZB';
+
   Get.put(ThemeController());
   runApp(const Blinqo());
 }
