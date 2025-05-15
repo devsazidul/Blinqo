@@ -11,6 +11,7 @@ import 'package:blinqo/features/role/service_provider/profile_setup_page/model/e
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/profile_setup_model.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
@@ -360,7 +361,7 @@ class SpProfileSetupController extends GetxController {
 
       await Get.find<SpGetUserInfoController>().spGetUserInfo();
       EasyLoading.dismiss();
-
+      await Get.find<SpGetAllWorksController>().getAllWorks();
       Get.offAll(SpBottomNavBarScreen());
       isSuccess = true;
       EasyLoading.showSuccess('Profile setup successful');

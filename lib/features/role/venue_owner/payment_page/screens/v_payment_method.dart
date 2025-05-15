@@ -1,11 +1,13 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/services/stripe_payment_service.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_payment_option_screen.dart';
-
+import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
+import 'package:blinqo/features/role/venue_owner/payment_page/screens/v_congratulation_screen.dart';
 import 'package:blinqo/features/role/venue_owner/payment_page/widgets/v_payment_app_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class VPaymentMethod extends StatelessWidget {
@@ -45,11 +47,12 @@ class VPaymentMethod extends StatelessWidget {
               SizedBox(height: 40),
               GestureDetector(
                 onTap: () {
-                  Get.to(
-                    VPaymentOptionScreen(),
-                    transition: Transition.rightToLeft,
-                    duration: const Duration(milliseconds: 400),
-                  );
+                  _stripPayment();
+                  // Get.to(
+                  //   VPaymentOptionScreen(),
+                  //   transition: Transition.rightToLeft,
+                  //   duration: const Duration(milliseconds: 400),
+                  // );
                 },
                 child: Container(
                   width: double.infinity,
@@ -85,5 +88,27 @@ class VPaymentMethod extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// Stripe Payment Method
+void _stripPayment() async {
+  try {
+    final isSuccess = await StripePaymentService.payWithStripe(
+      body: PaymentService(
+        currency: "usd",
+        email: EventAuthController.userInfo?.email,
+        amount: 10,
+        // id: "",
+        userId: EventAuthController.profileInfo?.profile?.id,
+        paymentType: PaymentType.verificationFee,
+      ),
+      merchantDisplayName: "Md Razib",
+    );
+    if (isSuccess) {
+      Get.to(() => VCongratulationScreen());
+    }
+  } catch (e) {
+    EasyLoading.showError('Failed to make payment: $e');
   }
 }

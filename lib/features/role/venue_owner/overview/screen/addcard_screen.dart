@@ -115,7 +115,7 @@ class AddcardScreen extends StatelessWidget {
               SizedBox(height: 40),
               InkWell(
                 onTap: () {
-                  controller.confirmPayment();
+                  // controller.confirmPayment();
                   Get.back();
                 },
                 child: Container(

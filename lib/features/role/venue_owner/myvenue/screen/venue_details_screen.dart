@@ -603,7 +603,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         const Spacer(),
                         InkWell(
                           onTap: () {
-                            Get.to(() => AllBookingRequests());
+                            // Get.to(() => AllBookingRequests());
                           },
                           child: Text(
                             'Explore All',
@@ -658,7 +658,7 @@ class VenueDetailsScreen extends StatelessWidget {
                         const Spacer(),
                         InkWell(
                           onTap: () {
-                            Get.to(() => const AllReviewsScreen());
+                            // Get.to(() => const AllReviewsScreen());
                           },
                           child: Text(
                             'Explore All',

@@ -2,7 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_payment_option.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,7 +58,8 @@ class SpVerificationThanks extends StatelessWidget {
                   SizedBox(height: 40),
                   CustomContinueButton(
                     onPress: () {
-                      Get.offAll(SpBottomNavBarScreen());
+                      // Get.offAll(SpBottomNavBarScreen());
+                      Get.to(() => SpPaymentOption());
                     },
                     title: "Back to Home",
                   ),

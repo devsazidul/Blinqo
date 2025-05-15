@@ -10,7 +10,7 @@ class ProfileEditTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   ProfileEditTextFormField({
     super.key,
-     this.label,
+    this.label,
     this.keyboardType,
     this.controller,
     this.hintText,
@@ -43,6 +43,7 @@ class ProfileEditTextFormField extends StatelessWidget {
           color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
         ),
         decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: hintText,
           labelText: label,
           contentPadding: EdgeInsets.zero,

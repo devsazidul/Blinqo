@@ -43,7 +43,7 @@ import 'package:blinqo/features/role/service_provider/service_home_page/screen/s
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/share_work_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_password.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
@@ -57,6 +57,7 @@ import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:get/get.dart';
 
+import '../features/role/service_provider/sp_profile/screen/sp_work_details_screen.dart';
 import '../features/role/venue_owner/overview/screen/addcard_screen.dart';
 
 class AppRoute {
@@ -125,7 +126,11 @@ class AppRoute {
   static String spChangePassword = '/spChangePassword';
   static String profilesetup = '/profilesetup';
   static String eventbottomnavbar = '/eventbottomnavbar';
+
   static String fpotpscreen = '/fpotpscreen';
+
+  static String spWorksPortfolio = '/sp_works_portfolio';
+
 
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
@@ -186,7 +191,11 @@ class AppRoute {
   static String getspChangePassword() => spChangePassword;
   static String getprofilesetup() => profilesetup;
   static String geteventbottomnavbar() => eventbottomnavbar;
+
   static String getfpotpscreen() => fpotpscreen;
+
+  static String getspWorksPortfolio() => spWorksPortfolio;
+
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
@@ -216,7 +225,7 @@ class AppRoute {
     GetPage(name: spCongratulationsPage, page: () => SpCongratulationsPage()),
     GetPage(name: spPaymentOption, page: () => SpPaymentOption()),
     GetPage(name: spEditProfilePage, page: () => SpEditProfilePage()),
-    GetPage(name: spShareWorkPage, page: () => SpShareWorkPage()),
+    GetPage(name: spShareWorkPage, page: () => SpShareWorkScreen()),
     GetPage(name: spPaymentOptionCard, page: () => SpPaymentOptionCard()),
     GetPage(name: eventHomeScreen, page: () => EventHomeScreen()),
     GetPage(name: eventServicesScreen, page: () => EventServicesScreen()),
@@ -275,5 +284,6 @@ class AppRoute {
             otp: Get.arguments as String,
           ),
     ),
+    GetPage(name: spWorksPortfolio, page: () => SpWorkDetailsScreen()),
   ];
 }
