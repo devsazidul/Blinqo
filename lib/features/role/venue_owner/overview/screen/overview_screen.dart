@@ -28,8 +28,10 @@ class OverviewScreen extends StatelessWidget {
           isDarkMode ? Color(0xff151515) : AppColors.backgroundColor,
       appBar: ProfileRow(
         imagePath: user?.profile?.image?.path ?? "",
-        name: user?.profile?.name ?? "Unknown",
-        role: user?.role.first.toLowerCase() ?? "Unknown",
+        name: user?.name ?? "Unknown",
+        role:
+            user?.role.first.replaceAll('_', ' ').toLowerCase().capitalize ??
+            "Unknown",
       ),
       body: SingleChildScrollView(
         child: Padding(
