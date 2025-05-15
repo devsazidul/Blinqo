@@ -1,5 +1,9 @@
-import 'package:flutter/widgets.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 
 class ChangePasswordController extends GetxController {
   final newPasswordEditingController = TextEditingController();
@@ -7,6 +11,15 @@ class ChangePasswordController extends GetxController {
 
   var newPasswordError = ''.obs;
   var confirmPasswordError = ''.obs;
+
+  String? email;
+  String? otp;
+
+  // Set email and OTP received from FPOTPController
+  void setEmailAndOtp(String? email, String? otp) {
+    this.email = email;
+    this.otp = otp;
+  }
 
   void clearErrors() {
     newPasswordError.value = '';
@@ -40,53 +53,70 @@ class ChangePasswordController extends GetxController {
     return true;
   }
 
-  // Validate OTP and change password
-  // void changePassword(String? email) async {
-  //   debugPrint("Parsing email: $email");
-  //   debugPrint("New password: ${newPasswordEditingController.text}");
-  //   debugPrint("Confirm password: ${confirmPasswordEditingController.text}");
+  Future<void> resetPassword() async {
+    debugPrint('[resetPassword] Starting password reset process...');
 
-  //   if (!validatePasswords()) {
-  //     return; // Don't proceed if validation fails
-  //   }
+    if (!validatePasswords()) {
+      debugPrint('[resetPassword] Password validation failed');
+      return;
+    }
 
-  //   try {
-  //     EasyLoading.show(status: 'Verifying OTP...');
+    try {
+      debugPrint('[resetPassword] Showing loading indicator');
+      EasyLoading.show(status: 'Resetting Password...');
 
-  //     Map<String, String> requestBody = {
-  //       "password": newPasswordEditingController.text,
-  //       "confirmPassword": confirmPasswordEditingController.text,
-  //     };
+      final requestBody = {
+        "email": email,
+        "newPassword": newPasswordEditingController.text,
+        "code": otp,
+      };
+      debugPrint('[resetPassword] Request body: $requestBody');
 
-  //     final response = await http.put(
-  //       Uri.parse(Urls.updatePassword(email)),
-  //       body: requestBody,
-  //     );
+      debugPrint('[resetPassword] Making API call to reset password');
+      final response = await http.post(
+        Uri.parse('https://freepik.softvenceomega.com/auth/reset-password'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(requestBody),
+      );
 
-  //     debugPrint('Response Body: ${response.body}');
-  //     debugPrint("Status Code: ${response.statusCode}");
+      debugPrint('[resetPassword] API call completed');
+      debugPrint('[resetPassword] Response Body: ${response.body}');
+      debugPrint('[resetPassword] Status Code: ${response.statusCode}');
 
-  //     if (response.statusCode == 200) {
-  //       EasyLoading.showSuccess('Password Changed Successfully');
-  //       // print('Password changed successfully: ${response.body}');
-  //       // Optionally, reset fields after success
-  //       Get.toNamed(AppRoute.loginScreen);
-  //       newPasswordEditingController.clear();
-  //       confirmPasswordEditingController.clear();
-  //     } else {
-  //       var responseData = jsonDecode(response.body);
-  //       var errorMessage = responseData['message'] ?? 'An error occurred';
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        debugPrint('[resetPassword] Password reset successful');
+        EasyLoading.showSuccess('Password Reset Successfully');
 
-  //       if (errorMessage.contains('Invalid or expired OTP')) {
-  //         EasyLoading.showError("Invalid or expired OTP. Please try again.");
-  //       } else {
-  //         EasyLoading.showError(errorMessage);
-  //       }
-  //     }
-  //   } catch (e) {
-  //     EasyLoading.showError("Something went wrong: $e");
-  //   } finally {
-  //     EasyLoading.dismiss();
-  //   }
-  // }
+        debugPrint('[resetPassword] Clearing password fields');
+        newPasswordEditingController.clear();
+        confirmPasswordEditingController.clear();
+
+        debugPrint('[resetPassword] Navigating to LoginScreen');
+        Get.off(() => LogInScreen());
+      } else {
+        debugPrint(
+          '[resetPassword] Password reset failed with status ${response.statusCode}',
+        );
+        var responseData = jsonDecode(response.body);
+        var errorMessage = responseData['message'] ?? 'An error occurred';
+        debugPrint('[resetPassword] Error message: $errorMessage');
+        EasyLoading.showError(errorMessage);
+      }
+    } catch (e) {
+      debugPrint('[resetPassword] Exception occurred: $e');
+      EasyLoading.showError('Something went wrong: $e');
+      debugPrint('Error: $e');
+    } finally {
+      debugPrint('[resetPassword] Dismissing loading indicator');
+      EasyLoading.dismiss();
+      debugPrint('[resetPassword] Process completed');
+    }
+  }
+
+  @override
+  void onClose() {
+    newPasswordEditingController.dispose();
+    confirmPasswordEditingController.dispose();
+    super.onClose();
+  }
 }

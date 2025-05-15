@@ -1,35 +1,27 @@
 // import 'dart:async';
+// import 'dart:convert';
 // import 'package:blinqo/core/urls/endpoint.dart';
+// import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
 // import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
 // import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 // import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
-// import 'dart:convert';
 // import 'package:http/http.dart' as http;
 
 // class LoginController extends GetxController {
-//   LoginController({String? token}) {
-//     _token = token;
-//   }
-
-//   String? _token;
-//   // Text controllers
 //   final TextEditingController passwordController = TextEditingController();
 //   final TextEditingController emailController = TextEditingController();
-//   // Token Manager Instance
-//   // State variables
+
 //   final isLoading = false.obs;
 //   final errorMessage = ''.obs;
 //   final isPasswordVisible = false.obs;
 //   final isFormValid = false.obs;
 
-//   // Toggle password visibility
 //   void togglePasswordVisibility() {
 //     isPasswordVisible.value = !isPasswordVisible.value;
 //   }
 
-//   // Validate form
 //   void validateForm() {
 //     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 //     isFormValid.value =
@@ -41,19 +33,15 @@
 
 //   Future<bool> login(BuildContext context) async {
 //     isLoading.value = true;
-//     debugPrint("login: token : $_token");
-//     debugPrint("Attempting to log in...");
+//     errorMessage.value = '';
 
 //     try {
-//       debugPrint('Sending login request...');
+//       debugPrint("Starting login process...");
+
 //       final response = await http
 //           .post(
 //             Uri.parse(Urls.login),
-//             headers: {
-//               'Content-Type': 'application/json',
-//               if (_token != null && _token!.isNotEmpty)
-//                 'Authorization': 'Bearer $_token',
-//             },
+//             headers: {'Content-Type': 'application/json'},
 //             body: jsonEncode({
 //               'email': emailController.text.trim(),
 //               'password': passwordController.text.trim(),
@@ -61,68 +49,61 @@
 //           )
 //           .timeout(const Duration(seconds: 30));
 
-//       debugPrint('Response status code: ${response.statusCode}');
-//       debugPrint('Response body: ${response.body}');
+//       debugPrint("Response Status Code: ${response.statusCode}");
+//       debugPrint("Response Body: ${response.body}");
 
 //       final responseData = jsonDecode(response.body);
-//       debugPrint('Decoded response data: $responseData');
 
 //       if (response.statusCode == 200 || response.statusCode == 201) {
-//         // Check if login was successful from the response
 //         if (responseData['success'] == true &&
 //             responseData['message'] == 'Login Successful') {
-//           // Get user data from response
 //           final userData = responseData['data']['user'];
 //           final roles = List<String>.from(userData['roles'] ?? []);
 
-//           // Check if user has PLANNER role
 //           if (!roles.contains('PLANNER')) {
 //             errorMessage.value = 'Please sign up as a service provider';
 //             return false;
 //           }
-//           // Check if profile is created
+
+//           // Save auth data
+//           await AuthService.clearAuthData(); // Clear previous data first
+//           await AuthService.saveAuthData(
+//             responseData['data']['access_token'],
+//             responseData['data']['roles'],
+//             responseData['data']['isProfileCreated'],
+//             responseData['data']['id'] ?? '',
+//           );
+
+//           // Handle navigation based on user state
 //           if (userData['isProfileCreated'] == false) {
-//             Get.to(() => ProfileSetup());
+//             Get.offAll(() => ProfileSetup());
 //           } else if (userData['isVerified'] == false) {
-//             Get.to(() => OTPScreen());
+//             Get.offAll(() => OTPScreen());
 //           } else {
 //             Get.offAll(() => EventBottomNavBar());
 //           }
 
+//           // Clear text fields after successful login
+//           emailController.clear();
+//           passwordController.clear();
+
 //           return true;
-//         } else {
-//           errorMessage.value = responseData['message'] ?? 'Login failed';
-//           return false;
 //         }
-//       } else {
-//         errorMessage.value = responseData['message'] ?? 'Login failed';
-
-//         // Special case for email verification
-//         if (responseData['message']?.contains('verification code') ?? false) {
-//           Get.to(() => OTPScreen(), arguments: emailController.text.trim());
-//         }
-
-//         return false;
 //       }
-//     } on http.ClientException catch (e) {
-//       errorMessage.value = 'Network error: ${e.message}';
-//       debugPrint('Network error: ${e.message}');
-//       return false;
-//     } on TimeoutException {
-//       errorMessage.value = 'Request timed out';
-//       debugPrint('TimeoutException: Request timed out');
-//       return false;
-//     } on FormatException {
-//       errorMessage.value = 'Invalid server response';
-//       debugPrint('FormatException: Invalid server response');
+
+//       errorMessage.value = responseData['message'] ?? 'Login failed';
+
+//       if (responseData['message']?.contains('verification code') ?? false) {
+//         Get.to(() => OTPScreen(), arguments: emailController.text.trim());
+//       }
+
 //       return false;
 //     } catch (e) {
-//       errorMessage.value = 'An unexpected error occurred';
-//       debugPrint('Unexpected error: $e');
+//       debugPrint("Login error: $e");
+//       errorMessage.value = 'An error occurred during login';
 //       return false;
 //     } finally {
 //       isLoading.value = false;
-//       debugPrint('Loading finished');
 //     }
 //   }
 
@@ -130,14 +111,12 @@
 //   void onClose() {
 //     emailController.dispose();
 //     passwordController.dispose();
-
 //     super.onClose();
 //   }
 // }
 
+//=============================================================================
 
-
-// login_controller.dart
 import 'dart:async';
 import 'dart:convert';
 import 'package:blinqo/core/urls/endpoint.dart';
@@ -158,10 +137,12 @@ class LoginController extends GetxController {
   final isPasswordVisible = false.obs;
   final isFormValid = false.obs;
 
+  // Toggles password visibility
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
   }
 
+  // Validates form (email & password)
   void validateForm() {
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     isFormValid.value =
@@ -169,75 +150,170 @@ class LoginController extends GetxController {
         emailRegex.hasMatch(emailController.text) &&
         passwordController.text.isNotEmpty &&
         passwordController.text.length >= 8;
+
+    debugPrint('Form valid: ${isFormValid.value}');
   }
+
+  // Login function
+  // Future<bool> login(BuildContext context) async {
+  //   isLoading.value = true;
+  //   errorMessage.value = '';
+
+  //   try {
+  //     debugPrint("Starting login process...");
+
+  //     final response = await http
+  //         .post(
+  //           Uri.parse(Urls.login),
+  //           headers: {'Content-Type': 'application/json'},
+  //           body: jsonEncode({
+  //             'email': emailController.text.trim(),
+  //             'password': passwordController.text.trim(),
+  //           }),
+  //         )
+  //         .timeout(const Duration(seconds: 30));
+
+  //     debugPrint("Response Status Code: ${response.statusCode}");
+  //     debugPrint("Response Body: ${response.body}");
+
+  //     final responseData = jsonDecode(response.body);
+
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       if (responseData['success'] == true &&
+  //           responseData['message'] == 'Login Successful') {
+  //         final userData = responseData['data']['user'];
+  //         final roles = List<String>.from(userData['roles'] ?? []);
+
+  //         if (!roles.contains('PLANNER')) {
+  //           errorMessage.value = 'Please sign up as a service provider';
+  //           return false;
+  //         }
+
+  //         // Convert roles list to a comma-separated string
+  //         String rolesString = roles.join(',');
+
+  //         // Save auth data
+  //         await AuthService.clearAuthData(); // Clear previous data first
+  //         await AuthService.saveAuthData(
+  //           responseData['data']['access_token'],
+  //           responseData['data']['user']['id'] ??
+  //               '', // Default to an empty string if null
+  //           rolesString, // Save roles as a comma-separated string
+  //           responseData['data']['user']['isProfileCreated'].toString(),
+  //         );
+
+  //         // Handle navigation based on user state
+  //         if (userData['isProfileCreated'] == false) {
+  //           Get.offAll(() => ProfileSetup());
+  //         } else if (userData['isVerified'] == false) {
+  //           Get.offAll(() => OTPScreen());
+  //         } else {
+  //           Get.offAll(() => EventBottomNavBar());
+  //         }
+
+  //         // Clear text fields after successful login
+  //         emailController.clear();
+  //         passwordController.clear();
+
+  //         return true;
+  //       }
+  //     }
+
+  //     errorMessage.value = responseData['message'] ?? 'Login failed';
+
+  //     if (responseData['message']?.contains('verification code') ?? false) {
+  //       Get.to(() => OTPScreen(), arguments: emailController.text.trim());
+  //     }
+
+  //     return false;
+  //   } catch (e) {
+  //     debugPrint("Login error: $e");
+  //     errorMessage.value = 'An error occurred during login';
+  //     return false;
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 
   Future<bool> login(BuildContext context) async {
-    isLoading.value = true;
-    errorMessage.value = '';
+  isLoading.value = true;
+  errorMessage.value = '';
 
-    try {
-      debugPrint("Starting login process...");
+  try {
+    debugPrint("Starting login process...");
 
-      final response = await http.post(
-        Uri.parse(Urls.login),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': emailController.text.trim(),
-          'password': passwordController.text.trim(),
-        }),
-      ).timeout(const Duration(seconds: 30));
+    final response = await http
+        .post(
+          Uri.parse(Urls.login),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            'email': emailController.text.trim(),
+            'password': passwordController.text.trim(),
+          }),
+        )
+        .timeout(const Duration(seconds: 30));
 
-      debugPrint("Response Status Code: ${response.statusCode}");
-      debugPrint("Response Body: ${response.body}");
+    debugPrint("Response Status Code: ${response.statusCode}");
+    debugPrint("Response Body: ${response.body}");
 
-      final responseData = jsonDecode(response.body);
+    final responseData = jsonDecode(response.body);
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        if (responseData['success'] == true &&
-            responseData['message'] == 'Login Successful') {
-          final userData = responseData['data']['user'];
-          final roles = List<String>.from(userData['roles'] ?? []);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      if (responseData['success'] == true &&
+          responseData['message'] == 'Login Successful') {
+        final userData = responseData['data']['user'];
+        final roles = List<String>.from(userData['roles'] ?? []);
 
-          if (!roles.contains('PLANNER')) {
-            errorMessage.value = 'Please sign up as a service provider';
-            return false;
-          }
-
-          // Save auth data
-          await AuthService.clearAuthData(); // Clear previous data first
-          await AuthService.saveAuthData(
-            responseData['data']['access_token'],
-            responseData['data']['id'] ?? '',
-          );
-
-          // Handle navigation based on user state
-          if (userData['isProfileCreated'] == false) {
-            Get.offAll(() => ProfileSetup());
-          } else if (userData['isVerified'] == false) {
-            Get.offAll(() => OTPScreen());
-          } else {
-            Get.offAll(() => EventBottomNavBar());
-          }
-
-          return true;
+        if (!roles.contains('PLANNER')) {
+          errorMessage.value = 'Please sign up as a service provider';
+          return false;
         }
+
+        // Convert roles list to a comma-separated string
+        String rolesString = roles.join(',');
+
+        // Save auth data
+        await AuthService.clearAuthData(); // Clear previous data first
+        await AuthService.saveAuthData(
+          responseData['data']['access_token'],
+          responseData['data']['user']['id'] ?? '', // Default to an empty string if null
+          rolesString, // Save roles as a comma-separated string
+          responseData['data']['user']['isProfileCreated'].toString(),
+        );
+
+        // Handle navigation based on user state
+        if (userData['isProfileCreated'] == false) {
+          Get.offAll(() => ProfileSetup());
+        } else if (userData['isVerified'] == false) {
+          Get.offAll(() => OTPScreen());
+        } else {
+          Get.offAll(() => EventBottomNavBar());
+        }
+
+        // Clear text fields after successful login
+        emailController.clear();
+        passwordController.clear();
+
+        return true;
       }
-
-      errorMessage.value = responseData['message'] ?? 'Login failed';
-
-      if (responseData['message']?.contains('verification code') ?? false) {
-        Get.to(() => OTPScreen(), arguments: emailController.text.trim());
-      }
-
-      return false;
-    } catch (e) {
-      debugPrint("Login error: $e");
-      errorMessage.value = 'An error occurred during login';
-      return false;
-    } finally {
-      isLoading.value = false;
     }
+
+    errorMessage.value = responseData['message'] ?? 'Login failed';
+
+    if (responseData['message']?.contains('verification code') ?? false) {
+      Get.to(() => OTPScreen(), arguments: emailController.text.trim());
+    }
+
+    return false;
+  } catch (e) {
+    debugPrint("Login error: $e");
+    errorMessage.value = 'An error occurred during login';
+    return false;
+  } finally {
+    isLoading.value = false;
   }
+}
+
 
   @override
   void onClose() {
@@ -246,3 +322,6 @@ class LoginController extends GetxController {
     super.onClose();
   }
 }
+
+
+//==========================================================

@@ -2,15 +2,15 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../controller/otp_controller.dart';
 
-class OTPScreen extends StatelessWidget {
-  final OTPController otpController = Get.put(OTPController());
+class FPOTPScreen extends StatelessWidget {
+  final FPOTPController fpotpController = Get.put(FPOTPController());
 
-  OTPScreen({super.key});
+  FPOTPScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +55,10 @@ class OTPScreen extends StatelessWidget {
                     Text(
                       'Your $email',
                       style: getTextStyle(
-                        color: isFemale
-                            ? femaleColorController.selectedColor
-                            : AppColors.buttonColor2,
+                        color:
+                            isFemale
+                                ? femaleColorController.selectedColor
+                                : AppColors.buttonColor2,
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),
@@ -67,15 +68,16 @@ class OTPScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 Obx(
                   () => GestureDetector(
-                    onTap: otpController.resendEnabled.value
-                        ? () {
-                            otpController.resendCode(email);
-                          }
-                        : null,
+                    onTap:
+                        fpotpController.resendEnabled.value
+                            ? () {
+                              fpotpController.resendCode(email);
+                            }
+                            : null,
                     child: Text(
-                      otpController.resendEnabled.value
+                      fpotpController.resendEnabled.value
                           ? "Resend Code"
-                          : "Resend Code in ${otpController.countdown.value}s",
+                          : "Resend Code in ${fpotpController.countdown.value}s",
                       style: getTextStyle(
                         color: AppColors.textColor,
                         fontSize: 14,
@@ -89,36 +91,35 @@ class OTPScreen extends StatelessWidget {
                   () => CustomButton(
                     title: 'Continue',
                     textColor:
-                        otpController.isFormValid.value && isFemale
+                        fpotpController.isFormValid.value && isFemale
                             ? AppColors.primary
-                            : otpController.isFormValid.value && !isFemale
-                                ? AppColors.primary
-                                : !otpController.isFormValid.value && isFemale
-                                    ? Color(0xFFEBA8B5)
-                                    : AppColors.buttonColor2,
-                    onPress: otpController.isFormValid.value
-                        ? () {
-                            otpController.validatePin(email);
-                          }
-                        : null,
+                            : fpotpController.isFormValid.value && !isFemale
+                            ? AppColors.primary
+                            : !fpotpController.isFormValid.value && isFemale
+                            ? Color(0xFFEBA8B5)
+                            : AppColors.buttonColor2,
+                    onPress:
+                        fpotpController.isFormValid.value
+                            ? () {
+                              fpotpController.validatePin(email);
+                            }
+                            : null,
                     backgroundColor:
-                        otpController.isFormValid.value && isFemale
+                        fpotpController.isFormValid.value && isFemale
                             ? femaleColorController.selectedColor
-                            : otpController.isFormValid.value && !isFemale
-                                ? AppColors.buttonColor2
-                                : !otpController.isFormValid.value && isFemale
-                                    ? femaleColorController.selectedColor
-                                        .withValues(
-                                          alpha: 0.1,
-                                        )
-                                    : AppColors.buttonColor2.withValues(
-                                        alpha: 0.1),
+                            : fpotpController.isFormValid.value && !isFemale
+                            ? AppColors.buttonColor2
+                            : !fpotpController.isFormValid.value && isFemale
+                            ? femaleColorController.selectedColor.withValues(
+                              alpha: 0.1,
+                            )
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                     borderColor:
                         isFemale
                             ? Colors.transparent
-                            : otpController.isFormValid.value
-                                ? AppColors.buttonColor2
-                                : AppColors.buttonColor2.withValues(alpha: 0.1),
+                            : fpotpController.isFormValid.value
+                            ? AppColors.buttonColor2
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                   ),
                 ),
               ],
@@ -148,10 +149,10 @@ class OTPScreen extends StatelessWidget {
       ),
       animationDuration: const Duration(milliseconds: 300),
       backgroundColor: Colors.transparent,
-      controller: otpController.pinController,
+      controller: fpotpController.pinController,
       appContext: context,
       onChanged: (value) {
-        otpController.validateForm();
+        fpotpController.validateForm();
       },
     );
   }

@@ -2,21 +2,25 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_paymant_screen/ep_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/notification/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
   final ThemeMode themeMode;
   final bool isFemale;
   final PickColorController femaleColorController;
-  const HomeHeaderSection({
+  HomeHeaderSection({
     super.key,
     required this.themeMode,
     required this.isFemale,
     required this.femaleColorController,
   });
+
+  ProfileController profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +31,38 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
           children: [
             CircleAvatar(
               radius: 24,
-              backgroundImage: AssetImage(ImagePath.profile),
+              backgroundImage:
+                  profileController
+                              .userInfo
+                              .value
+                              ?.data
+                              ?.profile
+                              ?.image
+                              ?.path
+                              ?.isNotEmpty ==
+                          true
+                      ? NetworkImage(
+                        profileController
+                            .userInfo
+                            .value!
+                            .data!
+                            .profile!
+                            .image!
+                            .path!,
+                      )
+                      : AssetImage(ImagePath.profile) as ImageProvider,
             ),
+
             SizedBox(width: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Dianne Russell',
+                    profileController.userInfo.value?.data?.name?.isNotEmpty ==
+                            true
+                        ? profileController.userInfo.value!.data!.name!
+                        : 'Dianne Russell',
                     style: getTextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -58,7 +85,21 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
                         child: Wrap(
                           children: [
                             Text(
-                              '45th Street, Los Angeles, USA',
+                              profileController
+                                          .userInfo
+                                          .value
+                                          ?.data
+                                          ?.profile
+                                          ?.location
+                                          ?.isNotEmpty ==
+                                      true
+                                  ? profileController
+                                      .userInfo
+                                      .value!
+                                      .data!
+                                      .profile!
+                                      .location!
+                                  : '45th Street, Los Angeles, USA',
                               // overflow: TextOverflow.,
                               style: getTextStyle(
                                 fontWeight: FontWeight.w500,
