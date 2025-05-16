@@ -4,7 +4,6 @@ import 'package:blinqo/features/role/venue_owner/payment_page/controllers/verifi
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:blinqo/features/role/venue_owner/widgets/even_image_picker.dart';
 
 class PhotoUploadWidget extends StatelessWidget {
   final String imageKey;

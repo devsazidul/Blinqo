@@ -73,6 +73,7 @@ class OwnerNetworkCaller {
   }
 
   Future<NetworkResponse> getRequest({
+    // ignore: non_constant_identifier_names
     required String Url,
     String? token,
     bool showLoading = true,

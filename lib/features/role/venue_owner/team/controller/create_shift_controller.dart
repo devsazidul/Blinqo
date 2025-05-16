@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class CreateShiftController extends GetxController {
   Future<void> createShift() async {
+    // ignore: unused_local_variable
     final reponse = await OwnerNetworkCaller().postRequest(
       Url: Urls.createShift,
       body: {

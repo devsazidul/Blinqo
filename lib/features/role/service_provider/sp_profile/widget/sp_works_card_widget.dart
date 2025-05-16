@@ -85,6 +85,7 @@ class SpWorksCardWidget extends StatelessWidget {
   void _onTapWorkCard(BuildContext context, String workId) async {
     await Get.find<SpWorkDetailsController>().getWorkDetails(workId);
     Navigator.pushNamed(
+      // ignore: use_build_context_synchronously
       context,
       SpWorkDetailsScreen.name,
       arguments: spWorksModel,

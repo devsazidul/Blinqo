@@ -370,6 +370,7 @@ class LogInScreen extends StatelessWidget {
                           : const SizedBox.shrink(),
                 ),
                 Obx(() {
+                  // ignore: unused_local_variable
                   final bool isFemale = femaleColorController.isFemale.value;
                   return CustomButton(
                     title:
@@ -380,7 +381,7 @@ class LogInScreen extends StatelessWidget {
                       loginController.login(context);
                     },
                     backgroundColor: loginController.isLoading.value
-                        ? AppColors.buttonColor2.withOpacity(0.5)
+                        ? AppColors.buttonColor2.withValues(alpha:  0.5)
                         : AppColors.buttonColor2,
                   );
                 }),

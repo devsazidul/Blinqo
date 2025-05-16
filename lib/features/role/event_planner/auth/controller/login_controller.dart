@@ -236,84 +236,86 @@ class LoginController extends GetxController {
   // }
 
   Future<bool> login(BuildContext context) async {
-  isLoading.value = true;
-  errorMessage.value = '';
+    isLoading.value = true;
+    errorMessage.value = '';
 
-  try {
-    debugPrint("Starting login process...");
+    try {
+      debugPrint("Starting login process...");
 
-    final response = await http
-        .post(
-          Uri.parse(Urls.login),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({
-            'email': emailController.text.trim(),
-            'password': passwordController.text.trim(),
-          }),
-        )
-        .timeout(const Duration(seconds: 30));
+      final response = await http
+          .post(
+            Uri.parse(Urls.login),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({
+              'email': emailController.text.trim(),
+              'password': passwordController.text.trim(),
+            }),
+          )
+          .timeout(const Duration(seconds: 30));
 
-    debugPrint("Response Status Code: ${response.statusCode}");
-    debugPrint("Response Body: ${response.body}");
+      debugPrint("Response Status Code: ${response.statusCode}");
+      debugPrint("Response Body: ${response.body}");
 
-    final responseData = jsonDecode(response.body);
+      final responseData = jsonDecode(response.body);
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      if (responseData['success'] == true &&
-          responseData['message'] == 'Login Successful') {
-        final userData = responseData['data']['user'];
-        final roles = List<String>.from(userData['roles'] ?? []);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (responseData['success'] == true &&
+            responseData['message'] == 'Login Successful') {
+          final userData = responseData['data']['user'];
+          final roles = List<String>.from(userData['roles'] ?? []);
 
-        if (!roles.contains('PLANNER')) {
-          errorMessage.value = 'Please sign up as a service provider';
-          return false;
+          if (!roles.contains('PLANNER')) {
+            errorMessage.value = 'Please sign up as a service provider';
+            return false;
+          }
+
+          // Convert roles list to a comma-separated string
+          String rolesString = roles.join(',');
+
+          // Save auth data
+          await AuthService.clearAuthData(); // Clear previous data first
+          await AuthService.saveAuthData(
+            responseData['data']['access_token'],
+
+            responseData['data']['user']['id'] ??
+                '', // Default to an empty string if null
+            rolesString, // Save roles as a comma-separated string
+            responseData['data']['user']['isProfileCreated'].toString(),
+            responseData['data']['user']['profileId'] ?? '',
+          );
+
+          // Handle navigation based on user state
+          if (userData['isProfileCreated'] == false) {
+            Get.offAll(() => ProfileSetup());
+          } else if (userData['isVerified'] == false) {
+            Get.offAll(() => OTPScreen());
+          } else {
+            Get.offAll(() => EventBottomNavBar());
+          }
+
+          // Clear text fields after successful login
+          emailController.clear();
+          passwordController.clear();
+
+          return true;
         }
-
-        // Convert roles list to a comma-separated string
-        String rolesString = roles.join(',');
-
-        // Save auth data
-        await AuthService.clearAuthData(); // Clear previous data first
-        await AuthService.saveAuthData(
-          responseData['data']['access_token'],
-          responseData['data']['user']['id'] ?? '', // Default to an empty string if null
-          rolesString, // Save roles as a comma-separated string
-          responseData['data']['user']['isProfileCreated'].toString(),
-        );
-
-        // Handle navigation based on user state
-        if (userData['isProfileCreated'] == false) {
-          Get.offAll(() => ProfileSetup());
-        } else if (userData['isVerified'] == false) {
-          Get.offAll(() => OTPScreen());
-        } else {
-          Get.offAll(() => EventBottomNavBar());
-        }
-
-        // Clear text fields after successful login
-        emailController.clear();
-        passwordController.clear();
-
-        return true;
       }
+
+      errorMessage.value = responseData['message'] ?? 'Login failed';
+
+      if (responseData['message']?.contains('verification code') ?? false) {
+        Get.to(() => OTPScreen(), arguments: emailController.text.trim());
+      }
+
+      return false;
+    } catch (e) {
+      debugPrint("Login error: $e");
+      errorMessage.value = 'An error occurred during login';
+      return false;
+    } finally {
+      isLoading.value = false;
     }
-
-    errorMessage.value = responseData['message'] ?? 'Login failed';
-
-    if (responseData['message']?.contains('verification code') ?? false) {
-      Get.to(() => OTPScreen(), arguments: emailController.text.trim());
-    }
-
-    return false;
-  } catch (e) {
-    debugPrint("Login error: $e");
-    errorMessage.value = 'An error occurred during login';
-    return false;
-  } finally {
-    isLoading.value = false;
   }
-}
-
 
   @override
   void onClose() {
@@ -322,6 +324,5 @@ class LoginController extends GetxController {
     super.onClose();
   }
 }
-
 
 //==========================================================

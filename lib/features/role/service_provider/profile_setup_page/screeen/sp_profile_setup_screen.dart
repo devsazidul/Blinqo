@@ -196,7 +196,7 @@ class SpProfileSetupScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   //* ------------------ Role Dropdown ------------------
-                  // TODO: I have to save role id instead of role name
+                
                   Row(
                     children: [
                       Text(

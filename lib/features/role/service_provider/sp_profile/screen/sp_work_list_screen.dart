@@ -14,6 +14,7 @@ class SpWorkListScreen extends StatelessWidget {
       appBar: SpProfileAppBar(title: "Works"),
       body: GetBuilder<SpGetAllWorksController>(
         builder: (controller) {
+          // ignore: avoid_print
           print(controller.works.length);
           return ListView.builder(
             itemCount: controller.works.length,

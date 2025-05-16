@@ -6,12 +6,11 @@ import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_event_service_details_controller.dart';
 
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/ep_service_provider_card.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpEventServiceDetails extends StatefulWidget {
-  EpEventServiceDetails({super.key, required this.serviceName, required this.serviceId});
+  const EpEventServiceDetails({super.key, required this.serviceName, required this.serviceId});
 
   final String serviceName;
   final String serviceId;
@@ -58,7 +57,7 @@ class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
               ),
               Positioned.fill(
                 child: Container(
-                  color: Colors.black.withOpacity(0.6),
+                  color: Colors.black.withValues(alpha:  0.6),
                 ),
               ),
               Positioned(

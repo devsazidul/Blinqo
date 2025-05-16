@@ -3,7 +3,6 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/myview_controller.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_textfield.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/facilty_Tag.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
@@ -25,6 +24,7 @@ class AddNewVenue extends StatelessWidget {
     TextEditingController numberGuests = TextEditingController();
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
+    // ignore: unused_local_variable
     final double screenWidth = screenSize.width;
     return Scaffold(
       backgroundColor:
