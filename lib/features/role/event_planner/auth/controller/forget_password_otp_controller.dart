@@ -132,17 +132,16 @@ class FPOTPController extends GetxController {
     }
   }
 
-  // Start the countdown when the OTP is sent
   void startCountdown() {
-    resendEnabled.value = false; // Disable the button
-    countdown.value = 120; // Reset the countdown to 120 seconds
+    resendEnabled.value = false;
+    countdown.value = 120;
 
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (countdown.value > 0) {
         countdown.value--;
       } else {
-        resendEnabled.value = true; // Enable the button after the countdown
-        timer.cancel(); // Stop the timer when it reaches 0
+        resendEnabled.value = true;
+        timer.cancel();
       }
     });
   }

@@ -2,11 +2,8 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
-import 'package:blinqo/features/role/event_planner/home/controller/booking_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class StartBookingDecorationCard extends StatelessWidget {
   const StartBookingDecorationCard({
@@ -68,7 +65,7 @@ class StartBookingDecorationCard extends StatelessWidget {
           child: DropdownMenu(
             width: double.infinity,
             onSelected: (value) {
-              print(value);
+              debugPrint(value);
             },
             trailingIcon: Image.asset(IconPath.arrowdown, color: AppColors.secondary, height: 24,),
             selectedTrailingIcon: RotatedBox(quarterTurns: 90, child: Image.asset(IconPath.arrowdown, color: AppColors.secondary,height: 24,),),

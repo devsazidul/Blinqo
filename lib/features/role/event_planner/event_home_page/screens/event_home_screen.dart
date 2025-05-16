@@ -28,11 +28,14 @@ class EventHomeScreen extends StatelessWidget {
       UpcomingEventsController(),
     );
     // additional service
-    final EpAdditionalServiceProviderController additionalServiceProviderController = Get.put(EpAdditionalServiceProviderController());
-
-
+    final EpAdditionalServiceProviderController
+    // ignore: unused_local_variable
+    additionalServiceProviderController = Get.put(
+      EpAdditionalServiceProviderController(),
+    );
 
     final femaleColorController = Get.put(PickColorController());
+
     final bool isFemale = femaleColorController.isFemale.value;
     final ProfileController profileController = Get.find<ProfileController>();
     return Obx(() {
@@ -53,7 +56,6 @@ class EventHomeScreen extends StatelessWidget {
           child: Stack(
             children: [
               SingleChildScrollView(
-
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -175,7 +177,6 @@ class EventHomeScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 8),
-
 
                             Column(
                               children: List.generate(
@@ -409,23 +410,27 @@ class EventHomeScreen extends StatelessWidget {
 
   // Event Services
   Widget _eventServicesList(BuildContext context, ThemeMode themeMode) {
-
-
     return SizedBox(
       height: 160,
-      child : Obx(
-        () {
-          final service = Get.find<EpAdditionalServiceProviderController>().service.value.value.data;
-          return ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: service.length,
-            separatorBuilder: (context, index) => SizedBox(width: 8),
-            itemBuilder: (context, index) {
-              return EventServiceCard(datum: service[index], themeMode: themeMode);
-            },
-          );
-        }
-      ),
+      child: Obx(() {
+        final service =
+            Get.find<EpAdditionalServiceProviderController>()
+                .service
+                .value
+                .value
+                .data;
+        return ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: service.length,
+          separatorBuilder: (context, index) => SizedBox(width: 8),
+          itemBuilder: (context, index) {
+            return EventServiceCard(
+              datum: service[index],
+              themeMode: themeMode,
+            );
+          },
+        );
+      }),
     ).marginOnly(top: 10);
   }
 }

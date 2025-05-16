@@ -159,6 +159,7 @@ class AuthService {
   static const _userIdKey = 'id';
   static const _role = 'roles'; // This will store the roles as a comma-separated string
   static const _isProfileCreated = 'isProfileCreated';
+  static const _profileId = 'profileId';
 
   // Save auth data to SharedPreferences
   static Future<void> saveAuthData(
@@ -166,13 +167,15 @@ class AuthService {
     String userId,
     String role,
     String isProfileCreated,
+    String profileId,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tokenKey, token);
     await prefs.setString(_userIdKey, userId);
     await prefs.setString(_role, role); // Save roles as a string
     await prefs.setString(_isProfileCreated, isProfileCreated);
-    debugPrint('Auth data saved: $token, $userId, $role, $isProfileCreated');
+    await prefs.setString(_profileId, profileId);
+    debugPrint('Auth data saved: $token, $userId, $role, $isProfileCreated , $profileId');
   }
 
   // Get stored token
@@ -185,6 +188,12 @@ class AuthService {
   static Future<String?> getUserId() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_userIdKey);
+  }
+
+
+  static Future<String?> getProfileId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_profileId);
   }
 
   // Get stored roles as a List<String> by splitting the comma-separated string
@@ -210,6 +219,7 @@ class AuthService {
     await prefs.remove(_userIdKey);
     await prefs.remove(_role);
     await prefs.remove(_isProfileCreated);
+    await prefs.remove(_profileId);
   }
 
   // Check if user is authenticated

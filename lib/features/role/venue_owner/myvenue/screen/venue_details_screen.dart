@@ -3,14 +3,12 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/screen/booking_requests.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/booking_request.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_amenity.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_calendar.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_shape.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/review_card.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/status_label.dart';
-import 'package:blinqo/features/role/venue_owner/overview/screen/all_reviews.dart';
 import 'package:blinqo/features/role/venue_owner/overview/widgets/revenue_card.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
@@ -52,6 +50,7 @@ class VenueDetailsScreen extends StatelessWidget {
     );
     final bool isDarkMode =
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
+    // ignore: unused_local_variable
     TextEditingController priceController = TextEditingController();
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
@@ -75,6 +74,7 @@ class VenueDetailsScreen extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         final venueData = venueDetails.data?.venue;
+        // ignore: unused_local_variable
         final venueId = venueDetails.data?.venue?.id;
         final venueMetrics = venueDetails.data?.venueMetrics;
         final bookedDates = venueDetails.data?.bookedDate ?? [];
@@ -635,7 +635,7 @@ class VenueDetailsScreen extends StatelessWidget {
                               selectedDate: request.selectedDate,
                               guestNumber: request.guestNumber ?? 0,
                               bookingStatus: request.bookingStatus ?? 'Pending',
-                              //TODO: Get Venue Name
+                              
                               venueName: request.plannerName ?? 'Unknown Venue',
                             );
                           },

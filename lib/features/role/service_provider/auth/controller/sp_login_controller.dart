@@ -18,6 +18,7 @@ class SpLoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
 
   bool _isLoading = false;
+  // ignore: prefer_final_fields
   String _errorMessage = '';
   LoginModel? _loginModel;
 

@@ -1,4 +1,4 @@
-import 'package:blinqo/core/utils/constants/image_path.dart';
+
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

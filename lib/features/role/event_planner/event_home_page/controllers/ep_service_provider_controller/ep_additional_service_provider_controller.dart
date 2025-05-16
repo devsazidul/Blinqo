@@ -1,4 +1,3 @@
-import 'package:blinqo/core/common/widgets/logger_view.dart';
 import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/models/additional_services.dart';

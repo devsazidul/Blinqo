@@ -36,8 +36,11 @@ class Urls {
 
   static String updateServiceProviderProfile(String id) =>
       '$baseUrl/profile/service-provider-profile-update/$id';
+  static String updatePlannerProfile =
+      '$baseUrl/profile/planner-profile-update';
 
-  static String getServiceProviderProfile = '$baseUrl/profile/get-service-provider-profiles';
+  static String getServiceProviderProfile =
+      '$baseUrl/profile/get-service-provider-profiles';
 
   static const String getUserInfo = '$baseUrl/auth/user-info';
   static const String eventDecorationEnum = '$baseUrl/booking/decoration_enum';
@@ -60,7 +63,8 @@ class Urls {
   static String createPaymentIntent = '$baseUrl/billing/create-payment-intent';
 
   // service provider
-  static String getServiceProvider = '${Urls.baseUrl}/service-provider-type/get';
+  static String getServiceProvider =
+      '${Urls.baseUrl}/service-provider-type/get';
 
   // Service Provider work urls
   static String workShowcase = '$baseUrl/works/create-work-showcase';
@@ -77,6 +81,4 @@ class Urls {
   static String updateShift(String id) => '$baseUrl/shift/update/$id';
   static String deleteShift(String id) => '$baseUrl/shift/delete/$id';
   //-----------------------Venue Owner Shifts-----------------------
-
-
 }

@@ -2,10 +2,10 @@ import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/booking_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import 'start_booking_decoration_card.dart';
 
+// ignore: must_be_immutable
 class StartBookingTextOrButton extends StatelessWidget {
   StartBookingTextOrButton({
     super.key,

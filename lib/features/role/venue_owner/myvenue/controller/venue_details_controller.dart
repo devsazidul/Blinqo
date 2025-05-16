@@ -10,6 +10,7 @@ class VenueDetailsController extends GetxController {
   final _logger = createLogger();
 
   @override
+  // ignore: unnecessary_overrides
   void onInit() {
     super.onInit();
 

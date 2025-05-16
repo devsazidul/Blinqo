@@ -1,6 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venu_setup_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
