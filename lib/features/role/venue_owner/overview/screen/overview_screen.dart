@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/overview/screen/all_coming_booking_screen.dart';
 import 'package:blinqo/features/role/venue_owner/overview/screen/all_reviews_venue_screen.dart';
 import 'package:blinqo/features/role/venue_owner/overview/model/venue_overview_model.dart'
     as model;
@@ -11,6 +12,8 @@ import 'package:blinqo/features/role/venue_owner/overview/widgets/up_coming_even
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -38,7 +41,7 @@ class OverviewScreen extends StatelessWidget {
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return _buildShimmerLoading(isDarkMode);
         }
         final analytics = controller.venueOverView.value?.data?.analytics;
         final upcomingEvents =
@@ -64,14 +67,14 @@ class OverviewScreen extends StatelessWidget {
               _buildSectionTitle('Upcoming Bookings', textColor),
               if (upcomingEvents.isNotEmpty)
                 _buildExploreAllRow(
-                  // () => Get.to(() =>  AllUpcomingBookingsScreen()),
-                  () => Get.to(() => ()),
+                  
+                  () => Get.to(() => AllUpcomingBookingsScreen()),
                   textColor,
                 ),
               UpComingBooking(),
-              const SizedBox(height: 40),
+              const SizedBox(height: 10),
               // add new venue button
-              // _buildAddNewVenueButton(),
+              _buildAddNewVenueButton(),
               const SizedBox(height: 40),
               // recent reviews
               _buildSectionTitle('Recent Reviews', textColor),
@@ -82,6 +85,7 @@ class OverviewScreen extends StatelessWidget {
                   textColor,
                 ),
               _buildReviewsList(controller, recentReviews, isDarkMode),
+              SizedBox(height: Get.height*0.1),
             ],
           ),
         );
@@ -89,6 +93,204 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  // shimmer Loading
+  Widget _buildShimmerLoading(bool isDarkMode) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 30),
+          // Revenue card shimmer
+          Container(
+            height: 180,
+            decoration: BoxDecoration(
+              color: isDarkMode ? const Color(0xff32383D) : Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Shimmer.fromColors(
+              baseColor: isDarkMode ? const Color(0xff424242) : Colors.grey[300]!,
+              highlightColor: isDarkMode ? const Color(0xff525252) : Colors.grey[100]!,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 25),
+          // Section title shimmer
+          Shimmer.fromColors(
+            baseColor: isDarkMode ? const Color(0xff424242) : Colors.grey[300]!,
+            highlightColor: isDarkMode ? const Color(0xff525252) : Colors.grey[100]!,
+            child: Container(
+              width: 180,
+              height: 24,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          // Upcoming events shimmer
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 2,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: _buildEventShimmer(isDarkMode),
+            ),
+          ),
+          const SizedBox(height: 40),
+          // Reviews section shimmer
+          Shimmer.fromColors(
+            baseColor: isDarkMode ? const Color(0xff424242) : Colors.grey[300]!,
+            highlightColor: isDarkMode ? const Color(0xff525252) : Colors.grey[100]!,
+            child: Container(
+              width: 150,
+              height: 24,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          // Reviews shimmer
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 2,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: _buildReviewShimmer(isDarkMode),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // shimmer Loading for upcoming events
+  Widget _buildEventShimmer(bool isDarkMode) {
+    return Container(
+      decoration: BoxDecoration(
+        color: isDarkMode ? const Color(0xff32383D) : Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.all(12),
+      child: Shimmer.fromColors(
+        baseColor: isDarkMode ? const Color(0xff424242) : Colors.grey[300]!,
+        highlightColor: isDarkMode ? const Color(0xff525252) : Colors.grey[100]!,
+        child: Row(
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 120,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: 80,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // shimmer Loading for reviews
+    Widget _buildReviewShimmer(bool isDarkMode) {
+    return Container(
+      decoration: BoxDecoration(
+        color: isDarkMode ? const Color(0xff32383D) : Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.all(12),
+      child: Shimmer.fromColors(
+        baseColor: isDarkMode ? const Color(0xff424242) : Colors.grey[300]!,
+        highlightColor: isDarkMode ? const Color(0xff525252) : Colors.grey[100]!,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 16,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      width: 80,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Container(
+              width: double.infinity,
+              height: 32,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // section title
   Widget _buildSectionTitle(String title, Color textColor) {
     return Text(
       title,
@@ -100,6 +302,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  // explore all row
   Widget _buildExploreAllRow(VoidCallback onTap, Color textColor) {
     return Row(
       children: [
@@ -120,6 +323,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  // add new venue button
   Widget _buildAddNewVenueButton() {
     return InkWell(
       onTap:
@@ -155,6 +359,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  // reviews list
   Widget _buildReviewsList(
     OverviewController controller,
     List<model.RecentReview> recentReviews,
@@ -181,6 +386,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  // no reviews widget
   Widget _buildNoReviewsWidget(bool isDarkMode) {
     return Center(
       child: Column(
@@ -208,6 +414,7 @@ class OverviewScreen extends StatelessWidget {
     );
   }
 
+  // review item
   Widget _buildReviewItem(model.RecentReview review, bool isDarkMode) {
     final dateFormat = DateFormat('MMM dd, yyyy');
     return Column(
@@ -215,23 +422,7 @@ class OverviewScreen extends StatelessWidget {
       children: [
         Row(
           children: [
-            ClipOval(
-              child:
-                  review.profile?.image?.path != null
-                      ? Image.network(
-                        review.profile!.image!.path!,
-                        fit: BoxFit.cover,
-                        height: 40,
-                        width: 40,
-                        errorBuilder:
-                            (context, error, stackTrace) => Image.asset(
-                              ImagePath.reviewpic,
-                              height: 40,
-                              width: 40,
-                            ),
-                      )
-                      : Image.asset(ImagePath.reviewpic, height: 40, width: 40),
-            ),
+            _buildProfileImage(review.profile?.image?.path, isDarkMode),
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,6 +477,38 @@ class OverviewScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  // profile image
+  Widget _buildProfileImage(String? imagePath, bool isDarkMode) {
+    return ClipOval(
+      child: imagePath != null && imagePath.isNotEmpty
+          ? CachedNetworkImage(
+              imageUrl: imagePath,
+              fit: BoxFit.cover,
+              height: 40,
+              width: 40,
+              placeholder: (context, url) => _buildImagePlaceholder(isDarkMode),
+              errorWidget: (context, error, stackTrace) => _buildImagePlaceholder(isDarkMode),
+            )
+          : _buildImagePlaceholder(isDarkMode),
+    );
+  }
+
+  Widget _buildImagePlaceholder(bool isDarkMode) {
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: isDarkMode ? const Color(0xff424242) : const Color(0xffF5F5F5),
+        shape: BoxShape.circle,
+      ),
+      child: Icon(
+        Icons.person,
+        size: 24,
+        color: isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff999999),
+      ),
     );
   }
 }
