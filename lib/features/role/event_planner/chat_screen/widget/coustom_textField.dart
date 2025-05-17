@@ -2,9 +2,9 @@
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/image_picker.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

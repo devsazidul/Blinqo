@@ -1,7 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
-import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_chat_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/controller/ep_create_group_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/group_profile.dart';
@@ -9,6 +7,8 @@ import 'package:blinqo/features/role/event_planner/chat_screen/screen/image_view
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/coustom_textField.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/message_picker.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/widget/pop_up_menu.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/model/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

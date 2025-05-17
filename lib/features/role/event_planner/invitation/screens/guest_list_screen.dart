@@ -1,10 +1,10 @@
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/invitation/controller/guest_list_controller.dart';
 import 'package:blinqo/features/role/event_planner/invitation/widgets/guest_list_header.dart';
 import 'package:blinqo/features/role/event_planner/invitation/widgets/guest_list_item.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

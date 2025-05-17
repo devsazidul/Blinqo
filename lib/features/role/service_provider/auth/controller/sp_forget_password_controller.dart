@@ -1,7 +1,7 @@
+import 'package:blinqo/core/models/network_response.dart';
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/forget_password_verify_otp_screen.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,7 @@ class SpForgetPasswordController extends GetxController {
     EasyLoading.show(status: "Loading...");
     bool isSuccess = false;
 
-    final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
+    final NetworkResponse response = await Get.find<NetworkCaller>()
         .postRequest(Urls.sendPasswordResetCode, {
           'email': emailController.text,
         });

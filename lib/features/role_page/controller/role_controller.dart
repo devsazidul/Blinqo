@@ -100,7 +100,6 @@ import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwne
 import 'package:blinqo/features/role/venue_owner/onboarding_screen/screen/venue_onboarding_screen.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/v_profile_setup_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -119,16 +118,11 @@ class RoleController extends GetxController {
     String? role = await EventAuthController.getUserRole();
     EventUser? eventUser = await EventAuthController.getUserInfo();
     bool isELoggedin = await AuthService.isAuthenticated();
-    bool erole =
-        await AuthService.isRole(); // Now, we get the role as a string
+    bool erole = await AuthService.isRole(); // Now, we get the role as a string
     bool isProfileCreated = await AuthService.isProfileCreated();
 
     switch (selectedIndex.value) {
       case 0:
-        // ignore: unrelated_type_equality_checks
-        debugPrint("Shakil============is login: $isELoggedin");
-        debugPrint("Shakil============ is role: $erole");
-        debugPrint("Shakil============ is profile: $isProfileCreated");
         if (isELoggedin && erole == true) {
           if (isProfileCreated == false) {
             Get.offAll(() => ProfileSetup());
@@ -155,7 +149,6 @@ class RoleController extends GetxController {
           await Get.find<SpGetUserInfoController>().spGetUserInfo();
 
           if (SpAuthController.spUser?.profile?.id != null) {
-
             // if profile id exists it means profile is already created
             await Get.find<SpGetAllWorksController>().getAllWorks();
 

@@ -1,7 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,7 +28,6 @@ class StartBookingDecorationCard extends StatelessWidget {
 
   final ThemeMode themeMode;
 
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -50,8 +49,6 @@ class StartBookingDecorationCard extends StatelessWidget {
           ),
         ),
 
-
-
         // dropdown menu
         Container(
           width: 200,
@@ -59,7 +56,7 @@ class StartBookingDecorationCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Color(0xFFFBF7EB),
             borderRadius: BorderRadius.circular(7),
-            border: Border.all(color: AppColors.secondary, width: 1)
+            border: Border.all(color: AppColors.secondary, width: 1),
           ),
 
           child: DropdownMenu(
@@ -67,18 +64,26 @@ class StartBookingDecorationCard extends StatelessWidget {
             onSelected: (value) {
               debugPrint(value);
             },
-            trailingIcon: Image.asset(IconPath.arrowdown, color: AppColors.secondary, height: 24,),
-            selectedTrailingIcon: RotatedBox(quarterTurns: 90, child: Image.asset(IconPath.arrowdown, color: AppColors.secondary,height: 24,),),
+            trailingIcon: Image.asset(
+              IconPath.arrowdown,
+              color: AppColors.secondary,
+              height: 24,
+            ),
+            selectedTrailingIcon: RotatedBox(
+              quarterTurns: 90,
+              child: Image.asset(
+                IconPath.arrowdown,
+                color: AppColors.secondary,
+                height: 24,
+              ),
+            ),
             menuStyle: MenuStyle(
               backgroundColor: WidgetStateProperty.all(Colors.white),
             ),
 
             inputDecorationTheme: InputDecorationTheme(
               border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.secondary,
-                  width: 1,
-                ),
+                borderSide: BorderSide(color: AppColors.secondary, width: 1),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -88,31 +93,25 @@ class StartBookingDecorationCard extends StatelessWidget {
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.secondary,
-                  width: 1
-                ),
+                borderSide: BorderSide(color: AppColors.secondary, width: 1),
               ),
             ),
-
 
             textStyle: getTextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 15,
-              color: AppColors.secondary
+              color: AppColors.secondary,
             ),
 
             initialSelection: dropdownItems.first,
             controller: controller,
-            requestFocusOnTap: true, dropdownMenuEntries: dropdownItems.map((e) {
-              return DropdownMenuEntry(
-                value: e,
-                label: e,
-              );
-          }).toList(),
-
+            requestFocusOnTap: true,
+            dropdownMenuEntries:
+                dropdownItems.map((e) {
+                  return DropdownMenuEntry(value: e, label: e);
+                }).toList(),
           ),
-        )
+        ),
         // GestureDetector(
         //   onTap: onTap,
         //   child: Container(

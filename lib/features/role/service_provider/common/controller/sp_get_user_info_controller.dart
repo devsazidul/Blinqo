@@ -1,8 +1,8 @@
+import 'package:blinqo/core/models/network_response.dart';
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/models/sp_user_model.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,8 +20,9 @@ class SpGetUserInfoController extends GetxController {
     _isLoading = true;
     update();
 
-    final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
-        .getRequest(Urls.getUserInfo);
+    final NetworkResponse response = await Get.find<NetworkCaller>().getRequest(
+      Urls.getUserInfo,
+    );
 
     if (response.isSuccess) {
       //* Get user info from server

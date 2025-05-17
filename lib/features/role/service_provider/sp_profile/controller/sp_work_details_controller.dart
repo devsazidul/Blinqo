@@ -1,5 +1,5 @@
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/model/sp_works_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,7 @@ class SpWorkDetailsController extends GetxController {
     bool isSuccess = false;
     update();
 
-    final response = await Get.find<SpNetworkCaller>().getRequest(
+    final response = await Get.find<NetworkCaller>().getRequest(
       Urls.getWorkDetails(workId),
     );
 

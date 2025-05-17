@@ -1,12 +1,11 @@
-import 'package:blinqo/features/profile/screen/pick_color_screen.dart';
-import 'package:blinqo/features/profile/screen/profile_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_otp_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
 import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_home_screen.dart';
+import 'package:blinqo/features/role/event_planner/home/screens/ep_home_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
@@ -19,6 +18,7 @@ import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.d
 import 'package:blinqo/features/role/event_planner/payment_method/screen/even_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/evetnt_congratulation_screen.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/final_review_booking_datieals.dart';
+import 'package:blinqo/features/role/event_planner/profile/screen/pick_color_screen.dart';
 import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
@@ -131,7 +131,6 @@ class AppRoute {
 
   static String spWorksPortfolio = '/sp_works_portfolio';
 
-
   static String getsplashoScreen() => splashoScreen;
   static String gethomeEventPlanner() => homeEventPlanner;
   static String getroleScreen() => roleScreen;
@@ -195,7 +194,6 @@ class AppRoute {
   static String getfpotpscreen() => fpotpscreen;
 
   static String getspWorksPortfolio() => spWorksPortfolio;
-
 
   static List<GetPage> routes = [
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),

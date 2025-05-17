@@ -1,7 +1,7 @@
-import 'package:blinqo/features/profile/screen/edit_profile_screen.dart';
-import 'package:blinqo/features/profile/screen/pick_color_screen.dart';
-import 'package:blinqo/features/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/event_planner/profile/screen/edit_profile_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile/screen/pick_color_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile/screen/profile_screen.dart';
 import 'package:blinqo/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 

@@ -4,7 +4,7 @@
 // import 'package:blinqo/core/common/styles/global_text_style.dart';
 // import 'package:blinqo/core/urls/endpoint.dart';
 // import 'package:blinqo/core/utils/constants/colors.dart';
-// import 'package:blinqo/features/profile/model/usermodel.dart';
+// import 'package:blinqo/features/role/event_planner/profile/model/usermodel.dart';
 // import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
 // import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 // import 'package:flutter/material.dart';
@@ -264,9 +264,9 @@ import 'dart:io';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/model/usermodel.dart';
 import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile/model/usermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -509,100 +509,103 @@ class ProfileController extends GetxController {
   // }
 
   Future<void> updateProfile({
-  required String name,
-  required String userName,
-  required String location,
-}) async {
-  debugPrint('Starting updateProfile...');
-  debugPrint('Name: $name, UserName: $userName, Location: $location');
-  EasyLoading.show(status: "Updating profile...");
+    required String name,
+    required String userName,
+    required String location,
+  }) async {
+    debugPrint('Starting updateProfile...');
+    debugPrint('Name: $name, UserName: $userName, Location: $location');
+    EasyLoading.show(status: "Updating profile...");
 
-  try {
-    debugPrint('Getting access token...');
-    final accessToken = await AuthService.getToken();
-    debugPrint('Access token: $accessToken');
+    try {
+      debugPrint('Getting access token...');
+      final accessToken = await AuthService.getToken();
+      debugPrint('Access token: $accessToken');
 
-    debugPrint('Getting profile ID...');
-    final profileId = await AuthService.getProfileId();
-    debugPrint('Profile ID: $profileId');
+      debugPrint('Getting profile ID...');
+      final profileId = await AuthService.getProfileId();
+      debugPrint('Profile ID: $profileId');
 
-    if (accessToken == null || accessToken.isEmpty || profileId == null || profileId.isEmpty) {
-      throw Exception('Authentication data not found');
-    }
-
-    final url = Uri.parse('${Urls.updatePlannerProfile}/$profileId');
-    debugPrint('API URL: $url');
-
-    final request = http.MultipartRequest('PATCH', url);
-
-    request.headers['Authorization'] = 'Bearer $accessToken';
-    request.headers['Content-Type'] = 'multipart/form-data';
-
-    debugPrint('Adding text fields...');
-    request.fields['name'] = name;
-    request.fields['userName'] = userName;
-    request.fields['location'] = location;
-
-    if (profileImage.value != null) {
-      final file = profileImage.value!;
-      final fileName = path.basename(file.path);
-      debugPrint('Extracted filename: $fileName');
-
-      // Optional: send filename explicitly if backend expects it
-      // request.fields['imageFileName'] = fileName;
-
-      final multipartFile = await http.MultipartFile.fromPath(
-        'image',
-        file.path,
-        filename: fileName,
-      );
-      request.files.add(multipartFile);
-      debugPrint('Multipart file added with filename: $fileName');
-    } else {
-      debugPrint('No image selected to upload');
-    }
-
-    debugPrint('Sending multipart PATCH request...');
-    final streamedResponse = await request.send();
-
-    final response = await http.Response.fromStream(streamedResponse);
-
-    debugPrint('Response status code: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      final data = jsonDecode(response.body);
-
-      if (data['success'] == true) {
-        debugPrint('Profile update success');
-
-        if (data['data'] != null &&
-            data['data']['profile'] != null &&
-            data['data']['profile']['image'] != null) {
-          final imageUrl = data['data']['profile']['image']['path'];
-          debugPrint('Updated profile image URL: $imageUrl');
-        } else {
-          debugPrint('No image URL found in response');
-        }
-
-        await getUser(); // Refresh user info
-        EasyLoading.showSuccess("Profile updated successfully");
-      } else {
-        final msg = data['message'] ?? "Failed to update profile";
-        debugPrint('Update failed with message: $msg');
-        throw Exception(msg);
+      if (accessToken == null ||
+          accessToken.isEmpty ||
+          profileId == null ||
+          profileId.isEmpty) {
+        throw Exception('Authentication data not found');
       }
-    } else {
-      throw Exception('Failed to update profile: ${response.statusCode}');
+
+      final url = Uri.parse('${Urls.updatePlannerProfile}/$profileId');
+      debugPrint('API URL: $url');
+
+      final request = http.MultipartRequest('PATCH', url);
+
+      request.headers['Authorization'] = 'Bearer $accessToken';
+      request.headers['Content-Type'] = 'multipart/form-data';
+
+      debugPrint('Adding text fields...');
+      request.fields['name'] = name;
+      request.fields['userName'] = userName;
+      request.fields['location'] = location;
+
+      if (profileImage.value != null) {
+        final file = profileImage.value!;
+        final fileName = path.basename(file.path);
+        debugPrint('Extracted filename: $fileName');
+
+        // Optional: send filename explicitly if backend expects it
+        // request.fields['imageFileName'] = fileName;
+
+        final multipartFile = await http.MultipartFile.fromPath(
+          'image',
+          file.path,
+          filename: fileName,
+        );
+        request.files.add(multipartFile);
+        debugPrint('Multipart file added with filename: $fileName');
+      } else {
+        debugPrint('No image selected to upload');
+      }
+
+      debugPrint('Sending multipart PATCH request...');
+      final streamedResponse = await request.send();
+
+      final response = await http.Response.fromStream(streamedResponse);
+
+      debugPrint('Response status code: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+
+        if (data['success'] == true) {
+          debugPrint('Profile update success');
+
+          if (data['data'] != null &&
+              data['data']['profile'] != null &&
+              data['data']['profile']['image'] != null) {
+            final imageUrl = data['data']['profile']['image']['path'];
+            debugPrint('Updated profile image URL: $imageUrl');
+          } else {
+            debugPrint('No image URL found in response');
+          }
+
+          await getUser(); // Refresh user info
+          EasyLoading.showSuccess("Profile updated successfully");
+        } else {
+          final msg = data['message'] ?? "Failed to update profile";
+          debugPrint('Update failed with message: $msg');
+          throw Exception(msg);
+        }
+      } else {
+        throw Exception('Failed to update profile: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Error during updateProfile: $e');
+      EasyLoading.showError(e.toString());
+    } finally {
+      debugPrint('Dismissing loading indicator...');
+      EasyLoading.dismiss();
     }
-  } catch (e) {
-    debugPrint('Error during updateProfile: $e');
-    EasyLoading.showError(e.toString());
-  } finally {
-    debugPrint('Dismissing loading indicator...');
-    EasyLoading.dismiss();
   }
-}
 
   //================================================================================
 

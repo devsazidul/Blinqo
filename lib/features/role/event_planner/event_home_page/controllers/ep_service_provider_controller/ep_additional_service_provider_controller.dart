@@ -1,4 +1,4 @@
-import 'package:blinqo/core/services/network_caller.dart';
+import 'package:blinqo/core/services/network_caller_1.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/models/additional_services.dart';
 import 'package:get/get.dart';

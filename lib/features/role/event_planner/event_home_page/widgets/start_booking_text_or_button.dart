@@ -1,5 +1,5 @@
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/booking_controller.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +26,7 @@ class StartBookingTextOrButton extends StatelessWidget {
     'Square',
     'Rectangle',
     'Oval',
-    'Cocktail Table'
+    'Cocktail Table',
   ];
 
   List<String> seatingStyles = [
@@ -34,7 +34,7 @@ class StartBookingTextOrButton extends StatelessWidget {
     'Theater',
     'Classroom',
     'U-Shape',
-    'Cocktail Style'
+    'Cocktail Style',
   ];
 
   List<String> lightingStyles = [
@@ -42,7 +42,7 @@ class StartBookingTextOrButton extends StatelessWidget {
     'Fairy Lights',
     'Spotlights',
     'Pendant Lights',
-    'String Lights'
+    'String Lights',
   ];
 
   List<String> flowerColors = [
@@ -52,7 +52,7 @@ class StartBookingTextOrButton extends StatelessWidget {
     'Yellow',
     'Blue',
     'Purple',
-    'Orange'
+    'Orange',
   ];
 
   List<String> flowerTypes = [
@@ -61,7 +61,7 @@ class StartBookingTextOrButton extends StatelessWidget {
     'Lilies',
     'Daisies',
     'Orchids',
-    'Sunflowers'
+    'Sunflowers',
   ];
 
   List<String> fragrances = [
@@ -70,9 +70,8 @@ class StartBookingTextOrButton extends StatelessWidget {
     'Jasmine',
     'Sandalwood',
     'Lily of the Valley',
-    'Vanilla'
+    'Vanilla',
   ];
-
 
   @override
   Widget build(BuildContext context) {

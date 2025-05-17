@@ -1,11 +1,11 @@
 import 'package:blinqo/core/common/widgets/logger_view.dart';
+import 'package:blinqo/core/services/network_caller_1.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/models/service_provider_work_model.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/network_caller.dart';
 import '../../../../../core/urls/endpoint.dart';
 import '../../auth/auth_service/auth_service.dart';
 
@@ -181,7 +181,9 @@ class EpEventServiceDetailsController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-     workModel.value = Rx<ServiceProviderUserWorkModel>(ServiceProviderUserWorkModel.fromJson(response.responseData));
+      workModel.value = Rx<ServiceProviderUserWorkModel>(
+        ServiceProviderUserWorkModel.fromJson(response.responseData),
+      );
     }
 
     isLoading.value = false;

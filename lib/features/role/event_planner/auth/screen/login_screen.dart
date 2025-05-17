@@ -2,7 +2,7 @@
 // import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 // import 'package:blinqo/core/common/widgets/custom_button.dart';
 // import 'package:blinqo/core/utils/constants/colors.dart';
-// import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
+// import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 // import 'package:blinqo/features/role/event_planner/auth/controller/login_controller.dart';
 // import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 // import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
@@ -237,15 +237,14 @@
 //   }
 // }
 
-
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/login_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -380,9 +379,10 @@ class LogInScreen extends StatelessWidget {
                     onPress: () {
                       loginController.login(context);
                     },
-                    backgroundColor: loginController.isLoading.value
-                        ? AppColors.buttonColor2.withValues(alpha:  0.5)
-                        : AppColors.buttonColor2,
+                    backgroundColor:
+                        loginController.isLoading.value
+                            ? AppColors.buttonColor2.withValues(alpha: 0.5)
+                            : AppColors.buttonColor2,
                   );
                 }),
                 const SizedBox(height: 16),
