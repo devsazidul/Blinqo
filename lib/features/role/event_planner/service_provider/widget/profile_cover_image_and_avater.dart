@@ -1,9 +1,13 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
-  const EpSpProfileCoverImageAndAvatar({super.key});
+  const EpSpProfileCoverImageAndAvatar({super.key, required this.profileImage, this.coverImage});
+
+  final String profileImage;
+  final String? coverImage;
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +15,15 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
       children: [
         SizedBox(height: 270, width: double.infinity),
 
-        Image.asset(
+        profileImage != null ? Image.asset(
           "assets/images/profile_cover_image.jpeg",
           height: 220,
           width: double.infinity,
           fit: BoxFit.cover,
+        ) : CachedNetworkImage(
+          height: 220,
+          width: double.infinity,
+          fit: BoxFit.cover, imageUrl: coverImage!,
         ),
 
         Positioned(
@@ -69,9 +77,16 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
           right: 0,
           child: Column(
             children: [
-              CircleAvatar(
-                radius: 50,
-                child: Image.asset(IconPath.profile01, fit: BoxFit.cover),
+              Container(
+                padding: const EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle
+                ),
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(profileImage),
+                ),
               ),
             ],
           ),

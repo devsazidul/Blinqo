@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class EpSpWorksCardWidget extends StatelessWidget {
-  const EpSpWorksCardWidget({super.key, required this.imagePath});
+  const EpSpWorksCardWidget({super.key, required this.imagePath, required this.workName});
 
   final String imagePath;
+  final String workName;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class EpSpWorksCardWidget extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           image: DecorationImage(
-            image: AssetImage(imagePath), // Replace with your image path
+            image: NetworkImage(imagePath), // Replace with your image path
             fit: BoxFit.cover,
           ),
         ),
@@ -46,8 +47,8 @@ class EpSpWorksCardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'WEDDING PHOTOGRAPHY',
+                   Text(
+                    workName,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

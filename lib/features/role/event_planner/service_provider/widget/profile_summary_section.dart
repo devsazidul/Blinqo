@@ -3,6 +3,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,11 +12,12 @@ class EpSpProfileSummarySection extends StatelessWidget {
     super.key,
     required this.isDarkMode,
     required this.isFemale,
-    required this.femaleColorController,
+    required this.femaleColorController, required this.userModel,
   });
   final bool isDarkMode;
   final bool isFemale;
   final PickColorController femaleColorController;
+  final Datum userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class EpSpProfileSummarySection extends StatelessWidget {
       children: [
         /// name
         Text(
-          'Ronald Richards',
+          userModel.name,
           style: getTextStyle(
             fontSize: 20,
             color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
@@ -50,7 +52,7 @@ class EpSpProfileSummarySection extends StatelessWidget {
             ),
             SizedBox(width: 4),
             Text(
-              'New York',
+              userModel.location,
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -79,7 +81,7 @@ class EpSpProfileSummarySection extends StatelessWidget {
             ),
             SizedBox(width: 4),
             Text(
-              'Photographer',
+              userModel.serviceType[0].name,
               style: getTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,

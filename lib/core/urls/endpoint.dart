@@ -71,6 +71,7 @@ class Urls {
   static String getAllWorks = '$baseUrl/works/get-all-by-service-provider';
 
   static String getWorkDetails(String id) => '$baseUrl/works/get/$id';
+  static String getWorkAllDetails(String id) => '$baseUrl/works/get-all/$id';
 
   static String getVenueOwnerHome = '$baseUrl/venue/venue-owner-home';
 

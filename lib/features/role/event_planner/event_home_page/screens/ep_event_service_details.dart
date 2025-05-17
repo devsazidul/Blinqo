@@ -211,7 +211,7 @@ class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
             // list view for all the users
             Expanded(
               child: Obx(() {
-                return ListView.builder(
+                return epServiceDetailsController.serviceUserModel.value.value.data.isEmpty ? Center(child: Text('No data!', style: getTextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.grey),),) :  ListView.builder(
                   shrinkWrap: true,
                   itemCount: epServiceDetailsController.serviceUserModel.value.value.data.length,
                   itemBuilder: (context, index) {
