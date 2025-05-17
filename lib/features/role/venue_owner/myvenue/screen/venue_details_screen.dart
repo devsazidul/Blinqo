@@ -196,21 +196,24 @@ class VenueDetailsScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          venueData.name ?? 'Unknown Venue',
-                          style: GoogleFonts.roboto(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                            color:
-                                isDarkMode
-                                    ? const Color(0xffEBEBEB)
-                                    : const Color(0xff333333),
+                        Expanded(
+                          child: Text(
+                            venueData.name ?? 'Unknown Venue',
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.roboto(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color:
+                                  isDarkMode
+                                      ? const Color(0xffEBEBEB)
+                                      : const Color(0xff333333),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
                         if (venueData.verified == true)
                           Image.asset(IconPath.verify, height: 16, width: 16),
-                        const Spacer(),
+                        const SizedBox(width: 8),
                         InkWell(
                           onTap: () {
                             Get.to(

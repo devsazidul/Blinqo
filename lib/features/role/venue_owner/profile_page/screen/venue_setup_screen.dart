@@ -33,17 +33,16 @@ class VenueSetupScreen extends StatelessWidget {
         Get.put(VenueOwnerProfileController()).isDarkMode.value;
     final VenueSetupController controller = Get.put(VenueSetupController());
     controller.setEditMode(isEdit);
-    String venueImage =
-        Get.put(
-          VenueDetailsController(),
-        ).response.value?.data?.venue?.venueImage?.path ??
-        '';
 
-    String seatArrangementImage =
-        Get.put(
-          VenueDetailsController(),
-        ).response.value?.data?.venue?.arrangementsImage?.path ??
-        '';
+    // Only get venue details if in edit mode
+    String venueImage = '';
+    String seatArrangementImage = '';
+    
+    if (isEdit) {
+      final venueDetailsController = Get.find<VenueDetailsController>();
+      venueImage = venueDetailsController.response.value?.data?.venue?.venueImage?.path ?? '';
+      seatArrangementImage = venueDetailsController.response.value?.data?.venue?.arrangementsImage?.path ?? '';
+    }
 
     return Obx(
       () => Scaffold(

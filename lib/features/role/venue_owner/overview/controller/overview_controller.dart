@@ -191,13 +191,14 @@ class OverviewController extends GetxController {
 
       if (response.isSuccess) {
         _logger.i('Venue overview fetched successfully: ${response.body}');
+        // venueOverView.value = VenueOverView.fromJson(response.body);
         venueOverView.value = VenueOverView.fromJson(_demoData);
-        EasyLoading.showSuccess('Data loaded successfully');
+        _logger.i('Data loaded successfully');
       } else {
         _logger.w('API failed, using demo data: ${response.errorMessage}');
         // Fallback to demo data
         venueOverView.value = VenueOverView.fromJson(_demoData);
-        EasyLoading.showInfo('Loaded demo data due to API failure');
+        _logger.i('Loaded demo data due to API failure');
       }
     } catch (e, stackTrace) {
       _logger.e('Error fetching venue overview, using demo data: $e', stackTrace: stackTrace);
