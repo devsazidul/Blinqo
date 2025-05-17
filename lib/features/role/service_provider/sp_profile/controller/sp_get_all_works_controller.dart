@@ -13,11 +13,11 @@ class SpGetAllWorksController extends GetxController {
   String get errorMessage => _errorMessage;
   List<SpWorksModel> get works => _works;
 
-  @override
-  void onInit() async {
-    await getAllWorks();
-    super.onInit();
-  }
+  // @override
+  // void onInit() async {
+  //   await getAllWorks();
+  //   super.onInit();
+  // }
 
   Future<bool> getAllWorks() async {
     _works.clear();

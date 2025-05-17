@@ -1,8 +1,8 @@
 import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/profile/widget/profile_edit_text_form_field.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_edit_profile_controller.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_edit_profile_controller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,9 +11,7 @@ class SpEditProfilePage extends StatelessWidget {
   static const String name = '/sp_profile_edit';
   SpEditProfilePage({super.key});
 
-  final ServiceUserEditProfileController controller = Get.put(
-    ServiceUserEditProfileController(),
-  );
+  final SpEditProfileController controller = Get.put(SpEditProfileController());
 
   @override
   Widget build(BuildContext context) {

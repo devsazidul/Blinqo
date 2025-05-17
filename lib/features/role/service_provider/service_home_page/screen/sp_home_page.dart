@@ -10,7 +10,7 @@ import 'package:blinqo/features/role/service_provider/service_home_page/widget/c
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/project_request_card.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/widget/upcoming_project_card.dart'
     show UpcomingProjectCard;
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart'
     show
         DayStructure,

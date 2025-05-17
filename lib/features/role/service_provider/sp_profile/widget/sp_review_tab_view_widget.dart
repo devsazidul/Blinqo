@@ -1,6 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_review_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/rating_summary.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/ratting_distribution_widget.dart';

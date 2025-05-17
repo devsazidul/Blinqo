@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-class ShareWorkController extends GetxController {
+class SpShareWorkController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   RxList<EventPreference> eventPreferenceList =

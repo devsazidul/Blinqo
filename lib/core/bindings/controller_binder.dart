@@ -8,9 +8,9 @@ import 'package:blinqo/features/role/service_provider/bottom_nav_bar/controller/
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_edit_profile_controller.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_edit_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_work_details_controller.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +27,7 @@ class ControllerBinder extends Bindings {
     Get.put(ProfileController());
     Get.put(PickColorController());
 
-    Get.put(ServiceUserEditProfileController());
+    Get.put(SpEditProfileController());
 
     // Service Provider
     Get.put(SpNetworkCaller());

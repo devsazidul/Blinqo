@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ServiceUserEditProfileController extends GetxController {
+class SpEditProfileController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final fastNameController = TextEditingController();
   final lastNameController = TextEditingController();

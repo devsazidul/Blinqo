@@ -98,3 +98,69 @@ class Image {
   },
 };
 */
+
+/*
+{
+  "success": true,
+  "data": {
+    "reviews": [
+      {
+        "id": "b0956417-3d64-4c17-8c0a-cea13a62e520",
+        "venueId": null,
+        "rating": 1,
+        "comment": "very bad",
+        "createdAt": "2025-05-15T10:19:36.393Z",
+        "profileId": "fedb3af2-8e70-40ff-8814-195ba3ab1cad",
+        "Profile": {
+          "name": "test6",
+          "image": {
+            "path": "https://ozvxzsjtzdrrwejjiomf.supabase.co/storage/v1/s3/test/18.jpg-123c48bb-5359-4e8b-a1be-6776ad95a92e?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=2b700c1e6de008e04d66a3807269523b%2F20250515%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20250515T103910Z&X-Amz-Expires=604800&X-Amz-Signature=f98f694e49d8a42adafca2b9992785c529ae1ee6625b780307f0ea608b9307bf&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject"
+          }
+        }
+      },
+      {
+        "id": "76cd15ff-3221-470b-a819-d41b9ff614d1",
+        "venueId": null,
+        "rating": 2,
+        "comment": "very bad",
+        "createdAt": "2025-05-15T10:19:33.003Z",
+        "profileId": "fedb3af2-8e70-40ff-8814-195ba3ab1cad",
+        "Profile": {
+          "name": "test6",
+          "image": {
+            "path": "https://ozvxzsjtzdrrwejjiomf.supabase.co/storage/v1/s3/test/18.jpg-123c48bb-5359-4e8b-a1be-6776ad95a92e?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=2b700c1e6de008e04d66a3807269523b%2F20250515%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20250515T103910Z&X-Amz-Expires=604800&X-Amz-Signature=f98f694e49d8a42adafca2b9992785c529ae1ee6625b780307f0ea608b9307bf&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject"
+          }
+        }
+      }
+    ],
+    "stats": {
+      "averageRating": 3.2222222222222223,
+      "totalReviews": 9,
+      "ratingsBreakdown": [
+        {
+          "rating": 5,
+          "count": 2
+        },
+        {
+          "rating": 4,
+          "count": 2
+        },
+        {
+          "rating": 3,
+          "count": 2
+        },
+        {
+          "rating": 2,
+          "count": 2
+        },
+        {
+          "rating": 1,
+          "count": 1
+        }
+      ]
+    }
+  },
+  "message": "Reviews fetched successfully",
+  "statusCode": 200
+}
+*/
