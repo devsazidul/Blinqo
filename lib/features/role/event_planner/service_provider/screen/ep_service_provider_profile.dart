@@ -4,6 +4,8 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/profile/widget/f_custom_button.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_event_service_details_controller.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen1.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/controller/review_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/widget/profile_cover_image_and_avater.dart';
@@ -14,13 +16,26 @@ import 'package:blinqo/features/role/event_planner/service_provider/widget/works
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EpServiceProviderProfile extends StatelessWidget {
+class EpServiceProviderProfile extends StatefulWidget {
+  EpServiceProviderProfile({super.key, required this.userModel});
+
+  static const String name = '/event-planner/service-provider-profile';
+  final Datum userModel;
+
+  @override
+  State<EpServiceProviderProfile> createState() => _EpServiceProviderProfileState();
+}
+
+class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
   final PickColorController femaleColorController = Get.put(
     PickColorController(),
   );
-  static const String name = '/event-planner/service-provider-profile';
 
-  EpServiceProviderProfile({super.key});
+  @override
+  void initState() {
+    super.initState();
+    Get.find<EpEventServiceDetailsController>().getServiceProviderWorks(userId: widget.userModel.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +63,19 @@ class EpServiceProviderProfile extends StatelessWidget {
                   SliverToBoxAdapter(
                     child: Column(
                       children: [
-                        EpSpProfileCoverImageAndAvatar(),
+
+                        // profile details
+                        EpSpProfileCoverImageAndAvatar(profileImage: widget.userModel.image.path,),
                         SizedBox(height: 12),
+
                         EpSpProfileSummarySection(
                           isDarkMode: profileController.isDarkMode.value,
                           isFemale: isFemale,
                           femaleColorController: femaleColorController,
+                          userModel: widget.userModel,
                         ),
+
+
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 45.0),
                           child: Row(

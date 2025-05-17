@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/widgets/logger_view.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/models/service_provider_work_model.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,9 +12,20 @@ import '../../auth/auth_service/auth_service.dart';
 class EpEventServiceDetailsController extends GetxController {
   final TextEditingController search = TextEditingController();
 
+  // service user model
   Rx<Rx<ServiceUserModel>> serviceUserModel =
       Rx<ServiceUserModel>(
         ServiceUserModel(success: false, statusCode: 0, message: '', data: []),
+      ).obs;
+
+  Rx<Rx<ServiceProviderUserWorkModel>> workModel =
+      Rx<ServiceProviderUserWorkModel>(
+        ServiceProviderUserWorkModel(
+          data: [],
+          message: '',
+          statusCode: 0,
+          success: false,
+        ),
       ).obs;
 
   var allServiceProviders = <Map<String, dynamic>>[
@@ -139,10 +151,10 @@ class EpEventServiceDetailsController extends GetxController {
     serviceProviders.assignAll(filtered);
   }
 
-  final _logget = createLogger();
+  final _logger = createLogger();
 
   Future<void> fetchData({required String serviceId}) async {
-    isLoading(true);
+    isLoading.value = true;
     final accessToken = await AuthService.getToken();
 
     final response = await NetworkCaller().getRequest(
@@ -151,10 +163,28 @@ class EpEventServiceDetailsController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      serviceUserModel.value = Rx<ServiceUserModel>(ServiceUserModel.fromJson(response.responseData));
-      _logget.i(serviceUserModel.value.value.data[0].name);
+      serviceUserModel.value = Rx<ServiceUserModel>(
+        ServiceUserModel.fromJson(response.responseData),
+      );
+      _logger.i(serviceUserModel.value.value.data[0].name);
     }
-    isLoading(false);
+    isLoading.value = false;
+  }
+
+  Future<void> getServiceProviderWorks({required String userId}) async {
+    isLoading.value = true;
+    final accessToken = await AuthService.getToken();
+
+    final response = await NetworkCaller().getRequest(
+      Urls.getWorkAllDetails(userId),
+      token: 'Bearer $accessToken',
+    );
+
+    if (response.statusCode == 200) {
+     workModel.value = Rx<ServiceProviderUserWorkModel>(ServiceProviderUserWorkModel.fromJson(response.responseData));
+    }
+
+    isLoading.value = false;
   }
 
   // void showFilterDialog(BuildContext context) {
@@ -430,6 +460,4 @@ class EpEventServiceDetailsController extends GetxController {
   //     ),
   //   );
   // }
-
-  
 }

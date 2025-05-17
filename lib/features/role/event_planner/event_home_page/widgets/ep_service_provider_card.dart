@@ -4,6 +4,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
+import 'package:blinqo/features/role/event_planner/service_provider/screen/ep_service_provider_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -153,10 +154,9 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                 SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
-                    // Get.to(
-                    //   () => EpServiceProviderProfile(),
-                    //   arguments: provider,
-                    // );
+                    Get.to(
+                      () => EpServiceProviderProfile(userModel: userModel,),
+                    );
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
