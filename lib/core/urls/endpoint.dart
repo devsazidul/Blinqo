@@ -73,8 +73,9 @@ class Urls {
   static String getWorkDetails(String id) => '$baseUrl/works/get/$id';
 
   static String getVenueOwnerHome = '$baseUrl/venue/venue-owner-home';
-
-  //-----------------------Venue Owner Shifts-----------------------
+  static String getAllUpcomingBookings = '$baseUrl/booking/get-all-venue-owner-bookings';
+  static String getAllRecentReviews = '$baseUrl/review/get-all/venue-owner';
+    //-----------------------Venue Owner Shifts-----------------------
   static String getAllShifts = '$baseUrl/shift/all';
   static String createShift = '$baseUrl/shift/create';
   static String getSingleShift(String id) => '$baseUrl/shift/$id';

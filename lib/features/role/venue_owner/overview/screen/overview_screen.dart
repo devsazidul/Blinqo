@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/overview/controller/overview_controller.dart';
+import 'package:blinqo/features/role/venue_owner/overview/screen/all_reviews_venue_screen.dart';
 import 'package:blinqo/features/role/venue_owner/overview/model/venue_overview_model.dart'
     as model;
 import 'package:blinqo/features/role/venue_owner/overview/widgets/custom_over_appbar.dart';
@@ -51,6 +52,7 @@ class OverviewScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 30),
+              // revenue card
               RevenueCard(
                 totalRevenue: analytics?.totalRevenue ?? 0,
                 currentMonthRevenue: analytics?.currentMonthRevenue ?? 0,
@@ -58,6 +60,7 @@ class OverviewScreen extends StatelessWidget {
                 pendingBookings: analytics?.totalPendingBookings ?? 0,
               ),
               const SizedBox(height: 25),
+              // upcoming bookings
               _buildSectionTitle('Upcoming Bookings', textColor),
               if (upcomingEvents.isNotEmpty)
                 _buildExploreAllRow(
@@ -66,13 +69,16 @@ class OverviewScreen extends StatelessWidget {
                   textColor,
                 ),
               UpComingBooking(),
-              _buildAddNewVenueButton(),
               const SizedBox(height: 40),
+              // add new venue button
+              // _buildAddNewVenueButton(),
+              const SizedBox(height: 40),
+              // recent reviews
               _buildSectionTitle('Recent Reviews', textColor),
               if (recentReviews.isNotEmpty)
                 _buildExploreAllRow(
-                  // () => Get.to(() =>  Bookviewerreview()),
-                  () => Get.to(() => ()),
+                
+                  () => Get.to(() => AllReviewsVenueScreen()),
                   textColor,
                 ),
               _buildReviewsList(controller, recentReviews, isDarkMode),
