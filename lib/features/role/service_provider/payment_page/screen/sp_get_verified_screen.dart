@@ -7,7 +7,7 @@ import 'package:blinqo/features/role/service_provider/common/controller/auth_con
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_submission.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/controller/sp_home_Controller.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

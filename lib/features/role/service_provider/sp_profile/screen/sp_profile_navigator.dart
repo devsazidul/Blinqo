@@ -1,5 +1,5 @@
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_work_details_screen.dart';

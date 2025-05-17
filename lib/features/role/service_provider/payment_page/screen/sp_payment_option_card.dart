@@ -5,7 +5,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart' show IconPath;
 import 'package:blinqo/features/role/service_provider/payment_page/controller/sp_payment_option_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/widget/sp_custom_payment_card.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

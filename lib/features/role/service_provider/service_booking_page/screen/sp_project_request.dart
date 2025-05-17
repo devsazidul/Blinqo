@@ -6,7 +6,7 @@ import 'package:blinqo/features/role/service_provider/service_booking_page/contr
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/accept_decline_button.dart';
 import 'package:blinqo/features/role/service_provider/service_booking_page/widget/custom_p_request_row.dart';
 import 'package:blinqo/features/role/service_provider/service_chat_page/screen/sp_chat_page.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/controller/service_user_profile_controler.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

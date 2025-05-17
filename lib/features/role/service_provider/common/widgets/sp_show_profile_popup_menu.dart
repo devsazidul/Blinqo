@@ -5,8 +5,8 @@ import 'package:blinqo/features/role/service_provider/common/controller/auth_con
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_get_verified_screen.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/profile_settings_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
