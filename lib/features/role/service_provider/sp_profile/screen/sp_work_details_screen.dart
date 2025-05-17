@@ -1,7 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/device/device_utility.dart';
-import 'package:blinqo/features/profile/widget/show_profile_popup_menu.dart';
+import 'package:blinqo/features/role/event_planner/profile/widget/show_profile_popup_menu.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_work_details_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_profile_app_bar.dart';

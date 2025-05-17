@@ -1,3 +1,5 @@
+import 'package:blinqo/core/models/network_response.dart';
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/auth/model/login_model.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
@@ -5,8 +7,6 @@ import 'package:blinqo/features/role/service_provider/common/controller/auth_con
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -50,7 +50,7 @@ class SpLoginController extends GetxController {
       'password': passwordController.text.trim(),
     };
 
-    final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
+    final NetworkResponse response = await Get.find<NetworkCaller>()
         .postRequest(Urls.login, requestBody);
 
     if (response.isSuccess) {

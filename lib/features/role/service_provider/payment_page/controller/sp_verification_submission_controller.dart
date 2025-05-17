@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -50,7 +50,7 @@ class SpVerificationSubmissionController extends GetxController {
     EasyLoading.showProgress(0.5, status: 'Loading...');
     bool isSuccess = false;
 
-    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+    final response = await Get.find<NetworkCaller>().multipartRequest(
       url: Urls.sendVerificationRequest,
       formFields: {
         'profileId': SpAuthController.spUser?.profile?.id ?? '',

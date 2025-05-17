@@ -1,10 +1,10 @@
-class SpNetworkResponse {
+class NetworkResponse {
   final bool isSuccess;
   final int statusCode;
   final dynamic responseData;
   final String errorMessage;
 
-  SpNetworkResponse({
+  NetworkResponse({
     required this.isSuccess,
     required this.statusCode,
     this.responseData,

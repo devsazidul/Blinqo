@@ -1,10 +1,11 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
 import '../controller/otp_controller.dart';
 
 class OTPScreen extends StatelessWidget {
@@ -55,9 +56,10 @@ class OTPScreen extends StatelessWidget {
                     Text(
                       'Your $email',
                       style: getTextStyle(
-                        color: isFemale
-                            ? femaleColorController.selectedColor
-                            : AppColors.buttonColor2,
+                        color:
+                            isFemale
+                                ? femaleColorController.selectedColor
+                                : AppColors.buttonColor2,
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),
@@ -67,11 +69,12 @@ class OTPScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 Obx(
                   () => GestureDetector(
-                    onTap: otpController.resendEnabled.value
-                        ? () {
-                            otpController.resendCode(email);
-                          }
-                        : null,
+                    onTap:
+                        otpController.resendEnabled.value
+                            ? () {
+                              otpController.resendCode(email);
+                            }
+                            : null,
                     child: Text(
                       otpController.resendEnabled.value
                           ? "Resend Code"
@@ -92,33 +95,32 @@ class OTPScreen extends StatelessWidget {
                         otpController.isFormValid.value && isFemale
                             ? AppColors.primary
                             : otpController.isFormValid.value && !isFemale
-                                ? AppColors.primary
-                                : !otpController.isFormValid.value && isFemale
-                                    ? Color(0xFFEBA8B5)
-                                    : AppColors.buttonColor2,
-                    onPress: otpController.isFormValid.value
-                        ? () {
-                            otpController.validatePin(email);
-                          }
-                        : null,
+                            ? AppColors.primary
+                            : !otpController.isFormValid.value && isFemale
+                            ? Color(0xFFEBA8B5)
+                            : AppColors.buttonColor2,
+                    onPress:
+                        otpController.isFormValid.value
+                            ? () {
+                              otpController.validatePin(email);
+                            }
+                            : null,
                     backgroundColor:
                         otpController.isFormValid.value && isFemale
                             ? femaleColorController.selectedColor
                             : otpController.isFormValid.value && !isFemale
-                                ? AppColors.buttonColor2
-                                : !otpController.isFormValid.value && isFemale
-                                    ? femaleColorController.selectedColor
-                                        .withValues(
-                                          alpha: 0.1,
-                                        )
-                                    : AppColors.buttonColor2.withValues(
-                                        alpha: 0.1),
+                            ? AppColors.buttonColor2
+                            : !otpController.isFormValid.value && isFemale
+                            ? femaleColorController.selectedColor.withValues(
+                              alpha: 0.1,
+                            )
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                     borderColor:
                         isFemale
                             ? Colors.transparent
                             : otpController.isFormValid.value
-                                ? AppColors.buttonColor2
-                                : AppColors.buttonColor2.withValues(alpha: 0.1),
+                            ? AppColors.buttonColor2
+                            : AppColors.buttonColor2.withValues(alpha: 0.1),
                   ),
                 ),
               ],

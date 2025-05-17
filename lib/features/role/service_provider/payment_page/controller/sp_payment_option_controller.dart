@@ -1,7 +1,7 @@
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_verification_thanks.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -39,7 +39,7 @@ class SpPaymentOptionController extends GetxController {
       "paymentType": "verificationFee",
     };
 
-    final response = await Get.find<SpNetworkCaller>().postRequest(
+    final response = await Get.find<NetworkCaller>().postRequest(
       Urls.createPaymentIntent,
       requestBody,
     );

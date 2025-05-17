@@ -63,10 +63,9 @@ class Urls {
   static String createPaymentIntent = '$baseUrl/billing/create-payment-intent';
 
   // service provider
-  static String getServiceProvider =
-      '${Urls.baseUrl}/service-provider-type/get';
+  static String getServiceProvider = '$baseUrl/service-provider-type/get';
 
-  // Service Provider work urls
+  // -----------------------Service Provider urls-----------------------
   static String workShowcase = '$baseUrl/works/create-work-showcase';
   static String getAllWorks = '$baseUrl/works/get-all-by-service-provider';
 
@@ -74,13 +73,20 @@ class Urls {
   static String getWorkAllDetails(String id) => '$baseUrl/works/get-all/$id';
 
   static String getVenueOwnerHome = '$baseUrl/venue/venue-owner-home';
-  static String getAllUpcomingBookings = '$baseUrl/booking/get-all-venue-owner-bookings';
+  static String getAllUpcomingBookings =
+      '$baseUrl/booking/get-all-venue-owner-bookings';
   static String getAllRecentReviews = '$baseUrl/review/get-all/venue-owner';
-    //-----------------------Venue Owner Shifts-----------------------
+  // ------------------------------------------------------------------------
+
+  // -----------------------Venue Owner Shifts-----------------------
   static String getAllShifts = '$baseUrl/shift/all';
   static String createShift = '$baseUrl/shift/create';
   static String getSingleShift(String id) => '$baseUrl/shift/$id';
   static String updateShift(String id) => '$baseUrl/shift/update/$id';
   static String deleteShift(String id) => '$baseUrl/shift/delete/$id';
   //-----------------------Venue Owner Shifts-----------------------
+
+  //-----------------------Event Planner -----------------------
+  static String getEventPlannerHomeData = '$baseUrl/venue/planner-home';
+  //------------------------------------------------------------------------
 }

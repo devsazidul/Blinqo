@@ -2,9 +2,9 @@ import 'package:blinqo/core/common/styles/global_text_style.dart'
     show getTextStyle;
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
-import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/screen/ep_venue_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -136,11 +136,36 @@ class FeatureVenues extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            imagePath, // Dynamically use image path
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
+          child:
+              imagePath.startsWith('http') || imagePath.startsWith('https')
+                  ? Image.network(
+                    imagePath,
+                    width: 237,
+                    height: 187,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/placeholder.png',
+                        width: 237,
+                        height: 187,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  )
+                  : Image.asset(
+                    imagePath,
+                    width: 237,
+                    height: 187,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/placeholder.png',
+                        width: 237,
+                        height: 187,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  ),
         ),
         Positioned(
           top: 8,

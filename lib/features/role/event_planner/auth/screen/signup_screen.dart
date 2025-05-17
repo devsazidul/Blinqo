@@ -2,10 +2,10 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/auth_custom_textfield.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/signup_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/even_profile_setup_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

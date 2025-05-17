@@ -3,7 +3,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/chat_screen/screen/ep_chat_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_service_provider_controller/ep_custom_calender.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_service_provider_controller/ep_service_provider_booking_controller.dart';
@@ -11,6 +10,7 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/servi
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart'
     as eventPlanner;
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/ep_status_label.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:step_indicator_package/step_indicator.dart';

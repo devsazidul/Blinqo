@@ -1,10 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/controller/pick_color_controller.dart';
-import 'package:blinqo/features/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/event_planner_custom_calendar.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/revies_card.dart'
     show ReviesCard;
+import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

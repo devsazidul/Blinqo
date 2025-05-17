@@ -1,6 +1,6 @@
 import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/widget/profile_edit_text_form_field.dart';
+import 'package:blinqo/features/role/event_planner/profile/widget/profile_edit_text_form_field.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_edit_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_profile_app_bar.dart';

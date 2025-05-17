@@ -1,163 +1,12 @@
-// import 'package:shared_preferences/shared_preferences.dart';
-
-// class AuthService {
-//   static const _tokenKey = 'access_token';
-//   static const _userIdKey = 'id';
-//   static const _role = 'roles';
-//   static const _isProfileCreated = 'isProfileCreated';
-
-//   static Future<void> saveAuthData(
-//     String token,
-//     String userId,
-//     String role,
-//     String isProfileCreated,
-//   ) async {
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.setString(_tokenKey, token);
-//     await prefs.setString(_userIdKey, userId);
-//     await prefs.setString(_role, role);
-//     await prefs.setString(_isProfileCreated, isProfileCreated);
-//   }
-
-//   // Get stored token
-//   static Future<String?> getToken() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     return prefs.getString(_tokenKey);
-//   }
-
-//   // Get stored user ID
-//   static Future<String?> getUserId() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     return prefs.getString(_userIdKey);
-//   }
-
-//   static Future<String?> getRole() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     return prefs.getString(_role);
-//   }
-
-//   static Future<String?> getProfileCreated() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     return prefs.getString(_isProfileCreated);
-//   }
-
-//   // Clear all auth data
-//   static Future<void> clearAuthData() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.remove(_tokenKey);
-//     await prefs.remove(_userIdKey);
-//     await prefs.remove(_role);
-//     await prefs.remove(_isProfileCreated);
-//   }
-
-//   // Check if user is authenticated
-//   static Future<bool> isAuthenticated() async {
-//     final token = await getToken();
-//     return token != null && token.isNotEmpty;
-//   }
-
-//   static Future<bool> isRole() async {
-//     final role = await getRole();
-//     return role != null && role.isNotEmpty;
-//   }
-
-//   static Future<bool> isProfileCreated() async {
-//     final isProfileCreated = await getProfileCreated();
-//     return isProfileCreated != null && isProfileCreated.isNotEmpty;
-//   }
-// }
-
-//====================================================================
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-
-// class AuthService {
-//   static const _tokenKey = 'access_token';
-//   static const _userIdKey = 'id';
-//   static const _role = 'roles';
-//   static const _isProfileCreated = 'isProfileCreated';
-
-//   // Save auth data to SharedPreferences
-//   static Future<void> saveAuthData(
-//     String token,
-//     String userId,
-//     String role,
-//     String isProfileCreated,
-//   ) async {
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.setString(_tokenKey, token);
-//     await prefs.setString(_userIdKey, userId);
-//     await prefs.setString(_role, role);
-//     await prefs.setString(_isProfileCreated, isProfileCreated);
-//     debugPrint('Auth data saved: $token, $userId, $role, $isProfileCreated');
-//   }
-
-//   // Get stored token
-//   static Future<String?> getToken() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     return prefs.getString(_tokenKey);
-//   }
-
-//   // Get stored user ID
-//   static Future<String?> getUserId() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     return prefs.getString(_userIdKey);
-//   }
-
-//   // Get stored role
-//   static Future<String?> getRole() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     return prefs.getString(_role);
-//   }
-
-//   // Get stored profile creation status
-//   static Future<String?> getProfileCreated() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     return prefs.getString(_isProfileCreated);
-//   }
-
-//   // Clear all auth data
-//   static Future<void> clearAuthData() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.remove(_tokenKey);
-//     await prefs.remove(_userIdKey);
-//     await prefs.remove(_role);
-//     await prefs.remove(_isProfileCreated);
-//   }
-
-//   // Check if user is authenticated
-//   static Future<bool> isAuthenticated() async {
-//     final token = await getToken();
-//     return token != null && token.isNotEmpty;
-//   }
-
-//   // Check if user has a role
-//   static Future<bool> isRole() async {
-//     final role = await getRole();
-//     return role != null && role.isNotEmpty;
-//   }
-
-//   // Check if user has a profile created
-//   static Future<bool> isProfileCreated() async {
-//     final isProfileCreated = await getProfileCreated();
-//     return isProfileCreated != null && isProfileCreated.isNotEmpty;
-//   }
-// }
-
-
-//===============================
-
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   static const _tokenKey = 'access_token';
   static const _userIdKey = 'id';
-  static const _role = 'roles'; // This will store the roles as a comma-separated string
+  static const _role =
+      'roles'; // This will store the roles as a comma-separated string
   static const _isProfileCreated = 'isProfileCreated';
   static const _profileId = 'profileId';
 
@@ -175,7 +24,9 @@ class AuthService {
     await prefs.setString(_role, role); // Save roles as a string
     await prefs.setString(_isProfileCreated, isProfileCreated);
     await prefs.setString(_profileId, profileId);
-    debugPrint('Auth data saved: $token, $userId, $role, $isProfileCreated , $profileId');
+    debugPrint(
+      'Auth data saved: $token, $userId, $role, $isProfileCreated , $profileId',
+    );
   }
 
   // Get stored token
@@ -190,7 +41,6 @@ class AuthService {
     return prefs.getString(_userIdKey);
   }
 
-
   static Future<String?> getProfileId() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_profileId);
@@ -201,7 +51,9 @@ class AuthService {
     final prefs = await SharedPreferences.getInstance();
     String? rolesString = prefs.getString(_role);
     if (rolesString != null) {
-      return rolesString.split(','); // Convert the comma-separated string back into a list
+      return rolesString.split(
+        ',',
+      ); // Convert the comma-separated string back into a list
     }
     return [];
   }
@@ -237,6 +89,9 @@ class AuthService {
   // Check if user has a profile created
   static Future<bool> isProfileCreated() async {
     final isProfileCreated = await getProfileCreated();
+    Logger().d(
+      "check in auth service isProfileCreated: ====> $isProfileCreated",
+    );
     return isProfileCreated != null && isProfileCreated.isNotEmpty;
   }
 }

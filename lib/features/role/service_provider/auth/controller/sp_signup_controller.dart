@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_final_fields
 
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_confirm_email_verify_otp_screen.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -63,7 +63,7 @@ class SpSignupController extends GetxController {
       "roles": ["SERVICE_PROVIDER"], // Replace this with a valid role
     };
 
-    final response = await Get.find<SpNetworkCaller>().postRequest(
+    final response = await Get.find<NetworkCaller>().postRequest(
       Urls.register,
       requestBody,
     );

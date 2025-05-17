@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_change_password_screen.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -34,7 +34,7 @@ class SpOtpVerifyController extends GetxController {
       "code": pinController.text,
     };
 
-    final response = await Get.find<SpNetworkCaller>().postRequest(
+    final response = await Get.find<NetworkCaller>().postRequest(
       Urls.verifyResetCode,
       requestBody,
     );
@@ -68,7 +68,7 @@ class SpOtpVerifyController extends GetxController {
         "code": pinController.text,
       };
 
-      final response = await Get.find<SpNetworkCaller>().postRequest(
+      final response = await Get.find<NetworkCaller>().postRequest(
         Urls.verifyEmail,
         requestBody,
       );
@@ -103,7 +103,7 @@ class SpOtpVerifyController extends GetxController {
 
     Map<String, dynamic> requestBody = {"email": email};
 
-    final response = await Get.find<SpNetworkCaller>().postRequest(
+    final response = await Get.find<NetworkCaller>().postRequest(
       Urls.resendPasswordResetCode,
       requestBody,
     );

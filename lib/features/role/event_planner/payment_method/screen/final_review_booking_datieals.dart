@@ -1,9 +1,9 @@
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/profile/controller/profile_controller.dart';
-import 'package:blinqo/features/profile/utils/styles.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/guest_list_screen.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/profile/utils/styles.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/widget/reviews_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

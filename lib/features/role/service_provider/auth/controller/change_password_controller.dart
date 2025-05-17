@@ -1,6 +1,6 @@
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/auth/screen/sp_login_screen.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -60,7 +60,7 @@ class SpChangePasswordController extends GetxController {
       "newPassword": confirmPasswordEditingController.text,
     };
 
-    final response = await Get.find<SpNetworkCaller>().postRequest(
+    final response = await Get.find<NetworkCaller>().postRequest(
       Urls.resetPassword,
       requestBody,
     );

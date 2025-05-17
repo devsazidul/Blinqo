@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/models/network_response.dart';
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
@@ -9,8 +11,6 @@ import 'package:blinqo/features/role/service_provider/common/controller/auth_con
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/event_preference_model.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_page/model/profile_setup_model.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_response.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -298,8 +298,9 @@ class SpProfileSetupController extends GetxController {
 
     await SpAuthController.getUserInformation();
 
-    final SpNetworkResponse response = await Get.find<SpNetworkCaller>()
-        .getRequest(Urls.getEventPreference);
+    final NetworkResponse response = await Get.find<NetworkCaller>().getRequest(
+      Urls.getEventPreference,
+    );
 
     if (response.isSuccess) {
       eventPreferenceList.addAll(
@@ -326,7 +327,7 @@ class SpProfileSetupController extends GetxController {
     isLoadingServiceProviderSetup.value = true;
     update();
 
-    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+    final response = await Get.find<NetworkCaller>().multipartRequest(
       url: Urls.uploadServiceProviderProfile,
       formFields: {
         'eventPreferenceIds': jsonEncode(selectedEvents),
@@ -388,7 +389,7 @@ class SpProfileSetupController extends GetxController {
 
     await SpAuthController.getUserInformation();
 
-    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+    final response = await Get.find<NetworkCaller>().multipartRequest(
       isPatchRequest: true,
       url: Urls.updateServiceProviderProfile(
         SpAuthController.spUser?.profile?.id ?? '',

@@ -1,5 +1,5 @@
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -58,7 +58,7 @@ class StripePaymentService {
     bool isSuccess = false;
 
     try {
-      final response = await Get.find<SpNetworkCaller>()
+      final response = await Get.find<NetworkCaller>()
           .postRequest(Urls.createPaymentIntent, {
             "currency": body.currency,
             "email": body.email,

@@ -1,7 +1,7 @@
+import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/models/sp_user_model.dart';
-import 'package:blinqo/features/role/service_provider/services/sp_network_caller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -81,7 +81,7 @@ class SpShareWorkController extends GetxController {
       }
     }
 
-    final response = await Get.find<SpNetworkCaller>().multipartRequest(
+    final response = await Get.find<NetworkCaller>().multipartRequest(
       url: Urls.workShowcase,
       formFields: formFields,
       files: files,
