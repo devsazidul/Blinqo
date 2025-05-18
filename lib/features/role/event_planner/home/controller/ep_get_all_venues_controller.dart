@@ -29,6 +29,8 @@ class EpGetAllVenuesController extends GetxController {
 
   Future<bool> getAllVenues() async {
     _isLoading = true;
+    update();
+
     bool isSuccess = false;
     _homeResponseData = null;
 
@@ -47,7 +49,6 @@ class EpGetAllVenuesController extends GetxController {
 
     _isLoading = false;
     update();
-
     return isSuccess;
   }
 }

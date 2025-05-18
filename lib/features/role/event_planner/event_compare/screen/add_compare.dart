@@ -1,8 +1,6 @@
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
-import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/bottom_nav_bar/widgets/bottom_nav_bar.dart';
-import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
-import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_venue_compare_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,178 +9,154 @@ class AddCompare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final ProfileController profileController = Get.find<ProfileController>();
-    final themeMode =
-        profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+    final venueCompareController = Get.find<EpVenueCompareController>();
+    final venues = venueCompareController.venues;
+
+    // List of field names and extractors
+    final fields = <Map<String, dynamic>>[
+      {"label": "Image", "extractor": (venue) => venue.venueImage?.path ?? ""},
+      {"label": "Location", "extractor": (venue) => venue.city ?? ""},
+      {
+        "label": "Capacity",
+        "extractor": (venue) => venue.capacity?.toString() ?? "",
+      },
+      {
+        "label": "Pricing & Packages",
+        "extractor": (venue) => venue.price?.toString() ?? "",
+      },
+      {
+        "label": "Catering Options",
+        "extractor": (venue) => venue.cateringDescription ?? "No",
+      },
+      {
+        "label": "Parking Space",
+        "extractor": (venue) => venue.parkingDescription ?? "No",
+      },
+      {
+        "label": "Availability",
+        "extractor": (venue) => venue.availabilityDescription ?? "No",
+      },
+      {
+        "label": "Extra Services",
+        "extractor": (venue) => venue.extraServiceDescription ?? "No",
+      },
+      // Add more fields as needed
+    ];
 
     return Scaffold(
-      backgroundColor:
-          themeMode == ThemeMode.dark
-              ? AppColors.darkBackgroundColor
-              : AppColors.backgroundColor,
-      appBar: CustomAppBarWidget(title: 'Compare', onPressed: () => Get.back()),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              // Horizontal ScrollView for the Table
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: screenHeight),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                        vertical: 25,
-                      ),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Table(
-                          border: TableBorder.all(color: Colors.grey.shade700),
-                          columnWidths: const {
-                            0: FixedColumnWidth(153.0),
-                            1: FixedColumnWidth(153.0),
-                            2: FixedColumnWidth(153.0),
-                          },
-
-                          defaultVerticalAlignment:
-                              TableCellVerticalAlignment.middle,
-                          children: [
-                            _buildTableRow([
-                              '',
-                              'Grand Elegance Hall',
-                              'Grand Elite Hall',
-                            ], isHeader: true),
-
-                            // generate unsplash images url list
-                            _buildTableRow([
-                              '',
-                              'https://plus.unsplash.com/premium_photo-1664530452358-d50d2d4a98d1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8d2VkZGluZyUyMHZhbnVlJTIwaGFsbHxlbnwwfHwwfHx8MA%3D%3D',
-                              'https://plus.unsplash.com/premium_photo-1664530452329-42682d3a73a7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2VkZGluZyUyMHZhbnVlJTIwaGFsbHxlbnwwfHwwfHx8MA%3D%3D',
-                            ], isImageShow: true),
-                            _buildTableRow([
-                              'Location',
-                              'Downtown City Center',
-                              'Suburban Riverside',
-                            ], isIcon: true),
-                            _buildTableRow([
-                              'Capacity',
-                              'Up to 300 Guests',
-                              'Up to 200 Guests',
-                            ]),
-                            _buildTableRow([
-                              'Pricing & Packages',
-                              '\$5,000 for 8 hours',
-                              '\$3,500 for 6 hours',
-                            ]),
-                            _buildTableRow([
-                              'Catering Options',
-                              'In-house catering with customizable menus',
-                              'External catering allowed',
-                            ]),
-                            _buildTableRow([
-                              'Parking Space',
-                              '100 car slots',
-                              '50 car slots',
-                            ]),
-                            _buildTableRow(['Review', '4.5/5', '4.7/5']),
-                            _buildTableRow([
-                              'Availability',
-                              'Open on weekends',
-                              'Flexible weekdays and weekends',
-                            ]),
-                            _buildTableRow([
-                              'Extra Services',
-                              'Event planning support and preferred vendor list',
-                              'On-site coordination and floral decor options',
-                            ]),
-                          ],
-                        ),
-                      ),
-                    ),
+      appBar: CustomAppBarWidget(title: 'Compare'),
+      bottomNavigationBar: EpBottomNavBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Table(
+              border: TableBorder.all(color: const Color(0xffABB7C2)),
+              columnWidths: {
+                0: FixedColumnWidth(153),
+                ...Map.fromEntries(
+                  List.generate(
+                    venues.length,
+                    (index) => MapEntry(index + 1, FixedColumnWidth(153)),
                   ),
                 ),
-              ),
+                // The rest will be flexible or you can fix as needed
+              },
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              children: [
+                // Header row
+                TableRow(
+                  decoration: BoxDecoration(color: Colors.white),
+                  children: [
+                    _tableHeaderCell('Venue'),
+                    ...venues.map(
+                      (venue) => _tableHeaderCell(venue.name ?? ''),
+                    ),
+                  ],
+                ),
+                // Image row
 
-              SizedBox(height: 50),
-            ],
+                // Data rows
+                ...fields.map((field) {
+                  return TableRow(
+                    children: [
+                      _tableAttributeCell(field["label"] as String),
+                      ...venues.map(
+                        (venue) =>
+                            field["label"] == "Image"
+                                ? _tableImageCell(field["extractor"]!(venue))
+                                : _tableValueCell(field["extractor"]!(venue)),
+                      ),
+                    ],
+                  );
+                }),
+              ],
+            ),
           ),
-
-          Positioned(bottom: 0, left: 0, right: 0, child: EpBottomNavBar()),
-        ],
+        ),
       ),
     );
   }
 
-  TableRow _buildTableRow(
-    List<String> cells, {
-    bool isHeader = false,
-    bool isIcon = false,
-    bool isImageShow = false,
-  }) {
-    bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
-    final femaleColorController = Get.put(PickColorController());
-    final bool isFemale = femaleColorController.isFemale.value;
-    return TableRow(
-      children:
-          cells.map((cell) {
-            return isImageShow
-                ? cell == ""
-                    ? SizedBox()
-                    : Image.network(cell)
-                : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (isIcon && cells.indexOf(cell) == 1 ||
-                            isIcon && cells.indexOf(cell) == 2)
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 2.0,
-                              right: 4.0,
-                            ),
-                            child: Icon(
-                              Icons.location_on_outlined,
-                              color: Color(0xFF8A8A8A),
-                              size: 16,
-                            ),
-                          ),
-                        Expanded(
-                          child: Text(
-                            cell,
-                            style: TextStyle(
-                              color:
-                                  isDarkMode
-                                      ? Colors.white
-                                      : (isHeader && isFemale) ||
-                                          (cells.indexOf(cell) == 0 && isFemale)
-                                      ? femaleColorController.selectedColor
-                                      : Colors.black,
+  Widget _tableHeaderCell(String text) => Container(
+    alignment: Alignment.center,
+    padding: const EdgeInsets.all(8.0),
+    child: Text(
+      text,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Color(0xff003366),
+      ),
+      softWrap: true,
+      overflow: TextOverflow.visible,
+      maxLines: null,
+      textAlign: TextAlign.center,
+    ),
+  );
 
-                              // isDarkMode
-                              //     ? Color(0xFF003336)
-                              //     : AppColors.backgroundColor,
-                              fontWeight:
-                                  isHeader
-                                      ? FontWeight.w600
-                                      : cells.indexOf(cell) == 0
-                                      ? FontWeight.w600
-                                      : FontWeight.normal,
-                              fontSize: 14.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-          }).toList(),
-    );
-  }
+  Widget _tableAttributeCell(String text) => Container(
+    alignment: Alignment.centerLeft,
+    padding: const EdgeInsets.all(8.0),
+    // color: const Color(0xfff5f7fa),
+    child: Text(
+      text,
+      style: const TextStyle(
+        fontWeight: FontWeight.w600,
+        color: Color(0xff003366),
+      ),
+      softWrap: true,
+      overflow: TextOverflow.visible,
+      maxLines: null,
+    ),
+  );
+
+  Widget _tableValueCell(String text) => Container(
+    alignment: Alignment.centerLeft,
+    padding: const EdgeInsets.all(8.0),
+    child: Text(
+      text,
+      style: const TextStyle(fontWeight: FontWeight.normal),
+      softWrap: true,
+      overflow: TextOverflow.visible,
+      maxLines: null,
+    ),
+  );
+
+  Widget _tableImageCell(String imageUrl) => Container(
+    alignment: Alignment.center,
+    padding: const EdgeInsets.all(8.0),
+    child:
+        imageUrl.isNotEmpty
+            ? Image.network(
+              imageUrl,
+              height: 100,
+              width: 150,
+              fit: BoxFit.cover,
+              errorBuilder:
+                  (context, error, stackTrace) => const Icon(Icons.error),
+            )
+            : const SizedBox(),
+  );
 }
