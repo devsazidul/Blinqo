@@ -4,14 +4,15 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/createshift.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/create_shift.dart';
 import 'package:blinqo/features/role/venue_owner/team/widget/custom_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Schedule extends StatelessWidget {
-  const Schedule({super.key});
+  final String venueId;
+  const Schedule({super.key, required this.venueId});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +113,7 @@ class Schedule extends StatelessWidget {
                                       onTap: () {
                                         Get.to(
                                           () =>
-                                              Createshift(title: item['title']),
+                                              Createshift(title: item['title'], venueId: venueId),
                                         );
                                       },
                                       child: Image.asset(
@@ -177,7 +178,7 @@ class Schedule extends StatelessWidget {
               SizedBox(height: 40),
               InkWell(
                 onTap: () {
-                  Get.to(() => Createshift());
+                  Get.to(() => Createshift(venueId: venueId));
                 },
                 child: Container(
                   width: double.infinity,

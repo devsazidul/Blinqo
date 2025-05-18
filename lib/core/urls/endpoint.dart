@@ -84,7 +84,15 @@ class Urls {
   static String getSingleShift(String id) => '$baseUrl/shift/$id';
   static String updateShift(String id) => '$baseUrl/shift/update/$id';
   static String deleteShift(String id) => '$baseUrl/shift/delete/$id';
-  //-----------------------Venue Owner Shifts-----------------------
+  // ------------------------------------------------------------------------
+
+  // -----------------------Venue Owner Employees-----------------------
+  static String getAllEmployees = '$baseUrl/employees/all';
+  static String createEmployee = '$baseUrl/employees/create';
+  static String getSingleEmployee(String id) => '$baseUrl/employees/$id';
+  static String updateEmployee(String id) => '$baseUrl/employees/update/$id';
+  static String deleteEmployee(String id) => '$baseUrl/employees/$id';
+  // ------------------------------------------------------------------------
 
   //-----------------------Event Planner -----------------------
   static String getEventPlannerHomeData = '$baseUrl/venue/planner-home';

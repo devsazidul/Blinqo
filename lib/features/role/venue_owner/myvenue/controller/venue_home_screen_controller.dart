@@ -14,19 +14,17 @@ class AllVenuesDetailsController extends GetxController {
   Rxn<AllVenueDetails> response = Rxn<AllVenueDetails>();
 
   @override
-  void onInit()async {
+  void onInit() async {
     super.onInit();
     await getAllVenues();
   }
 
   Future<void> getAllVenues() async {
     try {
-
       var apiResponse = await OwnerNetworkCaller().getRequest(
-        showLoading: true,
+        showLoading: false,
         Url: "${Urls.baseUrl}/venue/get-all-by-venue-owner",
       );
-
 
       if (apiResponse.isSuccess) {
         Map<String, dynamic> jsonResponse;
@@ -36,7 +34,9 @@ class AllVenuesDetailsController extends GetxController {
         } else if (apiResponse.body is Map<String, dynamic>) {
           jsonResponse = apiResponse.body;
         } else {
-          _logger.e('Unexpected response body type: ${apiResponse.body.runtimeType}');
+          _logger.e(
+            'Unexpected response body type: ${apiResponse.body.runtimeType}',
+          );
           throw Exception('Unexpected response body type');
         }
 
@@ -44,14 +44,20 @@ class AllVenuesDetailsController extends GetxController {
         _logger.i('Fetched ${response.value?.data.length} venues');
 
         // Map VenueData to UI format
-        filteredVenues.value = response.value?.data.map((venue) => {
-          'title': venue.name ?? 'Unknown Venue',
-          'address': '${venue.city ?? ''}, ${venue.area ?? ''}',
-          'guest': '${venue.capacity ?? 0} Guests',
-          'rating': venue.averageRating?.toString() ?? '0',
-          'image': venue.venueImage?.path ?? ImagePath.venueview,
-          'id': venue.id ?? '',
-        }).toList() ?? [];
+        filteredVenues.value =
+            response.value?.data
+                .map(
+                  (venue) => {
+                    'title': venue.name ?? 'Unknown Venue',
+                    'address': '${venue.city ?? ''}, ${venue.area ?? ''}',
+                    'guest': '${venue.capacity ?? 0} Guests',
+                    'rating': venue.averageRating?.toString() ?? '0',
+                    'image': venue.venueImage?.path ?? ImagePath.venueview,
+                    'id': venue.id ?? '',
+                  },
+                )
+                .toList() ??
+            [];
 
         // Initialize favorite list (all false initially)
         favoriteList.value = List<bool>.filled(filteredVenues.length, false);
@@ -60,7 +66,7 @@ class AllVenuesDetailsController extends GetxController {
         throw Exception('Failed to load venues');
       }
     } catch (e) {
-      _logger.e('Error fetching venues: $e', );
+      _logger.e('Error fetching venues: $e');
       response.value = null;
       filteredVenues.clear();
       favoriteList.clear();
@@ -70,25 +76,38 @@ class AllVenuesDetailsController extends GetxController {
 
   void filterVenues(String query) {
     if (query.isEmpty) {
-      filteredVenues.value = response.value?.data.map((venue) => {
-        'title': venue.name ?? 'Unknown Venue',
-        'address': '${venue.city ?? ''}, ${venue.area ?? ''}',
-        'guest': '${venue.capacity ?? 0} Guests',
-        'rating': venue.averageRating?.toString() ?? '0',
-        'image': venue.venueImage?.path ?? ImagePath.venueview,
-      }).toList() ?? [];
+      filteredVenues.value =
+          response.value?.data
+              .map(
+                (venue) => {
+                  'title': venue.name ?? 'Unknown Venue',
+                  'address': '${venue.city ?? ''}, ${venue.area ?? ''}',
+                  'guest': '${venue.capacity ?? 0} Guests',
+                  'rating': venue.averageRating?.toString() ?? '0',
+                  'image': venue.venueImage?.path ?? ImagePath.venueview,
+                },
+              )
+              .toList() ??
+          [];
     } else {
-      filteredVenues.value = response.value?.data
-          .where((venue) =>
-      venue.name?.toLowerCase().contains(query.toLowerCase()) == true)
-          .map((venue) => {
-        'title': venue.name ?? 'Unknown Venue',
-        'address': '${venue.city ?? ''}, ${venue.area ?? ''}',
-        'guest': '${venue.capacity ?? 0} Guests',
-        'rating': venue.averageRating?.toString() ?? '0',
-        'image': venue.venueImage?.path ?? ImagePath.venueview,
-      })
-          .toList() ?? [];
+      filteredVenues.value =
+          response.value?.data
+              .where(
+                (venue) =>
+                    venue.name?.toLowerCase().contains(query.toLowerCase()) ==
+                    true,
+              )
+              .map(
+                (venue) => {
+                  'title': venue.name ?? 'Unknown Venue',
+                  'address': '${venue.city ?? ''}, ${venue.area ?? ''}',
+                  'guest': '${venue.capacity ?? 0} Guests',
+                  'rating': venue.averageRating?.toString() ?? '0',
+                  'image': venue.venueImage?.path ?? ImagePath.venueview,
+                },
+              )
+              .toList() ??
+          [];
     }
     // Update favorite list to match filtered venues
     favoriteList.value = List<bool>.filled(filteredVenues.length, false);

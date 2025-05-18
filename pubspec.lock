@@ -1149,6 +1149,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.0"
+  phone_number:
+    dependency: "direct main"
+    description:
+      name: phone_number
+      sha256: c66d3e2f2c69ce95f10bb923957049b1e5b8c6efea02d7366353fa3b80d4338a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   pin_code_fields:
     dependency: "direct main"
     description:

@@ -28,7 +28,7 @@ class SearchEmployee extends StatelessWidget {
           color: isDarkMode ? Color(0xffFEFEFf) : Colors.black,
         ),
         decoration: InputDecoration(
-          hintText: 'Search your venues....',
+          hintText: 'Search employee by name',
           hintStyle: GoogleFonts.poppins(
             fontSize: 14,
             fontWeight: FontWeight.w400,
