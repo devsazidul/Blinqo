@@ -2,13 +2,14 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/myteam.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/my_team_tab_screen.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Emptyschedule extends StatelessWidget {
-  const Emptyschedule({super.key});
+class ScheduleAndTeamScreen extends StatelessWidget {
+  final String venueId;
+  const ScheduleAndTeamScreen({super.key, required this.venueId});
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +70,9 @@ class Emptyschedule extends StatelessWidget {
                 child: Obx(() {
                   switch (teamControllerGetx.selectedIndex.value) {
                     case 0:
-                      return const Schedule();
+                      return Schedule(venueId: venueId);
                     case 1:
-                      return const Myteam();
+                      return MyTeamTab(venueId: venueId);
                     default:
                       return const SizedBox();
                   }

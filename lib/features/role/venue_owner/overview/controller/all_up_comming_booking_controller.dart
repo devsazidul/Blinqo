@@ -9,9 +9,11 @@ import 'package:logger/logger.dart';
 class AllUpcomingBookingsController extends GetxController {
   // Initialize logger for debugging
   final _logger = Logger();
-  
+
   // Observable variables to hold data and loading state
-  final Rx<AllUpComingBooking?> upcomingBookings = Rx<AllUpComingBooking?>(null);
+  final Rx<AllUpComingBooking?> upcomingBookings = Rx<AllUpComingBooking?>(
+    null,
+  );
   final RxBool isLoading = false.obs;
 
   // Called when controller is initialized
@@ -29,7 +31,7 @@ class AllUpcomingBookingsController extends GetxController {
       // Make API call to get upcoming bookings
       final response = await OwnerNetworkCaller().getRequest(
         Url: Urls.getAllUpcomingBookings,
-        showLoading: true,
+        showLoading: false,
       );
 
       // Handle API response
@@ -41,7 +43,9 @@ class AllUpcomingBookingsController extends GetxController {
         _logger.i('All upcoming bookings fetched successfully');
       } else {
         _logger.w('Failed to fetch bookings: ${response.errorMessage}');
-        EasyLoading.showError('Failed to fetch bookings: ${response.errorMessage}');
+        EasyLoading.showError(
+          'Failed to fetch bookings: ${response.errorMessage}',
+        );
       }
     } catch (e, stackTrace) {
       // Handle any errors during API call
@@ -52,7 +56,7 @@ class AllUpcomingBookingsController extends GetxController {
   }
 }
 
-  final mockData = {
+final mockData = {
   "data": [
     {
       "id": "booking_001",
@@ -67,7 +71,7 @@ class AllUpcomingBookingsController extends GetxController {
       "venueImage": "https://example.com/images/venue_grand_ballroom.jpg",
       "venueId": "venue_001",
       "bookedById": "user_101",
-      "eventName": "Annual Corporate Gala"
+      "eventName": "Annual Corporate Gala",
     },
     {
       "id": "booking_002",
@@ -82,7 +86,7 @@ class AllUpcomingBookingsController extends GetxController {
       "venueImage": "https://example.com/images/venue_ocean_view.jpg",
       "venueId": "venue_002",
       "bookedById": "user_102",
-      "eventName": "Wedding Reception"
+      "eventName": "Wedding Reception",
     },
     {
       "id": "booking_003",
@@ -97,10 +101,10 @@ class AllUpcomingBookingsController extends GetxController {
       "venueImage": "https://example.com/images/venue_tech_hub.jpg",
       "venueId": "venue_003",
       "bookedById": "user_103",
-      "eventName": "Tech Conference"
-    }
+      "eventName": "Tech Conference",
+    },
   ],
   "message": "All upcoming bookings retrieved successfully",
   "statusCode": 200,
-  "success": true
+  "success": true,
 };

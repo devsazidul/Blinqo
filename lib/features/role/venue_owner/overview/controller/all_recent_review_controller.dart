@@ -42,7 +42,7 @@ class AllRecentReviewController extends GetxController {
       );
       final response = await OwnerNetworkCaller().getRequest(
         Url: '${Urls.getAllRecentReviews}?page=$page&limit=$limit',
-        showLoading: !isLoadMore, // Show loading only for initial fetch
+        showLoading: false, // Show loading only for initial fetch
       );
 
       if (response.isSuccess) {

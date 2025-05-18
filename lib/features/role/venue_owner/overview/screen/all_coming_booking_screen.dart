@@ -88,9 +88,10 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
               color: isDarkMode ? const Color(0xff32383D) : Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: isDarkMode 
-                    ? const Color(0xff32383D) 
-                    : const Color(0xffEBEBEB),
+                color:
+                    isDarkMode
+                        ? const Color(0xff32383D)
+                        : const Color(0xffEBEBEB),
               ),
               boxShadow: [
                 BoxShadow(
@@ -101,12 +102,10 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
               ],
             ),
             child: Shimmer.fromColors(
-              baseColor: isDarkMode 
-                  ? const Color(0xff424242) 
-                  : Colors.grey[300]!,
-              highlightColor: isDarkMode 
-                  ? const Color(0xff525252) 
-                  : Colors.grey[100]!,
+              baseColor:
+                  isDarkMode ? const Color(0xff424242) : Colors.grey[300]!,
+              highlightColor:
+                  isDarkMode ? const Color(0xff525252) : Colors.grey[100]!,
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(
@@ -200,7 +199,11 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(ImagePath.overviewbox,height: Get.height*0.3,width: Get.width*0.6,),
+          Image.asset(
+            ImagePath.overviewbox,
+            height: Get.height * 0.3,
+            width: Get.width * 0.6,
+          ),
           const SizedBox(height: 20),
           SizedBox(
             width: 220,
@@ -304,13 +307,7 @@ class AllUpcomingBookingsScreen extends StatelessWidget {
       ),
       child:
           isLoading
-              ? const Center(
-                child: SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                ),
-              )
+              ? const Center(child: SizedBox(width: 24, height: 24))
               : Icon(
                 Icons.image_outlined,
                 size: 24,

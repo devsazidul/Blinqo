@@ -2,6 +2,7 @@ import 'package:blinqo/features/role/venue_owner/team/widget/contact_pickerscree
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<Map<String, String>?> pickContact(BuildContext context) async {
@@ -17,7 +18,7 @@ Future<Map<String, String>?> pickContact(BuildContext context) async {
 
     return result;
   } else {
-    Get.snackbar("Permission", "Contacts Permission লাগবে");
+    EasyLoading.showError("Please allow contacts permission");
   }
 
   return null;

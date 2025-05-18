@@ -218,6 +218,67 @@ class OwnerNetworkCaller {
       );
     }
   }
+
+  // Delete request implementation
+  Future<NetworkResponse> deleteRequest({
+    required String Url,
+    String? token,
+    bool showLoading = true,
+  }) async {
+    try {
+      if (showLoading) {
+        await EasyLoading.show(status: 'Loading...');
+      }
+
+      // Fetch token if not provided
+      token ??= await EventAuthController.getAuthToken();
+      _logger.i(
+        'Using token: ${token?.substring(0, 5)}...',
+      ); // Log first 5 chars for security
+
+      final url = Uri.parse(Url);
+      _logger.i('DELETE Request URL: $url');
+
+      final response = await http
+          .delete(url, headers: _getHeaders(token: token))
+          .timeout(const Duration(seconds: 10));
+
+      _logger.d(
+        'DELETE Response: ${response.statusCode}\nBody: ${response.body}',
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        return NetworkResponse(
+          isSuccess: true,
+          statusCode: response.statusCode,
+          body: response.body.isNotEmpty ? jsonDecode(response.body) : null,
+        );
+      } else {
+        _logger.w(
+          'DELETE request failed: ${response.statusCode}\nMessage: ${response.body}',
+        );
+        return NetworkResponse(
+          isSuccess: false,
+          statusCode: response.statusCode,
+          errorMessage:
+              response.body.isNotEmpty
+                  ? jsonDecode(response.body)['message']
+                  : 'Delete failed',
+        );
+      }
+    } catch (e) {
+      _logger.e('Error: $e');
+      return NetworkResponse(
+        isSuccess: false,
+        statusCode: 500,
+        errorMessage: e.toString(),
+      );
+    } finally {
+      if (showLoading) {
+        await EasyLoading.dismiss();
+      }
+    }
+  }
 }
 
 class NetworkResponse {
