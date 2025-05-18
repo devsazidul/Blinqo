@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
-  const EpSpProfileCoverImageAndAvatar({super.key, required this.profileImage, this.coverImage});
+  const EpSpProfileCoverImageAndAvatar({
+    super.key,
+    required this.profileImage,
+    this.coverImage,
+  });
 
   final String profileImage;
   final String? coverImage;
@@ -15,16 +19,19 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
       children: [
         SizedBox(height: 270, width: double.infinity),
 
-        profileImage != null ? Image.asset(
-          "assets/images/profile_cover_image.jpeg",
-          height: 220,
-          width: double.infinity,
-          fit: BoxFit.cover,
-        ) : CachedNetworkImage(
-          height: 220,
-          width: double.infinity,
-          fit: BoxFit.cover, imageUrl: coverImage!,
-        ),
+        profileImage.isEmpty
+            ? Image.asset(
+              "assets/images/profile_cover_image.jpeg",
+              height: 220,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            )
+            : CachedNetworkImage(
+              height: 220,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              imageUrl: coverImage!,
+            ),
 
         Positioned(
           top: 50,
@@ -81,11 +88,12 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
                 padding: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  shape: BoxShape.circle
+                  shape: BoxShape.circle,
                 ),
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage(profileImage),
+                  backgroundImage:
+                      profileImage.isEmpty ? null : NetworkImage(profileImage),
                 ),
               ),
             ],

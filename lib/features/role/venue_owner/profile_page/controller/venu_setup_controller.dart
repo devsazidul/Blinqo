@@ -107,13 +107,16 @@ class VenueSetupController extends GetxController {
         selectedVenueType.value = venueData.type ?? 'Select Venue Type';
         venueDescriptionTEController.text = venueData.description ?? '';
         // Load amenities
-        if (venueData.amenities != null) {
+        if (venueData.amenities.isNotEmpty) {
           // First fetch all available amenities
           await fetchAmenities();
 
           // Get the IDs of venue's amenities
-          final venueAmenityIds =
-              venueData.amenities!.map((amenity) => amenity.id).toSet();
+
+          final venueAmenityIds = venueData.amenities
+              .map((amenity) => amenity.id)
+              .toSet();
+
 
           // Filter amenities into selected and available
           selectedAmenities.value =

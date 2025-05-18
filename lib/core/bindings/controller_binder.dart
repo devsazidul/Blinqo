@@ -3,6 +3,7 @@ import 'package:blinqo/features/role/event_planner/auth/controller/change_passwo
 import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/login_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/signup_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_venue_compare_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/controller/bottom_nav_controller.dart';
@@ -26,7 +27,7 @@ class ControllerBinder extends Bindings {
     Get.put(PickColorController());
     Get.put(ProfileController());
     Get.put(PickColorController());
-
+    Get.put(EpVenueCompareController());
     Get.put(SpEditProfileController());
 
     // Service Provider
