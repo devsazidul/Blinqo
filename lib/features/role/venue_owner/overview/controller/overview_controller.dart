@@ -19,7 +19,7 @@ class OverviewController extends GetxController {
         "previousMonthRevenue": 10000.0,
         "growthRate": 20.0,
         "totalPendingBookings": 4,
-        "totalVenues": 3
+        "totalVenues": 3,
       },
       "upcomingEvents": [
         {
@@ -36,7 +36,8 @@ class OverviewController extends GetxController {
           "duration": 5,
           "bookingType": "INSTANT_BOOKING",
           "guestNumber": 200,
-          "decoration": "{\"tableShapes\": [\"Round\"], \"seatingStyles\": [\"Banquet\"]}",
+          "decoration":
+              "{\"tableShapes\": [\"Round\"], \"seatingStyles\": [\"Banquet\"]}",
           "services": ["Catering", "AV Equipment", "Decor"],
           "bookingStatus": "Confirmed",
           "totalAmount": 5000,
@@ -51,9 +52,9 @@ class OverviewController extends GetxController {
             "name": "Grand Ballroom",
             "area": "Gulshan",
             "venueImage": {
-              "path": "https://example.com/images/venue_grand_ballroom.jpg"
-            }
-          }
+              "path": "https://example.com/images/venue_grand_ballroom.jpg",
+            },
+          },
         },
         {
           "id": "event_002",
@@ -69,7 +70,8 @@ class OverviewController extends GetxController {
           "duration": 5,
           "bookingType": "REQUEST_BOOKING",
           "guestNumber": 150,
-          "decoration": "{\"tableShapes\": [\"Oval\"], \"seatingStyles\": [\"Theater\"]}",
+          "decoration":
+              "{\"tableShapes\": [\"Oval\"], \"seatingStyles\": [\"Theater\"]}",
           "services": ["Catering", "Photography"],
           "bookingStatus": "Pending",
           "totalAmount": 4000,
@@ -84,9 +86,9 @@ class OverviewController extends GetxController {
             "name": "Ocean View Resort",
             "area": "Cox’s Bazar",
             "venueImage": {
-              "path": "https://example.com/images/venue_ocean_view.jpg"
-            }
-          }
+              "path": "https://example.com/images/venue_ocean_view.jpg",
+            },
+          },
         },
         {
           "id": "event_003",
@@ -102,7 +104,8 @@ class OverviewController extends GetxController {
           "duration": 8,
           "bookingType": "INSTANT_BOOKING",
           "guestNumber": 300,
-          "decoration": "{\"tableShapes\": [\"Rectangular\"], \"seatingStyles\": [\"Classroom\"]}",
+          "decoration":
+              "{\"tableShapes\": [\"Rectangular\"], \"seatingStyles\": [\"Classroom\"]}",
           "services": ["AV Equipment", "WiFi"],
           "bookingStatus": "Confirmed",
           "totalAmount": 6000,
@@ -117,59 +120,56 @@ class OverviewController extends GetxController {
             "name": "Tech Hub Convention Center",
             "area": "Banani",
             "venueImage": {
-              "path": "https://example.com/images/venue_tech_hub.jpg"
-            }
-          }
-        }
+              "path": "https://example.com/images/venue_tech_hub.jpg",
+            },
+          },
+        },
       ],
       "recentReviews": [
         {
           "id": "review_001",
           "venueId": "venue_001",
           "rating": 4.5,
-          "comment": "The Grand Ballroom was perfect for our gala. The staff was professional, and the ambiance was stunning. Only minor issue was parking availability.",
+          "comment":
+              "The Grand Ballroom was perfect for our gala. The staff was professional, and the ambiance was stunning. Only minor issue was parking availability.",
           "createdAt": "2025-05-08T14:30:00Z",
           "profileId": "user_201",
           "profile": {
             "name": "Emily Davis",
-            "image": {
-              "path": "https://example.com/images/user_emily.jpg"
-            }
-          }
+            "image": {"path": "https://example.com/images/user_emily.jpg"},
+          },
         },
         {
           "id": "review_002",
           "venueId": "venue_002",
           "rating": 4.0,
-          "comment": "Ocean View Resort was beautiful, but the event setup took longer than expected. Overall, a great experience with excellent food.",
+          "comment":
+              "Ocean View Resort was beautiful, but the event setup took longer than expected. Overall, a great experience with excellent food.",
           "createdAt": "2025-05-10T09:15:00Z",
           "profileId": "user_202",
           "profile": {
             "name": "Rahul Khan",
-            "image": {
-              "path": "https://example.com/images/user_rahul.jpg"
-            }
-          }
+            "image": {"path": "https://example.com/images/user_rahul.jpg"},
+          },
         },
         {
           "id": "review_003",
           "venueId": "venue_003",
           "rating": 5.0,
-          "comment": "Tech Hub Convention Center exceeded expectations! The AV equipment was top-notch, and the venue was spacious and well-organized.",
+          "comment":
+              "Tech Hub Convention Center exceeded expectations! The AV equipment was top-notch, and the venue was spacious and well-organized.",
           "createdAt": "2025-05-12T16:45:00Z",
           "profileId": "user_203",
           "profile": {
             "name": "Sophie Chen",
-            "image": {
-              "path": "https://example.com/images/user_sophie.jpg"
-            }
-          }
-        }
-      ]
+            "image": {"path": "https://example.com/images/user_sophie.jpg"},
+          },
+        },
+      ],
     },
     "message": "Venue overview retrieved successfully",
     "statusCode": 200,
-    "success": true
+    "success": true,
   };
 
   @override
@@ -186,7 +186,7 @@ class OverviewController extends GetxController {
       // Attempt real API call
       final response = await OwnerNetworkCaller().getRequest(
         Url: Urls.getVenueOwnerHome,
-        showLoading: true,
+        showLoading: false,
       );
 
       if (response.isSuccess) {
@@ -201,7 +201,10 @@ class OverviewController extends GetxController {
         _logger.i('Loaded demo data due to API failure');
       }
     } catch (e, stackTrace) {
-      _logger.e('Error fetching venue overview, using demo data: $e', stackTrace: stackTrace);
+      _logger.e(
+        'Error fetching venue overview, using demo data: $e',
+        stackTrace: stackTrace,
+      );
       // Fallback to demo data on error
       venueOverView.value = VenueOverView.fromJson(_demoData);
       EasyLoading.showInfo('Loaded demo data due to error: $e');

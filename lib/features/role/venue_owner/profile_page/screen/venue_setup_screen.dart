@@ -15,6 +15,7 @@ import 'package:blinqo/features/role/venue_owner/widgets/event_textfield_widget.
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// Screen for setting up or editing venue details
 class VenueSetupScreen extends StatelessWidget {
   final String venueStatus;
   static const String name = '/venue-setup-screen';
@@ -34,15 +35,8 @@ class VenueSetupScreen extends StatelessWidget {
     final VenueSetupController controller = Get.put(VenueSetupController());
     controller.setEditMode(isEdit);
 
-    // Only get venue details if in edit mode
-    String venueImage = '';
-    String seatArrangementImage = '';
-    
-    if (isEdit) {
-      final venueDetailsController = Get.find<VenueDetailsController>();
-      venueImage = venueDetailsController.response.value?.data?.venue?.venueImage?.path ?? '';
-      seatArrangementImage = venueDetailsController.response.value?.data?.venue?.arrangementsImage?.path ?? '';
-    }
+    // Initialize venue images if in edit mode
+    final (venueImage, seatArrangementImage) = _initializeVenueImages();
 
     return Obx(
       () => Scaffold(
@@ -56,351 +50,44 @@ class VenueSetupScreen extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
-                VenueSetupHeader(title: venueStatus, isEdit: isEdit,imagePath: venueImage,),
+                // Venue setup header with image
+                VenueSetupHeader(
+                  title: venueStatus,
+                  isEdit: isEdit,
+                  imagePath: venueImage,
+                ),
                 const SizedBox(height: 32),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Name text field
-                      TextFieldWidget(
-                        hintText: 'Venue Name',
-                        labelText: 'Venue Name',
-                        controller: controller.venueNameTEController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter Venue Name';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      // Location text field
-                      TextFieldWidget(
-                        hintText: 'Enter your location (City, Area)',
-                        labelText: 'Location',
-                        controller: controller.venueAddressTEController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter your location';
-                          }
-                          if (!value.contains(',')) {
-                            return 'Enter City, Area';
-                          }
-                          return null;
-                        },
-                      ),
+                      // Basic venue information section
+                      _buildBasicVenueInfo(controller),
                       const SizedBox(height: 16),
 
-                      Text(
-                        'Select From',
-                        style: getTextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color:
-                              isDarkMode
-                                  ? const Color(0xffEBEBEB)
-                                  : const Color(0xff333333),
-                        ),
-                      ),
+                      // Location and map section
+                      _buildLocationSection(controller, isDarkMode),
                       const SizedBox(height: 16),
-                      // Google Map
-                      GoogleMapVenueSetup(),
+
+                      // Venue type section
+                      _buildVenueTypeSection(controller, isDarkMode),
                       const SizedBox(height: 16),
-                      TextFieldWidget(
-                        hintText: 'Guests Capacity',
-                        labelText: 'Number Of Guests',
-                        controller: controller.numberGuestsTEController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter Guests Capacity';
-                          }
-                          if (int.tryParse(value) == null) {
-                            return 'Enter Valid Number';
-                          }
-                          if (int.tryParse(value)! <= 0) {
-                            return 'Enter Valid Number';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Venue Type',
-                        style: getTextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color:
-                              isDarkMode
-                                  ? const Color(0xffEBEBEB)
-                                  : const Color(0xff333333),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      // Venue Type Dropdown
-                      Obx(() {
-                        return DropdownSelector(
-                          selectedValue: controller.selectedVenueType.value,
-                          options: const [
-                            'Select Venue Type',
-                            'HOTEL',
-                            'RESTAURANT',
-                            'CONFERENCE_HALL',
-                            'BANQUET',
-                            'RESORT',
-                            'OUTDOOR',
-                          ],
-                          hintText: 'Select Venue Type',
-                          onChanged: (String? newValue) {
-                            controller.updateSelectedVenueType(newValue);
-                          },
-                        );
-                      }),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Amenities',
-                        style: getTextStyle(
-                          color: isDarkMode ? Color(0xffEBEBEB) : Color(0xFF333333),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Obx(() {
-                        return controller.selectedAmenities.isEmpty
-                            ? const Text('No amenities selected')
-                            : Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children:
-                                  controller.selectedAmenities.map((amenity) {
-                                    return EventAmenityButton(
-                                      amenity: amenity,
-                                      isSelected: true,
-                                      controller: controller,
-                                    );
-                                  }).toList(),
-                            );
-                      }),
-                      const SizedBox(height: 24),
-                      // Available Amenities Section
-                      Text(
-                        'Select From Here',
-                        style: getTextStyle(
-                          color: isDarkMode ? Color(0xffEBEBEB) : Color(0xFF333333),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Obx(() {
-                        return controller.availableAmenities.isEmpty
-                            ? const Text('No more amenities available')
-                            : Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children:
-                                  controller.availableAmenities.map((amenity) {
-                                    return EventAmenityButton(
-                                      amenity: amenity,
-                                      isSelected: false,
-                                      controller: controller,
-                                    );
-                                  }).toList(),
-                            );
-                      }),
-                      const SizedBox(height: 24),
-                      // Add Amenity button
-                      Center(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff003366),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(34),
-                            ),
-                            padding: const EdgeInsets.all(12),
-                          ),
-                          onPressed: () {
-                            Get.dialog(const AddAmenitiesDialog());
-                          },
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                        ),
-                      ),
+
+                      // Amenities section
+                      _buildAmenitiesSection(controller, isDarkMode),
                       const SizedBox(height: 40),
-                      // Seating Arrangement
-                      Text(
-                        'Seating Arrangement',
-                        style: getTextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color:
-                              isDarkMode
-                                  ? const Color(0xffEBEBEB)
-                                  : const Color(0xff333333),
-                        ),
+
+                      // Seating arrangement section
+                      _buildSeatingArrangementSection(
+                        controller,
+                        isDarkMode,
+                        seatArrangementImage,
                       ),
-                      const SizedBox(height: 16),
-                      SeatingArrangementWidget(isEdit: isEdit,imagePath: seatArrangementImage,),
-                      const SizedBox(height: 16),
-                      Obx(() {
-                        if (controller.venuDecorationOption.value == null) {
-                          return const Center(
-                            child: Text('No options available'),
-                          );
-                        }
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            OptionSection(
-                              title: 'Table Shape',
-                              isDarkMode: isDarkMode,
-                              options:
-                                  controller
-                                      .venuDecorationOption
-                                      .value!
-                                      .tableShape ??
-                                  [],
-                              selectedOptions: controller.selectedTableShapes,
-                              onToggle: controller.toggleSelection,
-                            ),
-                            OptionSection(
-                              isDarkMode: isDarkMode,
-                              title: 'Seating Style',
-                              options:
-                                  controller
-                                      .venuDecorationOption
-                                      .value!
-                                      .seatingStyle ??
-                                  [],
-                              selectedOptions: controller.selectedSeatingStyles,
-                              onToggle: controller.toggleSelection,
-                            ),
-                            OptionSection(
-                              isDarkMode: isDarkMode,
-                              title: 'Lighting Style',
-                              options:
-                                  controller
-                                      .venuDecorationOption
-                                      .value!
-                                      .lightingStyle ??
-                                  [],
-                              selectedOptions:
-                                  controller.selectedLightingStyles,
-                              onToggle: controller.toggleSelection,
-                            ),
-                            OptionSection(
-                              isDarkMode: isDarkMode,
-                              title: 'Flower Color',
-                              options:
-                                  controller
-                                      .venuDecorationOption
-                                      .value!
-                                      .flowerColor ??
-                                  [],
-                              selectedOptions: controller.selectedFlowerColors,
-                              onToggle: controller.toggleSelection,
-                            ),
-                            OptionSection(
-                              isDarkMode: isDarkMode,
-                              title: 'Flower Type',
-                              options:
-                                  controller
-                                      .venuDecorationOption
-                                      .value!
-                                      .flowerType ??
-                                  [],
-                              selectedOptions: controller.selectedFlowerTypes,
-                              onToggle: controller.toggleSelection,
-                            ),
-                            OptionSection(
-                              isDarkMode: isDarkMode,
-                              title: 'Fragrance',
-                              options:
-                                  controller
-                                      .venuDecorationOption
-                                      .value!
-                                      .fragrance ??
-                                  [],
-                              selectedOptions: controller.selectedFragrances,
-                              onToggle: controller.toggleSelection,
-                            ),
-                          ],
-                        );
-                      }),
                       const SizedBox(height: 48),
-                      // Save button
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              controller.saveVenue(venueStatus, isEdit: isEdit);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 12,
-                              horizontal: 20,
-                            ),
-                            backgroundColor: const Color(0xff003366),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: Text(
-                            isEdit ? 'Update Venue' : 'Save & Continue',
-                            style: getTextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color:
-                                  isDarkMode
-                                      ? const Color(0xffE6EBF0)
-                                      : const Color(0xffFFFFFF),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      // Skip button (only for create)
-                      if (venueStatus == 'Venue Setup' && !isEdit)
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Get.to(() => const VanueOwnerBottomNavBar());
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              backgroundColor:
-                                  isDarkMode
-                                      ? AppColors.darkBackgroundColor
-                                      : AppColors.backgroundColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: const BorderSide(
-                                  width: 1,
-                                  color: Color(0xff003366),
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              'Skip',
-                              style: getTextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color:
-                                    isDarkMode
-                                        ? const Color(0xffE6EBF0)
-                                        : const Color(0xff003366),
-                              ),
-                            ),
-                          ),
-                        ),
+
+                      // Action buttons section
+                      _buildActionButtons(controller, formKey, isDarkMode),
                       const SizedBox(height: 40),
                     ],
                   ),
@@ -410,6 +97,378 @@ class VenueSetupScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  /// Initialize venue images for edit mode
+  (String, String) _initializeVenueImages() {
+    if (!isEdit) return ('', '');
+
+    final venueDetailsController = Get.find<VenueDetailsController>();
+    return (
+      venueDetailsController.response.value?.data?.venue?.venueImage?.path ??
+          '',
+      venueDetailsController
+              .response
+              .value
+              ?.data
+              ?.venue
+              ?.arrangementsImage
+              ?.path ??
+          '',
+    );
+  }
+
+  /// Build basic venue information fields
+  Widget _buildBasicVenueInfo(VenueSetupController controller) {
+    return Column(
+      children: [
+        TextFieldWidget(
+          hintText: 'Venue Name',
+          labelText: 'Venue Name',
+          controller: controller.venueNameTEController,
+          validator: (value) => value!.isEmpty ? 'Enter Venue Name' : null,
+        ),
+        const SizedBox(height: 16),
+        TextFieldWidget(
+          hintText: 'Venue Description',
+          labelText: 'Venue Description',
+          controller: controller.venueDescriptionTEController,
+          maxLines: 3,
+          validator:
+              (value) => value!.isEmpty ? 'Enter Venue Description' : null,
+        ),
+      ],
+    );
+  }
+
+  /// Build location and map section
+  Widget _buildLocationSection(
+    VenueSetupController controller,
+    bool isDarkMode,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextFieldWidget(
+          hintText: 'Enter your location (City, Area)',
+          labelText: 'Location',
+          controller: controller.venueAddressTEController,
+          validator: (value) {
+            if (value!.isEmpty) return 'Enter your location';
+            if (!value.contains(',')) return 'Enter City, Area';
+            return null;
+          },
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Select From',
+          style: getTextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color:
+                isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+          ),
+        ),
+        const SizedBox(height: 16),
+        GoogleMapVenueSetup(),
+        const SizedBox(height: 16),
+        TextFieldWidget(
+          hintText: 'Guests Capacity',
+          labelText: 'Guests Capacity',
+          controller: controller.numberGuestsTEController,
+          validator: (value) {
+            if (value!.isEmpty) return 'Enter Guests Capacity';
+            if (int.tryParse(value) == null) return 'Enter Valid Number';
+            if (int.tryParse(value)! <= 0) return 'Enter Valid Number';
+            return null;
+          },
+        ),
+      ],
+    );
+  }
+
+  /// Build venue type dropdown section
+  Widget _buildVenueTypeSection(
+    VenueSetupController controller,
+    bool isDarkMode,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Venue Type',
+          style: getTextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color:
+                isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Obx(
+          () => DropdownSelector(
+            selectedValue: controller.selectedVenueType.value,
+            options: const [
+              'Select Venue Type',
+              'HOTEL',
+              'RESTAURANT',
+              'CONFERENCE_HALL',
+              'BANQUET',
+              'RESORT',
+              'OUTDOOR',
+            ],
+            hintText: 'Select Venue Type',
+            onChanged: controller.updateSelectedVenueType,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Build amenities section
+  Widget _buildAmenitiesSection(
+    VenueSetupController controller,
+    bool isDarkMode,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Amenities',
+          style: getTextStyle(
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xFF333333),
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 12),
+        // Selected amenities
+        Obx(
+          () =>
+              controller.selectedAmenities.isEmpty
+                  ? const Text('No amenities selected')
+                  : Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children:
+                        controller.selectedAmenities
+                            .map(
+                              (amenity) => EventAmenityButton(
+                                amenity: amenity,
+                                isSelected: true,
+                                controller: controller,
+                              ),
+                            )
+                            .toList(),
+                  ),
+        ),
+        const SizedBox(height: 24),
+        // Available amenities
+        Text(
+          'Select From Here',
+          style: getTextStyle(
+            color: isDarkMode ? Color(0xffEBEBEB) : Color(0xFF333333),
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Obx(
+          () =>
+              controller.availableAmenities.isEmpty
+                  ? const Text('No more amenities available')
+                  : Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children:
+                        controller.availableAmenities
+                            .map(
+                              (amenity) => EventAmenityButton(
+                                amenity: amenity,
+                                isSelected: false,
+                                controller: controller,
+                              ),
+                            )
+                            .toList(),
+                  ),
+        ),
+        const SizedBox(height: 24),
+        // Add amenity button
+        Center(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xff003366),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(34),
+              ),
+              padding: const EdgeInsets.all(12),
+            ),
+            onPressed: () => Get.dialog(const AddAmenitiesDialog()),
+            child: const Icon(Icons.add, color: Colors.white, size: 24),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Build seating arrangement section
+  Widget _buildSeatingArrangementSection(
+    VenueSetupController controller,
+    bool isDarkMode,
+    String seatArrangementImage,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Seating Arrangement',
+          style: getTextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color:
+                isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+          ),
+        ),
+        const SizedBox(height: 16),
+        SeatingArrangementWidget(
+          isEdit: isEdit,
+          imagePath: seatArrangementImage,
+        ),
+        const SizedBox(height: 16),
+        Obx(() {
+          if (controller.venuDecorationOption.value == null) {
+            return const Center(child: Text('No options available'));
+          }
+          return _buildDecorationOptions(controller, isDarkMode);
+        }),
+      ],
+    );
+  }
+
+  /// Build decoration options section
+  Widget _buildDecorationOptions(
+    VenueSetupController controller,
+    bool isDarkMode,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        OptionSection(
+          title: 'Table Shape',
+          isDarkMode: isDarkMode,
+          options: controller.venuDecorationOption.value!.tableShape ?? [],
+          selectedOptions: controller.selectedTableShapes,
+          onToggle: controller.toggleSelection,
+        ),
+        OptionSection(
+          isDarkMode: isDarkMode,
+          title: 'Seating Style',
+          options: controller.venuDecorationOption.value!.seatingStyle ?? [],
+          selectedOptions: controller.selectedSeatingStyles,
+          onToggle: controller.toggleSelection,
+        ),
+        OptionSection(
+          isDarkMode: isDarkMode,
+          title: 'Lighting Style',
+          options: controller.venuDecorationOption.value!.lightingStyle ?? [],
+          selectedOptions: controller.selectedLightingStyles,
+          onToggle: controller.toggleSelection,
+        ),
+        OptionSection(
+          isDarkMode: isDarkMode,
+          title: 'Flower Color',
+          options: controller.venuDecorationOption.value!.flowerColor ?? [],
+          selectedOptions: controller.selectedFlowerColors,
+          onToggle: controller.toggleSelection,
+        ),
+        OptionSection(
+          isDarkMode: isDarkMode,
+          title: 'Flower Type',
+          options: controller.venuDecorationOption.value!.flowerType ?? [],
+          selectedOptions: controller.selectedFlowerTypes,
+          onToggle: controller.toggleSelection,
+        ),
+        OptionSection(
+          isDarkMode: isDarkMode,
+          title: 'Fragrance',
+          options: controller.venuDecorationOption.value!.fragrance ?? [],
+          selectedOptions: controller.selectedFragrances,
+          onToggle: controller.toggleSelection,
+        ),
+      ],
+    );
+  }
+
+  /// Build action buttons section (Save/Update and Skip)
+  Widget _buildActionButtons(
+    VenueSetupController controller,
+    GlobalKey<FormState> formKey,
+    bool isDarkMode,
+  ) {
+    return Column(
+      children: [
+        // Save/Update button
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                controller.saveVenue(venueStatus, isEdit: isEdit);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+              backgroundColor: const Color(0xff003366),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: Text(
+              isEdit ? 'Update Venue' : 'Save & Continue',
+              style: getTextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color:
+                    isDarkMode
+                        ? const Color(0xffE6EBF0)
+                        : const Color(0xffFFFFFF),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        // Skip button (only for create mode)
+        if (venueStatus == 'Venue Setup' && !isEdit)
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () => Get.to(() => const VanueOwnerBottomNavBar()),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                backgroundColor:
+                    isDarkMode
+                        ? AppColors.darkBackgroundColor
+                        : AppColors.backgroundColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: const BorderSide(width: 1, color: Color(0xff003366)),
+                ),
+              ),
+              child: Text(
+                'Skip',
+                style: getTextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color:
+                      isDarkMode
+                          ? const Color(0xffE6EBF0)
+                          : const Color(0xff003366),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

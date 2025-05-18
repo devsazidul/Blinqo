@@ -4,7 +4,7 @@ import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
 import 'package:blinqo/features/role/venue_owner/team/controller/shifcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/teaminformation.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/create_employee_screen.dart';
 import 'package:blinqo/features/role/venue_owner/team/widget/custom_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,8 +12,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Createshift extends StatelessWidget {
   final String? title;
+  final String venueId;
 
-  const Createshift({super.key, this.title});
+  const Createshift({super.key, this.title, required this.venueId});
 
   @override
   Widget build(BuildContext context) {
@@ -462,7 +463,10 @@ class Createshift extends StatelessWidget {
                                 Spacer(),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => EmployeeInformation());
+                                    Get.to(() => CreateEmployeeScreen(
+                                          venueId: venueId,
+                                          index: 0,
+                                        ));
                                   },
                                   child: Icon(
                                     Icons.edit_outlined,

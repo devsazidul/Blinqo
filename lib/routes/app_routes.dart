@@ -50,9 +50,9 @@ import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_s
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_send_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_signup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/createshift.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/create_employee_screen.dart';
+import 'package:blinqo/features/role/venue_owner/team/screen/create_shift.dart';
 import 'package:blinqo/features/role/venue_owner/team/screen/myteamedit.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/teaminformation.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:get/get.dart';
@@ -108,7 +108,7 @@ class AppRoute {
   static const String editProfileScreen = "/edit_profile_screen";
   static const String pickColorScreen = "/pick_color_screen";
   static String startBooking = '/startBooking';
-  static String employeeInformtaion = '/employeeInformation';
+
   static String myteamedit = '/myteamedit';
   static String allreview = '/allreview';
   static String reviewBooking = '/ReviewBooking';
@@ -237,15 +237,15 @@ class AppRoute {
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
     // GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
-    GetPage(name: createshift, page: () => Createshift()),
+   
     GetPage(name: searchDetailsScreen, page: () => SearchDetailsScreen()),
     GetPage(name: filterDetailsScreen, page: () => FilterDetailsScreen()),
     GetPage(name: filterViewScreen, page: () => FilterViewScreen()),
     GetPage(name: getProfile(), page: () => MainProfileScreen()),
     GetPage(name: getEditProfileScreen(), page: () => SpEditProfilePage()),
     GetPage(name: getPickColorScreen(), page: () => PickColorScreen()),
-    GetPage(name: createshift, page: () => Createshift()),
-    GetPage(name: employeeInformtaion, page: () => EmployeeInformation()),
+  
+  
     GetPage(
       name: myteamedit,
       page: () => Myteamedit(index: Get.arguments as int),
