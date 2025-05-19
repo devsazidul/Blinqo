@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_event_service_details_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/widget/works_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ class EpSpWorksTabViewWidget extends StatelessWidget {
       child: SingleChildScrollView(
         child: Obx(() {
           final data =
-              Get.find<EpEventServiceDetailsController>()
+              Get.find<EpServiceProviderListController>()
                   .workModel
                   .value
                   .value

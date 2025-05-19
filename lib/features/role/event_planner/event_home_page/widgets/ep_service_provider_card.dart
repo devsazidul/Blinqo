@@ -23,7 +23,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
     final bool isFemale = femaleColorController.isFemale.value;
 
     return Card(
-      color: isDarkMode ? AppColors.textFrieldDarkColor : AppColors.primary,
+      color: isDarkMode ? AppColors.textFieldDarkColor : AppColors.primary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 1,
       child: Padding(
@@ -38,7 +38,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                   radius: 18,
                   backgroundColor:
                       isDarkMode
-                          ? AppColors.textFrieldDarkColor
+                          ? AppColors.textFieldDarkColor
                           : AppColors.primary,
                   backgroundImage: NetworkImage(userModel.image.path),
                 ),

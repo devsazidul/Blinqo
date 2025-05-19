@@ -21,11 +21,11 @@ class EpGetAllVenuesController extends GetxController {
   String get errorMessage => _errorMessage;
   EpVenuesResponseModel? get homeResponseData => _homeResponseData;
 
-  @override
-  void onInit() async {
-    super.onInit();
-    await getAllVenues();
-  }
+  // @override
+  // void onInit() async {
+  //   super.onInit();
+  //   await getAllVenues();
+  // }
 
   Future<bool> getAllVenues() async {
     _isLoading = true;

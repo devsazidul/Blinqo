@@ -400,7 +400,7 @@ class SpVerificationSubmission extends StatelessWidget {
               decoration: BoxDecoration(
                 color:
                     themeMode == ThemeMode.dark
-                        ? AppColors.textFrieldDarkColor
+                        ? AppColors.textFieldDarkColor
                         : AppColors.backgroundColor,
                 borderRadius: BorderRadius.circular(16),
               ),

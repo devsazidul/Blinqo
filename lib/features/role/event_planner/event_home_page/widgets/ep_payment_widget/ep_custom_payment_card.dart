@@ -28,7 +28,7 @@ class EpCustomPaymentCard extends StatelessWidget {
       width: double.infinity,
       height: 64,
       decoration: BoxDecoration(
-        color: isDarkMode ? AppColors.textFrieldDarkColor : AppColors.primary,
+        color: isDarkMode ? AppColors.textFieldDarkColor : AppColors.primary,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

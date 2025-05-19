@@ -103,7 +103,7 @@ class ChatDetails extends StatelessWidget {
       elevation: 0,
       forceMaterialTransparency: false,
       backgroundColor:
-          isDarkMode ? AppColors.textFrieldDarkColor : AppColors.primary,
+          isDarkMode ? AppColors.textFieldDarkColor : AppColors.primary,
       title: Row(
         children: [
           CircleAvatar(

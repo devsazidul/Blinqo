@@ -10,9 +10,7 @@ class PopUpMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       color:
-          isDarkMode
-              ? AppColors.textFrieldDarkColor
-              : AppColors.popUpBackground,
+          isDarkMode ? AppColors.textFieldDarkColor : AppColors.popUpBackground,
       onSelected: (String value) {},
       itemBuilder: (BuildContext context) {
         return [

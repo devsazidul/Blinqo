@@ -6,7 +6,7 @@ import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
 import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/event_planner/home/screens/ep_home_screen.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
+import 'package:blinqo/features/role/event_planner/home/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_view_screen.dart';

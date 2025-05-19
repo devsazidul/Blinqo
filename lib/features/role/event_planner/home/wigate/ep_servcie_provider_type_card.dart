@@ -1,34 +1,41 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/models/additional_services.dart';
+import 'package:blinqo/features/role/event_planner/home/model/service_provider_type_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../screens/ep_event_service_details.dart';
+import '../screens/ep_service_provider_list_screen.dart';
 
-class EventServiceCard extends StatelessWidget {
-  final Datum datum;
+class EpServiceProviderTypeCard extends StatelessWidget {
+  final ServiceProviderTypeModel spTypeMode;
 
-  final ThemeMode? themeMode;
+  final bool isDark;
 
-  const EventServiceCard({super.key, required this.datum, this.themeMode});
+  const EpServiceProviderTypeCard({
+    super.key,
+    required this.spTypeMode,
+    required this.isDark,
+  });
 
   @override
   Widget build(BuildContext context) {
     // return GestureDetector(child: Container(color: Colors.amber));
     return GestureDetector(
       onTap: () {
-        Get.to(() => EpEventServiceDetails(serviceName: datum.name, serviceId: datum.id,));
+        Get.to(
+          () =>
+              EpServiceProviderListScreen(serviceProviderTypeModel: spTypeMode),
+        );
       },
       child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: CachedNetworkImage(
-              imageUrl:  datum.avatar.path.toString(),
-              width: 168,
-              height: 123,
+              imageUrl: spTypeMode.avatar.path.toString(),
+              memCacheWidth: 168,
+              memCacheHeight: 123,
               fit: BoxFit.fill,
               errorWidget: (context, url, error) {
                 return SizedBox();
@@ -36,12 +43,9 @@ class EventServiceCard extends StatelessWidget {
             ),
           ),
           Text(
-            datum.name,
+            spTypeMode.name,
             style: GoogleFonts.poppins(
-              color:
-                  themeMode == ThemeMode.dark
-                      ? AppColors.backgroundColor
-                      : AppColors.textColor,
+              color: isDark ? AppColors.backgroundColor : AppColors.textColor,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),

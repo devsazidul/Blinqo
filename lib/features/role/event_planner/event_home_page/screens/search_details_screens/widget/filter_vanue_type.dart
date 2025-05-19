@@ -58,7 +58,7 @@ class VanueType extends StatelessWidget {
                   initialValue: 'Brithday Party',
                   color:
                       isDarkMode
-                          ? AppColors.textFrieldDarkColor
+                          ? AppColors.textFieldDarkColor
                           : AppColors.popUpBackground,
                   onSelected:
                       (value) => searchDetailsController.updateVenue(value),

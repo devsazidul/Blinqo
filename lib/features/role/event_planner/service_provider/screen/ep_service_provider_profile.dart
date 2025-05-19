@@ -1,12 +1,12 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
+import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen1.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/widget/f_custom_button.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_event_service_details_controller.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen1.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/controller/review_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/widget/profile_cover_image_and_avater.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/widget/profile_summary_section.dart';
@@ -23,7 +23,8 @@ class EpServiceProviderProfile extends StatefulWidget {
   final Datum userModel;
 
   @override
-  State<EpServiceProviderProfile> createState() => _EpServiceProviderProfileState();
+  State<EpServiceProviderProfile> createState() =>
+      _EpServiceProviderProfileState();
 }
 
 class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
@@ -34,7 +35,9 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
   @override
   void initState() {
     super.initState();
-    Get.find<EpEventServiceDetailsController>().getServiceProviderWorks(userId: widget.userModel.id);
+    Get.find<EpServiceProviderListController>().getServiceProviderWorks(
+      userId: widget.userModel.id,
+    );
   }
 
   @override
@@ -63,9 +66,10 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
                   SliverToBoxAdapter(
                     child: Column(
                       children: [
-
                         // profile details
-                        EpSpProfileCoverImageAndAvatar(profileImage: widget.userModel.image.path,),
+                        EpSpProfileCoverImageAndAvatar(
+                          profileImage: widget.userModel.image.path,
+                        ),
                         SizedBox(height: 12),
 
                         EpSpProfileSummarySection(
@@ -74,7 +78,6 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
                           femaleColorController: femaleColorController,
                           userModel: widget.userModel,
                         ),
-
 
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 45.0),

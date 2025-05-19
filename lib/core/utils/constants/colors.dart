@@ -23,7 +23,7 @@ class AppColors {
   static const Color smallText = Color(0xFFC0C0C0);
   static const Color appBarIcolor = Color(0xFFD9D9D9);
   static const Color thimeIconColor = Color(0xFF898989);
-  static const Color textFrieldDarkColor = Color(0xff32383D);
+  static const Color textFieldDarkColor = Color(0xff32383D);
   static const Color subTextColor = Color(0xff767676);
   static const Color subTextColor2 = Color(0xffABB7C2);
   static const Color chatBackground = Color(0xffE6EBF0);

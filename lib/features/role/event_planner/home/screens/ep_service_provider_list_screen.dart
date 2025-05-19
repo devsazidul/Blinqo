@@ -1,31 +1,31 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/core/utils/constants/image_path.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_event_service_details_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/ep_service_provider_card.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/model/service_provider_type_model.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EpEventServiceDetails extends StatefulWidget {
-  const EpEventServiceDetails({
+class EpServiceProviderListScreen extends StatefulWidget {
+  const EpServiceProviderListScreen({
     super.key,
-    required this.serviceName,
-    required this.serviceId,
+    required this.serviceProviderTypeModel,
   });
 
-  final String serviceName;
-  final String serviceId;
+  final ServiceProviderTypeModel serviceProviderTypeModel;
 
   @override
-  State<EpEventServiceDetails> createState() => _EpEventServiceDetailsState();
+  State<EpServiceProviderListScreen> createState() =>
+      _EpServiceProviderListScreenState();
 }
 
-class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
+class _EpServiceProviderListScreenState
+    extends State<EpServiceProviderListScreen> {
   // final Service service;
-  final EpEventServiceDetailsController epServiceDetailsController = Get.put(
-    EpEventServiceDetailsController(),
+  final EpServiceProviderListController epServiceDetailsController = Get.put(
+    EpServiceProviderListController(),
   );
 
   final controller = Get.put(ProfileController());
@@ -33,7 +33,9 @@ class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
   @override
   void initState() {
     super.initState();
-    epServiceDetailsController.fetchData(serviceId: widget.serviceId);
+    epServiceDetailsController.fetchData(
+      serviceId: widget.serviceProviderTypeModel.id.toString(),
+    );
   }
 
   @override
@@ -44,66 +46,7 @@ class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
           isDarkMode
               ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: null,
-          flexibleSpace: Stack(
-            children: [
-              Image.asset(
-                ImagePath.profile,
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.cover,
-              ),
-              Positioned.fill(
-                child: Container(color: Colors.black.withValues(alpha: 0.6)),
-              ),
-              Positioned(
-                left: 20,
-                top: 70,
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: CircleAvatar(
-                    backgroundColor: AppColors.primary.withValues(alpha: 0.10),
-                    child: Image.asset(
-                      IconPath.arrowleftwhite,
-                      width: 22,
-                      height: 16,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 30,
-                bottom: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      widget.serviceName,
-                      style: getTextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          centerTitle: false,
-        ),
-      ),
+      appBar: _buildAppBar(context),
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -156,7 +99,7 @@ class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
                       filled: true,
                       fillColor:
                           isDarkMode
-                              ? AppColors.textFrieldDarkColor
+                              ? AppColors.textFieldDarkColor
                               : AppColors.primary,
                       suffixIcon: GestureDetector(
                         onTap: () {
@@ -188,7 +131,7 @@ class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
                     decoration: BoxDecoration(
                       color:
                           isDarkMode
-                              ? AppColors.textFrieldDarkColor
+                              ? AppColors.textFieldDarkColor
                               : Colors.black,
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -251,6 +194,69 @@ class _EpEventServiceDetailsState extends State<EpEventServiceDetails> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  PreferredSize _buildAppBar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(100),
+      child: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: null,
+        flexibleSpace: Stack(
+          children: [
+            Image.network(
+              widget.serviceProviderTypeModel.avatar.path,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
+            ),
+            Positioned.fill(
+              child: Container(color: Colors.black.withValues(alpha: 0.6)),
+            ),
+            Positioned(
+              left: 20,
+              top: 70,
+              child: GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: CircleAvatar(
+                  backgroundColor: AppColors.primary.withValues(alpha: 0.10),
+                  child: Image.asset(
+                    IconPath.arrowleftwhite,
+                    width: 22,
+                    height: 16,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 30,
+              bottom: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.serviceProviderTypeModel.name,
+                    style: getTextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        centerTitle: false,
       ),
     );
   }
