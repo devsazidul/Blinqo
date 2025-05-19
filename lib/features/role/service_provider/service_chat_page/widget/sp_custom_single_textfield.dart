@@ -49,7 +49,7 @@ class CustomSingleTextfield extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
         ),
-        fillColor: AppColors.textFrieldDarkColor,
+        fillColor: AppColors.textFieldDarkColor,
         filled: true,
         suffixIcon: Obx(
           () => GestureDetector(

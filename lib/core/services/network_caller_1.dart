@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 
 import '../models/response_data.dart';
 
-class NetworkCaller {
+class NetworkCaller1 {
   final int timeoutDuration = 10;
 
   // GET method

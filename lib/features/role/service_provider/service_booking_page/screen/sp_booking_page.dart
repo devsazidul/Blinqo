@@ -12,6 +12,7 @@ import 'package:blinqo/features/role/service_provider/service_home_page/widget/u
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart'
     // ignore: library_prefixes
     as eventPlanner;
@@ -150,7 +151,7 @@ class SpBookingPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color:
                         themeMode == ThemeMode.dark
-                            ? AppColors.textFrieldDarkColor
+                            ? AppColors.textFieldDarkColor
                             : AppColors.primary,
                     borderRadius: BorderRadius.circular(12),
                   ),

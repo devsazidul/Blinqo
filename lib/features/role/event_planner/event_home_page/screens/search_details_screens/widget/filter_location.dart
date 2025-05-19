@@ -31,7 +31,7 @@ class Location extends StatelessWidget {
                   initialValue: 'City',
                   color:
                       isDarkMode
-                          ? AppColors.textFrieldDarkColor
+                          ? AppColors.textFieldDarkColor
                           : AppColors.popUpBackground,
                   onSelected:
                       (value) =>
@@ -93,7 +93,7 @@ class Location extends StatelessWidget {
                   initialValue: 'Area',
                   color:
                       isDarkMode
-                          ? AppColors.textFrieldDarkColor
+                          ? AppColors.textFieldDarkColor
                           : AppColors.popUpBackground,
                   onSelected:
                       (value) =>

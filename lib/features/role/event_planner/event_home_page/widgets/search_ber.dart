@@ -9,8 +9,8 @@ import 'package:get/get.dart';
 class SearchBerSection extends StatelessWidget {
   final SearchBerController controller = Get.put(SearchBerController());
 
-  final ThemeMode themeMode;
-  SearchBerSection({super.key, required this.themeMode});
+  final bool isDark;
+  SearchBerSection({super.key, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +32,14 @@ class SearchBerSection extends StatelessWidget {
               hintText: 'Search venues & services...',
               hintStyle: getTextStyle(
                 color:
-                    themeMode == ThemeMode.dark
-                        ? Color.fromARGB(255, 198, 202, 206)
-                        : Colors.grey,
+                    isDark ? Color.fromARGB(255, 198, 202, 206) : Colors.grey,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
               filled: true,
 
               fillColor:
-                  themeMode == ThemeMode.dark
-                      ? AppColors.textFrieldDarkColor
-                      : AppColors.primary,
+                  isDark ? AppColors.textFieldDarkColor : AppColors.primary,
 
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),

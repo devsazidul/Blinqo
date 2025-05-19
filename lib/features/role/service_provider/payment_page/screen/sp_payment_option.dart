@@ -77,7 +77,7 @@ class SpPaymentOption extends StatelessWidget {
                   decoration: BoxDecoration(
                     color:
                         profileController.isDarkMode.value
-                            ? AppColors.textFrieldDarkColor
+                            ? AppColors.textFieldDarkColor
                             : AppColors.primary,
                     borderRadius: BorderRadius.circular(12),
                   ),

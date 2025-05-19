@@ -24,7 +24,7 @@ Widget coustomTextField(
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.textFrieldDarkColor,
+                  color: AppColors.textFieldDarkColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Padding(

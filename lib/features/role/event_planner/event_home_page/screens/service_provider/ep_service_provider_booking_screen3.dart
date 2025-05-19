@@ -237,7 +237,7 @@ class EpServiceProviderBookingScreen3 extends StatelessWidget {
               decoration: BoxDecoration(
                 color:
                     isDarkMode
-                        ? AppColors.textFrieldDarkColor
+                        ? AppColors.textFieldDarkColor
                         : AppColors.primary,
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -297,7 +297,7 @@ class EpServiceProviderBookingScreen3 extends StatelessWidget {
                         decoration: BoxDecoration(
                           color:
                               isDarkMode
-                                  ? AppColors.textFrieldDarkColor
+                                  ? AppColors.textFieldDarkColor
                                   : AppColors.primary,
                           borderRadius: BorderRadius.circular(12),
                         ),

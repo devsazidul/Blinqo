@@ -45,7 +45,7 @@ class SpSinglePageChat extends StatelessWidget {
             decoration: BoxDecoration(
               color:
                   themeMode == ThemeMode.dark
-                      ? AppColors.textFrieldDarkColor
+                      ? AppColors.textFieldDarkColor
                       : AppColors.primary,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30.0),
@@ -61,7 +61,7 @@ class SpSinglePageChat extends StatelessWidget {
                 forceMaterialTransparency: true,
                 backgroundColor:
                     themeMode == ThemeMode.dark
-                        ? AppColors.textFrieldDarkColor
+                        ? AppColors.textFieldDarkColor
                         : AppColors.primary,
                 automaticallyImplyLeading: false,
                 leading: GestureDetector(

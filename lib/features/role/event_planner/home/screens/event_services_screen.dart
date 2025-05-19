@@ -1,7 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_service_provider_controller/ep_additional_service_provider_controller.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_type_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/wigate/ep_servcie_provider_type_card.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,13 +12,7 @@ class EventServicesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final services =
-        Get.find<EpAdditionalServiceProviderController>()
-            .service
-            .value
-            .value
-            .data
-            .toList();
+    final bool isDark = themeController.isDarkMode.value;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -48,11 +42,9 @@ class EventServicesScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // SizedBox(height: 20),
-            GridView.builder(
+        child: GetBuilder<EpServiceProviderTypeController>(
+          builder: (controller) {
+            return GridView.builder(
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -61,13 +53,16 @@ class EventServicesScreen extends StatelessWidget {
                 crossAxisSpacing: 0,
                 childAspectRatio: 1.1,
               ),
-              itemCount: services.length,
+              itemCount: controller.serviceTypes.length,
               itemBuilder: (context, index) {
-                // return EventServiceCard(service: services[index]);
-                return EventServiceCard(datum: services[index]);
+                // return EventServiceCard(service: controller.serviceTypes[index]);
+                return EpServiceProviderTypeCard(
+                  spTypeMode: controller.serviceTypes[index],
+                  isDark: isDark,
+                );
               },
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

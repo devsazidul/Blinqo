@@ -32,7 +32,7 @@ class SpCustomPaymentCard extends StatelessWidget {
         decoration: BoxDecoration(
           color:
               themeMode == ThemeMode.dark
-                  ? AppColors.textFrieldDarkColor
+                  ? AppColors.textFieldDarkColor
                   : AppColors.primary,
           borderRadius: BorderRadius.circular(12),
         ),

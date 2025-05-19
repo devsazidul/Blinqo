@@ -1,28 +1,17 @@
-/// Event Home Screen
-///
-/// This screen serves as the main dashboard for event planners, displaying:
-/// - Featured venues
-/// - Upcoming events
-/// - Venues near the user
-/// - Additional services
-/// - Search functionality
-/// - Venue comparison feature
-
-// Core imports
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_service_provider_controller/ep_additional_service_provider_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/eventCard.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/widgets/event_services_card.dart';
-import 'package:blinqo/features/role/event_planner/home/wigate/feature_venue.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/feature_venue_shimmer.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/home_header_section.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/search_ber.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/upcomming_events.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_get_all_venues_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_type_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/screens/event_services_screen.dart';
+import 'package:blinqo/features/role/event_planner/home/wigate/ep_servcie_provider_type_card.dart';
+import 'package:blinqo/features/role/event_planner/home/wigate/feature_venue.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 // Flutter imports
@@ -34,25 +23,28 @@ class EventHomeScreen extends StatelessWidget {
 
   const EventHomeScreen({super.key});
 
+  void _loadData() async {
+    await Get.find<EpGetAllVenuesController>().getAllVenues();
+    await Get.find<EpServiceProviderTypeController>()
+        .fetchAllServiceProviderTypes();
+  }
+
   @override
   Widget build(BuildContext context) {
+    _loadData();
     final homeDataController = Get.put(EpGetAllVenuesController());
     final upcomingEventsController = Get.put(UpcomingEventsController());
     final femaleColorController = Get.put(PickColorController());
     final profileController = Get.find<ProfileController>();
 
     return Obx(() {
-      final themeMode =
-          profileController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
+      final bool isDark = profileController.isDarkMode.value;
       final bool isFemale = femaleColorController.isFemale.value;
 
       return Scaffold(
-        backgroundColor:
-            themeMode == ThemeMode.dark
-                ? Colors.black
-                : AppColors.backgroundColor,
+        backgroundColor: isDark ? Colors.black : AppColors.backgroundColor,
         appBar: HomeHeaderSection(
-          themeMode: themeMode,
+          isDark: isDark,
           isFemale: isFemale,
           femaleColorController: femaleColorController,
         ),
@@ -65,28 +57,21 @@ class EventHomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 32),
-
-                  SearchBerSection(themeMode: themeMode),
+                  SearchBerSection(isDark: isDark),
                   const SizedBox(height: 20),
-
                   EventCard(),
                   const SizedBox(height: 40),
-
                   // Featured Venues Section
                   _buildTitle(
                     'Featured Venues',
-                    themeMode,
+                    isDark,
                     onTap: () {
                       Get.to(FeaturedVenuesScreen());
                     },
                   ),
                   const SizedBox(height: 8),
 
-                  _buildFeaturedVenuesList(
-                    context,
-                    themeMode,
-                    homeDataController,
-                  ),
+                  _buildFeaturedVenuesList(context, isDark, homeDataController),
                   const SizedBox(height: 40),
 
                   // Upcoming Events Section
@@ -95,29 +80,22 @@ class EventHomeScreen extends StatelessWidget {
                     style: getTextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
-                      color:
-                          themeMode == ThemeMode.dark
-                              ? AppColors.backgroundColor
-                              : Colors.black,
+                      color: isDark ? AppColors.backgroundColor : Colors.black,
                     ),
                   ),
                   const SizedBox(height: 20),
 
-                  _buildUpComingEventList(upcomingEventsController, themeMode),
+                  _buildUpComingEventList(upcomingEventsController, isDark),
                   const SizedBox(height: 40),
 
                   // Venues Near You Section
                   _buildTitle(
                     'Venues Near You',
-                    themeMode,
+                    isDark,
                     onTap: () => Get.to(() => FeaturedVenuesScreen()),
                   ),
 
-                  _buildFeaturedVenuesList(
-                    context,
-                    themeMode,
-                    homeDataController,
-                  ),
+                  _buildFeaturedVenuesList(context, isDark, homeDataController),
                   // _buildVenueNearYouList(
                   //   context,
                   //   homeDataController,
@@ -129,10 +107,12 @@ class EventHomeScreen extends StatelessWidget {
                   // Additional Services Section
                   _buildTitle(
                     'Additional Services',
-                    themeMode,
+                    isDark,
                     onTap: () => Get.to(EventServicesScreen()),
                   ),
-                  _buildServiceProviderList(context, themeMode),
+
+                  /// Additional Services
+                  _buildServiceProviderTypeList(context, isDark),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -144,7 +124,7 @@ class EventHomeScreen extends StatelessWidget {
   }
 
   /// Builds a section title with an "Explore All" button
-  Widget _buildTitle(String title, ThemeMode themeMode, {VoidCallback? onTap}) {
+  Widget _buildTitle(String title, bool isDark, {VoidCallback? onTap}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -153,10 +133,7 @@ class EventHomeScreen extends StatelessWidget {
           style: getTextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color:
-                themeMode == ThemeMode.dark
-                    ? Colors.white
-                    : const Color(0xFF444444),
+            color: isDark ? Colors.white : const Color(0xFF444444),
           ),
         ),
         GestureDetector(
@@ -169,19 +146,13 @@ class EventHomeScreen extends StatelessWidget {
                 style: getTextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color:
-                      themeMode == ThemeMode.dark
-                          ? Colors.white
-                          : const Color(0xFF444444),
+                  color: isDark ? Colors.white : const Color(0xFF444444),
                 ),
               ),
               Icon(
                 Icons.trending_flat,
                 size: 16,
-                color:
-                    themeMode == ThemeMode.dark
-                        ? Colors.white
-                        : const Color(0xFF444444),
+                color: isDark ? Colors.white : const Color(0xFF444444),
               ),
             ],
           ),
@@ -193,8 +164,7 @@ class EventHomeScreen extends StatelessWidget {
   /// Builds the featured venues horizontal list
   Widget _buildFeaturedVenuesList(
     BuildContext context,
-    ThemeMode themeMode,
-    // UpcomingEventsController controller,
+    bool isDark,
     EpGetAllVenuesController homeDataController,
   ) {
     return GetBuilder<EpGetAllVenuesController>(
@@ -236,7 +206,7 @@ class EventHomeScreen extends StatelessWidget {
   /// Builds the upcoming events list
   Widget _buildUpComingEventList(
     UpcomingEventsController controller,
-    ThemeMode themeMode,
+    bool isDark,
   ) {
     return Column(
       children: List.generate(
@@ -247,8 +217,8 @@ class EventHomeScreen extends StatelessWidget {
           var event = controller.upcomingEvents[index];
           return Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
-            child: UpcommingEvents(
-              themeMode: themeMode,
+            child: UpComingEvents(
+              isDark: isDark,
               title: event['title'],
               venue: event['venue'],
               date: event['date'],
@@ -295,26 +265,24 @@ class EventHomeScreen extends StatelessWidget {
   // }
 
   /// Builds the event services horizontal list
-  Widget _buildServiceProviderList(BuildContext context, ThemeMode themeMode) {
+  Widget _buildServiceProviderTypeList(BuildContext context, bool isDark) {
     return SizedBox(
       height: 160,
-      child: Obx(() {
-        final service =
-            Get.put(
-              EpAdditionalServiceProviderController(),
-            ).service.value.value.data;
-        return ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemCount: service.length,
-          separatorBuilder: (context, index) => const SizedBox(width: 8),
-          itemBuilder: (context, index) {
-            return EventServiceCard(
-              datum: service[index],
-              themeMode: themeMode,
-            );
-          },
-        );
-      }),
+      child: GetBuilder<EpServiceProviderTypeController>(
+        builder: (controller) {
+          return ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: controller.serviceTypes.length,
+            separatorBuilder: (context, index) => const SizedBox(width: 8),
+            itemBuilder: (context, index) {
+              return EpServiceProviderTypeCard(
+                spTypeMode: controller.serviceTypes[index],
+                isDark: isDark,
+              );
+            },
+          );
+        },
+      ),
     ).marginOnly(top: 10);
   }
 }

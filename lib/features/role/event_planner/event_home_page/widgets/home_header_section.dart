@@ -5,17 +5,18 @@ import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_pa
 import 'package:blinqo/features/role/event_planner/notification/screens/notification_screen.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
-  final ThemeMode themeMode;
+  final bool isDark;
   final bool isFemale;
   final PickColorController femaleColorController;
   HomeHeaderSection({
     super.key,
-    required this.themeMode,
+    required this.isDark,
     required this.isFemale,
     required this.femaleColorController,
   });
@@ -41,7 +42,7 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
                               ?.path
                               ?.isNotEmpty ==
                           true
-                      ? NetworkImage(
+                      ? CachedNetworkImageProvider(
                         profileController
                             .userInfo
                             .value!
@@ -66,10 +67,7 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
                     style: getTextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color:
-                          themeMode == ThemeMode.dark
-                              ? Color(0xffEBEBEB)
-                              : AppColors.textColor,
+                      color: isDark ? Color(0xffEBEBEB) : AppColors.textColor,
                     ),
                   ),
                   SizedBox(height: 6),
@@ -148,7 +146,7 @@ class HomeHeaderSection extends StatelessWidget implements PreferredSizeWidget {
                 Icons.notifications,
                 size: 24,
                 color:
-                    themeMode == ThemeMode.dark
+                    isDark
                         ? AppColors.buttonColor
                         : isFemale
                         ? femaleColorController.selectedColor

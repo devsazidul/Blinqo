@@ -103,7 +103,7 @@ class EpPaymentOption extends StatelessWidget {
                 decoration: BoxDecoration(
                   color:
                       isDarkMode
-                          ? AppColors.textFrieldDarkColor
+                          ? AppColors.textFieldDarkColor
                           : AppColors.primary,
                   borderRadius: BorderRadius.circular(12),
                 ),

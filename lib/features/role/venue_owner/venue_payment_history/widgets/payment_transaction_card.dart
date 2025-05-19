@@ -32,9 +32,7 @@ class PaymentTransactionCard extends StatelessWidget {
             child: Image.asset(
               IconPath.cardimage,
               color:
-                  isDarkMode
-                      ? AppColors.textFrieldDarkColor
-                      : AppColors.primary,
+                  isDarkMode ? AppColors.textFieldDarkColor : AppColors.primary,
             ),
           ),
           const SizedBox(width: 14),
