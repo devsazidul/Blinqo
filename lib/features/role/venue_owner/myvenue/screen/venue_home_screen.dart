@@ -9,7 +9,7 @@ import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_o
 import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_setup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/SearchBarWidget.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/venueplaceholder.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/schedule_and_team_screen.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/schedule_and_team_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

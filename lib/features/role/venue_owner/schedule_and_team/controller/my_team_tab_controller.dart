@@ -1,7 +1,7 @@
 import 'package:blinqo/core/common/widgets/logger_view.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
-import 'package:blinqo/features/role/venue_owner/team/model/all_employee_model.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/model/all_employee_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 

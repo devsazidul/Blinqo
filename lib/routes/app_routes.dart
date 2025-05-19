@@ -49,10 +49,10 @@ import 'package:blinqo/features/role/venue_owner/authentication/screen/v_forget_
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_send_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_signup_screen.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/addshift.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/create_employee_screen.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/create_shift.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/myteamedit.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/add_employee_for_shift_screen.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/create_employee_screen.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/create_shift_screen.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/myteamedit.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
 import 'package:get/get.dart';
@@ -199,7 +199,10 @@ class AppRoute {
     GetPage(name: splashoScreen, page: () => const SplashoScreen()),
     GetPage(name: homeEventPlanner, page: () => const HomeEventPlanner()),
     GetPage(name: roleScreen, page: () => const RoleScreen()),
-    GetPage(name: addShift, page: () => Addshift()),
+    GetPage(
+      name: addShift,
+      page: () => AddEmployeeForShift(venueId: Get.arguments as String),
+    ),
     // GetPage(name: profileScreen, page: () => ProfileScreen()),
     GetPage(name: onbordingScreen, page: () => SpOnBoardingScreen()),
     GetPage(name: bottomNavBar, page: () => SpBottomNavBarScreen()),
@@ -237,15 +240,14 @@ class AppRoute {
     GetPage(name: forgetpasswordscreen, page: () => ForgetPasswordScreen()),
     // GetPage(name: otpscreen, page: () => OTPScreen()),
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
-   
+
     GetPage(name: searchDetailsScreen, page: () => SearchDetailsScreen()),
     GetPage(name: filterDetailsScreen, page: () => FilterDetailsScreen()),
     GetPage(name: filterViewScreen, page: () => FilterViewScreen()),
     GetPage(name: getProfile(), page: () => MainProfileScreen()),
     GetPage(name: getEditProfileScreen(), page: () => SpEditProfilePage()),
     GetPage(name: getPickColorScreen(), page: () => PickColorScreen()),
-  
-  
+
     GetPage(
       name: myteamedit,
       page: () => Myteamedit(index: Get.arguments as int),

@@ -79,7 +79,7 @@ class Urls {
   // ------------------------------------------------------------------------
 
   // -----------------------Venue Owner Shifts-----------------------
-  static String getAllShifts = '$baseUrl/shift/all';
+  static String getAllShifts(String venueId) => '$baseUrl/shift/all/$venueId';
   static String createShift = '$baseUrl/shift/create';
   static String getSingleShift(String id) => '$baseUrl/shift/$id';
   static String updateShift(String id) => '$baseUrl/shift/update/$id';
