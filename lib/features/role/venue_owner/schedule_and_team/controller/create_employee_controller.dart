@@ -1,6 +1,6 @@
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
-import 'package:blinqo/features/role/venue_owner/team/controller/my_team_tab_controller.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/controller/my_team_tab_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,6 +37,7 @@ class CreateEmployeeController extends GetxController {
     emailController.text = employee.email ?? '';
     phoneController.text = employee.phone ?? '';
     roleController.text = employee.role ?? '';
+
   }
 
   Future<void> createEmployee(String venueId) async {
@@ -69,9 +70,14 @@ class CreateEmployeeController extends GetxController {
               ? 'Employee updated successfully'
               : 'Employee created successfully',
         );
-        await myTeamTabController.fetchAllEmployees();
-        clearAllControllers();
-        isEdit ? Get.back() : null;
+        if (isEdit) {
+          await myTeamTabController.fetchAllEmployees();
+          Get.back();
+        } else {
+          await myTeamTabController.fetchAllEmployees();
+          clearAllControllers();
+          Get.back();
+        }
       } else {
         EasyLoading.showError(
           response.errorMessage ??

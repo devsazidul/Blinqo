@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/venue_owner/team/widget/contact_pickerscreen.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/widget/contact_pickerscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';

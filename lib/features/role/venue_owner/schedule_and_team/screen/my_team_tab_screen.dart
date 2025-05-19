@@ -2,12 +2,11 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart' show AppColors;
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart' show ImagePath;
-import 'package:blinqo/features/role/venue_owner/bottom_nav_bar/screen/vanueOwner_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/team/controller/my_team_tab_controller.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/create_employee_screen.dart';
-import 'package:blinqo/features/role/venue_owner/team/widget/contact_permission.dart';
-import 'package:blinqo/features/role/venue_owner/team/widget/search_employee.dart'
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/controller/my_team_tab_controller.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/create_employee_screen.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/widget/contact_permission.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/widget/search_employee.dart'
     show SearchEmployee;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,8 +21,6 @@ class MyTeamTab extends StatelessWidget {
     final isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
     final MyTeamTabController controller = Get.put(MyTeamTabController());
     final searchEditing = TextEditingController();
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor:
           isDarkMode ? const Color(0xff151515) : AppColors.backgroundColor,
@@ -189,7 +186,7 @@ class MyTeamTab extends StatelessWidget {
   Widget _buildTeamMemberCard(dynamic member, int idx, bool isDarkMode) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: isDarkMode ? const Color(0xff32383D) : const Color(0xffFFFFFF),
         borderRadius: BorderRadius.circular(8),
@@ -198,73 +195,156 @@ class MyTeamTab extends StatelessWidget {
           color: isDarkMode ? const Color(0xff32383D) : const Color(0xffEBEBEB),
         ),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          // Header row with name and actions
+          Row(
             children: [
-              Text(
-                '${member.firstName ?? ''} ${member.lastName ?? ''}',
-                style: getTextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color:
-                      isDarkMode
-                          ? const Color(0xffEBEBEB)
-                          : const Color(0xff333333),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${member.firstName ?? ''} ${member.lastName ?? ''}',
+                      style: getTextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color:
+                            isDarkMode
+                                ? const Color(0xffEBEBEB)
+                                : const Color(0xff333333),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      member.role ?? 'Unknown Role',
+                      style: getTextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xffD4AF37),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 4),
-              Text(
-                member.role ?? 'Unknown Role',
-                style: getTextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xffA1A1A1),
-                ),
+              // Action buttons row
+              Row(
+                children: [
+                  // Delete button
+                  InkWell(
+                    onTap:
+                        () => _showDeleteConfirmationDialog(
+                          member,
+                          idx,
+                          isDarkMode,
+                        ),
+                    child: Icon(
+                      Icons.delete_outline_rounded,
+                      size: 22,
+                      color:
+                          isDarkMode
+                              ? const Color(0xffD4AF37)
+                              : const Color(0xff003366),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  // Edit button
+                  InkWell(
+                    onTap:
+                        () => Get.to(
+                          () => CreateEmployeeScreen(
+                            venueId: venueId,
+                            isEdit: true,
+                            index: idx,
+                          ),
+                          arguments: {'isEdit': true, 'index': idx},
+                        ),
+                    child: Icon(
+                      Icons.edit_outlined,
+                      size: 22,
+                      color:
+                          isDarkMode
+                              ? const Color(0xffD4AF37)
+                              : const Color(0xff003366),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          const Spacer(),
-          // Action buttons row
-          Row(
-            children: [
-              // Delete button
-              InkWell(
-                onTap:
-                    () =>
-                        _showDeleteConfirmationDialog(member, idx, isDarkMode),
-                child: Icon(
-                  Icons.delete_outline_rounded,
-                  size: 22,
-                  color:
-                      isDarkMode
-                          ? const Color(0xffD4AF37)
-                          : const Color(0xff003366),
-                ),
-              ),
-              const SizedBox(width: 16),
-              // Edit button
-              InkWell(
-                onTap:
-                    () => Get.to(
-                      () => CreateEmployeeScreen(
-                        venueId: venueId,
-                        isEdit: true,
-                        index: idx,
-                      ),
-                      arguments: {'isEdit': true, 'index': idx},
+          const SizedBox(height: 12),
+          // Contact information
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color:
+                  isDarkMode
+                      ? const Color(0xff2A2F34)
+                      : const Color(0xffF8F9FA),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Column(
+              children: [
+                // Email row
+                Row(
+                  children: [
+                    Icon(
+                      Icons.email_outlined,
+                      size: 16,
+                      color:
+                          isDarkMode
+                              ? const Color(0xffA1A1A1)
+                              : const Color(0xff666666),
                     ),
-                child: Icon(
-                  Icons.edit_outlined,
-                  size: 22,
-                  color:
-                      isDarkMode
-                          ? const Color(0xffD4AF37)
-                          : const Color(0xff003366),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        member.email ?? 'No email provided',
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color:
+                              isDarkMode
+                                  ? const Color(0xffA1A1A1)
+                                  : const Color(0xff666666),
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 8),
+                // Phone row
+                Row(
+                  children: [
+                    Icon(
+                      Icons.phone_outlined,
+                      size: 16,
+                      color:
+                          isDarkMode
+                              ? const Color(0xffA1A1A1)
+                              : const Color(0xff666666),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        member.phone ?? 'No phone provided',
+                        style: getTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color:
+                              isDarkMode
+                                  ? const Color(0xffA1A1A1)
+                                  : const Color(0xff666666),
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

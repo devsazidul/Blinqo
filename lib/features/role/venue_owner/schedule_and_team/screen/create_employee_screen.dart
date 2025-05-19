@@ -1,7 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/team/controller/create_employee_controller.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/controller/create_employee_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

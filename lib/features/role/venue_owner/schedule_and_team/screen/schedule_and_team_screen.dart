@@ -1,9 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
-import 'package:blinqo/features/role/venue_owner/team/controller/teamcontroller.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/my_team_tab_screen.dart';
-import 'package:blinqo/features/role/venue_owner/team/screen/schedule.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/controller/teamcontroller.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/my_team_tab_screen.dart';
+import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/schedule_tab_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -70,7 +70,7 @@ class ScheduleAndTeamScreen extends StatelessWidget {
                 child: Obx(() {
                   switch (teamControllerGetx.selectedIndex.value) {
                     case 0:
-                      return Schedule(venueId: venueId);
+                      return Schedule(venueId: venueId); 
                     case 1:
                       return MyTeamTab(venueId: venueId);
                     default:
