@@ -75,12 +75,12 @@ class VenueBookingPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
             ),
             child: Obx(() {
-              final isEmpty = controller.sortBy.value.isEmpty;
+              final isEmpty = controller.currentSortOption.value.isEmpty;
 
               return DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   borderRadius: BorderRadius.circular(4),
-                  value: isEmpty ? null : controller.sortBy.value,
+                  value: isEmpty ? null : controller.currentSortOption.value,
                   isExpanded: false,
                   alignment: Alignment.centerLeft,
                   icon: Icon(

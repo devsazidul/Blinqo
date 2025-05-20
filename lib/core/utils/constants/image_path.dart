@@ -66,4 +66,5 @@ class ImagePath {
   static const String emptyTeam = 'assets/images/emptyteam.png';
   static const String epprofilebackground =
       'assets/images/epprofilebackground.png';
+
 }

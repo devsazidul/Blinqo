@@ -97,4 +97,10 @@ class Urls {
   //-----------------------Event Planner -----------------------
   static String getEventPlannerHomeData = '$baseUrl/venue/planner-home';
   //------------------------------------------------------------------------
+  //------------------------Review urls-----------------------
+  static String getAllReviewsByVenue(String venueId) =>
+      '$baseUrl/review/get-all/venue/$venueId';
+
+  // get all bookings by venue owner
+  static String getAllBookingsByVenueOwner = '$baseUrl/booking/list';
 }
