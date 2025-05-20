@@ -2,6 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/core/utils/constants/image_path.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/screen/all_reviews_screen.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/booking_request.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/widget/custom_amenity.dart';
@@ -291,7 +292,7 @@ class VenueDetailsScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                       Image.asset(IconPath.locationOn, height: 16, width: 16),
+                        Image.asset(IconPath.locationOn, height: 16, width: 16),
                         const SizedBox(width: 5),
                         Expanded(
                           child: Text(
@@ -638,7 +639,7 @@ class VenueDetailsScreen extends StatelessWidget {
                               selectedDate: request.selectedDate,
                               guestNumber: request.guestNumber ?? 0,
                               bookingStatus: request.bookingStatus ?? 'Pending',
-                              
+
                               venueName: request.plannerName ?? 'Unknown Venue',
                             );
                           },
@@ -661,7 +662,10 @@ class VenueDetailsScreen extends StatelessWidget {
                         const Spacer(),
                         InkWell(
                           onTap: () {
-                            // Get.to(() => const AllReviewsScreen());
+                            Get.to(
+                              () =>
+                                  AllReviewsScreen(venueId: venueData.id ?? ''),
+                            );
                           },
                           child: Text(
                             'Explore All',

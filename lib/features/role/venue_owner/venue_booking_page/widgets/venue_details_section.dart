@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VenueDetailsSection extends StatelessWidget {
-  const VenueDetailsSection({super.key, required this.controller});
-
-  final PriceController controller;
+  const VenueDetailsSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +80,7 @@ class VenueDetailsSection extends StatelessWidget {
           Spacer(),
           GestureDetector(
             onTap: () {
-              Get.dialog(PriceDialog(controller: controller));
+              Get.dialog(PriceDialog(controller: Get.find<PriceController>()));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -104,9 +102,9 @@ class VenueDetailsSection extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     Obx(() {
-                      return controller.price.value.isNotEmpty
+                      return Get.find<PriceController>().price.value.isNotEmpty
                           ? Text(
-                            controller.price.value,
+                            Get.find<PriceController>().price.value,
                             style: getTextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

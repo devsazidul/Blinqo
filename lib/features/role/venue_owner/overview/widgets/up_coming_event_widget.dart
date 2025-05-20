@@ -19,15 +19,19 @@ class UpComingBooking extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     final double screenHeight = screenSize.height;
-    final bool isDarkMode = Get.find<VenueOwnerProfileController>().isDarkMode.value;
+    final bool isDarkMode =
+        Get.find<VenueOwnerProfileController>().isDarkMode.value;
 
     return Obx(() {
-      final upcomingEvents = controller.venueOverView.value?.data?.upcomingEvents ?? [];
+      final upcomingEvents =
+          controller.venueOverView.value?.data?.upcomingEvents ?? [];
       return SizedBox(
-        height: screenHeight < 620 ? screenHeight * 0.550 : screenHeight * 0.420,
-        child: upcomingEvents.isEmpty
-            ? _buildEmptyState(isDarkMode)
-            : _buildEventsList(context, upcomingEvents, isDarkMode),
+        height:
+            screenHeight < 620 ? screenHeight * 0.550 : screenHeight * 0.420,
+        child:
+            upcomingEvents.isEmpty
+                ? _buildEmptyState(isDarkMode)
+                : _buildEventsList(context, upcomingEvents, isDarkMode),
       );
     });
   }
@@ -50,7 +54,10 @@ class UpComingBooking extends StatelessWidget {
             style: getTextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+              color:
+                  isDarkMode
+                      ? const Color(0xffEBEBEB)
+                      : const Color(0xff333333),
             ),
           ),
         ],
@@ -59,7 +66,11 @@ class UpComingBooking extends StatelessWidget {
   }
 
   // List of events
-  Widget _buildEventsList(BuildContext context, List<dynamic> events, bool isDarkMode) {
+  Widget _buildEventsList(
+    BuildContext context,
+    List<dynamic> events,
+    bool isDarkMode,
+  ) {
     return Column(
       children: List.generate(
         events.length > 3 ? 3 : events.length,
@@ -102,11 +113,15 @@ class UpComingBooking extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildVenueImage(context, event.venue?.venueImage?.path, isDarkMode),
+                _buildVenueImage(
+                  context,
+                  event.venue?.venueImage?.path,
+                  isDarkMode,
+                ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                 _buildEventInfo(event, isDarkMode),
                 const Spacer(),
-                _buildStatusIcon(),
+                _buildStatusIcon(isDarkMode),
               ],
             ),
             const SizedBox(height: 6),
@@ -118,7 +133,11 @@ class UpComingBooking extends StatelessWidget {
   }
 
   // Venue image with placeholder
-  Widget _buildVenueImage(BuildContext context, String? imagePath, bool isDarkMode) {
+  Widget _buildVenueImage(
+    BuildContext context,
+    String? imagePath,
+    bool isDarkMode,
+  ) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.12,
       height: MediaQuery.of(context).size.width * 0.12,
@@ -126,17 +145,21 @@ class UpComingBooking extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         color: isDarkMode ? const Color(0xff424242) : const Color(0xffF5F5F5),
       ),
-      child: imagePath != null && imagePath.isNotEmpty
-          ? ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: CachedNetworkImage(
-                imageUrl: imagePath,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => _buildImagePlaceholder(isDarkMode),
-                errorWidget: (context, error, stackTrace) => _buildImagePlaceholder(isDarkMode),
-              ),
-            )
-          : _buildImagePlaceholder(isDarkMode),
+      child:
+          imagePath != null && imagePath.isNotEmpty
+              ? ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CachedNetworkImage(
+                  imageUrl: imagePath,
+                  fit: BoxFit.cover,
+                  placeholder:
+                      (context, url) => _buildImagePlaceholder(isDarkMode),
+                  errorWidget:
+                      (context, error, stackTrace) =>
+                          _buildImagePlaceholder(isDarkMode),
+                ),
+              )
+              : _buildImagePlaceholder(isDarkMode),
     );
   }
 
@@ -165,7 +188,8 @@ class UpComingBooking extends StatelessWidget {
           style: getTextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
+            color:
+                isDarkMode ? const Color(0xffEBEBEB) : const Color(0xff333333),
           ),
         ),
         const SizedBox(height: 4),
@@ -182,26 +206,32 @@ class UpComingBooking extends StatelessWidget {
   }
 
   // Status icon
-  Widget _buildStatusIcon() {
+  Widget _buildStatusIcon(bool isDarkMode) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(4),
       clipBehavior: Clip.antiAlias,
       decoration: ShapeDecoration(
-        color: const Color(0x19003366),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(23),
-        ),
+        color: isDarkMode ? const Color(0x19D4AF37) : const Color(0xffEBEBEB),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(23)),
       ),
-      child: Image.asset(
-        IconPath.arrowUpper,
-        height: 20,
-        width: 20,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Image.asset(
+          IconPath.arrowUpper,
+          height: 20,
+          width: 20,
+          color: isDarkMode ? const Color(0xffD4AF37) : const Color(0xFF003366),
+        ),
       ),
     );
   }
 
   // Date, time and status
-  Widget _buildDateTimeAndStatus(BuildContext context, dynamic event, bool isDarkMode) {
+  Widget _buildDateTimeAndStatus(
+    BuildContext context,
+    dynamic event,
+    bool isDarkMode,
+  ) {
     return Row(
       children: [
         Icon(
@@ -211,11 +241,14 @@ class UpComingBooking extends StatelessWidget {
         ),
         const SizedBox(width: 6),
         Text(
-          event.selectedDate != null ? dateFormat.format(event.selectedDate!) : 'N/A',
+          event.selectedDate != null
+              ? dateFormat.format(event.selectedDate!)
+              : 'N/A',
           style: getTextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 12,
-            color: isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
+            color:
+                isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
           ),
         ),
         const SizedBox(width: 12),
@@ -224,7 +257,8 @@ class UpComingBooking extends StatelessWidget {
           style: getTextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 12,
-            color: isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
+            color:
+                isDarkMode ? const Color(0xff8A8A8A) : const Color(0xff767676),
           ),
         ),
         const Spacer(),
@@ -240,9 +274,10 @@ class UpComingBooking extends StatelessWidget {
       height: 22,
       width: MediaQuery.of(context).size.width * 0.17,
       decoration: BoxDecoration(
-        color: isConfirmed
-            ? const Color(0xff37D459).withValues(alpha: 0.2)
-            : const Color(0xffD4AF37).withValues(alpha: 0.2),
+        color:
+            isConfirmed
+                ? const Color(0xff37D459).withValues(alpha: 0.2)
+                : const Color(0xffD4AF37).withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Center(
@@ -251,7 +286,8 @@ class UpComingBooking extends StatelessWidget {
           style: getTextStyle(
             fontSize: 11,
             fontWeight: FontWeight.w400,
-            color: isConfirmed ? const Color(0xff37D441) : const Color(0xffD4AF37),
+            color:
+                isConfirmed ? const Color(0xff37D441) : const Color(0xffD4AF37),
           ),
         ),
       ),
