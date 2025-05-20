@@ -23,7 +23,7 @@ Future<void> vShowPopupMenu(BuildContext context) async {
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Navigator.pushNamed(context, SpEditProfilePage.name);
+          // Navigator.pushNamed(context, SpEditProfilePage.name);
         },
       ),
       _buildPopupMenuItem(
@@ -69,7 +69,7 @@ Future<void> showEditDeletePopup(BuildContext context) async {
         value: "Edit Project",
         iconPath: IconPath.editPencil,
         onTap: () {
-          Navigator.pushNamed(context, SpEditProfilePage.name);
+          // Navigator.pushNamed(context, SpEditProfilePage.name);
         },
       ),
       _buildPopupMenuItem(

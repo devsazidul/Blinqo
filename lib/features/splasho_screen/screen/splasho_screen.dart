@@ -19,7 +19,7 @@ class SplashoScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(ImagePath.splashImage, width: 160),
+            Image.asset(ImagePath.splashScreenImage, width: 160),
             SizedBox(height: 20),
             Text(
               "Ventqo",

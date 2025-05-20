@@ -58,7 +58,40 @@ class Capacity extends StatelessWidget {
             ],
           ),
         ),
+
+        // ----------------------------- Text field for capacity -----------------------------
+        Container(
+          width: 155,
+          padding: const EdgeInsets.all(10),
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(width: 1, color: const Color(0xFFEBEBEB)),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            spacing: 10,
+            children: [
+              Text(
+                'Enter Capacity',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xFFABB7C2),
+                  fontSize: 12,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // ----------------------------- Text field for capacity end -----------------------------
         SizedBox(height: 20),
+
         Row(
           children: [
             Image.asset(
@@ -72,6 +105,7 @@ class Capacity extends StatelessWidget {
                       : AppColors.iconColor,
             ),
             SizedBox(width: 8),
+
             Text(
               'Price Range',
               style: getTextStyle(

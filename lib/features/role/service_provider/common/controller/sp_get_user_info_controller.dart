@@ -1,4 +1,4 @@
-import 'package:blinqo/core/models/network_response.dart';
+import 'package:blinqo/core/common/models/network_response.dart';
 import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';

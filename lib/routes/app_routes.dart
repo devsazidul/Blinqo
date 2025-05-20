@@ -225,7 +225,7 @@ class AppRoute {
     GetPage(name: spVerificationThanks, page: () => SpVerificationThanks()),
     GetPage(name: spCongratulationsPage, page: () => SpCongratulationsPage()),
     GetPage(name: spPaymentOption, page: () => SpPaymentOption()),
-    GetPage(name: spEditProfilePage, page: () => SpEditProfilePage()),
+    // GetPage(name: spEditProfilePage, page: () => SpEditProfilePage()),
     GetPage(name: spShareWorkPage, page: () => SpShareWorkScreen()),
     GetPage(name: spPaymentOptionCard, page: () => SpPaymentOptionCard()),
     GetPage(name: eventHomeScreen, page: () => EventHomeScreen()),
@@ -245,7 +245,7 @@ class AppRoute {
     GetPage(name: filterDetailsScreen, page: () => FilterDetailsScreen()),
     GetPage(name: filterViewScreen, page: () => FilterViewScreen()),
     GetPage(name: getProfile(), page: () => MainProfileScreen()),
-    GetPage(name: getEditProfileScreen(), page: () => SpEditProfilePage()),
+    // GetPage(name: getEditProfileScreen(), page: () => SpEditProfilePage()),
     GetPage(name: getPickColorScreen(), page: () => PickColorScreen()),
 
     GetPage(

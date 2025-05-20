@@ -1,21 +1,15 @@
 import 'dart:convert';
 
-import 'package:blinqo/features/role/service_provider/auth/model/user_data_model.dart';
 import 'package:blinqo/features/role/service_provider/common/constant/constants.dart';
-import 'package:blinqo/features/role/service_provider/common/models/profile_info_model.dart';
 import 'package:blinqo/features/role/service_provider/common/models/sp_user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SpAuthController {
   static String? token;
   static SpUser? spUser;
-  static UserDataModel? userModel;
-  static ProfileInfoModel? profileInfoModel;
 
   static const String _tokenKey = 'token';
   static const String _spUserKey = 'sp-user';
-  static const String _userDataKey = 'user-data';
-  static const String _profileInfoDataKey = 'profile-info-data';
 
   // Save user information
   static Future<void> saveUserInformation({
@@ -53,13 +47,13 @@ class SpAuthController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove(_tokenKey);
     await sharedPreferences.remove(_spUserKey);
-    await sharedPreferences.remove(_userDataKey);
-    await sharedPreferences.remove(_profileInfoDataKey);
+    // await sharedPreferences.remove(_userDataKey);
+    // await sharedPreferences.remove(_profileInfoDataKey);
 
     token = null;
     spUser = null;
-    userModel = null;
-    profileInfoModel = null;
+    // userModel = null;
+    // profileInfoModel = null;
   }
 
   //*----------------- Update token -----------------
@@ -96,7 +90,7 @@ class SpAuthController {
     await sharedPreferences.clear();
     token = null;
     spUser = null;
-    userModel = null;
-    profileInfoModel = null;
+    // userModel = null;
+    // profileInfoModel = null;
   }
 }

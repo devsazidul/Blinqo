@@ -11,29 +11,26 @@ class EpSpWorksTabViewWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
-        child: Obx(() {
-          final data =
-              Get.find<EpServiceProviderListController>()
-                  .workModel
-                  .value
-                  .value
-                  .data;
-          return Column(
-            children: [
-              for (int i = 0; i < data.length; i++)
-                GestureDetector(
-                  // onTap:
-                  //     () => Get.to(
-                  //       () => SpWorkDetailsScreen(spWorksModel: SpWorksModel()),
-                  //     ),
-                  child: EpSpWorksCardWidget(
-                    imagePath: data[i].files.first.path,
-                    workName: data[i].projectTitle,
+        child: GetBuilder<EpServiceProviderListController>(
+          builder: (controller) {
+            final workModel = controller.workModel;
+            if (workModel == null || workModel.data.isEmpty) {
+              return Center(child: Text('No works available'));
+            }
+
+            return Column(
+              children: [
+                for (int i = 0; i < workModel.data.length; i++)
+                  GestureDetector(
+                    child: EpSpWorksCardWidget(
+                      imagePath: workModel.data[i].files.first.path,
+                      workName: workModel.data[i].projectTitle,
+                    ),
                   ),
-                ),
-            ],
-          );
-        }),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

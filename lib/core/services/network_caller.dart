@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:blinqo/core/models/network_response.dart';
+import 'package:blinqo/core/common/models/network_response.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';

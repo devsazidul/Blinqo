@@ -62,10 +62,9 @@ class Urls {
   // Payment urls
   static String createPaymentIntent = '$baseUrl/billing/create-payment-intent';
 
-  // service provider
-  static String getServiceProvider = '$baseUrl/service-provider-type/get';
-
   // -----------------------Service Provider urls-----------------------
+  static String getServiceProviderTypes = '$baseUrl/service-provider-type/get';
+
   static String workShowcase = '$baseUrl/works/create-work-showcase';
   static String getAllWorks = '$baseUrl/works/get-all-by-service-provider';
 

@@ -11,13 +11,25 @@ import 'package:get/get.dart';
 class EpServiceProviderListController extends GetxController {
   final TextEditingController search = TextEditingController();
 
+  // Private variables
+  bool _isLoading = false;
+  String _errorMessage = '';
+  ServiceUserModel? _serviceUserModel;
+  ServiceProviderUserWorkModel? _workModel;
+
+  // Getters
+  bool get isLoading => _isLoading;
+  String get errorMessage => _errorMessage;
+  ServiceUserModel? get serviceUserModel => _serviceUserModel;
+  ServiceProviderUserWorkModel? get workModel => _workModel;
+
   // service user model
-  Rx<Rx<ServiceUserModel>> serviceUserModel =
+  Rx<Rx<ServiceUserModel>> serviceUserModelRx =
       Rx<ServiceUserModel>(
         ServiceUserModel(success: false, statusCode: 0, message: '', data: []),
       ).obs;
 
-  Rx<Rx<ServiceProviderUserWorkModel>> workModel =
+  Rx<Rx<ServiceProviderUserWorkModel>> workModelRx =
       Rx<ServiceProviderUserWorkModel>(
         ServiceProviderUserWorkModel(
           data: [],
@@ -117,8 +129,6 @@ class EpServiceProviderListController extends GetxController {
     ever(searchQuery, (_) => filterProviders());
   }
 
-  var isLoading = false.obs;
-
   void filterProviders() {
     final query = searchQuery.value.toLowerCase();
 
@@ -152,39 +162,70 @@ class EpServiceProviderListController extends GetxController {
 
   final _logger = createLogger();
 
-  Future<void> fetchData({required String serviceId}) async {
-    isLoading.value = true;
+  Future<bool> fetchData({required String serviceId}) async {
+    _isLoading = true;
+    _errorMessage = '';
+    update();
+
+    bool isSuccess = false;
     final accessToken = await AuthService.getToken();
 
-    final response = await NetworkCaller1().getRequest(
-      '${Urls.getServiceProviderProfile}?id=$serviceId',
-      token: 'Bearer $accessToken',
-    );
-
-    if (response.statusCode == 200) {
-      serviceUserModel.value = Rx<ServiceUserModel>(
-        ServiceUserModel.fromJson(response.responseData),
+    try {
+      final response = await NetworkCaller1().getRequest(
+        '${Urls.getServiceProviderProfile}?id=$serviceId',
+        token: 'Bearer $accessToken',
       );
-      _logger.i(serviceUserModel.value.value.data[0].name);
+
+      if (response.statusCode == 200) {
+        _serviceUserModel = ServiceUserModel.fromJson(response.responseData);
+        serviceUserModelRx.value = Rx<ServiceUserModel>(_serviceUserModel!);
+        _logger.i(_serviceUserModel?.data[0].name);
+        isSuccess = true;
+      } else {
+        _errorMessage = 'Failed to fetch service providers';
+        isSuccess = false;
+      }
+    } catch (e) {
+      _errorMessage = 'Error: $e';
+      isSuccess = false;
     }
-    isLoading.value = false;
+
+    _isLoading = false;
+    update();
+    return isSuccess;
   }
 
-  Future<void> getServiceProviderWorks({required String userId}) async {
-    isLoading.value = true;
+  Future<bool> getServiceProviderWorks({required String userId}) async {
+    _isLoading = true;
+    _errorMessage = '';
+    update();
+
+    bool isSuccess = false;
     final accessToken = await AuthService.getToken();
 
-    final response = await NetworkCaller1().getRequest(
-      Urls.getWorkAllDetails(userId),
-      token: 'Bearer $accessToken',
-    );
-
-    if (response.statusCode == 200) {
-      workModel.value = Rx<ServiceProviderUserWorkModel>(
-        ServiceProviderUserWorkModel.fromJson(response.responseData),
+    try {
+      final response = await NetworkCaller1().getRequest(
+        Urls.getWorkAllDetails(userId),
+        token: 'Bearer $accessToken',
       );
+
+      if (response.statusCode == 200) {
+        _workModel = ServiceProviderUserWorkModel.fromJson(
+          response.responseData,
+        );
+        workModelRx.value = Rx<ServiceProviderUserWorkModel>(_workModel!);
+        isSuccess = true;
+      } else {
+        _errorMessage = 'Failed to fetch works';
+        isSuccess = false;
+      }
+    } catch (e) {
+      _errorMessage = 'Error: $e';
+      isSuccess = false;
     }
 
-    isLoading.value = false;
+    _isLoading = false;
+    update();
+    return isSuccess;
   }
 }

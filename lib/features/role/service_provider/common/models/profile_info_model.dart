@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/service_provider/profile_setup_page/model/event_preference_model.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/model/event_preference_model.dart';
 
 class ProfileInfoModel {
   String? id;

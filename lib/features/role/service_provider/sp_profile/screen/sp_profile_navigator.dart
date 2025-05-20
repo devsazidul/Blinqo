@@ -1,6 +1,5 @@
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_edit_profile_page.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_screen.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_work_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +16,7 @@ class SpProfile extends StatelessWidget {
           case SpProfileSettingsScreen.name:
             screen = SpProfileSettingsScreen(); // sp profile settings
             break;
-          case SpEditProfilePage.name:
-            screen = SpEditProfilePage(); // sp edit profile
-            break;
+
           case SpShareWorkScreen.name:
             screen = SpShareWorkScreen(); // sp share work
             break;

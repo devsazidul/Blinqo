@@ -1,11 +1,12 @@
+import 'package:blinqo/core/common/controllers/fetch_sp_types_controller.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/widget/event_preference_circle_avatar.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/widget/event_preference_circle_avatar.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -14,8 +15,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class SpProfileSetupScreen extends StatelessWidget {
-  const SpProfileSetupScreen({super.key, this.isEdit = false});
+class SpProfileSetupAndEditScreen extends StatelessWidget {
+  const SpProfileSetupAndEditScreen({super.key, this.isEdit = false});
 
   final bool isEdit;
 
@@ -23,13 +24,14 @@ class SpProfileSetupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final profileSetupController = Get.find<SpProfileSetupController>();
     final profileController = Get.find<SpProfileController>();
+    final spTypesController = Get.find<FetchServiceProviderTypesController>();
 
     // Set edit mode in controller
     profileSetupController.setEditMode(isEdit);
     profileSetupController.initMarkers();
     if (!isEdit) {
       // set name to profile name controller
-      profileSetupController.profileNameController.text =
+      profileSetupController.nameController.text =
           SpAuthController.spUser?.name ?? "";
     }
 
@@ -132,7 +134,7 @@ class SpProfileSetupScreen extends StatelessWidget {
 
                   //* ------------------ Name TextField ------------------
                   TextFormField(
-                    controller: profileSetupController.profileNameController,
+                    controller: profileSetupController.nameController,
                     // validator: (value) {
                     //   if (value == null || value.isEmpty) {
                     //     return 'Please enter your profile name';

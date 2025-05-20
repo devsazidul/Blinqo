@@ -16,6 +16,9 @@ class NotificationService {
 
   static final NotificationService instance = NotificationService._();
 
+  // static const String _fcmTokenKey = 'fcm-token';
+  static String? fcmToken;
+
   final _messaging = FirebaseMessaging.instance;
   final _localNotification = FlutterLocalNotificationsPlugin();
   bool _isFlutterLocalNotificationsInitialized = false;
@@ -29,8 +32,9 @@ class NotificationService {
     // setup message handler
     await _setupMessageHandlers();
 
-    final token = await _messaging.getToken();
-    debugPrint("FCM token: $token");
+    fcmToken = await _messaging.getToken();
+
+    // debugPrint("FCM token: $token");
   }
 
   Future<void> _requestPermission() async {
@@ -159,4 +163,13 @@ class NotificationService {
       (message.data);
     }
   }
+
+  // save fcm token
+  // static Future<void> saveFcmToken({String? token}) async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   if (token != null) {
+  //     sharedPreferences.setString(_fcmTokenKey, token);
+  //     fcmToken = token;
+  //   }
+  // }
 }

@@ -2,8 +2,8 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/screeen/sp_profile_setup_&_edit_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_profile_app_bar.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
@@ -159,7 +159,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
           title: "Edit Profile",
           onTap: () async {
             await Get.find<SpProfileSetupController>().getEventPreferences();
-            Get.to(SpProfileSetupScreen(isEdit: true));
+            Get.to(SpProfileSetupAndEditScreen(isEdit: true));
           },
         ),
         Obx(

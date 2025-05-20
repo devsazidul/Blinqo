@@ -1,4 +1,4 @@
-import 'package:blinqo/core/models/image_model.dart';
+import 'package:blinqo/core/common/models/image_model.dart';
 
 class ServiceProviderModel {
   ServiceProviderModel({

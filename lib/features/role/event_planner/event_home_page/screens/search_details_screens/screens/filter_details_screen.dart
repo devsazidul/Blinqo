@@ -1,4 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/search_details_controller/search_details_controller.dart';
@@ -22,264 +23,196 @@ class FilterDetailsScreen extends StatelessWidget {
   final PickColorController femaleColorController = Get.put(
     PickColorController(),
   );
+
   FilterDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = themeController.isDarkMode.value;
     final bool isFemale = femaleColorController.isFemale.value;
+
     return Scaffold(
       backgroundColor:
           isDarkMode
               ? AppColors.darkBackgroundColor
               : AppColors.backgroundColor,
-      appBar: AppBar(
-        backgroundColor:
-            isDarkMode
-                ? AppColors.darkBackgroundColor
-                : AppColors.backgroundColor,
-        scrolledUnderElevation: 0,
-        leading: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: CircleAvatar(
-            backgroundColor:
-                isDarkMode
-                    ? AppColors.primary.withValues(alpha: 0.1)
-                    : AppColors.textColor.withValues(alpha: 0.15),
-            child: IconButton(
-              padding: EdgeInsets.all(0),
-              icon: Icon(
-                Icons.arrow_back,
-                color: isDarkMode ? AppColors.primary : AppColors.textColor,
-              ),
+      // appBar: _buildAppBar(context, isDarkMode),
+      appBar: CustomAppBarWidget(title: "Filter"),
 
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-        ),
-        title: Text(
-          'Filter',
-          style: getTextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 28),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 28),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.location_on,
-                    color:
-                        isDarkMode
-                            ? AppColors.buttonColor
-                            : isFemale
-                            ? femaleColorController.selectedColor
-                            : AppColors.buttonColor2,
-                    weight: 16,
-                  ),
-                  SizedBox(width: 6),
-                  Text(
-                    'Location',
-                    style: getTextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color:
-                          isDarkMode
-                              ? AppColors.borderColor2
-                              : AppColors.textColor,
-                    ),
-                  ),
-                ],
+              _buildFilterSection(
+                icon: Icons.location_on,
+                title: 'Location',
+                isDarkMode: isDarkMode,
+                isFemale: isFemale,
+                child: Location(
+                  searchDetailsController: searchDetailsController,
+                ),
               ),
-              Location(searchDetailsController: searchDetailsController),
-              SizedBox(height: 42),
-              Row(
-                children: [
-                  Icon(
-                    Icons.calendar_month,
-                    color:
-                        isDarkMode
-                            ? AppColors.buttonColor
-                            : isFemale
-                            ? femaleColorController.selectedColor
-                            : AppColors.buttonColor2,
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    'Date & Availability',
-                    style: getTextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color:
-                          isDarkMode
-                              ? AppColors.borderColor2
-                              : AppColors.textColor,
-                    ),
-                  ),
-                ],
+              const SizedBox(height: 42),
+              _buildFilterSection(
+                icon: Icons.calendar_month,
+                title: 'Date & Availability',
+                isDarkMode: isDarkMode,
+                isFemale: isFemale,
+                child: DataAvailability(),
               ),
-
-              DataAvailability(),
-              SizedBox(height: 40),
-              Row(
-                children: [
-                  Icon(
-                    Icons.reduce_capacity,
-                    color:
-                        isDarkMode
-                            ? AppColors.buttonColor
-                            : isFemale
-                            ? femaleColorController.selectedColor
-                            : AppColors.buttonColor2,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    'Capacity',
-                    style: getTextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color:
-                          isDarkMode
-                              ? AppColors.borderColor2
-                              : AppColors.textColor,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Capacity(searchDetailsController: searchDetailsController),
-              SizedBox(height: 24),
-              VanueType(searchDetailsController: searchDetailsController),
-              SizedBox(height: 30),
-              Row(
-                children: [
-                  Image.asset(
-                    IconPath.shoppingmode,
-                    width: 20,
-                    color:
-                        isDarkMode
-                            ? AppColors.buttonColor
-                            : isFemale
-                            ? femaleColorController.selectedColor
-                            : AppColors.buttonColor2,
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    'Booking Type',
-                    style: getTextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color:
-                          isDarkMode
-                              ? AppColors.borderColor2
-                              : AppColors.textColor,
-                    ),
-                  ),
-                ],
-              ),
-              BookingType(searchDetailsController: searchDetailsController),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Image.asset(
-                    IconPath.cardsstar,
-                    width: 19,
-                    color:
-                        isDarkMode
-                            ? AppColors.buttonColor
-                            : isFemale
-                            ? femaleColorController.selectedColor
-                            : AppColors.buttonColor2,
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    'Ratings & Reviews',
-                    style: getTextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color:
-                          isDarkMode
-                              ? AppColors.borderColor2
-                              : AppColors.textColor,
-                    ),
-                  ),
-                ],
-              ),
-              RatingsReviews(searchDetailsController: searchDetailsController),
-              Obx(
-                () => Row(
+              const SizedBox(height: 40),
+              _buildFilterSection(
+                icon: Icons.reduce_capacity,
+                title: 'Capacity',
+                isDarkMode: isDarkMode,
+                isFemale: isFemale,
+                child: Column(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        searchDetailsController.toggleTab(0);
-                      },
-                      child: Container(
-                        width: 14,
-                        height: 14,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color:
-                                searchDetailsController.selectedTab.value == 0
-                                    ? (isDarkMode
-                                        ? AppColors.buttonColor
-                                        : isFemale
-                                        ? femaleColorController.selectedColor
-                                        : AppColors.buttonColor2)
-                                    : Colors.grey,
-                            width: 2,
-                          ),
-                        ),
-                        child:
-                            searchDetailsController.selectedTab.value == 0
-                                ? Center(
-                                  child: Container(
-                                    width: 12,
-                                    height: 12,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color:
-                                          isDarkMode
-                                              ? AppColors.buttonColor
-                                              : isFemale
-                                              ? femaleColorController
-                                                  .selectedColor
-                                              : AppColors.buttonColor2,
-                                    ),
-                                  ),
-                                )
-                                : null,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Verified',
-                      style: getTextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color:
-                            isDarkMode
-                                ? AppColors.borderColor2
-                                : AppColors.textColor,
-                      ),
-                    ),
+                    const SizedBox(height: 20),
+                    Capacity(searchDetailsController: searchDetailsController),
+                    const SizedBox(height: 20),
+                    const SizedBox(height: 24),
+                    VanueType(searchDetailsController: searchDetailsController),
                   ],
                 ),
               ),
+              const SizedBox(height: 30),
+              _buildFilterSection(
+                icon: IconPath.shoppingmode,
+                isImageIcon: true,
+                title: 'Booking Type',
+                isDarkMode: isDarkMode,
+                isFemale: isFemale,
+                child: BookingType(
+                  searchDetailsController: searchDetailsController,
+                ),
+              ),
+              const SizedBox(height: 20),
+              _buildFilterSection(
+                icon: IconPath.cardsstar,
+                isImageIcon: true,
+                title: 'Ratings & Reviews',
+                isDarkMode: isDarkMode,
+                isFemale: isFemale,
+                child: RatingsReviews(
+                  searchDetailsController: searchDetailsController,
+                ),
+              ),
+              _buildVerifiedSection(isDarkMode, isFemale),
               ToggleButton(),
-              SizedBox(height: 58),
+              const SizedBox(height: 58),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildFilterSection({
+    required dynamic icon,
+    required String title,
+    required bool isDarkMode,
+    required bool isFemale,
+    required Widget child,
+    bool isImageIcon = false,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            isImageIcon
+                ? Image.asset(
+                  icon,
+                  width: 20,
+                  color:
+                      isDarkMode
+                          ? AppColors.buttonColor
+                          : isFemale
+                          ? femaleColorController.selectedColor
+                          : AppColors.buttonColor2,
+                )
+                : Icon(
+                  icon,
+                  color:
+                      isDarkMode
+                          ? AppColors.buttonColor
+                          : isFemale
+                          ? femaleColorController.selectedColor
+                          : AppColors.buttonColor2,
+                ),
+            const SizedBox(width: 8),
+            Text(
+              title,
+              style: getTextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color:
+                    isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+              ),
+            ),
+          ],
+        ),
+        child,
+      ],
+    );
+  }
+
+  Widget _buildVerifiedSection(bool isDarkMode, bool isFemale) {
+    return Obx(
+      () => Row(
+        children: [
+          InkWell(
+            onTap: () => searchDetailsController.toggleTab(0),
+            child: Container(
+              width: 14,
+              height: 14,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color:
+                      searchDetailsController.selectedTab.value == 0
+                          ? (isDarkMode
+                              ? AppColors.buttonColor
+                              : isFemale
+                              ? femaleColorController.selectedColor
+                              : AppColors.buttonColor2)
+                          : Colors.grey,
+                  width: 2,
+                ),
+              ),
+              child:
+                  searchDetailsController.selectedTab.value == 0
+                      ? Center(
+                        child: Container(
+                          width: 12,
+                          height: 12,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                isDarkMode
+                                    ? AppColors.buttonColor
+                                    : isFemale
+                                    ? femaleColorController.selectedColor
+                                    : AppColors.buttonColor2,
+                          ),
+                        ),
+                      )
+                      : null,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            'Verified',
+            style: getTextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: isDarkMode ? AppColors.borderColor2 : AppColors.textColor,
+            ),
+          ),
+        ],
       ),
     );
   }
