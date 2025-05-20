@@ -3,9 +3,8 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_get_verified_screen.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/screeen/sp_profile_setup_screen.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_edit_profile_page.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/screeen/sp_profile_setup_&_edit_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ Future<void> spShowPopupMenu(BuildContext context, bool isDarkMode) async {
             // ignore: use_build_context_synchronously
             context,
             MaterialPageRoute(
-              builder: (context) => SpProfileSetupScreen(isEdit: true),
+              builder: (context) => SpProfileSetupAndEditScreen(isEdit: true),
             ),
           );
         },
@@ -42,7 +41,8 @@ Future<void> spShowPopupMenu(BuildContext context, bool isDarkMode) async {
         value: "view_as",
         iconPath: IconPath.viewAs,
         onTap: () {
-          Get.to(SpEditProfilePage());
+          // Get.to(() => ProfileScreen());
+          // Get.to(SpEditProfilePage());
         },
       ),
       _buildPopupMenuItem(

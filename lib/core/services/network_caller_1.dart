@@ -4,7 +4,7 @@ import 'dart:developer';
 
 import 'package:http/http.dart';
 
-import '../models/response_data.dart';
+import '../common/models/response_data.dart';
 
 class NetworkCaller1 {
   final int timeoutDuration = 10;

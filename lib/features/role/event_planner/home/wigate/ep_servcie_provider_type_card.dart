@@ -1,5 +1,6 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/home/model/service_provider_type_model.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
+import 'package:blinqo/core/common/models/sp_type_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,9 @@ class EpServiceProviderTypeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // return GestureDetector(child: Container(color: Colors.amber));
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        final controller = Get.put(EpServiceProviderListController());
+        await controller.fetchData(serviceId: spTypeMode.id.toString());
         Get.to(
           () =>
               EpServiceProviderListScreen(serviceProviderTypeModel: spTypeMode),

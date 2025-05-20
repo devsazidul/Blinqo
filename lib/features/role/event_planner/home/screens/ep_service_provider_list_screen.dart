@@ -3,12 +3,13 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/ep_service_provider_card.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
-import 'package:blinqo/features/role/event_planner/home/model/service_provider_type_model.dart';
+import 'package:blinqo/core/common/models/sp_type_model.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EpServiceProviderListScreen extends StatefulWidget {
+class EpServiceProviderListScreen extends StatelessWidget {
   const EpServiceProviderListScreen({
     super.key,
     required this.serviceProviderTypeModel,
@@ -17,30 +18,13 @@ class EpServiceProviderListScreen extends StatefulWidget {
   final ServiceProviderTypeModel serviceProviderTypeModel;
 
   @override
-  State<EpServiceProviderListScreen> createState() =>
-      _EpServiceProviderListScreenState();
-}
-
-class _EpServiceProviderListScreenState
-    extends State<EpServiceProviderListScreen> {
-  // final Service service;
-  final EpServiceProviderListController epServiceDetailsController = Get.put(
-    EpServiceProviderListController(),
-  );
-
-  final controller = Get.put(ProfileController());
-
-  @override
-  void initState() {
-    super.initState();
-    epServiceDetailsController.fetchData(
-      serviceId: widget.serviceProviderTypeModel.id.toString(),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final EpServiceProviderListController epServiceDetailsController = Get.put(
+      EpServiceProviderListController(),
+    );
+    final controller = Get.put(ProfileController());
     bool isDarkMode = controller.isDarkMode.value;
+
     return Scaffold(
       backgroundColor:
           isDarkMode
@@ -151,14 +135,25 @@ class _EpServiceProviderListScreenState
 
             // list view for all the users
             Expanded(
-              child: Obx(() {
-                return epServiceDetailsController
-                        .serviceUserModel
-                        .value
-                        .value
-                        .data
-                        .isEmpty
-                    ? Center(
+              child: GetBuilder<EpServiceProviderListController>(
+                builder: (controller) {
+                  if (controller.isLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (controller.errorMessage.isNotEmpty) {
+                    return Center(
+                      child: Text(
+                        controller.errorMessage,
+                        style: getTextStyle(fontSize: 16, color: Colors.red),
+                      ),
+                    );
+                  }
+
+                  final serviceUserModel = controller.serviceUserModel;
+                  if (serviceUserModel == null ||
+                      serviceUserModel.data.isEmpty) {
+                    return Center(
                       child: Text(
                         'No data!',
                         style: getTextStyle(
@@ -167,30 +162,22 @@ class _EpServiceProviderListScreenState
                           color: Colors.grey,
                         ),
                       ),
-                    )
-                    : ListView.builder(
-                      shrinkWrap: true,
-                      itemCount:
-                          epServiceDetailsController
-                              .serviceUserModel
-                              .value
-                              .value
-                              .data
-                              .length,
-                      itemBuilder: (context, index) {
-                        final user =
-                            epServiceDetailsController
-                                .serviceUserModel
-                                .value
-                                .value
-                                .data[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6.0),
-                          child: EpCustomServiceProdiverCard(userModel: user),
-                        );
-                      },
                     );
-              }),
+                  }
+
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: serviceUserModel.data.length,
+                    itemBuilder: (context, index) {
+                      final user = serviceUserModel.data[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        child: EpCustomServiceProdiverCard(userModel: user),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -208,11 +195,12 @@ class _EpServiceProviderListScreenState
         leading: null,
         flexibleSpace: Stack(
           children: [
-            Image.network(
-              widget.serviceProviderTypeModel.avatar.path,
-              width: MediaQuery.of(context).size.width,
+            CachedNetworkImage(
+              imageUrl: serviceProviderTypeModel.avatar.path,
               fit: BoxFit.cover,
+              width: MediaQuery.sizeOf(context).width,
             ),
+
             Positioned.fill(
               child: Container(color: Colors.black.withValues(alpha: 0.6)),
             ),
@@ -244,7 +232,7 @@ class _EpServiceProviderListScreenState
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    widget.serviceProviderTypeModel.name,
+                    serviceProviderTypeModel.name,
                     style: getTextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w600,

@@ -1,3 +1,4 @@
+import 'package:blinqo/core/common/controllers/fetch_sp_types_controller.dart';
 import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/change_password_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_controller.dart';
@@ -10,7 +11,7 @@ import 'package:blinqo/features/role/event_planner/profile/controller/pick_color
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/controller/bottom_nav_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_page/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_edit_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
@@ -36,6 +37,7 @@ class ControllerBinder extends Bindings {
     Get.put(SpProfileSetupController());
     Get.put(SpGetAllWorksController());
     Get.put(SpWorkDetailsController());
+    Get.put(FetchServiceProviderTypesController());
 
     ///
     Get.put(BottomNavController());

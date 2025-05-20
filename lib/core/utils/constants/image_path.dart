@@ -1,4 +1,5 @@
 class ImagePath {
+  static const String splashScreenImage = "assets/images/ventqo_logo.png";
   static const String logo = 'assets/images/userprofile.png';
   static const String homeEventPlanner = 'assets/images/home_event_planner.png';
   static const String serviceprovider01 = 'assets/images/serviceprovider01.png';

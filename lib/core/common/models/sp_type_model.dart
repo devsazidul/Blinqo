@@ -1,4 +1,4 @@
-import 'package:blinqo/core/models/image_model.dart';
+import 'package:blinqo/core/common/models/image_model.dart';
 
 // AdditionalService additionalServiceFromJson(String str) => AdditionalService.fromJson(json.decode(str));
 

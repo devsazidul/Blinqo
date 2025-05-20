@@ -22,7 +22,10 @@ class Blinqo extends StatelessWidget {
           final themeController = Get.find<ThemeController>();
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            builder: EasyLoading.init(),
+            builder: (context, child) {
+              child = EasyLoading.init()(context, child);
+              return child;
+            },
             initialRoute: AppRoute.getsplashoScreen(),
             getPages: AppRoute.routes,
             initialBinding: ControllerBinder(),
