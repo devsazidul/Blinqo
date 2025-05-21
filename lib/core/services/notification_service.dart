@@ -1,4 +1,7 @@
+import 'package:blinqo/core/services/network_caller.dart';
+import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/event_planner/notification/screens/notification_screen.dart';
+import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -34,7 +37,15 @@ class NotificationService {
 
     fcmToken = await _messaging.getToken();
 
-    // debugPrint("FCM token: $token");
+    // Try to send token if user is logged in
+    // await tryToSendTokenToServer();
+
+    // Listen for token changes
+    _messaging.onTokenRefresh.listen((newToken) async {
+      debugPrint("FCM Token refreshed: $newToken");
+      fcmToken = newToken;
+      await tryToSendTokenToServer(accessToken: SpAuthController.token);
+    });
   }
 
   Future<void> _requestPermission() async {
@@ -172,4 +183,26 @@ class NotificationService {
   //     fcmToken = token;
   //   }
   // }
+
+  static Future<void> tryToSendTokenToServer({
+    required String? accessToken,
+  }) async {
+    if (accessToken == null || accessToken.isEmpty) return;
+    if (fcmToken == null) return;
+
+    if (SpAuthController.token != null) {
+      debugPrint("User is logged in. Sending FCM token...");
+      try {
+        await Get.find<NetworkCaller>().postRequest(
+          '${Urls.baseUrl}/notification/save',
+          {"token": fcmToken},
+          accessToken: accessToken,
+        );
+      } catch (e) {
+        debugPrint("Failed to send FCM token: $e");
+      }
+    } else {
+      debugPrint("User not logged in. Skipping FCM token upload.");
+    }
+  }
 }

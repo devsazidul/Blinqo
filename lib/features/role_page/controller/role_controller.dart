@@ -84,6 +84,7 @@
 //   }
 // }
 
+import 'package:blinqo/core/services/notification_service.dart';
 import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
 import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
@@ -146,6 +147,10 @@ class RoleController extends GetxController {
         break;
       case 2:
         if (await SpAuthController.isLoggedIn()) {
+          // sent fcm token to server
+          await NotificationService.tryToSendTokenToServer(
+            accessToken: SpAuthController.token,
+          );
           await Get.find<SpGetUserInfoController>().spGetUserInfo();
 
           if (SpAuthController.spUser?.profile?.id != null) {
