@@ -1,9 +1,9 @@
+import 'package:blinqo/core/common/models/sp_type_model.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/ep_service_provider_card.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
-import 'package:blinqo/core/common/models/sp_type_model.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -196,7 +196,7 @@ class EpServiceProviderListScreen extends StatelessWidget {
         flexibleSpace: Stack(
           children: [
             CachedNetworkImage(
-              imageUrl: serviceProviderTypeModel.avatar.path,
+              imageUrl: serviceProviderTypeModel.avatar?.path ?? '',
               fit: BoxFit.cover,
               width: MediaQuery.sizeOf(context).width,
             ),
@@ -232,7 +232,7 @@ class EpServiceProviderListScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    serviceProviderTypeModel.name,
+                    serviceProviderTypeModel.name ?? '',
                     style: getTextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w600,

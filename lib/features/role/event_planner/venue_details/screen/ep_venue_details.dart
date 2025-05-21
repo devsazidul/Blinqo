@@ -10,7 +10,7 @@ import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_vanue
 import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_vanue_details_custom_widget.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/widget/ep_venue_details_custom_review_widget.dart';
 import 'package:blinqo/features/role/event_planner/venue_details/widget/venue_image_header.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_update_setup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -20,8 +20,8 @@ class EpVenueDetails extends StatelessWidget {
   final EpVenuwDetailsController epVenuwDetailsController = Get.put(
     EpVenuwDetailsController(),
   );
-  final SpProfileSetupController profileController = Get.put(
-    SpProfileSetupController(),
+  final SpProfileUpdateSetupController profileController = Get.put(
+    SpProfileUpdateSetupController(),
   );
   final controller = Get.put(ProfileController());
   @override
@@ -231,7 +231,7 @@ class EpVenueDetails extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: GetBuilder<SpProfileSetupController>(
+                          child: GetBuilder<SpProfileUpdateSetupController>(
                             builder: (_) {
                               return GoogleMap(
                                 onMapCreated: profileController.onMapCreated,

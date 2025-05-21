@@ -6,7 +6,7 @@ import 'package:blinqo/features/role/service_provider/auth/model/login_model.dar
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_update_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/screeen/sp_profile_setup_&_edit_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +86,7 @@ class SpLoginController extends GetxController {
           Get.offAll(() => SpBottomNavBarScreen());
         } else {
           //* Get event preferences from server
-          await Get.put(SpProfileSetupController()).getEventPreferences();
+          await Get.put(SpProfileUpdateSetupController()).getEventPreferences();
           EasyLoading.dismiss();
           Get.offAll(() => SpProfileSetupAndEditScreen());
         }

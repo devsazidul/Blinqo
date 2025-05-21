@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:blinqo/core/common/controllers/fetch_sp_types_controller.dart';
 import 'package:blinqo/core/common/models/network_response.dart';
+import 'package:blinqo/core/common/models/sp_type_model.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/services/network_caller.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
@@ -23,8 +25,9 @@ import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 /// Controller for managing service provider profile setup and editing
-class SpProfileSetupController extends GetxController {
+class SpProfileUpdateSetupController extends GetxController {
   final Logger _logger = Logger();
+  final spTypeController = Get.put(ServiceProviderTypesController());
   final formKey = GlobalKey<FormState>();
 
   // Text Controllers
@@ -40,7 +43,9 @@ class SpProfileSetupController extends GetxController {
   final RxBool _isEditMode = false.obs;
   final Rx<File?> profileImage = Rx<File?>(null);
   final Rx<File?> coverImage = Rx<File?>(null);
-  final Rx<String> selectedRoles = ServiceProviderRole.photographer.obs;
+  final Rx<ServiceProviderTypeModel> selectedRoles =
+      Rx<ServiceProviderTypeModel>(ServiceProviderTypeModel());
+
   final RxList<String> selectedEvents = <String>[].obs;
   final RxBool isLoadingEventPreference = false.obs;
   final RxBool isLoadingServiceProviderSetup = false.obs;
@@ -58,15 +63,15 @@ class SpProfileSetupController extends GetxController {
   bool get isEditMode => _isEditMode.value;
   bool get isInitialized => _isInitialized.value;
   Set<Marker> get mapMarkers => _markers;
-  List<String> get roles => ServiceProviderRole.roles;
+  // List<ServicePro> get roles => spTypeController.types.map((x) => x.name).toList();
   GoogleMapController get mapController => _mapController;
   LatLng get center => _center;
 
   @override
   void onInit() {
     super.onInit();
+
     nameController.text = SpAuthController.spUser?.name ?? "";
-    clearAllData();
   }
 
   @override
@@ -83,16 +88,18 @@ class SpProfileSetupController extends GetxController {
   /// Initialize edit mode with user's existing data
   void initializeEditMode() {
     if (_isEditMode.value && !_isInitialized.value) {
-      final user = SpAuthController.spUser?.profile;
+      final profile = SpAuthController.spUser?.profile;
       nameController.text = SpAuthController.spUser?.name ?? "";
-      usernameController.text = user?.name ?? "";
+      usernameController.text = profile?.name ?? "";
       selectedRoles.value =
-          user?.serviceProviderRole ?? ServiceProviderRole.photographer;
-      locationController.text = user?.location ?? "";
-      descriptionController.text = user?.description ?? "";
-      experienceYearController.text = user?.experience?.toString() ?? "";
+          profile?.serviceType?[profile.serviceType!.length - 1] ??
+          ServiceProviderTypeModel();
+
+      locationController.text = profile?.location ?? "";
+      descriptionController.text = profile?.description ?? "";
+      experienceYearController.text = profile?.experience?.toString() ?? "";
       selectedEvents.addAll(
-        user?.eventPreference?.map((e) => e.id ?? '') ?? [],
+        profile?.eventPreference?.map((e) => e.id ?? '') ?? [],
       );
       _isInitialized.value = true;
     }
@@ -116,7 +123,7 @@ class SpProfileSetupController extends GetxController {
     selectedEvents.clear();
     profileImage.value = null;
     coverImage.value = null;
-    selectedRoles.value = ServiceProviderRole.photographer;
+    selectedRoles.value = ServiceProviderTypeModel();
     _isInitialized.value = false;
     _isEditMode.value = false;
     _markers.clear();
@@ -233,8 +240,11 @@ class SpProfileSetupController extends GetxController {
   }
 
   /// Role and event selection methods
-  void updateRoles(String newRole) {
-    selectedRoles.value = newRole;
+  void updateRoles(String spTypeId) {
+    selectedRoles.value = spTypeController.types.firstWhere(
+      (element) => element.id == spTypeId,
+    );
+    update();
   }
 
   void toggleEventSelection(String eventId) {
@@ -272,6 +282,9 @@ class SpProfileSetupController extends GetxController {
     update();
   }
 
+  // -------------------------------------------------
+  //* Profile Setup start
+  // -------------------------------------------------
   Future<bool> spProfileSetup() async {
     EasyLoading.show(status: 'Loading...');
     isLoadingServiceProviderSetup.value = true;
@@ -292,27 +305,42 @@ class SpProfileSetupController extends GetxController {
     update();
     return isSuccess;
   }
+  // profile setup end
 
+  // -------------------------------------------------
+  //* Profile Update start
+  // -------------------------------------------------
   Future<bool> spProfileUpdate() async {
+    bool isSuccess = false;
     EasyLoading.show(status: 'Loading...');
     isLoadingServiceProviderUpdate.value = true;
     update();
 
     await SpAuthController.getUserInformation();
 
+    Map<String, String> formFields = {
+      'eventPreferenceIds': jsonEncode(selectedEvents),
+      'serviceTypeId': selectedRoles.value.id ?? '',
+      'description': descriptionController.text,
+      'experience': experienceYearController.text,
+      'location': locationController.text,
+      'name': nameController.text,
+      "userName": usernameController.text,
+    };
+
     final response = await Get.find<NetworkCaller>().multipartRequest(
       isPatchRequest: true,
-      url: Urls.updateServiceProviderProfile(
-        SpAuthController.spUser?.profile?.id ?? '',
-      ),
-      formFields: _getProfileFormFields(),
+      url: Urls.updateServiceProviderProfile,
+      formFields: formFields,
       files: await _getProfileFiles(),
     );
 
-    final bool isSuccess = await _handleProfileResponse(
-      response,
-      isUpdate: true,
-    );
+    if (response.isSuccess) {
+      await Get.find<SpGetUserInfoController>().spGetUserInfo();
+      isSuccess = true;
+    } else {
+      isSuccess = false;
+    }
 
     isLoadingServiceProviderUpdate.value = false;
     update();
@@ -322,7 +350,7 @@ class SpProfileSetupController extends GetxController {
   Map<String, String> _getProfileFormFields() {
     return {
       'eventPreferenceIds': jsonEncode(selectedEvents),
-      'serviceProviderRole': selectedRoles.value,
+      'serviceProviderRole': selectedRoles.value.id ?? '',
       'description': descriptionController.text,
       'experience': experienceYearController.text,
       // 'userId': SpAuthController.spUser?.id ?? '',
@@ -377,21 +405,4 @@ class SpProfileSetupController extends GetxController {
       return false;
     }
   }
-}
-
-/// Enum-like class for service provider roles
-class ServiceProviderRole {
-  static const String photographer = "PHOTOGRAPHER";
-  static const String videographer = "VIDEOGRAPHER";
-  static const String djBand = "DJ_BAND";
-  static const String catering = "CATERING";
-  static const String entertainer = "ENTERTAINER";
-
-  static const List<String> roles = [
-    photographer,
-    videographer,
-    djBand,
-    catering,
-    entertainer,
-  ];
 }

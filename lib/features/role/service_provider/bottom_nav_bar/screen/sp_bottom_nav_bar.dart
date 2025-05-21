@@ -5,7 +5,7 @@ import 'package:blinqo/features/role/service_provider/service_chat_page/screen/s
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_navigator.dart';
+import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +26,8 @@ class SpBottomNavBarScreen extends StatelessWidget {
       SpEarningPage(),
       SpBookingPage(),
       SpChatPage(),
-      SpProfile(),
+      // SpProfile(),
+      SpProfileScreen(),
     ];
     double screenWidth = MediaQuery.of(context).size.width;
     double iconSize = screenWidth < 700 ? 65 : 70;

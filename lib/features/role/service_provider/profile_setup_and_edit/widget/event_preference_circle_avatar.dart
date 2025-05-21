@@ -1,6 +1,6 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_update_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/model/event_preference_model.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class SpEventPreferenceCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SpProfileController());
-    final profileSetupController = Get.put(SpProfileSetupController());
+    final profileSetupController = Get.put(SpProfileUpdateSetupController());
     final themeMode =
         controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
     final isSelected = profileSetupController.selectedEvents.contains(

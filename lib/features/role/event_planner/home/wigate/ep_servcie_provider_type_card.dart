@@ -1,6 +1,6 @@
+import 'package:blinqo/core/common/models/sp_type_model.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
-import 'package:blinqo/core/common/models/sp_type_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,7 +36,7 @@ class EpServiceProviderTypeCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: CachedNetworkImage(
-              imageUrl: spTypeMode.avatar.path.toString(),
+              imageUrl: spTypeMode.avatar?.path.toString() ?? '',
               memCacheWidth: 168,
               memCacheHeight: 123,
               fit: BoxFit.fill,
@@ -46,7 +46,7 @@ class EpServiceProviderTypeCard extends StatelessWidget {
             ),
           ),
           Text(
-            spTypeMode.name,
+            spTypeMode.name ?? '',
             style: GoogleFonts.poppins(
               color: isDark ? AppColors.backgroundColor : AppColors.textColor,
               fontSize: 16,

@@ -34,8 +34,6 @@ class Urls {
   static const String uploadServiceProviderProfile =
       '$baseUrl/profile/service-provider-setup';
 
-  static String updateServiceProviderProfile(String id) =>
-      '$baseUrl/profile/service-provider-profile-update/$id';
   static String updatePlannerProfile =
       '$baseUrl/profile/planner-profile-update';
 
@@ -64,6 +62,9 @@ class Urls {
 
   // -----------------------Service Provider urls-----------------------
   static String getServiceProviderTypes = '$baseUrl/service-provider-type/get';
+
+  static String updateServiceProviderProfile =
+      '$baseUrl/profile/service-provider-profile-update';
 
   static String workShowcase = '$baseUrl/works/create-work-showcase';
   static String getAllWorks = '$baseUrl/works/get-all-by-service-provider';
