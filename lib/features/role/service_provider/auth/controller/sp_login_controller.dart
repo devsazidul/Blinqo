@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/models/network_response.dart';
 import 'package:blinqo/core/services/network_caller.dart';
+import 'package:blinqo/core/services/notification_service.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/service_provider/auth/model/login_model.dart';
 import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
@@ -70,6 +71,11 @@ class SpLoginController extends GetxController {
             role: loginModel.user?.roles,
             isVerified: loginModel.user?.isVerified,
           ),
+        );
+
+        // send fcm token
+        await NotificationService.tryToSendTokenToServer(
+          accessToken: SpAuthController.token,
         );
 
         if (loginModel.user?.isProfileCreated == true) {

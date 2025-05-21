@@ -56,14 +56,20 @@ class NetworkCaller {
   //* ------------------------------------------------
   Future<NetworkResponse> postRequest(
     String url,
-    Map<String, dynamic>? body,
-  ) async {
+    Map<String, dynamic>? body, {
+    String? accessToken,
+  }) async {
     try {
       Uri uri = Uri.parse(url);
       final headers = {"Content-Type": "application/json"};
-      if (SpAuthController.token != null) {
+      if (accessToken != null) {
+        headers['Authorization'] = "Bearer $accessToken";
+      } else {
         headers['Authorization'] = "Bearer ${SpAuthController.token}";
       }
+      // if (SpAuthController.token != null) {
+      //   headers['Authorization'] = "Bearer ${SpAuthController.token}";
+      // }
 
       _logRequest(url, headers, body);
       http.Response response = await http.post(
