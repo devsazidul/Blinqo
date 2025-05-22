@@ -1,24 +1,24 @@
-import 'package:blinqo/features/role/event_planner/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/change_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_otp_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/forget_password_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/login_screen.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/signup_screen.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
-import 'package:blinqo/features/role/event_planner/home/screens/ep_home_screen.dart';
-import 'package:blinqo/features/role/event_planner/home/screens/event_services_screen.dart';
+import 'package:blinqo/features/role/event_planner/main_layout/screen/ep_main_layout_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/featured_venues_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/filter_view_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/venues_near_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart';
+import 'package:blinqo/features/role/event_planner/home/screens/ep_home_screen.dart';
+import 'package:blinqo/features/role/event_planner/home/screens/event_services_screen.dart';
 import 'package:blinqo/features/role/event_planner/home/start_booking.dart';
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/even_payment_option.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/evetnt_congratulation_screen.dart';
 import 'package:blinqo/features/role/event_planner/payment_method/screen/final_review_booking_datieals.dart';
 import 'package:blinqo/features/role/event_planner/profile/screen/pick_color_screen.dart';
+import 'package:blinqo/features/role/event_planner/profile/screen/profile_screen.dart';
 import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking.dart';
 import 'package:blinqo/features/role/event_planner/review_booking/screen/review_booking_datieals.dart';
@@ -41,7 +41,6 @@ import 'package:blinqo/features/role/service_provider/service_chat_page/screen/s
 import 'package:blinqo/features/role/service_provider/service_earning_page/screen/sp_earning_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_home_page.dart';
 import 'package:blinqo/features/role/service_provider/service_home_page/screen/sp_upcoming_project.dart';
-import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_edit_profile_page.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_change_password.dart';
@@ -50,8 +49,6 @@ import 'package:blinqo/features/role/venue_owner/authentication/screen/v_login_s
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_opt_send_screen.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/screen/v_signup_screen.dart';
 import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/add_employee_for_shift_screen.dart';
-import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/create_employee_screen.dart';
-import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/create_shift_screen.dart';
 import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/myteamedit.dart';
 import 'package:blinqo/features/role_page/screen/role_screen.dart';
 import 'package:blinqo/features/splasho_screen/screen/splasho_screen.dart';
@@ -270,7 +267,10 @@ class AppRoute {
     GetPage(name: spLoginScreen, page: () => SpLoginScreen()),
     GetPage(name: spForgetPassword, page: () => SpForgetPasswordScreen()),
     GetPage(name: profilesetup, page: () => ProfileSetup()),
-    GetPage(name: eventbottomnavbar, page: () => EventBottomNavBar()),
+    GetPage(
+      name: eventbottomnavbar,
+      page: () => EventPlannerMainLayoutScreen(),
+    ),
     GetPage(
       name: spFOtpSendScreen,
       page:

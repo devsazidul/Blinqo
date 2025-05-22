@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/model/checklist_model.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/build_checkappbar.dart';
@@ -465,6 +466,7 @@ class CreateChecklistScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: EpBottomNavBarWidget(),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/event_planner/main_layout/screen/ep_main_layout_screen.dart';
 import 'package:blinqo/features/role/event_planner/payment_history/screens/payment_history_screen.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
@@ -32,7 +32,7 @@ class MainProfileScreen extends StatelessWidget {
           appBar: CustomAppBarWidget(
             title: "Profile",
             onPressed: () {
-              Get.offAll(EventBottomNavBar());
+              Get.offAll(EventPlannerMainLayoutScreen());
             },
             // actions: [
             //   IconButton(

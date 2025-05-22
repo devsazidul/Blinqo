@@ -1,17 +1,19 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_get_sp_works_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/model/service_provider_model.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/screen/ep_service_provider_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EpCustomServiceProdiverCard extends StatelessWidget {
-  EpCustomServiceProdiverCard({super.key, required this.userModel});
+class EpCustomServiceProviderCard extends StatelessWidget {
+  EpCustomServiceProviderCard({super.key, required this.userModel});
 
-  final Datum userModel;
+  // final Datum userModel;
+  final EpServiceProviderModel userModel;
   final controller = Get.put(ProfileController());
   final PickColorController femaleColorController = Get.put(
     PickColorController(),
@@ -33,20 +35,20 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
           children: [
             Column(
               children: [
-                // profile image
+                //* -------------- profile image --------------
                 CircleAvatar(
                   radius: 18,
                   backgroundColor:
                       isDarkMode
                           ? AppColors.textFieldDarkColor
                           : AppColors.primary,
-                  backgroundImage: NetworkImage(userModel.image.path),
+                  backgroundImage: NetworkImage(userModel.image?.path ?? ''),
                 ),
               ],
             ),
             SizedBox(width: 12),
 
-            // user details
+            //* -------------- user details --------------
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,8 +56,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        userModel.name,
-
+                        userModel.user?.name ?? '',
                         style: getTextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
@@ -66,7 +67,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 8),
-                      if (userModel.user.isVerified)
+                      if (userModel.user?.isVerified ?? false)
                         Image.asset(
                           IconPath.eventserviceverificaitonlogo,
                           width: 14,
@@ -74,6 +75,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                         ),
                     ],
                   ),
+
                   SizedBox(height: 6),
                   Row(
                     children: [
@@ -85,7 +87,7 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                       SizedBox(width: 4),
                       Expanded(
                         child: Text(
-                          userModel.location,
+                          userModel.location ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: getTextStyle(
                             fontSize: 12,
@@ -98,7 +100,8 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    userModel.basePrice.toString(),
+                    '\$${userModel.basePrice.toString()}',
+
                     style: getTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -152,7 +155,9 @@ class EpCustomServiceProdiverCard extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    await Get.find<EpGetSpWorksController>()
+                        .getServiceProviderWorks(profileId: userModel.id ?? '');
                     Get.to(
                       () => EpServiceProviderProfile(userModel: userModel),
                     );

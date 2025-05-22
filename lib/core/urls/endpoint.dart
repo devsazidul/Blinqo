@@ -69,8 +69,9 @@ class Urls {
   static String workShowcase = '$baseUrl/works/create-work-showcase';
   static String getAllWorks = '$baseUrl/works/get-all-by-service-provider';
 
-  static String getWorkDetails(String id) => '$baseUrl/works/get/$id';
-  static String getWorkAllDetails(String id) => '$baseUrl/works/get-all/$id';
+  static String getWorkDetailsByWorkId(String id) => '$baseUrl/works/get/$id';
+  static String getAllWorksByProfileId(String id) =>
+      '$baseUrl/works/get-all/$id';
 
   static String getVenueOwnerHome = '$baseUrl/venue/venue-owner-home';
   static String getAllUpcomingBookings =

@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/ep_payment_controller/ep_payment_option_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/ep_paymant_screen/ep_payment_option_card.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
@@ -137,6 +138,7 @@ class EpPaymentOption extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: EpBottomNavBarWidget(),
     );
   }
 }

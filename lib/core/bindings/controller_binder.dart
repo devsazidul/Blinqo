@@ -4,7 +4,10 @@ import 'package:blinqo/features/role/event_planner/auth/controller/change_passwo
 import 'package:blinqo/features/role/event_planner/auth/controller/forget_password_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/login_controller.dart';
 import 'package:blinqo/features/role/event_planner/auth/controller/signup_controller.dart';
+import 'package:blinqo/features/role/event_planner/common/controllers/ep_bottom_nav_controller.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_get_all_venues_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_get_sp_works_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_home_screen_controller.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_type_controller.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_venue_compare_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
@@ -21,16 +24,25 @@ import 'package:get/get.dart';
 class ControllerBinder extends Bindings {
   @override
   void dependencies() {
-    // Event Planner
+    // -------------------------------------------------------------------
+    //* Event Planner
+    // -------------------------------------------------------------------
     Get.put(PickColorController());
+    // common controllers
+    Get.put(EventBottomNavController());
     Get.put(ProfileController());
     Get.put(PickColorController());
     Get.put(EpVenueCompareController());
     Get.put(SpEditProfileController());
     Get.put(EpGetAllVenuesController());
     Get.put(EpServiceProviderTypeController());
+    Get.put(EpGetSpWorksController());
+    // Event planner home controllers
+    Get.put(EpHomeScreenController());
 
-    // Service Provider
+    // -------------------------------------------------------------------
+    //* Service Provider
+    // -------------------------------------------------------------------
     Get.put(NetworkCaller());
     Get.put(SpGetUserInfoController());
     Get.put(SpProfileController());

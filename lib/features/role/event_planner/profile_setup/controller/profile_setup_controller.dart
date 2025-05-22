@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/event_planner/main_layout/screen/ep_main_layout_screen.dart';
 import 'package:blinqo/features/role/event_planner/profile_setup/model/event_preference_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileSetupController extends GetxController {
   TextEditingController namecontroller = TextEditingController();
@@ -215,7 +216,7 @@ class ProfileSetupController extends GetxController {
         if (responseData['success'] == true) {
           debugPrint("[31] Server returned success=true");
           debugPrint("[32] Navigating to EventBottomNavBar");
-          Get.offAll(() => EventBottomNavBar());
+          Get.offAll(() => EventPlannerMainLayoutScreen());
           EasyLoading.showSuccess('Profile setup completed successfully');
         } else {
           debugPrint("[31] ERROR: Server returned success=false");

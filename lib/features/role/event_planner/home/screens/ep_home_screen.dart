@@ -23,15 +23,15 @@ class EventHomeScreen extends StatelessWidget {
 
   const EventHomeScreen({super.key});
 
-  void _loadData() async {
-    await Get.find<EpGetAllVenuesController>().getAllVenues();
-    await Get.find<EpServiceProviderTypeController>()
-        .fetchAllServiceProviderTypes();
-  }
+  // void _loadData() async {
+  //   await Get.find<EpGetAllVenuesController>().getAllVenues();
+  //   await Get.find<EpServiceProviderTypeController>()
+  //       .fetchAllServiceProviderTypes();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _loadData();
+    // _loadData();
     final homeDataController = Get.put(EpGetAllVenuesController());
     final upcomingEventsController = Get.put(UpcomingEventsController());
     final femaleColorController = Get.put(PickColorController());
@@ -49,72 +49,88 @@ class EventHomeScreen extends StatelessWidget {
           femaleColorController: femaleColorController,
         ),
 
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 32),
-                  SearchBerSection(isDark: isDark),
-                  const SizedBox(height: 20),
-                  EventCard(),
-                  const SizedBox(height: 40),
-                  // Featured Venues Section
-                  _buildTitle(
-                    'Featured Venues',
-                    isDark,
-                    onTap: () {
-                      Get.to(FeaturedVenuesScreen());
-                    },
-                  ),
-                  const SizedBox(height: 8),
-
-                  _buildFeaturedVenuesList(context, isDark, homeDataController),
-                  const SizedBox(height: 40),
-
-                  // Upcoming Events Section
-                  Text(
-                    'Upcoming Events',
-                    style: getTextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                      color: isDark ? AppColors.backgroundColor : Colors.black,
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await Get.find<EpGetAllVenuesController>().getAllVenues();
+            await Get.find<EpServiceProviderTypeController>()
+                .fetchAllServiceProviderTypes();
+          },
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 32),
+                    SearchBerSection(isDark: isDark),
+                    const SizedBox(height: 20),
+                    EventCard(),
+                    const SizedBox(height: 40),
+                    // Featured Venues Section
+                    _buildTitle(
+                      'Featured Venues',
+                      isDark,
+                      onTap: () {
+                        Get.to(FeaturedVenuesScreen());
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 8),
 
-                  _buildUpComingEventList(upcomingEventsController, isDark),
-                  const SizedBox(height: 40),
+                    _buildFeaturedVenuesList(
+                      context,
+                      isDark,
+                      homeDataController,
+                    ),
+                    const SizedBox(height: 40),
 
-                  // Venues Near You Section
-                  _buildTitle(
-                    'Venues Near You',
-                    isDark,
-                    onTap: () => Get.to(() => FeaturedVenuesScreen()),
-                  ),
+                    // Upcoming Events Section
+                    Text(
+                      'Upcoming Events',
+                      style: getTextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color:
+                            isDark ? AppColors.backgroundColor : Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
 
-                  _buildFeaturedVenuesList(context, isDark, homeDataController),
-                  // _buildVenueNearYouList(
-                  //   context,
-                  //   homeDataController,
-                  //   isFemale,
-                  //   femaleColorController,
-                  // ),
-                  const SizedBox(height: 40),
+                    _buildUpComingEventList(upcomingEventsController, isDark),
+                    const SizedBox(height: 40),
 
-                  // Additional Services Section
-                  _buildTitle(
-                    'Additional Services',
-                    isDark,
-                    onTap: () => Get.to(EventServicesScreen()),
-                  ),
+                    // Venues Near You Section
+                    _buildTitle(
+                      'Venues Near You',
+                      isDark,
+                      onTap: () => Get.to(() => FeaturedVenuesScreen()),
+                    ),
 
-                  /// Additional Services
-                  _buildServiceProviderTypeList(context, isDark),
-                  const SizedBox(height: 20),
-                ],
+                    _buildFeaturedVenuesList(
+                      context,
+                      isDark,
+                      homeDataController,
+                    ),
+                    // _buildVenueNearYouList(
+                    //   context,
+                    //   homeDataController,
+                    //   isFemale,
+                    //   femaleColorController,
+                    // ),
+                    const SizedBox(height: 40),
+
+                    // Additional Services Section
+                    _buildTitle(
+                      'Additional Services',
+                      isDark,
+                      onTap: () => Get.to(EventServicesScreen()),
+                    ),
+
+                    /// Additional Services
+                    _buildServiceProviderTypeList(context, isDark),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
           ),

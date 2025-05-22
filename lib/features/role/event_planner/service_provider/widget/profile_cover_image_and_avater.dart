@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
   const EpSpProfileCoverImageAndAvatar({
     super.key,
-    required this.profileImage,
+    this.profileImage,
     this.coverImage,
   });
 
-  final String profileImage;
+  final String? profileImage;
   final String? coverImage;
 
   @override
@@ -18,21 +18,37 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(height: 270, width: double.infinity),
-
-        profileImage.isEmpty
-            ? Image.asset(
+        // Cover image
+        CachedNetworkImage(
+          imageUrl:
+              coverImage ??
+              "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+          fit: BoxFit.cover,
+          height: 220,
+          width: double.infinity,
+          errorWidget: (context, error, stackTrace) {
+            return Image.asset(
               "assets/images/profile_cover_image.jpeg",
               height: 220,
               width: double.infinity,
               fit: BoxFit.cover,
-            )
-            : CachedNetworkImage(
-              height: 220,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              imageUrl: coverImage!,
-            ),
+            );
+          },
+        ),
 
+        // profileImage.isEmpty
+        //     ? Image.asset(
+        //       "assets/images/profile_cover_image.jpeg",
+        //       height: 220,
+        //       width: double.infinity,
+        //       fit: BoxFit.cover,
+        //     )
+        //     : CachedNetworkImage(
+        //       height: 220,
+        //       width: double.infinity,
+        //       fit: BoxFit.cover,
+        //       imageUrl: coverImage ?? "",
+        //     ),
         Positioned(
           top: 50,
           left: 0,
@@ -92,8 +108,9 @@ class EpSpProfileCoverImageAndAvatar extends StatelessWidget {
                 ),
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage:
-                      profileImage.isEmpty ? null : NetworkImage(profileImage),
+                  backgroundImage: CachedNetworkImageProvider(
+                    profileImage ?? "",
+                  ),
                 ),
               ),
             ],

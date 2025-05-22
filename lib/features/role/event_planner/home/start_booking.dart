@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/enent_type_dopdown_button.dart';
@@ -169,6 +170,7 @@ class StartBooking extends StatelessWidget {
             ),
           ),
         ),
+        bottomNavigationBar: EpBottomNavBarWidget(),
       );
     });
   }

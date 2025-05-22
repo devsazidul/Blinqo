@@ -2,7 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/widgets/bottom_nav_bar.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/controllers/upcoming_events_controller.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_get_all_venues_controller.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_venue_compare_controller.dart';
@@ -33,7 +33,7 @@ class FeaturedVenuesScreen extends StatelessWidget {
                 ? Colors.black
                 : AppColors.backgroundColor,
         appBar: CustomAppBarWidget(title: 'Featured Venues'),
-        bottomNavigationBar: EpBottomNavBar(),
+        bottomNavigationBar: EpBottomNavBarWidget(),
         body: _buildVenuesGrid(context, controller, themeMode),
       );
     });

@@ -1,5 +1,5 @@
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/widgets/bottom_nav_bar.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_venue_compare_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,7 +45,7 @@ class AddCompare extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBarWidget(title: 'Compare'),
-      bottomNavigationBar: EpBottomNavBar(),
+      bottomNavigationBar: EpBottomNavBarWidget(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(

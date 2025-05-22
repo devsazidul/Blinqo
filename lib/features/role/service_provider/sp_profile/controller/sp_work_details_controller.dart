@@ -21,7 +21,7 @@ class SpWorkDetailsController extends GetxController {
     update();
 
     final response = await Get.find<NetworkCaller>().getRequest(
-      Urls.getWorkDetails(workId),
+      Urls.getWorkDetailsByWorkId(workId),
     );
 
     if (response.statusCode == 200) {

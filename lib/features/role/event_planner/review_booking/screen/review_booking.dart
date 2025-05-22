@@ -1,4 +1,5 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/routes/app_routes.dart';
@@ -280,6 +281,8 @@ class ReviewBooking extends StatelessWidget {
             ],
           ),
         ),
+
+        bottomNavigationBar: EpBottomNavBarWidget(),
       );
     });
   }

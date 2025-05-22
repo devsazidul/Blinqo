@@ -2,8 +2,9 @@ import 'package:blinqo/core/common/models/sp_type_model.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/widgets/ep_service_provider_card.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/wigate/ep_service_provider_card.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,9 @@ class EpServiceProviderListScreen extends StatelessWidget {
     final EpServiceProviderListController epServiceDetailsController = Get.put(
       EpServiceProviderListController(),
     );
-    final controller = Get.put(ProfileController());
-    bool isDarkMode = controller.isDarkMode.value;
+
+    final profileController = Get.put(ProfileController());
+    bool isDarkMode = profileController.isDarkMode.value;
 
     return Scaffold(
       backgroundColor:
@@ -150,9 +152,8 @@ class EpServiceProviderListScreen extends StatelessWidget {
                     );
                   }
 
-                  final serviceUserModel = controller.serviceUserModel;
-                  if (serviceUserModel == null ||
-                      serviceUserModel.data.isEmpty) {
+                  final serviceUserModel = controller.spProfileModelList;
+                  if (serviceUserModel == null || serviceUserModel.isEmpty) {
                     return Center(
                       child: Text(
                         'No data!',
@@ -167,12 +168,12 @@ class EpServiceProviderListScreen extends StatelessWidget {
 
                   return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: serviceUserModel.data.length,
+                    itemCount: serviceUserModel.length,
                     itemBuilder: (context, index) {
-                      final user = serviceUserModel.data[index];
+                      final user = serviceUserModel[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 6.0),
-                        child: EpCustomServiceProdiverCard(userModel: user),
+                        child: EpCustomServiceProviderCard(userModel: user),
                       );
                     },
                   );
@@ -182,6 +183,7 @@ class EpServiceProviderListScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: EpBottomNavBarWidget(),
     );
   }
 

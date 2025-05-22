@@ -1,6 +1,7 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/controllers/checklist_controller.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/screens/checklist_appbar.dart';
 import 'package:blinqo/features/role/event_planner/event_checkout_page/widgets/ep_custom_check_list_widget.dart';
@@ -279,6 +280,7 @@ class CheckVenue extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: EpBottomNavBarWidget(),
     );
   }
 }
