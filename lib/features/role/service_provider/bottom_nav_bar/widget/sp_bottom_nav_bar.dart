@@ -1,25 +1,19 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/controller/bottom_nav_controller.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/controller/event_bottom_nav_controller.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/controller/bottom_nav_controller.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EpBottomNavBar extends StatelessWidget {
-  const EpBottomNavBar({
-    super.key,
-    // required this.screen,
-    this.selectedIndex = 0,
-  });
+class SpBottomNavBarWidget extends StatelessWidget {
+  const SpBottomNavBarWidget({super.key, this.selectedIndex = 0});
 
-  // final StatelessWidget screen;
   final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
-    final EpBottomNavController controller = Get.put(EpBottomNavController());
+    final BottomNavController controller = Get.put(BottomNavController());
     double screenWidth = MediaQuery.of(context).size.width;
     double iconSize = screenWidth < 700 ? 60 : 70;
     return GetBuilder<ProfileController>(
@@ -51,8 +45,8 @@ class EpBottomNavBar extends StatelessWidget {
                   controller: controller,
                 ),
                 _buildNavItem(
-                  activeImage: IconPath.checkoutactive,
-                  passiveImage: IconPath.checkoutdeactive,
+                  activeImage: IconPath.earningsactive,
+                  passiveImage: IconPath.earningsdeactive,
                   index: 1,
                   iconSize: iconSize,
                   controller: controller,
@@ -91,14 +85,14 @@ class EpBottomNavBar extends StatelessWidget {
     required String passiveImage,
     required int index,
     required double iconSize,
-    required EpBottomNavController controller, // Add this parameter
+    required BottomNavController controller, // Add this parameter
   }) {
     final bool isDarkMode = Get.find<ProfileController>().isDarkMode.value;
     return GestureDetector(
       onTap: () {
         // controller.changeIndex(index);
-        Get.put(EventBottomNavController()).changeIndex(index);
-        Get.to((EventBottomNavBar()));
+        Get.put(BottomNavController()).changeIndex(index);
+        Get.to((SpBottomNavBarScreen()));
       },
       child: Obx(() {
         final isSelected = controller.currentIndex.value == index;

@@ -93,7 +93,7 @@ import 'package:blinqo/features/role/service_provider/bottom_nav_bar/screen/sp_b
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/sp_get_user_info_controller.dart';
 import 'package:blinqo/features/role/service_provider/onbording/screen/sp_onbording_screen.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_update_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/screeen/sp_profile_setup_&_edit_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_get_all_works_controller.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
@@ -159,7 +159,9 @@ class RoleController extends GetxController {
 
             Get.to(() => SpBottomNavBarScreen());
           } else {
-            await Get.put(SpProfileSetupController()).getEventPreferences();
+            await Get.put(
+              SpProfileUpdateSetupController(),
+            ).getEventPreferences();
             Get.to(() => SpProfileSetupAndEditScreen());
           }
         } else {

@@ -4,11 +4,13 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_continue_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/widget/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/share_work_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_profile_app_bar.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -371,7 +373,9 @@ class SpShareWorkScreen extends StatelessWidget {
                             .validate()) {
                           bool isSuccess =
                               await shareWorkController.uploadWorkPost();
+
                           if (isSuccess) {
+                            EasyLoading.dismiss();
                             Get.back();
                           }
                         }
@@ -386,6 +390,7 @@ class SpShareWorkScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: SpBottomNavBarWidget(),
     );
   }
 }

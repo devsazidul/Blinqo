@@ -63,7 +63,16 @@ class ProfileSummarySection extends StatelessWidget {
             ),
             SizedBox(width: 4),
             Text(
-              SpAuthController.spUser?.profile?.serviceProviderRole ??
+              SpAuthController
+                      .spUser
+                      ?.profile
+                      ?.serviceType?[SpAuthController
+                              .spUser!
+                              .profile!
+                              .serviceType!
+                              .length -
+                          1]
+                      .name ??
                   "unknown",
               style: getTextStyle(
                 fontSize: 14,

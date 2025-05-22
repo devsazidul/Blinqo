@@ -5,7 +5,7 @@ import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_servic
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
-class FetchServiceProviderTypesController extends GetxController {
+class ServiceProviderTypesController extends GetxController {
   bool _isLoading = false;
   String _errorMessage = '';
   List<ServiceProviderTypeModel> _types = [];
@@ -14,11 +14,11 @@ class FetchServiceProviderTypesController extends GetxController {
   String get errorMessage => _errorMessage;
   List<ServiceProviderTypeModel> get types => _types;
 
-  @override
-  void onInit() {
-    fetchServiceProviderTypes();
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   fetchServiceProviderTypes();
+  //   super.onInit();
+  // }
 
   Future<bool> fetchServiceProviderTypes() async {
     _isLoading = true;
@@ -34,7 +34,12 @@ class FetchServiceProviderTypesController extends GetxController {
 
       if (response.isSuccess && response.responseData["data"] != null) {
         final data = response.responseData["data"];
-        _types = data.map((e) => ServiceProviderTypeModel.fromJson(e)).toList();
+        _types =
+            data
+                .map<ServiceProviderTypeModel>(
+                  (e) => ServiceProviderTypeModel.fromJson(e),
+                )
+                .toList();
         isSuccess = true;
       }
     } catch (e) {

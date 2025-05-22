@@ -1,3 +1,5 @@
+import 'package:blinqo/core/common/models/sp_type_model.dart';
+
 class SpUser {
   SpUser({
     this.id,
@@ -95,10 +97,11 @@ class SpProfile {
     this.enableNotification,
     this.verificationSubmissionId,
     this.groupMessageId,
-    this.serviceProviderRole,
+    // this.serviceProviderRole,
     this.image,
     this.coverPhoto,
     this.eventPreference,
+    this.serviceType,
   });
 
   String? id;
@@ -118,10 +121,11 @@ class SpProfile {
   bool? enableNotification;
   String? verificationSubmissionId;
   String? groupMessageId;
-  String? serviceProviderRole;
+  // String? serviceProviderRole;
   CoverPhoto? image;
   CoverPhoto? coverPhoto;
   List<EventPreference>? eventPreference;
+  List<ServiceProviderTypeModel>? serviceType;
 
   SpProfile copyWith({
     String? id,
@@ -141,10 +145,11 @@ class SpProfile {
     bool? enableNotification,
     String? verificationSubmissionId,
     String? groupMessageId,
-    String? serviceProviderRole,
+    // String? serviceProviderRole,
     CoverPhoto? image,
     CoverPhoto? coverPhoto,
     List<EventPreference>? eventPreference,
+    List<ServiceProviderTypeModel>? serviceType,
   }) {
     return SpProfile(
       id: id ?? this.id,
@@ -165,10 +170,11 @@ class SpProfile {
       verificationSubmissionId:
           verificationSubmissionId ?? this.verificationSubmissionId,
       groupMessageId: groupMessageId ?? this.groupMessageId,
-      serviceProviderRole: serviceProviderRole ?? this.serviceProviderRole,
+      // serviceProviderRole: serviceProviderRole ?? this.serviceProviderRole,
       image: image ?? this.image,
       coverPhoto: coverPhoto ?? this.coverPhoto,
       eventPreference: eventPreference ?? this.eventPreference,
+      serviceType: serviceType ?? this.serviceType,
     );
   }
 
@@ -191,7 +197,7 @@ class SpProfile {
       enableNotification: json["enableNotification"],
       verificationSubmissionId: json["verificationSubmissionId"],
       groupMessageId: json["groupMessageId"],
-      serviceProviderRole: json["serviceProviderRole"],
+      // serviceProviderRole: json["serviceProviderRole"],
       image: json["image"] == null ? null : CoverPhoto.fromJson(json["image"]),
       coverPhoto:
           json["coverPhoto"] == null
@@ -203,6 +209,14 @@ class SpProfile {
               : List<EventPreference>.from(
                 json["eventPreference"]!.map(
                   (x) => EventPreference.fromJson(x),
+                ),
+              ),
+      serviceType:
+          json["serviceType"] == null
+              ? []
+              : List<ServiceProviderTypeModel>.from(
+                json["serviceType"]!.map(
+                  (x) => ServiceProviderTypeModel.fromJson(x),
                 ),
               ),
     );
@@ -226,10 +240,11 @@ class SpProfile {
     "enableNotification": enableNotification,
     "verificationSubmissionId": verificationSubmissionId,
     "groupMessageId": groupMessageId,
-    "serviceProviderRole": serviceProviderRole,
+    // "serviceProviderRole": serviceProviderRole,
     "image": image?.toJson(),
     "coverPhoto": coverPhoto?.toJson(),
     "eventPreference": eventPreference?.map((x) => x.toJson()).toList(),
+    "serviceType": serviceType?.map((x) => x.toJson()).toList(),
   };
 }
 
@@ -347,5 +362,11 @@ class EventPreference {
 				}
 			}
 		]
+  "serviceType": [
+        {
+          "name": "Photographers",
+          "id": "d761827b-a030-4480-8b4b-b880d7689e11"
+      },
+    ]
 	}
 }*/

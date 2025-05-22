@@ -1,8 +1,10 @@
+import 'package:blinqo/core/common/controllers/fetch_sp_types_controller.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
+import 'package:blinqo/features/role/service_provider/bottom_nav_bar/widget/sp_bottom_nav_bar.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_update_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/screeen/sp_profile_setup_&_edit_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/widget/sp_profile_app_bar.dart';
@@ -49,6 +51,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
             ),
           ),
         ),
+        bottomNavigationBar: SpBottomNavBarWidget(selectedIndex: 5),
       );
     });
   }
@@ -151,6 +154,8 @@ class SpProfileSettingsScreen extends StatelessWidget {
 
   Widget _buildSettingsSection(BuildContext context, bool isDarkMode) {
     final controller = Get.put(SpProfileController());
+    final profileSetupController = Get.put(SpProfileUpdateSetupController());
+    final spTypeController = Get.put(ServiceProviderTypesController());
     return Column(
       children: [
         _buildSettingsTile(
@@ -158,7 +163,9 @@ class SpProfileSettingsScreen extends StatelessWidget {
           iconPath: IconPath.editProfile,
           title: "Edit Profile",
           onTap: () async {
-            await Get.find<SpProfileSetupController>().getEventPreferences();
+            profileSetupController.clearAllData();
+            await profileSetupController.getEventPreferences();
+            await spTypeController.fetchServiceProviderTypes();
             Get.to(SpProfileSetupAndEditScreen(isEdit: true));
           },
         ),
@@ -201,7 +208,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
           onTap: () async {
             await SpAuthController.clearUserData();
             Get.delete<
-              SpProfileSetupController
+              SpProfileUpdateSetupController
             >(); // Delete the controller instance
             Get.offAll(() => RoleScreen());
           },
@@ -231,7 +238,7 @@ class SpProfileSettingsScreen extends StatelessWidget {
           onTap: () async {
             await SpAuthController.clearUserData();
             Get.delete<
-              SpProfileSetupController
+              SpProfileUpdateSetupController
             >(); // Delete the controller instance
             Get.offAll(() => RoleScreen());
           },

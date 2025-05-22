@@ -88,7 +88,7 @@ class SpShareWorkController extends GetxController {
     );
 
     if (response.isSuccess) {
-      EasyLoading.dismiss();
+      EasyLoading.showSuccess('Work post uploaded successfully');
       isSuccess = true;
       // Get.off(() => SpWorkDetailsScreen());
     } else {

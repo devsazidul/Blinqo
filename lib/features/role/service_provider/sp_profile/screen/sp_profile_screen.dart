@@ -54,10 +54,11 @@ class SpProfileScreen extends StatelessWidget {
                           child: CustomContinueButton(
                             horizontalPadding: 10,
                             onPress: () {
-                              Navigator.pushNamed(
-                                context,
-                                SpShareWorkScreen.name,
-                              );
+                              Get.to(() => SpShareWorkScreen());
+                              // Navigator.pushNamed(
+                              //   context,
+                              //   SpShareWorkScreen.name,
+                              // );
                             },
                             title: 'Share Your Work',
                           ),

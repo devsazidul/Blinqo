@@ -1,6 +1,6 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_update_setup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +20,7 @@ class EventPlannerCustomCircleAvater extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double circleavatarradius = (screenHeight < 700) ? 50 : 58;
-    final profileController = Get.find<SpProfileSetupController>();
+    final profileController = Get.find<SpProfileUpdateSetupController>();
 
     return GestureDetector(
       onTap: () {

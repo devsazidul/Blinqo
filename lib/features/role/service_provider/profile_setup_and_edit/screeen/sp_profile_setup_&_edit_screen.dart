@@ -5,7 +5,7 @@ import 'package:blinqo/core/common/widgets/upgrade_to_pro.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_update_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/widget/event_preference_circle_avatar.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/controller/sp_profile_controller.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -22,9 +22,9 @@ class SpProfileSetupAndEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileSetupController = Get.find<SpProfileSetupController>();
+    final profileSetupController = Get.find<SpProfileUpdateSetupController>();
     final profileController = Get.find<SpProfileController>();
-    final spTypesController = Get.find<FetchServiceProviderTypesController>();
+    final spTypeController = Get.find<ServiceProviderTypesController>();
 
     // Set edit mode in controller
     profileSetupController.setEditMode(isEdit);
@@ -238,17 +238,15 @@ class SpProfileSetupAndEditScreen extends StatelessWidget {
                       style: TextStyle(fontSize: 14),
                     ),
                     items:
-                        profileSetupController.roles
-                            .map(
-                              (item) => DropdownMenuItem<String>(
-                                value: item,
-                                child: Text(
-                                  item,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ),
-                            )
-                            .toList(),
+                        spTypeController.types.map((item) {
+                          return DropdownMenuItem<String>(
+                            value: item.id,
+                            child: Text(
+                              item.name ?? '??',
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
                     validator: (value) {
                       if (value == null) {
                         return 'Please select your role.';
@@ -256,15 +254,9 @@ class SpProfileSetupAndEditScreen extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      //Do something when selected item is changed.
-                    },
-                    onSaved: (value) {
                       profileSetupController.updateRoles(value.toString());
                     },
-                    value:
-                        isEdit
-                            ? profileSetupController.selectedRoles.value
-                            : null,
+                    value: profileSetupController.selectedRoles.value.id,
                     buttonStyleData: const ButtonStyleData(
                       padding: EdgeInsets.only(right: 16),
                     ),
@@ -320,7 +312,7 @@ class SpProfileSetupAndEditScreen extends StatelessWidget {
                   SizedBox(height: 20),
 
                   //* ------------------ Event Preference Grid ------------------
-                  GetBuilder<SpProfileSetupController>(
+                  GetBuilder<SpProfileUpdateSetupController>(
                     builder: (controller) {
                       return GridView.count(
                         shrinkWrap: true,
@@ -486,7 +478,7 @@ class SpProfileSetupAndEditScreen extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: GetBuilder<SpProfileSetupController>(
+                          child: GetBuilder<SpProfileUpdateSetupController>(
                             builder: (controller) {
                               return GoogleMap(
                                 onCameraMove: (CameraPosition position) {
@@ -754,8 +746,13 @@ class SpProfileSetupAndEditScreen extends StatelessWidget {
                         onPress: () async {
                           if (profileSetupController.formKey.currentState!
                               .validate()) {
-                            await profileSetupController.spProfileUpdate();
+                            bool isSuccess =
+                                await profileSetupController.spProfileUpdate();
+
                             EasyLoading.dismiss();
+                            if (isSuccess) {
+                              Get.back();
+                            }
                           }
                         },
                         title: "Update",

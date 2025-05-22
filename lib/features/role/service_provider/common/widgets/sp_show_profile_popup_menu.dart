@@ -1,9 +1,10 @@
+import 'package:blinqo/core/common/controllers/fetch_sp_types_controller.dart';
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/service_provider/common/controller/auth_controller.dart';
 import 'package:blinqo/features/role/service_provider/payment_page/screen/sp_get_verified_screen.dart';
-import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_setup_controller.dart';
+import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/controller/sp_profile_update_setup_controller.dart';
 import 'package:blinqo/features/role/service_provider/profile_setup_and_edit/screeen/sp_profile_setup_&_edit_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_profile_settings_screen.dart';
 import 'package:blinqo/features/role/service_provider/sp_profile/screen/sp_share_work_screen.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Future<void> spShowPopupMenu(BuildContext context, bool isDarkMode) async {
+  final spProfileSetupController = Get.put(SpProfileUpdateSetupController());
+  final spTypeController = Get.put(ServiceProviderTypesController());
   // Show the popup menu
   showMenu(
     color: isDarkMode ? Color(0xff32383D) : Colors.white,
@@ -24,14 +27,10 @@ Future<void> spShowPopupMenu(BuildContext context, bool isDarkMode) async {
         value: "Edit Profile",
         iconPath: IconPath.editPencil,
         onTap: () async {
-          await Get.put(SpProfileSetupController()).getEventPreferences();
-          Navigator.push(
-            // ignore: use_build_context_synchronously
-            context,
-            MaterialPageRoute(
-              builder: (context) => SpProfileSetupAndEditScreen(isEdit: true),
-            ),
-          );
+          spProfileSetupController.clearAllData();
+          await spProfileSetupController.getEventPreferences();
+          await spTypeController.fetchServiceProviderTypes();
+          Get.to(() => SpProfileSetupAndEditScreen(isEdit: true));
         },
       ),
       _buildPopupMenuItem(
@@ -52,7 +51,8 @@ Future<void> spShowPopupMenu(BuildContext context, bool isDarkMode) async {
         value: "settings",
         iconPath: IconPath.settings,
         onTap: () {
-          Navigator.pushNamed(context, SpProfileSettingsScreen.name);
+          Get.to(SpProfileSettingsScreen());
+          // Navigator.pushNamed(context, SpProfileSettingsScreen.name);
         },
         addDivider: false,
       ),
