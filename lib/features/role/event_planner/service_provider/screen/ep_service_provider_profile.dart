@@ -1,9 +1,10 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/icon_path.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/models/service_user_data_model.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen1.dart';
-import 'package:blinqo/features/role/event_planner/home/controller/ep_service_provider_list_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_get_sp_works_controller.dart';
+import 'package:blinqo/features/role/event_planner/home/model/service_provider_model.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/widget/f_custom_button.dart';
@@ -17,10 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EpServiceProviderProfile extends StatefulWidget {
-  EpServiceProviderProfile({super.key, required this.userModel});
+  const EpServiceProviderProfile({super.key, required this.userModel});
 
   static const String name = '/event-planner/service-provider-profile';
-  final Datum userModel;
+  // final Datum userModel;
+  final EpServiceProviderModel userModel;
 
   @override
   State<EpServiceProviderProfile> createState() =>
@@ -35,8 +37,8 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
   @override
   void initState() {
     super.initState();
-    Get.find<EpServiceProviderListController>().getServiceProviderWorks(
-      userId: widget.userModel.id,
+    Get.find<EpGetSpWorksController>().getServiceProviderWorks(
+      profileId: widget.userModel.id ?? '',
     );
   }
 
@@ -46,7 +48,7 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
     final ProfileController profileController = Get.find<ProfileController>();
     final bool isFemale = femaleColorController.isFemale.value;
     double screenHeight = MediaQuery.of(context).size.height;
-    double mediafontsized = (screenHeight < 700) ? 13 : 16;
+    double mediaFontSized = (screenHeight < 700) ? 13 : 16;
     return Scaffold(
       body: Obx(() {
         return ColoredBox(
@@ -68,7 +70,8 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
                       children: [
                         // profile details
                         EpSpProfileCoverImageAndAvatar(
-                          profileImage: widget.userModel.image.path,
+                          // TODO: cover image not found on response, notify backend team to add cover image
+                          profileImage: widget.userModel.image?.path ?? '',
                         ),
                         SizedBox(height: 12),
 
@@ -117,7 +120,7 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
                                         Text(
                                           "Message",
                                           style: getTextStyle(
-                                            fontSize: mediafontsized,
+                                            fontSize: mediaFontSized,
                                             fontWeight: FontWeight.w500,
                                             color:
                                                 profileController
@@ -163,7 +166,7 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
                                         Text(
                                           "Hire",
                                           style: getTextStyle(
-                                            fontSize: mediafontsized,
+                                            fontSize: mediaFontSized,
                                             fontWeight: FontWeight.w500,
                                             color: AppColors.primary,
                                           ),
@@ -209,6 +212,8 @@ class _EpServiceProviderProfileState extends State<EpServiceProviderProfile> {
           ),
         );
       }),
+
+      bottomNavigationBar: EpBottomNavBarWidget(selectedIndex: 4),
     );
   }
 }

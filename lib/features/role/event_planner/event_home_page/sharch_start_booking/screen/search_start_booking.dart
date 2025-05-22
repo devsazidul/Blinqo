@@ -1,5 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/event_planner_custom_calendar.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/revies_card.dart'
     show ReviesCard;
@@ -345,6 +346,7 @@ class SearchStartBooking extends StatelessWidget {
             ],
           ),
         ),
+        bottomNavigationBar: EpBottomNavBarWidget(),
       );
     });
   }

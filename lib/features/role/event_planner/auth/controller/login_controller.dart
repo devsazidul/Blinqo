@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
-import 'package:blinqo/features/role/event_planner/bottom_nav_bar/screen/event_bottom_nav_bar.dart';
+import 'package:blinqo/features/role/event_planner/home/controller/ep_home_screen_controller.dart';
+import 'package:blinqo/features/role/event_planner/main_layout/screen/ep_main_layout_screen.dart';
 import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +36,6 @@ class LoginController extends GetxController {
 
     debugPrint('Form valid: ${isFormValid.value}');
   }
-
 
   Future<bool> login(BuildContext context) async {
     isLoading.value = true;
@@ -91,13 +92,13 @@ class LoginController extends GetxController {
           } else if (userData['isVerified'] == false) {
             Get.offAll(() => OTPScreen());
           } else {
-            Get.offAll(() => EventBottomNavBar());
+            Get.offAll(() => EventPlannerMainLayoutScreen());
           }
 
           // Clear text fields after successful login
           emailController.clear();
           passwordController.clear();
-
+          Get.find<EpHomeScreenController>().getHomeData;
           return true;
         }
       }

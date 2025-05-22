@@ -21,11 +21,12 @@ class EpServiceProviderTypeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return GestureDetector(child: Container(color: Colors.amber));
+    final spListController = Get.put(EpServiceProviderListController());
     return GestureDetector(
       onTap: () async {
-        final controller = Get.put(EpServiceProviderListController());
-        await controller.fetchData(serviceId: spTypeMode.id.toString());
+        await spListController.getSpProfileListByServiceTypeId(
+          serviceId: spTypeMode.id.toString(),
+        );
         Get.to(
           () =>
               EpServiceProviderListScreen(serviceProviderTypeModel: spTypeMode),

@@ -1,4 +1,5 @@
 import 'package:blinqo/core/utils/constants/colors.dart';
+import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/invitation/screens/invitation_card_screen.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
@@ -333,6 +334,8 @@ class ReviewBookingDetails extends StatelessWidget {
             ],
           ),
         ),
+
+        bottomNavigationBar: EpBottomNavBarWidget(),
       );
     });
   }
