@@ -2,7 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/common/widgets/custom_button.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/core/utils/constants/gif_path.dart';
-import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
+import 'package:blinqo/features/role/event_planner/ep_common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/screens/service_provider/ep_service_provider_booking_screen3.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';

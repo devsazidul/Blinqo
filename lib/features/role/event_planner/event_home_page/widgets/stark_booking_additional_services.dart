@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/utils/constants/icon_path.dart';
-import '../../home/controller/booking_controller.dart';
+import '../../ep_home/controller/booking_controller.dart';
 
 class StarkBookingAdditionalServices extends StatelessWidget {
   final controller = Get.put(BookingController());

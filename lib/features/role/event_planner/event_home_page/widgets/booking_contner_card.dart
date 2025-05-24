@@ -8,7 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BookingContainerCard extends StatelessWidget {
-  const BookingContainerCard({super.key});
+  final String eventName;
+  final String venue;
+  final int totalCost;
+  final DateTime date;
+
+  const BookingContainerCard({
+    super.key,
+    required this.eventName,
+    required this.venue,
+    required this.totalCost,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +51,7 @@ class BookingContainerCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Jhon's Birthday",
+                eventName,
                 style: getTextStyle(
                   fontSize: fontSize,
                   fontWeight: FontWeight.w600,
@@ -65,7 +76,7 @@ class BookingContainerCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    " ABC Place, New York",
+                    " $venue",
                     style: getTextStyle(
                       fontSize: subFontSize,
                       color:
@@ -92,7 +103,7 @@ class BookingContainerCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "5000\$",
+                    "$totalCost\$",
                     style: getTextStyle(
                       fontSize: subFontSize,
                       color:

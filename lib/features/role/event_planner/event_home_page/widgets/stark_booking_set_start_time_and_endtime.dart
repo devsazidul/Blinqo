@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
 import '../../../../../core/utils/constants/colors.dart';
-import '../../home/controller/booking_controller.dart';
+import '../../ep_home/controller/booking_controller.dart';
 
 class StarkBookingSetStartTimeOrEndTime extends StatelessWidget {
   const StarkBookingSetStartTimeOrEndTime({

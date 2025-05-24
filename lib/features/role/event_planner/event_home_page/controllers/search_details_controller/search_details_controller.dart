@@ -43,12 +43,12 @@ class SearchDetailsController extends GetxController {
     selectedBookingValue.value = (selectedBookingValue.value == 0) ? 1 : 0;
   }
 
-  RxDouble priceStart = 0.0.obs;
+  RxDouble priceStart = 12000.0.obs;
   void priceRangeStart(double value) {
     priceStart.value = value;
   }
 
-  var priceEnd = 12000.0.obs;
+  var priceEnd = 150000.0.obs;
   void priceRangeEnd(double value) {
     priceEnd.value = value;
   }

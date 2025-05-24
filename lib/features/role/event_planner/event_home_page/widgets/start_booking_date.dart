@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/common/styles/global_text_style.dart';
-import '../../home/controller/booking_controller.dart';
+import '../../ep_home/controller/booking_controller.dart';
 
 class StartBookingDate extends StatelessWidget {
   const StartBookingDate({
