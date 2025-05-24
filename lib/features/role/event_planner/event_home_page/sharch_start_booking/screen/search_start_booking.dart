@@ -1,6 +1,6 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
+import 'package:blinqo/features/role/event_planner/ep_common/widgets/ep_bottom_nav_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/event_planner_custom_calendar.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/widget/revies_card.dart'
     show ReviesCard;
@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:step_indicator_package/step_indicator.dart';
 
-import '../../../home/controller/booking_controller.dart';
+import '../../../ep_home/controller/booking_controller.dart';
 import '../../widgets/enent_type_dopdown_button.dart';
 import '../../widgets/stark_booking_additional_services.dart';
 import '../../widgets/stark_booking_set_start_time_and_endtime.dart';

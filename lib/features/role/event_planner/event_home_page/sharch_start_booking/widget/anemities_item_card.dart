@@ -3,7 +3,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../home/controller/booking_controller.dart';
+import '../../../ep_home/controller/booking_controller.dart';
 import 'amenities_card.dart';
 
 class AmenitiesItemCard extends StatelessWidget {

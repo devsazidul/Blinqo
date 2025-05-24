@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/event_planner/home/controller/ep_get_sp_works_controller.dart';
+import 'package:blinqo/features/role/event_planner/ep_home/controller/ep_get_sp_works_controller.dart';
 import 'package:blinqo/features/role/event_planner/service_provider/widget/works_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,14 +1,13 @@
 import 'package:blinqo/core/utils/constants/icon_path.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/screen/venue_home_screen.dart';
-
 // ignore_for_file: file_names
 import 'package:blinqo/features/role/venue_owner/overview/screen/overview_screen.dart';
-import 'package:blinqo/features/role/venue_owner/schedule_and_team/screen/schedule_and_team_screen.dart';
-import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/venue_owner_booking_Navigation.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/controller/venue_owner_profile_controller.dart';
+import 'package:blinqo/features/role/venue_owner/venue_booking_page/screens/venue_owner_booking_Navigation.dart';
 import 'package:blinqo/features/role/venue_owner/venue_chat_page/screens/chat_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../controller/vanueOwner_bottom_nav_controller.dart';
 
 class VanueOwnerBottomNavBar extends StatelessWidget {
