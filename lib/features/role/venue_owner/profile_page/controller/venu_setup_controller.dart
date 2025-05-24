@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:blinqo/core/common/widgets/logger_view.dart';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/venue_owner/authentication/model/login_model.dart';
-import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_home_screen_controller.dart';
 import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_details_controller.dart';
+import 'package:blinqo/features/role/venue_owner/myvenue/controller/venue_home_screen_controller.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/even_authcontroller.dart';
 import 'package:blinqo/features/role/venue_owner/owern_network_caller/owner_network_caller.dart';
 import 'package:blinqo/features/role/venue_owner/profile_page/Model/amenity_model.dart';
@@ -13,9 +14,9 @@ import 'package:blinqo/features/role/venue_owner/profile_page/screen/venue_owner
 import 'package:blinqo/features/role/venue_owner/widgets/even_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 /// VenueSetupController handles all the venue setup related operations including:
@@ -113,10 +114,8 @@ class VenueSetupController extends GetxController {
 
           // Get the IDs of venue's amenities
 
-          final venueAmenityIds = venueData.amenities
-              .map((amenity) => amenity.id)
-              .toSet();
-
+          final venueAmenityIds =
+              venueData.amenities.map((amenity) => amenity.id).toSet();
 
           // Filter amenities into selected and available
           selectedAmenities.value =
@@ -137,24 +136,16 @@ class VenueSetupController extends GetxController {
           await fetchVenueDecorationOptions();
 
           // Set selected options
-          selectedTableShapes.value = List<String>.from(
-            decoration.tableShapes,
-          );
+          selectedTableShapes.value = List<String>.from(decoration.tableShapes);
           selectedSeatingStyles.value = List<String>.from(
             decoration.seatingStyles,
           );
-          selectedLightingStyles.value = List<String>.from(
-            decoration.lighting,
-          );
+          selectedLightingStyles.value = List<String>.from(decoration.lighting);
           selectedFlowerColors.value = List<String>.from(
             decoration.flowerColors,
           );
-          selectedFlowerTypes.value = List<String>.from(
-            decoration.flowerTypes,
-          );
-          selectedFragrances.value = List<String>.from(
-            decoration.fragrances,
-          );
+          selectedFlowerTypes.value = List<String>.from(decoration.flowerTypes);
+          selectedFragrances.value = List<String>.from(decoration.fragrances);
 
           // Ensure all lists are initialized even if empty
           selectedTableShapes.value ??= [];

@@ -1,6 +1,6 @@
 import 'package:blinqo/core/common/widgets/custom_appbar_widget.dart';
-import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
-import 'package:blinqo/features/role/event_planner/home/controller/ep_venue_compare_controller.dart';
+import 'package:blinqo/features/role/event_planner/ep_common/widgets/ep_bottom_nav_bar_widget.dart';
+import 'package:blinqo/features/role/event_planner/ep_home/controller/ep_venue_compare_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

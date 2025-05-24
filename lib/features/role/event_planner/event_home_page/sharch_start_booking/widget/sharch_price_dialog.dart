@@ -2,7 +2,7 @@ import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../home/controller/booking_controller.dart';
+import '../../../ep_home/controller/booking_controller.dart';
 
 class SharchPriceDialog extends StatelessWidget {
   final BookingController controller;

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:blinqo/core/urls/endpoint.dart';
 import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
 import 'package:blinqo/features/role/event_planner/auth/screen/otp_screen.dart';
-import 'package:blinqo/features/role/event_planner/home/controller/ep_home_screen_controller.dart';
+import 'package:blinqo/features/role/event_planner/ep_home/controller/ep_home_screen_controller.dart';
 import 'package:blinqo/features/role/event_planner/main_layout/screen/ep_main_layout_screen.dart';
 import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
 import 'package:flutter/material.dart';

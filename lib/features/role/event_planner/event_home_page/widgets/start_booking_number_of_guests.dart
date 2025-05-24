@@ -4,7 +4,7 @@ import 'package:blinqo/core/utils/constants/colors.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../../home/controller/booking_controller.dart';
+import '../../ep_home/controller/booking_controller.dart';
 
 class StartBookingNumberOfGuests extends StatelessWidget {
   const StartBookingNumberOfGuests({

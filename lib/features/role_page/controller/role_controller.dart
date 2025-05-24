@@ -1,6 +1,6 @@
 import 'package:blinqo/core/services/notification_service.dart';
 import 'package:blinqo/features/role/event_planner/auth/auth_service/auth_service.dart';
-import 'package:blinqo/features/role/event_planner/home/controller/ep_home_screen_controller.dart';
+import 'package:blinqo/features/role/event_planner/ep_home/controller/ep_home_screen_controller.dart';
 import 'package:blinqo/features/role/event_planner/main_layout/screen/ep_main_layout_screen.dart';
 import 'package:blinqo/features/role/event_planner/onboring/home_event_planner.dart';
 import 'package:blinqo/features/role/event_planner/profile_setup/screens/profile_setup.dart';
