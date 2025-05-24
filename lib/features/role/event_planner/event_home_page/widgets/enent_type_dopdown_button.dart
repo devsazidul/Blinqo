@@ -4,7 +4,7 @@ import 'package:blinqo/features/role/event_planner/profile/controller/pick_color
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../home/controller/booking_controller.dart';
+import '../../ep_home/controller/booking_controller.dart';
 
 class EventTypeDopdownButton extends StatelessWidget {
   const EventTypeDopdownButton({

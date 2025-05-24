@@ -1,4 +1,4 @@
-import 'package:blinqo/features/role/event_planner/home/controller/booking_controller.dart';
+import 'package:blinqo/features/role/event_planner/ep_home/controller/booking_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

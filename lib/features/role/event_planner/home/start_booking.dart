@@ -1,7 +1,9 @@
 import 'package:blinqo/core/common/styles/global_text_style.dart';
 import 'package:blinqo/core/utils/constants/colors.dart';
-import 'package:blinqo/features/role/event_planner/common/widgets/ep_bottom_nav_bar_widget.dart';
-import 'package:blinqo/features/role/event_planner/event_home_page/screens/search_details_screens/screens/search_details_screen.dart';
+import 'package:blinqo/features/role/event_planner/ep_common/widgets/ep_bottom_nav_bar_widget.dart';
+import 'package:blinqo/features/role/event_planner/ep_home/controller/booking_controller.dart';
+import 'package:blinqo/features/role/event_planner/ep_home/wigate/custom_appbar.dart';
+import 'package:blinqo/features/role/event_planner/ep_home/wigate/ep_search_bar_widget.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/sharch_start_booking/screen/search_start_booking.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/enent_type_dopdown_button.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/stark_booking_additional_services.dart';
@@ -12,15 +14,12 @@ import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_number_of_guests.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_text_or_button.dart';
 import 'package:blinqo/features/role/event_planner/event_home_page/widgets/start_booking_textfrom.dart';
-import 'package:blinqo/features/role/event_planner/home/wigate/custom_appbar.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/pick_color_controller.dart';
 import 'package:blinqo/features/role/event_planner/profile/controller/profile_controller.dart';
+import 'package:blinqo/features/role/event_planner/search_details_screens/screens/search_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:step_indicator_package/step_indicator.dart';
-
-import 'controller/booking_controller.dart';
-import 'wigate/start_booking_shearh_bar.dart';
 
 class StartBooking extends StatelessWidget {
   const StartBooking({super.key});
@@ -55,7 +54,7 @@ class StartBooking extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                StartBookingShearshBar(
+                EpSearchBarWidget(
                   screenHeight: screenHeight,
                   screenWidth: screenWidth,
                   themeMode: themeMode,
